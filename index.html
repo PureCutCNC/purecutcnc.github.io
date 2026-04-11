@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PureCut CNC — Browser-Based CAD/CAM</title>
+  <meta name="description" content="PureCut CNC is a browser-based 2.5D CAD/CAM workspace. Design parts, define machining operations, simulate toolpaths, and export G-code — all in one place." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0e0e10;
+      --bg2:       #141416;
+      --bg3:       #1a1a1e;
+      --border:    #2a2a30;
+      --text:      #e2e2e6;
+      --muted:     #888896;
+      --accent:    #00c8ff;
+      --accent2:   #0090c0;
+      --green:     #00e090;
+      --radius:    6px;
+      --font:      -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      --mono:      "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(14,14,16,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--text);
+    }
+
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: 0.875rem;
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
+
+    .nav-cta {
+      background: var(--accent);
+      color: #000 !important;
+      font-weight: 600;
+      font-size: 0.8rem;
+      padding: 0.4rem 1rem;
+      border-radius: var(--radius);
+      transition: background 0.15s, opacity 0.15s;
+    }
+
+    .nav-cta:hover { background: var(--accent2); text-decoration: none !important; color: #fff !important; }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 7rem 2rem 6rem;
+      text-align: center;
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 48px 48px;
+      opacity: 0.35;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 20%, transparent 100%);
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(0,200,255,0.08);
+      border: 1px solid rgba(0,200,255,0.2);
+      border-radius: 999px;
+      padding: 0.3rem 0.9rem;
+      font-size: 0.78rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 1.8rem;
+    }
+
+    .dot {
+      width: 6px; height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 1.2rem;
+      position: relative;
+    }
+
+    h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--muted);
+      max-width: 560px;
+      margin: 0 auto 2.4rem;
+      line-height: 1.65;
+      position: relative;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent);
+      color: #000;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 0.75rem 1.8rem;
+      border-radius: var(--radius);
+      transition: background 0.15s, transform 0.1s;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent2);
+      color: #fff;
+      text-decoration: none;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: transparent;
+      color: var(--text);
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 0.75rem 1.6rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      transition: border-color 0.15s, transform 0.1s;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--muted);
+      text-decoration: none;
+      transform: translateY(-1px);
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border) 30%, var(--border) 70%, transparent);
+      margin: 0 2rem;
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    h2 {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-intro {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 560px;
+      margin-bottom: 3rem;
+      line-height: 1.65;
+    }
+
+    /* ── FEATURES GRID ── */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: calc(var(--radius) + 2px);
+      overflow: hidden;
+    }
+
+    .feature-card {
+      background: var(--bg2);
+      padding: 1.8rem;
+      transition: background 0.15s;
+    }
+
+    .feature-card:hover { background: var(--bg3); }
+
+    .feature-icon {
+      font-size: 1.4rem;
+      margin-bottom: 0.9rem;
+      display: block;
+    }
+
+    .feature-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+
+    .feature-card p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── OPERATIONS ── */
+    .ops-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .op-tag {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.3rem 0.75rem;
+      font-size: 0.8rem;
+      font-family: var(--mono);
+      color: var(--text);
+    }
+
+    /* ── WORKFLOW ── */
+    .workflow-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.5rem;
+      counter-reset: steps;
+    }
+
+    .workflow-step {
+      counter-increment: steps;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      position: relative;
+    }
+
+    .workflow-step::before {
+      content: counter(steps, decimal-leading-zero);
+      display: block;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+      margin-bottom: 0.6rem;
+    }
+
+    .workflow-step h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    .workflow-step p {
+      font-size: 0.83rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* ── VIEWS ── */
+    .views-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    @media (max-width: 640px) {
+      .views-row { grid-template-columns: 1fr; }
+    }
+
+    .view-card {
+      background: var(--bg2);
+      padding: 1.6rem;
+    }
+
+    .view-card .view-name {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.04em;
+      margin-bottom: 0.6rem;
+    }
+
+    .view-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    .view-card p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* ── STATUS BANNER ── */
+    .status-banner {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 1.4rem 1.8rem;
+      max-width: 700px;
+    }
+
+    .status-banner h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    .status-banner p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .status-list {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem 1.5rem;
+      margin-top: 0.8rem;
+    }
+
+    .status-list li {
+      font-size: 0.83rem;
+      color: var(--muted);
+    }
+
+    .status-list li::before {
+      content: "→ ";
+      color: var(--accent);
+    }
+
+    /* ── CTA SECTION ── */
+    .cta-section {
+      text-align: center;
+      padding: 5rem 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .cta-section h2 { margin-bottom: 0.75rem; }
+
+    .cta-section p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin-bottom: 2rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    footer a { color: var(--muted); }
+    footer a:hover { color: var(--text); text-decoration: none; }
+
+    /* ── GITHUB ICON ── */
+    .github-icon {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .github-icon svg {
+      width: 16px; height: 16px;
+      fill: currentColor;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hero { padding: 5rem 1.5rem 4rem; }
+      section { padding: 3.5rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <span class="nav-logo">Pure<span>Cut</span> CNC</span>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#workflow">Workflow</a></li>
+      <li><a href="#views">Views</a></li>
+      <li><a href="https://github.com/PureCutCNC" class="github-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a></li>
+    </ul>
+    <a href="https://purecutcnc.github.io/app" class="nav-links nav-cta">Launch PureCut CNC →</a>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-badge"><span class="dot"></span> Active Development</div>
+    <h1>2.5D CAD/CAM for<br/><em>real-world CNC work.</em></h1>
+    <p class="hero-sub">
+      PureCut CNC is a browser-based 2.5D workspace for designing parts,
+      defining machining operations, and verifying toolpaths — before you
+      cut a single chip. No registration is required, and the app does not
+      store your projects remotely.
+    </p>
+    <div class="hero-actions">
+      <a href="https://purecutcnc.github.io/app" class="btn-primary">
+        Launch PureCut CNC
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M3 8a.5.5 0 0 1 .5-.5h7.29L8.15 4.85a.5.5 0 1 1 .7-.7l3.5 3.5a.5.5 0 0 1 0 .7l-3.5 3.5a.5.5 0 1 1-.7-.7l2.64-2.65H3.5A.5.5 0 0 1 3 8z"/></svg>
+      </a>
+      <a href="https://purecutcnc.github.io/app-rc" class="btn-secondary">
+        Open current development snapshot
+      </a>
+      <a href="https://github.com/PureCutCNC" class="btn-secondary github-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        View on GitHub
+      </a>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="section-label">Features</div>
+    <h2>Everything in one place.</h2>
+    <p class="section-intro">
+      From geometry to G-code — draw, import, assign operations, preview in 3D,
+      simulate material removal, and export when it looks right.
+    </p>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <span class="feature-icon">✏️</span>
+        <h3>Sketch Geometry</h3>
+        <p>Rectangles, circles, polygons, splines, composite profiles, and text features — all editable directly on the canvas with snapping, measurements, and direct node editing.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">📥</span>
+        <h3>SVG &amp; DXF Import</h3>
+        <p>Import source geometry and continue working with it as native sketch features. Imported profiles can be transformed, assigned operations, and machined like hand-drawn geometry.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">⚙️</span>
+        <h3>CAM Operations</h3>
+        <p>Pockets, contours, V-carving, surface finishing, and follow-line paths. Rough and finish passes, multiple operation targets, tabs, clamps, and per-tool feeds and speeds.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🧊</span>
+        <h3>3D Preview</h3>
+        <p>Live CSG evaluation builds a 3D solid from your feature tree. Inspect entry/exit points and toolpath direction before any cutting begins.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">▶️</span>
+        <h3>Simulation</h3>
+        <p>Replay toolpaths against stock in a voxel-based material removal simulation. Verify pockets, tabs, islands, and carving behavior with full playback controls.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">💾</span>
+        <h3>G-code Export</h3>
+        <p>Export clean G-code for Grbl, LinuxCNC, and Mach3. Post-processor support for custom machine configurations. Preview with syntax highlighting before you download.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🔤</span>
+        <h3>Text as Features</h3>
+        <p>Text is an editable feature, not exploded letter geometry. Single-line text with skeleton and outline styles, built-in font selection, and full transform support.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🛠️</span>
+        <h3>Tool Library</h3>
+        <p>Define your endmills, ball mills, V-bits, and drills once. Assign tools to operations and override feeds and speeds per operation as needed.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🌐</span>
+        <h3>Runs in the Browser</h3>
+        <p>No installation, no registration, and no cloud-stored project data. Open the app in a modern desktop browser and work locally. Desktop versions are in progress.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- OPERATIONS -->
+  <section>
+    <div class="section-label">Machining Operations</div>
+    <h2>The operations you actually need.</h2>
+    <p class="section-intro">
+      A focused set of 2.5D operations — each with rough and finish variants,
+      configurable tooling, and toolpath preview.
+    </p>
+    <div class="ops-grid">
+      <span class="op-tag">Pocket Rough</span>
+      <span class="op-tag">Pocket Finish</span>
+      <span class="op-tag">Surface Rough</span>
+      <span class="op-tag">Surface Finish</span>
+      <span class="op-tag">Edge Route Inside</span>
+      <span class="op-tag">Edge Route Outside</span>
+      <span class="op-tag">Follow Line</span>
+      <span class="op-tag">V-Carve</span>
+      <span class="op-tag">V-Carve Recursive</span>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- WORKFLOW -->
+  <section id="workflow">
+    <div class="section-label">Workflow</div>
+    <h2>Start to finish, one window.</h2>
+    <p class="section-intro">
+      A linear workflow that mirrors how machinists think — geometry first,
+      operations second, verify before you cut.
+    </p>
+    <div class="workflow-steps">
+      <div class="workflow-step">
+        <h3>Define Stock</h3>
+        <p>Set your stock dimensions, material, and profile boundary. Any shape — rectangular plate or irregular casting.</p>
+      </div>
+      <div class="workflow-step">
+        <h3>Draw or Import</h3>
+        <p>Draw geometry directly on canvas, import SVG or DXF, or trace from a backdrop image. All geometry becomes editable sketch features.</p>
+      </div>
+      <div class="workflow-step">
+        <h3>Organize Features</h3>
+        <p>Reorder features in the feature tree. The CSG evaluation order determines what material gets removed or added — get it right visually before moving on.</p>
+      </div>
+      <div class="workflow-step">
+        <h3>Add CAM Operations</h3>
+        <p>Select geometry, pick an operation type, configure tool, stepdown, stepover, and strategy. Repeat for each operation.</p>
+      </div>
+      <div class="workflow-step">
+        <h3>Verify in 3D &amp; Sim</h3>
+        <p>Preview in 3D. Run the simulation and watch material come off. Check tabs, islands, and carving behavior match expectations.</p>
+      </div>
+      <div class="workflow-step">
+        <h3>Export G-code</h3>
+        <p>Choose your machine controller, preview the G-code output, and download the <code>.nc</code> file when it looks right.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- VIEWS -->
+  <section id="views">
+    <div class="section-label">Working Views</div>
+    <h2>Three views, one project.</h2>
+    <p class="section-intro">
+      Switch between views as your work progresses. All three stay in sync with the same project state.
+    </p>
+    <div class="views-row">
+      <div class="view-card">
+        <div class="view-name">Sketch</div>
+        <h3>Author &amp; Inspect</h3>
+        <p>Primary drawing surface. Edit geometry, inspect 2D toolpath projections, check snapping and feature ordering.</p>
+      </div>
+      <div class="view-card">
+        <div class="view-name">3D View</div>
+        <h3>Preview in 3D</h3>
+        <p>CSG-evaluated solid derived from your feature tree. Inspect toolpaths spatially — entry/exit points, path direction, depth layers.</p>
+      </div>
+      <div class="view-card">
+        <div class="view-name">Simulation</div>
+        <h3>Verify Before Cutting</h3>
+        <p>Voxel-based material removal replay. Scrub through the toolpath sequence to catch problems before they hit the spoilboard.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- STATUS -->
+  <section>
+    <div class="section-label">Project Status</div>
+    <h2>In active development.</h2>
+    <div class="status-banner">
+      <h3>Core workflow is usable today.</h3>
+      <p>The sketch engine, CAM operations, 3D preview, and simulation pipeline are functional. Stable releases publish to <code>/app</code>; the latest main-branch development snapshot publishes to <code>/app-rc</code>. Work is ongoing in these areas:</p>
+      <ul class="status-list">
+        <li>Additional font support and text workflows</li>
+        <li>Deeper DXF coverage</li>
+        <li>Toolpath optimization</li>
+        <li>Richer simulation tooling</li>
+        <li>Advanced carving and finishing workflows</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <div class="section-label">Get Started</div>
+    <h2>Open it and start cutting.</h2>
+    <p>No install. No account. No remote project storage. Just open the app and start designing. Desktop versions are in the works.</p>
+    <div class="hero-actions">
+      <a href="https://purecutcnc.github.io/app" class="btn-primary">
+        Launch PureCut CNC
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M3 8a.5.5 0 0 1 .5-.5h7.29L8.15 4.85a.5.5 0 1 1 .7-.7l3.5 3.5a.5.5 0 0 1 0 .7l-3.5 3.5a.5.5 0 1 1-.7-.7l2.64-2.65H3.5A.5.5 0 0 1 3 8z"/></svg>
+      </a>
+      <a href="https://purecutcnc.github.io/app-rc" class="btn-secondary">
+        Open current development snapshot
+      </a>
+      <a href="https://github.com/PureCutCNC" class="btn-secondary github-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>© 2026 PureCut CNC</span>
+    <span>
+      <a href="https://github.com/PureCutCNC" class="github-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        PureCutCNC on GitHub
+      </a>
+    </span>
+  </footer>
+
+</body>
+</html>
