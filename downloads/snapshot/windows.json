@@ -1,0 +1,9 @@
+{
+  "platform": "windows",
+  "channel": "snapshot",
+  "version": null,
+  "tag": null,
+  "releaseUrl": "https://github.com/PureCutCNC/purecutcnc/releases",
+  "updatedAt": null,
+  "assets": []
+}
