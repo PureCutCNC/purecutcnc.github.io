@@ -29,12 +29,18 @@
     html { scroll-behavior: smooth; }
 
     body {
-      background: var(--bg);
+      background:
+        radial-gradient(circle at top, rgba(28, 184, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #081019 0%, #0a0d12 32%, #090c10 100%);
+      background-attachment: fixed, fixed;
+      background-repeat: no-repeat, no-repeat;
+      background-size: 100% 100vh, 100% 100vh;
       color: var(--text);
       font-family: var(--font);
       font-size: 16px;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
     }
 
     a { color: var(--accent); text-decoration: none; }
@@ -68,6 +74,7 @@
       display: flex;
       gap: 2rem;
       list-style: none;
+      align-items: center;
     }
 
     .nav-links a {
@@ -576,7 +583,7 @@
         GitHub
       </a></li>
     </ul>
-    <a href="https://purecutcnc.github.io/app" class="nav-links nav-cta">Launch PureCut CNC →</a>
+    <a href="https://purecutcnc.github.io/app" class="nav-links nav-cta">Launch App →</a>
   </nav>
 
   <!-- HERO -->

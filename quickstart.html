@@ -30,12 +30,18 @@
     html { scroll-behavior: smooth; }
 
     body {
-      background: var(--bg);
+      background:
+        radial-gradient(circle at top, rgba(28, 184, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #081019 0%, #0a0d12 32%, #090c10 100%);
+      background-attachment: fixed, fixed;
+      background-repeat: no-repeat, no-repeat;
+      background-size: 100% 100vh, 100% 100vh;
       color: var(--text);
       font-family: var(--font);
       font-size: 16px;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
     }
 
     a { color: var(--accent); text-decoration: none; }
@@ -508,6 +514,18 @@
       color: #fff;
       text-decoration: none;
       transform: translateY(-1px);
+    }
+
+    .github-icon {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .github-icon svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
     }
 
     @media (max-width: 600px) {
