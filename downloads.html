@@ -32,6 +32,7 @@
     html { scroll-behavior: smooth; }
 
     body {
+      background-color: #090c10;
       background:
         radial-gradient(circle at top, rgba(28, 184, 255, 0.18), transparent 34%),
         linear-gradient(180deg, #081019 0%, #0a0d12 32%, #090c10 100%);
@@ -265,6 +266,47 @@
       grid-template-columns: 170px repeat(2, minmax(0, 1fr));
     }
 
+    .mobile-matrix {
+      display: none;
+      padding: 0 1rem 1rem;
+    }
+
+    .mobile-platform {
+      border: 1px solid rgba(36, 48, 65, 0.85);
+      border-radius: calc(var(--radius) + 2px);
+      overflow: hidden;
+      background: rgba(12, 16, 24, 0.94);
+    }
+
+    .mobile-platform + .mobile-platform {
+      margin-top: 1rem;
+    }
+
+    .mobile-platform-head {
+      padding: 1.15rem 1rem 1rem;
+      border-bottom: 1px solid rgba(36, 48, 65, 0.85);
+      background: rgba(18, 23, 32, 0.9);
+    }
+
+    .mobile-channel {
+      padding: 1rem;
+      border-top: 1px solid rgba(36, 48, 65, 0.65);
+    }
+
+    .mobile-channel:first-of-type {
+      border-top: 0;
+    }
+
+    .mobile-channel-label {
+      display: block;
+      margin-bottom: 0.85rem;
+      color: var(--muted);
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
     .matrix-cell {
       min-height: 100%;
       padding: 1.2rem;
@@ -460,13 +502,59 @@
     }
 
     @media (max-width: 760px) {
-      .nav-links { display: none; }
-      .hero { padding: 3.3rem 1.25rem 2.4rem; }
-      main { padding: 2rem 1.25rem 4rem; }
-      footer { padding: 1.5rem 1.25rem 2rem; }
-      .matrix { grid-template-columns: 1fr; }
-      .matrix-cell { border-right: 0; }
-      .matrix-header.platform-col { display: none; }
+      body {
+        background-color: #090c10;
+        background-attachment: scroll, scroll;
+        background-repeat: no-repeat, no-repeat;
+        background-size: 100% 24rem, 100% 24rem;
+      }
+
+      nav {
+        height: auto;
+        padding: 0.95rem 1rem 0.85rem;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0.9rem;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 1rem;
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 0.15rem;
+        scrollbar-width: none;
+      }
+
+      .nav-links::-webkit-scrollbar { display: none; }
+      .nav-links li { flex: 0 0 auto; }
+      .nav-links a { font-size: 0.84rem; }
+      .nav-cta { align-self: stretch; justify-content: center; }
+
+      .hero { padding: 2.4rem 1rem 2rem; }
+      .hero-label { margin-bottom: 1rem; }
+      h1 { font-size: clamp(2rem, 11vw, 2.9rem); }
+      .hero-copy { font-size: 0.95rem; line-height: 1.65; }
+      .hero-actions { flex-direction: column; }
+      .hero-actions a { width: 100%; justify-content: center; }
+
+      main { padding: 1.25rem 1rem 3rem; }
+      footer { padding: 1.5rem 1rem 2rem; }
+      .panel-head { padding: 1rem; }
+      .panel-head h2 { font-size: 1.2rem; }
+
+      .matrix { display: none; }
+      .mobile-matrix { display: block; }
+
+      .stack {
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .note-card,
+      .browser-card {
+        padding: 1.1rem;
+      }
     }
   </style>
 </head>
@@ -536,6 +624,52 @@
           </div>
           <div class="matrix-cell" data-channel-card="stable-linux"></div>
           <div class="matrix-cell" data-channel-card="snapshot-linux"></div>
+        </div>
+        <div class="mobile-matrix">
+          <section class="mobile-platform">
+            <div class="mobile-platform-head">
+              <div class="platform-name">macOS</div>
+              <div class="platform-copy">Universal desktop build packaged as a DMG.</div>
+            </div>
+            <div class="mobile-channel">
+              <span class="mobile-channel-label">Stable</span>
+              <div data-channel-card="mobile-stable-macos"></div>
+            </div>
+            <div class="mobile-channel">
+              <span class="mobile-channel-label">Snapshot</span>
+              <div data-channel-card="mobile-snapshot-macos"></div>
+            </div>
+          </section>
+
+          <section class="mobile-platform">
+            <div class="mobile-platform-head">
+              <div class="platform-name">Windows</div>
+              <div class="platform-copy">Stable builds publish MSI and NSIS. Snapshot builds publish NSIS only.</div>
+            </div>
+            <div class="mobile-channel">
+              <span class="mobile-channel-label">Stable</span>
+              <div data-channel-card="mobile-stable-windows"></div>
+            </div>
+            <div class="mobile-channel">
+              <span class="mobile-channel-label">Snapshot</span>
+              <div data-channel-card="mobile-snapshot-windows"></div>
+            </div>
+          </section>
+
+          <section class="mobile-platform">
+            <div class="mobile-platform-head">
+              <div class="platform-name">Linux</div>
+              <div class="platform-copy">Portable AppImage plus Debian package.</div>
+            </div>
+            <div class="mobile-channel">
+              <span class="mobile-channel-label">Stable</span>
+              <div data-channel-card="mobile-stable-linux"></div>
+            </div>
+            <div class="mobile-channel">
+              <span class="mobile-channel-label">Snapshot</span>
+              <div data-channel-card="mobile-snapshot-linux"></div>
+            </div>
+          </section>
         </div>
       </section>
 
@@ -633,16 +767,20 @@
     }
 
     async function loadCard(platform, channel) {
-      const mount = document.querySelector(`[data-channel-card="${channel}-${platform}"]`)
-      if (!mount) return
+      const mounts = document.querySelectorAll(`[data-channel-card="${channel}-${platform}"], [data-channel-card="mobile-${channel}-${platform}"]`)
+      if (!mounts.length) return
 
       try {
         const response = await fetch(`downloads/${channel}/${platform}.json`, { cache: 'no-store' })
         if (!response.ok) throw new Error(`HTTP ${response.status}`)
         const data = await response.json()
-        mount.innerHTML = renderCard(data)
+        mounts.forEach((mount) => {
+          mount.innerHTML = renderCard(data)
+        })
       } catch (error) {
-        mount.innerHTML = renderUnavailable(channel)
+        mounts.forEach((mount) => {
+          mount.innerHTML = renderUnavailable(channel)
+        })
       }
     }
 

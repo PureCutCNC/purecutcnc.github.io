@@ -30,6 +30,7 @@
     html { scroll-behavior: smooth; }
 
     body {
+      background-color: #090c10;
       background:
         radial-gradient(circle at top, rgba(28, 184, 255, 0.18), transparent 34%),
         linear-gradient(180deg, #081019 0%, #0a0d12 32%, #090c10 100%);
@@ -529,9 +530,37 @@
     }
 
     @media (max-width: 600px) {
-      .nav-links { display: none; }
-      .page-header { padding: 3rem 1.25rem 2rem; }
-      .content-wrap { padding: 0 1.25rem 4rem; }
+      body {
+        background-color: #090c10;
+        background-attachment: scroll, scroll;
+        background-repeat: no-repeat, no-repeat;
+        background-size: 100% 24rem, 100% 24rem;
+      }
+
+      nav {
+        height: auto;
+        padding: 0.95rem 1rem 0.85rem;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0.9rem;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 1rem;
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 0.15rem;
+        scrollbar-width: none;
+      }
+
+      .nav-links::-webkit-scrollbar { display: none; }
+      .nav-links li { flex: 0 0 auto; }
+      .nav-links a { font-size: 0.84rem; }
+      .nav-cta { align-self: stretch; justify-content: center; }
+
+      .page-header { padding: 2.5rem 1rem 1.8rem; }
+      .content-wrap { padding: 0 1rem 4rem; }
     }
   </style>
 </head>
