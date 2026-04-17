@@ -471,6 +471,14 @@
       margin-top: 1rem;
     }
 
+    .desktop-web-only-note {
+      display: none;
+      margin-top: 1rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
     footer {
       border-top: 1px solid rgba(36, 48, 65, 0.9);
       padding: 1.6rem 2rem 2.4rem;
@@ -530,6 +538,8 @@
       .nav-links li { flex: 0 0 auto; }
       .nav-links a { font-size: 0.84rem; }
       .nav-cta { align-self: stretch; justify-content: center; }
+      .desktop-web-link { display: none !important; }
+      .desktop-web-only-note { display: block; }
 
       .hero { padding: 2.4rem 1rem 2rem; }
       .hero-label { margin-bottom: 1rem; }
@@ -572,7 +582,7 @@
         GitHub
       </a></li>
     </ul>
-    <a href="https://purecutcnc.github.io/app" class="nav-links nav-cta">Launch App →</a>
+    <a href="https://purecutcnc.github.io/app" class="nav-links nav-cta desktop-web-link">Launch App →</a>
   </nav>
 
   <section class="hero">
@@ -585,8 +595,9 @@
       </p>
       <div class="hero-actions">
         <a href="https://github.com/PureCutCNC/purecutcnc/releases" class="btn-primary">Open all GitHub releases</a>
-        <a href="https://purecutcnc.github.io/app" class="btn-secondary">Use browser version</a>
-        <a href="https://purecutcnc.github.io/app-rc" class="btn-secondary">Open web snapshot</a>
+        <a href="https://purecutcnc.github.io/app" class="btn-secondary desktop-web-link">Use browser version</a>
+        <a href="https://purecutcnc.github.io/app-rc" class="btn-secondary desktop-web-link">Open web snapshot</a>
+        <p class="desktop-web-only-note">The browser app is desktop-only. On phone or tablet, use the desktop downloads above.</p>
       </div>
     </div>
   </section>
@@ -690,8 +701,9 @@
           <h3>Browser app still works</h3>
           <p>If you just want to test features quickly, the web build is still the fastest path. Desktop packages are mainly for platform-specific validation and local install workflows.</p>
           <div class="browser-actions">
-            <a href="https://purecutcnc.github.io/app" class="btn-primary">Open stable web app</a>
-            <a href="https://purecutcnc.github.io/app-rc" class="btn-secondary">Open web snapshot</a>
+            <a href="https://purecutcnc.github.io/app" class="btn-primary desktop-web-link">Open stable web app</a>
+            <a href="https://purecutcnc.github.io/app-rc" class="btn-secondary desktop-web-link">Open web snapshot</a>
+            <p class="desktop-web-only-note">The browser app is desktop-only. On phone or tablet, use the desktop downloads above.</p>
           </div>
         </section>
       </div>

@@ -517,6 +517,15 @@
       transform: translateY(-1px);
     }
 
+    .desktop-web-only-note {
+      display: none;
+      margin-top: 1rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      text-align: center;
+    }
+
     .github-icon {
       display: inline-flex;
       align-items: center;
@@ -558,6 +567,8 @@
       .nav-links li { flex: 0 0 auto; }
       .nav-links a { font-size: 0.84rem; }
       .nav-cta { align-self: stretch; justify-content: center; }
+      .desktop-web-link { display: none !important; }
+      .desktop-web-only-note { display: block; }
 
       .page-header { padding: 2.5rem 1rem 1.8rem; }
       .content-wrap { padding: 0 1rem 4rem; }
@@ -580,7 +591,7 @@
         GitHub
       </a></li>
     </ul>
-    <a href="https://purecutcnc.github.io/app" class="nav-links nav-cta">Launch App →</a>
+    <a href="https://purecutcnc.github.io/app" class="nav-links nav-cta desktop-web-link">Launch App →</a>
   </nav>
 
   <!-- PAGE HEADER -->
@@ -888,10 +899,11 @@
         From here, explore more feature types, try a contour or drilling operation,
         or import your own geometry from SVG or DXF.
       </p>
-      <a href="https://purecutcnc.github.io/app" class="btn-primary">
+      <a href="https://purecutcnc.github.io/app" class="btn-primary desktop-web-link">
         Open PureCut CNC
         <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M3 8a.5.5 0 0 1 .5-.5h7.29L8.15 4.85a.5.5 0 1 1 .7-.7l3.5 3.5a.5.5 0 0 1 0 .7l-3.5 3.5a.5.5 0 1 1-.7-.7l2.64-2.65H3.5A.5.5 0 0 1 3 8z"/></svg>
       </a>
+      <p class="desktop-web-only-note">PureCut CNC in the browser is desktop-only. Use Desktop Downloads on phone or tablet.</p>
     </div>
 
   </div>
