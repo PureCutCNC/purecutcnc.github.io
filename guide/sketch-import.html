@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Importing Geometry — PureCut CNC User Guide</title>
+  <meta name="description" content="Importing SVG and DXF geometry and using backdrop images in PureCut CNC." />
+  <link rel="icon" href="./favicon.svg" />
+  <link rel="stylesheet" href="./guide.css" />
+  <script src="./screenshots-loader.js" defer></script>
+  <script data-goatcounter="https://purecutcnc.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+
+  <nav>
+    <a href="../index.html" class="nav-logo">Pure<span>Cut</span> CNC</a>
+    <ul class="nav-links">
+      <li><a href="../index.html#features">Features</a></li>
+      <li><a href="../index.html#workflow">Workflow</a></li>
+      <li><a href="../index.html#views">Views</a></li>
+      <li><a href="../downloads.html">Downloads</a></li>
+      <li><a href="../quickstart.html">Quick Start</a></li>
+      <li><a href="index.html" aria-current="page">User Guide</a></li>
+      <li><a href="https://github.com/PureCutCNC/purecutcnc" class="github-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a></li>
+    </ul>
+    <a href="https://purecutcnc.github.io/app" class="nav-cta desktop-web-link">Launch App →</a>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-header-grid"></div>
+    <div class="page-label">Sketch</div>
+    <h1>Importing <em>Geometry</em></h1>
+    <p>Bringing in SVG and DXF files, and using backdrop images for tracing.</p>
+  </div>
+
+  <div class="guide-layout">
+
+    <aside class="guide-sidebar" aria-label="Guide navigation">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Overview</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html">Introduction</a></li>
+          <li><a href="interface.html">Interface Overview</a></li>
+          <li><a href="concepts.html">Core Concepts</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Sketch</div>
+        <ul class="sidebar-nav">
+          <li><a href="sketch-tools.html">Drawing Tools</a></li>
+          <li><a href="sketch-edit.html">Editing Features</a></li>
+          <li><a href="sketch-snapping.html">Snapping &amp; Grid</a></li>
+          <li><a href="sketch-import.html" class="active">Importing Geometry</a></li>
+          <li><a href="sketch-text.html">Text Features</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">CAM</div>
+        <ul class="sidebar-nav">
+          <li><a href="cam-tools.html">Tool Library</a></li>
+          <li><a href="cam-operations.html">Operations</a></li>
+          <li><a href="cam-tabs-clamps.html">Tabs &amp; Clamps</a></li>
+          <li><a href="cam-export.html">G-code Export</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Views</div>
+        <ul class="sidebar-nav">
+          <li><a href="view-sketch.html">Sketch View</a></li>
+          <li><a href="view-3d.html">3D View</a></li>
+          <li><a href="view-simulation.html">Simulation</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="guide-content">
+
+      <section class="guide-section" id="import-overview">
+        <h2>Import Overview</h2>
+        <p>
+          PureCut CNC can import geometry from SVG and DXF files. Imported shapes become native
+          sketch features — they can be transformed, assigned operations, and edited like any
+          hand-drawn feature.
+        </p>
+        <p>
+          To import, click <span class="ui">Import Geometry</span> in the toolbar (or use the
+          keyboard shortcut for your platform). The Import dialog opens and lets you select a file.
+        </p>
+      </section>
+
+      <section class="guide-section" id="svg-import">
+        <h2>SVG Import</h2>
+        <p>
+          SVG files are imported as sketch features. Paths, rectangles, circles, ellipses, and
+          polygons in the SVG are converted to the corresponding feature types. Bezier curves are
+          preserved as composite features.
+        </p>
+        <p>
+          SVG coordinates are normalized to the project's unit system. The import dialog shows a
+          preview of the imported shapes before you confirm.
+        </p>
+        <div class="callout">
+          <strong>What imports well:</strong> Clean vector paths from Inkscape, Illustrator, or
+          similar tools. Paths with fill and stroke, simple shapes, and text that has been converted
+          to paths.
+        </div>
+        <div class="callout--warn callout">
+          <strong>What may not import:</strong> SVG features that rely on CSS styling, gradients,
+          filters, or raster images embedded in the SVG are not supported. Only path geometry is
+          imported.
+        </div>
+      </section>
+
+      <section class="guide-section" id="dxf-import">
+        <h2>DXF Import</h2>
+        <p>
+          DXF files (AutoCAD Drawing Exchange Format) are imported similarly to SVG. Lines, arcs,
+          circles, polylines, and splines are converted to sketch features.
+        </p>
+        <p>
+          DXF import coverage is ongoing — complex DXF files with many entity types may not import
+          completely. If a shape is missing after import, check whether the source DXF uses entity
+          types that are not yet supported.
+        </p>
+        <div class="callout--tip callout">
+          <strong>Tip:</strong> If your DXF file doesn't import correctly, try exporting it from
+          your CAD tool as DXF R12 or DXF 2000 format, which use simpler entity types.
+        </div>
+      </section>
+
+      <section class="guide-section" id="after-import">
+        <h2>After Import</h2>
+        <p>
+          Imported features appear in the feature tree. They are initially placed at the origin of
+          the import coordinate system. You will typically need to:
+        </p>
+        <ol>
+          <li>Select the imported features and move them to the correct position on the stock.</li>
+          <li>Set Z Top and Z Bottom for each feature in the properties panel.</li>
+          <li>Set the Operation (Add or Subtract) for each feature.</li>
+          <li>Assign CAM operations as needed.</li>
+        </ol>
+        <p>
+          Imported features can be edited in sketch edit mode just like hand-drawn features.
+        </p>
+      </section>
+
+      <section class="guide-section" id="backdrop">
+        <h2>Backdrop Images</h2>
+        <p>
+          A backdrop image is a reference image displayed behind the sketch canvas. It is useful
+          for tracing over a photograph, technical drawing, or scan of a physical part.
+        </p>
+        <p>
+          To load a backdrop image, select the <span class="ui">Backdrop</span> node in the feature
+          tree and click <span class="ui">Load Image</span> in the properties panel. PNG and JPEG
+          images are supported.
+        </p>
+
+        <h3>Backdrop Properties</h3>
+        <table class="prop-table">
+          <thead><tr><th>Property</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td>Opacity</td><td>Controls how transparent the backdrop image appears. Lower opacity makes it easier to see the sketch geometry on top.</td></tr>
+            <tr><td>Width / Height</td><td>The displayed size of the image in project units. Adjust to match the real-world dimensions of the reference.</td></tr>
+            <tr><td>Angle</td><td>Rotation angle of the image in degrees.</td></tr>
+            <tr><td>Visible</td><td>Toggles the backdrop image on and off without removing it.</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Backdrop Transform Tools</h3>
+        <p>
+          Select the <span class="ui">Backdrop</span> node, then use the backdrop transform buttons
+          in the toolbar (or the action buttons in the properties panel) to move, resize, or rotate
+          the image interactively on the canvas.
+        </p>
+        <p>
+          The backdrop image is not included in the 3D model, toolpaths, or G-code export. It is
+          a visual reference only.
+        </p>
+      </section>
+
+    </main>
+  </div>
+
+  <footer>
+    <span>© 2026 PureCut CNC</span>
+    <span><a href="sketch-snapping.html">← Snapping &amp; Grid</a> · <a href="sketch-text.html">Next: Text Features →</a></span>
+  </footer>
+
+</body>
+</html>

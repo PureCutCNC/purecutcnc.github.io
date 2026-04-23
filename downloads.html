@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Downloads — PureCut CNC</title>
-  <meta name="description" content="Download the latest PureCut CNC desktop builds for macOS, Windows, and Linux. Stable releases and current snapshot builds in one place." />
+  <meta name="description" content="Download the latest PureCut CNC desktop builds for macOS, Windows, and Linux. Stable releases and preview builds in one place." />
   <link rel="icon" href="favicon.svg" />
   <script data-goatcounter="https://purecutcnc.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
@@ -87,7 +87,7 @@
       transition: color 0.15s;
     }
 
-    .nav-links a:hover { color: var(--text); text-decoration: none; }
+    .nav-links a:hover, .nav-links a[aria-current="page"] { color: var(--text); text-decoration: none; }
 
     .nav-cta {
       background: #00c8ff;
@@ -575,28 +575,29 @@
       <li><a href="index.html#features">Features</a></li>
       <li><a href="index.html#workflow">Workflow</a></li>
       <li><a href="index.html#views">Views</a></li>
-      <li><a href="downloads.html" style="color: var(--text);">Downloads</a></li>
+      <li><a href="downloads.html" aria-current="page">Downloads</a></li>
       <li><a href="quickstart.html">Quick Start</a></li>
+      <li><a href="guide/">User Guide</a></li>
       <li><a href="https://github.com/PureCutCNC/purecutcnc" class="github-icon">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
         GitHub
       </a></li>
     </ul>
-    <a href="https://purecutcnc.github.io/app" class="nav-links nav-cta desktop-web-link">Launch App →</a>
+    <a href="https://purecutcnc.github.io/app" class="nav-cta desktop-web-link">Launch App →</a>
   </nav>
 
   <section class="hero">
     <div class="hero-grid"></div>
     <div class="hero-inner">
       <div class="hero-label"><span class="hero-dot"></span> Desktop Builds</div>
-      <h1>Stable releases and <em>current snapshots</em>, one page.</h1>
+      <h1>Stable releases and <em>preview builds</em>, one page.</h1>
       <p class="hero-copy">
-        Download PureCut CNC for macOS, Windows, or Linux. This page tracks the latest published desktop artifacts per platform and channel. Stable is the safer path. Snapshot is the current in-progress build.
+        Download PureCut CNC for macOS, Windows, or Linux. This page tracks the latest published desktop artifacts per platform and track. Stable is the safer path. Preview Build is the newest in-progress track.
       </p>
       <div class="hero-actions">
         <a href="https://github.com/PureCutCNC/purecutcnc/releases" class="btn-primary">Open all GitHub releases</a>
         <a href="https://purecutcnc.github.io/app" class="btn-secondary desktop-web-link">Use browser version</a>
-        <a href="https://purecutcnc.github.io/app-rc" class="btn-secondary desktop-web-link">Open web snapshot</a>
+        <a href="https://purecutcnc.github.io/app-rc" class="btn-secondary desktop-web-link">Open Preview Build</a>
         <p class="desktop-web-only-note">The browser app is desktop-only. On phone or tablet, use the desktop downloads above.</p>
       </div>
     </div>
@@ -607,13 +608,13 @@
       <section class="panel matrix-panel">
         <div class="panel-head">
           <div class="panel-label">Download Matrix</div>
-          <h2>Per-platform release channels</h2>
+          <h2>Per-platform release tracks</h2>
           <p>Each cell below pulls from public metadata written by the build workflows after a release finishes.</p>
         </div>
         <div class="matrix">
           <div class="matrix-cell matrix-header platform-col"></div>
           <div class="matrix-cell matrix-header">Stable</div>
-          <div class="matrix-cell matrix-header">Snapshot</div>
+          <div class="matrix-cell matrix-header">Preview Build</div>
 
           <div class="matrix-cell">
             <div class="platform-name">macOS</div>
@@ -624,7 +625,7 @@
 
           <div class="matrix-cell">
             <div class="platform-name">Windows</div>
-            <div class="platform-copy">Stable builds publish MSI and NSIS. Snapshot builds publish NSIS only.</div>
+            <div class="platform-copy">Stable builds publish MSI and NSIS. Preview builds publish NSIS only.</div>
           </div>
           <div class="matrix-cell" data-channel-card="stable-windows"></div>
           <div class="matrix-cell" data-channel-card="snapshot-windows"></div>
@@ -647,7 +648,7 @@
               <div data-channel-card="mobile-stable-macos"></div>
             </div>
             <div class="mobile-channel">
-              <span class="mobile-channel-label">Snapshot</span>
+              <span class="mobile-channel-label">Preview Build</span>
               <div data-channel-card="mobile-snapshot-macos"></div>
             </div>
           </section>
@@ -655,14 +656,14 @@
           <section class="mobile-platform">
             <div class="mobile-platform-head">
               <div class="platform-name">Windows</div>
-              <div class="platform-copy">Stable builds publish MSI and NSIS. Snapshot builds publish NSIS only.</div>
+              <div class="platform-copy">Stable builds publish MSI and NSIS. Preview builds publish NSIS only.</div>
             </div>
             <div class="mobile-channel">
               <span class="mobile-channel-label">Stable</span>
               <div data-channel-card="mobile-stable-windows"></div>
             </div>
             <div class="mobile-channel">
-              <span class="mobile-channel-label">Snapshot</span>
+              <span class="mobile-channel-label">Preview Build</span>
               <div data-channel-card="mobile-snapshot-windows"></div>
             </div>
           </section>
@@ -677,7 +678,7 @@
               <div data-channel-card="mobile-stable-linux"></div>
             </div>
             <div class="mobile-channel">
-              <span class="mobile-channel-label">Snapshot</span>
+              <span class="mobile-channel-label">Preview Build</span>
               <div data-channel-card="mobile-snapshot-linux"></div>
             </div>
           </section>
@@ -687,12 +688,12 @@
       <div class="stack">
         <section class="panel note-card">
           <div class="panel-label">Choose a Track</div>
-          <h3>Stable or snapshot</h3>
-          <p><strong>Stable</strong> is the safer install for regular use. <strong>Snapshot</strong> is the newest in-progress desktop build and is better for testing recent changes before the next full release.</p>
+          <h3>Stable or Preview Build</h3>
+          <p><strong>Stable</strong> is the safer install for regular use. <strong>Preview Build</strong> is the newest in-progress desktop build and is better for testing recent changes before the next full release.</p>
           <ul>
             <li>Choose <strong>stable</strong> if you want the most conservative desktop build.</li>
-            <li>Choose <strong>snapshot</strong> if you are validating current work or checking a recent fix.</li>
-            <li>If a platform/channel has no package yet, that card will stay unavailable until the next build is published.</li>
+            <li>Choose <strong>Preview Build</strong> if you are validating current work or checking a recent fix.</li>
+            <li>If a platform/track has no package yet, that card will stay unavailable until the next build is published.</li>
           </ul>
         </section>
 
@@ -702,7 +703,7 @@
           <p>If you just want to test features quickly, the web build is still the fastest path. Desktop packages are mainly for platform-specific validation and local install workflows.</p>
           <div class="browser-actions">
             <a href="https://purecutcnc.github.io/app" class="btn-primary desktop-web-link">Open stable web app</a>
-            <a href="https://purecutcnc.github.io/app-rc" class="btn-secondary desktop-web-link">Open web snapshot</a>
+            <a href="https://purecutcnc.github.io/app-rc" class="btn-secondary desktop-web-link">Open Preview Build</a>
             <p class="desktop-web-only-note">The browser app is desktop-only. On phone or tablet, use the desktop downloads above.</p>
           </div>
         </section>
@@ -711,7 +712,7 @@
   </main>
 
   <footer>
-    <div>PureCut CNC desktop downloads and release channels.</div>
+    <div>PureCut CNC desktop downloads and release tracks.</div>
     <div>
       <a href="index.html">Overview</a> ·
       <a href="quickstart.html">Quick Start</a> ·
@@ -746,11 +747,17 @@
       return date.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })
     }
 
+    function displayChannel(channel) {
+      if (channel === 'snapshot') return 'Preview Build'
+      if (channel === 'stable') return 'Stable'
+      return channel
+    }
+
     function renderUnavailable(channel) {
       return `
         <div class="channel-card">
-          <div class="channel-chip ${channel}">${channel}</div>
-          <div class="empty-state">No published build has been recorded for this platform/channel yet.</div>
+          <div class="channel-chip ${channel}">${escapeHtml(displayChannel(channel))}</div>
+          <div class="empty-state">No published build has been recorded for this platform/track yet.</div>
         </div>
       `
     }
@@ -769,7 +776,7 @@
 
       return `
         <div class="channel-card">
-          <div class="channel-chip ${escapeHtml(data.channel)}">${escapeHtml(data.channel)}</div>
+          <div class="channel-chip ${escapeHtml(data.channel)}">${escapeHtml(displayChannel(data.channel))}</div>
           <div class="version-line">v${escapeHtml(data.version)}</div>
           <div class="meta-line">Updated ${escapeHtml(formatTime(data.updatedAt))}</div>
           <div class="asset-list">${assetLinks}</div>

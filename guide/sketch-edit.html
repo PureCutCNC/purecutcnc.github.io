@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Editing Features — PureCut CNC User Guide</title>
+  <meta name="description" content="Editing features in PureCut CNC — move, copy, resize, rotate, offset, join, cut, direct node editing, and constraints." />
+  <link rel="icon" href="./favicon.svg" />
+  <link rel="stylesheet" href="./guide.css" />
+  <script src="./screenshots-loader.js" defer></script>
+  <script data-goatcounter="https://purecutcnc.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+
+  <nav>
+    <a href="../index.html" class="nav-logo">Pure<span>Cut</span> CNC</a>
+    <ul class="nav-links">
+      <li><a href="../index.html#features">Features</a></li>
+      <li><a href="../index.html#workflow">Workflow</a></li>
+      <li><a href="../index.html#views">Views</a></li>
+      <li><a href="../downloads.html">Downloads</a></li>
+      <li><a href="../quickstart.html">Quick Start</a></li>
+      <li><a href="index.html" aria-current="page">User Guide</a></li>
+      <li><a href="https://github.com/PureCutCNC/purecutcnc" class="github-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a></li>
+    </ul>
+    <a href="https://purecutcnc.github.io/app" class="nav-cta desktop-web-link">Launch App →</a>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-header-grid"></div>
+    <div class="page-label">Sketch</div>
+    <h1>Editing <em>Features</em></h1>
+    <p>Transforms, shape operations, direct node editing, and constraints.</p>
+  </div>
+
+  <div class="guide-layout">
+
+    <aside class="guide-sidebar" aria-label="Guide navigation">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Overview</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html">Introduction</a></li>
+          <li><a href="interface.html">Interface Overview</a></li>
+          <li><a href="concepts.html">Core Concepts</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Sketch</div>
+        <ul class="sidebar-nav">
+          <li><a href="sketch-tools.html">Drawing Tools</a></li>
+          <li><a href="sketch-edit.html" class="active">Editing Features</a></li>
+          <li><a href="sketch-snapping.html">Snapping &amp; Grid</a></li>
+          <li><a href="sketch-import.html">Importing Geometry</a></li>
+          <li><a href="sketch-text.html">Text Features</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">CAM</div>
+        <ul class="sidebar-nav">
+          <li><a href="cam-tools.html">Tool Library</a></li>
+          <li><a href="cam-operations.html">Operations</a></li>
+          <li><a href="cam-tabs-clamps.html">Tabs &amp; Clamps</a></li>
+          <li><a href="cam-export.html">G-code Export</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Views</div>
+        <ul class="sidebar-nav">
+          <li><a href="view-sketch.html">Sketch View</a></li>
+          <li><a href="view-3d.html">3D View</a></li>
+          <li><a href="view-simulation.html">Simulation</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="guide-content">
+
+      <section class="guide-section" id="selecting">
+        <h2>Selecting Features</h2>
+        <p>
+          Click a feature on the canvas or in the feature tree to select it. Hold <kbd>Shift</kbd>
+          and click to add to the selection. Drag a marquee rectangle on empty canvas space to
+          select all features whose bounding boxes intersect the marquee.
+        </p>
+        <p>
+          Most edit tools operate on the primary selected feature (the last one clicked). Alignment
+          and distribution tools operate on all selected features.
+        </p>
+      </section>
+
+      <section class="guide-section" id="transforms">
+        <h2>Transform Tools</h2>
+        <p>
+          Select one or more features, then click a transform tool in the toolbar. Click the same
+          button again or press <kbd>Escape</kbd> to cancel the transform.
+        </p>
+
+        <h3>Move</h3>
+        <p>
+          Click <span class="ui">Move</span>
+          <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#move"/></svg></span>
+          with a feature selected. Click a reference point on
+          the canvas (the "from" point), then click the destination (the "to" point). The feature
+          moves by the delta between the two points. Snapping applies to both clicks.
+        </p>
+
+        <h3>Copy</h3>
+        <p>
+          Click <span class="ui">Copy</span>
+          <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#copy"/></svg></span>.
+          Works like Move, but creates a new feature at the destination instead of moving the
+          original. You can specify a copy count to create multiple evenly-spaced copies in one step.
+        </p>
+
+        <h3>Resize</h3>
+        <p>
+          Click <span class="ui">Resize</span>
+          <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#resize"/></svg></span>
+          with a feature selected. Click a reference point,
+          then drag to a new point. The feature scales proportionally based on the ratio of the
+          two distances from the feature's center.
+        </p>
+
+        <h3>Rotate</h3>
+        <p>
+          Click <span class="ui">Rotate</span>
+          <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#rotate"/></svg></span>
+          with a feature selected. Click a reference point to
+          define the start angle, then click a second point to define the end angle. The feature
+          rotates by the angle between the two vectors from the feature's center.
+        </p>
+
+        <h3>Offset</h3>
+        <p>
+          Click <span class="ui">Offset</span>
+          <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#offset"/></svg></span>
+          with one or more closed features selected. Enter an
+          offset distance in the dialog that appears. A positive value expands the profile outward;
+          a negative value shrinks it inward. The result is a new feature.
+        </p>
+        <div class="callout">
+          Offset is only available for closed profiles. Open paths and text features cannot be offset.
+        </div>
+      </section>
+
+      <section class="guide-section" id="alignment">
+        <h2>Alignment and Distribution</h2>
+        <p>
+          Select two or more features, then use the <span class="ui">Align</span> and
+          <span class="ui">Distribute</span> popover menus in the toolbar.
+        </p>
+
+        <h3>Alignment options</h3>
+        <ul>
+          <li><strong>Align Left</strong> — aligns left edges</li>
+          <li><strong>Align Center Horizontally</strong> — aligns horizontal centers</li>
+          <li><strong>Align Right</strong> — aligns right edges</li>
+          <li><strong>Align Top</strong> — aligns top edges</li>
+          <li><strong>Align Center Vertically</strong> — aligns vertical centers</li>
+          <li><strong>Align Bottom</strong> — aligns bottom edges</li>
+        </ul>
+
+        <h3>Distribution options</h3>
+        <p>Requires at least 3 features selected.</p>
+        <ul>
+          <li><strong>Distribute Horizontally (equal gaps)</strong> — equal spacing between edges</li>
+          <li><strong>Distribute Horizontally (equal centers)</strong> — equal spacing between centers</li>
+          <li><strong>Distribute Vertically (equal gaps)</strong></li>
+          <li><strong>Distribute Vertically (equal centers)</strong></li>
+        </ul>
+        <p>Locked features are excluded from alignment and distribution operations.</p>
+      </section>
+
+      <section class="guide-section" id="shape-ops">
+        <h2>Shape Operations</h2>
+
+        <h3>Join</h3>
+        <p>
+          Select two or more closed features and click <span class="ui">Join</span>
+          <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#merge"/></svg></span>. The app
+          computes the boolean union of the selected profiles and creates a new composite feature.
+          A <span class="ui">Keep Originals</span> option is available in the toolbar while the
+          join is pending.
+        </p>
+
+        <h3>Cut</h3>
+        <p>
+          Select the features you want to cut, then click <span class="ui">Cut</span>
+          <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#cut"/></svg></span>. Click on
+          the canvas to designate one feature as the cutter. The cutter is subtracted from all
+          other selected features. A <span class="ui">Keep Originals</span> option is available.
+        </p>
+      </section>
+
+      <section class="guide-section" id="sketch-edit">
+        <h2>Direct Sketch Editing</h2>
+        <p>
+          Double-click a feature on the canvas, or select it and click <span class="ui">Edit Sketch</span>
+          in the properties panel, to enter sketch edit mode. In this mode, the feature's individual
+          control points and handles are shown and can be dragged.
+        </p>
+        <p>
+          While in sketch edit mode, three additional tools become available in the toolbar:
+        </p>
+
+        <h3>Add Point</h3>
+        <p>
+          Click <span class="ui">Add Point</span>
+          <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#point-add"/></svg></span>,
+          then click on a segment to insert a new control point at that location. The segment is split at the clicked position.
+        </p>
+
+        <h3>Delete Point</h3>
+        <p>
+          Click <span class="ui">Delete Point</span>
+          <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#point-delete"/></svg></span>,
+          then click a control point to remove it.
+          The adjacent segments are reconnected.
+        </p>
+
+        <h3>Fillet</h3>
+        <p>
+          Click <span class="ui">Fillet</span>
+          <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#fillet"/></svg></span>,
+          then click a corner point. Enter the fillet radius
+          in the dialog. The sharp corner is replaced with a smooth arc of the specified radius.
+        </p>
+
+        <p>
+          Press <kbd>Escape</kbd> or click outside the feature to exit sketch edit mode. Changes
+          are committed automatically.
+        </p>
+        <div class="callout">
+          Text features cannot be edited in sketch edit mode. Edit the text content, font, and
+          style through the properties panel instead.
+        </div>
+      </section>
+
+      <section class="guide-section" id="constraints">
+        <h2>
+          <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#constraint"/></svg></span>
+          Constraints
+        </h2>
+        <p>
+          Constraints lock a feature's position relative to another feature or to the world
+          coordinate system. Currently, <strong>fixed distance</strong> constraints are supported.
+        </p>
+        <p>
+          To add a constraint:
+        </p>
+        <ol>
+          <li>Select a feature.</li>
+          <li>Click <span class="ui">Add Constraint</span> <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#constraint"/></svg></span> in the toolbar.</li>
+          <li>Click a point on the selected feature (the anchor point).</li>
+          <li>Click a reference point — either on another feature or on empty canvas space.</li>
+          <li>Enter the desired distance in the dialog.</li>
+        </ol>
+        <p>
+          Active constraints are listed in the feature's properties panel. Click the × button next
+          to a constraint to delete it. Invalid constraints (where the geometry cannot satisfy the
+          distance) are shown with a warning indicator.
+        </p>
+      </section>
+
+      <section class="guide-section" id="locking">
+        <h2>Locking Features</h2>
+        <p>
+          Check the <span class="ui">Locked</span> checkbox in a feature's properties panel to
+          prevent it from being moved, resized, or rotated. Locked features are excluded from
+          alignment and distribution operations. The lock state is shown in the feature tree.
+        </p>
+      </section>
+
+    </main>
+  </div>
+
+  <footer>
+    <span>© 2026 PureCut CNC</span>
+    <span><a href="sketch-tools.html">← Drawing Tools</a> · <a href="sketch-snapping.html">Next: Snapping &amp; Grid →</a></span>
+  </footer>
+
+</body>
+</html>
