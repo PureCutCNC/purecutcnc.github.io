@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>G-code Export — PureCut CNC User Guide</title>
+  <meta name="description" content="G-code export in PureCut CNC — machine selection, post-processors, and the export dialog." />
+  <link rel="icon" href="./favicon.svg" />
+  <link rel="stylesheet" href="./guide.css" />
+  <script src="./screenshots-loader.js" defer></script>
+  <script data-goatcounter="https://purecutcnc.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+
+  <nav>
+    <a href="../index.html" class="nav-logo">Pure<span>Cut</span> CNC</a>
+    <ul class="nav-links">
+      <li><a href="../index.html#features">Features</a></li>
+      <li><a href="../index.html#workflow">Workflow</a></li>
+      <li><a href="../index.html#views">Views</a></li>
+      <li><a href="../downloads.html">Downloads</a></li>
+      <li><a href="../quickstart.html">Quick Start</a></li>
+      <li><a href="index.html" aria-current="page">User Guide</a></li>
+      <li><a href="https://github.com/PureCutCNC/purecutcnc" class="github-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a></li>
+    </ul>
+    <a href="https://purecutcnc.github.io/app" class="nav-cta desktop-web-link">Launch App →</a>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-header-grid"></div>
+    <div class="page-label">CAM</div>
+    <h1>G-code <em>Export</em></h1>
+    <p>Selecting a machine controller and exporting the final G-code file.</p>
+  </div>
+
+  <div class="guide-layout">
+
+    <aside class="guide-sidebar" aria-label="Guide navigation">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Overview</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html">Introduction</a></li>
+          <li><a href="interface.html">Interface Overview</a></li>
+          <li><a href="concepts.html">Core Concepts</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Sketch</div>
+        <ul class="sidebar-nav">
+          <li><a href="sketch-tools.html">Drawing Tools</a></li>
+          <li><a href="sketch-edit.html">Editing Features</a></li>
+          <li><a href="sketch-snapping.html">Snapping &amp; Grid</a></li>
+          <li><a href="sketch-import.html">Importing Geometry</a></li>
+          <li><a href="sketch-text.html">Text Features</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">CAM</div>
+        <ul class="sidebar-nav">
+          <li><a href="cam-tools.html">Tool Library</a></li>
+          <li><a href="cam-operations.html">Operations</a></li>
+          <li><a href="cam-tabs-clamps.html">Tabs &amp; Clamps</a></li>
+          <li><a href="cam-export.html" class="active">G-code Export</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Views</div>
+        <ul class="sidebar-nav">
+          <li><a href="view-sketch.html">Sketch View</a></li>
+          <li><a href="view-3d.html">3D View</a></li>
+          <li><a href="view-simulation.html">Simulation</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="guide-content">
+
+      <section class="guide-section" id="machine-selection">
+        <h2>Machine Selection</h2>
+        <p>
+          Before exporting, select the machine controller that will run the G-code. The machine
+          selection determines the post-processor — the dialect of G-code, units, and header/footer
+          format that the output uses.
+        </p>
+        <p>
+          Select the <span class="ui">Project</span> node in the feature tree. In the properties
+          panel, find the <span class="ui">Machine</span> dropdown and choose your controller.
+        </p>
+        <p>
+          Built-in machine definitions include Grbl, LinuxCNC, and Mach3. You can also add custom
+          machine definitions by clicking <span class="ui">Add machine</span> and providing a JSON
+          definition file.
+        </p>
+      </section>
+
+      <section class="guide-section" id="clearances">
+        <h2>Clearance Settings</h2>
+        <p>
+          The following project-level settings affect the generated G-code:
+        </p>
+        <table class="prop-table">
+          <thead><tr><th>Setting</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td>Safe Z</td><td>The Z height for rapid moves between operations. The tool retracts to this height before any rapid traverse.</td></tr>
+            <tr><td>Op Clear Z</td><td>The Z height for rapid moves within an operation (between passes and between features).</td></tr>
+            <tr><td>Clamp Clear XY</td><td>Horizontal clearance around clamp boundaries.</td></tr>
+            <tr><td>Clamp Clear Z</td><td>Additional Z clearance above clamp height on rapid moves over clamps.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="guide-section" id="export-dialog">
+        <h2>Export Dialog</h2>
+        <p>
+          Click <span class="ui">Export</span> in the CAM panel (or use the keyboard shortcut) to
+          open the Export dialog. The dialog shows:
+        </p>
+        <ul>
+          <li>A preview of the generated G-code with syntax highlighting.</li>
+          <li>The selected machine and post-processor.</li>
+          <li>A summary of the operations that will be included.</li>
+        </ul>
+        <p>
+          Review the G-code preview before downloading. When it looks correct, click
+          <span class="ui">Download</span> to save the <code>.nc</code> file.
+        </p>
+
+        <div class="screenshot-placeholder" data-img="cam-export-dialog.png">
+          <div class="ph-label">screenshots/cam-export-dialog.png</div>
+          <div class="ph-desc">Export dialog showing G-code preview and download button</div>
+        </div>
+
+        <div class="callout--warn callout">
+          <strong>Always verify before cutting.</strong> Review the G-code in your machine
+          controller's toolpath display or run a dry cycle with the spindle off before making
+          contact with material.
+        </div>
+      </section>
+
+      <section class="guide-section" id="what-is-exported">
+        <h2>What Gets Exported</h2>
+        <p>
+          Only operations that are both <strong>enabled</strong> and have their toolpath
+          <strong>visible</strong> are included in the G-code export. Operations with
+          <span class="ui">Enabled</span> unchecked are skipped entirely.
+        </p>
+        <p>
+          Operations are exported in the order they appear in the operations list. Reorder them
+          by dragging in the CAM panel before exporting.
+        </p>
+        <p>
+          Features that are hidden in the feature tree are excluded from toolpath calculations
+          and therefore from the export.
+        </p>
+      </section>
+
+      <section class="guide-section" id="custom-machines">
+        <h2>Custom Machine Definitions</h2>
+        <p>
+          If your machine controller is not in the built-in list, you can add a custom definition.
+          Click <span class="ui">Add machine</span> in the Project properties panel and select a
+          JSON file containing the machine definition.
+        </p>
+        <p>
+          Download the template below as a starting point, edit it to match your controller, then
+          load it into the project:
+        </p>
+        <p>
+          <a href="machine-definition-template.json" download class="btn-download">
+            <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#import"/></svg></span>
+            Download machine-definition-template.json
+          </a>
+        </p>
+
+        <h3>Field Reference</h3>
+        <table class="prop-table">
+          <thead><tr><th>Field</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td>id</td><td>Unique identifier string. Must not clash with built-in IDs (<code>generic</code>, <code>grbl</code>, <code>mach3</code>, <code>linuxcnc</code>).</td></tr>
+            <tr><td>name</td><td>Display name shown in the Machine dropdown.</td></tr>
+            <tr><td>description</td><td>Short description shown in the UI.</td></tr>
+            <tr><td>vendor</td><td>Optional vendor name.</td></tr>
+            <tr><td>builtin</td><td>Must be <code>false</code> for custom definitions.</td></tr>
+            <tr><td>fileExtension</td><td>Output file extension, e.g. <code>nc</code>, <code>tap</code>, <code>gcode</code>.</td></tr>
+            <tr><td>coordinateSystem</td><td>Maps internal X/Y/Z axes to machine axes. Use <code>-X</code> etc. to invert an axis.</td></tr>
+            <tr><td>numberFormat.decimalPlaces</td><td>Decimal places for coordinates. Can be a single number or separate <code>mm</code>/<code>inch</code> values.</td></tr>
+            <tr><td>numberFormat.trailingZeros</td><td>Whether to pad numbers with trailing zeros.</td></tr>
+            <tr><td>numberFormat.leadingZero</td><td>Whether to include the leading zero on numbers less than 1.</td></tr>
+            <tr><td>units.mmCommand</td><td>G-code command to select millimeter mode, e.g. <code>G21</code>. Set to <code>null</code> to omit.</td></tr>
+            <tr><td>units.inchCommand</td><td>G-code command to select inch mode, e.g. <code>G20</code>. Set to <code>null</code> to omit.</td></tr>
+            <tr><td>program.header</td><td>Array of lines emitted at the start of the file. Supports tokens: <code>{programName}</code>, <code>{date}</code>, <code>{unitsCommand}</code>, <code>{wcsCommand}</code>.</td></tr>
+            <tr><td>program.footer</td><td>Array of lines emitted at the end of the file.</td></tr>
+            <tr><td>program.commentPrefix / commentSuffix</td><td>Characters that wrap comments, e.g. <code>(</code> and <code>)</code> for Mach3, or <code>;</code> and <code></code> for inline comments.</td></tr>
+            <tr><td>program.lineNumbers</td><td>Whether to prefix each line with a line number (<code>N10</code>, <code>N20</code>, …).</td></tr>
+            <tr><td>workCoordinates.selectCommand</td><td>Work coordinate system command, e.g. <code>G54</code>. Set to <code>null</code> to omit.</td></tr>
+            <tr><td>motion.arcFormat</td><td><code>ij</code> for center-offset arc format (most controllers), or <code>r</code> for radius format.</td></tr>
+            <tr><td>motion.modalMotion</td><td>If <code>true</code>, the motion command (<code>G0</code>/<code>G1</code>) is omitted when it hasn't changed since the last move.</td></tr>
+            <tr><td>feedSpeed.inlineWithMotion</td><td>If <code>true</code>, F and S words are emitted on the same line as the motion command.</td></tr>
+            <tr><td>feedSpeed.modalFeedSpeed</td><td>If <code>true</code>, F and S are omitted when unchanged.</td></tr>
+            <tr><td>toolChange.commands</td><td>Array of lines emitted on a tool change. Supports <code>{toolName}</code> token.</td></tr>
+            <tr><td>cannedCycles</td><td>Drill cycle commands. Set to <code>null</code> if your controller does not support canned cycles — drilling will fall back to explicit G0/G1 moves.</td></tr>
+            <tr><td>coolant</td><td>Coolant on/off commands. Set to <code>null</code> if not used.</td></tr>
+            <tr><td>stop.programEndCommand</td><td>Command emitted at the very end of the file, e.g. <code>M30</code> or <code>M2</code>.</td></tr>
+          </tbody>
+        </table>
+
+        <p>
+          Custom machine definitions can be removed by selecting the machine in the dropdown and
+          clicking <span class="ui">Remove machine</span>. Built-in definitions cannot be removed.
+        </p>
+        <p>
+          Click <span class="ui">Refresh</span> (the refresh icon next to the Machine dropdown) to
+          reload machine definitions if you have updated a definition file externally.
+        </p>
+      </section>
+
+    </main>
+  </div>
+
+  <footer>
+    <span>© 2026 PureCut CNC</span>
+    <span><a href="cam-tabs-clamps.html">← Tabs &amp; Clamps</a> · <a href="view-sketch.html">Next: Sketch View →</a></span>
+  </footer>
+
+</body>
+</html>

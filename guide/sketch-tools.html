@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Drawing Tools — PureCut CNC User Guide</title>
+  <meta name="description" content="Drawing tools in PureCut CNC — rectangle, circle, polygon, spline, composite path, and text." />
+  <link rel="icon" href="./favicon.svg" />
+  <link rel="stylesheet" href="./guide.css" />
+  <script src="./screenshots-loader.js" defer></script>
+  <script data-goatcounter="https://purecutcnc.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+
+  <nav>
+    <a href="../index.html" class="nav-logo">Pure<span>Cut</span> CNC</a>
+    <ul class="nav-links">
+      <li><a href="../index.html#features">Features</a></li>
+      <li><a href="../index.html#workflow">Workflow</a></li>
+      <li><a href="../index.html#views">Views</a></li>
+      <li><a href="../downloads.html">Downloads</a></li>
+      <li><a href="../quickstart.html">Quick Start</a></li>
+      <li><a href="index.html" aria-current="page">User Guide</a></li>
+      <li><a href="https://github.com/PureCutCNC/purecutcnc" class="github-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a></li>
+    </ul>
+    <a href="https://purecutcnc.github.io/app" class="nav-cta desktop-web-link">Launch App →</a>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-header-grid"></div>
+    <div class="page-label">Sketch</div>
+    <h1>Drawing <em>Tools</em></h1>
+    <p>Creating geometry with the built-in shape tools.</p>
+  </div>
+
+  <div class="guide-layout">
+
+    <aside class="guide-sidebar" aria-label="Guide navigation">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Overview</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html">Introduction</a></li>
+          <li><a href="interface.html">Interface Overview</a></li>
+          <li><a href="concepts.html">Core Concepts</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Sketch</div>
+        <ul class="sidebar-nav">
+          <li><a href="sketch-tools.html" class="active">Drawing Tools</a></li>
+          <li><a href="sketch-edit.html">Editing Features</a></li>
+          <li><a href="sketch-snapping.html">Snapping &amp; Grid</a></li>
+          <li><a href="sketch-import.html">Importing Geometry</a></li>
+          <li><a href="sketch-text.html">Text Features</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">CAM</div>
+        <ul class="sidebar-nav">
+          <li><a href="cam-tools.html">Tool Library</a></li>
+          <li><a href="cam-operations.html">Operations</a></li>
+          <li><a href="cam-tabs-clamps.html">Tabs &amp; Clamps</a></li>
+          <li><a href="cam-export.html">G-code Export</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Views</div>
+        <ul class="sidebar-nav">
+          <li><a href="view-sketch.html">Sketch View</a></li>
+          <li><a href="view-3d.html">3D View</a></li>
+          <li><a href="view-simulation.html">Simulation</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="guide-content">
+
+      <section class="guide-section" id="overview">
+        <h2>Drawing Tools Overview</h2>
+        <p>
+          All drawing tools are in the toolbar. Click a tool button to activate it — the button
+          highlights to show it is active. Click the same button again, or press <kbd>Escape</kbd>,
+          to cancel the active tool without placing a shape.
+        </p>
+        <p>
+          Every shape you place becomes a feature in the feature tree. After placement, select the
+          feature to edit its properties (name, operation, Z Top, Z Bottom) in the properties panel.
+        </p>
+        <div class="callout">
+          <strong>Snapping is active by default.</strong> While drawing, the cursor snaps to the
+          grid and to existing geometry. See <a href="sketch-snapping.html">Snapping &amp; Grid</a>
+          for details on controlling snap behavior.
+        </div>
+      </section>
+
+      <section class="guide-section" id="rectangle">
+        <h2>
+          <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#rect"/></svg></span>
+          Rectangle
+        </h2>
+        <p>
+          Click the <span class="ui">Rectangle</span> tool
+          <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#rect"/></svg></span>
+          in the toolbar. Click once on the canvas to place the first corner, then click again to
+          set the opposite corner. While dragging, dimension readouts appear on the canvas showing
+          the current width and height.
+        </p>
+        <p>
+          You can type a dimension value while placing to lock it to an exact size. The rectangle
+          is placed as an axis-aligned shape. After placement, use the resize or rotate tools to
+          change its orientation.
+        </p>
+        <div class="screenshot-placeholder" data-img="sketch-rect-tool.png">
+          <div class="ph-label">screenshots/sketch-rect-tool.png</div>
+          <div class="ph-desc">Rectangle tool active — first corner placed, dragging to set size with dimension readout</div>
+        </div>
+      </section>
+
+      <section class="guide-section" id="circle">
+        <h2>
+          <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#circle"/></svg></span>
+          Circle
+        </h2>
+        <p>
+          Click the <span class="ui">Circle</span> tool
+          <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#circle"/></svg></span>
+          in the toolbar. Click to place the center, then drag outward to set the radius. The
+          radius is shown as a dimension readout while dragging.
+        </p>
+        <p>
+          Circles are stored as native circle geometry (not approximated as polygons), which gives
+          clean toolpaths for pocket and edge route operations.
+        </p>
+        <div class="screenshot-placeholder" data-img="sketch-circle-tool.png">
+          <div class="ph-label">screenshots/sketch-circle-tool.png</div>
+          <div class="ph-desc">Circle tool active — center placed, dragging to set radius</div>
+        </div>
+      </section>
+
+      <section class="guide-section" id="polygon">
+        <h2>
+          <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#polygon"/></svg></span>
+          Polygon
+        </h2>
+        <p>
+          Click the <span class="ui">Polygon</span> tool
+          <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#polygon"/></svg></span>
+          in the toolbar. Click to place each vertex. Each click adds a new point.
+          When you have placed all the vertices you need:
+        </p>
+        <ul>
+          <li>Click the first point again to <strong>close</strong> the polygon as a closed profile, or</li>
+          <li>Press <kbd>Enter</kbd> to complete as an <strong>open path</strong> (useful for engrave operations), or</li>
+          <li>Press <kbd>Backspace</kbd> to undo the last point.</li>
+        </ul>
+        <p>
+          A polygon requires at least 2 points. Closed profiles can be used for pocket, edge route,
+          V-carve, and surface clean operations. Open paths can be used for engrave operations.
+        </p>
+        <div class="screenshot-placeholder" data-img="sketch-polygon-tool.png">
+          <div class="ph-label">screenshots/sketch-polygon-tool.png</div>
+          <div class="ph-desc">Polygon tool in progress — several points placed, about to close</div>
+        </div>
+      </section>
+
+      <section class="guide-section" id="spline">
+        <h2>
+          <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#spline"/></svg></span>
+          Spline
+        </h2>
+        <p>
+          Click the <span class="ui">Spline</span> tool
+          <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#spline"/></svg></span>
+          in the toolbar. Click to place control points. The spline is a smooth closed curve that
+          passes through all the placed points using Catmull-Rom interpolation. Complete the spline
+          the same way as a polygon — click the first point to close, press <kbd>Enter</kbd> to
+          finish as an open path, or press <kbd>Backspace</kbd> to undo the last point.
+        </p>
+        <p>
+          After placement, you can enter sketch edit mode to adjust individual control points and
+          their handles. See <a href="sketch-edit.html">Editing Features</a>.
+        </p>
+        <div class="screenshot-placeholder" data-img="sketch-spline-tool.png">
+          <div class="ph-label">screenshots/sketch-spline-tool.png</div>
+          <div class="ph-desc">Spline tool — smooth curve through several placed control points</div>
+        </div>
+      </section>
+
+      <section class="guide-section" id="composite">
+        <h2>
+          <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#composite"/></svg></span>
+          Composite Path
+        </h2>
+        <p>
+          The <span class="ui">Composite</span> tool
+          <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#composite"/></svg></span>
+          lets you draw a path made of mixed segment types — straight lines, arcs, and spline
+          curves — in a single feature.
+        </p>
+        <p>
+          Click to place points. Use the segment mode buttons in the toolbar to switch between
+          <span class="ui">Line</span>, <span class="ui">Arc</span>, and <span class="ui">Spline</span>
+          modes while drawing. The mode applies to the segment being drawn from the last placed point.
+        </p>
+        <p>To finish the path:</p>
+        <ul>
+          <li>Click the first point to <strong>close</strong> the path as a closed profile.</li>
+          <li>Press <kbd>Enter</kbd> to complete as an <strong>open path</strong> (for engrave operations).</li>
+          <li>Press <kbd>Backspace</kbd> to undo the last segment.</li>
+          <li>Press <kbd>Escape</kbd> to cancel.</li>
+        </ul>
+        <div class="callout">
+          <strong>Open vs. closed paths:</strong> Closed profiles can be used for pocket, edge route,
+          V-carve, and surface clean operations. Open paths can only be used for engrave (follow line)
+          operations.
+        </div>
+        <div class="screenshot-placeholder" data-img="sketch-composite-tool.png">
+          <div class="ph-label">screenshots/sketch-composite-tool.png</div>
+          <div class="ph-desc">Composite tool — path with mixed line and arc segments in progress</div>
+        </div>
+      </section>
+
+      <section class="guide-section" id="text">
+        <h2>
+          <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#text"/></svg></span>
+          Text
+        </h2>
+        <p>
+          Click the <span class="ui">Text</span> tool
+          <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#text"/></svg></span>
+          to open the Text Tool dialog. Configure the text content, style (skeleton or outline),
+          font, and size, then click <span class="ui">Place</span>. Click on the canvas to position
+          the text.
+        </p>
+        <p>
+          Text is stored as an editable feature — you can change the text content, font, and style
+          at any time without re-drawing. See <a href="sketch-text.html">Text Features</a> for full details.
+        </p>
+        <div class="screenshot-placeholder" data-img="sketch-text-dialog.png">
+          <div class="ph-label">screenshots/sketch-text-dialog.png</div>
+          <div class="ph-desc">Text Tool dialog — text content, style, and font fields</div>
+        </div>
+      </section>
+
+      <section class="guide-section" id="canvas-navigation">
+        <h2>Canvas Navigation</h2>
+        <p>
+          While in the Sketch view, use the following controls to navigate the canvas:
+        </p>
+        <table class="prop-table">
+          <thead><tr><th>Action</th><th>Control</th></tr></thead>
+          <tbody>
+            <tr><td>Pan</td><td>Middle-click drag, or hold <kbd>Space</kbd> and drag</td></tr>
+            <tr><td>Zoom</td><td>Scroll wheel</td></tr>
+            <tr><td>Zoom to fit</td><td>Click <span class="ui">Zoom to Model</span> in the toolbar</td></tr>
+            <tr><td>Select feature</td><td>Click on the canvas or in the feature tree</td></tr>
+            <tr><td>Multi-select</td><td>Hold <kbd>Shift</kbd> and click, or drag a marquee selection</td></tr>
+            <tr><td>Deselect</td><td>Click on empty canvas area</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+    </main>
+  </div>
+
+  <footer>
+    <span>© 2026 PureCut CNC</span>
+    <span><a href="concepts.html">← Core Concepts</a> · <a href="sketch-edit.html">Next: Editing Features →</a></span>
+  </footer>
+
+</body>
+</html>

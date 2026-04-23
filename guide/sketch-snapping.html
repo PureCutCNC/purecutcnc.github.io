@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Snapping &amp; Grid — PureCut CNC User Guide</title>
+  <meta name="description" content="Snapping and grid settings in PureCut CNC — grid snap, point snap, line snap, midpoint, center, and perpendicular." />
+  <link rel="icon" href="./favicon.svg" />
+  <link rel="stylesheet" href="./guide.css" />
+  <script src="./screenshots-loader.js" defer></script>
+  <script data-goatcounter="https://purecutcnc.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+
+  <nav>
+    <a href="../index.html" class="nav-logo">Pure<span>Cut</span> CNC</a>
+    <ul class="nav-links">
+      <li><a href="../index.html#features">Features</a></li>
+      <li><a href="../index.html#workflow">Workflow</a></li>
+      <li><a href="../index.html#views">Views</a></li>
+      <li><a href="../downloads.html">Downloads</a></li>
+      <li><a href="../quickstart.html">Quick Start</a></li>
+      <li><a href="index.html" aria-current="page">User Guide</a></li>
+      <li><a href="https://github.com/PureCutCNC/purecutcnc" class="github-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a></li>
+    </ul>
+    <a href="https://purecutcnc.github.io/app" class="nav-cta desktop-web-link">Launch App →</a>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-header-grid"></div>
+    <div class="page-label">Sketch</div>
+    <h1>Snapping <em>&amp; Grid</em></h1>
+    <p>Controlling how the cursor snaps to geometry and the grid while drawing and editing.</p>
+  </div>
+
+  <div class="guide-layout">
+
+    <aside class="guide-sidebar" aria-label="Guide navigation">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Overview</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html">Introduction</a></li>
+          <li><a href="interface.html">Interface Overview</a></li>
+          <li><a href="concepts.html">Core Concepts</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Sketch</div>
+        <ul class="sidebar-nav">
+          <li><a href="sketch-tools.html">Drawing Tools</a></li>
+          <li><a href="sketch-edit.html">Editing Features</a></li>
+          <li><a href="sketch-snapping.html" class="active">Snapping &amp; Grid</a></li>
+          <li><a href="sketch-import.html">Importing Geometry</a></li>
+          <li><a href="sketch-text.html">Text Features</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">CAM</div>
+        <ul class="sidebar-nav">
+          <li><a href="cam-tools.html">Tool Library</a></li>
+          <li><a href="cam-operations.html">Operations</a></li>
+          <li><a href="cam-tabs-clamps.html">Tabs &amp; Clamps</a></li>
+          <li><a href="cam-export.html">G-code Export</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Views</div>
+        <ul class="sidebar-nav">
+          <li><a href="view-sketch.html">Sketch View</a></li>
+          <li><a href="view-3d.html">3D View</a></li>
+          <li><a href="view-simulation.html">Simulation</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="guide-content">
+
+      <section class="guide-section" id="snap-overview">
+        <h2>Snapping Overview</h2>
+        <p>
+          Snapping constrains the cursor to specific positions while drawing and editing. When a
+          snap candidate is found, the cursor jumps to it and a visual indicator appears. Multiple
+          snap modes can be active simultaneously — the closest candidate wins.
+        </p>
+        <p>
+          The snap toolbar is in the top toolbar. The master <span class="ui">Snap</span> toggle
+          enables or disables all snapping at once. Individual mode buttons toggle each snap type
+          independently. A mode button glows when that mode is actively snapping the current cursor
+          position.
+        </p>
+      </section>
+
+      <section class="guide-section" id="snap-modes">
+        <h2>Snap Modes</h2>
+
+        <table class="prop-table">
+          <thead><tr><th>Mode</th><th>Icon</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>Snap (master)</td>
+              <td><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#snap"/></svg></span></td>
+              <td>Enables or disables all snapping at once.</td>
+            </tr>
+            <tr>
+              <td>Grid</td>
+              <td><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#snap-grid"/></svg></span></td>
+              <td>Snaps to the grid increment defined in the Grid settings. The snap increment can be finer than the visible minor grid lines.</td>
+            </tr>
+            <tr>
+              <td>Point</td>
+              <td><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#snap-point"/></svg></span></td>
+              <td>Snaps to the control points (vertices) of existing features, tabs, and clamps.</td>
+            </tr>
+            <tr>
+              <td>Line</td>
+              <td><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#snap-line"/></svg></span></td>
+              <td>Snaps to the nearest point on any line segment of existing features.</td>
+            </tr>
+            <tr>
+              <td>Midpoint</td>
+              <td><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#snap-midpoint"/></svg></span></td>
+              <td>Snaps to the midpoint of line segments.</td>
+            </tr>
+            <tr>
+              <td>Center</td>
+              <td><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#snap-center"/></svg></span></td>
+              <td>Snaps to the center of circles and arcs, and to the bounding box center of other features.</td>
+            </tr>
+            <tr>
+              <td>Perpendicular</td>
+              <td><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#snap-perpendicular"/></svg></span></td>
+              <td>Snaps to the point on a line segment that is perpendicular to the cursor's current position.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout--tip callout">
+          <strong>Tip:</strong> Disable grid snap when you need to place geometry at a position that
+          doesn't align to the grid. Re-enable it afterward to keep subsequent placements aligned.
+        </div>
+      </section>
+
+      <section class="guide-section" id="grid-settings">
+        <h2>Grid Settings</h2>
+        <p>
+          Select the <span class="ui">Grid</span> node in the feature tree to edit grid settings
+          in the properties panel.
+        </p>
+
+        <table class="prop-table">
+          <thead><tr><th>Setting</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>Grid Extent</td>
+              <td>The total size of the visible grid area. Increase this if your stock is larger than the default grid.</td>
+            </tr>
+            <tr>
+              <td>Major Lines</td>
+              <td>Spacing between the heavier grid lines. Typically set to a round number like 10 mm or 1 inch.</td>
+            </tr>
+            <tr>
+              <td>Minor Lines</td>
+              <td>Spacing between the lighter subdivision lines. Must be less than or equal to the major spacing.</td>
+            </tr>
+            <tr>
+              <td>Snap Increment</td>
+              <td>The grid snap resolution. Can be finer than the minor line spacing — for example, 0.125 in snap with 0.25 in minor lines.</td>
+            </tr>
+            <tr>
+              <td>Visible</td>
+              <td>Toggles grid line visibility. Snapping still works when the grid is hidden.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="guide-section" id="axis-lock">
+        <h2>Axis Lock</h2>
+        <p>
+          While drawing or moving, press <kbd>Alt</kbd> / <kbd>Option</kbd> to cycle the axis
+          lock: first press locks to the X axis, second press locks to the Y axis, third press
+          releases the lock. The current lock state is shown as a visual indicator on the canvas.
+        </p>
+      </section>
+
+    </main>
+  </div>
+
+  <footer>
+    <span>© 2026 PureCut CNC</span>
+    <span><a href="sketch-edit.html">← Editing Features</a> · <a href="sketch-import.html">Next: Importing Geometry →</a></span>
+  </footer>
+
+</body>
+</html>

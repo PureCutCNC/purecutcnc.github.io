@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Core Concepts — PureCut CNC User Guide</title>
+  <meta name="description" content="Core concepts in PureCut CNC — features, Z coordinates, additive vs subtractive, feature tree order." />
+  <link rel="icon" href="./favicon.svg" />
+  <link rel="stylesheet" href="./guide.css" />
+  <script src="./screenshots-loader.js" defer></script>
+  <script data-goatcounter="https://purecutcnc.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+
+  <nav>
+    <a href="../index.html" class="nav-logo">Pure<span>Cut</span> CNC</a>
+    <ul class="nav-links">
+      <li><a href="../index.html#features">Features</a></li>
+      <li><a href="../index.html#workflow">Workflow</a></li>
+      <li><a href="../index.html#views">Views</a></li>
+      <li><a href="../downloads.html">Downloads</a></li>
+      <li><a href="../quickstart.html">Quick Start</a></li>
+      <li><a href="index.html" aria-current="page">User Guide</a></li>
+      <li><a href="https://github.com/PureCutCNC/purecutcnc" class="github-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a></li>
+    </ul>
+    <a href="https://purecutcnc.github.io/app" class="nav-cta desktop-web-link">Launch App →</a>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-header-grid"></div>
+    <div class="page-label">User Guide</div>
+    <h1>Core <em>Concepts</em></h1>
+    <p>How features, Z coordinates, and the feature tree work together to define a part.</p>
+  </div>
+
+  <div class="guide-layout">
+
+    <aside class="guide-sidebar" aria-label="Guide navigation">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Overview</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html">Introduction</a></li>
+          <li><a href="interface.html">Interface Overview</a></li>
+          <li><a href="concepts.html" class="active">Core Concepts</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Sketch</div>
+        <ul class="sidebar-nav">
+          <li><a href="sketch-tools.html">Drawing Tools</a></li>
+          <li><a href="sketch-edit.html">Editing Features</a></li>
+          <li><a href="sketch-snapping.html">Snapping &amp; Grid</a></li>
+          <li><a href="sketch-import.html">Importing Geometry</a></li>
+          <li><a href="sketch-text.html">Text Features</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">CAM</div>
+        <ul class="sidebar-nav">
+          <li><a href="cam-tools.html">Tool Library</a></li>
+          <li><a href="cam-operations.html">Operations</a></li>
+          <li><a href="cam-tabs-clamps.html">Tabs &amp; Clamps</a></li>
+          <li><a href="cam-export.html">G-code Export</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Views</div>
+        <ul class="sidebar-nav">
+          <li><a href="view-sketch.html">Sketch View</a></li>
+          <li><a href="view-3d.html">3D View</a></li>
+          <li><a href="view-simulation.html">Simulation</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="guide-content">
+
+      <section class="guide-section" id="features">
+        <h2>Features</h2>
+        <p>
+          A <strong>feature</strong> is the atomic unit of design in PureCut CNC. Every shape you
+          draw — a rectangle, circle, polygon, spline, composite path, or text — becomes a feature.
+          Features are listed in the feature tree and can be selected, edited, reordered, and
+          assigned machining operations.
+        </p>
+        <p>
+          Each feature has a 2D profile (its shape on the XY plane) and a vertical extent defined
+          by <strong>Z Top</strong> and <strong>Z Bottom</strong>. Together these define a 3D solid
+          that is either added to or subtracted from the model.
+        </p>
+      </section>
+
+      <section class="guide-section" id="z-coordinates">
+        <h2>Z Top and Z Bottom</h2>
+        <p>
+          Every feature has two Z values that define its vertical extent:
+        </p>
+        <ul>
+          <li><strong>Z Top</strong> — the elevation of the top surface of the feature. For a pocket, this is the surface of the stock where the cut begins.</li>
+          <li><strong>Z Bottom</strong> — the elevation of the bottom surface. For a pocket, this is the floor of the pocket.</li>
+        </ul>
+        <p>
+          Z values are <em>absolute coordinates</em>, not depths. The actual cut depth is always
+          Z Top minus Z Bottom. If the stock is 0.75 in thick and you set Z Top to 0.75 and
+          Z Bottom to 0.5, the cut depth is 0.25 in.
+        </p>
+        <div class="callout">
+          <strong>Z is a coordinate, not a depth.</strong> Z Bottom = 0.5 means the floor sits at
+          0.5 in above the machine table — not that the cut is 0.5 in deep. The depth is always
+          Z Top − Z Bottom.
+        </div>
+        <p>
+          The stock thickness sets the default Z Top for new features. You can override Z Top and
+          Z Bottom independently for each feature in the properties panel.
+        </p>
+      </section>
+
+      <section class="guide-section" id="add-subtract">
+        <h2>Add vs. Subtract</h2>
+        <p>
+          Each feature has an <strong>Operation</strong> property that is either <strong>Add</strong>
+          or <strong>Subtract</strong>:
+        </p>
+        <ul>
+          <li><strong>Add</strong> — the feature represents material that is present. The first feature in the tree must always be Add — it defines the base solid of the part.</li>
+          <li><strong>Subtract</strong> — the feature represents material that is removed. Pockets, holes, and cutouts are subtract features.</li>
+        </ul>
+        <p>
+          The operation type also determines which CAM operations are available. Pocket and inside
+          edge route require subtract features. Outside edge route and surface clean require add
+          features. V-carve operations require subtract features with closed profiles.
+        </p>
+        <div class="callout--tip callout">
+          <strong>Tip:</strong> The 3D view updates live as you change feature operations and Z values.
+          Use it to verify the model looks correct before adding CAM operations.
+        </div>
+      </section>
+
+      <section class="guide-section" id="tree-order">
+        <h2>Feature Tree Order</h2>
+        <p>
+          Features are evaluated in the order they appear in the feature tree — top to bottom. The
+          CSG engine applies each feature's add or subtract operation in sequence. This means order
+          matters: a subtract feature that overlaps an add feature will only remove material if it
+          comes after the add feature in the tree.
+        </p>
+        <p>
+          You can reorder features by dragging them in the tree. The first feature must always be
+          an Add feature — the app marks it with a lock icon and prevents it from being moved below
+          any subtract feature.
+        </p>
+        <div class="callout--warn callout">
+          <strong>Order matters.</strong> If a pocket feature appears before the base solid in the
+          tree, it will have nothing to subtract from and the 3D model will look wrong. Always keep
+          the base solid at the top.
+        </div>
+      </section>
+
+      <section class="guide-section" id="visibility">
+        <h2>Visibility and Toolpath Calculation</h2>
+        <p>
+          Making a feature visible or invisible in the tree controls whether it participates in the
+          3D model and toolpath calculations. Hidden features are excluded from the CSG evaluation
+          and from G-code export.
+        </p>
+        <p>
+          For operations, the visibility toggle controls whether the toolpath is computed and shown.
+          There is no separate "Compute" button — toggling an operation visible triggers its toolpath
+          to be calculated automatically.
+        </p>
+      </section>
+
+      <section class="guide-section" id="stock">
+        <h2>Stock</h2>
+        <p>
+          The stock defines the raw material block you are machining. It has a width, height, and
+          thickness. The stock thickness sets the default Z Top for new features.
+        </p>
+        <p>
+          Select the <span class="ui">Stock</span> node in the feature tree to edit its dimensions,
+          material, and color. The stock boundary is shown on the canvas as a reference.
+        </p>
+      </section>
+
+      <section class="guide-section" id="origin">
+        <h2>Machine Origin</h2>
+        <p>
+          The machine origin defines the translation between the internal project coordinate system
+          and the machine G-code coordinate system. It is shown as a crosshair on the canvas.
+        </p>
+        <p>
+          Select the <span class="ui">Origin</span> node to edit its position. Use the preset buttons
+          (Top Left, Center Top, Bottom Left) for common setups, or click
+          <span class="ui">Place Origin</span> to position it interactively on the canvas.
+        </p>
+        <div class="callout">
+          <strong>Coordinate inversion:</strong> The internal coordinate system has Y increasing
+          downward (screen coordinates). The machine G-code uses standard Cartesian coordinates
+          where Y increases upward. The origin and export logic handle this inversion automatically.
+        </div>
+      </section>
+
+      <section class="guide-section" id="units">
+        <h2>Units</h2>
+        <p>
+          Projects can use either millimeters (<code>mm</code>) or inches (<code>inch</code>). The
+          unit is set per-project in the Project properties panel. All dimensions, feeds, and speeds
+          are stored and displayed in the project's unit system.
+        </p>
+        <p>
+          Tools have their own unit setting and can be used in projects with a different unit — the
+          app converts tool parameters automatically when assigning a tool to an operation.
+        </p>
+      </section>
+
+    </main>
+  </div>
+
+  <footer>
+    <span>© 2026 PureCut CNC</span>
+    <span><a href="interface.html">← Interface Overview</a> · <a href="sketch-tools.html">Next: Drawing Tools →</a></span>
+  </footer>
+
+</body>
+</html>

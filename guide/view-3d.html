@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3D View — PureCut CNC User Guide</title>
+  <meta name="description" content="The 3D View in PureCut CNC — CSG model preview, toolpath visualization, and navigation." />
+  <link rel="icon" href="./favicon.svg" />
+  <link rel="stylesheet" href="./guide.css" />
+  <script src="./screenshots-loader.js" defer></script>
+  <script data-goatcounter="https://purecutcnc.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+
+  <nav>
+    <a href="../index.html" class="nav-logo">Pure<span>Cut</span> CNC</a>
+    <ul class="nav-links">
+      <li><a href="../index.html#features">Features</a></li>
+      <li><a href="../index.html#workflow">Workflow</a></li>
+      <li><a href="../index.html#views">Views</a></li>
+      <li><a href="../downloads.html">Downloads</a></li>
+      <li><a href="../quickstart.html">Quick Start</a></li>
+      <li><a href="index.html" aria-current="page">User Guide</a></li>
+      <li><a href="https://github.com/PureCutCNC/purecutcnc" class="github-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a></li>
+    </ul>
+    <a href="https://purecutcnc.github.io/app" class="nav-cta desktop-web-link">Launch App →</a>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-header-grid"></div>
+    <div class="page-label">Views</div>
+    <h1>3D <em>View</em></h1>
+    <p>Previewing the model and toolpaths in three dimensions.</p>
+  </div>
+
+  <div class="guide-layout">
+
+    <aside class="guide-sidebar" aria-label="Guide navigation">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Overview</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html">Introduction</a></li>
+          <li><a href="interface.html">Interface Overview</a></li>
+          <li><a href="concepts.html">Core Concepts</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Sketch</div>
+        <ul class="sidebar-nav">
+          <li><a href="sketch-tools.html">Drawing Tools</a></li>
+          <li><a href="sketch-edit.html">Editing Features</a></li>
+          <li><a href="sketch-snapping.html">Snapping &amp; Grid</a></li>
+          <li><a href="sketch-import.html">Importing Geometry</a></li>
+          <li><a href="sketch-text.html">Text Features</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">CAM</div>
+        <ul class="sidebar-nav">
+          <li><a href="cam-tools.html">Tool Library</a></li>
+          <li><a href="cam-operations.html">Operations</a></li>
+          <li><a href="cam-tabs-clamps.html">Tabs &amp; Clamps</a></li>
+          <li><a href="cam-export.html">G-code Export</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Views</div>
+        <ul class="sidebar-nav">
+          <li><a href="view-sketch.html">Sketch View</a></li>
+          <li><a href="view-3d.html" class="active">3D View</a></li>
+          <li><a href="view-simulation.html">Simulation</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="guide-content">
+
+      <section class="guide-section" id="3d-overview">
+        <h2>3D View Overview</h2>
+        <p>
+          The 3D View shows a live preview of the part model built from the feature tree using
+          CSG (Constructive Solid Geometry). The model updates automatically as you add, edit, or
+          reorder features in the Sketch view.
+        </p>
+        <p>
+          Toolpaths for visible operations are rendered as colored lines over the stock block.
+          Use the 3D View to inspect entry and exit points, path direction, depth layers, and
+          overall toolpath coverage before cutting.
+        </p>
+
+        <div class="screenshot-placeholder" data-img="view-3d.png">
+          <div class="ph-label">screenshots/view-3d.png</div>
+          <div class="ph-desc">3D View showing the CSG model with toolpath lines over the stock</div>
+        </div>
+      </section>
+
+      <section class="guide-section" id="3d-navigation">
+        <h2>Navigation</h2>
+        <table class="prop-table">
+          <thead><tr><th>Action</th><th>Control</th></tr></thead>
+          <tbody>
+            <tr><td>Orbit</td><td>Left-click drag</td></tr>
+            <tr><td>Pan</td><td>Right-click drag, or middle-click drag</td></tr>
+            <tr><td>Zoom</td><td>Scroll wheel</td></tr>
+            <tr><td>Reset view</td><td>Double-click on empty space</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="guide-section" id="3d-model">
+        <h2>The CSG Model</h2>
+        <p>
+          The 3D model is computed using Constructive Solid Geometry — each feature in the tree
+          is either added to or subtracted from the accumulated solid, in order from top to bottom.
+          The result is a solid that represents the finished part geometry.
+        </p>
+        <p>
+          The model updates with a short debounce delay after changes to avoid unnecessary
+          recomputation while you are actively editing. If the model appears stale, wait a moment
+          for it to refresh.
+        </p>
+        <div class="callout">
+          <strong>Feature order matters.</strong> If the 3D model looks wrong — missing pockets,
+          unexpected material — check the feature tree order. Subtract features must come after
+          the add features they are cutting into.
+        </div>
+      </section>
+
+      <section class="guide-section" id="3d-toolpaths">
+        <h2>Toolpath Visualization</h2>
+        <p>
+          Toolpaths are shown as colored lines over the model. Different move types are shown in
+          different colors:
+        </p>
+        <ul>
+          <li><strong>Rapid moves</strong> — fast positioning moves at safe Z height.</li>
+          <li><strong>Cutting moves</strong> — moves at feed rate where material is being removed.</li>
+          <li><strong>Plunge moves</strong> — Z-axis moves into the material.</li>
+        </ul>
+        <p>
+          Only operations with their toolpath visibility enabled (◉) are shown. Toggle visibility
+          in the operations list in the CAM panel.
+        </p>
+        <p>
+          Use the 3D View to check:
+        </p>
+        <ul>
+          <li>Entry and exit points for each pass</li>
+          <li>Depth layers and stepdown progression</li>
+          <li>Tab locations on edge route operations</li>
+          <li>Clamp clearance on rapid moves</li>
+          <li>Overall coverage of the operation area</li>
+        </ul>
+      </section>
+
+    </main>
+  </div>
+
+  <footer>
+    <span>© 2026 PureCut CNC</span>
+    <span><a href="view-sketch.html">← Sketch View</a> · <a href="view-simulation.html">Next: Simulation →</a></span>
+  </footer>
+
+</body>
+</html>
