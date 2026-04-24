@@ -170,6 +170,14 @@
             <tr><td>Kind</td><td>The operation type (read-only after creation).</td></tr>
             <tr><td>Pass</td><td>Rough or Finish. Not available for Engrave, V-Carve, and Drill operations.</td></tr>
             <tr><td>Tool</td><td>The tool to use. V-Carve operations only show V-Bit tools. Assigning a tool pre-fills the feed, plunge feed, stepdown, stepover, and RPM from the tool's defaults.</td></tr>
+            <tr><td>Machining Order</td><td>
+              Controls the sequence when an operation has multiple target features:
+              <ul>
+                <li><strong>Feature First:</strong> Fully machines one feature top-to-bottom before moving to the next. Minimizes travel between features.</li>
+                <li><strong>Level First:</strong> Machines one depth level across all target features before stepping down to the next level. Useful for maintaining material stability or heat management.</li>
+              </ul>
+              Available for Pocket, Edge Route, and V-Carve operations.
+            </td></tr>
             <tr><td>Enabled</td><td>When unchecked, the operation is excluded from G-code export. The toolpath is still shown if visible.</td></tr>
             <tr><td>Feed</td><td>Cutting feed rate for this operation.</td></tr>
             <tr><td>Plunge Feed</td><td>Z-axis plunge feed rate.</td></tr>
