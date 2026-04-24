@@ -1,16 +1,16 @@
 {
   "platform": "windows",
   "channel": "snapshot",
-  "version": "0.0.2-snapshot.1",
-  "tag": "v0.0.2-snapshot.1",
-  "releaseUrl": "https://github.com/PureCutCNC/purecutcnc/releases/tag/v0.0.2-snapshot.1",
-  "updatedAt": "2026-04-23T03:00:56.454Z",
+  "version": "0.0.2-snapshot.2",
+  "tag": "v0.0.2-snapshot.2",
+  "releaseUrl": "https://github.com/PureCutCNC/purecutcnc/releases/tag/v0.0.2-snapshot.2",
+  "updatedAt": "2026-04-24T13:57:15.550Z",
   "assets": [
     {
-      "name": "PureCutCNC_0.0.2-snapshot.1_x64-setup.exe",
+      "name": "PureCutCNC_0.0.2-snapshot.2_x64-setup.exe",
       "label": "Download Installer (.exe)",
       "kind": "nsis",
-      "url": "https://github.com/PureCutCNC/purecutcnc/releases/download/v0.0.2-snapshot.1/PureCutCNC_0.0.2-snapshot.1_x64-setup.exe"
+      "url": "https://github.com/PureCutCNC/purecutcnc/releases/download/v0.0.2-snapshot.2/PureCutCNC_0.0.2-snapshot.2_x64-setup.exe"
     }
   ]
 }
