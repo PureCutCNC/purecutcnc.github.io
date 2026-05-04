@@ -133,6 +133,14 @@
             <p>Follows the path of any feature — open or closed — at a fixed carve depth. Used for engraving, centerline text, and decorative lines.</p>
           </div>
           <div class="op-card">
+            <h4>3D Surface Rough</h4>
+            <p>Generates a 3D roughing toolpath from an imported STL model. Uses parallel passes with top-down model-shadow protection, region clipping, surrounding feature avoidance, and parent stock containment. Requires an imported model feature.</p>
+          </div>
+          <div class="op-card">
+            <h4>3D Surface Finish</h4>
+            <p>Generates a 3D finishing toolpath from an imported STL model. Uses a parallel top-surface strategy with protected coverage holes, local split-depth floor clamping, and gouge avoidance at floor transitions. Requires an imported model feature.</p>
+          </div>
+          <div class="op-card">
             <h4>Drill</h4>
             <p>Drills holes at the center of circle features. Requires circle features. Supports simple, peck, dwell, and chip-breaking drill cycles.</p>
           </div>
@@ -152,6 +160,8 @@
             <tr><td>V-Carve Skeleton <span style="font-size:0.75rem;color:var(--yellow);">Experimental</span></td><td>Subtract</td><td>Closed</td></tr>
             <tr><td>Engrave</td><td>Any</td><td>Open or Closed</td></tr>
             <tr><td>Drill</td><td>Circle (any operation)</td><td>Circle only</td></tr>
+            <tr><td>3D Surface Rough</td><td>Imported Model</td><td>—</td></tr>
+            <tr><td>3D Surface Finish</td><td>Imported Model</td><td>—</td></tr>
           </tbody>
         </table>
       </section>
@@ -242,6 +252,39 @@
             <tr><td>Retract Height</td><td>Z height to retract to between holes.</td></tr>
           </tbody>
         </table>
+      </section>
+
+        <h3>3D Surface Parameters</h3>
+        <table class="prop-table">
+          <thead><tr><th>Parameter</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td>Stepdown</td><td>Depth per roughing pass (Rough only).</td></tr>
+            <tr><td>Stepover Ratio</td><td>Lateral step between passes as a fraction of tool diameter.</td></tr>
+            <tr><td>Angle</td><td>Angle of parallel passes in degrees.</td></tr>
+            <tr><td>Stock To Leave</td><td>Material left on the model surface for a subsequent finish pass (Rough only).</td></tr>
+          </tbody>
+        </table>
+
+      </section>
+
+      <section class="guide-section" id="rest-machining">
+        <h2>Rest Machining</h2>
+        <p>
+          When you add an Edge Route Inside or Edge Route Outside operation, PureCut CNC can
+          automatically generate a <strong>rest region</strong> — a derived feature that represents
+          the material left behind by the first tool that a smaller tool can clean up.
+        </p>
+        <p>
+          The rest region is created as a separate editable feature. The original operation targets
+          are preserved unchanged. The rest operation targets the generated region with its tool
+          reference cleared, so you can assign a different (typically smaller) tool to it
+          independently.
+        </p>
+        <div class="callout--tip callout">
+          <strong>Tip:</strong> Rest machining is most useful when roughing with a large endmill
+          and then finishing corners or tight areas with a smaller tool that the roughing pass
+          couldn't reach.
+        </div>
       </section>
 
       <section class="guide-section" id="reassigning-targets">
