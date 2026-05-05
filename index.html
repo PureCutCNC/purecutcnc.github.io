@@ -761,7 +761,7 @@
       <div class="feature-card">
         <span class="feature-icon">⚙️</span>
         <h3>CAM Operations</h3>
-        <p>Pocket, edge route inside/outside, drill, V-Carve offset, V-Carve skeleton, surface clean, and engrave operations. Rough and finish passes, multiple operation targets, tabs, clamps, and per-tool feeds and speeds.</p>
+        <p>Pocket, edge route inside/outside, 3D surface rough/finish, drill, V-Carve offset, V-Carve skeleton, surface clean, and engrave operations. Rough and finish passes, rest machining, multiple operation targets, tabs, clamps, and per-tool feeds and speeds.</p>
       </div>
       <div class="feature-card">
         <span class="feature-icon">🧊</span>
@@ -776,12 +776,22 @@
       <div class="feature-card">
         <span class="feature-icon">💾</span>
         <h3>G-code Export</h3>
-        <p>Export clean G-code for Grbl, LinuxCNC, and Mach3. Post-processor support for custom machine configurations. Preview with syntax highlighting before you download.</p>
+        <p>Export clean G-code for Grbl, GrblHAL, LinuxCNC, and Mach3. Post-processor support for custom machine configurations. Preview with syntax highlighting before you download.</p>
       </div>
       <div class="feature-card">
         <span class="feature-icon">🔤</span>
         <h3>Text as Features</h3>
         <p>Text is an editable feature, not exploded letter geometry. Single-line text with skeleton and outline styles, built-in font selection, and full transform support.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🗿</span>
+        <h3>3D Surface Operations</h3>
+        <p>Import an STL model and generate 3D surface rough and finish toolpaths directly from it. Overhang protection, region clipping, surrounding feature avoidance, and gouge protection included.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🔁</span>
+        <h3>Rest Machining</h3>
+        <p>Edge route operations automatically generate rest regions so you can follow up with a smaller tool and clean up what the first pass left behind.</p>
       </div>
       <div class="feature-card">
         <span class="feature-icon">🛠️</span>
@@ -815,6 +825,8 @@
       <span class="op-tag">Edge Route Inside Finish</span>
       <span class="op-tag">Edge Route Outside Rough</span>
       <span class="op-tag">Edge Route Outside Finish</span>
+      <span class="op-tag">3D Surface Rough</span>
+      <span class="op-tag">3D Surface Finish</span>
       <span class="op-tag">Drill</span>
       <span class="op-tag">Engrave</span>
       <span class="op-tag">V-Carve Offset</span>
@@ -917,6 +929,7 @@
       <h3>Core workflow is usable today.</h3>
       <p>The sketch engine, CAM operations, 3D preview, and simulation pipeline are functional. Stable releases publish to <code>/app</code>; the latest main-branch Preview Build publishes to <code>/app-rc</code>. Work is ongoing in these areas:</p>
       <ul class="status-list">
+        <li>Waterline finish strategy for steep STL walls</li>
         <li>Additional font support and text workflows</li>
         <li>Deeper DXF coverage</li>
         <li>Toolpath optimization</li>

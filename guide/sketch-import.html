@@ -82,14 +82,33 @@
       <section class="guide-section" id="import-overview">
         <h2>Import Overview</h2>
         <p>
-          PureCut CNC can import geometry from SVG and DXF files. Imported shapes become native
-          sketch features — they can be transformed, assigned operations, and edited like any
-          hand-drawn feature.
+          PureCut CNC can import geometry from SVG and DXF files, and 3D models from STL files.
+          Imported 2D shapes become native sketch features — they can be transformed, assigned
+          operations, and edited like any hand-drawn feature. Imported STL models become model
+          features that can be targeted by STL Model Rough and Finish operations.
         </p>
         <p>
           To import, click <span class="ui">Import Geometry</span> in the toolbar (or use the
           keyboard shortcut for your platform). The Import dialog opens and lets you select a file.
         </p>
+      </section>
+
+      <section class="guide-section" id="stl-import">
+        <h2>STL Import</h2>
+        <p>
+          STL files can be imported to use as the basis for 3D machining operations. The imported
+          mesh becomes a model feature in the feature tree.
+        </p>
+        <p>
+          Once imported, select the model feature and add a <strong>3D Surface Rough</strong> or
+          <strong>3D Surface Finish</strong> operation from the CAM panel. The toolpath engine
+          samples the mesh to generate passes that follow the model surface.
+        </p>
+        <div class="callout">
+          <strong>Note:</strong> STL model operations are in an early usable state. Very large or
+          complex meshes may be slow to process. Waterline finishing for steep walls is on the
+          roadmap.
+        </div>
       </section>
 
       <section class="guide-section" id="svg-import">
