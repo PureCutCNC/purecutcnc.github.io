@@ -16,12 +16,14 @@
   <nav>
     <a href="../index.html" class="nav-logo">Pure<span>Cut</span> CNC</a>
     <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
       <li><a href="../index.html#features">Features</a></li>
       <li><a href="../index.html#workflow">Workflow</a></li>
       <li><a href="../index.html#views">Views</a></li>
       <li><a href="../downloads.html">Downloads</a></li>
       <li><a href="../quickstart.html">Quick Start</a></li>
       <li><a href="index.html" aria-current="page">User Guide</a></li>
+      <li><a href="https://github.com/PureCutCNC/purecutcnc/releases">What's New</a></li>
       <li><a href="https://github.com/PureCutCNC/purecutcnc" class="github-icon">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
         GitHub
@@ -155,6 +157,70 @@
           <li>Clamp clearance on rapid moves</li>
           <li>Overall coverage of the operation area</li>
         </ul>
+      </section>
+
+      <section class="guide-section" id="open-features">
+        <h2>Open Features (Polylines)</h2>
+        <p>
+          Open sketch features — paths that do not close back on themselves — are rendered in the
+          3D view as screen-aligned polylines at the feature's <em>Z Top</em>. They sit on top of
+          the CSG solid rather than contributing to it, so you can preview engrave paths,
+          centerlines, and trim cutters in context without affecting the model.
+        </p>
+        <div class="screenshot-placeholder" data-img="view-3d-open-features.png">
+          <div class="ph-label">screenshots/view-3d-open-features.png</div>
+          <div class="ph-desc">3D view showing open polyline features floating above the CSG solid (e.g. engrave paths or trim cutters)</div>
+        </div>
+      </section>
+
+      <section class="guide-section" id="imported-models">
+        <h2>Imported Models</h2>
+        <p>
+          Imported STL and OBJ meshes are displayed at their full triangle resolution. Each
+          imported model has a light blue-gray outline in the sketch view, and the sketch-view
+          legend includes <strong>Region</strong> and <strong>Imported model</strong> swatches so
+          imported geometry is easy to distinguish from add features and subtract pockets.
+        </p>
+        <p>
+          See <a href="sketch-import.html#stl-obj-import">STL and OBJ Import</a> for details on
+          multi-body splitting and large-mesh handling.
+        </p>
+        <div class="screenshot-placeholder" data-img="view-3d-imported-model.png">
+          <div class="ph-label">screenshots/view-3d-imported-model.png</div>
+          <div class="ph-desc">3D view of an imported STL model surrounded by add features and a subtract pocket — shows the light blue-gray outline and full mesh shading</div>
+        </div>
+      </section>
+
+      <section class="guide-section" id="stl-export">
+        <h2>Exporting Models</h2>
+        <p>
+          Click <span class="ui">Export Model</span> in the top toolbar (next to Import) to save
+          the assembled 3D model to disk. The export dialog mirrors the 3D viewport's behaviour:
+          it computes a manifold boolean union of all add/subtract features, then appends any
+          imported meshes as raw transformed triangles so their original geometry is preserved
+          regardless of CSG validity.
+        </p>
+        <div class="screenshot-placeholder" data-img="view-3d-export-dialog.png">
+          <div class="ph-label">screenshots/view-3d-export-dialog.png</div>
+          <div class="ph-desc">Export Model dialog open — Format dropdown, file name, curve quality preset, binary/ASCII toggle, and live triangle count</div>
+        </div>
+
+        <h3>Export Options</h3>
+        <table class="prop-table">
+          <thead><tr><th>Option</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td>Format</td><td>STL is shipped today (binary and ASCII variants). Additional formats can be added without UI changes.</td></tr>
+            <tr><td>File name</td><td>Defaults to the project name; editable.</td></tr>
+            <tr><td>Curve quality</td><td><strong>Coarse</strong> 10°, <strong>Normal</strong> 5°, <strong>Fine</strong> 2°, or <strong>Very fine</strong> 1°. Controls the arc/spline tessellation step used when meshing curved profiles.</td></tr>
+            <tr><td>Binary / ASCII</td><td>(STL only.) Binary is smaller and faster to write; ASCII is human-readable.</td></tr>
+            <tr><td>Include imported meshes</td><td>(STL only.) When off, only the CSG-assembled body is exported — imported model features are skipped.</td></tr>
+          </tbody>
+        </table>
+        <p>
+          A live triangle count and estimated file size update as you change the options. Output
+          uses internal design coordinates, so round-trip (<span class="ui">Export Model</span> →
+          <span class="ui">Import Geometry</span>) preserves position and orientation.
+        </p>
       </section>
 
     </main>

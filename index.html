@@ -755,23 +755,23 @@
       </div>
       <div class="feature-card">
         <span class="feature-icon">📥</span>
-        <h3>SVG &amp; DXF Import</h3>
-        <p>Import source geometry and continue working with it as native sketch features. Imported profiles can be transformed, assigned operations, and machined like hand-drawn geometry.</p>
+        <h3>SVG, DXF &amp; 3D Import</h3>
+        <p>Import 2D source geometry from SVG or DXF, or bring in 3D models from STL and OBJ files. Multi-body meshes split into one feature per body automatically. Imported geometry can be transformed and machined like hand-drawn features.</p>
       </div>
       <div class="feature-card">
         <span class="feature-icon">⚙️</span>
-        <h3>CAM Operations</h3>
-        <p>Pocket, edge route inside/outside, 3D surface rough/finish, drill, V-Carve offset, V-Carve skeleton, surface clean, and engrave operations. Rough and finish passes, rest machining, multiple operation targets, tabs, clamps, and per-tool feeds and speeds.</p>
+        <h3>2.5D + 3D CAM</h3>
+        <p>Pocket, edge route inside/outside, drill, V-Carve offset, V-Carve skeleton, surface clean, and engrave for 2.5D parts — plus 3D Surface rough, finish (parallel or waterline), and cleanup for imported models. Rough and finish passes, rest machining, multiple operation targets, tabs, clamps, and per-tool feeds and speeds throughout.</p>
       </div>
       <div class="feature-card">
         <span class="feature-icon">🧊</span>
-        <h3>3D Preview</h3>
-        <p>Live CSG evaluation builds a 3D solid from your feature tree. Inspect entry/exit points and toolpath direction before any cutting begins.</p>
+        <h3>3D Preview &amp; Export</h3>
+        <p>Live CSG evaluation builds a 3D solid from your feature tree. Inspect entry/exit points and toolpath direction before cutting, then export the assembled model as STL (binary or ASCII) with selectable curve quality.</p>
       </div>
       <div class="feature-card">
         <span class="feature-icon">▶️</span>
-        <h3>Simulation</h3>
-        <p>Replay toolpaths against stock in a voxel-based material removal simulation. Verify pockets, tabs, islands, and carving behavior with full playback controls.</p>
+        <h3>GPU Simulation</h3>
+        <p>Replay toolpaths against stock in a fully GPU-rendered heightfield simulation. The cut state lives in a texture and is displaced in a vertex shader, with incremental per-frame updates — high-density grids (up to 1500 cells) stay interactive while you scrub, with a live XYZ readout in the playback bar.</p>
       </div>
       <div class="feature-card">
         <span class="feature-icon">💾</span>
@@ -786,7 +786,7 @@
       <div class="feature-card">
         <span class="feature-icon">🗿</span>
         <h3>3D Surface Operations</h3>
-        <p>Import an STL model and generate 3D surface rough and finish toolpaths directly from it. Overhang protection, region clipping, surrounding feature avoidance, and gouge protection included.</p>
+        <p>Import an STL or OBJ model and generate 3D rough, finish (parallel or waterline), and targeted cleanup toolpaths directly from it. Overhang protection, region clipping, surrounding-feature avoidance, gouge protection, and adaptive waterline refinement for steep walls all included.</p>
       </div>
       <div class="feature-card">
         <span class="feature-icon">🔁</span>
@@ -802,6 +802,11 @@
         <span class="feature-icon">🌐</span>
         <h3>Runs in the Browser</h3>
         <p>No installation, no registration, and no cloud-stored project data. Open the app in a modern desktop browser and work locally. Desktop versions are in progress.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">📱</span>
+        <h3>Tablet &amp; Touch</h3>
+        <p>Tablet shell layout activates automatically on touch devices with a vertical tool rail, drawer-based panels, snap popover, and pinch / two-finger pan / long-press gestures. Constraint creation, dimension entry, and feature placement all run from canvas workflow panels designed for touch.</p>
       </div>
     </div>
   </section>
@@ -831,6 +836,10 @@
       <span class="op-tag">Engrave</span>
       <span class="op-tag">V-Carve Offset</span>
       <span class="op-tag">V-Carve Skeleton</span>
+      <span class="op-tag">3D Surface Rough</span>
+      <span class="op-tag">3D Surface Finish — Parallel</span>
+      <span class="op-tag">3D Surface Finish — Waterline</span>
+      <span class="op-tag">3D Surface Cleanup</span>
     </div>
   </section>
 
@@ -851,7 +860,7 @@
       </div>
       <div class="workflow-step">
         <h3>Draw or Import</h3>
-        <p>Draw geometry directly on canvas, import SVG or DXF, or trace from a backdrop image. All geometry becomes editable sketch features.</p>
+        <p>Draw geometry directly on canvas, import SVG, DXF, STL or OBJ, or trace from a backdrop image. 2D imports become editable sketch features; 3D meshes become Model features for 3D operations.</p>
       </div>
       <div class="workflow-step">
         <h3>Organize Features</h3>
@@ -903,7 +912,7 @@
         <div style="padding: 1.6rem;">
           <div class="view-name">Simulation</div>
           <h3>Verify Before Cutting</h3>
-          <p>Voxel-based material removal replay. Scrub through the toolpath sequence to catch problems before they hit the spoilboard.</p>
+          <p>GPU-rendered heightfield replay. Scrub through the toolpath sequence — with a live XYZ readout — to catch problems before they hit the spoilboard.</p>
         </div>
       </div>
     </div>
@@ -927,12 +936,12 @@
     <h2>In active development.</h2>
     <div class="status-banner">
       <h3>Core workflow is usable today.</h3>
-      <p>The sketch engine, CAM operations, 3D preview, and simulation pipeline are functional. Stable releases publish to <code>/app</code>; the latest main-branch Preview Build publishes to <code>/app-rc</code>. Work is ongoing in these areas:</p>
+      <p>The sketch engine, 2.5D and 3D CAM operations, 3D preview, model export, and the GPU-accelerated heightfield simulation are functional. Tablet and touch shells are first-class. Stable releases publish to <code>/app</code>; the latest main-branch Preview Build publishes to <code>/app-rc</code>. Work is ongoing in these areas:</p>
       <ul class="status-list">
         <li>Waterline finish strategy for steep STL walls</li>
         <li>Additional font support and text workflows</li>
         <li>Deeper DXF coverage</li>
-        <li>Toolpath optimization</li>
+        <li>Continued 3D toolpath linking and waterline refinement improvements</li>
         <li>Richer simulation tooling</li>
         <li>Advanced carving and finishing workflows</li>
       </ul>
