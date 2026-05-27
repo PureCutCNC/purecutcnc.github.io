@@ -5,6 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Downloads — PureCut CNC</title>
   <meta name="description" content="Download the latest PureCut CNC desktop builds for macOS, Windows, and Linux. Stable releases and preview builds in one place." />
+  <link rel="canonical" href="https://purecutcnc.github.io/downloads.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://purecutcnc.github.io/downloads.html" />
+  <meta property="og:title" content="Downloads · PureCut CNC" />
+  <meta property="og:description" content="Download PureCut CNC desktop builds for macOS, Windows, and Linux. Stable releases and preview builds in one place." />
+  <meta property="og:image" content="https://purecutcnc.github.io/images/sketch-full-page.png" />
+  <meta property="og:site_name" content="PureCut CNC" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Downloads · PureCut CNC" />
+  <meta name="twitter:description" content="Download PureCut CNC desktop builds for macOS, Windows, and Linux. Stable releases and preview builds in one place." />
+  <meta name="twitter:image" content="https://purecutcnc.github.io/images/sketch-full-page.png" />
   <link rel="icon" href="favicon.svg" />
   <script data-goatcounter="https://purecutcnc.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
@@ -106,6 +117,16 @@
       overflow: hidden;
       padding: 4.5rem 2rem 3rem;
       border-bottom: 1px solid rgba(36, 48, 65, 0.8);
+      text-align: center;
+    }
+
+    .hero-actions {
+      justify-content: center;
+    }
+
+    .hero-copy {
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .hero-grid {
@@ -572,12 +593,14 @@
   <nav>
     <a href="index.html" class="nav-logo">Pure<span>Cut</span> CNC</a>
     <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
       <li><a href="index.html#features">Features</a></li>
       <li><a href="index.html#workflow">Workflow</a></li>
       <li><a href="index.html#views">Views</a></li>
       <li><a href="downloads.html" aria-current="page">Downloads</a></li>
       <li><a href="quickstart.html">Quick Start</a></li>
       <li><a href="guide/">User Guide</a></li>
+      <li><a href="https://github.com/PureCutCNC/purecutcnc/releases">What's New</a></li>
       <li><a href="https://github.com/PureCutCNC/purecutcnc" class="github-icon">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
         GitHub
@@ -598,7 +621,7 @@
         <a href="https://github.com/PureCutCNC/purecutcnc/releases" class="btn-primary">Open all GitHub releases</a>
         <a href="https://purecutcnc.github.io/app" class="btn-secondary desktop-web-link">Use browser version</a>
         <a href="https://purecutcnc.github.io/app-rc" class="btn-secondary desktop-web-link">Open Preview Build</a>
-        <p class="desktop-web-only-note">The browser app is desktop-only. On phone or tablet, use the desktop downloads above.</p>
+        <p class="desktop-web-only-note">The browser app needs a tablet or desktop. On phones, use the desktop downloads above.</p>
       </div>
     </div>
   </section>
@@ -704,19 +727,40 @@
           <div class="browser-actions">
             <a href="https://purecutcnc.github.io/app" class="btn-primary desktop-web-link">Open stable web app</a>
             <a href="https://purecutcnc.github.io/app-rc" class="btn-secondary desktop-web-link">Open Preview Build</a>
-            <p class="desktop-web-only-note">The browser app is desktop-only. On phone or tablet, use the desktop downloads above.</p>
+            <p class="desktop-web-only-note">The browser app needs a tablet or desktop. On phones, use the desktop downloads above.</p>
           </div>
+        </section>
+
+        <section class="panel note-card">
+          <div class="panel-label">System Requirements</div>
+          <h3>What you need</h3>
+          <ul>
+            <li><strong>Browser app:</strong> a current desktop or tablet browser (Chrome, Edge, Firefox, or Safari) with WebGL2 — the GPU heightfield simulation requires it.</li>
+            <li><strong>Desktop builds:</strong> macOS 11+ (universal), Windows 10/11 (x64), Linux x86_64 with glibc 2.31+ (AppImage or .deb).</li>
+            <li><strong>Project data</strong> stays on your machine. No account, no cloud storage, no upload.</li>
+          </ul>
+        </section>
+
+        <section class="panel note-card">
+          <div class="panel-label">What's New</div>
+          <h3>See the changelog</h3>
+          <p>Every release publishes notes on GitHub — PRs, fixes, and new ops are listed there. The latest stable is v0.0.3; preview builds track the main branch.</p>
+          <ul>
+            <li><a href="https://github.com/PureCutCNC/purecutcnc/releases">All releases &amp; release notes</a></li>
+            <li><a href="https://github.com/PureCutCNC/purecutcnc/blob/main/RELEASE_NOTES.md">RELEASE_NOTES.md</a></li>
+          </ul>
         </section>
       </div>
     </div>
   </main>
 
   <footer>
-    <div>PureCut CNC desktop downloads and release tracks.</div>
+    <div>PureCut CNC desktop downloads · No accounts, no cloud project storage, no IP tracking.</div>
     <div>
       <a href="index.html">Overview</a> ·
       <a href="quickstart.html">Quick Start</a> ·
-      <a href="https://github.com/PureCutCNC/purecutcnc/releases">GitHub Releases</a>
+      <a href="https://github.com/PureCutCNC/purecutcnc/releases">GitHub Releases</a> ·
+      <a href="https://github.com/PureCutCNC/purecutcnc/blob/main/LICENSE">License (Apache 2.0)</a>
     </div>
   </footer>
 
@@ -754,10 +798,13 @@
     }
 
     function renderUnavailable(channel) {
+      const message = channel === 'stable'
+        ? `Latest stable release (<a href="https://github.com/PureCutCNC/purecutcnc/releases/tag/v0.0.3">v0.0.3</a>) shipped without desktop binaries for this platform. Use the <strong>Preview Build</strong> column for the newest installable build, or grab any binary directly from <a href="https://github.com/PureCutCNC/purecutcnc/releases">GitHub releases</a>.`
+        : 'No published build has been recorded for this platform/track yet.'
       return `
         <div class="channel-card">
           <div class="channel-chip ${channel}">${escapeHtml(displayChannel(channel))}</div>
-          <div class="empty-state">No published build has been recorded for this platform/track yet.</div>
+          <div class="empty-state">${message}</div>
         </div>
       `
     }
