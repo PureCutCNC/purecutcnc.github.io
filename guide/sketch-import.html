@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Importing Geometry — PureCut CNC User Guide</title>
-  <meta name="description" content="Importing SVG, DXF, and STL/OBJ geometry and using backdrop images in PureCut CNC." />
+  <meta name="description" content="Importing SVG, DXF, STL/OBJ, and .camj project files plus using backdrop images in PureCut CNC." />
   <link rel="icon" href="./favicon.svg" />
   <link rel="stylesheet" href="./guide.css" />
   <script src="./screenshots-loader.js" defer></script>
@@ -36,7 +36,7 @@
     <div class="page-header-grid"></div>
     <div class="page-label">Sketch</div>
     <h1>Importing <em>Geometry</em></h1>
-    <p>Bringing in SVG, DXF, and STL/OBJ files, and using backdrop images for tracing.</p>
+    <p>Bringing in SVG, DXF, STL/OBJ, and .camj project files, and using backdrop images for tracing.</p>
   </div>
 
   <div class="guide-layout">
@@ -84,11 +84,13 @@
       <section class="guide-section" id="import-overview">
         <h2>Import Overview</h2>
         <p>
-          PureCut CNC can import 2D geometry from SVG and DXF files, and 3D mesh geometry from
-          STL and OBJ files. 2D imports become native sketch features — they can be transformed,
-          assigned operations, and edited like any hand-drawn feature. 3D meshes become
-          <strong>Model</strong> features that drive the 3D Surface rough, finish, and cleanup
-          operations.
+          PureCut CNC can import 2D geometry from SVG and DXF files, 3D mesh geometry from
+          STL and OBJ files, and selected folders from another <code>.camj</code> project file.
+          2D imports become native sketch features — they can be transformed, assigned operations,
+          and edited like any hand-drawn feature. 3D meshes become <strong>Model</strong> features
+          that drive the 3D Surface rough, finish, and cleanup operations. <code>.camj</code> imports
+          bring in folders of features (plus the tools, named dimensions, and operations that
+          reference them) from a saved project.
         </p>
         <p>
           To import, click <span class="ui">Import Geometry</span> in the toolbar (or use the
@@ -179,6 +181,39 @@
           <strong>Tip:</strong> Models exported via <span class="ui">Export Model</span> and
           re-imported round-trip cleanly — positions and per-body grouping are preserved.
           See <a href="view-3d.html#stl-export">Exporting Models</a> in the 3D View guide.
+        </div>
+      </section>
+
+      <section class="guide-section" id="camj-import">
+        <h2>Importing from a .camj Project</h2>
+        <p>
+          You can pull selected folders out of any existing <code>.camj</code> project file into
+          the current one. Pick a <code>.camj</code> in the Import dialog and the layers panel
+          becomes a folder picker — check the folders you want to bring in and click
+          <span class="ui">Import</span>. Everything in those folders is merged into the active
+          project: features, the tools and named dimensions they reference, and any operations
+          whose target lies entirely inside the imported set.
+        </p>
+        <p>
+          IDs are remapped on import so nothing collides with the current project. If a name is
+          already in use (for example, two folders called "Logo"), the new item is added with a
+          numeric suffix. Units are converted automatically — millimetre imports into an inch
+          project, or vice versa, end up at the correct physical size.
+        </p>
+
+        <h3>Importing Stock</h3>
+        <p>
+          When the source project's stock is derived from a feature (rather than a fixed bounding
+          box), an <span class="ui">Also import stock</span> checkbox appears in the dialog.
+          Enabling it replaces the current project's stock with a feature-derived stock built
+          from the source's stock feature, and copies the source's machine origin verbatim. Use
+          this to bring an entire job — material, fixturing reference, and toolpaths — across in
+          one step.
+        </p>
+        <div class="callout">
+          Operations are only imported when <em>all</em> of their target features are part of the
+          selection. An operation that points at features outside the imported folders is skipped
+          so the import never lands a broken reference.
         </div>
       </section>
 
