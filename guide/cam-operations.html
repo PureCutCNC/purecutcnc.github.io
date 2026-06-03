@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Operations — PureCut CNC User Guide</title>
-  <meta name="description" content="CAM operations in PureCut CNC — pocket, edge route, V-carve, surface clean, engrave, drilling, and all operation parameters." />
+  <meta name="description" content="CAM operations in PureCut CNC — pocket, edge route, V-carve, surface clean, 3D surface rough/finish/cleanup, engrave, drilling, and all operation parameters." />
   <link rel="icon" href="./favicon.svg" />
   <link rel="stylesheet" href="./guide.css" />
   <script src="./screenshots-loader.js" defer></script>
@@ -16,12 +16,14 @@
   <nav>
     <a href="../index.html" class="nav-logo">Pure<span>Cut</span> CNC</a>
     <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
       <li><a href="../index.html#features">Features</a></li>
       <li><a href="../index.html#workflow">Workflow</a></li>
       <li><a href="../index.html#views">Views</a></li>
       <li><a href="../downloads.html">Downloads</a></li>
       <li><a href="../quickstart.html">Quick Start</a></li>
       <li><a href="index.html" aria-current="page">User Guide</a></li>
+      <li><a href="https://github.com/PureCutCNC/purecutcnc/releases">What's New</a></li>
       <li><a href="https://github.com/PureCutCNC/purecutcnc" class="github-icon">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
         GitHub
@@ -56,6 +58,7 @@
           <li><a href="sketch-snapping.html">Snapping &amp; Grid</a></li>
           <li><a href="sketch-import.html">Importing Geometry</a></li>
           <li><a href="sketch-text.html">Text Features</a></li>
+          <li><a href="sketch-dimensions.html">Measure &amp; Dimensions</a></li>
         </ul>
       </div>
       <div class="sidebar-section">
@@ -87,7 +90,7 @@
         <ol>
           <li>Select one or more compatible features in the feature tree or on the canvas.</li>
           <li>In the CAM panel, click <span class="ui">Add</span> to open the operation menu.</li>
-          <li>Click the operation type you want. If the selection is compatible, the operation is created immediately.</li>
+          <li>The menu is a vertical list of every operation type. Each row has an info chevron that expands an example card describing the cut. Click the row's add button to create the operation.</li>
           <li>For operations that support rough and finish passes, choose <span class="ui">Rough</span>, <span class="ui">Finish</span>, or <span class="ui">Rough + Finish</span>.</li>
         </ol>
         <p>
@@ -114,7 +117,7 @@
           </div>
           <div class="op-card">
             <h4>Edge Route Outside</h4>
-            <p>Cuts along the outside edge of a closed add feature. Requires add features with closed profiles. Supports rough and finish passes. Used for cutting out parts.</p>
+            <p>Cuts along the outside edge of a closed add feature. Requires add features with closed profiles. Supports rough and finish passes. Used for cutting out parts. Surrounding add features are automatically treated as obstacles at every depth — passes are clipped so the tool never cuts into neighbouring material, while still descending to full depth where the obstacle is shallower than the current pass.</p>
           </div>
           <div class="op-card">
             <h4>Surface Clean</h4>
@@ -130,19 +133,23 @@
           </div>
           <div class="op-card">
             <h4>Engrave (Follow Line)</h4>
-            <p>Follows the path of any feature — open or closed — at a fixed carve depth. Used for engraving, centerline text, and decorative lines.</p>
+            <p>Follows the path of any feature — open or closed — at a fixed carve depth. Used for engraving, centerline text, and decorative lines. Open sketch profiles are tagged as <strong>Line</strong> features and feed straight into this operation; closed features can also be engraved along their boundary.</p>
           </div>
           <div class="op-card">
             <h4>3D Surface Rough</h4>
-            <p>Generates a 3D roughing toolpath from an imported STL model. Uses parallel passes with top-down model-shadow protection, region clipping, surrounding feature avoidance, and parent stock containment. Requires an imported model feature.</p>
+            <p>Top-down roughing of an imported 3D model. Cumulative model-shadow protection, parent-stock containment, region clipping, and pocket-aware split-depth carving leave a stepped semi-finished surface ready for a finish pass. Requires a <strong>Model</strong> feature (imported STL/OBJ).</p>
           </div>
           <div class="op-card">
             <h4>3D Surface Finish</h4>
-            <p>Generates a 3D finishing toolpath from an imported STL model. Uses a parallel top-surface strategy with protected coverage holes, local split-depth floor clamping, and gouge avoidance at floor transitions. Requires an imported model feature.</p>
+            <p>Finishing pass over the top surface of an imported 3D model. Choose <strong>Parallel</strong> for raster scanlines at a fixed angle, or <strong>Waterline</strong> for constant-Z contour rings (ideal for steep walls). Both strategies respect tabs, clamps, subtract pockets, and surrounding add features.</p>
+          </div>
+          <div class="op-card">
+            <h4>3D Surface Cleanup</h4>
+            <p>Targeted cleanup pass that removes only the material left behind by a prior rough + finish combination — typically the stepped scallops in steep regions. Skips areas the finish already reached, so it runs much faster than re-running a full finish. Requires a model feature.</p>
           </div>
           <div class="op-card">
             <h4>Drill</h4>
-            <p>Drills holes at the center of circle features. Requires circle features. Supports simple, peck, dwell, and chip-breaking drill cycles.</p>
+            <p>Drills holes at the center of circle features. Requires circle features. Supports simple, peck, dwell, and chip-breaking drill cycles. Holes are automatically ordered by nearest-neighbor travel, shortening rapid moves between holes.</p>
           </div>
         </div>
       </section>
@@ -158,10 +165,11 @@
             <tr><td>Surface Clean</td><td>Add</td><td>Closed</td></tr>
             <tr><td>V-Carve Offset</td><td>Subtract</td><td>Closed</td></tr>
             <tr><td>V-Carve Skeleton <span style="font-size:0.75rem;color:var(--yellow);">Experimental</span></td><td>Subtract</td><td>Closed</td></tr>
-            <tr><td>Engrave</td><td>Any</td><td>Open or Closed</td></tr>
+            <tr><td>Engrave</td><td>Any (Line, Add, Subtract, Region)</td><td>Open or Closed</td></tr>
+            <tr><td>3D Surface Rough</td><td>Model (imported STL/OBJ)</td><td>—</td></tr>
+            <tr><td>3D Surface Finish</td><td>Model (imported STL/OBJ)</td><td>—</td></tr>
+            <tr><td>3D Surface Cleanup</td><td>Model (imported STL/OBJ)</td><td>—</td></tr>
             <tr><td>Drill</td><td>Circle (any operation)</td><td>Circle only</td></tr>
-            <tr><td>3D Surface Rough</td><td>Imported Model</td><td>—</td></tr>
-            <tr><td>3D Surface Finish</td><td>Imported Model</td><td>—</td></tr>
           </tbody>
         </table>
       </section>
@@ -211,6 +219,64 @@
             <tr><td>Finish Floor</td><td>(Finish pass only) Whether to machine the floor to final dimension.</td></tr>
           </tbody>
         </table>
+        <p>
+          Offset-pattern passes simplify their internal polylines back into arcs and full circles
+          where the geometry allows, with redundant points cleaned up via RDP simplification. The
+          result is shorter, smoother G-code with fewer line segments — especially on circular
+          and rounded-corner pockets.
+        </p>
+
+        <h3>3D Surface Parameters</h3>
+        <p>
+          3D Surface Rough, Finish, and Cleanup all target an imported model feature.
+          Surrounding add features, subtract pockets, tabs, and clamps are protected automatically.
+          Linking moves between cuts are optimized to reduce rapid travel, and Cut Direction is
+          applied per-side so mixed outer / hole contours all cut in the requested direction.
+        </p>
+        <div class="screenshot-placeholder" data-img="cam-3d-surface-toolpath.png">
+          <div class="ph-label">screenshots/cam-3d-surface-toolpath.png</div>
+          <div class="ph-desc">3D view of an imported model with a 3D Surface Rough toolpath visible — stepped passes, region-clipped, with surrounding add features and subtract pockets respected</div>
+        </div>
+        <div class="screenshot-placeholder" data-img="cam-3d-surface-waterline.png">
+          <div class="ph-label">screenshots/cam-3d-surface-waterline.png</div>
+          <div class="ph-desc">3D view of a 3D Surface Finish using the Waterline pattern over a sloped model — concentric Z-rings hugging steep walls</div>
+        </div>
+        <table class="prop-table">
+          <thead><tr><th>Parameter</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td>Pattern</td><td>
+              <strong>Finish only.</strong>
+              <ul>
+                <li><strong>Parallel:</strong> raster scanlines across the top surface at a fixed angle. Best for shallow surfaces and bulk finishing.</li>
+                <li><strong>Waterline:</strong> constant-Z contour rings stepping down the model. Best for steep walls and vertical features.</li>
+              </ul>
+            </td></tr>
+            <tr><td>Angle</td><td>Angle of parallel scanlines in degrees (Parallel pattern only).</td></tr>
+            <tr><td>Stepdown</td><td>Vertical step between passes (Rough and Waterline Finish). Cleanup uses its own scallop-driven spacing and does not expose Stepdown.</td></tr>
+            <tr><td>Stepover Ratio</td><td>Lateral spacing between scanlines as a fraction of tool diameter (Parallel Finish, Rough).</td></tr>
+            <tr><td>Cut Direction</td><td>Conventional or Climb. Applied per-ring with tool-side topology awareness so mixed outer/hole contours all cut in the requested direction.</td></tr>
+            <tr><td>Stock To Leave Radial</td><td>Material left on the model surface for a subsequent finish or cleanup pass (Rough only).</td></tr>
+            <tr><td>Stock To Leave Axial</td><td>Vertical offset left above the model surface (Rough only).</td></tr>
+          </tbody>
+        </table>
+
+        <h4>Waterline Quality Controls</h4>
+        <p>
+          When 3D Surface Finish uses the <strong>Waterline</strong> pattern, an extra group of
+          quality controls becomes available. These trade extra computation for cleaner steep-wall
+          finishes. The planner now snaps each ring's entry to the matching point on the ring above
+          and below — successive levels enter the cut at the same XY location, eliminating spiral
+          seams down steep walls — and tip-cap paths over rounded apex regions are smoother.
+        </p>
+        <table class="prop-table">
+          <thead><tr><th>Parameter</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td>Adaptive Refinement</td><td>When enabled, the planner inserts additional waterline rings in regions where the surface drops faster than the configured threshold between consecutive Z levels. Smooths steep transitions without forcing a finer stepdown across the whole part.</td></tr>
+            <tr><td>Micro Stepover</td><td>Vertical spacing used for the inserted refinement rings. Defaults to a tool-aware value; lower values produce a finer finish at the cost of cut time.</td></tr>
+            <tr><td>Refinement Threshold</td><td>Surface-drop threshold (between adjacent base rings) that triggers refinement. Larger values refine only the steepest regions; smaller values refine more aggressively.</td></tr>
+            <tr><td>Max Rings Per Band</td><td>Upper bound on the number of inserted refinement rings between two base rings. Caps the worst-case path length when adaptive refinement encounters a near-vertical drop.</td></tr>
+          </tbody>
+        </table>
 
         <h3>Edge Route Parameters</h3>
         <table class="prop-table">
@@ -254,18 +320,6 @@
         </table>
       </section>
 
-        <h3>3D Surface Parameters</h3>
-        <table class="prop-table">
-          <thead><tr><th>Parameter</th><th>Description</th></tr></thead>
-          <tbody>
-            <tr><td>Stepdown</td><td>Depth per roughing pass (Rough only).</td></tr>
-            <tr><td>Stepover Ratio</td><td>Lateral step between passes as a fraction of tool diameter.</td></tr>
-            <tr><td>Angle</td><td>Angle of parallel passes in degrees.</td></tr>
-            <tr><td>Stock To Leave</td><td>Material left on the model surface for a subsequent finish pass (Rough only).</td></tr>
-          </tbody>
-        </table>
-
-      </section>
 
       <section class="guide-section" id="rest-machining">
         <h2>Rest Machining</h2>
@@ -293,6 +347,13 @@
           To change which features an operation applies to, select the new features in the feature
           tree or on the canvas, then click <span class="ui">Use current selection</span> in the
           operation's properties panel. If the selection is not compatible, a message explains why.
+        </p>
+        <p>
+          You can include one or more <a href="concepts.html#regions"><strong>Region</strong></a>
+          features in any operation's target list to restrict where it cuts. Regions don't replace
+          the machining target — they filter the generated toolpath to the union of the selected
+          region profiles. With no regions selected, the operation cuts the full extent of its
+          machining target.
         </p>
       </section>
 

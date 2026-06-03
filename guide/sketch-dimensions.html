@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Measure &amp; Dimensions — PureCut CNC User Guide</title>
+  <meta name="description" content="Measure and dimension sketches in PureCut CNC — tape measure, aligned/horizontal/vertical/radius/diameter/angle dimensions, anchor-based auto-update, and the global show/hide toggle." />
+  <link rel="icon" href="./favicon.svg" />
+  <link rel="stylesheet" href="./guide.css" />
+  <script src="./screenshots-loader.js" defer></script>
+  <script data-goatcounter="https://purecutcnc.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+
+  <nav>
+    <a href="../index.html" class="nav-logo">Pure<span>Cut</span> CNC</a>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../index.html#features">Features</a></li>
+      <li><a href="../index.html#workflow">Workflow</a></li>
+      <li><a href="../index.html#views">Views</a></li>
+      <li><a href="../downloads.html">Downloads</a></li>
+      <li><a href="../quickstart.html">Quick Start</a></li>
+      <li><a href="index.html" aria-current="page">User Guide</a></li>
+      <li><a href="https://github.com/PureCutCNC/purecutcnc/releases">What's New</a></li>
+      <li><a href="https://github.com/PureCutCNC/purecutcnc" class="github-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a></li>
+    </ul>
+    <a href="https://purecutcnc.github.io/app" class="nav-cta desktop-web-link">Launch App →</a>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-header-grid"></div>
+    <div class="page-label">Sketch</div>
+    <h1>Measure &amp; <em>Dimensions</em></h1>
+    <p>Measure distances on the fly and add live, anchored dimensions that follow your geometry.</p>
+  </div>
+
+  <div class="guide-layout">
+
+    <aside class="guide-sidebar" aria-label="Guide navigation">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Overview</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html">Introduction</a></li>
+          <li><a href="interface.html">Interface Overview</a></li>
+          <li><a href="concepts.html">Core Concepts</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Sketch</div>
+        <ul class="sidebar-nav">
+          <li><a href="sketch-tools.html">Drawing Tools</a></li>
+          <li><a href="sketch-edit.html">Editing Features</a></li>
+          <li><a href="sketch-snapping.html">Snapping &amp; Grid</a></li>
+          <li><a href="sketch-import.html">Importing Geometry</a></li>
+          <li><a href="sketch-text.html">Text Features</a></li>
+          <li><a href="sketch-dimensions.html" class="active">Measure &amp; Dimensions</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">CAM</div>
+        <ul class="sidebar-nav">
+          <li><a href="cam-tools.html">Tool Library</a></li>
+          <li><a href="cam-operations.html">Operations</a></li>
+          <li><a href="cam-tabs-clamps.html">Tabs &amp; Clamps</a></li>
+          <li><a href="cam-export.html">G-code Export</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Views</div>
+        <ul class="sidebar-nav">
+          <li><a href="view-sketch.html">Sketch View</a></li>
+          <li><a href="view-3d.html">3D View</a></li>
+          <li><a href="view-simulation.html">Simulation</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="guide-content">
+
+      <section class="guide-section" id="overview">
+        <h2>Overview</h2>
+        <p>
+          PureCut CNC ships two measurement tools that share the same toolbar group:
+        </p>
+        <ul>
+          <li><strong>Tape Measure</strong> — a transient ruler you click between two points to read distance, Δx, Δy, and angle. It is not saved with the project.</li>
+          <li><strong>Dimensions</strong> — permanent annotations placed on the canvas. They store
+            <em>anchors</em> (references to a feature vertex, midpoint, center, the stock, or the origin) instead of frozen numbers,
+            so values and graphics recompute live as the underlying geometry moves or edits.</li>
+        </ul>
+        <p>
+          Dimensions live alongside your sketch but never affect machining — they are inert in the
+          3D view, simulation, and G-code export. They are saved with the project in the
+          <code>.camj</code> file.
+        </p>
+
+        <div class="screenshot-placeholder" data-img="sketch-dimensions-overview.png">
+          <div class="ph-label">screenshots/sketch-dimensions-overview.png</div>
+          <div class="ph-desc">Sketch view with a mix of horizontal, vertical, radius, and angle dimensions placed on a part</div>
+        </div>
+      </section>
+
+      <section class="guide-section" id="toolbar">
+        <h2>Toolbar Group</h2>
+        <p>
+          The Measure &amp; Dimensions group sits in the main toolbar (desktop) and as a popover next
+          to the Snap popover (tablet).
+        </p>
+        <div class="toolbar-ref">
+          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#tape-measure"/></svg></span> Tape Measure</span><span class="tr-desc">Arms the transient tape-measure tool. Click point A, then move the cursor for a live readout, click point B to freeze the measurement. The next click starts a new measurement. Press <kbd>Esc</kbd> or <span class="ui">Done</span> in the workflow panel to exit. Tape measurements are never saved.</span></div>
+          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#dim-aligned"/></svg></span> Aligned</span><span class="tr-desc">Dimension between two points along the line connecting them (the natural distance).</span></div>
+          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#dim-horizontal"/></svg></span> Horizontal</span><span class="tr-desc">X-axis distance between two points. Useful for capturing widths regardless of the points' Y values.</span></div>
+          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#dim-vertical"/></svg></span> Vertical</span><span class="tr-desc">Y-axis distance between two points.</span></div>
+          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#dim-radius"/></svg></span> Radius</span><span class="tr-desc">Radius dimension on a circle, ellipse, or arc segment. Pick the curve to dimension; the value updates if the curve is resized.</span></div>
+          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#dim-diameter"/></svg></span> Diameter</span><span class="tr-desc">Diameter dimension on a circle, ellipse, or arc segment.</span></div>
+          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#dim-angle"/></svg></span> Angle</span><span class="tr-desc">Angle between two segments or between three points. The arc, leader line, and label update if either side moves.</span></div>
+          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#trash"/></svg></span> Delete Dimension</span><span class="tr-desc">Arms a delete-on-click mode. Hover highlights the target in red; click to remove. The tool stays armed for multiple deletions until you press <kbd>Esc</kbd> or <span class="ui">Done</span>.</span></div>
+          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#dim-visibility"/></svg></span> Show / Hide Dimensions</span><span class="tr-desc">Global toggle that hides every dimension on the canvas at once. The setting is saved with the project.</span></div>
+        </div>
+        <div class="screenshot-placeholder" data-img="sketch-dimensions-toolbar.png">
+          <div class="ph-label">screenshots/sketch-dimensions-toolbar.png</div>
+          <div class="ph-desc">Toolbar Measure &amp; Dimensions group expanded — tape, six dimension types, delete, and visibility toggle</div>
+        </div>
+      </section>
+
+      <section class="guide-section" id="tape-measure">
+        <h2>Tape Measure</h2>
+        <p>
+          The tape measure is the fastest way to read a distance without leaving any annotation
+          behind. Pick the tool, click two points (snapping behaves exactly as in the drawing tools),
+          and the workflow panel shows:
+        </p>
+        <ul>
+          <li><strong>Distance</strong> — true point-to-point distance</li>
+          <li><strong>Δx, Δy</strong> — axis-aligned components</li>
+          <li><strong>Angle</strong> — angle of the segment from A to B</li>
+        </ul>
+        <p>
+          The readout updates live while you move the cursor between clicks. After the second click,
+          the measurement freezes until you start a new one. Tape measurements never enter the undo
+          history and never get saved.
+        </p>
+        <div class="callout--tip callout">
+          <strong>Tip:</strong> Snap to feature vertices, midpoints, or centers to get exact
+          dimensions even on imported geometry. The snap indicator shows what you're snapped to.
+        </div>
+      </section>
+
+      <section class="guide-section" id="placing-dimensions">
+        <h2>Placing Dimensions</h2>
+        <p>
+          The placement flow is the same for every dimension type:
+        </p>
+        <ol>
+          <li>Click the dimension's toolbar icon. The workflow panel guides you through the picks.</li>
+          <li><strong>Pick the references</strong> — two points (linear), one curve (radius / diameter), or two segments / three points (angle). Each pick snaps to the same anchor targets as the drawing tools: feature vertices and midpoints, circle and arc centers, stock corners, and the origin.</li>
+          <li><strong>Place the label</strong> — move the cursor to set how far the dimension line sits from the picks, then click to commit. For radius and diameter the label sits at the midpoint and the position is fixed.</li>
+        </ol>
+        <p>
+          Press <kbd>Esc</kbd> at any time to cancel. Confirmed dimensions appear on the canvas and
+          are saved with the project.
+        </p>
+
+        <h3>Anchors, Not Frozen Numbers</h3>
+        <p>
+          A dimension stores anchors that reference parts of features (or the stock / origin) — not
+          the coordinates at the time you placed it. When the underlying geometry changes — you drag
+          a vertex, resize a feature, edit a node — the value, leader lines, and label all
+          recompute. Move the corner of a rectangle and the dimension on its width updates with it.
+        </p>
+        <p>
+          If the feature an anchor points to is deleted, the dimension becomes <strong>dangling</strong>:
+          it stays on the canvas drawn muted with a <strong>⚠</strong> marker so you can decide whether
+          to fix or remove it.
+        </p>
+      </section>
+
+      <section class="guide-section" id="editing-dimensions">
+        <h2>Editing &amp; Repositioning</h2>
+        <ul>
+          <li><strong>Select</strong> — click the dimension line or label. The selection draws in blue.</li>
+          <li><strong>Reposition</strong> — drag the dimension line to change the offset from the picks. Aligned, horizontal, vertical, and angle dimensions all support drag-to-reposition. (Radius and diameter labels sit at the midpoint and are not repositionable.)</li>
+          <li><strong>Delete</strong> — select and press <kbd>Delete</kbd>, or use the delete-on-click toolbar mode for clearing many dimensions in a row.</li>
+        </ul>
+      </section>
+
+      <section class="guide-section" id="visibility">
+        <h2>Visibility</h2>
+        <p>
+          The eye-shaped <strong>Show / Hide Dimensions</strong> toolbar button toggles every
+          dimension on the canvas at once. When dimensions are hidden, they are also excluded from
+          hit testing — clicks pass through to whatever is underneath. The toggle state is saved
+          with the project so a colleague opening your file sees the same view.
+        </p>
+        <p>
+          Tape measurements (the transient ruler) are unaffected by this toggle — they are tool
+          state, not annotations.
+        </p>
+      </section>
+
+      <section class="guide-section" id="limits">
+        <h2>What Dimensions Don't Do</h2>
+        <ul>
+          <li>Dimensions are <strong>annotations</strong>, not constraints. Changing a dimension's value does not move the geometry. To set an exact size, edit the feature's properties or use the Constraint tool.</li>
+          <li>Dimensions do not appear in the 3D view, the simulation, or the exported G-code.</li>
+          <li>Tabs and clamps are not yet valid anchor targets — anchor to features, stock corners, or the origin.</li>
+        </ul>
+      </section>
+
+    </main>
+  </div>
+
+  <footer>
+    <span>© 2026 PureCut CNC</span>
+    <span><a href="sketch-text.html">← Text Features</a> · <a href="cam-tools.html">Next: Tool Library →</a></span>
+  </footer>
+
+</body>
+</html>

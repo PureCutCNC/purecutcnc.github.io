@@ -5,6 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PureCut CNC — Browser-Based CAD/CAM</title>
   <meta name="description" content="PureCut CNC is a browser-based 2.5D CAD/CAM workspace. Design parts, define machining operations, simulate toolpaths, and export G-code — all in one place." />
+  <link rel="canonical" href="https://purecutcnc.github.io/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://purecutcnc.github.io/" />
+  <meta property="og:title" content="PureCut CNC — Browser-Based 2.5D + 3D CAD/CAM" />
+  <meta property="og:description" content="Browser-based 2.5D + 3D CAD/CAM workspace. Design parts, define machining operations, simulate toolpaths, and export G-code — all in one place. Runs on desktop and tablet." />
+  <meta property="og:image" content="https://purecutcnc.github.io/images/sketch-full-page.png" />
+  <meta property="og:site_name" content="PureCut CNC" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="PureCut CNC — Browser-Based 2.5D + 3D CAD/CAM" />
+  <meta name="twitter:description" content="Browser-based 2.5D + 3D CAD/CAM workspace. Design parts, define machining operations, simulate toolpaths, and export G-code — all in one place. Runs on desktop and tablet." />
+  <meta name="twitter:image" content="https://purecutcnc.github.io/images/sketch-full-page.png" />
   <link rel="icon" href="favicon.svg" />
   <script data-goatcounter="https://purecutcnc.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
@@ -664,12 +675,14 @@
   <nav>
     <a href="index.html" class="nav-logo">Pure<span>Cut</span> CNC</a>
     <ul class="nav-links">
+      <li><a href="#top">Home</a></li>
       <li><a href="#features">Features</a></li>
       <li><a href="#workflow">Workflow</a></li>
       <li><a href="#views">Views</a></li>
       <li><a href="downloads.html">Downloads</a></li>
       <li><a href="quickstart.html">Quick Start</a></li>
       <li><a href="guide/">User Guide</a></li>
+      <li><a href="https://github.com/PureCutCNC/purecutcnc/releases">What's New</a></li>
       <li><a href="https://github.com/PureCutCNC/purecutcnc" class="github-icon">
         <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
         GitHub
@@ -681,10 +694,10 @@
   <!-- HERO -->
   <div class="hero">
     <div class="hero-grid"></div>
-    <div class="hero-badge"><span class="dot"></span> Active Development</div>
+    <div class="hero-badge"><span class="dot"></span> v0.0.3 · 3D ops · Tablet · GPU sim</div>
     <h1>2.5D CAD/CAM for<br/><em>real-world CNC work.</em></h1>
     <p class="hero-sub">
-      PureCut CNC is a browser-based 2.5D workspace for designing parts,
+      PureCut CNC is a browser-based 2.5D + 3D CAD/CAM workspace for designing parts,
       defining machining operations, and verifying toolpaths — before you
       cut a single chip. No registration is required, and the app does not
       store your projects remotely. New here? Follow the <a href="quickstart.html">Quick Start guide</a> to go from a blank project to exported G-code in minutes.
@@ -705,7 +718,7 @@
         <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
         View on GitHub
       </a>
-      <p class="desktop-web-only-note">The browser app is desktop-only. Use Desktop Downloads on phone or tablet.</p>
+      <p class="desktop-web-only-note">The browser app needs a tablet or desktop. On phones, use Desktop Downloads above.</p>
     </div>
   </div>
 
@@ -751,27 +764,27 @@
       <div class="feature-card">
         <span class="feature-icon">✏️</span>
         <h3>Sketch Geometry</h3>
-        <p>Rectangles, circles, polygons, splines, composite profiles, and text features — all editable directly on the canvas with snapping, measurements, and direct node editing.</p>
+        <p>Rectangles, circles, ellipses, polygons, splines, composite profiles, and text features — all editable directly on the canvas with snapping, measurements, and direct node editing.</p>
       </div>
       <div class="feature-card">
         <span class="feature-icon">📥</span>
-        <h3>SVG &amp; DXF Import</h3>
-        <p>Import source geometry and continue working with it as native sketch features. Imported profiles can be transformed, assigned operations, and machined like hand-drawn geometry.</p>
+        <h3>SVG, DXF &amp; 3D Import</h3>
+        <p>Import 2D source geometry from SVG or DXF, or bring in 3D models from STL and OBJ files. Multi-body meshes split into one feature per body automatically. Imported geometry can be transformed and machined like hand-drawn features.</p>
       </div>
       <div class="feature-card">
         <span class="feature-icon">⚙️</span>
-        <h3>CAM Operations</h3>
-        <p>Pocket, edge route inside/outside, 3D surface rough/finish, drill, V-Carve offset, V-Carve skeleton, surface clean, and engrave operations. Rough and finish passes, rest machining, multiple operation targets, tabs, clamps, and per-tool feeds and speeds.</p>
+        <h3>2.5D + 3D CAM</h3>
+        <p>Pocket, edge route inside/outside, drill, V-Carve offset, V-Carve skeleton, surface clean, and engrave for 2.5D parts — plus 3D Surface rough, finish (parallel or waterline), and cleanup for imported models. Rough and finish passes, rest machining, region masks to limit where any operation cuts, tabs, clamps, and per-tool feeds and speeds throughout.</p>
       </div>
       <div class="feature-card">
         <span class="feature-icon">🧊</span>
-        <h3>3D Preview</h3>
-        <p>Live CSG evaluation builds a 3D solid from your feature tree. Inspect entry/exit points and toolpath direction before any cutting begins.</p>
+        <h3>3D Preview &amp; Export</h3>
+        <p>Live CSG evaluation builds a 3D solid from your feature tree. Inspect entry/exit points and toolpath direction before cutting, then export the assembled model as STL (binary or ASCII) with selectable curve quality.</p>
       </div>
       <div class="feature-card">
         <span class="feature-icon">▶️</span>
-        <h3>Simulation</h3>
-        <p>Replay toolpaths against stock in a voxel-based material removal simulation. Verify pockets, tabs, islands, and carving behavior with full playback controls.</p>
+        <h3>GPU Simulation</h3>
+        <p>Replay toolpaths against stock in a fully GPU-rendered heightfield simulation. The cut state lives in a texture and is displaced in a vertex shader, with incremental per-frame updates — high-density grids (up to 1500 cells) stay interactive while you scrub, with a live XYZ readout in the playback bar.</p>
       </div>
       <div class="feature-card">
         <span class="feature-icon">💾</span>
@@ -786,7 +799,7 @@
       <div class="feature-card">
         <span class="feature-icon">🗿</span>
         <h3>3D Surface Operations</h3>
-        <p>Import an STL model and generate 3D surface rough and finish toolpaths directly from it. Overhang protection, region clipping, surrounding feature avoidance, and gouge protection included.</p>
+        <p>Import an STL or OBJ model and generate 3D rough, finish (parallel or waterline), and targeted cleanup toolpaths directly from it. Overhang protection, region clipping, surrounding-feature avoidance, gouge protection, and adaptive waterline refinement for steep walls all included.</p>
       </div>
       <div class="feature-card">
         <span class="feature-icon">🔁</span>
@@ -802,6 +815,11 @@
         <span class="feature-icon">🌐</span>
         <h3>Runs in the Browser</h3>
         <p>No installation, no registration, and no cloud-stored project data. Open the app in a modern desktop browser and work locally. Desktop versions are in progress.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">📱</span>
+        <h3>Tablet &amp; Touch</h3>
+        <p>Tablet shell layout activates automatically on touch devices with a vertical tool rail, drawer-based panels, snap popover, and pinch / two-finger pan / long-press gestures. Constraint creation, dimension entry, and feature placement all run from canvas workflow panels designed for touch.</p>
       </div>
     </div>
   </section>
@@ -831,6 +849,10 @@
       <span class="op-tag">Engrave</span>
       <span class="op-tag">V-Carve Offset</span>
       <span class="op-tag">V-Carve Skeleton</span>
+      <span class="op-tag">3D Surface Rough</span>
+      <span class="op-tag">3D Surface Finish — Parallel</span>
+      <span class="op-tag">3D Surface Finish — Waterline</span>
+      <span class="op-tag">3D Surface Cleanup</span>
     </div>
   </section>
 
@@ -851,7 +873,7 @@
       </div>
       <div class="workflow-step">
         <h3>Draw or Import</h3>
-        <p>Draw geometry directly on canvas, import SVG or DXF, or trace from a backdrop image. All geometry becomes editable sketch features.</p>
+        <p>Draw geometry directly on canvas, import SVG, DXF, STL or OBJ, pull in folders from another .camj project, or trace from a backdrop image. 2D imports become editable sketch features; 3D meshes become Model features for 3D operations.</p>
       </div>
       <div class="workflow-step">
         <h3>Organize Features</h3>
@@ -903,7 +925,7 @@
         <div style="padding: 1.6rem;">
           <div class="view-name">Simulation</div>
           <h3>Verify Before Cutting</h3>
-          <p>Voxel-based material removal replay. Scrub through the toolpath sequence to catch problems before they hit the spoilboard.</p>
+          <p>GPU-rendered heightfield replay. Scrub through the toolpath sequence — with a live XYZ readout — to catch problems before they hit the spoilboard.</p>
         </div>
       </div>
     </div>
@@ -927,14 +949,13 @@
     <h2>In active development.</h2>
     <div class="status-banner">
       <h3>Core workflow is usable today.</h3>
-      <p>The sketch engine, CAM operations, 3D preview, and simulation pipeline are functional. Stable releases publish to <code>/app</code>; the latest main-branch Preview Build publishes to <code>/app-rc</code>. Work is ongoing in these areas:</p>
+      <p>The sketch engine, 2.5D and 3D CAM operations, 3D preview, model export, and the GPU-accelerated heightfield simulation are functional. Tablet and touch shells are first-class. Stable releases publish to <code>/app</code>; the latest main-branch Preview Build publishes to <code>/app-rc</code>. Work is ongoing in these areas:</p>
       <ul class="status-list">
-        <li>Waterline finish strategy for steep STL walls</li>
+        <li>3D toolpath linking and adaptive waterline refinement</li>
+        <li>Expanded post-processor coverage</li>
+        <li>Deeper DXF entity coverage</li>
         <li>Additional font support and text workflows</li>
-        <li>Deeper DXF coverage</li>
-        <li>Toolpath optimization</li>
-        <li>Richer simulation tooling</li>
-        <li>Advanced carving and finishing workflows</li>
+        <li>Stable desktop binaries published per release</li>
       </ul>
     </div>
   </section>
@@ -956,7 +977,7 @@
         <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
         GitHub
       </a>
-      <p class="desktop-web-only-note">The browser app is desktop-only. Use Desktop Downloads on phone or tablet.</p>
+      <p class="desktop-web-only-note">The browser app needs a tablet or desktop. On phones, use Desktop Downloads above.</p>
     </div>
   </div>
 
@@ -975,11 +996,13 @@
 
   <!-- FOOTER -->
   <footer>
-    <span>© 2026 PureCut CNC</span>
+    <span>© 2026 PureCut CNC · No accounts. No cloud project storage. Page analytics via <a href="https://www.goatcounter.com" rel="noopener">GoatCounter</a> (no cookies, no IP retention).</span>
     <span>
+      <a href="https://github.com/PureCutCNC/purecutcnc/releases">What's New</a> ·
+      <a href="https://github.com/PureCutCNC/purecutcnc/blob/main/LICENSE">License (Apache 2.0)</a> ·
       <a href="https://github.com/PureCutCNC/purecutcnc" class="github-icon">
         <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
-        PureCutCNC on GitHub
+        GitHub
       </a>
     </span>
   </footer>

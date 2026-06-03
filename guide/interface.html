@@ -16,12 +16,14 @@
   <nav>
     <a href="../index.html" class="nav-logo">Pure<span>Cut</span> CNC</a>
     <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
       <li><a href="../index.html#features">Features</a></li>
       <li><a href="../index.html#workflow">Workflow</a></li>
       <li><a href="../index.html#views">Views</a></li>
       <li><a href="../downloads.html">Downloads</a></li>
       <li><a href="../quickstart.html">Quick Start</a></li>
       <li><a href="index.html" aria-current="page">User Guide</a></li>
+      <li><a href="https://github.com/PureCutCNC/purecutcnc/releases">What's New</a></li>
       <li><a href="https://github.com/PureCutCNC/purecutcnc" class="github-icon">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
         GitHub
@@ -56,6 +58,7 @@
           <li><a href="sketch-snapping.html">Snapping &amp; Grid</a></li>
           <li><a href="sketch-import.html">Importing Geometry</a></li>
           <li><a href="sketch-text.html">Text Features</a></li>
+          <li><a href="sketch-dimensions.html">Measure &amp; Dimensions</a></li>
         </ul>
       </div>
       <div class="sidebar-section">
@@ -126,7 +129,8 @@
         <div class="toolbar-ref">
           <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#new"/></svg></span> New Project</span><span class="tr-desc">Opens the New Project dialog. If there are unsaved changes, you will be asked to confirm before proceeding.</span></div>
           <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#open"/></svg></span> Open Project</span><span class="tr-desc">Opens a <code>.camj</code> file from disk.</span></div>
-          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#import"/></svg></span> Import Geometry</span><span class="tr-desc">Opens the Import dialog for SVG and DXF files.</span></div>
+          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#import"/></svg></span> Import Geometry</span><span class="tr-desc">Opens the Import dialog for SVG, DXF, STL, OBJ, and .camj project files.</span></div>
+          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#export"/></svg></span> Export Model</span><span class="tr-desc">Exports the assembled 3D model as STL (binary or ASCII). Offers curve-quality presets and per-format options. See <a href="view-3d.html#stl-export">Exporting Models</a>.</span></div>
           <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#save"/></svg></span> Save Project</span><span class="tr-desc">Saves the current project to disk. On first save, you will be prompted for a file location.</span></div>
         </div>
 
@@ -154,9 +158,20 @@
         </div>
 
         <h3>Drawing Tools</h3>
+        <p>
+          Before drawing, choose the <strong>creation target</strong> with the two toggle buttons
+          immediately to the left of the shape tools — <span class="ui">Create features</span> (plus
+          icon) or <span class="ui">Create regions</span> (pocket icon). The next shape you draw
+          becomes the chosen feature kind:
+          a normal Add/Subtract feature, or a <a href="concepts.html#regions">Region</a> (a
+          machining-area filter — see <a href="concepts.html#regions">Core Concepts</a>).
+        </p>
         <div class="toolbar-ref">
+          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#plus"/></svg></span> Create features</span><span class="tr-desc">Subsequent shapes are placed as normal sketch features. Their Add/Subtract operation can be changed in the properties panel.</span></div>
+          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#pocket"/></svg></span> Create regions</span><span class="tr-desc">Subsequent shapes are placed as Region features — area filters for CAM operations rather than material.</span></div>
           <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#rect"/></svg></span> Rectangle</span><span class="tr-desc">Draw an axis-aligned rectangle.</span></div>
           <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#circle"/></svg></span> Circle</span><span class="tr-desc">Draw a circle by center and radius.</span></div>
+          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#ellipse"/></svg></span> Ellipse</span><span class="tr-desc">Draw an ellipse by anchor and opposite corner. Width and height are independent.</span></div>
           <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#polygon"/></svg></span> Polygon</span><span class="tr-desc">Draw a polygon by placing vertices.</span></div>
           <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#spline"/></svg></span> Spline</span><span class="tr-desc">Draw a smooth spline curve.</span></div>
           <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#composite"/></svg></span> Composite</span><span class="tr-desc">Draw a path with mixed line, arc, and spline segments.</span></div>
@@ -177,6 +192,24 @@
           <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#constraint"/></svg></span> Constraint</span><span class="tr-desc">Add a fixed-distance constraint between a feature and a reference point or feature.</span></div>
         </div>
         <p>See <a href="sketch-edit.html">Editing Features</a> for details on each edit tool.</p>
+
+        <h3>Measure &amp; Dimensions</h3>
+        <p>
+          A transient tape measure plus six permanent dimension types. Dimensions store
+          <em>anchors</em> rather than frozen numbers, so they follow geometry through edits.
+        </p>
+        <div class="toolbar-ref">
+          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#tape-measure"/></svg></span> Tape Measure</span><span class="tr-desc">Click two points for a live distance / Δx / Δy / angle readout. Not saved with the project.</span></div>
+          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#dim-aligned"/></svg></span> Aligned</span><span class="tr-desc">Distance between two points along the line connecting them.</span></div>
+          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#dim-horizontal"/></svg></span> Horizontal</span><span class="tr-desc">X-axis distance between two points.</span></div>
+          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#dim-vertical"/></svg></span> Vertical</span><span class="tr-desc">Y-axis distance between two points.</span></div>
+          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#dim-radius"/></svg></span> Radius</span><span class="tr-desc">Radius of a circle, ellipse, or arc segment.</span></div>
+          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#dim-diameter"/></svg></span> Diameter</span><span class="tr-desc">Diameter of a circle, ellipse, or arc segment.</span></div>
+          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#dim-angle"/></svg></span> Angle</span><span class="tr-desc">Angle between two segments or three points.</span></div>
+          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#trash"/></svg></span> Delete Dimension</span><span class="tr-desc">Click-to-delete mode for clearing dimensions; stays armed until <kbd>Esc</kbd>.</span></div>
+          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#dim-visibility"/></svg></span> Show / Hide Dimensions</span><span class="tr-desc">Global toggle; saved with the project.</span></div>
+        </div>
+        <p>See <a href="sketch-dimensions.html">Measure &amp; Dimensions</a> for the full workflow.</p>
       </section>
 
       <section class="guide-section" id="feature-tree">
@@ -249,6 +282,67 @@
           tool library.
         </p>
         <p>See <a href="cam-operations.html">Operations</a> and <a href="cam-tools.html">Tool Library</a> for full details.</p>
+      </section>
+
+      <section class="guide-section" id="canvas-workflow-panels">
+        <h2>Canvas Workflow Panels</h2>
+        <p>
+          Multi-step tools (Cut, Join, Move, Copy, Rotate, Resize, Mirror, Offset, Constraint,
+          anchor-based shape creation, text and origin placement) drive a small floating
+          <em>workflow panel</em> that anchors to the canvas while the tool is active. Each panel
+          shows the current step (anchor → reference → distance, etc.), inline dimension inputs,
+          and explicit <span class="ui">Dimensions</span>, <span class="ui">Confirm</span>, and
+          <span class="ui">Cancel</span> buttons.
+        </p>
+        <p>
+          Workflow panels replace the previous floating dimension-input and banner overlays.
+          The panel can be dragged to a comfortable spot on the canvas; the canvas regains focus
+          after every panel action or dialog close, so keyboard shortcuts keep working without
+          clicking back in.
+        </p>
+      </section>
+
+      <section class="guide-section" id="tablet-shell">
+        <h2>Tablet Shell</h2>
+        <p>
+          On a tablet or touch device, PureCut CNC automatically switches to a tablet shell layout
+          that replaces the wrapping desktop toolbar with three purpose-built command surfaces:
+        </p>
+        <table class="prop-table">
+          <thead><tr><th>Surface</th><th>What it contains</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Top Command Bar</strong></td><td>File operations, undo/redo, view tabs, zoom controls, and the snap popover.</td></tr>
+            <tr><td><strong>Tool Rail</strong></td><td>A 48 px vertical rail along the left edge with creation and edit tools (rect, circle, polygon, composite, text, copy, move, rotate, resize, offset, join, cut, constraint).</td></tr>
+            <tr><td><strong>Snap Popover</strong></td><td>A single button that opens a popover with the snap toggle and all snap type checkboxes — replaces the seven individual snap buttons used on desktop.</td></tr>
+            <tr><td><strong>Left Drawer</strong></td><td>The Feature Tree / Properties column slides in as a drawer with a scrim, mirroring the right-side CAM drawer pattern. Tap the left edge tab to open, tap the scrim or close button to dismiss.</td></tr>
+            <tr><td><strong>Axis Lock Button</strong></td><td>Replaces the desktop axis-lock chip with a persistent toggle button suited to touch.</td></tr>
+          </tbody>
+        </table>
+        <p>
+          Panel resize dividers and the workspace toolbar-position controls are hidden on tablet
+          since the layout is fixed. Desktop layouts are unchanged.
+        </p>
+        <div class="screenshot-placeholder" data-img="interface-tablet-shell.png">
+          <div class="ph-label">screenshots/interface-tablet-shell.png</div>
+          <div class="ph-desc">Tablet shell on an iPad — top command bar, left tool rail, snap popover open, and the Operations drawer pulled out from the right</div>
+        </div>
+
+        <h3>Touch Gestures</h3>
+        <table class="prop-table">
+          <thead><tr><th>Gesture</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td>One-finger drag on empty canvas</td><td>Pan the view (instead of starting a marquee select).</td></tr>
+            <tr><td>One-finger drag on a feature or tool affordance</td><td>Standard drag — moves the node, places the next point, etc.</td></tr>
+            <tr><td>Two-finger pan</td><td>Pan the view.</td></tr>
+            <tr><td>Pinch</td><td>Zoom in and out around the gesture centroid.</td></tr>
+            <tr><td>Long-press (500 ms)</td><td>Open the context menu at the touch point.</td></tr>
+          </tbody>
+        </table>
+        <p>
+          The CAM panel is renamed <span class="ui">Operations</span> on tablet and shows an
+          operation-count badge on its drawer tab. The application supports tablet shell on both
+          iOS Safari and Android Chrome browsers, and on tablet-form Windows / iPadOS native builds.
+        </p>
       </section>
 
       <section class="guide-section" id="views">
