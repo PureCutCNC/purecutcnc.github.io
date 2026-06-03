@@ -1,22 +1,22 @@
 {
   "platform": "linux",
   "channel": "snapshot",
-  "version": "0.0.3-snapshot.3",
-  "tag": "v0.0.3-snapshot.3",
-  "releaseUrl": "https://github.com/PureCutCNC/purecutcnc/releases/tag/v0.0.3-snapshot.3",
-  "updatedAt": "2026-05-05T03:14:49.429Z",
+  "version": "0.0.4-snapshot.1",
+  "tag": "v0.0.4-snapshot.1",
+  "releaseUrl": "https://github.com/PureCutCNC/purecutcnc/releases/tag/v0.0.4-snapshot.1",
+  "updatedAt": "2026-06-03T17:04:01.719Z",
   "assets": [
     {
-      "name": "PureCutCNC_0.0.3-snapshot.3_amd64.AppImage",
+      "name": "PureCutCNC_0.0.4-snapshot.1_amd64.AppImage",
       "label": "Download AppImage",
       "kind": "appimage",
-      "url": "https://github.com/PureCutCNC/purecutcnc/releases/download/v0.0.3-snapshot.3/PureCutCNC_0.0.3-snapshot.3_amd64.AppImage"
+      "url": "https://github.com/PureCutCNC/purecutcnc/releases/download/v0.0.4-snapshot.1/PureCutCNC_0.0.4-snapshot.1_amd64.AppImage"
     },
     {
-      "name": "PureCutCNC_0.0.3-snapshot.3_amd64.deb",
+      "name": "PureCutCNC_0.0.4-snapshot.1_amd64.deb",
       "label": "Download .deb package",
       "kind": "deb",
-      "url": "https://github.com/PureCutCNC/purecutcnc/releases/download/v0.0.3-snapshot.3/PureCutCNC_0.0.3-snapshot.3_amd64.deb"
+      "url": "https://github.com/PureCutCNC/purecutcnc/releases/download/v0.0.4-snapshot.1/PureCutCNC_0.0.4-snapshot.1_amd64.deb"
     }
   ]
 }
