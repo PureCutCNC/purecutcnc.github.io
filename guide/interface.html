@@ -58,6 +58,7 @@
           <li><a href="sketch-snapping.html">Snapping &amp; Grid</a></li>
           <li><a href="sketch-import.html">Importing Geometry</a></li>
           <li><a href="sketch-text.html">Text Features</a></li>
+          <li><a href="sketch-dimensions.html">Measure &amp; Dimensions</a></li>
         </ul>
       </div>
       <div class="sidebar-section">
@@ -191,6 +192,24 @@
           <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#constraint"/></svg></span> Constraint</span><span class="tr-desc">Add a fixed-distance constraint between a feature and a reference point or feature.</span></div>
         </div>
         <p>See <a href="sketch-edit.html">Editing Features</a> for details on each edit tool.</p>
+
+        <h3>Measure &amp; Dimensions</h3>
+        <p>
+          A transient tape measure plus six permanent dimension types. Dimensions store
+          <em>anchors</em> rather than frozen numbers, so they follow geometry through edits.
+        </p>
+        <div class="toolbar-ref">
+          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#tape-measure"/></svg></span> Tape Measure</span><span class="tr-desc">Click two points for a live distance / Δx / Δy / angle readout. Not saved with the project.</span></div>
+          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#dim-aligned"/></svg></span> Aligned</span><span class="tr-desc">Distance between two points along the line connecting them.</span></div>
+          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#dim-horizontal"/></svg></span> Horizontal</span><span class="tr-desc">X-axis distance between two points.</span></div>
+          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#dim-vertical"/></svg></span> Vertical</span><span class="tr-desc">Y-axis distance between two points.</span></div>
+          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#dim-radius"/></svg></span> Radius</span><span class="tr-desc">Radius of a circle, ellipse, or arc segment.</span></div>
+          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#dim-diameter"/></svg></span> Diameter</span><span class="tr-desc">Diameter of a circle, ellipse, or arc segment.</span></div>
+          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#dim-angle"/></svg></span> Angle</span><span class="tr-desc">Angle between two segments or three points.</span></div>
+          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#trash"/></svg></span> Delete Dimension</span><span class="tr-desc">Click-to-delete mode for clearing dimensions; stays armed until <kbd>Esc</kbd>.</span></div>
+          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#dim-visibility"/></svg></span> Show / Hide Dimensions</span><span class="tr-desc">Global toggle; saved with the project.</span></div>
+        </div>
+        <p>See <a href="sketch-dimensions.html">Measure &amp; Dimensions</a> for the full workflow.</p>
       </section>
 
       <section class="guide-section" id="feature-tree">

@@ -58,6 +58,7 @@
           <li><a href="sketch-snapping.html">Snapping &amp; Grid</a></li>
           <li><a href="sketch-import.html">Importing Geometry</a></li>
           <li><a href="sketch-text.html">Text Features</a></li>
+          <li><a href="sketch-dimensions.html">Measure &amp; Dimensions</a></li>
         </ul>
       </div>
       <div class="sidebar-section">
@@ -148,7 +149,7 @@
           </div>
           <div class="op-card">
             <h4>Drill</h4>
-            <p>Drills holes at the center of circle features. Requires circle features. Supports simple, peck, dwell, and chip-breaking drill cycles.</p>
+            <p>Drills holes at the center of circle features. Requires circle features. Supports simple, peck, dwell, and chip-breaking drill cycles. Holes are automatically ordered by nearest-neighbor travel, shortening rapid moves between holes.</p>
           </div>
         </div>
       </section>
@@ -218,11 +219,19 @@
             <tr><td>Finish Floor</td><td>(Finish pass only) Whether to machine the floor to final dimension.</td></tr>
           </tbody>
         </table>
+        <p>
+          Offset-pattern passes simplify their internal polylines back into arcs and full circles
+          where the geometry allows, with redundant points cleaned up via RDP simplification. The
+          result is shorter, smoother G-code with fewer line segments — especially on circular
+          and rounded-corner pockets.
+        </p>
 
         <h3>3D Surface Parameters</h3>
         <p>
           3D Surface Rough, Finish, and Cleanup all target an imported model feature.
           Surrounding add features, subtract pockets, tabs, and clamps are protected automatically.
+          Linking moves between cuts are optimized to reduce rapid travel, and Cut Direction is
+          applied per-side so mixed outer / hole contours all cut in the requested direction.
         </p>
         <div class="screenshot-placeholder" data-img="cam-3d-surface-toolpath.png">
           <div class="ph-label">screenshots/cam-3d-surface-toolpath.png</div>
@@ -255,7 +264,9 @@
         <p>
           When 3D Surface Finish uses the <strong>Waterline</strong> pattern, an extra group of
           quality controls becomes available. These trade extra computation for cleaner steep-wall
-          finishes.
+          finishes. The planner now snaps each ring's entry to the matching point on the ring above
+          and below — successive levels enter the cut at the same XY location, eliminating spiral
+          seams down steep walls — and tip-cap paths over rounded apex regions are smoother.
         </p>
         <table class="prop-table">
           <thead><tr><th>Parameter</th><th>Description</th></tr></thead>
