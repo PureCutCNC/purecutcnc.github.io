@@ -744,7 +744,7 @@
         <section class="panel note-card">
           <div class="panel-label">What's New</div>
           <h3>See the changelog</h3>
-          <p>Every release publishes notes on GitHub — PRs, fixes, and new ops are listed there. The latest stable is v0.0.3; preview builds track the main branch.</p>
+          <p>Every release publishes notes on GitHub — PRs, fixes, and new ops are listed there. The latest stable is <a id="js-latest-stable" href="https://github.com/PureCutCNC/purecutcnc/releases">the most recent non-prerelease tag</a>; preview builds track the main branch.</p>
           <ul>
             <li><a href="https://github.com/PureCutCNC/purecutcnc/releases">All releases &amp; release notes</a></li>
             <li><a href="https://github.com/PureCutCNC/purecutcnc/blob/main/RELEASE_NOTES.md">RELEASE_NOTES.md</a></li>
@@ -797,10 +797,19 @@
       return channel
     }
 
-    function renderUnavailable(channel) {
-      const message = channel === 'stable'
-        ? `Latest stable release (<a href="https://github.com/PureCutCNC/purecutcnc/releases/tag/v0.0.3">v0.0.3</a>) shipped without desktop binaries for this platform. Use the <strong>Preview Build</strong> column for the newest installable build, or grab any binary directly from <a href="https://github.com/PureCutCNC/purecutcnc/releases">GitHub releases</a>.`
-        : 'No published build has been recorded for this platform/track yet.'
+    function renderUnavailable(channel, latestStable) {
+      let message
+      if (channel === 'stable') {
+        const versionLabel = latestStable && latestStable.tag
+          ? escapeHtml(latestStable.tag)
+          : 'the most recent release'
+        const versionHref = latestStable && latestStable.url
+          ? escapeHtml(latestStable.url)
+          : 'https://github.com/PureCutCNC/purecutcnc/releases'
+        message = `Latest stable release (<a href="${versionHref}">${versionLabel}</a>) shipped without desktop binaries for this platform. Use the <strong>Preview Build</strong> column for the newest installable build, or grab any binary directly from <a href="https://github.com/PureCutCNC/purecutcnc/releases">GitHub releases</a>.`
+      } else {
+        message = 'No published build has been recorded for this platform/track yet.'
+      }
       return `
         <div class="channel-card">
           <div class="channel-chip ${channel}">${escapeHtml(displayChannel(channel))}</div>
@@ -809,9 +818,9 @@
       `
     }
 
-    function renderCard(data) {
+    function renderCard(data, latestStable) {
       if (!data || !Array.isArray(data.assets) || data.assets.length === 0) {
-        return renderUnavailable(data?.channel || 'stable')
+        return renderUnavailable(data?.channel || 'stable', latestStable)
       }
 
       const assetLinks = data.assets.map((asset) => `
@@ -832,7 +841,28 @@
       `
     }
 
-    async function loadCard(platform, channel) {
+    async function loadLatestStable() {
+      try {
+        const response = await fetch('https://api.github.com/repos/PureCutCNC/purecutcnc/releases/latest', {
+          headers: { Accept: 'application/vnd.github+json' },
+        })
+        if (!response.ok) return null
+        const data = await response.json()
+        if (!data || !data.tag_name) return null
+        return { tag: data.tag_name, url: data.html_url, name: data.name || data.tag_name }
+      } catch (error) {
+        return null
+      }
+    }
+
+    function applyLatestStableToFaq(latestStable) {
+      const anchor = document.getElementById('js-latest-stable')
+      if (!anchor || !latestStable || !latestStable.tag) return
+      anchor.textContent = latestStable.tag
+      if (latestStable.url) anchor.setAttribute('href', latestStable.url)
+    }
+
+    async function loadCard(platform, channel, latestStable) {
       const mounts = document.querySelectorAll(`[data-channel-card="${channel}-${platform}"], [data-channel-card="mobile-${channel}-${platform}"]`)
       if (!mounts.length) return
 
@@ -841,16 +871,20 @@
         if (!response.ok) throw new Error(`HTTP ${response.status}`)
         const data = await response.json()
         mounts.forEach((mount) => {
-          mount.innerHTML = renderCard(data)
+          mount.innerHTML = renderCard(data, latestStable)
         })
       } catch (error) {
         mounts.forEach((mount) => {
-          mount.innerHTML = renderUnavailable(channel)
+          mount.innerHTML = renderUnavailable(channel, latestStable)
         })
       }
     }
 
-    Promise.all(targets.map(({ platform, channel }) => loadCard(platform, channel)))
+    ;(async () => {
+      const latestStable = await loadLatestStable()
+      applyLatestStableToFaq(latestStable)
+      await Promise.all(targets.map(({ platform, channel }) => loadCard(platform, channel, latestStable)))
+    })()
   </script>
 </body>
 </html>
