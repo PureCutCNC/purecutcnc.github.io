@@ -1,1 +1,0 @@
-import{j as e,k as t}from"./vendor-BJhYRNW1.js";export{t as ask,e as message};
