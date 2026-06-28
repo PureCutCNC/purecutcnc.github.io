@@ -150,6 +150,35 @@
         </div>
       </section>
 
+      <section class="guide-section" id="clipboard">
+        <h2>Feature Clipboard</h2>
+        <p>
+          Whole features can be copied, cut, and pasted through the clipboard — including between
+          separate projects and windows. This is distinct from the <span class="ui">Copy</span>
+          transform tool above, which is a canvas placement gesture; the clipboard moves complete
+          features (geometry, operation, Z range, and properties) as data.
+        </p>
+        <ul>
+          <li><strong>Copy</strong> (<kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>C</kbd>) — copies the
+            selected features to the clipboard.</li>
+          <li><strong>Cut</strong> (<kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>X</kbd>) — copies the
+            selected features and removes them.</li>
+          <li><strong>Paste</strong> (<kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>V</kbd>) — pastes the
+            clipboard contents. The pasted features attach to the cursor so you can
+            <strong>click to place</strong> them at the exact spot you want; snapping applies to the
+            placement click.</li>
+        </ul>
+        <p>
+          Paste preserves the source features' relative arrangement, so copying a group of features
+          and pasting drops the whole set in formation under the cursor.
+        </p>
+        <div class="callout--tip callout">
+          <strong>Tip:</strong> Whether a pasted feature stays linked to its source or becomes
+          fully independent depends on the project's copy mode — see
+          <a href="concepts.html#feature-references">Feature References</a>.
+        </div>
+      </section>
+
       <section class="guide-section" id="alignment">
         <h2>Alignment and Distribution</h2>
         <p>
@@ -213,7 +242,7 @@
           control points and handles are shown and can be dragged.
         </p>
         <p>
-          While in sketch edit mode, three additional tools become available in the toolbar:
+          While in sketch edit mode, additional tools become available in the toolbar:
         </p>
 
         <h3>Add Point</h3>
@@ -238,6 +267,42 @@
           then click a corner point. Enter the fillet radius
           in the dialog. The sharp corner is replaced with a smooth arc of the specified radius.
         </p>
+
+        <h3>Chamfer</h3>
+        <p>
+          Click <span class="ui">Chamfer</span>
+          <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#chamfer"/></svg></span>,
+          then click a corner point. Enter a <strong>Distance</strong> in the dialog. The sharp
+          corner is replaced with a straight bevel, trimming both adjoining segments by the same
+          distance measured along each segment. Chamfer is the straight-edge sibling of Fillet — the
+          interaction is identical; only the result (a flat bevel instead of an arc) differs.
+        </p>
+        <div class="callout">
+          Chamfer applies to straight-line corners only. Corners formed by arcs or curves cannot be
+          chamfered — fillet those instead.
+        </div>
+
+        <h3>Trim</h3>
+        <p>
+          Click <span class="ui">Trim</span>
+          <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#trim"/></svg></span>,
+          then click the <strong>cutting segment</strong> (the edge to trim back to), and then click
+          the part of the segment you want to <strong>remove</strong>. That portion is cut away at
+          the intersection with the cutting edge.
+        </p>
+
+        <h3>Extend</h3>
+        <p>
+          Click <span class="ui">Extend</span>
+          <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#extend"/></svg></span>,
+          then click the <strong>target segment</strong> to reach, and then click near the
+          <strong>open end</strong> of the segment you want to lengthen. The segment grows until it
+          meets the target.
+        </p>
+        <div class="callout">
+          Trim and Extend work on <strong>open profiles</strong> only — the toolbar buttons are
+          disabled while editing a closed feature.
+        </div>
 
         <h3>Dimension Entry</h3>
         <p>

@@ -95,7 +95,19 @@
         </ol>
         <p>
           If the selection is not compatible with the chosen operation type, a hint message explains
-          what is needed. Fix the selection and try again.
+          what is needed. Fix the selection and try again. The hint row also offers a
+          <span class="ui">Select all</span> button that selects every feature compatible with that
+          operation in one click — handy when you want to, say, drill every circle or pocket every
+          closed cutout at once.
+        </p>
+        <h3>From the Feature Context Menu</h3>
+        <p>
+          You can also create an operation directly from a feature. Right-click a feature in the
+          feature tree (or on the canvas) and open the <span class="ui">Create operation</span>
+          submenu. It lists only the operations that are <strong>valid for that feature</strong> —
+          a closed subtract feature offers Pocket, Edge Route Inside, and V-Carve; a circle offers
+          Drill; and so on — so you can add the right operation in one step without hunting through
+          the full menu.
         </p>
         <div class="screenshot-placeholder" data-img="cam-add-operation-menu.png">
           <div class="ph-label">screenshots/cam-add-operation-menu.png</div>
@@ -103,53 +115,102 @@
         </div>
       </section>
 
+      <section class="guide-section" id="choosing">
+        <h2>Which Operation Do I Need?</h2>
+        <p>
+          Start from what you want to cut. This table maps the common goals to the operation that
+          does the job — click through to its description and parameters below.
+        </p>
+        <table class="prop-table decision-table">
+          <thead><tr><th>I want to…</th><th>Use</th><th>Needs</th></tr></thead>
+          <tbody>
+            <tr><td>Cut a part free from the stock</td><td><a href="#op-edge-out">Edge Route Outside</a></td><td>Closed <strong>add</strong> feature</td></tr>
+            <tr><td>Hollow out a recess or cavity</td><td><a href="#op-pocket">Pocket</a></td><td>Closed <strong>subtract</strong> feature</td></tr>
+            <tr><td>Cut to size along the inside of an opening</td><td><a href="#op-edge-in">Edge Route Inside</a></td><td>Closed <strong>subtract</strong> feature</td></tr>
+            <tr><td>Flatten / face the top of the stock</td><td><a href="#op-surface-clean">Surface Clean</a></td><td>Closed <strong>add</strong> feature</td></tr>
+            <tr><td>V-carve signs, text, or decorative shapes</td><td><a href="#op-vcarve-offset">V-Carve Offset</a> / <a href="#op-vcarve-skeleton">Skeleton</a></td><td>Closed <strong>subtract</strong> + V-bit</td></tr>
+            <tr><td>Engrave a line, centerline text, or a path</td><td><a href="#op-engrave">Engrave</a></td><td>Any feature (open or closed)</td></tr>
+            <tr><td>Machine an imported 3D model</td><td><a href="#op-3d-rough">3D Surface Rough</a> → <a href="#op-3d-finish">Finish</a></td><td>Imported STL/OBJ model</td></tr>
+            <tr><td>Clean up scallops after a 3D finish</td><td><a href="#op-3d-cleanup">3D Surface Cleanup</a></td><td>Imported STL/OBJ model</td></tr>
+            <tr><td>Drill holes at marked centers</td><td><a href="#op-drill">Drill</a></td><td>Circle features</td></tr>
+          </tbody>
+        </table>
+        <div class="callout--tip callout">
+          <strong>Not sure add vs. subtract?</strong> Add features are material (the part);
+          subtract features remove material (pockets, holes). See
+          <a href="concepts.html#add-subtract">Feature Operations</a>.
+        </div>
+      </section>
+
       <section class="guide-section" id="operation-types">
         <h2>Operation Types</h2>
 
         <div class="op-grid">
-          <div class="op-card">
+          <div class="op-card" id="op-pocket">
             <h4>Pocket</h4>
             <p>Clears the interior of a closed subtract feature. Requires subtract features with closed profiles. Supports rough and finish passes.</p>
+            <p class="op-tool"><strong>Tool:</strong> flat or ball endmill</p>
+            <div class="op-thumb" data-img="op-pocket.png"><div class="ph-desc">op-pocket.png — pocket clearing toolpath (offset/parallel passes)</div></div>
           </div>
-          <div class="op-card">
+          <div class="op-card" id="op-edge-in">
             <h4>Edge Route Inside</h4>
             <p>Cuts along the inside edge of a closed subtract feature. Requires subtract features with closed profiles. Supports rough and finish passes.</p>
+            <p class="op-tool"><strong>Tool:</strong> flat endmill</p>
+            <div class="op-thumb" data-img="op-edge-in.png"><div class="ph-desc">op-edge-in.png — toolpath hugging the inside of an opening</div></div>
           </div>
-          <div class="op-card">
+          <div class="op-card" id="op-edge-out">
             <h4>Edge Route Outside</h4>
             <p>Cuts along the outside edge of a closed add feature. Requires add features with closed profiles. Supports rough and finish passes. Used for cutting out parts. Surrounding add features are automatically treated as obstacles at every depth — passes are clipped so the tool never cuts into neighbouring material, while still descending to full depth where the obstacle is shallower than the current pass.</p>
+            <p class="op-tool"><strong>Tool:</strong> flat endmill · pair with <a href="cam-tabs-clamps.html">tabs</a></p>
+            <div class="op-thumb" data-img="op-edge-out.png"><div class="ph-desc">op-edge-out.png — profile cut around a part with holding tabs</div></div>
           </div>
-          <div class="op-card">
+          <div class="op-card" id="op-surface-clean">
             <h4>Surface Clean</h4>
             <p>Faces the top surface of a closed add feature. Requires add features with closed profiles. Supports rough and finish passes.</p>
+            <p class="op-tool"><strong>Tool:</strong> flat / face endmill</p>
+            <div class="op-thumb" data-img="op-surface-clean.png"><div class="ph-desc">op-surface-clean.png — facing passes across the top of a part</div></div>
           </div>
-          <div class="op-card">
+          <div class="op-card" id="op-vcarve-offset">
             <h4>V-Carve Offset</h4>
             <p>V-carves a closed subtract feature using concentric offset contours. Requires subtract features with closed profiles. Uses V-bit tools only.</p>
+            <p class="op-tool"><strong>Tool:</strong> V-bit only</p>
+            <div class="op-thumb" data-img="op-vcarve-offset.png"><div class="ph-desc">op-vcarve-offset.png — V-carved lettering via offset contours</div></div>
           </div>
-          <div class="op-card">
+          <div class="op-card" id="op-vcarve-skeleton">
             <h4>V-Carve Skeleton <span style="font-size:0.75rem;color:var(--yellow);font-weight:400;">Experimental</span></h4>
             <p>V-carves a closed subtract feature using the medial axis (skeleton) of the profile. Produces a more natural carving result for text and organic shapes. Requires subtract features with closed profiles. Uses V-bit tools only. <em>This operation is actively being improved.</em></p>
+            <p class="op-tool"><strong>Tool:</strong> V-bit only</p>
+            <div class="op-thumb" data-img="op-vcarve-skeleton.png"><div class="ph-desc">op-vcarve-skeleton.png — skeleton (medial-axis) carve of organic text</div></div>
           </div>
-          <div class="op-card">
+          <div class="op-card" id="op-engrave">
             <h4>Engrave (Follow Line)</h4>
             <p>Follows the path of any feature — open or closed — at a fixed carve depth. Used for engraving, centerline text, and decorative lines. Open sketch profiles are tagged as <strong>Line</strong> features and feed straight into this operation; closed features can also be engraved along their boundary.</p>
+            <p class="op-tool"><strong>Tool:</strong> V-bit or small endmill</p>
+            <div class="op-thumb" data-img="op-engrave.png"><div class="ph-desc">op-engrave.png — tool following a centerline path</div></div>
           </div>
-          <div class="op-card">
+          <div class="op-card" id="op-3d-rough">
             <h4>3D Surface Rough</h4>
             <p>Top-down roughing of an imported 3D model. Cumulative model-shadow protection, parent-stock containment, region clipping, and pocket-aware split-depth carving leave a stepped semi-finished surface ready for a finish pass. Requires a <strong>Model</strong> feature (imported STL/OBJ).</p>
+            <p class="op-tool"><strong>Tool:</strong> flat or ball endmill</p>
+            <div class="op-thumb" data-img="op-3d-rough.png"><div class="ph-desc">op-3d-rough.png — stepped roughing passes over a model</div></div>
           </div>
-          <div class="op-card">
+          <div class="op-card" id="op-3d-finish">
             <h4>3D Surface Finish</h4>
             <p>Finishing pass over the top surface of an imported 3D model. Choose <strong>Parallel</strong> for raster scanlines at a fixed angle, or <strong>Waterline</strong> for constant-Z contour rings (ideal for steep walls). Both strategies respect tabs, clamps, subtract pockets, and surrounding add features.</p>
+            <p class="op-tool"><strong>Tool:</strong> ball endmill</p>
+            <div class="op-thumb" data-img="op-3d-finish.png"><div class="ph-desc">op-3d-finish.png — finish pass over a model surface</div></div>
           </div>
-          <div class="op-card">
+          <div class="op-card" id="op-3d-cleanup">
             <h4>3D Surface Cleanup</h4>
             <p>Targeted cleanup pass that removes only the material left behind by a prior rough + finish combination — typically the stepped scallops in steep regions. Skips areas the finish already reached, so it runs much faster than re-running a full finish. Requires a model feature.</p>
+            <p class="op-tool"><strong>Tool:</strong> ball endmill (often smaller)</p>
+            <div class="op-thumb" data-img="op-3d-cleanup.png"><div class="ph-desc">op-3d-cleanup.png — cleanup confined to steep leftover scallops</div></div>
           </div>
-          <div class="op-card">
+          <div class="op-card" id="op-drill">
             <h4>Drill</h4>
             <p>Drills holes at the center of circle features. Requires circle features. Supports simple, peck, dwell, and chip-breaking drill cycles. Holes are automatically ordered by nearest-neighbor travel, shortening rapid moves between holes.</p>
+            <p class="op-tool"><strong>Tool:</strong> drill bit or endmill</p>
+            <div class="op-thumb" data-img="op-drill.png"><div class="ph-desc">op-drill.png — peck-drilled holes ordered by nearest travel</div></div>
           </div>
         </div>
       </section>
@@ -177,8 +238,15 @@
       <section class="guide-section" id="operation-parameters">
         <h2>Operation Parameters</h2>
         <p>
-          Select an operation in the list to edit its parameters in the right panel.
+          Select an operation in the list to edit its parameters in the right panel. Selecting an
+          operation also <strong>highlights its target features</strong> on the canvas and in the
+          feature tree, so you can see at a glance exactly which geometry that operation will cut
+          before you adjust anything.
         </p>
+        <div class="screenshot-placeholder" data-img="cam-operation-highlight.png">
+          <div class="ph-label">screenshots/cam-operation-highlight.png</div>
+          <div class="ph-desc">Operations list with an operation selected — its target features highlighted on the canvas and in the feature tree</div>
+        </div>
 
         <h3>Common Parameters</h3>
         <table class="prop-table">
@@ -318,6 +386,15 @@
             <tr><td>Retract Height</td><td>Z height to retract to between holes.</td></tr>
           </tbody>
         </table>
+
+        <h3>Booklet (PDF Setup Sheet)</h3>
+        <p>
+          Every operation's parameters include a <span class="ui">Booklet</span> field with an
+          <span class="ui">Export PDF</span> button. It produces a printable setup sheet for that
+          operation — tool, feeds and speeds, target features, toolpath stats, and a toolpath
+          snapshot. See <a href="cam-export.html#operation-booklet">Operation Booklets</a> for what
+          the document contains.
+        </p>
       </section>
 
 

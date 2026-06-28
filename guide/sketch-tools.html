@@ -85,7 +85,7 @@
       <section class="guide-section" id="overview">
         <h2>Drawing Tools Overview</h2>
         <p>
-          All drawing tools are in the toolbar. Click a tool button to activate it — the button
+          All drawing tools are in the left toolbar rail. Click a tool button to activate it — the button
           highlights to show it is active. Click the same button again, or press <kbd>Escape</kbd>,
           to cancel the active tool without placing a shape.
         </p>
@@ -269,6 +269,69 @@
         <div class="screenshot-placeholder" data-img="sketch-text-dialog.png">
           <div class="ph-label">screenshots/sketch-text-dialog.png</div>
           <div class="ph-desc">Text Tool dialog — text content, style, and font fields</div>
+        </div>
+      </section>
+
+      <section class="guide-section" id="more-shapes">
+        <h2>More Shapes</h2>
+        <p>
+          Beyond the primary shapes, the shape picker includes a set of additional parametric
+          shapes. Each places a closed feature you can edit afterward in the properties panel or in
+          sketch edit mode.
+        </p>
+
+        <h3>
+          <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#slot"/></svg></span>
+          Slot
+        </h3>
+        <p>
+          Draws an obround (rounded-end) slot. Click the first end point, then the second to set the
+          slot's length and direction; the slot is built around that centerline with semicircular
+          caps. Useful for fastener slots and adjustment cutouts.
+        </p>
+        <div class="screenshot-placeholder" data-img="sketch-slot-tool.png">
+          <div class="ph-label">screenshots/sketch-slot-tool.png</div>
+          <div class="ph-desc">Slot tool — obround placed between two end points</div>
+        </div>
+
+        <h3>
+          <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#ngon"/></svg></span>
+          Regular Polygon
+        </h3>
+        <p>
+          Draws an equal-sided polygon (triangle, pentagon, hexagon, …) from a center point and
+          radius. Set the number of sides in the dialog. Unlike the freeform
+          <span class="ui">Polygon</span> tool, every side and angle is uniform.
+        </p>
+        <div class="screenshot-placeholder" data-img="sketch-ngon-tool.png">
+          <div class="ph-label">screenshots/sketch-ngon-tool.png</div>
+          <div class="ph-desc">Regular Polygon tool — a hexagon drawn from center and radius</div>
+        </div>
+
+        <h3>
+          <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#roundrect"/></svg></span>
+          Rounded Rectangle
+        </h3>
+        <p>
+          Draws a rectangle with rounded corners. Place it like the rectangle tool; the corner
+          radius is editable afterward.
+        </p>
+        <div class="screenshot-placeholder" data-img="sketch-roundrect-tool.png">
+          <div class="ph-label">screenshots/sketch-roundrect-tool.png</div>
+          <div class="ph-desc">Rounded Rectangle tool — rectangle with rounded corners</div>
+        </div>
+
+        <h3>
+          <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#chamferrect"/></svg></span>
+          Chamfered Rectangle
+        </h3>
+        <p>
+          Draws a rectangle with beveled (chamfered) corners — a flat cut across each corner instead
+          of a rounded arc.
+        </p>
+        <div class="screenshot-placeholder" data-img="sketch-chamferrect-tool.png">
+          <div class="ph-label">screenshots/sketch-chamferrect-tool.png</div>
+          <div class="ph-desc">Chamfered Rectangle tool — rectangle with beveled corners</div>
         </div>
       </section>
 

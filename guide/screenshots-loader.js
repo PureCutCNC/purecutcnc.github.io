@@ -14,4 +14,18 @@ document.addEventListener('DOMContentLoaded', function () {
     };
     img.src = src;
   });
+
+  // Compact in-card thumbnails: fill the box in place when the image exists.
+  document.querySelectorAll('.op-thumb[data-img]').forEach(function (el) {
+    var src = './screenshots/' + el.getAttribute('data-img');
+    var img = new Image();
+    img.onload = function () {
+      img.alt = el.querySelector('.ph-desc') ? el.querySelector('.ph-desc').textContent : '';
+      img.style.maxWidth = '100%';
+      img.style.maxHeight = '100%';
+      el.innerHTML = '';
+      el.appendChild(img);
+    };
+    img.src = src;
+  });
 });

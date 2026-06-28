@@ -85,68 +85,117 @@
       <section class="guide-section" id="layout">
         <h2>Application Layout</h2>
         <p>
-          The application is divided into a top toolbar, a left panel (feature tree and properties),
-          a central canvas area, and a right panel (CAM operations and tools). The view tabs at the
-          top of the canvas switch between <span class="ui">Sketch</span>, <span class="ui">3D View</span>,
-          and <span class="ui">Simulation</span>.
+          The application has a <strong>top toolbar</strong> (global project, view, snap, and
+          measure actions) and a <strong>left toolbar rail</strong> (drawing and editing tools),
+          plus a left panel (feature tree and properties), a central canvas area, and a right panel
+          (CAM operations and tools). The view tabs at the top of the canvas switch between
+          <span class="ui">Sketch</span>, <span class="ui">3D View</span>, and
+          <span class="ui">Simulation</span>.
         </p>
 
         <div class="screenshot-placeholder" data-img="interface-overview.png">
           <div class="ph-label">screenshots/interface-overview.png</div>
-          <div class="ph-desc">Full application interface showing all panels and the sketch canvas</div>
+          <div class="ph-desc">Full application interface — top toolbar, left toolbar rail, project panel, canvas, and CAM panel</div>
         </div>
 
-        <h3>Workspace Layout &amp; Toolbar Position Controls</h3>
+        <h3>Showing &amp; Hiding Panels</h3>
         <p>
-          At the right end of the <span class="ui">Sketch</span>, <span class="ui">3D View</span>,
-          and <span class="ui">Simulation</span> tabs there are compact workspace controls. These
-          are separate from the main toolbar and let you change how much of the interface is visible.
+          The left toolbar is a fixed vertical rail on the left edge of the workspace. The two side panels
+          can each be opened or closed independently to free up canvas space — use the
+          <span class="ui">project panel</span> control to show or hide the feature tree and
+          properties column, and the <span class="ui">operations panel</span> control to show or
+          hide the CAM column. Closing a panel keeps its contents and state; reopening it restores
+          everything as it was.
         </p>
 
-        <div class="screenshot-placeholder" data-img="interface-workspace-controls.png">
-          <div class="ph-label">screenshots/interface-workspace-controls.png</div>
-          <div class="ph-desc">Workspace tab strip showing panel layout presets and toolbar position buttons</div>
+        <div class="screenshot-placeholder" data-img="interface-panel-controls.png">
+          <div class="ph-label">screenshots/interface-panel-controls.png</div>
+          <div class="ph-desc">Workspace controls for opening and closing the project and operations panels</div>
         </div>
+      </section>
 
+      <section class="guide-section" id="starting-a-project">
+        <h2>Starting a Project</h2>
+        <p>
+          Clicking <span class="ui">New Project</span> opens the <strong>New Project</strong> dialog.
+          Give the project a name and pick a <strong>template</strong> to start from; a preview on
+          the right summarises what the template provides (units, stock size, and how many features,
+          tools, and operations it includes, plus the assigned machine).
+        </p>
         <table class="prop-table">
-          <thead><tr><th>Control</th><th>What it does</th></tr></thead>
+          <thead><tr><th>Template</th><th>What it gives you</th></tr></thead>
           <tbody>
-            <tr><td>Panel layout presets</td><td>Four buttons switch between <span class="ui">left + center + right</span>, <span class="ui">left + center</span>, <span class="ui">center only</span>, and <span class="ui">center + right</span>. Use them to temporarily hide the Project Tree / Properties column or the CAM column without losing their state.</td></tr>
-            <tr><td>Use top toolbar</td><td>Keeps the main tool groups across the top edge of the app.</td></tr>
-            <tr><td>Use left toolbar</td><td>Moves the creation and edit tools into a vertical rail on the left side of the workspace, leaving more horizontal room in the top bar.</td></tr>
-            <tr><td>Narrow windows</td><td>The left-toolbar button is disabled on small widths, so the toolbar stays on top when there is not enough space for the side rail.</td></tr>
+            <tr><td>Blank Metric</td><td>An empty project in millimeters.</td></tr>
+            <tr><td>Blank Imperial</td><td>An empty project in inches.</td></tr>
+            <tr><td>Current Project</td><td>Reuses the currently open project's settings (units, stock, machine) as the starting point.</td></tr>
+            <tr><td>Template File</td><td>Loads a saved <code>.camj</code> file and uses its settings as the template.</td></tr>
           </tbody>
         </table>
+        <p>
+          The same dialog has an <strong>Or open an example</strong> row with bundled sample
+          projects — <span class="ui">PureCutCNC</span>, <span class="ui">T Style guitar body</span>,
+          and <span class="ui">Badge</span> — each demonstrating different operations (pocket,
+          V-carve, drilling, rest machining, edge-out). Opening one is the fastest way to see a
+          complete workflow end to end.
+        </p>
+        <div class="screenshot-placeholder" data-img="new-project.png">
+          <div class="ph-label">screenshots/new-project.png</div>
+          <div class="ph-desc">New Project dialog — project name, template list with preview, and example projects</div>
+        </div>
+
+        <h3>The Start Screen</h3>
+        <p>
+          A brand-new project opens on the <span class="ui">Sketch</span> view with an empty canvas
+          and a <strong>Start your part</strong> card offering three ways to begin:
+        </p>
+        <ul>
+          <li><strong>Draw a shape</strong> — sketch geometry directly on the canvas.</li>
+          <li><strong>Import a file</strong> — bring in SVG, DXF, OBJ, STL, or <code>.camj</code> files.</li>
+          <li><strong>Open an example</strong> — load one of the bundled sample projects.</li>
+        </ul>
+        <p>
+          The card disappears once the project has geometry, and returns whenever the canvas is empty
+          again.
+        </p>
       </section>
 
       <section class="guide-section" id="toolbar">
-        <h2>Toolbar</h2>
+        <h2>Toolbars</h2>
         <p>
-          The toolbar runs across the top of the application. It is divided into groups:
+          PureCut CNC has <strong>two toolbars</strong>, split by what the tools act on:
+        </p>
+        <ul>
+          <li><strong>Top toolbar</strong> — global, project-wide actions: new/open/import/export/save,
+            undo and redo, view fit, snapping, and measurement &amp; dimensions.</li>
+          <li><strong>Left toolbar rail</strong> — the drawing and feature-editing tools: the
+            creation target, the shape tools, and the transform/edit verbs.</li>
+        </ul>
+        <p>
+          The groups below are labelled with the toolbar they live in.
         </p>
 
-        <h3>Project Actions</h3>
+        <h3>Project Actions <span style="font-size:0.72rem;color:var(--muted);font-weight:400;">· top toolbar</span></h3>
         <div class="toolbar-ref">
-          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#new"/></svg></span> New Project</span><span class="tr-desc">Opens the New Project dialog. If there are unsaved changes, you will be asked to confirm before proceeding.</span></div>
+          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#new"/></svg></span> New Project</span><span class="tr-desc">Opens the <a href="#starting-a-project">New Project dialog</a> (templates and example projects). If there are unsaved changes, you will be asked to confirm before proceeding.</span></div>
           <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#open"/></svg></span> Open Project</span><span class="tr-desc">Opens a <code>.camj</code> file from disk.</span></div>
           <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#import"/></svg></span> Import Geometry</span><span class="tr-desc">Opens the Import dialog for SVG, DXF, STL, OBJ, and .camj project files.</span></div>
           <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#export"/></svg></span> Export Model</span><span class="tr-desc">Exports the assembled 3D model as STL (binary or ASCII). Offers curve-quality presets and per-format options. See <a href="view-3d.html#stl-export">Exporting Models</a>.</span></div>
           <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#save"/></svg></span> Save Project</span><span class="tr-desc">Saves the current project to disk. On first save, you will be prompted for a file location.</span></div>
         </div>
 
-        <h3>History</h3>
+        <h3>History <span style="font-size:0.72rem;color:var(--muted);font-weight:400;">· top toolbar</span></h3>
         <div class="toolbar-ref">
           <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#undo"/></svg></span> Undo</span><span class="tr-desc">Reverts the last change. Disabled when there is nothing to undo.</span></div>
           <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#redo"/></svg></span> Redo</span><span class="tr-desc">Re-applies the last undone change.</span></div>
         </div>
 
-        <h3>View</h3>
+        <h3>View <span style="font-size:0.72rem;color:var(--muted);font-weight:400;">· top toolbar</span></h3>
         <div class="toolbar-ref">
           <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#fit"/></svg></span> Zoom to Model</span><span class="tr-desc">Fits the entire model into the canvas viewport.</span></div>
           <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#fit-window"/></svg></span> Zoom Selected</span><span class="tr-desc">Fits the selected features into the viewport. Click again to cancel.</span></div>
         </div>
 
-        <h3>Snapping</h3>
+        <h3>Snapping <span style="font-size:0.72rem;color:var(--muted);font-weight:400;">· top toolbar</span></h3>
         <div class="toolbar-ref">
           <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#snap"/></svg></span> Snap toggle</span><span class="tr-desc">Enables or disables all snapping at once.</span></div>
           <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#snap-grid"/></svg></span> Grid snap</span><span class="tr-desc">Snap to grid increment.</span></div>
@@ -155,12 +204,13 @@
           <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#snap-midpoint"/></svg></span> Midpoint snap</span><span class="tr-desc">Snap to segment midpoints.</span></div>
           <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#snap-center"/></svg></span> Center snap</span><span class="tr-desc">Snap to circle centers and feature bounding box centers.</span></div>
           <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#snap-perpendicular"/></svg></span> Perpendicular snap</span><span class="tr-desc">Snap to the perpendicular point on a segment.</span></div>
+          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#snap-intersection"/></svg></span> Intersection snap</span><span class="tr-desc">Snap to where two segments cross. A label names the active snap type at the cursor.</span></div>
         </div>
 
-        <h3>Drawing Tools</h3>
+        <h3>Drawing Tools <span style="font-size:0.72rem;color:var(--muted);font-weight:400;">· left toolbar</span></h3>
         <p>
           Before drawing, choose the <strong>creation target</strong> with the two toggle buttons
-          immediately to the left of the shape tools — <span class="ui">Create features</span> (plus
+          at the top of the drawing group — <span class="ui">Create features</span> (plus
           icon) or <span class="ui">Create regions</span> (pocket icon). The next shape you draw
           becomes the chosen feature kind:
           a normal Add/Subtract feature, or a <a href="concepts.html#regions">Region</a> (a
@@ -176,10 +226,14 @@
           <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#spline"/></svg></span> Spline</span><span class="tr-desc">Draw a smooth spline curve.</span></div>
           <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#composite"/></svg></span> Composite</span><span class="tr-desc">Draw a path with mixed line, arc, and spline segments.</span></div>
           <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#text"/></svg></span> Text</span><span class="tr-desc">Place a text feature.</span></div>
+          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#slot"/></svg></span> Slot</span><span class="tr-desc">Draw an obround (rounded-end) slot between two points.</span></div>
+          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#ngon"/></svg></span> Regular polygon</span><span class="tr-desc">Draw an equal-sided polygon from a center, radius, and side count.</span></div>
+          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#roundrect"/></svg></span> Rounded rectangle</span><span class="tr-desc">Draw a rectangle with rounded corners.</span></div>
+          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#chamferrect"/></svg></span> Chamfered rectangle</span><span class="tr-desc">Draw a rectangle with beveled corners.</span></div>
         </div>
         <p>See <a href="sketch-tools.html">Drawing Tools</a> for details on each shape tool.</p>
 
-        <h3>Feature Edit Tools</h3>
+        <h3>Feature Edit Tools <span style="font-size:0.72rem;color:var(--muted);font-weight:400;">· left toolbar</span></h3>
         <div class="toolbar-ref">
           <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#copy"/></svg></span> Copy</span><span class="tr-desc">Copy selected features to a new position.</span></div>
           <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#move"/></svg></span> Move</span><span class="tr-desc">Move selected features.</span></div>
@@ -193,7 +247,7 @@
         </div>
         <p>See <a href="sketch-edit.html">Editing Features</a> for details on each edit tool.</p>
 
-        <h3>Measure &amp; Dimensions</h3>
+        <h3>Measure &amp; Dimensions <span style="font-size:0.72rem;color:var(--muted);font-weight:400;">· top toolbar</span></h3>
         <p>
           A transient tape measure plus six permanent dimension types. Dimensions store
           <em>anchors</em> rather than frozen numbers, so they follow geometry through edits.
@@ -244,7 +298,28 @@
         <p>
           Features can be organized into folders for clarity. Select the <span class="ui">Features</span>
           root node and click <span class="ui">Add Folder</span> in the properties panel. Drag features
-          into folders, or use the Folder dropdown in the feature's properties panel.
+          into folders, or use the Folder dropdown in the feature's properties panel. (Regions get
+          their own folders the same way under the <span class="ui">Regions</span> node.)
+        </p>
+
+        <h3>Group Folders (Transform Groups)</h3>
+        <p>
+          A folder can also be a <strong>group</strong> — a CAD-style container whose contents are
+          treated as a single unit. Select two or more features, right-click, and choose
+          <span class="ui">Group</span> to collect them into a grouped folder.
+        </p>
+        <ul>
+          <li>Clicking any member of a grouped folder selects the <strong>whole group</strong>, so
+            move, rotate, and resize act on every feature in it together.</li>
+          <li>The group's properties panel shows a <span class="ui">Group</span> section where you
+            can rename it, toggle its grouped state (turning it back into a plain folder), or delete
+            the group.</li>
+          <li>While features are grouped, their individual Folder dropdown is disabled — ungroup the
+            folder first if you need to move one member out on its own.</li>
+        </ul>
+        <p>
+          Grouped folders are also what <a href="sketch-text.html#expand-text">expanding a text
+          feature</a> produces — one group per letter.
         </p>
       </section>
 
@@ -268,6 +343,19 @@
           Numeric fields accept direct input. Press <kbd>Enter</kbd> to commit or <kbd>Escape</kbd>
           to cancel. Values outside the allowed range are rejected and the field resets.
         </p>
+
+        <h3>Expanding a Panel</h3>
+        <p>
+          An <strong>expand</strong> button in the panel header opens the same fields in a larger,
+          multi-column modal. This is handy when a feature or operation has many parameters — you
+          see everything at once instead of scrolling the narrow side panel. Close the modal to
+          return to the docked panel; edits are the same either way. The
+          <a href="#cam-panel">CAM panel</a> has the same expand button.
+        </p>
+        <div class="screenshot-placeholder" data-img="interface-panel-expand.png">
+          <div class="ph-label">screenshots/interface-panel-expand.png</div>
+          <div class="ph-desc">Properties panel expanded into the multi-column modal via the header expand button</div>
+        </div>
       </section>
 
       <section class="guide-section" id="cam-panel">
@@ -280,6 +368,11 @@
           The <span class="ui">Operations</span> tab lists all machining operations and shows the
           selected operation's parameters. The <span class="ui">Tools</span> tab manages the project's
           tool library.
+        </p>
+        <p>
+          Like the properties panel, the CAM panel has an <strong>expand</strong> button that opens
+          the operation parameters in a wider multi-column modal — useful for parameter-heavy
+          operations such as 3D Surface Finish.
         </p>
         <p>See <a href="cam-operations.html">Operations</a> and <a href="cam-tools.html">Tool Library</a> for full details.</p>
       </section>
@@ -306,7 +399,7 @@
         <h2>Tablet Shell</h2>
         <p>
           On a tablet or touch device, PureCut CNC automatically switches to a tablet shell layout
-          that replaces the wrapping desktop toolbar with three purpose-built command surfaces:
+          that replaces the desktop toolbar rail with three purpose-built command surfaces:
         </p>
         <table class="prop-table">
           <thead><tr><th>Surface</th><th>What it contains</th></tr></thead>

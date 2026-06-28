@@ -317,7 +317,7 @@ code {
   letter-spacing: 0.04em;
   font-family: var(--mono);
 }
-.screenshot-placeholder .ph-desc { font-size: 0.78rem; color: var(--border); }
+.screenshot-placeholder .ph-desc { font-size: 0.78rem; color: var(--muted); }
 
 /* ── PROP TABLE ── */
 .prop-table {
@@ -371,6 +371,32 @@ code {
   color: var(--text);
 }
 .op-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.55; margin: 0; }
+.op-card .op-tool {
+  margin-top: 0.7rem;
+  font-size: 0.72rem;
+  color: var(--accent);
+  font-family: var(--mono);
+  letter-spacing: 0.02em;
+}
+.op-card .op-tool strong { color: var(--text); font-weight: 700; }
+.op-thumb {
+  margin-top: 0.9rem;
+  background: var(--bg);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0.5rem;
+}
+.op-thumb .ph-desc { font-size: 0.72rem; color: var(--muted); line-height: 1.4; }
+
+/* ── DECISION GUIDE ── */
+.decision-table td:first-child { color: var(--text); font-weight: 600; white-space: normal; }
+.decision-table td a { color: var(--accent); font-weight: 600; text-decoration: none; }
+.decision-table td a:hover { text-decoration: underline; }
 
 /* ── TOOLBAR REFERENCE ── */
 .toolbar-ref {
