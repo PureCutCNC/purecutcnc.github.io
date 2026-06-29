@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>G-code Export — PureCut CNC User Guide</title>
-  <meta name="description" content="G-code export in PureCut CNC — machine selection, post-processors, and the export dialog." />
+  <meta name="description" content="G-code export in PureCut CNC — machine selection, post-processors, the export dialog, and per-operation PDF booklet setup sheets." />
   <link rel="icon" href="./favicon.svg" />
   <link rel="stylesheet" href="./guide.css" />
   <script src="./screenshots-loader.js" defer></script>
@@ -94,7 +94,7 @@
           panel, find the <span class="ui">Machine</span> dropdown and choose your controller.
         </p>
         <p>
-          Built-in machine definitions include Grbl, GrblHAL, LinuxCNC, and Mach3. You can also add custom
+          Built-in machine definitions include Grbl, GrblHAL, LinuxCNC, Mach3, and UCCNC. You can also add custom
           machine definitions by clicking <span class="ui">Add machine</span> and providing a JSON
           definition file.
         </p>
@@ -161,29 +161,84 @@
         </p>
       </section>
 
+      <section class="guide-section" id="operation-booklet">
+        <h2>Operation Booklets (PDF Setup Sheets)</h2>
+        <p>
+          Alongside the G-code, you can export a printable <strong>setup sheet</strong> for any
+          single operation. Select an operation in the CAM panel, then in its parameters find the
+          <span class="ui">Booklet</span> field and click <span class="ui">Export PDF</span>. The
+          app builds a one-operation PDF you can keep at the machine or hand off with the job.
+        </p>
+        <p>
+          Each booklet gathers everything you need to set up and run that operation:
+        </p>
+        <ul>
+          <li>Project and operation name, a description of what the operation does, and the date generated.</li>
+          <li>Units, machine origin (Z) summary, and stock size.</li>
+          <li>The target features the operation cuts.</li>
+          <li>Tool details and the operation's feeds, speeds, and stepover/stepdown settings.</li>
+          <li>Toolpath statistics (such as cut length and estimated moves).</li>
+          <li>A snapshot image of the toolpath, and any warnings detected for the operation.</li>
+        </ul>
+        <p>
+          Booklets are exported one operation at a time — the file is named
+          <code>&lt;project&gt;_&lt;operation&gt;_booklet.pdf</code>. Export a booklet per operation
+          to assemble a full job packet.
+        </p>
+        <div class="screenshot-placeholder" data-img="cam-operation-booklet.png">
+          <div class="ph-label">screenshots/cam-operation-booklet.png</div>
+          <div class="ph-desc">Operation booklet PDF — setup sheet with tool, feeds/speeds, toolpath stats, and a toolpath snapshot</div>
+        </div>
+      </section>
+
       <section class="guide-section" id="custom-machines">
         <h2>Custom Machine Definitions</h2>
         <p>
           If your machine controller is not in the built-in list, you can add a custom definition.
           Click <span class="ui">Add machine</span> in the Project properties panel and select a
-          JSON file containing the machine definition.
+          JSON file containing the machine definition. If a file fails validation, the specific
+          problems are shown inline so you can fix them — there is no longer a blunt error alert.
         </p>
         <p>
-          Download the template below as a starting point, edit it to match your controller, then
-          load it into the project:
+          The easiest way to start a custom definition is from inside the app: <span class="ui">Duplicate</span>
+          a built-in machine that's close to your controller, <span class="ui">Edit</span> the copy,
+          then <span class="ui">Export</span> it if you want a JSON backup. That always produces a
+          definition matching the current schema — see below.
         </p>
+
+        <h3>Editing Machines In-App</h3>
         <p>
-          <a href="machine-definition-template.json" download class="btn-download">
-            <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#import"/></svg></span>
-            Download machine-definition-template.json
-          </a>
+          You don't have to hand-edit JSON in an external editor. Select a custom machine and the
+          Project properties panel exposes three actions:
         </p>
+        <ul>
+          <li><span class="ui">Edit</span> — opens a machine editor dialog. A focused form covers
+            the fields you change most often (name, description, file extension, units commands,
+            program header/footer, and so on); an <strong>Advanced</strong> tab gives you the raw
+            JSON as an escape hatch for anything the form doesn't surface. Both views validate
+            <strong>live</strong> as you type and flag invalid values immediately, so you can't save
+            a broken definition.</li>
+          <li><span class="ui">Duplicate</span> — clones the selected machine (including a built-in)
+            under a new id and name, giving you a custom, editable starting point that matches a
+            controller you already have.</li>
+          <li><span class="ui">Export</span> — writes the current definition back out to a JSON
+            file to share or back up.</li>
+        </ul>
+        <div class="screenshot-placeholder" data-img="cam-machine-editor.png">
+          <div class="ph-label">screenshots/cam-machine-editor.png</div>
+          <div class="ph-desc">Machine editor dialog — focused form fields with the Advanced (raw JSON) tab and live validation</div>
+        </div>
+        <div class="callout--tip callout">
+          <strong>Tip:</strong> The quickest way to make a tweaked variant of a built-in profile is
+          <span class="ui">Duplicate</span> it, then <span class="ui">Edit</span> the copy — you
+          start from a known-good definition instead of a blank template.
+        </div>
 
         <h3>Field Reference</h3>
         <table class="prop-table">
           <thead><tr><th>Field</th><th>Description</th></tr></thead>
           <tbody>
-            <tr><td>id</td><td>Unique identifier string. Must not clash with built-in IDs (<code>generic</code>, <code>grbl</code>, <code>grblhal</code>, <code>mach3</code>, <code>linuxcnc</code>).</td></tr>
+            <tr><td>id</td><td>Unique identifier string. Must not clash with built-in IDs (<code>generic</code>, <code>grbl</code>, <code>grblhal</code>, <code>mach3</code>, <code>linuxcnc</code>, <code>uccnc</code>).</td></tr>
             <tr><td>name</td><td>Display name shown in the Machine dropdown.</td></tr>
             <tr><td>description</td><td>Short description shown in the UI.</td></tr>
             <tr><td>vendor</td><td>Optional vendor name.</td></tr>

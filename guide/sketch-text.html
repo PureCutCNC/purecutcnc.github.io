@@ -159,6 +159,37 @@
         </div>
       </section>
 
+      <section class="guide-section" id="expand-text">
+        <h2>Expand Text into Features</h2>
+        <p>
+          A text feature stays editable as text — but you can also <strong>explode</strong> it into
+          ordinary sketch features when you need to reshape individual letters, adjust spacing
+          beyond what the font gives you, or apply different operations per glyph. Select the text
+          feature and click <span class="ui">Expand to Features</span> in the properties panel.
+        </p>
+        <p>
+          Each letter becomes its own <strong>group folder</strong> in the feature tree, containing
+          one or more contour features:
+        </p>
+        <ul>
+          <li><strong>Outline text</strong> expands into <strong>closed contour</strong> features —
+            one per visible contour (letters such as <em>O</em> or <em>A</em> produce an outer and
+            an inner contour).</li>
+          <li><strong>Skeleton text</strong> expands into <strong>open line</strong> features that
+            trace each stroke's centerline.</li>
+        </ul>
+        <p>
+          The exploded features inherit the source text's Z Top / Z Bottom, operation (add or
+          subtract), visibility, and lock state, so any CAM operation you'd planned still applies.
+          A <span class="ui">Remove original text</span> checkbox lets you keep or discard the
+          source text feature; the whole expansion is a single undo step.
+        </p>
+        <div class="callout">
+          Expanding is one-way. The generated features are independent geometry — to change the
+          wording afterward, edit the original text (keep it) or expand a fresh text feature.
+        </div>
+      </section>
+
       <section class="guide-section" id="text-cam">
         <h2>Machining Text</h2>
         <p>

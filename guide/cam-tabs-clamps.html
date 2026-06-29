@@ -173,6 +173,17 @@
           <li><strong>Clamp Clear Z</strong> — additional Z clearance above the clamp height on rapid moves.</li>
         </ul>
 
+        <h3 id="clamp-collision">Collision Highlighting</h3>
+        <p>
+          PureCut CNC flags clamp collisions visually, not just in text. A clamp whose zone the
+          toolpath violates is drawn in <strong>red</strong> instead of blue, and the specific
+          toolpath moves that pass through that clamp below the required clearance are redrawn in
+          <strong>amber</strong> on top of the normal toolpath — so you can see exactly where the
+          tool would strike the clamp. Rapid moves that the planner automatically lifts to a safe
+          height are not flagged. Move the clamp or the cut, or increase the clamp clearances, until
+          the amber highlight disappears.
+        </p>
+
         <h3>Editing Clamps</h3>
         <p>
           Select a clamp in the feature tree to edit its properties. Click <span class="ui">Edit Sketch</span>

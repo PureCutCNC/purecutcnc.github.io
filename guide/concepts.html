@@ -226,6 +226,68 @@
         </div>
       </section>
 
+      <section class="guide-section" id="feature-references">
+        <h2>Feature References (Linked Instances)</h2>
+        <p>
+          Every feature in the tree is an <strong>instance</strong> — a placement (position,
+          rotation, scale) that points at a shared <strong>definition</strong> holding the actual
+          geometry. Most of the time you never think about this, but it powers a useful workflow:
+          two or more instances can <strong>share one definition</strong>, so editing the shape once
+          updates every linked copy.
+        </p>
+        <p>
+          This is like blocks or symbols in other CAD tools. Use it for repeated parts — a row of
+          identical mounting holes, a tiled pattern, the same bracket profile in several places.
+        </p>
+
+        <h3>Linked vs. independent copies</h3>
+        <p>
+          When you duplicate or paste a feature, the result is one of two things:
+        </p>
+        <ul>
+          <li><strong>Linked reference</strong> — a new instance that shares the original's
+            definition. Each instance keeps its own position, rotation, and scale, but they all
+            share geometry. Edit the sketch of any one and every linked instance updates together.</li>
+          <li><strong>Independent copy</strong> — a new instance with its own private definition.
+            It starts identical but is fully detached; editing it changes nothing else.</li>
+        </ul>
+        <p>
+          Linked instances are marked in the feature tree with a <strong>link badge</strong>
+          <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#constraint"/></svg></span>
+          so you can tell at a glance which features move as a set.
+        </p>
+
+        <h3>Copy mode</h3>
+        <p>
+          The project's <strong>Copy mode</strong> setting decides which kind of copy the
+          clipboard and quick-duplicate produce by default:
+        </p>
+        <ul>
+          <li><strong>Reference</strong> (default) — Copy/Paste and duplicate create linked
+            instances.</li>
+          <li><strong>Independent</strong> — Copy/Paste and duplicate create fully independent
+            copies.</li>
+        </ul>
+        <p>
+          Regardless of the mode, the feature's context menu offers both explicit actions —
+          <span class="ui">Duplicate as Reference</span> and
+          <span class="ui">Duplicate Independent</span> — so you can choose per copy.
+        </p>
+
+        <h3>Working with linked instances</h3>
+        <ul>
+          <li><span class="ui">Select Linked Instances</span> — selects every instance that shares
+            the same definition, so you can see or operate on the whole set at once.</li>
+          <li><span class="ui">Make Unique</span> — detaches one instance by cloning its definition.
+            Use this when one copy in a linked set needs to diverge from the rest.</li>
+        </ul>
+        <div class="callout--tip callout">
+          <strong>Tip:</strong> Moving, rotating, or scaling a linked instance only affects that one
+          instance — placement is always per-instance. Only edits to the underlying
+          <em>sketch geometry</em> propagate across the link.
+        </div>
+      </section>
+
       <section class="guide-section" id="visibility">
         <h2>Visibility and Toolpath Calculation</h2>
         <p>

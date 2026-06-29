@@ -90,7 +90,7 @@
           snap modes can be active simultaneously — the closest candidate wins.
         </p>
         <p>
-          The snap toolbar is in the top toolbar. The master <span class="ui">Snap</span> toggle
+          The snap controls are in the top toolbar. The master <span class="ui">Snap</span> toggle
           enables or disables all snapping at once. Individual mode buttons toggle each snap type
           independently. A mode button glows when that mode is actively snapping the current cursor
           position.
@@ -138,8 +138,19 @@
               <td><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#snap-perpendicular"/></svg></span></td>
               <td>Snaps to the point on a line segment that is perpendicular to the cursor's current position.</td>
             </tr>
+            <tr>
+              <td>Intersection</td>
+              <td><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#snap-intersection"/></svg></span></td>
+              <td>Snaps to the point where two segments cross, even when no vertex exists there. Useful for placing geometry exactly where two edges meet.</td>
+            </tr>
           </tbody>
         </table>
+
+        <p>
+          When a candidate is found, a small <strong>label</strong> names the active snap type
+          (Point, Midpoint, Center, Intersection, …) next to the indicator, so you can confirm
+          you're locking onto the position you intended before you click.
+        </p>
 
         <div class="callout--tip callout">
           <strong>Tip:</strong> Disable grid snap when you need to place geometry at a position that
