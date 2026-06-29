@@ -1,0 +1,24 @@
+
+[
+  {
+    "id": "purecutcnc",
+    "title": "PureCutCNC",
+    "description": "Pocket and V-Carving examples",
+    "file": "purecutcnc.camj",
+    "thumbnail": "purecutcnc.png"
+  },
+  {
+    "id": "t-style-body",
+    "title": "T Style guitar body",
+    "description": "Pocket, drilling, and edge out examples",
+    "file": "t-style-body.camj",
+    "thumbnail": "t-style-body.png"
+  },
+  {
+    "id": "badge",
+    "title": "Badge",
+    "description": "Pocket, drilling, rest machining, and edge out examples",
+    "file": "badge.camj",
+    "thumbnail": "badge.png"
+  }
+]
