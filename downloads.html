@@ -256,6 +256,32 @@
       transform: translateY(-1px);
     }
 
+    .support-banner {
+      max-width: 1160px;
+      margin: 0 auto 1.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem 2rem;
+      flex-wrap: wrap;
+      padding: 1.1rem 1.5rem;
+      border-radius: var(--radius);
+      border: 1px solid rgba(240, 162, 74, 0.45);
+      background: rgba(240, 162, 74, 0.08);
+    }
+
+    .support-banner p {
+      margin: 0;
+      color: var(--text);
+      font-size: 0.98rem;
+      line-height: 1.55;
+      max-width: 720px;
+    }
+
+    .support-banner p strong { color: #f0a24a; }
+
+    .support-banner .btn-coffee { flex-shrink: 0; }
+
     main {
       padding: 3rem 2rem 5rem;
     }
@@ -642,16 +668,19 @@
         <a href="https://github.com/PureCutCNC/purecutcnc/releases" class="btn-primary">Open all GitHub releases</a>
         <a href="https://purecutcnc.github.io/app" class="btn-secondary desktop-web-link">Use browser version</a>
         <a href="https://purecutcnc.github.io/app-rc" class="btn-secondary desktop-web-link">Open Preview Build</a>
-        <a href="https://buymeacoffee.com/purecutcnc" class="btn-coffee" target="_blank" rel="noopener noreferrer">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
-          Buy me a coffee
-        </a>
         <p class="desktop-web-only-note">The browser app needs a tablet or desktop. On phones, use the desktop downloads above.</p>
       </div>
     </div>
   </section>
 
   <main>
+    <section class="support-banner" aria-label="Support PureCut CNC">
+      <p><strong>PureCut CNC is free, and stays free</strong> — but building and maintaining it takes real time and money. If it helps you, a coffee keeps it going.</p>
+      <a href="https://buymeacoffee.com/purecutcnc" class="btn-coffee" target="_blank" rel="noopener noreferrer">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+        Buy me a coffee
+      </a>
+    </section>
     <div class="page-grid">
       <section class="panel matrix-panel">
         <div class="panel-head">
