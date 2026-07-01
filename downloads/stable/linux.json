@@ -1,9 +1,22 @@
 {
   "platform": "linux",
   "channel": "stable",
-  "version": null,
-  "tag": null,
-  "releaseUrl": "https://github.com/PureCutCNC/purecutcnc/releases",
-  "updatedAt": null,
-  "assets": []
+  "version": "0.0.6",
+  "tag": "v0.0.6",
+  "releaseUrl": "https://github.com/PureCutCNC/purecutcnc/releases/tag/v0.0.6",
+  "updatedAt": "2026-07-01T19:49:32.614Z",
+  "assets": [
+    {
+      "name": "PureCutCNC_0.0.6_amd64.AppImage",
+      "label": "Download AppImage",
+      "kind": "appimage",
+      "url": "https://github.com/PureCutCNC/purecutcnc/releases/download/v0.0.6/PureCutCNC_0.0.6_amd64.AppImage"
+    },
+    {
+      "name": "PureCutCNC_0.0.6_amd64.deb",
+      "label": "Download .deb package",
+      "kind": "deb",
+      "url": "https://github.com/PureCutCNC/purecutcnc/releases/download/v0.0.6/PureCutCNC_0.0.6_amd64.deb"
+    }
+  ]
 }
