@@ -715,7 +715,7 @@
   <!-- HERO -->
   <div class="hero">
     <div class="hero-grid"></div>
-    <div class="hero-badge"><span class="dot"></span> v0.0.5 · 3D ops · Linked features · Machine editor</div>
+    <div class="hero-badge"><span class="dot"></span> <span id="js-hero-version">v0.0.6</span> · 3D ops · Linked features · Machine editor</div>
     <h1>2.5D CAD/CAM for<br/><em>real-world CNC work.</em></h1>
     <p class="hero-sub">
       PureCut CNC is a browser-based 2.5D + 3D CAD/CAM workspace for designing parts,
@@ -1046,6 +1046,23 @@
       </a>
     </span>
   </footer>
+
+  <script>
+    ;(async () => {
+      try {
+        const response = await fetch('https://api.github.com/repos/PureCutCNC/purecutcnc/releases/latest', {
+          headers: { Accept: 'application/vnd.github+json' },
+        })
+        if (!response.ok) return
+        const data = await response.json()
+        if (!data || !data.tag_name) return
+        const badge = document.getElementById('js-hero-version')
+        if (badge) badge.textContent = data.tag_name
+      } catch (error) {
+        // Keep the hardcoded fallback version if the API is unreachable.
+      }
+    })()
+  </script>
 
 </body>
 </html>
