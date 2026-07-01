@@ -235,6 +235,53 @@
       transform: translateY(-1px);
     }
 
+    .btn-coffee {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-radius: var(--radius);
+      padding: 0.8rem 1.15rem;
+      font-size: 0.92rem;
+      font-weight: 700;
+      transition: transform 0.12s, border-color 0.12s, background 0.12s;
+      border: 1px solid rgba(240, 162, 74, 0.5);
+      background: rgba(240, 162, 74, 0.06);
+      color: #f0a24a;
+    }
+
+    .btn-coffee:hover {
+      border-color: #f0a24a;
+      background: rgba(240, 162, 74, 0.14);
+      text-decoration: none;
+      transform: translateY(-1px);
+    }
+
+    .support-banner {
+      max-width: 1160px;
+      margin: 0 auto 1.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem 2rem;
+      flex-wrap: wrap;
+      padding: 1.1rem 1.5rem;
+      border-radius: var(--radius);
+      border: 1px solid rgba(240, 162, 74, 0.45);
+      background: rgba(240, 162, 74, 0.08);
+    }
+
+    .support-banner p {
+      margin: 0;
+      color: var(--text);
+      font-size: 0.98rem;
+      line-height: 1.55;
+      max-width: 720px;
+    }
+
+    .support-banner p strong { color: #f0a24a; }
+
+    .support-banner .btn-coffee { flex-shrink: 0; }
+
     main {
       padding: 3rem 2rem 5rem;
     }
@@ -627,6 +674,13 @@
   </section>
 
   <main>
+    <section class="support-banner" aria-label="Support PureCut CNC">
+      <p><strong>PureCut CNC is free, and stays free</strong> — but building and maintaining it takes real time and money. If it helps you, a coffee keeps it going.</p>
+      <a href="https://buymeacoffee.com/purecutcnc" class="btn-coffee" target="_blank" rel="noopener noreferrer">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+        Buy me a coffee
+      </a>
+    </section>
     <div class="page-grid">
       <section class="panel matrix-panel">
         <div class="panel-head">
@@ -750,6 +804,16 @@
             <li><a href="https://github.com/PureCutCNC/purecutcnc/blob/main/RELEASE_NOTES.md">RELEASE_NOTES.md</a></li>
           </ul>
         </section>
+
+        <section class="panel note-card">
+          <div class="panel-label">Support</div>
+          <h3>Keep PureCut CNC going</h3>
+          <p>PureCut CNC is free, and it stays free — no accounts, no paywalls. But developing and maintaining it (and the tools and hosting behind it) takes real time and money. If it has saved you time, buying me a coffee genuinely helps keep it going. No pressure — and thank you for using it.</p>
+          <a href="https://buymeacoffee.com/purecutcnc" class="btn-coffee" target="_blank" rel="noopener noreferrer" style="margin-top: 0.5rem;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+            Buy me a coffee
+          </a>
+        </section>
       </div>
     </div>
   </main>
@@ -760,7 +824,8 @@
       <a href="index.html">Overview</a> ·
       <a href="quickstart.html">Quick Start</a> ·
       <a href="https://github.com/PureCutCNC/purecutcnc/releases">GitHub Releases</a> ·
-      <a href="https://github.com/PureCutCNC/purecutcnc/blob/main/LICENSE">License (Apache 2.0)</a>
+      <a href="https://github.com/PureCutCNC/purecutcnc/blob/main/LICENSE">License (Apache 2.0)</a> ·
+      <a href="https://buymeacoffee.com/purecutcnc" target="_blank" rel="noopener noreferrer">Buy me a coffee</a>
     </div>
   </footer>
 
