@@ -1,16 +1,16 @@
 {
   "platform": "macos",
   "channel": "stable",
-  "version": "0.0.6",
-  "tag": "v0.0.6",
-  "releaseUrl": "https://github.com/PureCutCNC/purecutcnc/releases/tag/v0.0.6",
-  "updatedAt": "2026-07-01T19:59:36.078Z",
+  "version": "0.1.0",
+  "tag": "v0.1.0",
+  "releaseUrl": "https://github.com/PureCutCNC/purecutcnc/releases/tag/v0.1.0",
+  "updatedAt": "2026-07-15T16:21:10.312Z",
   "assets": [
     {
-      "name": "PureCutCNC_0.0.6_universal.dmg",
+      "name": "PureCutCNC_0.1.0_universal.dmg",
       "label": "Download DMG",
       "kind": "dmg",
-      "url": "https://github.com/PureCutCNC/purecutcnc/releases/download/v0.0.6/PureCutCNC_0.0.6_universal.dmg"
+      "url": "https://github.com/PureCutCNC/purecutcnc/releases/download/v0.1.0/PureCutCNC_0.1.0_universal.dmg"
     }
   ]
 }
