@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Drawing Tools — PureCut CNC User Guide</title>
-  <meta name="description" content="Drawing tools in PureCut CNC — rectangle, circle, polygon, spline, composite path, and text." />
+  <meta name="description" content="Drawing tools in PureCut CNC — rectangle, circle, polygon, spline, composite path, text, gears, and the line drawing mode." />
   <link rel="icon" href="./favicon.svg" />
   <link rel="stylesheet" href="./guide.css" />
   <script src="./screenshots-loader.js" defer></script>
@@ -57,8 +57,10 @@
           <li><a href="sketch-edit.html">Editing Features</a></li>
           <li><a href="sketch-snapping.html">Snapping &amp; Grid</a></li>
           <li><a href="sketch-import.html">Importing Geometry</a></li>
+          <li><a href="sketch-export.html">Export &amp; Print</a></li>
           <li><a href="sketch-text.html">Text Features</a></li>
           <li><a href="sketch-dimensions.html">Measure &amp; Dimensions</a></li>
+          <li><a href="sketch-toolpaths.html">Toolpath Display</a></li>
         </ul>
       </div>
       <div class="sidebar-section">
@@ -97,6 +99,37 @@
           <strong>Snapping is active by default.</strong> While drawing, the cursor snaps to the
           grid and to existing geometry. See <a href="sketch-snapping.html">Snapping &amp; Grid</a>
           for details on controlling snap behavior.
+        </div>
+      </section>
+
+      <section class="guide-section" id="creation-target">
+        <h2>
+          <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#snap-line"/></svg></span>
+          Creation Target &amp; Line Mode
+        </h2>
+        <p>
+          Before you draw, the toggle at the top of the drawing group sets the <strong>creation
+          target</strong> — what kind of feature the next shape becomes. The same drawing tools are
+          used for every target:
+        </p>
+        <ul>
+          <li><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#plus"/></svg></span> <span class="ui">Create features</span> — normal Add/Subtract sketch features (the default).</li>
+          <li><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#snap-line"/></svg></span> <span class="ui">Create lines</span> — the <strong>dedicated line drawing mode</strong>.</li>
+          <li><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#pocket"/></svg></span> <span class="ui">Create regions</span> — <a href="concepts.html#regions">Region</a> area filters for CAM, not material.</li>
+          <li><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#construction"/></svg></span> <span class="ui">Create construction</span> — reference-only <a href="concepts.html#construction">construction geometry</a> that never generates toolpaths.</li>
+        </ul>
+        <p>
+          In <span class="ui">Create lines</span> mode, the geometry you draw is placed as a
+          <strong>Line</strong> feature — a non-solid path that stays out of the 3D solid model. Line
+          features feed straight into the <a href="cam-operations.html#op-engrave">Engrave (follow
+          line)</a> operation, and closed Line profiles are also eligible for
+          <a href="cam-operations.html#op-vcarve-offset">V-Carve Offset</a> and
+          <a href="cam-operations.html#op-vcarve-medial">V-Carve Medial</a>. Use it for centerlines,
+          decorative paths, and lettering strokes you want to carve or engrave rather than cut out.
+        </p>
+        <div class="screenshot-placeholder" data-img="sketch-creation-target.png">
+          <div class="ph-label">screenshots/sketch-creation-target.png</div>
+          <div class="ph-desc">Creation target toggle — Create features / lines / regions / construction</div>
         </div>
       </section>
 
@@ -306,6 +339,23 @@
         <div class="screenshot-placeholder" data-img="sketch-ngon-tool.png">
           <div class="ph-label">screenshots/sketch-ngon-tool.png</div>
           <div class="ph-desc">Regular Polygon tool — a hexagon drawn from center and radius</div>
+        </div>
+
+        <h3>
+          <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#gear"/></svg></span>
+          Gear
+        </h3>
+        <p>
+          Draws an involute <strong>spur gear</strong> as an editable closed profile. Click a center
+          point, then click to set the outside radius (or type it in), and the
+          <span class="ui">Set gear parameters</span> panel opens. Set the tooth count, module,
+          pressure angle, and the profile details (whole depth, tooth flank, root and crest form,
+          root fillet, and an optional bore), then confirm. The result is a normal feature you can
+          machine like any other closed shape.
+        </p>
+        <div class="screenshot-placeholder" data-img="sketch-gear-tool.png">
+          <div class="ph-label">screenshots/sketch-gear-tool.png</div>
+          <div class="ph-desc">Gear tool — involute spur gear with its parameter panel open</div>
         </div>
 
         <h3>

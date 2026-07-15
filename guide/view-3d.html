@@ -57,8 +57,10 @@
           <li><a href="sketch-edit.html">Editing Features</a></li>
           <li><a href="sketch-snapping.html">Snapping &amp; Grid</a></li>
           <li><a href="sketch-import.html">Importing Geometry</a></li>
+          <li><a href="sketch-export.html">Export &amp; Print</a></li>
           <li><a href="sketch-text.html">Text Features</a></li>
           <li><a href="sketch-dimensions.html">Measure &amp; Dimensions</a></li>
+          <li><a href="sketch-toolpaths.html">Toolpath Display</a></li>
         </ul>
       </div>
       <div class="sidebar-section">
@@ -136,28 +138,12 @@
       <section class="guide-section" id="3d-toolpaths">
         <h2>Toolpath Visualization</h2>
         <p>
-          Toolpaths are shown as colored lines over the model. Different move types are shown in
-          different colors:
+          Visible toolpaths are drawn in space over the model — one color per move type — so the
+          vertical moves are easy to read: entry points, depth layers, stepdown progression, tab
+          locations, and clamp clearance. The <span class="ui">Show</span> legend that filters those
+          move types is the same in both views and is covered on the
+          <a href="sketch-toolpaths.html">Toolpath Display</a> page.
         </p>
-        <ul>
-          <li><strong>Rapid moves</strong> — fast positioning moves at safe Z height.</li>
-          <li><strong>Cutting moves</strong> — moves at feed rate where material is being removed.</li>
-          <li><strong>Plunge moves</strong> — Z-axis moves into the material.</li>
-        </ul>
-        <p>
-          Only operations with their toolpath visibility enabled (◉) are shown. Toggle visibility
-          in the operations list in the CAM panel.
-        </p>
-        <p>
-          Use the 3D View to check:
-        </p>
-        <ul>
-          <li>Entry and exit points for each pass</li>
-          <li>Depth layers and stepdown progression</li>
-          <li>Tab locations on edge route operations</li>
-          <li>Clamp clearance on rapid moves</li>
-          <li>Overall coverage of the operation area</li>
-        </ul>
       </section>
 
       <section class="guide-section" id="open-features">
@@ -195,32 +181,10 @@
       <section class="guide-section" id="stl-export">
         <h2>Exporting Models</h2>
         <p>
-          Click <span class="ui">Export Model</span> in the top toolbar (next to Import) to save
-          the assembled 3D model to disk. The export dialog mirrors the 3D viewport's behaviour:
-          it computes a manifold boolean union of all add/subtract features, then appends any
-          imported meshes as raw transformed triangles so their original geometry is preserved
-          regardless of CSG validity.
-        </p>
-        <div class="screenshot-placeholder" data-img="view-3d-export-dialog.png">
-          <div class="ph-label">screenshots/view-3d-export-dialog.png</div>
-          <div class="ph-desc">Export Model dialog open — Format dropdown, file name, curve quality preset, binary/ASCII toggle, and live triangle count</div>
-        </div>
-
-        <h3>Export Options</h3>
-        <table class="prop-table">
-          <thead><tr><th>Option</th><th>Description</th></tr></thead>
-          <tbody>
-            <tr><td>Format</td><td>STL is shipped today (binary and ASCII variants). Additional formats can be added without UI changes.</td></tr>
-            <tr><td>File name</td><td>Defaults to the project name; editable.</td></tr>
-            <tr><td>Curve quality</td><td><strong>Coarse</strong> 10°, <strong>Normal</strong> 5°, <strong>Fine</strong> 2°, or <strong>Very fine</strong> 1°. Controls the arc/spline tessellation step used when meshing curved profiles.</td></tr>
-            <tr><td>Binary / ASCII</td><td>(STL only.) Binary is smaller and faster to write; ASCII is human-readable.</td></tr>
-            <tr><td>Include imported meshes</td><td>(STL only.) When off, only the CSG-assembled body is exported — imported model features are skipped.</td></tr>
-          </tbody>
-        </table>
-        <p>
-          A live triangle count and estimated file size update as you change the options. Output
-          uses internal design coordinates, so round-trip (<span class="ui">Export Model</span> →
-          <span class="ui">Import Geometry</span>) preserves position and orientation.
+          The 3D model exports to <strong>STL</strong> (and the 2D design to <strong>SVG</strong>) from
+          the <span class="ui">Export Model</span> dialog in the top toolbar. Because these exports
+          aren't specific to the 3D view, they're documented — together with printing — on the
+          <a href="sketch-export.html">Export &amp; Print</a> page.
         </p>
       </section>
 

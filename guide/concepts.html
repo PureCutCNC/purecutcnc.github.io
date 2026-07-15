@@ -57,8 +57,10 @@
           <li><a href="sketch-edit.html">Editing Features</a></li>
           <li><a href="sketch-snapping.html">Snapping &amp; Grid</a></li>
           <li><a href="sketch-import.html">Importing Geometry</a></li>
+          <li><a href="sketch-export.html">Export &amp; Print</a></li>
           <li><a href="sketch-text.html">Text Features</a></li>
           <li><a href="sketch-dimensions.html">Measure &amp; Dimensions</a></li>
+          <li><a href="sketch-toolpaths.html">Toolpath Display</a></li>
         </ul>
       </div>
       <div class="sidebar-section">
@@ -203,6 +205,36 @@
           <strong>Tip:</strong> Regions are order-independent — moving them around in the feature
           tree doesn't change the result. You can drag them into a folder labelled "Masks" to keep
           them visually separate from machining features.
+        </div>
+      </section>
+
+      <section class="guide-section" id="construction">
+        <h2>Construction Geometry</h2>
+        <p>
+          <strong>Construction geometry</strong> is sketch-only reference geometry — layout guides,
+          centerlines, symmetry axes, and bolt-circle references you draw to help position real
+          features. Like the reference lines on a paper drawing, it shapes how you build the part
+          without ever becoming part of it.
+        </p>
+
+        <h3>Behaviour</h3>
+        <ul>
+          <li>Contributes <strong>no material</strong> to the 3D solid and generates <strong>no toolpaths</strong> — it can never be machined.</li>
+          <li>Renders as <strong>muted grey-blue, dashed</strong> reference marks so it's easy to tell apart from machining features.</li>
+          <li>Fully usable as a drawing aid: you can <strong>snap to it, mirror against it, and dimension to it</strong>.</li>
+          <li>Grouped in the feature tree with its own <strong>show / hide</strong> toggle (also available from the status bar) so you can hide the scaffolding once the part is built.</li>
+        </ul>
+
+        <h3>Creating Construction Geometry</h3>
+        <p>
+          Draw it directly by setting the creation target to <span class="ui">Create construction</span>
+          before drawing (see <a href="sketch-tools.html#creation-target">Drawing Tools</a>), or convert
+          an existing feature to the construction role from the feature tree. Any shape tool can produce
+          construction geometry.
+        </p>
+        <div class="callout--tip callout">
+          <strong>Tip:</strong> Use a construction circle or line as a snap target to place features on
+          an exact centerline or bolt circle, then hide the construction layer before exporting.
         </div>
       </section>
 

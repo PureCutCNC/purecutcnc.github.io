@@ -57,8 +57,10 @@
           <li><a href="sketch-edit.html">Editing Features</a></li>
           <li><a href="sketch-snapping.html">Snapping &amp; Grid</a></li>
           <li><a href="sketch-import.html">Importing Geometry</a></li>
+          <li><a href="sketch-export.html">Export &amp; Print</a></li>
           <li><a href="sketch-text.html">Text Features</a></li>
           <li><a href="sketch-dimensions.html" class="active">Measure &amp; Dimensions</a></li>
+          <li><a href="sketch-toolpaths.html">Toolpath Display</a></li>
         </ul>
       </div>
       <div class="sidebar-section">
@@ -184,6 +186,7 @@
         <h2>Editing &amp; Repositioning</h2>
         <ul>
           <li><strong>Select</strong> — click the dimension line or label. The selection draws in blue.</li>
+          <li><strong>Edit the value inline</strong> — click the label of a <em>drive-capable</em> dimension to open a small editor right on the canvas, type a new value, and the geometry resizes to match. A dimension is drive-capable when it maps to a single, unambiguous feature size (or is a rectangular stock dimension). One anchor is <strong>held</strong> in place while the other moves — the held and driven sides are highlighted, and you can flip which side stays fixed.</li>
           <li><strong>Reposition</strong> — drag the dimension line to change the offset from the picks. Aligned, horizontal, vertical, and angle dimensions all support drag-to-reposition. (Radius and diameter labels sit at the midpoint and are not repositionable.)</li>
           <li><strong>Delete</strong> — select and press <kbd>Delete</kbd>, or use the delete-on-click toolbar mode for clearing many dimensions in a row.</li>
         </ul>
@@ -206,7 +209,7 @@
       <section class="guide-section" id="limits">
         <h2>What Dimensions Don't Do</h2>
         <ul>
-          <li>Dimensions are <strong>annotations</strong>, not constraints. Changing a dimension's value does not move the geometry. To set an exact size, edit the feature's properties or use the Constraint tool.</li>
+          <li>Most dimensions are <strong>annotations</strong>, not constraints. Only <em>drive-capable</em> dimensions reshape geometry when you edit their value (see <a href="#editing-dimensions">Editing &amp; Repositioning</a>); a dimension that could resolve to more than one change stays a pure measurement. To force an exact size in the general case, edit the feature's properties or use the Constraint tool.</li>
           <li>Dimensions do not appear in the 3D view, the simulation, or the exported G-code.</li>
           <li>Tabs and clamps are not yet valid anchor targets — anchor to features, stock corners, or the origin.</li>
         </ul>
@@ -217,7 +220,7 @@
 
   <footer>
     <span>© 2026 PureCut CNC</span>
-    <span><a href="sketch-text.html">← Text Features</a> · <a href="cam-tools.html">Next: Tool Library →</a></span>
+    <span><a href="sketch-text.html">← Text Features</a> · <a href="sketch-toolpaths.html">Next: Toolpath Display →</a></span>
   </footer>
 
 </body>

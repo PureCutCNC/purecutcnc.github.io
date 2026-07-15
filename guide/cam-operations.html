@@ -57,8 +57,10 @@
           <li><a href="sketch-edit.html">Editing Features</a></li>
           <li><a href="sketch-snapping.html">Snapping &amp; Grid</a></li>
           <li><a href="sketch-import.html">Importing Geometry</a></li>
+          <li><a href="sketch-export.html">Export &amp; Print</a></li>
           <li><a href="sketch-text.html">Text Features</a></li>
           <li><a href="sketch-dimensions.html">Measure &amp; Dimensions</a></li>
+          <li><a href="sketch-toolpaths.html">Toolpath Display</a></li>
         </ul>
       </div>
       <div class="sidebar-section">
@@ -128,7 +130,7 @@
             <tr><td>Hollow out a recess or cavity</td><td><a href="#op-pocket">Pocket</a></td><td>Closed <strong>subtract</strong> feature</td></tr>
             <tr><td>Cut to size along the inside of an opening</td><td><a href="#op-edge-in">Edge Route Inside</a></td><td>Closed <strong>subtract</strong> feature</td></tr>
             <tr><td>Flatten / face the top of the stock</td><td><a href="#op-surface-clean">Surface Clean</a></td><td>Closed <strong>add</strong> feature</td></tr>
-            <tr><td>V-carve signs, text, or decorative shapes</td><td><a href="#op-vcarve-offset">V-Carve Offset</a> / <a href="#op-vcarve-skeleton">Skeleton</a></td><td>Closed <strong>subtract</strong> + V-bit</td></tr>
+            <tr><td>V-carve signs, text, or decorative shapes</td><td><a href="#op-vcarve-offset">V-Carve Offset</a> / <a href="#op-vcarve-medial">Medial</a></td><td>Closed <strong>subtract</strong> + V-bit</td></tr>
             <tr><td>Engrave a line, centerline text, or a path</td><td><a href="#op-engrave">Engrave</a></td><td>Any feature (open or closed)</td></tr>
             <tr><td>Machine an imported 3D model</td><td><a href="#op-3d-rough">3D Surface Rough</a> → <a href="#op-3d-finish">Finish</a></td><td>Imported STL/OBJ model</td></tr>
             <tr><td>Clean up scallops after a 3D finish</td><td><a href="#op-3d-cleanup">3D Surface Cleanup</a></td><td>Imported STL/OBJ model</td></tr>
@@ -176,11 +178,11 @@
             <p class="op-tool"><strong>Tool:</strong> V-bit only</p>
             <div class="op-thumb" data-img="op-vcarve-offset.png"><div class="ph-desc">op-vcarve-offset.png — V-carved lettering via offset contours</div></div>
           </div>
-          <div class="op-card" id="op-vcarve-skeleton">
-            <h4>V-Carve Skeleton <span style="font-size:0.75rem;color:var(--yellow);font-weight:400;">Experimental</span></h4>
-            <p>V-carves a closed subtract feature using the medial axis (skeleton) of the profile. Produces a more natural carving result for text and organic shapes. Requires subtract features with closed profiles. Uses V-bit tools only. <em>This operation is actively being improved.</em></p>
+          <div class="op-card" id="op-vcarve-medial">
+            <h4>V-Carve Medial</h4>
+            <p>V-carves a closed subtract feature along the true <strong>medial axis</strong> of the profile, computed geometrically from the Voronoi/Delaunay diagram of the boundary. Every point carves to its exact depth, giving clean, natural results for text and organic shapes. Requires subtract features with closed profiles. Uses V-bit tools only.</p>
             <p class="op-tool"><strong>Tool:</strong> V-bit only</p>
-            <div class="op-thumb" data-img="op-vcarve-skeleton.png"><div class="ph-desc">op-vcarve-skeleton.png — skeleton (medial-axis) carve of organic text</div></div>
+            <div class="op-thumb" data-img="op-vcarve-medial.png"><div class="ph-desc">op-vcarve-medial.png — medial-axis V-carve of organic text</div></div>
           </div>
           <div class="op-card" id="op-engrave">
             <h4>Engrave (Follow Line)</h4>
@@ -225,7 +227,7 @@
             <tr><td>Edge Route Outside</td><td>Add</td><td>Closed</td></tr>
             <tr><td>Surface Clean</td><td>Add</td><td>Closed</td></tr>
             <tr><td>V-Carve Offset</td><td>Subtract</td><td>Closed</td></tr>
-            <tr><td>V-Carve Skeleton <span style="font-size:0.75rem;color:var(--yellow);">Experimental</span></td><td>Subtract</td><td>Closed</td></tr>
+            <tr><td>V-Carve Medial</td><td>Subtract</td><td>Closed</td></tr>
             <tr><td>Engrave</td><td>Any (Line, Add, Subtract, Region)</td><td>Open or Closed</td></tr>
             <tr><td>3D Surface Rough</td><td>Model (imported STL/OBJ)</td><td>—</td></tr>
             <tr><td>3D Surface Finish</td><td>Model (imported STL/OBJ)</td><td>—</td></tr>
@@ -285,6 +287,7 @@
             <tr><td>Stock To Leave Axial</td><td>Material left on the floor for a subsequent finish pass.</td></tr>
             <tr><td>Finish Walls</td><td>(Finish pass only) Whether to machine the walls to final dimension.</td></tr>
             <tr><td>Finish Floor</td><td>(Finish pass only) Whether to machine the floor to final dimension.</td></tr>
+            <tr><td>Slot Feed (%)</td><td>(Pocket only) Feed rate — as a percentage of the operation feed — applied to fully engaged &ldquo;slotting&rdquo; cuts, where the tool is buried at full width and cutting hardest. Shown on the rough pass (and on a finish pass when Finish Floor is enabled). Set below 100 to slow those sections and protect the tool; 100 disables the reduction.</td></tr>
           </tbody>
         </table>
         <p>
@@ -364,7 +367,7 @@
           <tbody>
             <tr><td>Max Carve Depth</td><td>The maximum depth the V-bit will plunge. Limits carve depth for wide areas. If the tool has a Max Cut Depth set, that value is used as the default.</td></tr>
             <tr><td>Contour Spacing</td><td>(V-Carve Offset only) Spacing between offset contours.</td></tr>
-            <tr><td>Step Size</td><td>(V-Carve Skeleton only) Resolution of the skeleton computation.</td></tr>
+            <tr><td>Step Size</td><td>(V-Carve Medial only) Sampling resolution of the medial-axis computation.</td></tr>
           </tbody>
         </table>
 

@@ -57,8 +57,10 @@
           <li><a href="sketch-edit.html">Editing Features</a></li>
           <li><a href="sketch-snapping.html">Snapping &amp; Grid</a></li>
           <li><a href="sketch-import.html">Importing Geometry</a></li>
+          <li><a href="sketch-export.html">Export &amp; Print</a></li>
           <li><a href="sketch-text.html">Text Features</a></li>
           <li><a href="sketch-dimensions.html">Measure &amp; Dimensions</a></li>
+          <li><a href="sketch-toolpaths.html">Toolpath Display</a></li>
         </ul>
       </div>
       <div class="sidebar-section">
@@ -179,7 +181,7 @@
           <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#new"/></svg></span> New Project</span><span class="tr-desc">Opens the <a href="#starting-a-project">New Project dialog</a> (templates and example projects). If there are unsaved changes, you will be asked to confirm before proceeding.</span></div>
           <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#open"/></svg></span> Open Project</span><span class="tr-desc">Opens a <code>.camj</code> file from disk.</span></div>
           <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#import"/></svg></span> Import Geometry</span><span class="tr-desc">Opens the Import dialog for SVG, DXF, STL, OBJ, and .camj project files.</span></div>
-          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#export"/></svg></span> Export Model</span><span class="tr-desc">Exports the assembled 3D model as STL (binary or ASCII). Offers curve-quality presets and per-format options. See <a href="view-3d.html#stl-export">Exporting Models</a>.</span></div>
+          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#export"/></svg></span> Export Model</span><span class="tr-desc">Exports the assembled 3D model as STL, or the 2D design as SVG. Offers curve-quality presets and per-format options. See <a href="sketch-export.html">Export &amp; Print</a>.</span></div>
           <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#save"/></svg></span> Save Project</span><span class="tr-desc">Saves the current project to disk. On first save, you will be prompted for a file location.</span></div>
         </div>
 
@@ -209,16 +211,22 @@
 
         <h3>Drawing Tools <span style="font-size:0.72rem;color:var(--muted);font-weight:400;">· left toolbar</span></h3>
         <p>
-          Before drawing, choose the <strong>creation target</strong> with the two toggle buttons
-          at the top of the drawing group — <span class="ui">Create features</span> (plus
-          icon) or <span class="ui">Create regions</span> (pocket icon). The next shape you draw
-          becomes the chosen feature kind:
-          a normal Add/Subtract feature, or a <a href="concepts.html#regions">Region</a> (a
-          machining-area filter — see <a href="concepts.html#regions">Core Concepts</a>).
+          Before drawing, choose the <strong>creation target</strong> with the toggle buttons
+          at the top of the drawing group — <span class="ui">Create features</span> (plus icon),
+          <span class="ui">Create lines</span> (line icon), <span class="ui">Create regions</span>
+          (pocket icon), or <span class="ui">Create construction</span> (construction icon). The next
+          shape you draw becomes the chosen kind: a normal Add/Subtract feature, an open/closed
+          <strong>Line</strong> feature for engraving and V-carving, a
+          <a href="concepts.html#regions">Region</a> machining-area filter, or reference-only
+          <a href="concepts.html#construction">construction geometry</a>. See
+          <a href="sketch-tools.html#creation-target">Drawing Tools</a> for the line drawing mode and
+          <a href="concepts.html#regions">Core Concepts</a> for regions and construction.
         </p>
         <div class="toolbar-ref">
           <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#plus"/></svg></span> Create features</span><span class="tr-desc">Subsequent shapes are placed as normal sketch features. Their Add/Subtract operation can be changed in the properties panel.</span></div>
+          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#snap-line"/></svg></span> Create lines</span><span class="tr-desc">Subsequent shapes are placed as non-solid Line features — open or closed paths for engrave and V-carve, kept out of the 3D solid.</span></div>
           <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#pocket"/></svg></span> Create regions</span><span class="tr-desc">Subsequent shapes are placed as Region features — area filters for CAM operations rather than material.</span></div>
+          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#construction"/></svg></span> Create construction</span><span class="tr-desc">Subsequent shapes are placed as construction geometry — reference guides that never generate toolpaths.</span></div>
           <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#rect"/></svg></span> Rectangle</span><span class="tr-desc">Draw an axis-aligned rectangle.</span></div>
           <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#circle"/></svg></span> Circle</span><span class="tr-desc">Draw a circle by center and radius.</span></div>
           <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#ellipse"/></svg></span> Ellipse</span><span class="tr-desc">Draw an ellipse by anchor and opposite corner. Width and height are independent.</span></div>
@@ -228,6 +236,7 @@
           <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#text"/></svg></span> Text</span><span class="tr-desc">Place a text feature.</span></div>
           <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#slot"/></svg></span> Slot</span><span class="tr-desc">Draw an obround (rounded-end) slot between two points.</span></div>
           <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#ngon"/></svg></span> Regular polygon</span><span class="tr-desc">Draw an equal-sided polygon from a center, radius, and side count.</span></div>
+          <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#gear"/></svg></span> Gear</span><span class="tr-desc">Draw an involute spur gear from a center and outside radius, then set tooth count, module, and profile parameters.</span></div>
           <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#roundrect"/></svg></span> Rounded rectangle</span><span class="tr-desc">Draw a rectangle with rounded corners.</span></div>
           <div class="toolbar-ref-row"><span class="tr-name"><span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><use href="./icons.svg#chamferrect"/></svg></span> Chamfered rectangle</span><span class="tr-desc">Draw a rectangle with beveled corners.</span></div>
         </div>
