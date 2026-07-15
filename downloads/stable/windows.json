@@ -1,22 +1,22 @@
 {
   "platform": "windows",
   "channel": "stable",
-  "version": "0.0.6",
-  "tag": "v0.0.6",
-  "releaseUrl": "https://github.com/PureCutCNC/purecutcnc/releases/tag/v0.0.6",
-  "updatedAt": "2026-07-01T19:57:40.261Z",
+  "version": "0.1.0",
+  "tag": "v0.1.0",
+  "releaseUrl": "https://github.com/PureCutCNC/purecutcnc/releases/tag/v0.1.0",
+  "updatedAt": "2026-07-15T16:22:07.356Z",
   "assets": [
     {
-      "name": "PureCutCNC_0.0.6_x64-setup.exe",
+      "name": "PureCutCNC_0.1.0_x64-setup.exe",
       "label": "Download Installer (.exe)",
       "kind": "nsis",
-      "url": "https://github.com/PureCutCNC/purecutcnc/releases/download/v0.0.6/PureCutCNC_0.0.6_x64-setup.exe"
+      "url": "https://github.com/PureCutCNC/purecutcnc/releases/download/v0.1.0/PureCutCNC_0.1.0_x64-setup.exe"
     },
     {
-      "name": "PureCutCNC_0.0.6_x64_en-US.msi",
+      "name": "PureCutCNC_0.1.0_x64_en-US.msi",
       "label": "Download Installer (.msi)",
       "kind": "msi",
-      "url": "https://github.com/PureCutCNC/purecutcnc/releases/download/v0.0.6/PureCutCNC_0.0.6_x64_en-US.msi"
+      "url": "https://github.com/PureCutCNC/purecutcnc/releases/download/v0.1.0/PureCutCNC_0.1.0_x64_en-US.msi"
     }
   ]
 }
