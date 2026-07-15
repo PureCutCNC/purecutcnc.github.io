@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Toolpath Display — PureCut CNC User Guide</title>
+  <meta name="description" content="The toolpath display legend in PureCut CNC — the Show panel that toggles cuts, rapids, plunges, retractions, and directions, shown in both the Sketch and 3D views." />
+  <link rel="icon" href="./favicon.svg" />
+  <link rel="stylesheet" href="./guide.css" />
+  <script src="./screenshots-loader.js" defer></script>
+  <script data-goatcounter="https://purecutcnc.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+
+  <nav>
+    <a href="../index.html" class="nav-logo">Pure<span>Cut</span> CNC</a>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../index.html#features">Features</a></li>
+      <li><a href="../index.html#workflow">Workflow</a></li>
+      <li><a href="../index.html#views">Views</a></li>
+      <li><a href="../downloads.html">Downloads</a></li>
+      <li><a href="../quickstart.html">Quick Start</a></li>
+      <li><a href="index.html" aria-current="page">User Guide</a></li>
+      <li><a href="https://github.com/PureCutCNC/purecutcnc/releases">What's New</a></li>
+      <li><a href="https://github.com/PureCutCNC/purecutcnc" class="github-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a></li>
+    </ul>
+    <a href="https://purecutcnc.github.io/app" class="nav-cta desktop-web-link">Launch App →</a>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-header-grid"></div>
+    <div class="page-label">Sketch</div>
+    <h1>Toolpath <em>Display</em></h1>
+    <p>Reading and filtering the toolpath overlay — the Show legend, in both the Sketch and 3D views.</p>
+  </div>
+
+  <div class="guide-layout">
+
+    <aside class="guide-sidebar" aria-label="Guide navigation">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Overview</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html">Introduction</a></li>
+          <li><a href="interface.html">Interface Overview</a></li>
+          <li><a href="concepts.html">Core Concepts</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Sketch</div>
+        <ul class="sidebar-nav">
+          <li><a href="sketch-tools.html">Drawing Tools</a></li>
+          <li><a href="sketch-edit.html">Editing Features</a></li>
+          <li><a href="sketch-snapping.html">Snapping &amp; Grid</a></li>
+          <li><a href="sketch-import.html">Importing Geometry</a></li>
+          <li><a href="sketch-export.html">Export &amp; Print</a></li>
+          <li><a href="sketch-text.html">Text Features</a></li>
+          <li><a href="sketch-dimensions.html">Measure &amp; Dimensions</a></li>
+          <li><a href="sketch-toolpaths.html" class="active">Toolpath Display</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">CAM</div>
+        <ul class="sidebar-nav">
+          <li><a href="cam-tools.html">Tool Library</a></li>
+          <li><a href="cam-operations.html">Operations</a></li>
+          <li><a href="cam-tabs-clamps.html">Tabs &amp; Clamps</a></li>
+          <li><a href="cam-export.html">G-code Export</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Views</div>
+        <ul class="sidebar-nav">
+          <li><a href="view-sketch.html">Sketch View</a></li>
+          <li><a href="view-3d.html">3D View</a></li>
+          <li><a href="view-simulation.html">Simulation</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="guide-content">
+
+      <section class="guide-section" id="overview">
+        <h2>Overview</h2>
+        <p>
+          Once an operation has a toolpath, that toolpath is drawn as colored lines over your work.
+          The overlay appears in <strong>both the Sketch view and the 3D view</strong> — flat over the
+          2D design in Sketch, and in space over the model in 3D — so you can inspect entry points,
+          depth layers, and travel moves wherever you are working.
+        </p>
+        <p>
+          Only operations whose toolpath visibility is enabled (the &#9673; toggle in the operations
+          list) are drawn, and the selected operation is highlighted. Which <em>move types</em> you
+          see is controlled by the Show legend, described below.
+        </p>
+      </section>
+
+      <section class="guide-section" id="show-legend">
+        <h2>The Show Legend</h2>
+        <p>
+          A small collapsible <span class="ui">Show</span> panel sits in the corner of the viewport.
+          Click <span class="ui">Show</span> to expand it, then toggle each move type on or off
+          independently — handy for decluttering a busy path or focusing on just the cutting moves.
+          The same legend is available in both views.
+        </p>
+        <div class="screenshot-placeholder" data-img="toolpath-legend.png">
+          <div class="ph-label">screenshots/toolpath-legend.png</div>
+          <div class="ph-desc">The expanded Show legend — Cuts, Rapids, Plunges, Retractions, and Directions toggles with color swatches</div>
+        </div>
+        <table class="prop-table">
+          <thead><tr><th>Toggle</th><th>What it shows</th></tr></thead>
+          <tbody>
+            <tr><td><span class="ui">Cuts</span></td><td>Feed-rate moves where the tool is removing material (coral&nbsp;red).</td></tr>
+            <tr><td><span class="ui">Rapids</span></td><td>Fast positioning (G0) moves between cuts at safe Z height (blue).</td></tr>
+            <tr><td><span class="ui">Plunges</span></td><td>Downward Z moves where the tool enters the material (purple).</td></tr>
+            <tr><td><span class="ui">Retractions</span></td><td>Upward Z moves where the tool lifts back to a safe height (blue).</td></tr>
+            <tr><td><span class="ui">Directions</span></td><td>Arrow markers along the path showing the direction of travel (amber).</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="guide-section" id="in-sketch">
+        <h2>In the Sketch View</h2>
+        <p>
+          In the <a href="view-sketch.html">Sketch view</a> the toolpath is projected flat over the 2D
+          design, on top of the stock, features, tabs, and clamps. It's the quickest way to check
+          coverage and travel between cuts while you are still editing geometry. Moves that would
+          collide with a clamp are redrawn in amber.
+        </p>
+        <div class="screenshot-placeholder" data-img="toolpath-sketch.png">
+          <div class="ph-label">screenshots/toolpath-sketch.png</div>
+          <div class="ph-desc">Sketch view with a visible toolpath — cuts, rapids, and plunges layered over the 2D design</div>
+        </div>
+      </section>
+
+      <section class="guide-section" id="in-3d">
+        <h2>In the 3D View</h2>
+        <p>
+          In the <a href="view-3d.html">3D view</a> the same toolpath is shown in space over the model,
+          which makes the vertical moves easy to read. Use it to check:
+        </p>
+        <ul>
+          <li>Entry and exit points for each pass</li>
+          <li>Depth layers and stepdown progression</li>
+          <li>Tab locations on edge route operations</li>
+          <li>Clamp clearance on rapid moves</li>
+          <li>Overall coverage of the operation area</li>
+        </ul>
+        <div class="screenshot-placeholder" data-img="toolpath-3d.png">
+          <div class="ph-label">screenshots/toolpath-3d.png</div>
+          <div class="ph-desc">3D view with a visible toolpath over the model — plunges, cuts, and rapids at their true heights</div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer>
+    <span>&copy; 2026 PureCut CNC</span>
+    <span><a href="sketch-dimensions.html">&larr; Measure &amp; Dimensions</a> &middot; <a href="cam-tools.html">Next: Tool Library &rarr;</a></span>
+  </footer>
+
+</body>
+</html>

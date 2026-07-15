@@ -715,7 +715,7 @@
   <!-- HERO -->
   <div class="hero">
     <div class="hero-grid"></div>
-    <div class="hero-badge"><span class="dot"></span> <span id="js-hero-version">v0.0.6</span> · 3D ops · Linked features · Machine editor</div>
+    <div class="hero-badge"><span class="dot"></span> <span id="js-hero-version">v0.1.0</span> · SVG/DXF import · True V-Carve · Parametric gears</div>
     <h1>2.5D CAD/CAM for<br/><em>real-world CNC work.</em></h1>
     <p class="hero-sub">
       PureCut CNC is a browser-based 2.5D + 3D CAD/CAM workspace for designing parts,
@@ -790,12 +790,12 @@
       <div class="feature-card">
         <span class="feature-icon">📥</span>
         <h3>SVG, DXF &amp; 3D Import</h3>
-        <p>Import 2D source geometry from SVG or DXF, or bring in 3D models from STL and OBJ files. Multi-body meshes split into one feature per body automatically. Imported geometry can be transformed and machined like hand-drawn features.</p>
+        <p>Import 2D source geometry from SVG or DXF with Auto, Paths, and Solid-regions modes and nesting-aware Add/Subtract classification, or bring in 3D models from STL and OBJ files. Multi-body meshes split into one feature per body automatically. Imported geometry can be transformed and machined like hand-drawn features.</p>
       </div>
       <div class="feature-card">
         <span class="feature-icon">⚙️</span>
         <h3>2.5D + 3D CAM</h3>
-        <p>Pocket, edge route inside/outside, drill, V-Carve offset, V-Carve skeleton, surface clean, and engrave for 2.5D parts — plus 3D Surface rough, finish (parallel or waterline), and cleanup for imported models. Rough and finish passes, rest machining, region masks to limit where any operation cuts, tabs, clamps, and per-tool feeds and speeds throughout.</p>
+        <p>Pocket, edge route inside/outside with optional rounded outside corners, drill, V-Carve offset, V-Carve medial, surface clean, and engrave for 2.5D parts — plus 3D Surface rough, finish (parallel or waterline), and cleanup for imported models. Rough and finish passes, rest machining, hole-capable region masks to limit where any operation cuts, tabs, clamps, and per-tool feeds and speeds throughout.</p>
       </div>
       <div class="feature-card">
         <span class="feature-icon">🧊</span>
@@ -839,6 +839,21 @@
       </div>
       <div class="feature-card">
         <span class="feature-icon">⚙️</span>
+        <h3>Parametric Gears</h3>
+        <p>Generate involute spur gears from a dedicated creation workflow — set module, tooth count, and pressure angle, and the result is an editable feature you can machine like any other profile.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">📐</span>
+        <h3>Construction Geometry</h3>
+        <p>Add sketch-only reference features — layout guides and helper geometry that stay out of the solid model and never generate toolpaths, so you can build accurate drawings without affecting the cut.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🖨️</span>
+        <h3>Print &amp; Vector Export</h3>
+        <p>Print the 2D design with CAD-style paper, scale, and margin controls, or export the design as SVG for documentation and downstream vector tools.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">⚙️</span>
         <h3>Machine Editor</h3>
         <p>Edit, duplicate, and export machine definitions in-app. A focused form covers the common fields with a raw-JSON escape hatch, and live validation stops you saving a broken post-processor.</p>
       </div>
@@ -879,12 +894,10 @@
       <span class="op-tag">Edge Route Inside Finish</span>
       <span class="op-tag">Edge Route Outside Rough</span>
       <span class="op-tag">Edge Route Outside Finish</span>
-      <span class="op-tag">3D Surface Rough</span>
-      <span class="op-tag">3D Surface Finish</span>
       <span class="op-tag">Drill</span>
       <span class="op-tag">Engrave</span>
       <span class="op-tag">V-Carve Offset</span>
-      <span class="op-tag">V-Carve Skeleton</span>
+      <span class="op-tag">V-Carve Medial</span>
       <span class="op-tag">3D Surface Rough</span>
       <span class="op-tag">3D Surface Finish — Parallel</span>
       <span class="op-tag">3D Surface Finish — Waterline</span>
