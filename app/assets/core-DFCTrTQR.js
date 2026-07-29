@@ -1,1 +1,0 @@
-import{B as e,F as t,G as n,H as r,I as i,L as a,R as o,U as s,V as c,W as l,z as u}from"./vendor-BydJXUS7.js";export{t as Channel,i as PluginListener,a as Resource,o as SERIALIZE_TO_IPC_FN,u as addPluginListener,e as checkPermissions,c as convertFileSrc,r as invoke,s as isTauri,l as requestPermissions,n as transformCallback};
