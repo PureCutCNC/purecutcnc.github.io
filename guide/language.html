@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Language — PureCut CNC User Guide</title>
+  <meta name="description" content="Switching the interface language in PureCut CNC and building custom language packs with the Language Manager." />
+  <link rel="icon" href="./favicon.svg" />
+  <link rel="stylesheet" href="./guide.css" />
+  <script src="./screenshots-loader.js" defer></script>
+  <script data-goatcounter="https://purecutcnc.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+
+  <nav>
+    <a href="../index.html" class="nav-logo">Pure<span>Cut</span> CNC</a>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../index.html#features">Features</a></li>
+      <li><a href="../index.html#workflow">Workflow</a></li>
+      <li><a href="../index.html#views">Views</a></li>
+      <li><a href="../downloads.html">Downloads</a></li>
+      <li><a href="../quickstart.html">Quick Start</a></li>
+      <li><a href="index.html" aria-current="page">User Guide</a></li>
+      <li><a href="https://github.com/PureCutCNC/purecutcnc/releases">What's New</a></li>
+      <li><a href="https://github.com/PureCutCNC/purecutcnc" class="github-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a></li>
+    </ul>
+    <a href="https://purecutcnc.github.io/app" class="nav-cta desktop-web-link">Launch App →</a>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-header-grid"></div>
+    <div class="page-label">Settings</div>
+    <h1>Language</h1>
+    <p>Switching the interface language, and building custom language packs.</p>
+  </div>
+
+  <div class="guide-layout">
+
+    <aside class="guide-sidebar" aria-label="Guide navigation">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Overview</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html">Introduction</a></li>
+          <li><a href="interface.html">Interface Overview</a></li>
+          <li><a href="concepts.html">Core Concepts</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Settings</div>
+        <ul class="sidebar-nav">
+          <li><a href="appearance.html">Appearance &amp; Themes</a></li>
+          <li><a href="language.html" class="active">Language</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Sketch</div>
+        <ul class="sidebar-nav">
+          <li><a href="sketch-tools.html">Drawing Tools</a></li>
+          <li><a href="sketch-edit.html">Editing Features</a></li>
+          <li><a href="sketch-snapping.html">Snapping &amp; Grid</a></li>
+          <li><a href="sketch-import.html">Importing Geometry</a></li>
+          <li><a href="sketch-export.html">Export &amp; Print</a></li>
+          <li><a href="sketch-text.html">Text Features</a></li>
+          <li><a href="sketch-dimensions.html">Measure &amp; Dimensions</a></li>
+          <li><a href="sketch-toolpaths.html">Toolpath Display</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">CAM</div>
+        <ul class="sidebar-nav">
+          <li><a href="cam-tools.html">Tool Library</a></li>
+          <li><a href="cam-operations.html">Operations</a></li>
+          <li><a href="cam-tabs-clamps.html">Tabs &amp; Clamps</a></li>
+          <li><a href="cam-export.html">G-code Export</a></li>
+          <li><a href="cam-debug-view.html">Exported Motion</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Views</div>
+        <ul class="sidebar-nav">
+          <li><a href="view-sketch.html">Sketch View</a></li>
+          <li><a href="view-3d.html">3D View</a></li>
+          <li><a href="view-simulation.html">Simulation</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="guide-content">
+
+      <section class="guide-section" id="switching-language">
+        <h2>Switching the Interface Language</h2>
+        <p>
+          The <span class="tool-icon" aria-hidden="true" style="display:inline-flex;vertical-align:-4px;"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><use href="./icons.svg#language"/></svg></span>
+          <span class="ui">Language</span> control sits in the top toolbar next to
+          <span class="ui">Appearance</span>, and shows the active language (for example
+          <span class="ui">Language: English</span>). Click it to switch instantly between the
+          built-in languages:
+        </p>
+        <ul>
+          <li>English</li>
+          <li>简体中文 (Simplified Chinese)</li>
+          <li>Deutsch (German)</li>
+          <li>Español (Spanish)</li>
+          <li>Français (French)</li>
+        </ul>
+        <div class="screenshot-placeholder" data-img="language-menu.png">
+          <div class="ph-label">screenshots/language-menu.png</div>
+          <div class="ph-desc">Language menu open in the top toolbar, showing the built-in languages and Manage languages…</div>
+        </div>
+        <div class="callout">
+          <strong>Switching languages is non-destructive.</strong> It only changes displayed text —
+          your project, undo history, and saved <code>.camj</code> data are never touched.
+        </div>
+        <p>
+          Localization covers more than menus and dialogs: generated PDF booklets and the feature
+          properties panel are localized too, so a setup sheet exported in French stays in French.
+        </p>
+      </section>
+
+      <section class="guide-section" id="language-manager">
+        <h2>Language Manager</h2>
+        <p>
+          <span class="ui">Manage languages…</span> at the bottom of the Language menu opens a
+          dialog listing every language — the five built-ins plus any custom packs you've created.
+          Selecting a language shows its details: whether it's <strong>active</strong>,
+          <strong>built-in</strong> or <strong>custom</strong>, and its BCP-47 language tag (for
+          example <code>en</code> or <code>de</code>).
+        </p>
+        <p>
+          Built-in languages are read-only. <span class="ui">Duplicate &amp; edit</span> starts a
+          custom pack — duplicating <span class="ui">English</span> starts a blank pack for a
+          language that doesn't exist yet, while duplicating any other built-in starts from its
+          existing translations so you're only fixing what's wrong. <span class="ui">Import
+          language</span> loads a pack file someone else exported.
+        </p>
+        <div class="screenshot-placeholder" data-img="language-manager.png">
+          <div class="ph-label">screenshots/language-manager.png</div>
+          <div class="ph-desc">Manage Languages dialog — language list on the left, selected language detail and actions on the right</div>
+        </div>
+      </section>
+
+      <section class="guide-section" id="language-editor">
+        <h2>Editing a Language Pack</h2>
+        <p>
+          <span class="ui">Edit</span> on a custom language pack opens the language editor: a name
+          field, a BCP-47 language tag field (this drives the document language attribute and plural
+          rules — use forms like <code>de</code> or <code>pt-BR</code>), and a
+          <span class="ui"><em>N</em> / 1846 translated</span> counter tracking your progress across
+          every string in the application.
+        </p>
+        <p>
+          Strings are organized into named sections — interface chrome, sketch tools, CAM operations,
+          dialogs, warnings, canvas labels, the feature tree, the viewport, and the app shell, plus
+          the language and theme managers, PDF booklets, and print output — each showing its own
+          translated/total count. A search box filters by key or text, and a
+          <span class="ui">Show</span> control narrows the list to
+          <span class="ui">Untranslated only</span> or <span class="ui">Edited only</span> so you can
+          focus on what's left.
+        </p>
+        <div class="screenshot-placeholder" data-img="language-editor.png">
+          <div class="ph-label">screenshots/language-editor.png</div>
+          <div class="ph-desc">Edit language dialog — search and filter controls above collapsible sections of translation keys</div>
+        </div>
+        <p>
+          <span class="ui">Preview in app</span> applies your in-progress translations to the live
+          interface without closing the editor, so you can spot-check a string in context.
+          <span class="ui">Cancel</span> discards changes; <span class="ui">Apply</span> saves them.
+        </p>
+        <p>
+          Once saved, a custom language pack gets the same <span class="ui">Use this language</span>,
+          <span class="ui">Edit</span>, <span class="ui">Duplicate &amp; edit</span>,
+          <span class="ui">Rename</span>, <span class="ui">Export language</span>, and
+          <span class="ui">Delete language</span> actions as a custom theme — export one to share it,
+          or hand the file to someone else to import.
+        </p>
+      </section>
+
+    </main>
+  </div>
+
+  <footer>
+    <span>© 2026 PureCut CNC</span>
+    <span><a href="appearance.html">← Appearance &amp; Themes</a> · <a href="sketch-tools.html">Next: Drawing Tools →</a></span>
+  </footer>
+
+</body>
+</html>

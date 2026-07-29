@@ -52,10 +52,15 @@ do nothing. (The GitHub API `releases/latest` is only used for the FAQ "latest
 stable" link and the empty-state fallback message.)
 
 ### Hero version badge (`index.html`)
-`<span id="js-hero-version">` shows a **static fallback** (e.g. `v0.1.0`) that JS
-overwrites at runtime from the GitHub API's `releases/latest`. So the badge
-self-updates once a release is published — but still bump the static fallback on a
-release so it's correct if the API call fails or is rate-limited.
+`<span id="js-hero-version">` is **empty and `hidden` in the markup**. JS fills it
+in at runtime from the GitHub API's `releases/latest` and unhides it, so the badge
+self-updates once a release is published. **Never hardcode a version there** — a
+static fallback only goes stale and contradicts the live value. If the API call
+fails or is rate-limited the span stays hidden and the badge degrades to just the
+feature list, which still reads correctly.
+
+The rest of the badge (`Multi-language · Dark/Light themes · …`) *is* hand-written
+— refresh those feature words on a release so they headline what's actually new.
 
 ### Icons (the shared sprite)
 The **source of truth** is the app repo at `public/icons.svg`. There are copies in
@@ -75,8 +80,9 @@ Verify the symbol count matches and spot-check that referenced ids resolve.
    `downloads/stable/*.json` should read the new `"version"`, and there should be a
    `deploy: update app from release vX` commit. If not, wait for CI rather than
    editing those files by hand.
-3. **Bump the hero fallback** in `index.html` (`#js-hero-version`) to the new
-   version, and refresh the badge tagline if the headline features changed.
+3. **Refresh the hero badge tagline** in `index.html` so it headlines the new
+   release's features. Leave the version alone — it's injected at runtime and must
+   stay out of the markup (see *Hero version badge*).
 4. **Refresh feature copy** in `index.html` for anything new or changed. Pull the
    change list from the GitHub release notes:
    `gh release view vX --repo PureCutCNC/purecutcnc`. Fix anything now inaccurate
