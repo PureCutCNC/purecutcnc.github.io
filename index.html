@@ -715,7 +715,7 @@
   <!-- HERO -->
   <div class="hero">
     <div class="hero-grid"></div>
-    <div class="hero-badge"><span class="dot"></span> <span id="js-hero-version">v0.1.0</span> · SVG/DXF import · True V-Carve · Parametric gears</div>
+    <div class="hero-badge"><span class="dot"></span> <span id="js-hero-version" hidden></span>Multi-language · Dark/Light themes · Arc-fit G-code</div>
     <h1>2.5D CAD/CAM for<br/><em>real-world CNC work.</em></h1>
     <p class="hero-sub">
       PureCut CNC is a 2.5D + 3D CAD/CAM workspace for designing parts,
@@ -811,7 +811,7 @@
       <div class="feature-card">
         <span class="feature-icon">💾</span>
         <h3>G-code Export</h3>
-        <p>Export clean G-code for Grbl, GrblHAL, LinuxCNC, and Mach3. Post-processor support for custom machine configurations. Preview with syntax highlighting before you download.</p>
+        <p>Export clean G-code for Grbl, GrblHAL, LinuxCNC, Mach3, and UCCNC. Post-processor support for custom machine configurations. Preview with syntax highlighting before you download.</p>
       </div>
       <div class="feature-card">
         <span class="feature-icon">🔤</span>
@@ -872,6 +872,21 @@
         <span class="feature-icon">🖥️</span>
         <h3>Desktop Builds</h3>
         <p>Native desktop apps for Windows, macOS, and Linux, alongside the browser version. Same project files everywhere — work offline and keep everything local. Grab the latest from the <a href="downloads.html">Downloads</a> page.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🌍</span>
+        <h3>Multi-Language Interface</h3>
+        <p>Full UI localization with built-in English, German, French, Spanish, and Simplified Chinese translations. Switch languages anytime — it never touches your project, undo history, or saved <code>.camj</code> data. Build or import your own language pack with the in-app Language Manager.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🎨</span>
+        <h3>Dark, Light &amp; Custom Themes</h3>
+        <p>Choose Dark, Light, or Follow-System appearance, or design your own with the Theme Manager's guided editor. Canvas colors, the 3D viewport, simulation, and print output all follow the same theme tokens, so a custom theme is consistent everywhere.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">📉</span>
+        <h3>Toolpath Optimizer &amp; Arc Fitting</h3>
+        <p>An always-on linear-move optimizer collapses redundant collinear moves on every export. Turn on export-stage arc fitting per operation to replace approximated circles with true G2/G3 arcs where the machine supports it, then open the Exported motion inspector to overlay the generated, optimized, and exported paths — with move counts and a tolerance check — before you cut.</p>
       </div>
     </div>
   </section>
@@ -1071,9 +1086,13 @@
         const data = await response.json()
         if (!data || !data.tag_name) return
         const badge = document.getElementById('js-hero-version')
-        if (badge) badge.textContent = data.tag_name
+        if (badge) {
+          badge.textContent = `${data.tag_name} · `
+          badge.hidden = false
+        }
       } catch (error) {
-        // Keep the hardcoded fallback version if the API is unreachable.
+        // Leave the version out of the badge entirely if the API is unreachable —
+        // the feature list still reads correctly without it.
       }
     })()
   </script>

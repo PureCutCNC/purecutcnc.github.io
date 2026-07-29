@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exported Motion — PureCut CNC User Guide</title>
+  <meta name="description" content="The Exported motion debug view in PureCut CNC — comparing generated, optimized, and exported motion layers with move counts and arc-fit verification." />
+  <link rel="icon" href="./favicon.svg" />
+  <link rel="stylesheet" href="./guide.css" />
+  <script src="./screenshots-loader.js" defer></script>
+  <script data-goatcounter="https://purecutcnc.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+
+  <nav>
+    <a href="../index.html" class="nav-logo">Pure<span>Cut</span> CNC</a>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../index.html#features">Features</a></li>
+      <li><a href="../index.html#workflow">Workflow</a></li>
+      <li><a href="../index.html#views">Views</a></li>
+      <li><a href="../downloads.html">Downloads</a></li>
+      <li><a href="../quickstart.html">Quick Start</a></li>
+      <li><a href="index.html" aria-current="page">User Guide</a></li>
+      <li><a href="https://github.com/PureCutCNC/purecutcnc/releases">What's New</a></li>
+      <li><a href="https://github.com/PureCutCNC/purecutcnc" class="github-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a></li>
+    </ul>
+    <a href="https://purecutcnc.github.io/app" class="nav-cta desktop-web-link">Launch App →</a>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-header-grid"></div>
+    <div class="page-label">CAM</div>
+    <h1>Exported <em>Motion</em></h1>
+    <p>The export-time debug view — comparing generated, optimized, and exported motion before you cut.</p>
+  </div>
+
+  <div class="guide-layout">
+
+    <aside class="guide-sidebar" aria-label="Guide navigation">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Overview</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html">Introduction</a></li>
+          <li><a href="interface.html">Interface Overview</a></li>
+          <li><a href="concepts.html">Core Concepts</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Settings</div>
+        <ul class="sidebar-nav">
+          <li><a href="appearance.html">Appearance &amp; Themes</a></li>
+          <li><a href="language.html">Language</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Sketch</div>
+        <ul class="sidebar-nav">
+          <li><a href="sketch-tools.html">Drawing Tools</a></li>
+          <li><a href="sketch-edit.html">Editing Features</a></li>
+          <li><a href="sketch-snapping.html">Snapping &amp; Grid</a></li>
+          <li><a href="sketch-import.html">Importing Geometry</a></li>
+          <li><a href="sketch-export.html">Export &amp; Print</a></li>
+          <li><a href="sketch-text.html">Text Features</a></li>
+          <li><a href="sketch-dimensions.html">Measure &amp; Dimensions</a></li>
+          <li><a href="sketch-toolpaths.html">Toolpath Display</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">CAM</div>
+        <ul class="sidebar-nav">
+          <li><a href="cam-tools.html">Tool Library</a></li>
+          <li><a href="cam-operations.html">Operations</a></li>
+          <li><a href="cam-tabs-clamps.html">Tabs &amp; Clamps</a></li>
+          <li><a href="cam-export.html">G-code Export</a></li>
+          <li><a href="cam-debug-view.html" class="active">Exported Motion</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Views</div>
+        <ul class="sidebar-nav">
+          <li><a href="view-sketch.html">Sketch View</a></li>
+          <li><a href="view-3d.html">3D View</a></li>
+          <li><a href="view-simulation.html">Simulation</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="guide-content">
+
+      <section class="guide-section" id="why-a-debug-view">
+        <h2>Why a Separate Inspector</h2>
+        <p>
+          Export applies two automatic transformations before your toolpath becomes G-code: a
+          <strong>linear-move optimizer</strong> that always collapses redundant collinear moves, and
+          optional per-operation <strong>arc fitting</strong> that replaces contiguous linear moves
+          approximating a circle with <code>G2</code>/<code>G3</code> arc commands where the selected
+          machine supports it. Both change the move list, not just its formatting — the
+          <strong>Exported motion</strong> inspector exists so you can confirm those changes still
+          trace the shape you designed before you run the file on a machine.
+        </p>
+      </section>
+
+      <section class="guide-section" id="opening-the-inspector">
+        <h2>Opening the Inspector</h2>
+        <p>
+          The inspector is <strong>per operation</strong>, and it's hidden until you opt in:
+        </p>
+        <ol>
+          <li>Select the operation in the CAM panel, open its <span class="ui">ADVANCED</span>
+            section, and tick <span class="ui">Debug toolpath</span>.</li>
+          <li>With that operation still selected, click
+            <span class="ui">Export G-code for this operation</span> — the small G-code icon in the
+            operation <span class="ui">PROPERTIES</span> header. A machine must be selected on the
+            <span class="ui">Project</span> node, since there's no exported motion to inspect without
+            a post-processor.</li>
+          <li>In that dialog's footer, click <span class="ui">Inspect exported motion</span>.</li>
+        </ol>
+        <div class="callout">
+          <strong>Both steps matter.</strong> Without <span class="ui">Debug toolpath</span> the
+          <span class="ui">Inspect exported motion</span> button isn't rendered at all, and the
+          project-wide <span class="ui">Export</span> button in the CAM panel header never shows it —
+          only the per-operation export does.
+        </div>
+      </section>
+
+      <section class="guide-section" id="motion-layers">
+        <h2>Motion Layers</h2>
+        <p>
+          The dialog — titled <span class="ui">Exported motion — <em>&lt;operation&gt;</em></span> —
+          overlays the same toolpath as an interactive 2D drawing in project coordinates, so it lines
+          up with what you see in the Sketch view. Four layers can be toggled independently under
+          <span class="ui">OPTIONS</span>, each with its own color swatch:
+        </p>
+        <table class="prop-table">
+          <thead><tr><th>Layer</th><th>What it is</th></tr></thead>
+          <tbody>
+            <tr><td>Generated (raw)</td><td>The toolpath exactly as the operation computed it, before any export-time processing.</td></tr>
+            <tr><td>Optimized</td><td>After the always-on linear-move optimizer collapses redundant collinear moves.</td></tr>
+            <tr><td>Exported G-code</td><td>The final motion written to the file, including arc fitting where enabled and supported.</td></tr>
+            <tr><td>Non-cutting moves</td><td>Rapids and other non-cutting motion. Off by default, so the cutting path reads clearly.</td></tr>
+          </tbody>
+        </table>
+        <div class="screenshot-placeholder" data-img="cam-debug-view-overlay.png">
+          <div class="ph-label">screenshots/cam-debug-view-overlay.png</div>
+          <div class="ph-desc">Exported motion dialog — cutting level selector, layer toggles, move-count stats, and the overlaid toolpath</div>
+        </div>
+        <p>
+          Turn layers off to isolate what changed at each stage. Where arc fitting is active, the
+          exported layer's curves visibly replace the optimized layer's short straight segments. A
+          <span class="ui">CUTTING LEVEL</span> dropdown picks which Z level to draw, and
+          <span class="ui">Fit</span> and <span class="ui">Zoom selection</span> frame the view.
+        </p>
+      </section>
+
+      <section class="guide-section" id="move-counts">
+        <h2>Move Counts</h2>
+        <p>
+          The left column quantifies what each stage did, so you can confirm the optimizer and arc
+          fitter earned their keep instead of guessing from the drawing:
+        </p>
+        <table class="prop-table">
+          <thead><tr><th>Group</th><th>Reports</th></tr></thead>
+          <tbody>
+            <tr><td>RAW MOVES</td><td><span class="ui">Raw moves</span>, <span class="ui">Optimized moves</span>, and <span class="ui">Removed</span> — how many collinear moves the optimizer collapsed.</td></tr>
+            <tr><td>EXPORTED G-CODE</td><td><span class="ui">Linear</span>, <span class="ui">Rapid</span>, <span class="ui">CW arcs</span>, and <span class="ui">CCW arcs</span> — the command mix actually written to the file. Non-zero arc counts confirm arc fitting engaged.</td></tr>
+            <tr><td>PER LEVEL</td><td>Segment count for the currently selected cutting level, e.g. <code>Z=0.65: 64 segs</code>.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="guide-section" id="verification">
+        <h2>Verification</h2>
+        <p>
+          Below the drawing, a status line reports whether the exported motion still matches the
+          toolpath it came from — <em>"Verified — exported motion matches the generated path within
+          tolerance."</em> when everything checks out.
+        </p>
+        <p>
+          For arc-fitted operations that check measures how far each fitted arc departs from the
+          original toolpath's <strong>source vertices</strong> — not from the straight chord between
+          them, which would understate the error as arc radius grows. It's the same measurement the
+          arc fitter uses internally to accept or reject a candidate arc, surfaced here so you can
+          confirm the result rather than just trust it.
+        </p>
+      </section>
+
+      <section class="guide-section" id="arc-fitting-per-operation">
+        <h2>Arc Fitting Per Operation</h2>
+        <p>
+          Arc fitting is controlled per operation. In the operation's properties, the
+          <span class="ui">Arc fitting (G2/G3)</span> checkbox fits contiguous linear moves that
+          approximate a circular path into <code>G2</code>/<code>G3</code> arc moves where the
+          selected machine's post-processor supports it. It's export-only — it never changes the
+          displayed or simulated toolpath, only what gets written to the <code>.nc</code> file.
+        </p>
+        <div class="callout">
+          <strong>Machine-dependent.</strong> Whether arcs are emitted, and in which format
+          (center-offset <code>I</code>/<code>J</code> or radius <code>R</code>), is declared by the
+          selected machine's post-processor — see <a href="cam-export.html#custom-machines">Custom
+          Machine Definitions</a>. If the machine doesn't declare arc support, fitting falls back to
+          the original linear segments for that operation automatically.
+        </p>
+      </section>
+
+    </main>
+  </div>
+
+  <footer>
+    <span>© 2026 PureCut CNC</span>
+    <span><a href="cam-export.html">← G-code Export</a> · <a href="view-sketch.html">Next: Sketch View →</a></span>
+  </footer>
+
+</body>
+</html>
