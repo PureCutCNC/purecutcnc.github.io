@@ -452,6 +452,14 @@
             <tr><td>Helix Diameter (%)</td><td>(Helix only) Diameter of the helix as a percentage of the tool diameter. Defaults to 80%, range 1–100%. If the entry doesn't fit in the space available, the diameter is reduced and a warning tells you the size actually used.</td></tr>
           </tbody>
         </table>
+        <div class="screenshot-placeholder" data-img="cam-entry-helix.png">
+          <div class="ph-label">screenshots/cam-entry-helix.png</div>
+          <div class="ph-desc">Entry controls under Advanced — Entry Strategy set to Helix, revealing Ramp Angle and Helix Diameter</div>
+        </div>
+        <div class="screenshot-placeholder" data-img="cam-entry-ramp.png">
+          <div class="ph-label">screenshots/cam-entry-ramp.png</div>
+          <div class="ph-desc">The same controls with Ramp selected — Ramp Angle remains, Helix Diameter no longer applies</div>
+        </div>
         <h3>What the Generator Guarantees</h3>
         <ul>
           <li><strong>Entries are placed where the tool fits.</strong> A helix or ramp is only synthesized inside an area the tool centre can legally occupy, with a margin kept off the wall so the entry groove doesn't score the surface a finish pass is meant to leave.</li>
@@ -511,6 +519,10 @@
             <tr><td>Channel Width</td><td>(Trochoidal Engrave) Read-only. The actual width of the slot this operation will cut.</td></tr>
           </tbody>
         </table>
+        <div class="screenshot-placeholder" data-img="cam-trochoidal-edge.png">
+          <div class="ph-label">screenshots/cam-trochoidal-edge.png</div>
+          <div class="ph-desc">An Edge Route with Strategy set to Trochoidal — cut width and advance per loop, with the derived advance distance shown read-only beneath</div>
+        </div>
         <div class="callout--tip callout">
           <strong>Keep the cut width under twice the tool diameter.</strong> Beyond that each
           helical entry leaves an uncut core in the middle that the following loops have to plough
@@ -546,6 +558,10 @@
           <em>touches</em> the corner rather than where its centre reaches it — so it removes about
           as little virgin material as the geometry allows.
         </p>
+        <div class="screenshot-placeholder" data-img="cam-corner-relief.png">
+          <div class="ph-label">screenshots/cam-corner-relief.png</div>
+          <div class="ph-desc">The Corner Relief selector under Advanced, set to Dogbone, with its parameter-reference diagram alongside</div>
+        </div>
         <h3>When a Corner Is Skipped</h3>
         <p>
           The relief pass only descends at a corner when the operation demonstrably already cut
