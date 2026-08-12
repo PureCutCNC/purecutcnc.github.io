@@ -749,17 +749,19 @@
       </div>
       <p>
         Click the <span class="ui">Tools</span> tab in the right-hand panel, then click
-        <span class="ui">Import from Library</span>. The library dialog shows a catalogue of
-        common bit profiles organized by type and diameter.
+        <span class="ui">Import from library…</span> A dialog opens with the bundled catalogue —
+        26 standard metric and imperial sizes. Type <code>1/4</code> in the search box, or use the
+        type and unit filters to narrow the list.
       </p>
       <p>
-        Locate the <strong>1/4″ Flat End Mill</strong> entry and click
-        <span class="ui">Import</span>. The tool is now available in the
-        project's tool list and can be assigned to any operation.
+        Tick the <strong>1/4″ Endmill</strong> row and click <span class="ui">Import tool</span>.
+        The tool is now in the project's tool list and can be assigned to any operation. You can
+        tick several rows at once — the button counts what you have selected — and anything already
+        in the project is badged <span class="ui">In project</span> so you don't import it twice.
       </p>
 
       <div class="screenshot" style="max-width: 480px;">
-        <img src="images/import-tool.png" alt="Tool library dialog with the 1/4″ end mill highlighted" />
+        <img src="images/import-tool.png" alt="The Tools tab in the CAM panel, with the Import from library button" />
       </div>
     </div>
 
@@ -789,6 +791,15 @@
         tree. The toolpath is computed automatically whenever the operation is visible.
       </p>
 
+      <div class="callout">
+        <strong>Optional: don't plunge straight in.</strong> Open <span class="ui">Advanced</span> →
+        <span class="ui">Entry</span> in the operation's settings and set
+        <span class="ui">Entry Strategy</span> to <span class="ui">Helix</span>. The tool then
+        spirals down into each level instead of dropping vertically — easier on the cutter, and
+        clearly visible in the 3D preview. See
+        <a href="guide/cam-operations.html#entry-moves">Entry Moves</a>.
+      </div>
+
       <div class="screenshot" style="max-width: 480px;">
         <img src="images/add-pocket-rough.png" alt="Operations panel showing the Pocket Rough operation assigned to the circle with the 1/4″ end mill selected" />
       </div>
@@ -813,9 +824,16 @@
         tree, and go back to tweak any feature or operation parameter. In
         <span class="ui">3D View</span> the pocket toolpath renders as colored lines over
         the stock block — rapid moves in one color, cutting passes in another. Use the
-        mouse to orbit, zoom, and pan to inspect the path from any angle. In
-        <span class="ui">Simulation</span> you can watch the tool move through the
-        material and see the machined result.
+        mouse to orbit, zoom, and pan to inspect the path from any angle; zoom follows
+        whatever is under the pointer. In <span class="ui">Simulation</span> you can watch the
+        tool move through the material and see the machined result.
+      </p>
+      <p>
+        The small toolbar in the corner of either view — marked with the G-code icon — filters what
+        the preview draws: cuts, lead-ins, rapids, plunges, retractions, and direction arrows. Turn
+        the cuts off to look at just the entry moves, or collapse the toolbar entirely to clear the
+        toolpaths out of both views and see the part on its own. Your choices come back when you
+        expand it again.
       </p>
       <p>
         If anything looks wrong — unexpected depth, toolpath outside the boundary,
@@ -902,6 +920,14 @@
           <span class="assignment-num">6</span>
           <span><strong>Add clamps on the left and right.</strong> Use the clamp options in the project tree to place clamps on both sides of the stock. Set their Top Z to <strong>1 in</strong> so the tool clears them on rapid moves.</span>
         </li>
+        <li>
+          <span class="assignment-num">7</span>
+          <span><strong>Try trochoidal roughing.</strong> On the outside rough edge route, set <span class="ui">Strategy</span> to <span class="ui">Trochoidal</span> and watch the toolpath turn into overlapping loops. See <a href="guide/cam-operations.html#trochoidal">Trochoidal Cutting</a>.</span>
+        </li>
+        <li>
+          <span class="assignment-num">8</span>
+          <span><strong>Relieve a corner.</strong> Draw a square pocket instead of the circle, add a Pocket operation, and set <span class="ui">Corner Relief</span> to <span class="ui">Dogbone</span> — now a square-cornered part will actually seat in it. See <a href="guide/cam-operations.html#corner-relief">Corner Relief</a>.</span>
+        </li>
       </ol>
     </div>
 
@@ -913,6 +939,11 @@
         From here, explore more feature types, try a contour or drilling operation,
         or import your own geometry from SVG, DXF, STL, or OBJ, or pull folders in from an existing .camj project — including imported 3D models
         for the 3D Surface rough, finish, and cleanup operations.
+      </p>
+      <p>
+        Then start on <em>how</em> the cut happens: helix and ramp entries, trochoidal roughing and
+        slotting, helical boring, and corner relief are all covered in
+        <a href="guide/cam-operations.html">Machining Operations</a>.
       </p>
       <a href="https://purecutcnc.github.io/app" class="btn-primary desktop-web-link">
         Open PureCut CNC
