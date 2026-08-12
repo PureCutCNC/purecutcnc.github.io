@@ -77,6 +77,8 @@
           <li><a href="cam-operations.html" class="active">Operations</a></li>
           <li><a href="cam-tabs-clamps.html">Tabs &amp; Clamps</a></li>
           <li><a href="cam-export.html">G-code Export</a></li>
+          <li><a href="machine-library.html">Machine Library</a></li>
+          <li><a href="post-processor-converter.html">Post-Processor Converter</a></li>
           <li><a href="cam-debug-view.html">Exported Motion</a></li>
         </ul>
       </div>
@@ -139,10 +141,14 @@
             <tr><td>Cut to size along the inside of an opening</td><td><a href="#op-edge-in">Edge Route Inside</a></td><td>Closed <strong>subtract</strong> feature</td></tr>
             <tr><td>Flatten / face the top of the stock</td><td><a href="#op-surface-clean">Surface Clean</a></td><td>Closed <strong>add</strong> feature</td></tr>
             <tr><td>V-carve signs, text, or decorative shapes</td><td><a href="#op-vcarve-offset">V-Carve Offset</a> / <a href="#op-vcarve-medial">Medial</a></td><td>Closed <strong>subtract</strong> + V-bit</td></tr>
-            <tr><td>Engrave a line, centerline text, or a path</td><td><a href="#op-engrave">Engrave</a></td><td>Any feature (open or closed)</td></tr>
+            <tr><td>Engrave a line, centerline text, or a path</td><td><a href="#op-engrave">Engrave</a> — Direct</td><td>Any feature (open or closed)</td></tr>
+            <tr><td>Cut a functional slot wider than the cutter (T-track, inlay, dado)</td><td><a href="#op-engrave">Engrave</a> — <a href="#trochoidal">Trochoidal (slot)</a></td><td>Any feature + constant-diameter cutter</td></tr>
+            <tr><td>Rough a profile with less radial load on the tool</td><td><a href="#trochoidal">Trochoidal Edge Route</a></td><td>Edge Route Inside / Outside, rough pass</td></tr>
             <tr><td>Machine an imported 3D model</td><td><a href="#op-3d-rough">3D Surface Rough</a> → <a href="#op-3d-finish">Finish</a></td><td>Imported STL/OBJ model</td></tr>
             <tr><td>Clean up scallops after a 3D finish</td><td><a href="#op-3d-cleanup">3D Surface Cleanup</a></td><td>Imported STL/OBJ model</td></tr>
             <tr><td>Drill holes at marked centers</td><td><a href="#op-drill">Drill</a></td><td>Circle features</td></tr>
+            <tr><td>Bore a hole bigger than any drill you own</td><td><a href="#op-drill">Drill</a> — <a href="#helical-boring">Helical</a></td><td>Circle features + flat endmill</td></tr>
+            <tr><td>Make a square peg fit a milled corner</td><td><a href="#corner-relief">Corner Relief</a></td><td>Pocket or Edge Route</td></tr>
           </tbody>
         </table>
         <div class="callout--tip callout">
@@ -164,13 +170,13 @@
           </div>
           <div class="op-card" id="op-edge-in">
             <h4>Edge Route Inside</h4>
-            <p>Cuts along the inside edge of a closed subtract feature. Requires subtract features with closed profiles. Supports rough and finish passes.</p>
+            <p>Cuts along the inside edge of a closed subtract feature. Requires subtract features with closed profiles. Supports rough and finish passes. A rough pass can use plain <strong>Contour</strong> offsets or <a href="#trochoidal"><strong>Trochoidal</strong></a> loops that keep radial engagement low.</p>
             <p class="op-tool"><strong>Tool:</strong> flat endmill</p>
             <div class="op-thumb" data-img="op-edge-in.png"><div class="ph-desc">op-edge-in.png — toolpath hugging the inside of an opening</div></div>
           </div>
           <div class="op-card" id="op-edge-out">
             <h4>Edge Route Outside</h4>
-            <p>Cuts along the outside edge of a closed add feature. Requires add features with closed profiles. Supports rough and finish passes. Used for cutting out parts. Surrounding add features are automatically treated as obstacles at every depth — passes are clipped so the tool never cuts into neighbouring material, while still descending to full depth where the obstacle is shallower than the current pass.</p>
+            <p>Cuts along the outside edge of a closed add feature. Requires add features with closed profiles. Supports rough and finish passes. Used for cutting out parts. A rough pass can use plain <strong>Contour</strong> offsets or <a href="#trochoidal"><strong>Trochoidal</strong></a> loops. Surrounding add features are automatically treated as obstacles at every depth — passes are clipped so the tool never cuts into neighbouring material, while still descending to full depth where the obstacle is shallower than the current pass.</p>
             <p class="op-tool"><strong>Tool:</strong> flat endmill · pair with <a href="cam-tabs-clamps.html">tabs</a></p>
             <div class="op-thumb" data-img="op-edge-out.png"><div class="ph-desc">op-edge-out.png — profile cut around a part with holding tabs</div></div>
           </div>
@@ -194,8 +200,8 @@
           </div>
           <div class="op-card" id="op-engrave">
             <h4>Engrave (Follow Line)</h4>
-            <p>Follows the path of any feature — open or closed — at a fixed carve depth. Used for engraving, centerline text, and decorative lines. Open sketch profiles are tagged as <strong>Line</strong> features and feed straight into this operation; closed features can also be engraved along their boundary.</p>
-            <p class="op-tool"><strong>Tool:</strong> V-bit or small endmill</p>
+            <p>Follows the path of any feature — open or closed — at a fixed carve depth. Used for engraving, centerline text, and decorative lines. Open sketch profiles are tagged as <strong>Line</strong> features and feed straight into this operation; closed features can also be engraved along their boundary. A second strategy, <a href="#trochoidal"><strong>Trochoidal (slot)</strong></a>, cuts a channel wider than the tool for functional slots.</p>
+            <p class="op-tool"><strong>Tool:</strong> V-bit or small endmill (Trochoidal needs a constant-diameter cutter)</p>
             <div class="op-thumb" data-img="op-engrave.png"><div class="ph-desc">op-engrave.png — tool following a centerline path</div></div>
           </div>
           <div class="op-card" id="op-3d-rough">
@@ -218,8 +224,8 @@
           </div>
           <div class="op-card" id="op-drill">
             <h4>Drill</h4>
-            <p>Drills holes at the center of circle features. Requires circle features. Supports simple, peck, dwell, and chip-breaking drill cycles. Holes are automatically ordered by nearest-neighbor travel, shortening rapid moves between holes.</p>
-            <p class="op-tool"><strong>Tool:</strong> drill bit or endmill</p>
+            <p>Drills holes at the center of circle features. Requires circle features. Supports simple, peck, dwell, and chip-breaking drill cycles, plus a <a href="#helical-boring"><strong>Helical</strong></a> mode that bores a hole larger than the cutter with a flat endmill. Holes are automatically ordered by nearest-neighbor travel, shortening rapid moves between holes.</p>
+            <p class="op-tool"><strong>Tool:</strong> drill bit or endmill (Helical needs a flat endmill)</p>
             <div class="op-thumb" data-img="op-drill.png"><div class="ph-desc">op-drill.png — peck-drilled holes ordered by nearest travel</div></div>
           </div>
         </div>
@@ -296,6 +302,8 @@
             <tr><td>Finish Walls</td><td>(Finish pass only) Whether to machine the walls to final dimension.</td></tr>
             <tr><td>Finish Floor</td><td>(Finish pass only) Whether to machine the floor to final dimension.</td></tr>
             <tr><td>Slot Feed (%)</td><td>(Pocket only) Feed rate — as a percentage of the operation feed — applied to fully engaged &ldquo;slotting&rdquo; cuts, where the tool is buried at full width and cutting hardest. Shown on the rough pass (and on a finish pass when Finish Floor is enabled). Set below 100 to slow those sections and protect the tool; 100 disables the reduction.</td></tr>
+            <tr><td>Corner Relief</td><td>(Pocket only, in this group) Cuts an extra relief at each inside corner so a square-cornered mating part will actually seat. See <a href="#corner-relief">Corner Relief</a>.</td></tr>
+            <tr><td>Entry Strategy</td><td>Under <span class="ui">Advanced</span> → <span class="ui">Entry</span>. How the tool gets down to each depth: Plunge, Helix, or Ramp. See <a href="#entry-moves">Entry Moves</a>.</td></tr>
           </tbody>
         </table>
         <p>
@@ -361,10 +369,12 @@
         <table class="prop-table">
           <thead><tr><th>Parameter</th><th>Description</th></tr></thead>
           <tbody>
+            <tr><td>Strategy</td><td>(Rough pass only) <strong>Contour</strong> — a plain offset pass — or <strong>Trochoidal</strong> — overlapping loops that keep radial engagement low. See <a href="#trochoidal">Trochoidal Roughing</a>. A finish pass is always a contour.</td></tr>
             <tr><td>Cut Direction</td><td>Conventional or Climb milling.</td></tr>
             <tr><td>Stepdown</td><td>Depth per pass.</td></tr>
             <tr><td>Stock To Leave Radial</td><td>Material left on the edge for a finish pass.</td></tr>
             <tr><td>Stock To Leave Axial</td><td>Material left on the floor for a finish pass.</td></tr>
+            <tr><td>Corner Relief</td><td>Cuts an extra relief at each inside corner of the cleared area. See <a href="#corner-relief">Corner Relief</a>.</td></tr>
             <tr><td>Tabs</td><td>Click <span class="ui">Auto place tabs</span> to automatically place holding tabs. See <a href="cam-tabs-clamps.html">Tabs &amp; Clamps</a>.</td></tr>
           </tbody>
         </table>
@@ -383,18 +393,28 @@
         <table class="prop-table">
           <thead><tr><th>Parameter</th><th>Description</th></tr></thead>
           <tbody>
+            <tr><td>Strategy</td><td><strong>Direct</strong> — the tool follows the centerline, cutting a groove its own width. <strong>Trochoidal (slot)</strong> — overlapping loops cut a channel wider than the tool. See <a href="#trochoidal">Trochoidal Roughing</a>.</td></tr>
             <tr><td>Carve Depth</td><td>The fixed depth below Z Top at which the tool follows the path.</td></tr>
           </tbody>
         </table>
+        <div class="callout--tip callout">
+          <strong>Engraving in mid-air?</strong> A Line drawn inside a pocket takes its
+          <strong>Z Top</strong> from the smallest feature that encloses it — a pocket's floor for a
+          subtract feature, a solid's top for an add feature — so Follow Line starts from the
+          surface it was drawn on rather than from the top of the stock. A point sitting exactly on
+          the container's boundary counts as inside, so a line drawn along a pocket wall inherits
+          too. Lines that aren't inside anything, and construction paths, keep the usual default.
+        </div>
 
         <h3>Drill Parameters</h3>
         <table class="prop-table">
           <thead><tr><th>Parameter</th><th>Description</th></tr></thead>
           <tbody>
-            <tr><td>Drill Type</td><td>Simple (G81), Peck (G83), Dwell (G82), or Chip Breaking (G73).</td></tr>
+            <tr><td>Drill Type</td><td>Simple (G81), Peck (G83), Dwell (G82), Chip breaking (G73), or <a href="#helical-boring">Helical</a>.</td></tr>
             <tr><td>Peck Depth</td><td>Depth per peck increment (Peck and Chip Breaking only).</td></tr>
             <tr><td>Dwell Time</td><td>Dwell time in seconds at the bottom of the hole (Dwell only).</td></tr>
-            <tr><td>Retract Height</td><td>Z height to retract to between holes.</td></tr>
+            <tr><td>Ramp Angle (°)</td><td>(Helical only) How steeply the bore descends per revolution. Defaults to 5°; the accepted range is 0.1°–45°.</td></tr>
+            <tr><td>Retract Height</td><td>Z height to retract to between holes. This is an <strong>absolute project Z</strong>, and it cannot be set below the top of the stock — a retract plane inside the material would have the tool traverse through the part at rapid speed.</td></tr>
           </tbody>
         </table>
 
@@ -408,6 +428,163 @@
         </p>
       </section>
 
+      <section class="guide-section" id="entry-moves">
+        <h2>Entry Moves — Helix &amp; Ramp</h2>
+        <p>
+          By default a toolpath reaches each new depth by plunging straight down. That is hard on a
+          cutter that isn't centre-cutting, and it is the loudest, most abrupt thing a router does.
+          <span class="ui">Pocket</span>, <span class="ui">Surface Clean</span> and
+          <span class="ui">3D Surface Rough</span> can instead ease into the material along a helix
+          or a zig-zag ramp. The controls live under <span class="ui">Advanced</span> →
+          <span class="ui">Entry</span> in the operation's parameters.
+        </p>
+        <table class="prop-table">
+          <thead><tr><th>Parameter</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td>Entry Strategy</td><td>
+              <ul>
+                <li><strong>Plunge</strong> — straight down at the plunge feed. The default, and what every project made before this option existed keeps doing.</li>
+                <li><strong>Helix</strong> — the tool spirals down inside a circle before starting the cut.</li>
+                <li><strong>Ramp</strong> — the tool descends along a short zig-zag near the entry point rather than a circle. Useful where there isn't room for a helix.</li>
+              </ul>
+            </td></tr>
+            <tr><td>Ramp Angle (°)</td><td>How steeply the helix or ramp descends. Defaults to 5°; the accepted range is 0.1°–45°. Shallower is gentler on the cutter and takes longer.</td></tr>
+            <tr><td>Helix Diameter (%)</td><td>(Helix only) Diameter of the helix as a percentage of the tool diameter. Defaults to 80%, range 1–100%. If the entry doesn't fit in the space available, the diameter is reduced and a warning tells you the size actually used.</td></tr>
+          </tbody>
+        </table>
+        <h3>What the Generator Guarantees</h3>
+        <ul>
+          <li><strong>Entries are placed where the tool fits.</strong> A helix or ramp is only synthesized inside an area the tool centre can legally occupy, with a margin kept off the wall so the entry groove doesn't score the surface a finish pass is meant to leave.</li>
+          <li><strong>It falls back rather than failing.</strong> If a helix doesn't fit, the operation tries a ramp; if that doesn't fit either, it plunges — and says so in the warnings list.</li>
+          <li><strong>Entries start close to the work.</strong> Each entry descends from one clearance above the previous level's floor rather than from global safe Z. On a deep pocket that is a large saving — a 20&nbsp;mm deep pocket in testing dropped from 4228&nbsp;mm of entry travel to 1132&nbsp;mm.</li>
+          <li><strong>Existing projects are untouched.</strong> A project saved without entry settings generates exactly the same G-code it did before.</li>
+        </ul>
+        <div class="callout--tip callout">
+          <strong>Trochoidal operations use entries too</strong>, but only <span class="ui">Helix</span>
+          (the default there) or <span class="ui">Plunge</span> — a ramp isn't offered. Every
+          trochoidal span is entered with a helix so no fragment ever re-enters material with a
+          vertical plunge, and Helix entry is <em>required</em> when tabs are active.
+        </div>
+      </section>
+
+      <section class="guide-section" id="trochoidal">
+        <h2>Trochoidal Cutting</h2>
+        <p>
+          A trochoidal path replaces one heavy full-width cut with a run of overlapping loops. The
+          tool is only ever engaged over a small arc of its circumference, so radial load and heat
+          drop sharply — you can usually run deeper and faster, and a small cutter survives material
+          that would otherwise snap it. The trade-off is a longer path and a channel wider than the
+          tool.
+        </p>
+
+        <h3>Trochoidal Edge Route</h3>
+        <p>
+          On a <strong>rough</strong> Edge Route Inside or Outside pass, set
+          <span class="ui">Strategy</span> to <span class="ui">Trochoidal</span>. The pass leaves
+          stock for a normal contour finish pass, which is what actually sets the final dimension.
+          A finish pass is always a contour.
+        </p>
+
+        <h3>Trochoidal Engrave</h3>
+        <p>
+          Engrave was the last operation in the app that cut a full-width slot. Set
+          <span class="ui">Strategy</span> to <span class="ui">Trochoidal (slot)</span> and it cuts
+          a channel instead. This is a win for <strong>T-track, inlay, dado, and wire routing</strong>
+          — anywhere the groove is meant to be wider than the cutter.
+        </p>
+        <div class="callout--warn callout">
+          <strong>Trochoidal necessarily widens the groove.</strong> The channel can never be
+          narrower than 1.15× the tool diameter, and defaults to 1.5×. That makes it the wrong
+          choice for fine engraved text, which will not survive it. The operation shows a live
+          <span class="ui">Channel Width</span> readout so you can see what you are actually about to
+          cut. Trochoidal engraving also needs a constant-diameter cutter — assign an end mill, not
+          a V-bit, or stay on <span class="ui">Direct</span>.
+        </div>
+
+        <h3>Trochoidal Parameters</h3>
+        <table class="prop-table">
+          <thead><tr><th>Parameter</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td>Trochoidal Cut Width</td><td>Width of the channel the loops sweep out. Leave it alone and it follows the assigned tool at 1.5× its diameter; edit it and the value is pinned. The minimum is 1.15× the tool diameter — below that no toolpath is generated, and the field says so.</td></tr>
+            <tr><td>Advance per Loop (% of tool diameter)</td><td>How far the path advances along the guide with each loop, as a percentage of the cutter diameter. Defaults to 10%. Stored as a percentage so it follows the tool if you swap cutters.</td></tr>
+            <tr><td>Advance per Loop (distance)</td><td>Read-only. The same value in project units, derived from the assigned tool.</td></tr>
+            <tr><td>Channel Width</td><td>(Trochoidal Engrave) Read-only. The actual width of the slot this operation will cut.</td></tr>
+          </tbody>
+        </table>
+        <div class="callout--tip callout">
+          <strong>Keep the cut width under twice the tool diameter.</strong> Beyond that each
+          helical entry leaves an uncut core in the middle that the following loops have to plough
+          through. The app warns you when you cross that line — reduce the cut width, or pre-drill
+          the entry.
+        </div>
+        <p>
+          Rest machining is not available for a trochoidal Edge Route: its swept channel can't yet be
+          represented as a rest region.
+        </p>
+      </section>
+
+      <section class="guide-section" id="corner-relief">
+        <h2>Corner Relief</h2>
+        <p>
+          A round cutter cannot cut a square inside corner, so a square-cornered part never quite
+          seats in a milled pocket. <strong>Corner Relief</strong> cuts a small extra excursion at
+          each inside corner to make room for the corner of the mating part. It is available on
+          <span class="ui">Pocket</span> and both <span class="ui">Edge Route</span> kinds, and is
+          cut as a dedicated pass appended after the main path, at its own step-down levels.
+        </p>
+        <table class="prop-table">
+          <thead><tr><th>Style</th><th>What it cuts</th></tr></thead>
+          <tbody>
+            <tr><td><span class="ui">None</span></td><td>The default. No relief pass is emitted at all.</td></tr>
+            <tr><td><span class="ui">Dogbone</span></td><td>Puts the relief on the diagonal, splitting it between the two walls. Removes the least material of the three — roughly a third of what a T-bone takes.</td></tr>
+            <tr><td><span class="ui">T-bone</span></td><td>Keeps the relief inside a single face, leaving the other wall untouched. Pays for that with a slot a full cutter radius deep and two radii wide in that face.</td></tr>
+            <tr><td><span class="ui">T-bone, longest edge</span></td><td>A T-bone placed in the longer of the two walls, where the slot does proportionally less damage. A good default when you care which face gets marked.</td></tr>
+          </tbody>
+        </table>
+        <p>
+          The excursion is sized from the operation's own tool, and it ends where the cutter
+          <em>touches</em> the corner rather than where its centre reaches it — so it removes about
+          as little virgin material as the geometry allows.
+        </p>
+        <h3>When a Corner Is Skipped</h3>
+        <p>
+          The relief pass only descends at a corner when the operation demonstrably already cut
+          there at or below the deepest relief level, so a relief move can never dive into
+          untouched material. A corner is skipped, with an explanatory warning naming its
+          coordinates, when:
+        </p>
+        <ul>
+          <li>the adjacent edges are too short to hold the relief notch,</li>
+          <li>the operation's toolpath doesn't actually turn that corner,</li>
+          <li>the operation never reaches full depth there, or</li>
+          <li>a tab covers the corner.</li>
+        </ul>
+        <p>
+          If the assigned tool has no stepdown set, the relief pass is skipped entirely rather than
+          cutting to full depth in one go.
+        </p>
+        <div class="callout--warn callout">
+          <strong>Two limits worth knowing.</strong> A T-bone's promise to stay in one face is exact
+          only at a 90° corner. Above roughly 105° the excursion starts to sweep across the corner
+          bisector and will mark both walls — use a dogbone there if that matters.
+        </div>
+      </section>
+
+      <section class="guide-section" id="helical-boring">
+        <h2>Helical Boring</h2>
+        <p>
+          Set a Drill operation's <span class="ui">Drill Type</span> to <span class="ui">Helical</span>
+          and it bores the hole with a flat endmill instead of drilling it — a spiral down the wall,
+          centre-locked, with no core left in the middle and a finishing revolution at the bottom.
+          This is how you produce a hole larger than any drill in your rack.
+        </p>
+        <ul>
+          <li><strong>Requires a flat endmill.</strong> Any other tool type falls back to a simple plunge with a warning saying why.</li>
+          <li><strong>The hole must be larger than the cutter</strong> — strictly larger, not equal.</li>
+          <li><strong>And no more than twice the cutter diameter.</strong> Past that, use Edge Route Inside instead; the operation says so rather than generating something questionable.</li>
+          <li><strong>Descent rate</strong> comes from the same <span class="ui">Ramp Angle (°)</span> field the helix entries use — 5° by default.</li>
+        </ul>
+      </section>
 
       <section class="guide-section" id="rest-machining">
         <h2>Rest Machining</h2>
@@ -439,9 +616,9 @@
         <p>
           You can include one or more <a href="concepts.html#regions"><strong>Region</strong></a>
           features in any operation's target list to restrict where it cuts. Regions don't replace
-          the machining target — they filter the generated toolpath to the union of the selected
-          region profiles. With no regions selected, the operation cuts the full extent of its
-          machining target.
+          the machining target — they narrow it. With no regions selected, the operation cuts the
+          full extent of its machining target. See <a href="concepts.html#regions">Regions</a> for
+          how masked toolpaths are generated and what a region does and does not guarantee.
         </p>
       </section>
 

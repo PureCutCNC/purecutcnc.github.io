@@ -77,6 +77,8 @@
           <li><a href="cam-operations.html">Operations</a></li>
           <li><a href="cam-tabs-clamps.html">Tabs &amp; Clamps</a></li>
           <li><a href="cam-export.html" class="active">G-code Export</a></li>
+          <li><a href="machine-library.html">Machine Library</a></li>
+          <li><a href="post-processor-converter.html">Post-Processor Converter</a></li>
           <li><a href="cam-debug-view.html">Exported Motion</a></li>
         </ul>
       </div>
@@ -107,6 +109,12 @@
           Built-in machine definitions include Grbl, GrblHAL, LinuxCNC, Mach3, and UCCNC. You can also add custom
           machine definitions by clicking <span class="ui">Add machine</span> and providing a JSON
           definition file.
+        </p>
+        <p>
+          The machine you pick is stored <em>inside</em> the project, while the list you pick it from
+          lives in the application. That split is what keeps a shared project exportable and stops an
+          app update from quietly changing a proven job's output — see
+          <a href="machine-library.html">Machine Library</a>.
         </p>
       </section>
 
@@ -151,6 +159,47 @@
           <strong>Always verify before cutting.</strong> Review the G-code in your machine
           controller's toolpath display or run a dry cycle with the spindle off before making
           contact with material.
+        </div>
+      </section>
+
+      <section class="guide-section" id="arc-validation">
+        <h2>Arc Output That Controllers Accept</h2>
+        <p>
+          When an operation has <a href="cam-debug-view.html#arc-fitting-per-operation">arc
+          fitting</a> enabled, PureCut CNC replaces runs of short straight moves with real
+          <code>G2</code>/<code>G3</code> arcs. Controllers in the GRBL family check every arc they
+          receive: they recompute the radius from the start point, the end point and the
+          <code>I</code>/<code>J</code> centre offsets in the block, and if the two radii disagree by
+          more than a small tolerance they reject it with <code>error:33</code>
+          (<em>Gcode invalid target</em>) — mid-job, with the spindle in the cut.
+        </p>
+        <p>
+          Arc output is now checked against exactly that arithmetic before the file is written:
+        </p>
+        <ul>
+          <li>Fitted arcs are constructed so that adjacent runs agree on the point they share, rather than each rounding independently and drifting apart.</li>
+          <li>The <code>I</code>/<code>J</code> offsets are chosen on the same number grid the file is written in, so what the controller reads is what was validated.</li>
+          <li>The check runs on the <strong>formatted output</strong> — the actual text of the block — not on the higher-precision numbers behind it.</li>
+          <li>Any run that still can't be expressed as an acceptable arc falls back whole to ordinary <code>G1</code> moves. Output stays valid; it just isn't an arc.</li>
+        </ul>
+        <p>
+          On the case originally reported from the field, the worst radius mismatch went from
+          0.010565&nbsp;mm — comfortably over GRBL's limit — to 0.000111&nbsp;mm, a 45× margin under it.
+        </p>
+
+        <h3>Checked Against Real Controllers</h3>
+        <p>
+          Exported G-code is verified by feeding it to the controllers' own interpreters — GRBL
+          1.1's <code>gcode.c</code> and LinuxCNC's <code>rs274</code> — rather than to a
+          re-implementation of what those controllers are believed to do. Measured against each
+          other, GRBL's arc tolerance is about 0.005&nbsp;mm and LinuxCNC's about 0.028&nbsp;mm, so
+          GRBL is the strictest target and clearing it clears the rest. FluidNC's arc check is
+          identical to GRBL's, and GRBL's own check is unchanged between 0.9j and 1.1h.
+        </p>
+        <div class="callout">
+          <strong>Nothing to switch on.</strong> This is validation of what the exporter emits, not
+          a setting. If you had arc fitting turned off because a controller rejected the output,
+          it's worth trying again.
         </div>
       </section>
 
@@ -214,6 +263,12 @@
           a built-in machine that's close to your controller, <span class="ui">Edit</span> the copy,
           then <span class="ui">Export</span> it if you want a JSON backup. That always produces a
           definition matching the current schema — see below.
+        </p>
+        <p>
+          If you already have a working post-processor for the same controller in another CAM
+          package, the <a href="post-processor-converter.html">Post-Processor Converter</a> (a
+          command-line tool in the source repository) can convert it into a starting-point
+          definition instead.
         </p>
 
         <h3>Editing Machines In-App</h3>
@@ -291,7 +346,7 @@
 
   <footer>
     <span>© 2026 PureCut CNC</span>
-    <span><a href="cam-tabs-clamps.html">← Tabs &amp; Clamps</a> · <a href="cam-debug-view.html">Next: Exported Motion →</a></span>
+    <span><a href="cam-tabs-clamps.html">← Tabs &amp; Clamps</a> · <a href="machine-library.html">Next: Machine Library →</a></span>
   </footer>
 
 </body>

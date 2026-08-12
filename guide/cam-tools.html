@@ -77,6 +77,8 @@
           <li><a href="cam-operations.html">Operations</a></li>
           <li><a href="cam-tabs-clamps.html">Tabs &amp; Clamps</a></li>
           <li><a href="cam-export.html">G-code Export</a></li>
+          <li><a href="machine-library.html">Machine Library</a></li>
+          <li><a href="post-processor-converter.html">Post-Processor Converter</a></li>
           <li><a href="cam-debug-view.html">Exported Motion</a></li>
         </ul>
       </div>
@@ -110,16 +112,38 @@
 
         <h3>Import from Library</h3>
         <p>
-          Click <span class="ui">Import from Library</span> in the Tools tab. The bundled library
-          browser opens, showing a catalogue of common endmills, ball mills, V-bits, and drills.
-          Use the type and unit filters to narrow the list. Click <span class="ui">Import</span>
-          next to any tool to add it to the project. Tools already in the project are shown as
-          "Imported" and cannot be imported again.
+          Click <span class="ui">Import from library…</span> in the Tools tab. A dedicated
+          <span class="ui">Import tools from library</span> dialog opens over the app, so browsing
+          the catalogue happens in a full-width space instead of the narrow side panel.
+        </p>
+        <p>The bundled library ships <strong>26 standard sizes</strong>:</p>
+        <ul>
+          <li><strong>Imperial</strong> — flat endmills from 1/16″ to 3/4″, ball endmills from 1/16″ to 1/2″, and a 60° V-bit.</li>
+          <li><strong>Metric</strong> — flat endmills from 1&nbsp;mm to 12&nbsp;mm and ball endmills from 1&nbsp;mm to 8&nbsp;mm.</li>
+        </ul>
+        <p>Finding what you want:</p>
+        <ul>
+          <li><strong>Search</strong> by name or diameter — the field is focused as soon as the dialog opens.</li>
+          <li><strong>Type filter</strong> — All Types, Flat Endmill, Ball Endmill, V-Bit, or Drill.</li>
+          <li><strong>Units filter</strong> — All Units, mm, or in.</li>
+          <li>Each row shows flute count and the tool's usable depth, and is badged <span class="ui">In project</span> or <span class="ui">New</span> so you can see at a glance what you already have.</li>
+        </ul>
+        <p>
+          Selection is multi-pick and survives filter changes: search for one thing, tick it, clear
+          the filters, search for another, and both stay selected. The action button counts what you
+          picked — <span class="ui">Import 4 tools</span> — and imports them in one go. Tools already
+          in the project can't be imported twice.
         </p>
 
         <div class="screenshot-placeholder" data-img="cam-tool-library-browser.png">
           <div class="ph-label">screenshots/cam-tool-library-browser.png</div>
-          <div class="ph-desc">Tool library browser showing filter dropdowns and tool list</div>
+          <div class="ph-desc">Tool library import dialog — search field, type and unit filters, multi-selected rows badged In project / New, and the counted import button</div>
+        </div>
+        <div class="callout--tip callout">
+          <strong>Already imported the old eight?</strong> The original bundled entries are
+          unchanged, so tools you imported from earlier versions still read as
+          <span class="ui">In project</span> rather than appearing as duplicates. The feeds, speeds,
+          stepdown, and usable depth on the new sizes are interpolated from those same entries.
         </div>
 
         <h3>Add Tool Manually</h3>
