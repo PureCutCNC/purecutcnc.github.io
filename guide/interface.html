@@ -77,6 +77,8 @@
           <li><a href="cam-operations.html">Operations</a></li>
           <li><a href="cam-tabs-clamps.html">Tabs &amp; Clamps</a></li>
           <li><a href="cam-export.html">G-code Export</a></li>
+          <li><a href="machine-library.html">Machine Library</a></li>
+          <li><a href="post-processor-converter.html">Post-Processor Converter</a></li>
           <li><a href="cam-debug-view.html">Exported Motion</a></li>
         </ul>
       </div>
@@ -409,6 +411,39 @@
           The panel can be dragged to a comfortable spot on the canvas; the canvas regains focus
           after every panel action or dialog close, so keyboard shortcuts keep working without
           clicking back in.
+        </p>
+
+        <h3>Compact by Default</h3>
+        <p>
+          The panels sit over your drawing, so they stay out of the way. The step indicator and the
+          action buttons live in the panel's title bar rather than on lines of their own, and the
+          body disappears entirely when there is nothing to put in it — a rectangle mid-draw is a
+          single strip rather than a block covering the geometry you are trying to see. Panels that
+          have a summary to show still show it, and the panel sizes itself to its content instead of
+          a fixed width.
+        </p>
+
+        <h3>Shortcut Hints</h3>
+        <p>
+          Each action now shows the key that triggers it — <span class="ui">Dimensions (Tab)</span>,
+          <span class="ui">Keep originals (K)</span> — so the bindings are discoverable instead of
+          something you had to already know. Icon-only buttons carry the same information in their
+          tooltip and to screen readers.
+        </p>
+        <table class="prop-table">
+          <thead><tr><th>Action</th><th>Key</th></tr></thead>
+          <tbody>
+            <tr><td>Dimensions / Width / Radius / Scale / Angle</td><td><kbd>Tab</kbd></td></tr>
+            <tr><td>Finish / Confirm</td><td><kbd>Enter</kbd></td></tr>
+            <tr><td>Cancel</td><td><kbd>Esc</kbd></td></tr>
+            <tr><td>Line / Arc / Spline segment (composite path)</td><td><kbd>L</kbd> / <kbd>A</kbd> / <kbd>S</kbd></td></tr>
+            <tr><td>Undo last point (polygon, spline, composite)</td><td><kbd>Backspace</kbd></td></tr>
+            <tr><td>Keep originals</td><td><kbd>K</kbd></td></tr>
+          </tbody>
+        </table>
+        <p>
+          Only <kbd>K</kbd> is new; the rest already worked and were simply invisible. The undo hint
+          appears only on the tools where <kbd>Backspace</kbd> actually removes a point.
         </p>
       </section>
 

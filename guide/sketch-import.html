@@ -77,6 +77,8 @@
           <li><a href="cam-operations.html">Operations</a></li>
           <li><a href="cam-tabs-clamps.html">Tabs &amp; Clamps</a></li>
           <li><a href="cam-export.html">G-code Export</a></li>
+          <li><a href="machine-library.html">Machine Library</a></li>
+          <li><a href="post-processor-converter.html">Post-Processor Converter</a></li>
           <li><a href="cam-debug-view.html">Exported Motion</a></li>
         </ul>
       </div>
@@ -106,6 +108,8 @@
         <p>
           To import, click <span class="ui">Import Geometry</span> in the toolbar (or use the
           keyboard shortcut for your platform). The Import dialog opens and lets you select a file.
+          On the desktop builds the file picker is filtered to the formats PureCut CNC can actually
+          read, so you are not scrolling past everything else in the folder.
         </p>
       </section>
 
@@ -176,6 +180,33 @@
           memory-constrained browsers from dropping the geometry buffer. There is no per-file
           triangle limit; very dense scans just take a moment longer to display.
         </p>
+
+        <h3 id="model-orientation">3D Orientation After Import</h3>
+        <p>
+          A model that arrives lying on its side, or facing the wrong way, no longer has to be
+          deleted, fixed in another program, and re-imported. Select the model feature and the
+          properties panel shows a <span class="ui">3D orientation</span> group:
+        </p>
+        <table class="prop-table">
+          <thead><tr><th>Control</th><th>What it does</th></tr></thead>
+          <tbody>
+            <tr><td><span class="ui">Rotate X</span> / <span class="ui">Rotate Y</span> / <span class="ui">Rotate Z</span></td><td>Type an angle per axis, or use the buttons on either side of each field to turn that axis a quarter turn forwards or backwards.</td></tr>
+            <tr><td><span class="ui">Lift</span></td><td>Height of the model's base. Moves the whole model up or down without changing its size — useful for sitting a part on the stock surface or sinking it into a pocket.</td></tr>
+            <tr><td><span class="ui">Reset to import orientation</span></td><td>Puts the model back exactly how it came in.</td></tr>
+          </tbody>
+        </table>
+        <p>
+          Rotation is <strong>rigid</strong>: the model is turned, not squashed. Z Top and Z Bottom
+          are recomputed from the rotated mesh's real vertical extent, so a model that was fitted to
+          a depth before rotating cannot silently get re-flattened into the old range. The panel
+          shows the current model height as you work.
+        </p>
+        <div class="callout">
+          <strong>Linked copies rotate together.</strong> Orientation belongs to the shared shape
+          definition — the silhouette, the profile, and the top-down view all derive from it — so
+          re-orienting one copy re-orients every linked copy. Use <span class="ui">Make Unique</span>
+          on a copy first if it needs its own orientation.
+        </div>
 
         <h3>Imported Model Display</h3>
         <p>

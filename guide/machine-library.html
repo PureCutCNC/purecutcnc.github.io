@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Machine Library — PureCut CNC User Guide</title>
+  <meta name="description" content="The PureCut CNC machine library — the application-wide My Machines list, the per-project machine snapshot, update notices, and why a shared project stays exportable." />
+  <link rel="icon" href="./favicon.svg" />
+  <link rel="stylesheet" href="./guide.css" />
+  <script src="./screenshots-loader.js" defer></script>
+  <script data-goatcounter="https://purecutcnc.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+
+  <nav>
+    <a href="../index.html" class="nav-logo">Pure<span>Cut</span> CNC</a>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../index.html#features">Features</a></li>
+      <li><a href="../index.html#workflow">Workflow</a></li>
+      <li><a href="../index.html#views">Views</a></li>
+      <li><a href="../downloads.html">Downloads</a></li>
+      <li><a href="../quickstart.html">Quick Start</a></li>
+      <li><a href="index.html" aria-current="page">User Guide</a></li>
+      <li><a href="https://github.com/PureCutCNC/purecutcnc/releases">What's New</a></li>
+      <li><a href="https://github.com/PureCutCNC/purecutcnc" class="github-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a></li>
+    </ul>
+    <a href="https://purecutcnc.github.io/app" class="nav-cta desktop-web-link">Launch App →</a>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-header-grid"></div>
+    <div class="page-label">CAM</div>
+    <h1>Machine <em>Library</em></h1>
+    <p>Your saved machines, the copy that travels inside a project, and how the two stay in step.</p>
+  </div>
+
+  <div class="guide-layout">
+
+    <aside class="guide-sidebar" aria-label="Guide navigation">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Overview</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html">Introduction</a></li>
+          <li><a href="interface.html">Interface Overview</a></li>
+          <li><a href="concepts.html">Core Concepts</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Settings</div>
+        <ul class="sidebar-nav">
+          <li><a href="appearance.html">Appearance &amp; Themes</a></li>
+          <li><a href="language.html">Language</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Sketch</div>
+        <ul class="sidebar-nav">
+          <li><a href="sketch-tools.html">Drawing Tools</a></li>
+          <li><a href="sketch-edit.html">Editing Features</a></li>
+          <li><a href="sketch-snapping.html">Snapping &amp; Grid</a></li>
+          <li><a href="sketch-import.html">Importing Geometry</a></li>
+          <li><a href="sketch-export.html">Export &amp; Print</a></li>
+          <li><a href="sketch-text.html">Text Features</a></li>
+          <li><a href="sketch-dimensions.html">Measure &amp; Dimensions</a></li>
+          <li><a href="sketch-toolpaths.html">Toolpath Display</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">CAM</div>
+        <ul class="sidebar-nav">
+          <li><a href="cam-tools.html">Tool Library</a></li>
+          <li><a href="cam-operations.html">Operations</a></li>
+          <li><a href="cam-tabs-clamps.html">Tabs &amp; Clamps</a></li>
+          <li><a href="cam-export.html">G-code Export</a></li>
+          <li><a href="machine-library.html" class="active">Machine Library</a></li>
+          <li><a href="post-processor-converter.html">Post-Processor Converter</a></li>
+          <li><a href="cam-debug-view.html">Exported Motion</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Views</div>
+        <ul class="sidebar-nav">
+          <li><a href="view-sketch.html">Sketch View</a></li>
+          <li><a href="view-3d.html">3D View</a></li>
+          <li><a href="view-simulation.html">Simulation</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="guide-content">
+
+      <section class="guide-section" id="two-places">
+        <h2>Two Places a Machine Lives</h2>
+        <p>
+          A machine definition is the post-processor: the G-code dialect, number formatting, header
+          and footer, canned cycles, and everything else that decides what the exported file
+          actually says. In PureCut CNC that definition exists in two places, and knowing which one
+          you are looking at explains almost everything about how machines behave.
+        </p>
+        <table class="prop-table">
+          <thead><tr><th></th><th>Application library</th><th>Project snapshot</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>Holds</strong></td>
+              <td>Every built-in machine shipped with your installed version, plus your own saved machines (<span class="ui">My Machines</span>).</td>
+              <td>Exactly one definition — the machine that project is set up for.</td>
+            </tr>
+            <tr>
+              <td><strong>Stored in</strong></td>
+              <td>The application, not any project file. It follows you from project to project.</td>
+              <td>The <code>.camj</code> file itself. It travels with the project.</td>
+            </tr>
+            <tr>
+              <td><strong>Used for</strong></td>
+              <td>Choosing, editing, importing, and exporting machine definitions.</td>
+              <td><strong>Generating G-code.</strong> The embedded snapshot is what the exporter reads.</td>
+            </tr>
+            <tr>
+              <td><strong>Editing it</strong></td>
+              <td>Never dirties the open project and never enters its undo history.</td>
+              <td>Always an explicit action — it dirties the project and is undoable.</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="callout">
+          <strong>Why the split matters.</strong> Because export reads the project's own snapshot,
+          upgrading PureCut CNC or editing a machine in your library can never quietly change the
+          G-code an existing project produces. Replacing a project's copy is something you do on
+          purpose.
+        </div>
+      </section>
+
+      <section class="guide-section" id="my-machines">
+        <h2>My Machines</h2>
+        <p>
+          <span class="ui">My Machines</span> is your personal, application-wide list of machine
+          definitions. Add a machine once and it is available in every project you open afterwards
+          — it is no longer trapped in whichever project you happened to create it in.
+        </p>
+        <p>
+          To get there, select the <span class="ui">Project</span> node in the feature tree and click
+          <span class="ui">Manage machines…</span> below the <span class="ui">Machine</span>
+          dropdown. The <span class="ui">Manage Machines</span> dialog groups definitions three ways:
+        </p>
+        <ul>
+          <li><strong>Built-in machines</strong> — the definitions shipped with the version of
+            PureCut CNC you are running (Grbl, GrblHAL, LinuxCNC, Mach3, UCCNC, Generic). They are
+            read-only; <span class="ui">Duplicate</span> one to get an editable copy.</li>
+          <li><strong>My Machines</strong> — your saved custom definitions. Edit, duplicate, import,
+            export, or remove them here.</li>
+          <li><strong>In this project</strong> — the snapshot embedded in the open project.</li>
+        </ul>
+        <div class="screenshot-placeholder" data-img="cam-machine-manager.png">
+          <div class="ph-label">screenshots/cam-machine-manager.png</div>
+          <div class="ph-desc">The Manage Machines dialog — read-only built-in definitions grouped above My Machines, with the selected definition's details and actions alongside</div>
+        </div>
+        <p>
+          Because bundled definitions are read from the current build rather than copied into each
+          project, a machine added to a new release reaches your existing projects as soon as you
+          update the app.
+        </p>
+      </section>
+
+      <section class="guide-section" id="status-badges">
+        <h2>Status Badges</h2>
+        <p>
+          With the <span class="ui">Project</span> node selected, the properties panel shows the
+          selected machine's status directly under the dropdown:
+        </p>
+        <table class="prop-table">
+          <thead><tr><th>Badge</th><th>Meaning</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><span class="ui">Built-in</span> / <span class="ui">Custom</span></td>
+              <td>Where the definition originally came from, followed by the output file extension.</td>
+            </tr>
+            <tr>
+              <td><span class="ui">Update available</span></td>
+              <td>The project's snapshot and the library entry with the same ID differ. Nothing has changed on its own — see <a href="#update-notice">Update Notices</a>.</td>
+            </tr>
+            <tr>
+              <td><span class="ui">Not in My Machines</span></td>
+              <td>The project carries a machine your library has never seen — typically a project someone shared with you. It still exports normally. Use <span class="ui">Save to My Machines</span> in the Manage Machines dialog if you want to keep it.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="guide-section" id="update-notice">
+        <h2>Update Notices</h2>
+        <p>
+          When you open a project, PureCut CNC compares its embedded snapshot with the library entry
+          that shares its ID. If they differ — because the built-in definition changed in a newer
+          release, or because you have since edited your own copy — a non-blocking notice appears:
+          <em>Machine definition update available</em>. It offers three choices, and none of them
+          happens by itself:
+        </p>
+        <table class="prop-table">
+          <thead><tr><th>Choice</th><th>What it does</th></tr></thead>
+          <tbody>
+            <tr><td><span class="ui">Review update</span></td><td>Opens the Manage Machines dialog focused on that machine, listing exactly which fields differ — axis mapping, number formatting, program header/footer, canned cycles, and so on — so you can decide with the differences in front of you.</td></tr>
+            <tr><td><span class="ui">Keep project copy</span></td><td>Dismisses the notice. The project keeps the definition it was saved with and its G-code output is unchanged.</td></tr>
+            <tr><td><span class="ui">Update project copy</span></td><td>Replaces the project's snapshot with the library version. This edits the project — it marks it dirty and can be undone.</td></tr>
+          </tbody>
+        </table>
+        <div class="callout--warn callout">
+          <strong>Updating a definition can change your G-code.</strong> That's the whole point of
+          the notice. If a job is already proven on the machine, <span class="ui">Keep project
+          copy</span> is the conservative answer; re-verify the output before cutting if you update.
+        </div>
+      </section>
+
+      <section class="guide-section" id="sharing">
+        <h2>Sharing a Project</h2>
+        <p>
+          Because the definition travels inside the <code>.camj</code> file, a project you send to
+          someone else stays exportable on a machine their installation has never heard of. They see
+          a <span class="ui">Not in My Machines</span> badge, and the G-code they export is identical
+          to the G-code you would export from the same project.
+        </p>
+        <p>
+          If they want that machine for their own future projects, <span class="ui">Save to My
+          Machines</span> lifts the embedded definition into their library. Nothing forces them to —
+          a project-only machine is a perfectly normal state, not an error to resolve.
+        </p>
+      </section>
+
+      <section class="guide-section" id="older-projects">
+        <h2>Older Projects</h2>
+        <p>
+          Projects saved before this change stored a copy of the <em>entire</em> machine library
+          inside the file. When you open one, it is compacted automatically: the project keeps only
+          the definition it actually uses, and any custom machines it carried are merged into
+          <span class="ui">My Machines</span> so they are not lost. Files get noticeably smaller as
+          a side effect.
+        </p>
+      </section>
+
+      <section class="guide-section" id="related">
+        <h2>Creating and Editing Definitions</h2>
+        <p>
+          The in-app machine editor, the full field reference, and importing or exporting a
+          definition as JSON are covered on the <a href="cam-export.html#custom-machines">G-code
+          Export</a> page. If you already have a post-processor for another CAM package, the
+          <a href="post-processor-converter.html">Post-Processor Converter</a> can turn it into a
+          starting-point definition.
+        </p>
+      </section>
+
+    </main>
+  </div>
+
+  <footer>
+    <span>© 2026 PureCut CNC</span>
+    <span><a href="cam-export.html">← G-code Export</a> · <a href="post-processor-converter.html">Next: Post-Processor Converter →</a></span>
+  </footer>
+
+</body>
+</html>

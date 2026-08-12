@@ -77,6 +77,8 @@
           <li><a href="cam-operations.html">Operations</a></li>
           <li><a href="cam-tabs-clamps.html">Tabs &amp; Clamps</a></li>
           <li><a href="cam-export.html">G-code Export</a></li>
+          <li><a href="machine-library.html">Machine Library</a></li>
+          <li><a href="post-processor-converter.html">Post-Processor Converter</a></li>
           <li><a href="cam-debug-view.html">Exported Motion</a></li>
         </ul>
       </div>
@@ -118,10 +120,16 @@
           <tbody>
             <tr><td>Orbit</td><td>Left-click drag</td></tr>
             <tr><td>Pan</td><td>Right-click drag, or middle-click drag</td></tr>
-            <tr><td>Zoom</td><td>Scroll wheel</td></tr>
+            <tr><td>Zoom</td><td>Scroll wheel, anchored on whatever is under the pointer</td></tr>
             <tr><td>Reset view</td><td>Double-click on empty space</td></tr>
           </tbody>
         </table>
+        <p>
+          Zoom now stays anchored to the point under the cursor in <strong>every</strong> view
+          preset. Previously that only worked from iso, top, and bottom views — a side view fell
+          back to zooming toward the centre of the screen, so aiming at a detail on a wall meant
+          zooming and then panning it back into frame.
+        </p>
       </section>
 
       <section class="guide-section" id="3d-model">
@@ -148,9 +156,15 @@
         <p>
           Visible toolpaths are drawn in space over the model — one color per move type — so the
           vertical moves are easy to read: entry points, depth layers, stepdown progression, tab
-          locations, and clamp clearance. The <span class="ui">Show</span> legend that filters those
-          move types is the same in both views and is covered on the
+          locations, and clamp clearance. The legend that filters those move types is the same in
+          both views, including its collapsed state, and is covered on the
           <a href="sketch-toolpaths.html">Toolpath Display</a> page.
+        </p>
+        <p>
+          Two things this view shows that are easy to miss elsewhere: <strong>lead-ins</strong> have
+          their own toggle, so you can hide the cuts and look only at how the tool arrives at each
+          profile; and <strong>descending rapids</strong> are drawn, so a rapid move that drops into
+          the part is visible rather than absent from the very preview meant to catch it.
         </p>
       </section>
 

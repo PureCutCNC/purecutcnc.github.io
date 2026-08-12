@@ -77,6 +77,8 @@
           <li><a href="cam-operations.html">Operations</a></li>
           <li><a href="cam-tabs-clamps.html" class="active">Tabs &amp; Clamps</a></li>
           <li><a href="cam-export.html">G-code Export</a></li>
+          <li><a href="machine-library.html">Machine Library</a></li>
+          <li><a href="post-processor-converter.html">Post-Processor Converter</a></li>
           <li><a href="cam-debug-view.html">Exported Motion</a></li>
         </ul>
       </div>
@@ -125,6 +127,7 @@
           <thead><tr><th>Property</th><th>Description</th></tr></thead>
           <tbody>
             <tr><td>Name</td><td>A label for the tab, shown in the feature tree.</td></tr>
+            <tr><td>Shape</td><td><span class="ui">Rectangular</span> or <span class="ui">Smooth</span> — how the toolpath crosses the tab. See <a href="#tab-shape">Tab Shape</a>.</td></tr>
             <tr><td>Z Top</td><td>The top of the tab — the height the tool lifts to when passing over the tab. Set this to the stock surface or slightly below to leave a thin bridge.</td></tr>
             <tr><td>Z Bottom</td><td>The bottom of the tab. Usually 0 (the machine table).</td></tr>
             <tr><td>Visible</td><td>Toggles tab visibility on the canvas.</td></tr>
@@ -137,10 +140,56 @@
           knife or chisel after machining.
         </div>
 
+        <h3 id="tab-shape">Tab Shape — Rectangular or Smooth</h3>
+        <p>
+          The <span class="ui">Shape</span> property controls how the toolpath gets over the tab.
+          Both shapes have the same footprint and the same Z Top; only the motion differs.
+        </p>
+        <table class="prop-table">
+          <thead><tr><th>Shape</th><th>How the tool crosses</th></tr></thead>
+          <tbody>
+            <tr><td><span class="ui">Rectangular</span></td><td>The tool steps straight up at the leading edge, runs across flat, and steps straight back down. The default, and what every tab made before this option existed still does.</td></tr>
+            <tr><td><span class="ui">Smooth</span></td><td>The tool ramps up and back down across the crossing instead of stepping. Easier breakout, less scarring where the tool re-enters, and noticeably faster on a machine whose Z axis is slower than X and Y.</td></tr>
+          </tbody>
+        </table>
+        <div class="screenshot-placeholder" data-img="tab-smooth-multipass.png">
+          <div class="ph-label">screenshots/tab-smooth-multipass.png</div>
+          <div class="ph-desc">Front view of the toolpath preview, three stepdown passes crossing two tabs of identical size — the rectangular tab on the left steps up to a shared flat top, the smooth tab on the right ramps to a single peak, with every pass landing on Z Top and returning to its own depth</div>
+        </div>
+        <div class="callout--warn callout">
+          <strong>A smooth tab of the same size holds less.</strong> Because the tool ramps rather
+          than steps, material is removed on the way up and down, so the remaining bridge is smaller
+          than a rectangular tab of identical dimensions. If you switch an existing job to smooth
+          tabs, size them up — or add one more — rather than assuming the holding power carries over.
+        </div>
+
         <h3>Editing Tabs</h3>
         <p>
           Select a tab in the feature tree to edit its properties. Click <span class="ui">Edit Sketch</span>
           to resize and reposition the tab interactively on the canvas by dragging its control points.
+        </p>
+
+        <h3 id="bulk-edit">Editing Many Tabs at Once</h3>
+        <p>
+          Tabs and clamps support multi-selection, so a job with a dozen tabs doesn't need a dozen
+          rounds of the same edit. Shift-click or Cmd/Ctrl-click several tabs in the feature tree or
+          on the canvas, or use <span class="ui">Select all tabs</span> on the Tabs root node
+          (clamps have the matching <span class="ui">Select all clamps</span>).
+        </p>
+        <p>
+          The properties panel then shows the shared editor for the whole selection —
+          <strong>{count} Tabs</strong> — and everything you change applies to all of them at once:
+          size, Z range, shape, visibility, and delete. Each edit is a single undo step, not one per
+          tab.
+        </p>
+        <ul>
+          <li><strong>A selection is never mixed.</strong> It holds features, or tabs, or clamps — selecting a tab and a feature together doesn't produce a half-usable editor.</li>
+          <li><strong>Differing values stay visibly mixed.</strong> A field whose members disagree reads <span class="ui">Mixed values</span> and stays that way until you commit a common value, so nothing gets flattened just because you opened the panel.</li>
+          <li><strong>Resizing preserves centres.</strong> Setting a new width or height keeps each tab where it is instead of re-anchoring them all to one corner.</li>
+        </ul>
+        <p>
+          The Z-range slider snaps to 0.1&nbsp;mm (0.01&nbsp;in) while dragging, so a quick drag
+          commits a round number rather than a full-precision value you didn't intend.
         </p>
       </section>
 
@@ -197,7 +246,10 @@
         <h3>Editing Clamps</h3>
         <p>
           Select a clamp in the feature tree to edit its properties. Click <span class="ui">Edit Sketch</span>
-          to resize and reposition the clamp interactively on the canvas.
+          to resize and reposition the clamp interactively on the canvas. Clamps can also be
+          multi-selected and edited together — including <span class="ui">Select all clamps</span> on
+          the Clamps root node. See <a href="#bulk-edit">Editing Many Tabs at Once</a>, which works
+          the same way for clamps.
         </p>
       </section>
 

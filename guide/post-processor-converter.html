@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Post-Processor Converter — PureCut CNC User Guide</title>
+  <meta name="description" content="Convert a post-processor from another CAM package into a PureCut CNC machine definition with the convert-post-processor command-line tool." />
+  <link rel="icon" href="./favicon.svg" />
+  <link rel="stylesheet" href="./guide.css" />
+  <script src="./screenshots-loader.js" defer></script>
+  <script data-goatcounter="https://purecutcnc.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+
+  <nav>
+    <a href="../index.html" class="nav-logo">Pure<span>Cut</span> CNC</a>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../index.html#features">Features</a></li>
+      <li><a href="../index.html#workflow">Workflow</a></li>
+      <li><a href="../index.html#views">Views</a></li>
+      <li><a href="../downloads.html">Downloads</a></li>
+      <li><a href="../quickstart.html">Quick Start</a></li>
+      <li><a href="index.html" aria-current="page">User Guide</a></li>
+      <li><a href="https://github.com/PureCutCNC/purecutcnc/releases">What's New</a></li>
+      <li><a href="https://github.com/PureCutCNC/purecutcnc" class="github-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a></li>
+    </ul>
+    <a href="https://purecutcnc.github.io/app" class="nav-cta desktop-web-link">Launch App →</a>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-header-grid"></div>
+    <div class="page-label">CAM</div>
+    <h1>Post-Processor <em>Converter</em></h1>
+    <p>Turn a post-processor from another CAM package into a PureCut CNC machine definition.</p>
+  </div>
+
+  <div class="guide-layout">
+
+    <aside class="guide-sidebar" aria-label="Guide navigation">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Overview</div>
+        <ul class="sidebar-nav">
+          <li><a href="index.html">Introduction</a></li>
+          <li><a href="interface.html">Interface Overview</a></li>
+          <li><a href="concepts.html">Core Concepts</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Settings</div>
+        <ul class="sidebar-nav">
+          <li><a href="appearance.html">Appearance &amp; Themes</a></li>
+          <li><a href="language.html">Language</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Sketch</div>
+        <ul class="sidebar-nav">
+          <li><a href="sketch-tools.html">Drawing Tools</a></li>
+          <li><a href="sketch-edit.html">Editing Features</a></li>
+          <li><a href="sketch-snapping.html">Snapping &amp; Grid</a></li>
+          <li><a href="sketch-import.html">Importing Geometry</a></li>
+          <li><a href="sketch-export.html">Export &amp; Print</a></li>
+          <li><a href="sketch-text.html">Text Features</a></li>
+          <li><a href="sketch-dimensions.html">Measure &amp; Dimensions</a></li>
+          <li><a href="sketch-toolpaths.html">Toolpath Display</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">CAM</div>
+        <ul class="sidebar-nav">
+          <li><a href="cam-tools.html">Tool Library</a></li>
+          <li><a href="cam-operations.html">Operations</a></li>
+          <li><a href="cam-tabs-clamps.html">Tabs &amp; Clamps</a></li>
+          <li><a href="cam-export.html">G-code Export</a></li>
+          <li><a href="machine-library.html">Machine Library</a></li>
+          <li><a href="post-processor-converter.html" class="active">Post-Processor Converter</a></li>
+          <li><a href="cam-debug-view.html">Exported Motion</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Views</div>
+        <ul class="sidebar-nav">
+          <li><a href="view-sketch.html">Sketch View</a></li>
+          <li><a href="view-3d.html">3D View</a></li>
+          <li><a href="view-simulation.html">Simulation</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="guide-content">
+
+      <section class="guide-section" id="what-it-is">
+        <h2>What This Is</h2>
+        <div class="callout--warn callout">
+          <strong>This is a developer tool, not an in-app feature.</strong> It is a command-line
+          script that ships with the PureCut CNC <em>source repository</em> and runs under Node.js.
+          There is no button for it in the app. If you just want to set up a machine, start from
+          <a href="cam-export.html#custom-machines">Custom Machine Definitions</a> — duplicating a
+          built-in profile and editing it in-app is quicker and needs no toolchain.
+        </div>
+        <p>
+          If you already run another CAM package and have a post-processor there that is known-good
+          for your controller, the converter reads that file and writes a PureCut CNC
+          <strong>machine definition</strong> JSON from it, plus a report telling you exactly what it
+          could and could not carry across. You then open that JSON in the app's machine editor,
+          fix anything the report flagged, and use it like any other definition.
+        </p>
+        <p>
+          It is a head start on a definition, not a drop-in replacement for one.
+        </p>
+      </section>
+
+      <section class="guide-section" id="running">
+        <h2>Running It</h2>
+        <p>
+          From a clone of the <a href="https://github.com/PureCutCNC/purecutcnc">application
+          repository</a>, with dependencies installed:
+        </p>
+        <pre><code>npm run convert-post-processor -- --input path/to/machine.pp --output my-machine.json</code></pre>
+        <p>
+          The <code>--</code> before the flags is required — it tells <code>npm run</code> to pass
+          everything after it to the script rather than treating it as an npm flag.
+        </p>
+        <p>That command writes two files and prints a readable summary to the terminal:</p>
+        <ul>
+          <li><code>my-machine.json</code> — the machine definition, ready to import in the app.</li>
+          <li><code>my-machine.report.json</code> — the same conversion report in machine-readable form.</li>
+        </ul>
+        <p>
+          Run <code>npm run convert-post-processor -- --help</code> for the flag list straight from
+          the tool.
+        </p>
+
+        <h3>Flags</h3>
+        <table class="prop-table">
+          <thead><tr><th>Flag</th><th>Required</th><th>What it does</th></tr></thead>
+          <tbody>
+            <tr><td><code>--input &lt;path&gt;</code></td><td>Yes</td><td>The vendor post-processor file to convert.</td></tr>
+            <tr><td><code>--output &lt;path&gt;</code></td><td>Yes</td><td>Where to write the machine definition JSON.</td></tr>
+            <tr><td><code>--format &lt;id&gt;</code></td><td>No</td><td>Force a specific reader instead of detecting one from the input's extension. Useful when a file was renamed.</td></tr>
+            <tr><td><code>--strict</code></td><td>No</td><td>Refuse to write the definition if any finding would change emitted 3-axis G-code. The report is still written either way.</td></tr>
+            <tr><td><code>--force</code></td><td>No</td><td>Overwrite an existing output file. Without it, a second run against the same path fails rather than clobbering a file you may have hand-edited.</td></tr>
+            <tr><td><code>--name &lt;string&gt;</code></td><td>No</td><td>Machine name recorded in the output. Defaults to the input filename.</td></tr>
+            <tr><td><code>--vendor &lt;string&gt;</code></td><td>No</td><td>Optional vendor label recorded in the output.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="guide-section" id="formats">
+        <h2>Supported Formats</h2>
+        <p>
+          The format is detected from the input file's extension. Four formats are
+          <strong>declarative</strong> — the file is a structured list of settings, so it is parsed
+          properly and converted field by field:
+        </p>
+        <table class="prop-table">
+          <thead><tr><th>CAM package</th><th>Extension</th><th><code>--format</code> id</th></tr></thead>
+          <tbody>
+            <tr><td>Visual Mill</td><td><code>.spm</code></td><td><code>visual-mill</code></td></tr>
+            <tr><td>Vectric / Estlcam</td><td><code>.pp</code></td><td><code>vectric-estlcam</code></td></tr>
+            <tr><td>ArtCAM</td><td><code>.con</code></td><td><code>artcam</code></td></tr>
+            <tr><td>ECam</td><td><code>.xml</code></td><td><code>ecam</code></td></tr>
+          </tbody>
+        </table>
+        <p>
+          The other three formats are <strong>programs</strong> rather than settings files — their
+          behaviour comes from code that the host CAM package executes. Those are read as text and
+          matched against the standard idioms each vendor's posts are written in. Expect more
+          findings, and read the report closely:
+        </p>
+        <table class="prop-table">
+          <thead><tr><th>CAM package</th><th>Extension</th><th><code>--format</code> id</th></tr></thead>
+          <tbody>
+            <tr><td>SheetCAM</td><td><code>.scpost</code></td><td><code>sheetcam</code></td></tr>
+            <tr><td>Autodesk HSM / Inventor</td><td><code>.cps</code></td><td><code>autodesk-cps</code></td></tr>
+            <tr><td>Mastercam</td><td><code>.pst</code></td><td><code>mastercam-pst</code></td></tr>
+          </tbody>
+        </table>
+        <div class="callout">
+          <strong>The vendor file is never executed.</strong> Nothing in a post-processor you feed
+          the converter is run, evaluated, or loaded as code — even for the three script-like
+          formats, which are only ever scanned as text. Converting a file you downloaded cannot run
+          anything on your machine.
+        </div>
+      </section>
+
+      <section class="guide-section" id="report">
+        <h2>Reading the Report</h2>
+        <p>
+          Every conversion produces a report that accounts for each field in the source. This is the
+          part that matters — a definition that converted "successfully" can still be missing
+          something your controller needs. Each finding carries one of four statuses:
+        </p>
+        <table class="prop-table">
+          <thead><tr><th>Status</th><th>Meaning</th></tr></thead>
+          <tbody>
+            <tr><td><strong>mapped</strong></td><td>Carried over from the source.</td></tr>
+            <tr><td><strong>omitted</strong></td><td>The source doesn't declare this, so PureCut CNC's generic default was kept.</td></tr>
+            <tr><td><strong>unsupported</strong></td><td>The source declares behaviour PureCut CNC has no equivalent for — a fourth axis, plasma/THC control, a vendor macro.</td></tr>
+            <tr><td><strong>conflicting</strong></td><td>The source's own signals disagree, or its nuance can't be expressed in a PureCut CNC definition.</td></tr>
+          </tbody>
+        </table>
+        <p>
+          Findings printed with <code>[blocks --strict]</code> are the ones that would change emitted
+          3-axis G-code if they were silently dropped. Read those first. Everything else is
+          informational — a vendor capability with no counterpart here, a formatting nuance — and
+          doesn't need action before you use the output.
+        </p>
+        <p>
+          Use <code>--strict</code> when nobody will be reading the report: it refuses to write the
+          definition at all unless every field that affects 3-axis motion was actually resolved from
+          the source.
+        </p>
+      </section>
+
+      <section class="guide-section" id="after">
+        <h2>After Converting</h2>
+        <ol>
+          <li>Read the printed report, or open <code>&lt;output&gt;.report.json</code>.</li>
+          <li>Import the JSON in the app — <span class="ui">Manage machines…</span> →
+            <span class="ui">Import machine</span> — and open it in the machine editor. See
+            <a href="machine-library.html">Machine Library</a> and
+            <a href="cam-export.html#custom-machines">Custom Machine Definitions</a>.</li>
+          <li>Fix anything the report flagged as unresolved but relevant to your jobs. The editor's
+            <span class="ui">Advanced</span> tab gives you the raw JSON if the form doesn't surface
+            a field.</li>
+          <li>Export a short job and read the G-code before you cut with it.</li>
+        </ol>
+        <div class="callout--warn callout">
+          <strong>A clean conversion is not a safety guarantee.</strong> The converter can tell you
+          that it understood every field in the source file. It cannot tell you that the source file
+          was right for your machine. Verify the output the same way you would verify any new
+          post-processor — read the G-code, then run it dry before it touches material.
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer>
+    <span>© 2026 PureCut CNC</span>
+    <span><a href="machine-library.html">← Machine Library</a> · <a href="cam-debug-view.html">Next: Exported Motion →</a></span>
+  </footer>
+
+</body>
+</html>

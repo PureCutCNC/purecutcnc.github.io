@@ -77,6 +77,8 @@
           <li><a href="cam-operations.html">Operations</a></li>
           <li><a href="cam-tabs-clamps.html">Tabs &amp; Clamps</a></li>
           <li><a href="cam-export.html">G-code Export</a></li>
+          <li><a href="machine-library.html">Machine Library</a></li>
+          <li><a href="post-processor-converter.html">Post-Processor Converter</a></li>
           <li><a href="cam-debug-view.html" class="active">Exported Motion</a></li>
         </ul>
       </div>
@@ -204,6 +206,11 @@
           selected machine's post-processor — see <a href="cam-export.html#custom-machines">Custom
           Machine Definitions</a>. If the machine doesn't declare arc support, fitting falls back to
           the original linear segments for that operation automatically.
+        </div>
+        <p>
+          Every arc that does get written is validated against the controller's own arithmetic
+          before it leaves the app — see <a href="cam-export.html#arc-validation">Arc Output That
+          Controllers Accept</a>.
         </p>
       </section>
 
@@ -212,7 +219,7 @@
 
   <footer>
     <span>© 2026 PureCut CNC</span>
-    <span><a href="cam-export.html">← G-code Export</a> · <a href="view-sketch.html">Next: Sketch View →</a></span>
+    <span><a href="post-processor-converter.html">← Post-Processor Converter</a> · <a href="view-sketch.html">Next: Sketch View →</a></span>
   </footer>
 
 </body>

@@ -77,6 +77,8 @@
           <li><a href="cam-operations.html">Operations</a></li>
           <li><a href="cam-tabs-clamps.html">Tabs &amp; Clamps</a></li>
           <li><a href="cam-export.html">G-code Export</a></li>
+          <li><a href="machine-library.html">Machine Library</a></li>
+          <li><a href="post-processor-converter.html">Post-Processor Converter</a></li>
           <li><a href="cam-debug-view.html">Exported Motion</a></li>
         </ul>
       </div>
@@ -103,32 +105,58 @@
         <p>
           Only operations whose toolpath visibility is enabled (the &#9673; toggle in the operations
           list) are drawn, and the selected operation is highlighted. Which <em>move types</em> you
-          see is controlled by the Show legend, described below.
+          see is controlled by the toolpath legend, described below.
         </p>
       </section>
 
       <section class="guide-section" id="show-legend">
-        <h2>The Show Legend</h2>
+        <h2>The Toolpath Legend</h2>
         <p>
-          A small collapsible <span class="ui">Show</span> panel sits in the corner of the viewport.
-          Click <span class="ui">Show</span> to expand it, then toggle each move type on or off
-          independently — handy for decluttering a busy path or focusing on just the cutting moves.
-          The same legend is available in both views.
+          A small collapsible toolbar sits in the corner of the viewport, marked with the G-code
+          icon. Click the icon to expand it, then toggle each move type on or off independently —
+          handy for decluttering a busy path or focusing on just the cutting moves.
         </p>
         <div class="screenshot-placeholder" data-img="toolpath-legend.png">
           <div class="ph-label">screenshots/toolpath-legend.png</div>
-          <div class="ph-desc">The expanded Show legend — Cuts, Rapids, Plunges, Retractions, and Directions toggles with color swatches</div>
+          <div class="ph-desc">The expanded toolpath legend — Cuts, Lead-ins, Rapids, Plunges, Retractions, and Directions toggles with color swatches</div>
         </div>
         <table class="prop-table">
           <thead><tr><th>Toggle</th><th>What it shows</th></tr></thead>
           <tbody>
             <tr><td><span class="ui">Cuts</span></td><td>Feed-rate moves where the tool is removing material (coral&nbsp;red).</td></tr>
-            <tr><td><span class="ui">Rapids</span></td><td>Fast positioning (G0) moves between cuts at safe Z height (blue).</td></tr>
-            <tr><td><span class="ui">Plunges</span></td><td>Downward Z moves where the tool enters the material (purple).</td></tr>
-            <tr><td><span class="ui">Retractions</span></td><td>Upward Z moves where the tool lifts back to a safe height (blue).</td></tr>
+            <tr><td><span class="ui">Lead-ins</span></td><td>Lead-in and lead-out moves, drawn in the cut colour but toggled separately — turn the cuts off and the entry moves stay, so you can see exactly how the tool arrives at the profile. On by default.</td></tr>
+            <tr><td><span class="ui">Rapids</span></td><td>Fast positioning (G0) moves that are not lifts — travel between cuts, and <strong>descending</strong> rapids that drop the tool toward the work (blue).</td></tr>
+            <tr><td><span class="ui">Plunges</span></td><td>Downward Z moves at feed rate where the tool enters the material (purple).</td></tr>
+            <tr><td><span class="ui">Retractions</span></td><td>Rapid moves that lift the tool back to a safe height (blue).</td></tr>
             <tr><td><span class="ui">Directions</span></td><td>Arrow markers along the path showing the direction of travel (amber).</td></tr>
           </tbody>
         </table>
+        <div class="callout">
+          <strong>Every rapid is now drawn.</strong> A rapid that <em>descends</em> — say a 9&nbsp;mm
+          drop into a 12&nbsp;mm part — used to belong to neither the rapids layer nor the
+          retractions layer, and so appeared in neither preview. Rapids are now split strictly into
+          "lifts" and "everything else", so no move can fall between the two. If a preview looks
+          busier than you remember, that is why, and the extra lines were always in the G-code.
+        </div>
+      </section>
+
+      <section class="guide-section" id="shared-collapse">
+        <h2>Collapsing the Legend</h2>
+        <p>
+          The legend is collapsed and expanded as one thing across both views — collapse it in the
+          Sketch view and the 3D toolbar is collapsed too, and vice versa.
+        </p>
+        <p>
+          Collapsing does more than hide the toolbar: it hides <strong>all</strong> toolpath moves in
+          both previews, which is the quick way to get an unobstructed look at the geometry or the
+          model. Your per-layer choices are not lost — they are restored exactly as you left them
+          when you expand again.
+        </p>
+        <div class="callout--tip callout">
+          <strong>Printing is unaffected.</strong> A design print uses your real layer selections,
+          not the collapsed state, so collapsing the legend to look at the drawing does not silently
+          strip toolpaths out of the printout.
+        </div>
       </section>
 
       <section class="guide-section" id="in-sketch">

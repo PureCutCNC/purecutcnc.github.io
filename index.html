@@ -715,7 +715,7 @@
   <!-- HERO -->
   <div class="hero">
     <div class="hero-grid"></div>
-    <div class="hero-badge"><span class="dot"></span> <span id="js-hero-version" hidden></span>Multi-language · Dark/Light themes · Arc-fit G-code</div>
+    <div class="hero-badge"><span class="dot"></span> <span id="js-hero-version" hidden></span>Trochoidal roughing · Helix &amp; ramp entries · Corner relief</div>
     <h1>2.5D CAD/CAM for<br/><em>real-world CNC work.</em></h1>
     <p class="hero-sub">
       PureCut CNC is a 2.5D + 3D CAD/CAM workspace for designing parts,
@@ -773,6 +773,55 @@
 
   <div class="divider"></div>
 
+  <!-- STRATEGIES -->
+  <section id="strategies">
+    <div class="section-label">Cutting Strategies</div>
+    <h2>How the cut happens, not just where.</h2>
+    <p class="section-intro">
+      Two operations can remove the same material and treat your machine completely differently.
+      PureCut CNC gives you control over the motion itself — how the tool gets into the work, how
+      hard it is loaded while it's there, and what it leaves in the corners.
+    </p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <span class="feature-icon">🌀</span>
+        <h3>Helix &amp; Ramp Entries</h3>
+        <p>Stop plunging straight down. Pocket, Surface Clean, and 3D Surface Rough can ease into each level along a helix or a zig-zag ramp, placed automatically where the tool actually fits and falling back safely when it doesn't. Entries start one clearance above the previous floor instead of from global safe Z, so deep pockets waste far less time in the air.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🔄</span>
+        <h3>Trochoidal Roughing</h3>
+        <p>Rough an edge route with overlapping loops instead of one heavy full-width cut. Radial load and heat drop sharply, small cutters survive material that would otherwise snap them, and every span is entered with a helix — no fragment ever re-enters material with a vertical plunge.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🪚</span>
+        <h3>Trochoidal Slotting</h3>
+        <p>Engrave gains a slot strategy that cuts a channel wider than the cutter — for T-track, inlay, dado, and wire routing. A live channel-width readout tells you exactly how wide the groove will be before you cut it.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">⭕</span>
+        <h3>Helical Boring</h3>
+        <p>Bore a hole larger than any drill you own. A flat endmill spirals down a centre-locked bore with no core left in the middle and a finishing revolution at the bottom. Unsupported tools fall back with a warning rather than doing something surprising.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🦴</span>
+        <h3>Corner Relief</h3>
+        <p>Dogbone, T-bone, or T-bone on the longest edge — cut as its own stepped pass after the main path so square-cornered parts actually seat in a milled pocket. Excursions end where the cutter touches the corner, not where its centre reaches it, so they take the least material the geometry allows.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">✅</span>
+        <h3>G-code Controllers Accept</h3>
+        <p>Arc output is validated against the controller's own arithmetic on the formatted numbers actually written to the file, and exports are checked by feeding them to GRBL 1.1 and LinuxCNC's real parsers — not to a re-implementation of what those controllers are believed to do.</p>
+      </div>
+    </div>
+    <p class="section-intro" style="margin-top: 1.6rem;">
+      Full details for every strategy and its parameters are in the
+      <a href="guide/cam-operations.html">Operations</a> section of the user guide.
+    </p>
+  </section>
+
+  <div class="divider"></div>
+
   <!-- FEATURES -->
   <section id="features">
     <div class="section-label">Features</div>
@@ -791,12 +840,12 @@
       <div class="feature-card">
         <span class="feature-icon">📥</span>
         <h3>SVG, DXF &amp; 3D Import</h3>
-        <p>Import 2D source geometry from SVG or DXF with Auto, Paths, and Solid-regions modes and nesting-aware Add/Subtract classification, or bring in 3D models from STL and OBJ files. Multi-body meshes split into one feature per body automatically. Imported geometry can be transformed and machined like hand-drawn features.</p>
+        <p>Import 2D source geometry from SVG or DXF with Auto, Paths, and Solid-regions modes and nesting-aware Add/Subtract classification, or bring in 3D models from STL and OBJ files. Multi-body meshes split into one feature per body automatically. A model that came in lying on its side can be re-oriented in place — per-axis rotation, quarter-turn buttons, and a lift control — instead of being deleted and re-imported. Imported geometry can be transformed and machined like hand-drawn features.</p>
       </div>
       <div class="feature-card">
         <span class="feature-icon">⚙️</span>
         <h3>2.5D + 3D CAM</h3>
-        <p>Pocket, edge route inside/outside with optional rounded outside corners, drill, V-Carve offset, V-Carve medial, surface clean, and engrave for 2.5D parts — plus 3D Surface rough, finish (parallel or waterline), and cleanup for imported models. Rough and finish passes, rest machining, hole-capable region masks to limit where any operation cuts, tabs, clamps, and per-tool feeds and speeds throughout.</p>
+        <p>Pocket, edge route inside/outside with optional rounded outside corners and corner relief, drill, V-Carve offset, V-Carve medial, surface clean, and engrave for 2.5D parts — plus 3D Surface rough, finish (parallel or waterline), and cleanup for imported models. Rough and finish passes, helix and ramp entries, trochoidal roughing and slotting, helical boring, rest machining, region masks resolved into the operation before generation, tabs, clamps, and per-tool feeds and speeds throughout.</p>
       </div>
       <div class="feature-card">
         <span class="feature-icon">🧊</span>
@@ -811,7 +860,7 @@
       <div class="feature-card">
         <span class="feature-icon">💾</span>
         <h3>G-code Export</h3>
-        <p>Export clean G-code for Grbl, GrblHAL, LinuxCNC, Mach3, and UCCNC. Post-processor support for custom machine configurations. Preview with syntax highlighting before you download.</p>
+        <p>Export clean G-code for Grbl, GrblHAL, LinuxCNC, Mach3, and UCCNC. Post-processor support for custom machine configurations. Preview with syntax highlighting before you download — and arcs are validated against the controller's own arithmetic so a GRBL-family machine won't abort mid-job on an arc it can't accept.</p>
       </div>
       <div class="feature-card">
         <span class="feature-icon">🔤</span>
@@ -831,7 +880,7 @@
       <div class="feature-card">
         <span class="feature-icon">🛠️</span>
         <h3>Tool Library</h3>
-        <p>Define your endmills, ball mills, V-bits, and drills once. Assign tools to operations and override feeds and speeds per operation as needed.</p>
+        <p>Define your endmills, ball mills, V-bits, and drills once. Assign tools to operations and override feeds and speeds per operation as needed. Or start from the bundled library of 26 standard metric and imperial sizes — search it, filter by type and unit, and import several at a time from a dedicated dialog.</p>
       </div>
       <div class="feature-card">
         <span class="feature-icon">🔗</span>
@@ -855,8 +904,8 @@
       </div>
       <div class="feature-card">
         <span class="feature-icon">⚙️</span>
-        <h3>Machine Editor</h3>
-        <p>Edit, duplicate, and export machine definitions in-app. A focused form covers the common fields with a raw-JSON escape hatch, and live validation stops you saving a broken post-processor.</p>
+        <h3>Machine Library</h3>
+        <p>Save a machine once and it's there in every project — a persistent My Machines list separate from the single definition each project carries. Edit, duplicate, import, and export definitions in-app with a focused form, a raw-JSON escape hatch, and live validation. A project you share stays exportable on a machine the recipient has never seen.</p>
       </div>
       <div class="feature-card">
         <span class="feature-icon">🌐</span>
@@ -899,7 +948,7 @@
     <h2>The operations you actually need.</h2>
     <p class="section-intro">
       A focused set of 2.5D operations — including drilling where it matters — each with rough and finish variants,
-      configurable tooling, and toolpath preview.
+      configurable tooling, selectable cutting strategies, and toolpath preview.
     </p>
     <div class="ops-grid">
       <span class="op-tag">Pocket Rough</span>
@@ -910,8 +959,12 @@
       <span class="op-tag">Edge Route Inside Finish</span>
       <span class="op-tag">Edge Route Outside Rough</span>
       <span class="op-tag">Edge Route Outside Finish</span>
+      <span class="op-tag">Edge Route — Trochoidal</span>
+      <span class="op-tag">Corner Relief — Dogbone / T-bone</span>
       <span class="op-tag">Drill</span>
+      <span class="op-tag">Drill — Helical Bore</span>
       <span class="op-tag">Engrave</span>
+      <span class="op-tag">Engrave — Trochoidal Slot</span>
       <span class="op-tag">V-Carve Offset</span>
       <span class="op-tag">V-Carve Medial</span>
       <span class="op-tag">3D Surface Rough</span>
@@ -946,7 +999,7 @@
       </div>
       <div class="workflow-step">
         <h3>Add CAM Operations</h3>
-        <p>Select geometry, pick an operation type, configure tool, stepdown, stepover, and strategy. Repeat for each operation.</p>
+        <p>Select geometry, pick an operation type, configure tool, stepdown, and stepover — then choose how it cuts: contour or trochoidal, plunge or helix entry, and whether the corners get relieved. Repeat for each operation.</p>
       </div>
       <div class="workflow-step">
         <h3>Verify in 3D &amp; Sim</h3>
@@ -1014,7 +1067,7 @@
     <h2>In active development.</h2>
     <div class="status-banner">
       <h3>Core workflow is usable today.</h3>
-      <p>The sketch engine, 2.5D and 3D CAM operations, 3D preview, model export, and the GPU-accelerated heightfield simulation are functional. Tablet and touch shells are first-class. Stable releases publish to <code>/app</code>; the latest main-branch Preview Build publishes to <code>/app-rc</code>. Work is ongoing in these areas:</p>
+      <p>The sketch engine, 2.5D and 3D CAM operations, 3D preview, model export, and the GPU-accelerated heightfield simulation are functional. Tablet and touch shells are first-class. Exported G-code is checked against real controller parsers on every change. Stable releases publish to <code>/app</code>; the latest main-branch Preview Build publishes to <code>/app-rc</code>. Work is ongoing in these areas:</p>
       <ul class="status-list">
         <li>3D toolpath linking and adaptive waterline refinement</li>
         <li>Expanded post-processor coverage</li>
