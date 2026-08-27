@@ -303,6 +303,7 @@
             <tr><td>Finish Walls</td><td>(Finish pass only) Whether to machine the walls to final dimension.</td></tr>
             <tr><td>Finish Floor</td><td>(Finish pass only) Whether to machine the floor to final dimension.</td></tr>
             <tr><td>Feed Reduction</td><td><strong>Slots only</strong> applies the configured Slot Feed percentage (60% by default) to full-width cutting stretches. <strong>Engagement</strong> chooses a bounded feed scale from the cutter's actual engagement on the emitted path. Both modes only reduce the programmed feed; the scale is shown in preview, simulation, export, and the setup booklet.</td></tr>
+            <tr><td>Round Outside Corners</td><td>Rounds eligible outside contour corners on offset clearing rings for a smoother cut path. This shapes the corners of the rings themselves; it is independent of both ring-to-ring links and Corner Relief.</td></tr>
             <tr><td>Round Link Corners</td><td>(Offset and Seeded circles) Replaces an eligible sharp ring-to-ring transition with a tangent arc-line-arc link. Where a smooth link does not fit in the clearable area, the operation retains the straight transition.</td></tr>
             <tr><td>Clean Wall Corners</td><td>Recovers material that rounded offset rings leave in reachable wall corners. This is separate from Corner Relief: it cleans the programmed shape rather than over-cutting a corner for a mating part.</td></tr>
             <tr><td>Corner Relief</td><td>(Pocket only, in this group) Cuts an extra relief at each inside corner so a square-cornered mating part will actually seat. See <a href="#corner-relief">Corner Relief</a>.</td></tr>
@@ -354,6 +355,7 @@
             <tr><td>Stock To Leave Radial</td><td>Material left on the model surface for a subsequent finish or cleanup pass (Rough only).</td></tr>
             <tr><td>Stock To Leave Axial</td><td>Vertical offset left above the model surface (Rough only).</td></tr>
             <tr><td>Feed Reduction</td><td>3D Surface Rough and Cleanup use the same Slots only and Engagement feed-reduction modes as Pocket, scaling only cutting motion where the cutter is more heavily engaged.</td></tr>
+            <tr><td>Round Outside Corners</td><td>(3D Surface Rough) Rounds eligible outside contour corners on offset clearing rings. It smooths the ring geometry itself, independently of the tangent links between rings.</td></tr>
           </tbody>
         </table>
 
