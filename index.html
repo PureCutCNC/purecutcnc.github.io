@@ -715,7 +715,7 @@
   <!-- HERO -->
   <div class="hero">
     <div class="hero-grid"></div>
-    <div class="hero-badge"><span class="dot"></span> <span id="js-hero-version" hidden></span>Trochoidal roughing · Helix &amp; ramp entries · Corner relief</div>
+    <div class="hero-badge"><span class="dot"></span> <span id="js-hero-version" hidden></span>Seeded circle clearing · Engagement-aware feeds · V-bit countersinks</div>
     <h1>2.5D CAD/CAM for<br/><em>real-world CNC work.</em></h1>
     <p class="hero-sub">
       PureCut CNC is a 2.5D + 3D CAD/CAM workspace for designing parts,
@@ -789,6 +789,21 @@
         <p>Stop plunging straight down. Pocket, Surface Clean, and 3D Surface Rough can ease into each level along a helix or a zig-zag ramp, placed automatically where the tool actually fits and falling back safely when it doesn't. Entries start one clearance above the previous floor instead of from global safe Z, so deep pockets waste far less time in the air.</p>
       </div>
       <div class="feature-card">
+        <span class="feature-icon">🎯</span>
+        <h3>Seeded Circle Clearing</h3>
+        <p>Choose Offset, Parallel, or Seeded circles for pockets and 3D roughing. Seeded circles clear the largest open areas first, then hand off cleanly to offset rings — a fully covered path that is not tied to one arbitrary spiral centre.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">〰️</span>
+        <h3>Smoother Offset Links</h3>
+        <p>When offset rings can be joined safely, PureCut CNC uses a tangent arc-line-arc link instead of a sharp dogleg. Where that curve does not fit, it keeps the proven straight transition, so the toolpath stays predictable.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">📶</span>
+        <h3>Engagement-Aware Feeds</h3>
+        <p>Feed reduction can slow full-width slots or follow actual cutter engagement on the emitted path. The planner only lowers feed where the cutter is working harder, and the same scale appears in preview, simulation, export, and the setup booklet.</p>
+      </div>
+      <div class="feature-card">
         <span class="feature-icon">🔄</span>
         <h3>Trochoidal Roughing</h3>
         <p>Rough an edge route with overlapping loops instead of one heavy full-width cut. Radial load and heat drop sharply, small cutters survive material that would otherwise snap them, and every span is entered with a helix — no fragment ever re-enters material with a vertical plunge.</p>
@@ -838,6 +853,11 @@
         <p>Rectangles, circles, ellipses, polygons, splines, composite profiles, and text features — all editable directly on the canvas with snapping, measurements, and direct node editing.</p>
       </div>
       <div class="feature-card">
+        <span class="feature-icon">🔁</span>
+        <h3>Feature Distribution</h3>
+        <p>Turn selected sketch features into a deliberate grid, radial array, or path-following pattern. Keep or follow the source orientation, taper the scale, then create the result in one undoable step while every copy stays individually editable.</p>
+      </div>
+      <div class="feature-card">
         <span class="feature-icon">📥</span>
         <h3>SVG, DXF &amp; 3D Import</h3>
         <p>Import 2D source geometry from SVG or DXF with Auto, Paths, and Solid-regions modes and nesting-aware Add/Subtract classification, or bring in 3D models from STL and OBJ files. Multi-body meshes split into one feature per body automatically. A model that came in lying on its side can be re-oriented in place — per-axis rotation, quarter-turn buttons, and a lift control — instead of being deleted and re-imported. Imported geometry can be transformed and machined like hand-drawn features.</p>
@@ -845,7 +865,7 @@
       <div class="feature-card">
         <span class="feature-icon">⚙️</span>
         <h3>2.5D + 3D CAM</h3>
-        <p>Pocket, edge route inside/outside with optional rounded outside corners and corner relief, drill, V-Carve offset, V-Carve medial, surface clean, and engrave for 2.5D parts — plus 3D Surface rough, finish (parallel or waterline), and cleanup for imported models. Rough and finish passes, helix and ramp entries, trochoidal roughing and slotting, helical boring, rest machining, region masks resolved into the operation before generation, tabs, clamps, and per-tool feeds and speeds throughout.</p>
+        <p>Pocket, edge route inside/outside with optional rounded outside corners and corner relief, drill with V-bit countersinking, V-Carve offset, V-Carve medial, surface clean, and engrave for 2.5D parts — plus 3D Surface rough, finish (parallel or waterline), and cleanup for imported models. Rough and finish passes, helix and ramp entries, trochoidal roughing and slotting, helical boring, rest machining, region masks resolved into the operation before generation, tabs, clamps, and per-tool feeds and speeds throughout.</p>
       </div>
       <div class="feature-card">
         <span class="feature-icon">🧊</span>
@@ -855,7 +875,7 @@
       <div class="feature-card">
         <span class="feature-icon">▶️</span>
         <h3>GPU Simulation</h3>
-        <p>Replay toolpaths against stock in a fully GPU-rendered heightfield simulation. The cut state lives in a texture and is displaced in a vertex shader, with incremental per-frame updates — high-density grids (up to 1500 cells) stay interactive while you scrub, with a live XYZ readout in the playback bar.</p>
+        <p>Replay toolpaths against stock in a fully GPU-rendered heightfield simulation. The cut state lives in a texture and is displaced in a vertex shader, with incremental per-frame updates — high-density grids (up to 1500 cells) stay interactive while you scrub. Dock or center the draggable playback bar to keep stacked XYZ coordinates and the live feed percentage where you need them.</p>
       </div>
       <div class="feature-card">
         <span class="feature-icon">💾</span>
@@ -870,7 +890,7 @@
       <div class="feature-card">
         <span class="feature-icon">🗿</span>
         <h3>3D Surface Operations</h3>
-        <p>Import an STL or OBJ model and generate 3D rough, finish (parallel or waterline), and targeted cleanup toolpaths directly from it. Overhang protection, region clipping, surrounding-feature avoidance, gouge protection, and adaptive waterline refinement for steep walls all included.</p>
+        <p>Import an STL or OBJ model and generate 3D rough, finish (parallel or waterline), and targeted cleanup toolpaths directly from it. Roughing shares Offset, Seeded circle, and Parallel clearing with 2.5D pockets; overhang protection, region clipping, surrounding-feature avoidance, gouge protection, and adaptive waterline refinement keep every pass within its declared cutting domain.</p>
       </div>
       <div class="feature-card">
         <span class="feature-icon">🔁</span>
@@ -963,6 +983,7 @@
       <span class="op-tag">Corner Relief — Dogbone / T-bone</span>
       <span class="op-tag">Drill</span>
       <span class="op-tag">Drill — Helical Bore</span>
+      <span class="op-tag">Drill — V-Bit Countersink</span>
       <span class="op-tag">Engrave</span>
       <span class="op-tag">Engrave — Trochoidal Slot</span>
       <span class="op-tag">V-Carve Offset</span>

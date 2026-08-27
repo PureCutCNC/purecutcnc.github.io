@@ -217,6 +217,37 @@
           <li><strong>Distribute Vertically (equal centers)</strong></li>
         </ul>
         <p>Locked features are excluded from alignment and distribution operations.</p>
+
+      </section>
+
+      <section class="guide-section" id="feature-distribution">
+        <h2>Feature Distribution</h2>
+        <p>
+          Feature Distribution creates a deliberate one-time pattern from selected 2D sketch
+          features. It is for creating editable copies, not a persistent parametric pattern: preview
+          changes nothing, and <span class="ui">Create</span> adds the complete result in one undo
+          step. The source features and any guide path are never changed.
+        </p>
+
+        <h3>Distribution Types</h3>
+        <table class="prop-table">
+          <thead><tr><th>Type</th><th>What it creates</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Grid</strong></td><td>Copies arranged by rows and columns, with explicit spacing in each direction.</td></tr>
+            <tr><td><strong>Radial</strong></td><td>Copies around a chosen centre, with a count, start angle, and sweep. Use a full circle for a complete array or a partial sweep for an arc of copies.</td></tr>
+            <tr><td><strong>Along a Path</strong></td><td>Copies at equal arc-length intervals along a separate guide. Lines, arcs, composite profiles, splines, and closed guides are supported; start and end offsets define the part of the guide to use.</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Orientation, Scale, and Copies</h3>
+        <p>
+          Each distribution can retain the source orientation or follow the radial or path tangent.
+          A linear scale taper can change the copies from a chosen start percentage to an end
+          percentage. The copies follow the project's existing copy mode: reference copies keep
+          sharing the original geometry definition, while independent copies receive their own
+          editable definition. See <a href="concepts.html#feature-references">Feature References</a>
+          for how linked copies behave after you edit them.
+        </p>
       </section>
 
       <section class="guide-section" id="shape-ops">
@@ -254,7 +285,10 @@
           control points and handles are shown and can be dragged.
         </p>
         <p>
-          While in sketch edit mode, additional tools become available in the toolbar:
+          While in sketch edit mode, the editing tools appear together in the
+          <span class="ui">Edit Sketch</span> panel. Its header keeps
+          <span class="ui">Finish editing</span> and <span class="ui">Cancel editing</span>
+          available while you switch between tools:
         </p>
 
         <h3>Add Point</h3>
