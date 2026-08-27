@@ -148,6 +148,7 @@
             <tr><td>Clean up scallops after a 3D finish</td><td><a href="#op-3d-cleanup">3D Surface Cleanup</a></td><td>Imported STL/OBJ model</td></tr>
             <tr><td>Drill holes at marked centers</td><td><a href="#op-drill">Drill</a></td><td>Circle features</td></tr>
             <tr><td>Bore a hole bigger than any drill you own</td><td><a href="#op-drill">Drill</a> — <a href="#helical-boring">Helical</a></td><td>Circle features + flat endmill</td></tr>
+            <tr><td>Cut a conical screw seat</td><td><a href="#op-drill">Drill</a> — <a href="#countersinking">Countersink</a></td><td>Circle features + V-bit</td></tr>
             <tr><td>Make a square peg fit a milled corner</td><td><a href="#corner-relief">Corner Relief</a></td><td>Pocket or Edge Route</td></tr>
           </tbody>
         </table>
@@ -164,7 +165,7 @@
         <div class="op-grid">
           <div class="op-card" id="op-pocket">
             <h4>Pocket</h4>
-            <p>Clears the interior of a closed subtract feature. Requires subtract features with closed profiles. Supports rough and finish passes.</p>
+            <p>Clears the interior of a closed subtract feature. Requires subtract features with closed profiles. Supports rough and finish passes with Offset, Seeded circles, or Parallel clearing.</p>
             <p class="op-tool"><strong>Tool:</strong> flat or ball endmill</p>
             <div class="op-thumb" data-img="op-pocket.png"><div class="ph-desc">op-pocket.png — pocket clearing toolpath (offset/parallel passes)</div></div>
           </div>
@@ -206,7 +207,7 @@
           </div>
           <div class="op-card" id="op-3d-rough">
             <h4>3D Surface Rough</h4>
-            <p>Top-down roughing of an imported 3D model. Cumulative model-shadow protection, parent-stock containment, region clipping, and pocket-aware split-depth carving leave a stepped semi-finished surface ready for a finish pass. Requires a <strong>Model</strong> feature (imported STL/OBJ).</p>
+            <p>Top-down roughing of an imported 3D model. Choose Offset, Seeded circles, or Parallel clearing; cumulative model-shadow protection, parent-stock containment, region clipping, and pocket-aware split-depth carving leave a stepped semi-finished surface ready for a finish pass. Requires a <strong>Model</strong> feature (imported STL/OBJ).</p>
             <p class="op-tool"><strong>Tool:</strong> flat or ball endmill</p>
             <div class="op-thumb" data-img="op-3d-rough.png"><div class="ph-desc">op-3d-rough.png — stepped roughing passes over a model</div></div>
           </div>
@@ -224,8 +225,8 @@
           </div>
           <div class="op-card" id="op-drill">
             <h4>Drill</h4>
-            <p>Drills holes at the center of circle features. Requires circle features. Supports simple, peck, dwell, and chip-breaking drill cycles, plus a <a href="#helical-boring"><strong>Helical</strong></a> mode that bores a hole larger than the cutter with a flat endmill. Holes are automatically ordered by nearest-neighbor travel, shortening rapid moves between holes.</p>
-            <p class="op-tool"><strong>Tool:</strong> drill bit or endmill (Helical needs a flat endmill)</p>
+            <p>Drills holes at the center of circle features. Requires circle features. Supports simple, peck, dwell, and chip-breaking drill cycles, plus a <a href="#helical-boring"><strong>Helical</strong></a> mode that bores a hole larger than the cutter with a flat endmill and a <a href="#countersinking"><strong>Countersink</strong></a> mode that cuts a V-bit screw seat to a finished mouth diameter. Holes are automatically ordered by nearest-neighbor travel, shortening rapid moves between holes.</p>
+            <p class="op-tool"><strong>Tool:</strong> drill bit or endmill (Helical needs a flat endmill); V-bit for Countersink</p>
             <div class="op-thumb" data-img="op-drill.png"><div class="ph-desc">op-drill.png — peck-drilled holes ordered by nearest travel</div></div>
           </div>
         </div>
@@ -278,7 +279,7 @@
                 <li><strong>Feature First:</strong> Fully machines one feature top-to-bottom before moving to the next. Minimizes travel between features.</li>
                 <li><strong>Level First:</strong> Machines one depth level across all target features before stepping down to the next level. Useful for maintaining material stability or heat management.</li>
               </ul>
-              Available for Pocket, Edge Route, and V-Carve operations.
+              Available for Pocket, Surface Clean, Edge Route, V-Carve, and 3D Surface Rough operations.
             </td></tr>
             <tr><td>Enabled</td><td>When unchecked, the operation is excluded from G-code export. The toolpath is still shown if visible.</td></tr>
             <tr><td>Feed</td><td>Cutting feed rate for this operation.</td></tr>
@@ -292,7 +293,7 @@
         <table class="prop-table">
           <thead><tr><th>Parameter</th><th>Description</th></tr></thead>
           <tbody>
-            <tr><td>Pattern</td><td>Offset (concentric inward passes) or Parallel (raster passes at a fixed angle).</td></tr>
+            <tr><td>Pattern</td><td><strong>Offset</strong> (concentric passes), <strong>Seeded circles</strong> (full circles clear open areas before offset rings finish the remainder), or <strong>Parallel</strong> (raster passes at a fixed angle).</td></tr>
             <tr><td>Angle</td><td>The angle of parallel passes in degrees (Parallel pattern only).</td></tr>
             <tr><td>Cut Direction</td><td>Conventional or Climb milling.</td></tr>
             <tr><td>Stepdown</td><td>Depth per pass.</td></tr>
@@ -301,9 +302,11 @@
             <tr><td>Stock To Leave Axial</td><td>Material left on the floor for a subsequent finish pass.</td></tr>
             <tr><td>Finish Walls</td><td>(Finish pass only) Whether to machine the walls to final dimension.</td></tr>
             <tr><td>Finish Floor</td><td>(Finish pass only) Whether to machine the floor to final dimension.</td></tr>
-            <tr><td>Slot Feed (%)</td><td>(Pocket only) Feed rate — as a percentage of the operation feed — applied to fully engaged &ldquo;slotting&rdquo; cuts, where the tool is buried at full width and cutting hardest. Shown on the rough pass (and on a finish pass when Finish Floor is enabled). Set below 100 to slow those sections and protect the tool; 100 disables the reduction.</td></tr>
+            <tr><td>Feed Reduction</td><td><strong>Slots only</strong> applies the configured Slot Feed percentage (60% by default) to full-width cutting stretches. <strong>Engagement</strong> chooses a bounded feed scale from the cutter's actual engagement on the emitted path. Both modes only reduce the programmed feed; the scale is shown in preview, simulation, export, and the setup booklet.</td></tr>
+            <tr><td>Round Link Corners</td><td>(Offset and Seeded circles) Replaces an eligible sharp ring-to-ring transition with a tangent arc-line-arc link. Where a smooth link does not fit in the clearable area, the operation retains the straight transition.</td></tr>
+            <tr><td>Clean Wall Corners</td><td>Recovers material that rounded offset rings leave in reachable wall corners. This is separate from Corner Relief: it cleans the programmed shape rather than over-cutting a corner for a mating part.</td></tr>
             <tr><td>Corner Relief</td><td>(Pocket only, in this group) Cuts an extra relief at each inside corner so a square-cornered mating part will actually seat. See <a href="#corner-relief">Corner Relief</a>.</td></tr>
-            <tr><td>Entry Strategy</td><td>Under <span class="ui">Advanced</span> → <span class="ui">Entry</span>. How the tool gets down to each depth: Plunge, Helix, or Ramp. See <a href="#entry-moves">Entry Moves</a>.</td></tr>
+            <tr><td>Entry Strategy</td><td>Under <span class="ui">Entry &amp; retract</span>. How the tool gets down to each depth: Plunge, Helix, or Ramp. See <a href="#entry-moves">Entry Moves</a>.</td></tr>
           </tbody>
         </table>
         <p>
@@ -332,7 +335,13 @@
           <thead><tr><th>Parameter</th><th>Description</th></tr></thead>
           <tbody>
             <tr><td>Pattern</td><td>
-              <strong>Finish only.</strong>
+              <strong>3D Surface Rough:</strong>
+              <ul>
+                <li><strong>Offset:</strong> concentric clearing rings.</li>
+                <li><strong>Seeded circles:</strong> full circles clear each open area before its offset rings.</li>
+                <li><strong>Parallel:</strong> raster passes across the level, including its boundary loops.</li>
+              </ul>
+              <strong>3D Surface Finish:</strong>
               <ul>
                 <li><strong>Parallel:</strong> raster scanlines across the top surface at a fixed angle. Best for shallow surfaces and bulk finishing.</li>
                 <li><strong>Waterline:</strong> constant-Z contour rings stepping down the model. Best for steep walls and vertical features.</li>
@@ -344,6 +353,7 @@
             <tr><td>Cut Direction</td><td>Conventional or Climb. Applied per-ring with tool-side topology awareness so mixed outer/hole contours all cut in the requested direction.</td></tr>
             <tr><td>Stock To Leave Radial</td><td>Material left on the model surface for a subsequent finish or cleanup pass (Rough only).</td></tr>
             <tr><td>Stock To Leave Axial</td><td>Vertical offset left above the model surface (Rough only).</td></tr>
+            <tr><td>Feed Reduction</td><td>3D Surface Rough and Cleanup use the same Slots only and Engagement feed-reduction modes as Pocket, scaling only cutting motion where the cutter is more heavily engaged.</td></tr>
           </tbody>
         </table>
 
@@ -410,11 +420,12 @@
         <table class="prop-table">
           <thead><tr><th>Parameter</th><th>Description</th></tr></thead>
           <tbody>
-            <tr><td>Drill Type</td><td>Simple (G81), Peck (G83), Dwell (G82), Chip breaking (G73), or <a href="#helical-boring">Helical</a>.</td></tr>
+            <tr><td>Drill Type</td><td>Simple (G81), Peck (G83), Dwell (G82), Chip breaking (G73), <a href="#helical-boring">Helical</a>, or <a href="#countersinking">Countersink</a>.</td></tr>
             <tr><td>Peck Depth</td><td>Depth per peck increment (Peck and Chip Breaking only).</td></tr>
             <tr><td>Dwell Time</td><td>Dwell time in seconds at the bottom of the hole (Dwell only).</td></tr>
             <tr><td>Ramp Angle (°)</td><td>(Helical only) How steeply the bore descends per revolution. Defaults to 5°; the accepted range is 0.1°–45°.</td></tr>
-            <tr><td>Retract Height</td><td>Z height to retract to between holes. This is an <strong>absolute project Z</strong>, and it cannot be set below the top of the stock — a retract plane inside the material would have the tool traverse through the part at rapid speed.</td></tr>
+            <tr><td>Finished Mouth Diameter</td><td>(Countersink only) The diameter of the finished conical opening. The operation derives the plunge depth from this diameter and the selected V-bit's included angle.</td></tr>
+            <tr><td>Retract Height</td><td>Distance to retract above the highest material surface between holes. This keeps the setting meaningful when stock thickness or the project origin changes, while retaining a rapid plane clear of the work.</td></tr>
           </tbody>
         </table>
 
@@ -599,6 +610,22 @@
           <li><strong>The hole must be larger than the cutter</strong> — strictly larger, not equal.</li>
           <li><strong>And no more than twice the cutter diameter.</strong> Past that, use Edge Route Inside instead; the operation says so rather than generating something questionable.</li>
           <li><strong>Descent rate</strong> comes from the same <span class="ui">Ramp Angle (°)</span> field the helix entries use — 5° by default.</li>
+        </ul>
+      </section>
+
+      <section class="guide-section" id="countersinking">
+        <h2>V-Bit Countersinking</h2>
+        <p>
+          Set a Drill operation's <span class="ui">Drill Type</span> to
+          <span class="ui">Countersink</span>, select a V-bit, and enter the
+          <span class="ui">Finished Mouth Diameter</span> the fastener needs. PureCut CNC derives
+          the plunge depth from that diameter and the tool's included angle, measured below each
+          target hole's own top surface.
+        </p>
+        <ul>
+          <li><strong>Requires a V-bit and circular targets.</strong> The selected tool's angle and maximum cut depth must support the requested countersink.</li>
+          <li><strong>The mouth diameter is the design input.</strong> You specify the opening the screw needs rather than calculating a cone depth yourself.</li>
+          <li><strong>Invalid conditions stop safely.</strong> An unsupported tool, target, or depth produces a warning and no countersink motion for that target.</li>
         </ul>
       </section>
 

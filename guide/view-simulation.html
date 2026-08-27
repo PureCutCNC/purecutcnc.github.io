@@ -123,7 +123,8 @@
           <li><strong>Reset</strong> — resets the simulation to the beginning (full stock, no material removed).</li>
           <li><strong>Scrub</strong> — drag the progress bar to jump to any point in the toolpath sequence.</li>
           <li><strong>Speed</strong> — adjust playback speed to step through slowly or fast-forward to the result.</li>
-          <li><strong>XYZ readout</strong> — live machine-relative coordinates (X, Y, Z) update at the cursor as the simulation plays. A colored dot next to the readout indicates the current move kind: red for cut (and lead-in / lead-out), pink for plunge, blue for rapid.</li>
+          <li><strong>Playback bar position</strong> — drag the handle at the left of the bar to switch between its centred and docked positions.</li>
+          <li><strong>XYZ and feed readouts</strong> — stacked live machine-relative coordinates (X, Y, Z) update at the cursor as the simulation plays. The feed readout shows the emitted feed percentage for cutting moves and <span class="ui">Rapid</span> during rapid moves; a colored dot identifies cut, plunge, and rapid motion.</li>
         </ul>
       </section>
 
@@ -171,9 +172,10 @@
         <p>
           The simulation renderer runs on the GPU. The cut state is stored as a heightfield texture
           and displaced in a vertex shader; per-pixel normals are computed in the fragment shader
-          from finite differences. Profile-based stocks use a dynamic shader for the boundary walls
-          that samples the same texture, so the walls track the cut state automatically without
-          rebuilding geometry.
+          from finite differences. Profile-based stocks — including circular and arc-bearing
+          outlines — are masked to their actual shape, and a dynamic boundary-wall shader samples
+          the same texture so the walls track the cut state automatically without rebuilding
+          geometry.
         </p>
         <p>
           Playback updates only the dirty regions of the heightfield texture each frame instead of
