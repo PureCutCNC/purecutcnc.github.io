@@ -486,6 +486,27 @@
         </p>
       </section>
 
+      <section class="guide-section" id="seeded-circle-clearing">
+        <h2>Seeded Circle Clearing</h2>
+        <p>
+          Choose <span class="ui">Seeded circles</span> as the Pattern for Pocket, Surface Clean,
+          or 3D Surface Rough when you want the cutter to clear broad open areas with full circles
+          before it finishes the remaining material with offset rings. Each open region at each depth
+          level starts from its own largest clear circle, so the pattern is not tied to one arbitrary
+          entry point or spiral centre.
+        </p>
+        <div class="screenshot-placeholder" data-img="cam-seeded-circles.png">
+          <div class="ph-label">screenshots/cam-seeded-circles.png</div>
+          <div class="ph-desc">Sketch view of a Pocket using the Seeded circles pattern: full circles clear the broad open areas first, then offset rings finish around the walls and islands</div>
+        </div>
+        <p>
+          The initial circles are full cutter paths, not clipped arcs. Once they reach the useful
+          open area, the remaining clearing is planned as normal offset work around the material the
+          circles already removed. This keeps the path covered while preserving the familiar ring
+          finish near walls and islands.
+        </p>
+      </section>
+
       <section class="guide-section" id="entry-moves">
         <h2>Entry Moves — Helix &amp; Ramp</h2>
         <p>
@@ -542,6 +563,10 @@
           that would otherwise snap it. The trade-off is a longer path and a channel wider than the
           tool.
         </p>
+        <div class="screenshot-placeholder" data-img="cam-trochoidal-toolpath.png">
+          <div class="ph-label">screenshots/cam-trochoidal-toolpath.png</div>
+          <div class="ph-desc">Sketch view of a Trochoidal Edge Route: overlapping circular loops advance along the edge while keeping cutter engagement low</div>
+        </div>
 
         <h3>Trochoidal Edge Route</h3>
         <p>
