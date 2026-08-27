@@ -441,6 +441,51 @@
         </p>
       </section>
 
+      <section class="guide-section" id="feed-reduction">
+        <h2>Feed Reduction</h2>
+        <p>
+          Feed reduction lets a clearing operation slow the cutter only where it is working
+          hardest. It does not change the toolpath geometry or raise the operation's programmed
+          feed; it assigns a lower feed scale to the emitted cutting motion when the cutter is more
+          heavily loaded. Use it to protect a tool through tight or full-width material while
+          retaining the normal feed through easier stretches.
+        </p>
+
+        <div class="screenshot-placeholder" data-img="cam-feed-reduction-legend.png">
+          <div class="ph-label">screenshots/cam-feed-reduction-legend.png</div>
+          <div class="ph-desc">Sketch view with Feed Colours enabled: a pocket toolpath uses several colours for different emitted feed scales, and the feed legend identifies the percentage represented by each colour</div>
+        </div>
+
+        <h3>Choose a Mode</h3>
+        <table class="prop-table">
+          <thead><tr><th>Mode</th><th>What it does</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Slots only</strong></td><td>Applies the configured <span class="ui">Slot Feed</span> percentage to full-width slotting stretches, where the cutter is buried at its full diameter. The default is 60%; set it to 100% to run those stretches at the operation feed.</td></tr>
+            <tr><td><strong>Engagement</strong></td><td>Classifies each emitted cutting stretch by how much of the cutter is engaged, then selects a bounded feed scale. A lightly engaged path stays close to the operation feed; more heavily buried cutting motion slows further, down to the configured slot-feed scale.</td></tr>
+          </tbody>
+        </table>
+
+        <h3>Read the Feed Colours</h3>
+        <p>
+          With feed colours enabled in the Sketch view, the toolpath and legend show the feed
+          scales that the operation actually emitted. The legend is scoped to the selected operation
+          and omits levels that do not occur in its toolpath, so the colours shown are the colours
+          that will reach simulation, G-code export, and the operation booklet.
+        </p>
+        <div class="callout--tip callout">
+          <strong>A lower percentage is deliberate.</strong> Feed reduction is conservative: it can
+          only slow cutting motion below the operation feed. Review the coloured preview before you
+          export when a job has narrow pockets, tight corners, or long full-width cuts.
+        </div>
+
+        <h3>Where It Applies</h3>
+        <p>
+          Feed reduction is available on the clearing operations that expose it: Pocket, Surface
+          Clean, 3D Surface Rough, and 3D Surface Cleanup. The control is grouped with the operation's
+          speeds and feeds settings.
+        </p>
+      </section>
+
       <section class="guide-section" id="entry-moves">
         <h2>Entry Moves — Helix &amp; Ramp</h2>
         <p>
