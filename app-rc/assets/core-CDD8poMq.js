@@ -1,0 +1,1 @@
+import{B as e,G as t,H as n,K as r,L as i,R as a,U as o,V as s,W as c,q as l,z as u}from"./vendor-D4XFgyUC.js";export{i as Channel,a as PluginListener,u as Resource,e as SERIALIZE_TO_IPC_FN,s as addPluginListener,n as checkPermissions,o as convertFileSrc,c as invoke,t as isTauri,r as requestPermissions,l as transformCallback};
