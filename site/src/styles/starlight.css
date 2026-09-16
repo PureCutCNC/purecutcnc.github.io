@@ -1,0 +1,134 @@
+/* Starlight theme mapped onto the PureCut CNC palette. Unlayered, so it wins over
+   Starlight's own layered defaults. */
+
+:root {
+	--sl-font: var(--pc-font);
+	--sl-font-mono: var(--pc-mono);
+	--sl-content-width: 50rem;
+
+	/* Dark mode is the brand's native look. */
+	--sl-color-accent-low: #00202c;
+	--sl-color-accent: #0090c0;
+	--sl-color-accent-high: #00c8ff;
+	--sl-color-white: #ffffff;
+	--sl-color-gray-1: #e2e2e6;
+	--sl-color-gray-2: #c6c6cf;
+	--sl-color-gray-3: #9a9aa8;
+	--sl-color-gray-4: #5c5c68;
+	--sl-color-gray-5: #2a2a30;
+	--sl-color-gray-6: #141416;
+	--sl-color-black: #090c10;
+	--sl-color-bg-nav: var(--pc-bg-nav);
+	--sl-color-bg-sidebar: #0c0f14;
+	--sl-color-hairline-shade: var(--pc-border);
+
+	/* Callouts: note = brand cyan, tip = brand green, caution = amber, danger = red. */
+	--sl-color-blue-low: #04212c;
+	--sl-color-blue: var(--pc-accent);
+	--sl-color-blue-high: #9be8ff;
+	--sl-color-purple-low: #032419;
+	--sl-color-purple: var(--pc-green);
+	--sl-color-purple-high: #8ff5cb;
+	--sl-color-orange-low: #2b2208;
+	--sl-color-orange: var(--pc-yellow);
+	--sl-color-orange-high: #f7dc8c;
+}
+
+:root[data-theme='light'] {
+	--sl-color-accent-low: #d4f3ff;
+	--sl-color-accent: #0078a0;
+	--sl-color-accent-high: #00445c;
+	--sl-color-white: #0e1116;
+	--sl-color-gray-1: #1e222a;
+	--sl-color-gray-2: #353a45;
+	--sl-color-gray-3: #5b6170;
+	--sl-color-gray-4: #8a909c;
+	--sl-color-gray-5: #c9ced6;
+	--sl-color-gray-6: #eef1f5;
+	--sl-color-gray-7: #f6f8fa;
+	--sl-color-black: #ffffff;
+	--sl-color-bg-nav: rgba(246, 248, 250, 0.9);
+	--sl-color-bg-sidebar: var(--sl-color-bg);
+	--sl-color-hairline-shade: var(--sl-color-gray-5);
+
+	--sl-color-blue-low: #e3f7ff;
+	--sl-color-blue: #0090c0;
+	--sl-color-blue-high: #00445c;
+	--sl-color-purple-low: #dcf8ec;
+	--sl-color-purple: #00a86b;
+	--sl-color-purple-high: #00563a;
+	--sl-color-orange-low: #fdf1d2;
+	--sl-color-orange: #d9a200;
+	--sl-color-orange-high: #5c4400;
+}
+
+:root:not([data-theme='light']) body {
+	background: var(--pc-glow) no-repeat fixed, var(--sl-color-bg);
+}
+
+.page > .header {
+	backdrop-filter: blur(12px);
+}
+
+/* Screenshots and figures */
+.sl-markdown-content figure.pc-figure {
+	margin-block: 1.5rem;
+}
+.sl-markdown-content figure.pc-figure img {
+	display: block;
+	width: 100%;
+	height: auto;
+	border: 1px solid var(--sl-color-hairline-light);
+	border-radius: var(--pc-radius);
+	background: var(--sl-color-gray-6);
+}
+.sl-markdown-content figure.pc-figure figcaption {
+	margin-top: 0.5rem;
+	font-size: var(--sl-text-sm);
+	color: var(--sl-color-gray-3);
+}
+
+/* Inline app icons, matching the app's stroke icons. */
+.pc-app-icon {
+	display: inline-block;
+	width: 1.15em;
+	height: 1.15em;
+	vertical-align: -0.2em;
+	padding: 0.1em;
+	border: 1px solid var(--sl-color-hairline-light);
+	border-radius: 4px;
+	background: var(--sl-color-gray-6);
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 1.5;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	box-sizing: content-box;
+}
+
+/* Parameter tables keep the first column readable on narrow screens. */
+.sl-markdown-content table td:first-child {
+	white-space: nowrap;
+	font-weight: 600;
+	color: var(--sl-color-white);
+}
+
+/* Quick Start: number the step headings. */
+.pc-steps {
+	counter-reset: pc-step;
+}
+.pc-steps .sl-heading-wrapper.level-h2 h2::before {
+	counter-increment: pc-step;
+	content: counter(pc-step);
+	display: inline-grid;
+	place-items: center;
+	width: 1.8em;
+	height: 1.8em;
+	margin-inline-end: 0.6rem;
+	border: 1px solid var(--sl-color-accent);
+	border-radius: 50%;
+	font-family: var(--sl-font-mono);
+	font-size: 0.6em;
+	color: var(--sl-color-text-accent);
+	vertical-align: 0.25em;
+}

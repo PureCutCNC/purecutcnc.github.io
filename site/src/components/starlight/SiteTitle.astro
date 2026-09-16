@@ -1,0 +1,23 @@
+---
+// Starlight override: the text wordmark used across the marketing pages.
+const { siteTitleHref } = Astro.locals.starlightRoute;
+---
+
+<a href={siteTitleHref} class="site-title sl-flex" translate="no">
+	<span>Pure<span class="brand-cut">Cut</span> CNC</span>
+</a>
+
+<style>
+	.site-title {
+		align-items: center;
+		font-size: 0.95rem;
+		font-weight: 700;
+		letter-spacing: 0.04em;
+		color: var(--sl-color-white);
+		text-decoration: none;
+		white-space: nowrap;
+	}
+	.brand-cut {
+		color: var(--sl-color-text-accent);
+	}
+</style>

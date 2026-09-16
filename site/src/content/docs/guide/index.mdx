@@ -1,0 +1,44 @@
+---
+title: PureCut CNC User Manual
+description: How to design parts, set up machining operations, verify toolpaths, and export G-code with PureCut CNC.
+pageType: overview
+tableOfContents: false
+banner:
+  content: Platform preview. This manual is being rebuilt; most pages still live in the current guide.
+---
+
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+PureCut CNC is a 2.5D + 3D CAD/CAM workspace. You draw or import geometry, assign machining
+operations to it, check the result in 3D and simulation, and export G-code when it looks right.
+It runs as a desktop app on Windows, macOS, and Linux, and in any modern desktop or tablet
+browser. No account is needed, and your project data never leaves your machine.
+
+New to PureCut CNC? Start with the [Quick Start](/quickstart/): it takes you from a blank
+project to exported G-code in a few minutes.
+
+## Sample pages
+
+These pages exercise the new documentation platform. They were ported from the current guide
+and have not yet been audited against the app.
+
+<CardGrid>
+	<LinkCard title="Quick Start" description="A guided first project, from blank canvas to G-code." href="/quickstart/" />
+	<LinkCard title="Tool Library" description="Import, define, and manage cutting tools." href="/guide/cam-setup/tool-library/" />
+	<LinkCard title="Pocket" description="Clear the inside of closed subtract features." href="/guide/operations/pocket/" />
+</CardGrid>
+
+## Manual sections
+
+The rebuilt manual is organized around what you are trying to do:
+
+| Section | What it covers |
+| --- | --- |
+| Start Here | Installing or opening the app, the Quick Start, and where to go next. |
+| Fundamentals | The workspace, features, the feature tree, stock, origin, and units. |
+| Design | Drawing, editing, snapping, constraints, dimensions, text, and import. |
+| CAM Setup | Tools, machines, post-processors, tabs, and clamps. |
+| Machining Operations | One page per operation, with its parameters and limits. |
+| Advanced Strategies | Entry moves, trochoidal cutting, corner relief, feed reduction, and 3D finishing. |
+| Verify and Export | 3D preview, simulation, exported-motion inspection, and G-code export. |
+| Reference and Troubleshooting | Settings, file formats, warnings, and fixes for common problems. |

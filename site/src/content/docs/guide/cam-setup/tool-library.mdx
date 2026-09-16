@@ -1,0 +1,102 @@
+---
+title: Tool Library
+description: Import, define, duplicate, and delete the cutting tools that PureCut CNC machining operations use.
+pageType: reference
+banner:
+  content: Platform preview. Ported from the current guide and not yet re-checked against the app.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import Screenshot from '../../../../components/Screenshot.astro';
+import toolLibraryImport from '../../../../assets/screenshots/cam-tool-library-import.png';
+
+## Tools overview
+
+The **Tools** tab in the CAM panel manages the project's tool library. Tools are stored
+per-project in the `.camj` file. Each operation references a tool from this library.
+
+You need at least one tool defined before you can assign it to an operation. The quickest way to
+get started is to import a tool from the bundled library.
+
+## Adding tools
+
+### Import from library
+
+Click **Import from library…** in the Tools tab. A dedicated **Import tools from library** dialog
+opens over the app, so browsing the catalogue happens in a full-width space instead of the narrow
+side panel.
+
+The bundled library ships **26 standard sizes**:
+
+- **Imperial** — flat endmills from 1/16″ to 3/4″, ball endmills from 1/16″ to 1/2″, and a 60° V-bit.
+- **Metric** — flat endmills from 1 mm to 12 mm and ball endmills from 1 mm to 8 mm.
+
+Finding what you want:
+
+- **Search** by name or diameter — the field is focused as soon as the dialog opens.
+- **Type filter** — All Types, Flat Endmill, Ball Endmill, V-Bit, or Drill.
+- **Units filter** — All Units, mm, or in.
+- Each row shows flute count and the tool's usable depth, and is badged **In project** or **New**
+  so you can see at a glance what you already have.
+
+Selection is multi-pick and survives filter changes: search for one thing, tick it, clear the
+filters, search for another, and both stay selected. The action button counts what you picked —
+**Import 4 tools** — and imports them in one go. Tools already in the project can't be imported twice.
+
+<Screenshot
+	src={toolLibraryImport}
+	alt="Import tools from library dialog with the search field, type and unit filters, several selected rows badged In project or New, and the Import button showing the selection count"
+	maxWidth={520}
+/>
+
+<Aside type="tip" title="Already imported the old eight?">
+	The original bundled entries are unchanged, so tools you imported from earlier versions still
+	read as **In project** rather than appearing as duplicates. The feeds, speeds, stepdown, and
+	usable depth on the new sizes are interpolated from those same entries.
+</Aside>
+
+### Add a tool manually
+
+Click **Add Tool** to create a new tool with default values. Edit the tool properties in the right
+panel. This is useful when your specific tool is not in the bundled library.
+
+### Duplicate a tool
+
+Click the duplicate icon (⧉) next to a tool in the list to create a copy. Useful for creating
+variants of an existing tool with different feeds and speeds.
+
+## Tool properties
+
+Select a tool in the list to edit its properties in the right panel.
+
+| Property | Description |
+| --- | --- |
+| Name | A descriptive name for the tool, shown in operation dropdowns. |
+| Type | Flat Endmill, Ball Endmill, V-Bit, or Drill. V-Carve operations only accept V-Bit tools. |
+| Units | The unit system for this tool's dimensions (mm or inch). Tools can be used in projects with a different unit — values are converted automatically. |
+| Diameter | The cutting diameter of the tool. |
+| V Angle | The included angle of a V-bit in degrees (V-Bit type only). |
+| Flutes | Number of cutting flutes. Used for chip load calculations. |
+| Material | Carbide or HSS. Informational only. |
+| Default RPM | Spindle speed used as the default when this tool is assigned to an operation. |
+| Default Feed | Cutting feed rate used as the default when assigned to an operation. |
+| Plunge Feed | Plunge (Z-axis) feed rate used as the default. |
+| Stepdown | Default depth per pass. |
+| Max Cut Depth | Maximum total cutting depth. Set to 0 for no limit. Used by V-carve operations to limit carve depth. |
+| Stepover Ratio | Default stepover as a fraction of the tool diameter (0.01–1.0). For example, 0.4 = 40% of diameter. |
+
+<Aside type="tip">
+	Default values from the tool are applied automatically when you assign the tool to an operation.
+	You can override any value per-operation without changing the tool definition.
+</Aside>
+
+## Deleting tools
+
+Click the ✕ button next to a tool to delete it. Tools that are currently assigned to one or more
+operations cannot be deleted — the delete button is disabled and shows a tooltip explaining why.
+Remove the tool from all operations first, then delete it.
+
+## Related pages
+
+- [Quick Start](/quickstart/) imports a tool as part of a first project.
+- [Pocket](/guide/operations/pocket/) shows how a tool's defaults carry into an operation.

@@ -1,0 +1,20 @@
+---
+import GitHubMark from './GitHubMark.astro';
+import { COFFEE_URL, GITHUB_URL, LICENSE_URL, RELEASES_URL } from '../data/site-links';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+	<span>
+		© {year} PureCut CNC · No accounts. No cloud project storage. Page analytics via <a href="https://www.goatcounter.com" rel="noopener">GoatCounter</a> (no cookies, no IP retention).
+	</span>
+	<span>
+		<a href="/quickstart/">Quick Start</a> ·
+		<a href="/guide/">User Guide</a> ·
+		<a href={COFFEE_URL} target="_blank" rel="noopener noreferrer">Buy me a coffee</a> ·
+		<a href={RELEASES_URL}>What's New</a> ·
+		<a href={LICENSE_URL}>License (Apache 2.0)</a> ·
+		<a href={GITHUB_URL} class="github-icon"><GitHubMark /> GitHub</a>
+	</span>
+</footer>

@@ -1,0 +1,70 @@
+---
+// Layout for the non-manual pages (landing, downloads). Dark-only, like the current site.
+import '../styles/tokens.css';
+import '../styles/marketing.css';
+import { APP_URL, GITHUB_URL, PRIMARY_NAV, isCurrent } from '../data/site-links';
+import GitHubMark from '../components/GitHubMark.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+interface Props {
+	title: string;
+	description: string;
+	/** Social preview image, relative to the site root. */
+	image?: string;
+}
+
+const { title, description, image = '/images/sketch-full-page.png' } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const imageUrl = new URL(image, Astro.site);
+const pathname = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonical} />
+		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={imageUrl} />
+		<meta property="og:site_name" content="PureCut CNC" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={imageUrl} />
+		<script is:inline data-goatcounter="https://purecutcnc.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+	</head>
+	<body>
+		<a class="skip-link" href="#main">Skip to content</a>
+		<header class="site-header">
+			<a href="/" class="nav-logo" translate="no">Pure<span>Cut</span> CNC</a>
+			<nav aria-label="Site">
+				<ul class="nav-links">
+					{
+						PRIMARY_NAV.map((link) => (
+							<li>
+								<a href={link.href} aria-current={isCurrent(link, pathname) ? 'page' : undefined}>
+									{link.label}
+								</a>
+							</li>
+						))
+					}
+					<li>
+						<a href={GITHUB_URL} class="github-icon"><GitHubMark /> GitHub</a>
+					</li>
+				</ul>
+			</nav>
+			<a href={APP_URL} class="nav-cta desktop-web-link">Launch App →</a>
+		</header>
+		<main id="main">
+			<slot />
+		</main>
+		<SiteFooter />
+	</body>
+</html>
