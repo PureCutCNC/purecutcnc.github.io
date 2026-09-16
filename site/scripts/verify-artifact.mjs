@@ -3,8 +3,10 @@
 // deployed site.
 //
 //   node scripts/verify-artifact.mjs              check site/dist
-//   node scripts/verify-artifact.mjs --cutover    also fail on unmigrated legacy pages
-//                                                 and on links that still use legacy URLs
+//   node scripts/verify-artifact.mjs --cutover    also fail on unmigrated legacy pages, on
+//                                                 links that still use legacy URLs, and on
+//                                                 legacy images that changed since the last
+//                                                 `npm run legacy:sync`
 //   node scripts/verify-artifact.mjs --url https://purecutcnc.github.io
 //                                                 check required routes over HTTP
 //
@@ -16,6 +18,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
 import { GENERATED_DIRS, REPO_ROOT, REQUIRED_GENERATED_URLS } from '../config/generated-content.mjs';
+import { LEGACY_ASSET_SOURCES, readLegacyAssetManifest } from '../config/legacy-assets.mjs';
 import { LEGACY_ROUTES } from '../config/legacy-routes.mjs';
 
 const { values: args } = parseArgs({
@@ -136,6 +139,32 @@ async function checkGeneratedCopies(dist) {
 	return count;
 }
 
+/** Legacy image URLs: present and unchanged in the artifact, and in step with the root copies. */
+async function checkLegacyAssets(dist) {
+	const manifest = await readLegacyAssetManifest();
+	const paths = Object.keys(manifest);
+	if (paths.length === 0) fail('config/legacy-assets.json lists no legacy images');
+	for (const sitePath of paths) {
+		const file = path.join(dist, sitePath);
+		if (!(await isFile(file))) fail(`Legacy image ${sitePath} is missing from the artifact`);
+		else if ((await sha256(file)) !== manifest[sitePath]) fail(`Legacy image ${sitePath} differs from its recorded copy`);
+	}
+	// While the hand-maintained site still exists, its images may change on main.
+	const repoRoot = fileURLToPath(REPO_ROOT);
+	for (const source of LEGACY_ASSET_SOURCES) {
+		const absolute = path.join(repoRoot, source);
+		const info = await stat(absolute).catch(() => null);
+		if (!info) continue;
+		const files = info.isFile() ? [absolute] : await listFiles(absolute);
+		for (const file of files) {
+			const sitePath = `/${path.relative(repoRoot, file).split(path.sep).join('/')}`;
+			if (path.basename(file).startsWith('.') || manifest[sitePath] === (await sha256(file))) continue;
+			(args.cutover ? fail : warn)(`Legacy image ${sitePath} changed in the repository root; run \`npm run legacy:sync\``);
+		}
+	}
+	return paths.length;
+}
+
 async function checkLegacyRoutes(dist) {
 	for (const route of LEGACY_ROUTES) {
 		const file = path.join(dist, route.from);
@@ -252,6 +281,7 @@ async function verifyLocal() {
 	await checkRequired(dist);
 	const generated = await checkGeneratedCopies(dist);
 	await checkLegacyRoutes(dist);
+	const legacyImages = await checkLegacyAssets(dist);
 	const links = await checkLinks(dist);
 	const indexed = await checkSearchIndex(dist);
 	const megabytes = (await directorySize(dist)) / 1024 / 1024;
@@ -261,6 +291,7 @@ async function verifyLocal() {
 	console.log(`  required URLs      ${REQUIRED_URLS.length}`);
 	console.log(`  generated files    ${generated} byte-identical copies of ${GENERATED_DIRS.join('/, ')}/`);
 	console.log(`  legacy redirects   ${redirectPages.size} (${LEGACY_ROUTES.filter((route) => route.pending).length} pending)`);
+	console.log(`  legacy images      ${legacyImages} kept at their old URLs`);
 	console.log(`  internal links     ${links.checked} in ${links.pages} pages`);
 	console.log(`  search index       ${indexed} pages`);
 }

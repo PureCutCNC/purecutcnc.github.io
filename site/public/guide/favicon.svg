@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="PureCut CNC favicon">
+  <defs>
+    <linearGradient id="plate" x1="12" x2="54" y1="10" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#17232e" />
+      <stop offset="1" stop-color="#081017" />
+    </linearGradient>
+    <linearGradient id="spindle" x1="32" x2="32" y1="8" y2="28" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f0c690" />
+      <stop offset="1" stop-color="#b97d3d" />
+    </linearGradient>
+    <linearGradient id="cut" x1="24" x2="43" y1="26" y2="45" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#89d2ff" />
+      <stop offset="1" stop-color="#3f87c9" />
+    </linearGradient>
+    <filter id="shadow" width="1.4" height="1.4" x="-0.2" y="-0.2" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="2" stdDeviation="2.2" flood-color="#000000" flood-opacity="0.35" />
+    </filter>
+  </defs>
+
+  <rect width="64" height="64" rx="16" fill="#071016" />
+  <rect x="6" y="6" width="52" height="52" rx="14" fill="url(#plate)" stroke="#324657" stroke-width="2" />
+
+  <path d="M17 18h30" stroke="#2f4251" stroke-linecap="round" stroke-width="2" opacity="0.9" />
+  <path d="M17 46h17" stroke="#2f4251" stroke-linecap="round" stroke-width="2" opacity="0.9" />
+  <path d="M15 27h16" stroke="#243441" stroke-linecap="round" stroke-width="2" opacity="0.8" />
+  <path d="M40 18h7" stroke="#40586a" stroke-linecap="round" stroke-width="2" opacity="0.75" />
+
+  <g filter="url(#shadow)">
+    <rect x="25.5" y="9" width="13" height="6" rx="3" fill="#d4a066" />
+    <rect x="27.5" y="13" width="9" height="10" rx="3" fill="url(#spindle)" />
+    <path d="M28.5 23h7l-3.5 8z" fill="#e9c793" />
+    <path d="M29.75 23h4.5l-2.25 8z" fill="#f5dfbb" opacity="0.9" />
+  </g>
+
+  <path
+    d="M24 42V26h10c5.2 0 9 3.1 9 7.5S39.2 41 34 41h-5"
+    fill="none"
+    stroke="url(#cut)"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="6"
+  />
+  <path
+    d="M24 42V26h10c5.2 0 9 3.1 9 7.5S39.2 41 34 41h-5"
+    fill="none"
+    stroke="#d7f0ff"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-opacity="0.28"
+    stroke-width="1.5"
+  />
+
+  <circle cx="32" cy="31" r="1.7" fill="#dca56a" />
+</svg>

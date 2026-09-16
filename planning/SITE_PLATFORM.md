@@ -33,7 +33,7 @@ writes `site/dist/`:
 | `/guide/**`, `/quickstart/`, `/404.html` | `site/src/content/docs/` (Starlight) |
 | `/pagefind/` | Search index, built by Starlight from the manual pages only |
 | `/_astro/` | Hashed CSS, JS, and optimized WebP images |
-| `/favicon.svg`, `/images/sketch-full-page.png` | `site/public/` |
+| `/favicon.svg`, `/images/*`, `/guide/screenshots/*`, `/guide/icons.svg`, `/guide/favicon.svg` | `site/public/` (the old site's images, kept as frozen copies) |
 | `/downloads.html`, `/quickstart.html`, `/guide/*.html` | Redirect pages from `site/config/legacy-routes.mjs` |
 | `/app/`, `/app-rc/`, `/downloads/*/*.json` | Copied byte-for-byte from the repository root |
 
@@ -41,8 +41,9 @@ The copy and the redirect pages are produced by `site/integrations/site-artifact
 Starlight builds the search index, so neither the web app bundles nor the redirects are
 indexed. The integration refuses to overwrite any generated file.
 
-The spike artifact is 55 MB on disk (251 files): 16 MB `app/`, 29 MB `app-rc/`, 7.4 MB
-optimized images and assets, 0.7 MB search index. The Pages limit is 1 GB.
+The spike artifact is 82 MB on disk (335 files): 16 MB `app/`, 29 MB `app-rc/`, 29 MB of
+old image URLs, 7.4 MB optimized images and assets, 0.7 MB search index. The Pages limit is
+1 GB.
 
 ## Deployment
 
@@ -140,7 +141,7 @@ still works:
 | `/guide/cam-operations.html#op-pocket` | Redirect to `/guide/operations/pocket/` |
 | Other `/guide/*.html` (21 pages) | Redirect to `/guide/` for now, marked `pending` |
 | `/app/`, `/app-rc/`, `/downloads/{stable,snapshot}/*.json` | Unchanged copies |
-| `/images/sketch-full-page.png` (social preview image) | Unchanged |
+| `/images/*.png` (14), `/guide/screenshots/*.png` (69), `/guide/icons.svg`, `/guide/favicon.svg` | Unchanged, byte for byte |
 
 Redirect pages are static HTML at the exact old path. A small script keeps the query string
 and fragment and applies per-fragment mappings; a `<meta http-equiv="refresh">` covers
@@ -150,10 +151,16 @@ built artifact: `/quickstart.html#step-tool` lands on
 `/guide/cam-tools.html?ref=forum#tool-properties` keeps both the query and the fragment,
 and `/guide/cam-operations.html#op-pocket` lands on the Pocket page.
 
-Not preserved: the per-page assets under `/guide/` (`guide.css`, `icons.svg`,
-`icons-loader.js`, `screenshots-loader.js`, `screenshots/*.png`) and the Quick Start images
-under `/images/`. Nothing outside this repository was found linking to them (app repository
-source, README, and release notes were searched).
+**Old image URLs.** Every image the old site published keeps its URL, as a frozen copy in
+`site/public/` at the same path. `site/config/legacy-assets.json` records each file's
+SHA-256, so `verify` fails if one goes missing or changes, including after the root copies
+are deleted. While the old site still exists, `verify` also warns (and `verify:cutover`
+fails) when a root image differs from its copy; `npm run legacy:sync` refreshes the copies
+and the manifest, adding or updating files but never removing one. New manual pages use
+optimized images from `site/src/assets/` instead.
+
+Not preserved: the old guide's stylesheet and scripts (`/guide/guide.css`,
+`/guide/icons-loader.js`, `/guide/screenshots-loader.js`), which only the retired pages used.
 
 The app itself links to `https://purecutcnc.github.io/downloads.html` (error and phone
 screens), `https://purecutcnc.github.io/`, and fetches
@@ -213,6 +220,7 @@ Node 26:
 required URLs      20
 generated files    103 byte-identical copies of app/, app-rc/, downloads/
 legacy redirects   24 (21 pending)
+legacy images      85 kept at their old URLs
 internal links     350 in 7 pages
 search index       4 pages
 Passed with 27 warning(s)
@@ -221,7 +229,9 @@ Passed with 27 warning(s)
 The warnings are the 21 pending legacy pages and 6 sample-page links that still point at
 `/guide/cam-operations.html`. `npm run verify:cutover` turns all 27 into errors, as intended.
 A tampered copy of the artifact (an edited `app/index.html`, a deleted redirect page, and a
-broken link) failed, with each problem reported.
+broken link) failed, with each problem reported. So did a copy with a deleted and an
+altered old image, and a root screenshot changed after the last sync (a warning, and an
+error with `--cutover`).
 
 Checked in Chrome against `astro preview` of the artifact:
 
@@ -257,8 +267,9 @@ Checked in Chrome against `astro preview` of the artifact:
 Preconditions:
 
 1. #21 and #22 are approved and the Wave 2 content is merged into `site-revamp`.
-2. `main` has been merged into `site-revamp`, the latest `Site` run on `site-revamp`
-   passed, and `npm run verify:cutover` passes there.
+2. `main` has been merged into `site-revamp`, `npm run legacy:sync` has been run (and any
+   changes committed), the latest `Site` run on `site-revamp` passed, and
+   `npm run verify:cutover` passes there.
 3. That run's `site-preview` artifact has been reviewed: landing, downloads, Quick Start,
    several manual pages, search, and a sample of legacy links.
 4. `PAGES_DEPLOY_ENABLED` is unset or `false`.

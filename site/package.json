@@ -12,6 +12,7 @@
     "check": "astro check",
     "verify": "node scripts/verify-artifact.mjs",
     "verify:cutover": "node scripts/verify-artifact.mjs --cutover",
+    "legacy:sync": "node scripts/sync-legacy-assets.mjs",
     "ci": "npm run check && npm run build && npm run verify",
     "astro": "astro"
   },

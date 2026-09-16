@@ -121,6 +121,9 @@ Verify the symbol count matches and spot-check that referenced ids resolve.
   `site/config/legacy-routes.mjs` in the same PR.
 - The new site copies `app/`, `app-rc/`, and `downloads/` from the root at build
   time and reads icons from `app-rc/icons.svg`, so it needs no hand-synced copies.
+- The old `images/` and `guide/screenshots/` URLs are kept as frozen copies in
+  `site/public/`. After merging `main` into `site-revamp`, run
+  `npm run legacy:sync` in `site/` if those images changed.
 - Until the cutover, fixes that must go live now still belong in the root files.
 
 ## Local preview & verification
