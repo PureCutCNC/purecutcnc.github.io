@@ -50,13 +50,30 @@ optimized images and assets, 0.7 MB search index. The Pages limit is 1 GB.
 
 | Job | Runs on | Does |
 | --- | --- | --- |
-| `build` | every push to `main`, pull request, `workflow_dispatch`, `repository_dispatch: site-rebuild` | `npm ci`, `astro check`, build, `npm run verify`; uploads the Pages artifact (or, for pull requests, a `site-preview` artifact) |
+| `build` | every push to `main` or `site-revamp`, pull request, `workflow_dispatch`, `repository_dispatch: site-rebuild` | `npm ci`, `astro check`, build, `npm run verify`; uploads the Pages artifact on `main`, and a `site-preview` artifact everywhere else |
 | `deploy` | `main` only, and only when the repository variable `PAGES_DEPLOY_ENABLED` is `true` | `actions/deploy-pages` into the existing `github-pages` environment (already restricted to `main`) |
 | `smoke-test` | after `deploy` | `verify-artifact.mjs --url https://purecutcnc.github.io`, retried while the CDN updates |
 
-Main-branch runs share one concurrency group, so a burst of automated pushes builds and
+Each branch has one concurrency group, so a burst of automated pushes to `main` builds and
 deploys the newest commit rather than every intermediate one. GitHub's 10-builds-per-hour
 soft limit does not apply to custom Actions deployments.
+
+### Integration branch
+
+The revamp is assembled on `site-revamp`, created from `main` at `7c7dbb0`, and reaches
+`main` in one merge just before the cutover:
+
+- Every revamp pull request (this spike, #21, #22, and the Wave 2 content issues) targets
+  `site-revamp`. Pull requests and pushes there are built and verified, and each run
+  uploads a `site-preview` artifact. Nothing on `site-revamp` is deployed.
+- `main` stays the live site. Release copy fixes keep going to the root files on `main`,
+  and the automated `app/`, `app-rc/`, and `downloads/` commits keep landing there.
+- `site-revamp` never edits the automation-owned directories, so merging `main` into it
+  is conflict-free apart from hand-edited files both branches touch (`AGENTS.md`,
+  `README.md`). Merge `main` in whenever previews should show a current `app-rc/`, when a
+  Wave 2 page needs a copy change made on `main`, and before the final merge.
+- Until the final merge, `.nojekyll` and `site/` stay off `main`, so the live Jekyll build
+  is untouched.
 
 ### Today's Pages configuration
 
@@ -79,15 +96,21 @@ Evidence that those pushes will start `site.yml`:
   with a personal access token (or a GitHub App token) start `push` workflows normally.
 - Volume: 1–9 automated pushes per day during August–September 2026.
 
-**Still to confirm empirically:** a workflow only runs on `main` once its file is on `main`.
-After this spike merges (with deployment still disabled), the next automated commit should
-produce a `Site` run. Confirm with:
+**Still to confirm empirically:** a push only starts workflows whose files are on the
+pushed branch, and automated commits go to `main`. With the revamp held on `site-revamp`,
+the proof comes after the final merge into `main` (step 2 of the cutover runbook), while
+deployment is still disabled. The next automated commit should then produce a `Site` run.
+Confirm with:
 
 ```sh
 gh run list --repo PureCutCNC/purecutcnc.github.io --workflow site.yml --event push --limit 5 --json headSha,displayTitle,conclusion,createdAt
 ```
 
-The run for a `deploy-rc: update from …` commit is the proof. Record it on #20.
+The run for a `deploy-rc: update from …` commit is the proof. Record it on #20 or #24.
+
+To get the proof earlier, a pull request to `main` could add only a workflow file that
+starts on `push` and does nothing else. Jekyll ignores `.github/`, so the live site would
+not change.
 
 **Explicit fallback.** If the app repository ever switches to a token that cannot start
 workflows, add a final step to each of its deploy workflows:
@@ -233,25 +256,34 @@ Checked in Chrome against `astro preview` of the artifact:
 
 Preconditions:
 
-1. #21 and #22 are approved and Wave 2 content is merged.
-2. The latest `Site` run on `main` passed, and `npm run verify:cutover` passes on `main`.
-3. Its `github-pages` artifact has been downloaded and reviewed: landing, downloads, Quick
-   Start, several manual pages, search, and a sample of legacy links.
-4. At least one `Site` run was started by an automated `deploy-rc:` push (see above).
+1. #21 and #22 are approved and the Wave 2 content is merged into `site-revamp`.
+2. `main` has been merged into `site-revamp`, the latest `Site` run on `site-revamp`
+   passed, and `npm run verify:cutover` passes there.
+3. That run's `site-preview` artifact has been reviewed: landing, downloads, Quick Start,
+   several manual pages, search, and a sample of legacy links.
+4. `PAGES_DEPLOY_ENABLED` is unset or `false`.
 
 Steps:
 
-1. Settings → Pages → Build and deployment → Source: **GitHub Actions**. (Equivalent:
+1. Merge `site-revamp` into `main` with a merge commit. The live site keeps serving the
+   root files; the only change the Jekyll build sees is `.nojekyll`. Check that the
+   resulting `Site` run on `main` passes, with `deploy` skipped.
+2. Wait for the next automated `deploy-rc:` push and confirm it started a `Site` run (see
+   above). If it did not, add the `repository_dispatch` step to the app workflows first.
+3. Settings → Pages → Build and deployment → Source: **GitHub Actions**. (Equivalent:
    `gh api -X PUT repos/PureCutCNC/purecutcnc.github.io/pages -f build_type=workflow`.)
-2. `gh variable set PAGES_DEPLOY_ENABLED --body true --repo PureCutCNC/purecutcnc.github.io`
-3. `gh workflow run site.yml --repo PureCutCNC/purecutcnc.github.io --ref main`, then watch
+4. `gh variable set PAGES_DEPLOY_ENABLED --body true --repo PureCutCNC/purecutcnc.github.io`
+5. `gh workflow run site.yml --repo PureCutCNC/purecutcnc.github.io --ref main`, then watch
    `build`, `deploy`, and `smoke-test` succeed.
-4. By hand on the live site: `/`, `/downloads.html`, `/quickstart.html#step-tool`,
+6. By hand on the live site: `/`, `/downloads.html`, `/quickstart.html#step-tool`,
    `/guide/`, a few old `/guide/*.html#…` links, `/app/` (loads and opens a project),
    `/app-rc/`, search, and the app's own "Desktop downloads" link.
-5. After the next automated app commit, confirm that a `Site` run deployed it (for
+7. After the next automated app commit, confirm that a `Site` run deployed it (for
    example, `/app-rc/` serves the new build).
-6. Record the date, the deployed commit, and the checks on #24.
+8. Record the date, the deployed commit, and the checks on #24.
+
+If step 1 has to be undone before step 3, revert the merge commit on `main`; the live site
+was never switched.
 
 Keep the hand-maintained root files (`index.html`, `quickstart.html`, `downloads.html`,
 `guide/`, `images/`, `favicon.svg`) until the rollback window closes; removing them, and

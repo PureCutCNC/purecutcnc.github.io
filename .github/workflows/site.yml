@@ -13,6 +13,8 @@ name: Site
 #   and downloads/ commits from PureCutCNC/purecutcnc. Those are pushed with
 #   PAGES_DEPLOY_TOKEN (a personal access token), and pushes made with a PAT do
 #   start workflows; only GITHUB_TOKEN pushes do not.
+# - push to site-revamp: the integration branch for the site revamp (#24).
+#   Build and verify only; it is never deployed.
 # - repository_dispatch (site-rebuild): explicit rebuild request, for use if the
 #   app repository ever pushes with a token that cannot start workflows.
 # - workflow_dispatch: manual rebuild or redeploy.
@@ -20,7 +22,7 @@ name: Site
 
 on:
   push:
-    branches: [main]
+    branches: [main, site-revamp]
   pull_request:
   workflow_dispatch:
   repository_dispatch:
@@ -30,9 +32,9 @@ permissions:
   contents: read
 
 concurrency:
-  # One main-branch run at a time; a newer push replaces any run still queued.
+  # One run at a time per branch; a newer push replaces any run still queued.
   # Pull request runs are cancelled when the branch is updated.
-  group: site-${{ github.event_name == 'pull_request' && github.event.pull_request.number || 'main' }}
+  group: site-${{ github.event.pull_request.number || github.ref_name }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
@@ -62,13 +64,13 @@ jobs:
         run: npm run verify
 
       - name: Upload Pages artifact
-        if: github.event_name != 'pull_request'
+        if: github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v5
         with:
           path: site/dist
 
       - name: Upload review artifact
-        if: github.event_name == 'pull_request'
+        if: github.ref != 'refs/heads/main'
         uses: actions/upload-artifact@v7
         with:
           name: site-preview

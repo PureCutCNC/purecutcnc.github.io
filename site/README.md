@@ -4,9 +4,10 @@ This directory builds the complete GitHub Pages artifact: the landing and downlo
 the Starlight user manual, the legacy-URL redirect pages, and verbatim copies of the
 automation-owned `app/`, `app-rc/`, and `downloads/` directories from the repository root.
 
-It is **not deployed yet**. The live site is still the hand-maintained HTML at the
-repository root, published by the legacy "Deploy from a branch" Pages source. The switch is
-a separate, approved step; see [`planning/SITE_PLATFORM.md`](../planning/SITE_PLATFORM.md).
+It is **not deployed yet**. The revamp is assembled on the `site-revamp` integration branch
+(open revamp pull requests against it), while the live site is still the hand-maintained
+HTML at the repository root on `main`. Merging into `main` and switching Pages are separate,
+approved steps; see [`planning/SITE_PLATFORM.md`](../planning/SITE_PLATFORM.md).
 
 ## Commands
 

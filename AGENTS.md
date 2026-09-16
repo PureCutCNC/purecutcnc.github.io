@@ -50,7 +50,7 @@ The automation lives in the **app repo** (`PureCutCNC/purecutcnc`) under
 here as `github-actions[bot]` (e.g. `deploy: update app from release vX`,
 `downloads: update … stable metadata for vX`). This repo's only workflow,
 `site.yml`, builds and verifies `site/` on every push to `main` (including those
-automated commits) and on pull requests.
+automated commits) or `site-revamp`, and on pull requests.
 
 ## How the moving parts work
 
@@ -111,6 +111,9 @@ Verify the symbol count matches and spot-check that referenced ids resolve.
 
 ## Working on the new site (`site/`)
 
+- The revamp lives on the `site-revamp` integration branch. Branch from it and
+  open revamp PRs against it, not `main`; it reaches `main` in one merge before
+  the cutover (see `planning/SITE_PLATFORM.md`).
 - Setup and commands are in `site/README.md`: `npm ci --prefix site`, then
   `npm run build` and `npm run verify` inside `site/`.
 - New manual pages go in `site/src/content/docs/guide/<section>/`. When a page
