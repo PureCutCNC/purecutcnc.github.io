@@ -1,0 +1,114 @@
+name: Site
+
+# Builds the Astro/Starlight site in site/ into the full GitHub Pages artifact
+# (manual + landing pages + the automation-owned app/, app-rc/, downloads/) and
+# verifies it.
+#
+# Deployment stays off until the production cutover: the deploy job only runs
+# when the repository variable PAGES_DEPLOY_ENABLED is "true" AND Settings →
+# Pages uses "GitHub Actions" as its source. See site/README.md.
+#
+# Triggers:
+# - push to main: covers hand-written changes and the automated app/, app-rc/,
+#   and downloads/ commits from PureCutCNC/purecutcnc. Those are pushed with
+#   PAGES_DEPLOY_TOKEN (a personal access token), and pushes made with a PAT do
+#   start workflows; only GITHUB_TOKEN pushes do not.
+# - repository_dispatch (site-rebuild): explicit rebuild request, for use if the
+#   app repository ever pushes with a token that cannot start workflows.
+# - workflow_dispatch: manual rebuild or redeploy.
+# - pull_request: build and verify only, with the artifact attached for review.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+  repository_dispatch:
+    types: [site-rebuild]
+
+permissions:
+  contents: read
+
+concurrency:
+  # One main-branch run at a time; a newer push replaces any run still queued.
+  # Pull request runs are cancelled when the branch is updated.
+  group: site-${{ github.event_name == 'pull_request' && github.event.pull_request.number || 'main' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+
+      - run: npm ci
+
+      - name: Type-check
+        run: npm run check
+
+      - name: Build artifact
+        run: npm run build
+
+      - name: Verify artifact
+        run: npm run verify
+
+      - name: Upload Pages artifact
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: site/dist
+
+      - name: Upload review artifact
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v7
+        with:
+          name: site-preview
+          path: site/dist
+          retention-days: 14
+
+  deploy:
+    needs: build
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && vars.PAGES_DEPLOY_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: pages-deploy
+      cancel-in-progress: false
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5
+
+  smoke-test:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          sparse-checkout: site
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+
+      - name: Check deployed routes
+        working-directory: site
+        run: |
+          for attempt in 1 2 3 4 5; do
+            node scripts/verify-artifact.mjs --url https://purecutcnc.github.io && exit 0
+            echo "Attempt $attempt failed; waiting for the CDN" && sleep 30
+          done
+          exit 1

@@ -1,0 +1,287 @@
+---
+import { Image } from 'astro:assets';
+import MarketingLayout from '../layouts/MarketingLayout.astro';
+import ButtonIcon from '../components/ButtonIcon.astro';
+import GitHubMark from '../components/GitHubMark.astro';
+import { FEATURES, IN_PROGRESS, OPERATIONS, STRATEGIES, WORKFLOW } from '../data/landing';
+import { APP_URL, COFFEE_URL, GITHUB_URL, ISSUES_URL, PREVIEW_APP_URL } from '../data/site-links';
+import sketchFullPage from '../assets/landing/sketch-full-page.png';
+import view1 from '../assets/landing/view-1.png';
+import view2 from '../assets/landing/view-2.png';
+import view3 from '../assets/landing/view-3.png';
+import simulationPlay from '../assets/landing/view-simulation-play.png';
+
+const title = 'PureCut CNC — 2.5D + 3D CAD/CAM';
+const description =
+	'PureCut CNC is a 2.5D + 3D CAD/CAM workspace — available on desktop and in the browser. Design parts, define machining operations, simulate toolpaths, and export G-code — all in one place.';
+
+const showcase = [
+	{ src: view3, alt: 'PureCut CNC — sketch canvas with geometry and feature colors', caption: 'Sketch — canvas & feature tree' },
+	{ src: view1, alt: 'PureCut CNC — 3D view with toolpath visualization over stock', caption: '3D View — toolpath preview' },
+	{ src: view2, alt: 'PureCut CNC — 3D view of the finished carved workpiece', caption: '3D View — machined result' },
+];
+
+const views = [
+	{
+		src: view3,
+		alt: 'Sketch view',
+		name: 'Sketch',
+		title: 'Author & Inspect',
+		body: 'Primary drawing surface. Edit geometry, inspect 2D toolpath projections, check snapping and feature ordering.',
+	},
+	{
+		src: view1,
+		alt: '3D View',
+		name: '3D View',
+		title: 'Preview in 3D',
+		body: 'CSG-evaluated solid derived from your feature tree. Inspect toolpaths spatially — entry/exit points, path direction, depth layers.',
+	},
+	{
+		src: view2,
+		alt: 'Simulation result',
+		name: 'Simulation',
+		title: 'Verify Before Cutting',
+		body: 'GPU-rendered heightfield replay. Scrub through the toolpath sequence — with a live XYZ readout — to catch problems before they hit the spoilboard.',
+	},
+];
+---
+
+<MarketingLayout title={title} description={description}>
+	<div class="hero">
+		<div class="hero-grid"></div>
+		<div class="hero-badge">
+			<span class="dot"></span>
+			<span><span id="js-hero-version" hidden></span>Seeded circle clearing · Engagement-aware feeds · V-bit countersinks</span>
+		</div>
+		<h1>2.5D CAD/CAM for<br /><em>real-world CNC work.</em></h1>
+		<p class="hero-sub">
+			PureCut CNC is a 2.5D + 3D CAD/CAM workspace for designing parts, defining machining operations, and
+			verifying toolpaths — before you cut a single chip. It runs on macOS, Windows, and Linux as a native desktop
+			app, or in the browser. No registration, no cloud project storage. New here?
+			Follow the <a href="/quickstart/">Quick Start guide</a> to go from a blank project to exported G-code in minutes.
+		</p>
+		<div class="hero-actions">
+			<a href="/downloads/" class="btn-primary">Desktop Downloads <ButtonIcon name="download" /></a>
+			<a href={APP_URL} class="btn-primary desktop-web-link">Launch PureCut CNC <ButtonIcon name="arrow" /></a>
+			<a href={PREVIEW_APP_URL} class="btn-secondary desktop-web-link">Open Preview Build</a>
+			<a href={GITHUB_URL} class="btn-secondary github-icon"><GitHubMark /> View on GitHub</a>
+			<p class="desktop-web-only-note">The browser app needs a tablet or desktop. On phones, use Desktop Downloads above.</p>
+		</div>
+	</div>
+
+	<div class="screenshot-showcase">
+		<div class="screenshot-main">
+			<Image
+				src={sketchFullPage}
+				alt="PureCut CNC — full interface showing sketch editor, feature tree, and CAM operations panel"
+				widths={[800, 1100, 1600, 2200]}
+				sizes="(min-width: 1100px) 1036px, 100vw"
+				loading="eager"
+			/>
+		</div>
+		<div class="screenshot-row">
+			{
+				showcase.map((shot) => (
+					<figure>
+						<div>
+							<Image src={shot.src} alt={shot.alt} widths={[360, shot.src.width]} sizes="(min-width: 768px) 33vw, 100vw" />
+						</div>
+						<figcaption>{shot.caption}</figcaption>
+					</figure>
+				))
+			}
+		</div>
+	</div>
+
+	<div class="divider"></div>
+
+	<section class="section" id="strategies" aria-labelledby="strategies-title">
+		<div class="section-label">Cutting Strategies</div>
+		<h2 id="strategies-title">How the cut happens, not just where.</h2>
+		<p class="section-intro">
+			Two operations can remove the same material and treat your machine completely differently. PureCut CNC gives
+			you control over the motion itself — how the tool gets into the work, how hard it is loaded while it's there,
+			and what it leaves in the corners.
+		</p>
+		<div class="card-grid">
+			{
+				STRATEGIES.map((card) => (
+					<div class="card">
+						<span class="card-icon" aria-hidden="true">{card.icon}</span>
+						<h3>{card.title}</h3>
+						<p set:html={card.html} />
+					</div>
+				))
+			}
+		</div>
+		<p class="section-intro section-intro--after">
+			Full details for every strategy and its parameters are in the <a href="/guide/">user guide</a>.
+		</p>
+	</section>
+
+	<div class="divider"></div>
+
+	<section class="section" id="features" aria-labelledby="features-title">
+		<div class="section-label">Features</div>
+		<h2 id="features-title">Everything in one place.</h2>
+		<p class="section-intro">
+			From geometry to G-code — draw, import, assign operations, preview in 3D, simulate material removal, and export
+			when it looks right.
+		</p>
+		<div class="card-grid">
+			{
+				FEATURES.map((card) => (
+					<div class="card">
+						<span class="card-icon" aria-hidden="true">{card.icon}</span>
+						<h3>{card.title}</h3>
+						<p set:html={card.html} />
+					</div>
+				))
+			}
+		</div>
+	</section>
+
+	<div class="divider"></div>
+
+	<section class="section" aria-labelledby="operations-title">
+		<div class="section-label">Machining Operations</div>
+		<h2 id="operations-title">The operations you actually need.</h2>
+		<p class="section-intro">
+			A focused set of 2.5D operations — including drilling where it matters — each with rough and finish variants,
+			configurable tooling, selectable cutting strategies, and toolpath preview.
+		</p>
+		<ul class="ops-grid">
+			{OPERATIONS.map((operation) => <li class="op-tag">{operation}</li>)}
+		</ul>
+	</section>
+
+	<div class="divider"></div>
+
+	<section class="section" id="workflow" aria-labelledby="workflow-title">
+		<div class="section-label">Workflow</div>
+		<h2 id="workflow-title">Start to finish, one window.</h2>
+		<p class="section-intro">
+			A linear workflow that mirrors how machinists think — geometry first, operations second, verify before you cut.
+		</p>
+		<ol class="workflow-steps">
+			{
+				WORKFLOW.map((step) => (
+					<li class="workflow-step">
+						<h3>{step.title}</h3>
+						<p set:html={step.html} />
+					</li>
+				))
+			}
+		</ol>
+	</section>
+
+	<div class="divider"></div>
+
+	<section class="section" id="views" aria-labelledby="views-title">
+		<div class="section-label">Working Views</div>
+		<h2 id="views-title">Three views, one project.</h2>
+		<p class="section-intro">
+			Switch between views as your work progresses. All three stay in sync with the same project state.
+		</p>
+		<div class="views-row">
+			{
+				views.map((view) => (
+					<div class="view-card">
+						<Image src={view.src} alt={view.alt} widths={[360, view.src.width]} sizes="(min-width: 768px) 33vw, 100vw" />
+						<div class="view-card-body">
+							<div class="view-name">{view.name}</div>
+							<h3>{view.title}</h3>
+							<p>{view.body}</p>
+						</div>
+					</div>
+				))
+			}
+		</div>
+		<div class="view-spotlight">
+			<div class="view-spotlight-image">
+				<Image
+					src={simulationPlay}
+					alt="PureCut CNC simulation playback showing the cutter moving through the stock"
+					sizes="(min-width: 820px) 60vw, 100vw"
+				/>
+			</div>
+			<div class="view-spotlight-copy">
+				<div class="view-name">Simulation Playback</div>
+				<h3>See the sequence, not just the result.</h3>
+				<p>
+					Playback makes the simulation view useful for more than a final beauty shot. Scrub through the cut order to
+					catch rapid moves, drilling sequence, tab behavior, and material removal issues before you export G-code.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<div class="divider"></div>
+
+	<section class="section" aria-labelledby="status-title">
+		<div class="section-label">Project Status</div>
+		<h2 id="status-title">In active development.</h2>
+		<div class="status-banner">
+			<h3>Core workflow is usable today.</h3>
+			<p>
+				The sketch engine, 2.5D and 3D CAM operations, 3D preview, model export, and the GPU-accelerated heightfield
+				simulation are functional. Tablet and touch shells are first-class. Exported G-code is checked against real
+				controller parsers on every change. Stable releases publish to <code>/app</code>; the latest main-branch
+				Preview Build publishes to <code>/app-rc</code>. Work is ongoing in these areas:
+			</p>
+			<ul class="status-list">
+				{IN_PROGRESS.map((item) => <li>{item}</li>)}
+			</ul>
+		</div>
+	</section>
+
+	<section class="cta-section" aria-labelledby="cta-title">
+		<div class="section-label">Get Started</div>
+		<h2 id="cta-title">Open it and start cutting.</h2>
+		<p>
+			No account. No remote project storage. Download a native desktop build for macOS, Windows, or Linux — or open
+			the browser version for a quick start.
+		</p>
+		<div class="hero-actions">
+			<a href={APP_URL} class="btn-primary desktop-web-link">Launch PureCut CNC <ButtonIcon name="arrow" /></a>
+			<a href={PREVIEW_APP_URL} class="btn-secondary desktop-web-link">Open Preview Build</a>
+			<a href={GITHUB_URL} class="btn-secondary github-icon"><GitHubMark /> GitHub</a>
+			<a href={COFFEE_URL} class="btn-coffee" target="_blank" rel="noopener noreferrer">
+				<ButtonIcon name="coffee" /> Buy me a coffee
+			</a>
+			<p class="desktop-web-only-note">The browser app needs a tablet or desktop. On phones, use Desktop Downloads above.</p>
+		</div>
+	</section>
+
+	<section class="feedback-section" aria-labelledby="feedback-title">
+		<div class="feedback-card">
+			<div class="section-label">Share Your Thoughts</div>
+			<h2 id="feedback-title">Found a bug? Have an idea?</h2>
+			<p>
+				PureCut CNC is in active development and your input shapes what gets built next. If something isn't working,
+				feels off, or you have a feature you'd love to see — open an issue on GitHub. All feedback is welcome.
+			</p>
+			<a href={ISSUES_URL} class="btn-primary">Open an Issue on GitHub <ButtonIcon name="arrow" /></a>
+		</div>
+	</section>
+</MarketingLayout>
+
+<script>
+	// The hero badge shows the latest release tag when the GitHub API answers, and
+	// stays out of the markup otherwise so it can never go stale.
+	(async () => {
+		try {
+			const response = await fetch('https://api.github.com/repos/PureCutCNC/purecutcnc/releases/latest', {
+				headers: { Accept: 'application/vnd.github+json' },
+			});
+			if (!response.ok) return;
+			const data = await response.json();
+			const badge = document.getElementById('js-hero-version');
+			if (!data?.tag_name || !badge) return;
+			badge.textContent = `${data.tag_name} · `;
+			badge.hidden = false;
+		} catch {
+			// Leave the version out if the API is unreachable.
+		}
+	})();
+</script>

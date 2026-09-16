@@ -1,0 +1,109 @@
+---
+title: Pocket
+description: Clear the inside of a closed subtract feature with a Pocket rough or finish operation, and choose its clearing pattern.
+pageType: reference
+banner:
+  content: Platform preview. Ported from the current guide's Operations page and not yet re-checked against the app.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import Screenshot from '../../../../components/Screenshot.astro';
+import opPocket from '../../../../assets/screenshots/op-pocket.png';
+import operationHighlight from '../../../../assets/screenshots/cam-operation-highlight.png';
+import seededCircles from '../../../../assets/screenshots/cam-seeded-circles.png';
+
+**Pocket** clears the interior of a closed subtract feature. It supports rough and finish passes with Offset, Seeded circles, or Parallel clearing.
+
+<Screenshot src={opPocket} alt="Pocket clearing toolpath with offset passes inside a closed profile" maxWidth={560} />
+
+## Requirements
+
+| Requirement | Value |
+| --- | --- |
+| Target features | Subtract features |
+| Profile | Closed |
+| Tool | Flat or ball endmill |
+
+<Aside>
+	Add features are material (the part); subtract features remove material (pockets, holes). A
+	Pocket needs subtract features — use Surface Clean to face the top of an add feature.
+</Aside>
+
+## Parameters
+
+Select the operation in the operations list to edit its parameters in the right panel. Selecting
+an operation also **highlights its target features** on the canvas and in the feature tree, so you
+can see exactly which geometry it will cut before you adjust anything.
+
+<Screenshot
+	src={operationHighlight}
+	alt="Operations list with an operation selected and its target features highlighted on the canvas and in the feature tree"
+/>
+
+### Common parameters
+
+| Parameter | Description |
+| --- | --- |
+| Name | A descriptive name for the operation, shown in the operations list. |
+| Pass | Rough or Finish. |
+| Tool | The tool to use. Assigning a tool pre-fills the feed, plunge feed, stepdown, stepover, and RPM from the tool's defaults. |
+| Machining Order | **Feature First** fully machines one feature top-to-bottom before moving to the next. **Level First** machines one depth level across all target features before stepping down. |
+| Enabled | When unchecked, the operation is excluded from G-code export. The toolpath is still shown if visible. |
+| Feed | Cutting feed rate for this operation. |
+| Plunge Feed | Z-axis plunge feed rate. |
+| RPM | Spindle speed. |
+| Target | The features this operation applies to. Use **Use current selection** to reassign. |
+
+### Pocket parameters
+
+| Parameter | Description |
+| --- | --- |
+| Pattern | **Offset** (concentric passes), **Seeded circles** (full circles clear open areas before offset rings finish the remainder), or **Parallel** (raster passes at a fixed angle). |
+| Angle | The angle of parallel passes in degrees (Parallel pattern only). |
+| Cut Direction | Conventional or Climb milling. |
+| Stepdown | Depth per pass. |
+| Stepover Ratio | Lateral step between passes as a fraction of tool diameter. |
+| Stock To Leave Radial | Material left on walls for a subsequent finish pass. |
+| Stock To Leave Axial | Material left on the floor for a subsequent finish pass. |
+| Finish Walls | (Finish pass only) Whether to machine the walls to final dimension. |
+| Finish Floor | (Finish pass only) Whether to machine the floor to final dimension. |
+| Feed Reduction | **Slots only** applies the configured Slot Feed percentage (60% by default) to full-width cutting stretches. **Engagement** chooses a bounded feed scale from the cutter's actual engagement on the emitted path. Both modes only reduce the programmed feed. |
+| Round Outside Corners | Rounds eligible outside contour corners on offset clearing rings for a smoother cut path. |
+| Round Link Corners | (Offset and Seeded circles) Replaces an eligible sharp ring-to-ring transition with a tangent arc-line-arc link where it fits. |
+| Clean Wall Corners | Recovers material that rounded offset rings leave in reachable wall corners. |
+| Corner Relief | Cuts an extra relief at each inside corner so a square-cornered mating part will seat. |
+| Entry Strategy | Under **Entry & retract**: Plunge, Helix, or Ramp. |
+
+Offset-pattern passes simplify their internal polylines back into arcs and full circles where the
+geometry allows, which gives shorter, smoother G-code with fewer line segments — especially on
+circular and rounded-corner pockets.
+
+## Seeded circles
+
+Choose **Seeded circles** as the Pattern when you want the cutter to clear broad open areas with
+full circles before it finishes the remaining material with offset rings. Each open region at each
+depth level starts from its own largest clear circle, so the pattern is not tied to one arbitrary
+entry point or spiral centre.
+
+<Screenshot
+	src={seededCircles}
+	alt="Sketch view of a Pocket using the Seeded circles pattern: full circles clear the broad open areas first, then offset rings finish around the walls and islands"
+/>
+
+The initial circles are full cutter paths, not clipped arcs. Once they reach the useful open area,
+the remaining clearing is planned as normal offset work around the material the circles already
+removed.
+
+## Verify before cutting
+
+<Aside type="caution" title="Check the floor and walls in simulation">
+	The pocket floor is the feature's Bottom Z, and a finish pass only reaches final size when its
+	Finish Walls and Finish Floor options are on. Run the simulation and inspect the result before
+	you export.
+</Aside>
+
+## Related pages
+
+- [Tool Library](/guide/cam-setup/tool-library/) — tool defaults that fill these parameters.
+- [Quick Start](/quickstart/) — a first Pocket Rough operation, step by step.
+- [Entry moves](/guide/cam-operations.html#entry-moves) and [corner relief](/guide/cam-operations.html#corner-relief) in the current guide.

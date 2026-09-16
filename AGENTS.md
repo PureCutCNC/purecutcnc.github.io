@@ -2,7 +2,12 @@
 
 This repo is the **public website for PureCut CNC**, served as a static site at
 `https://purecutcnc.github.io` via GitHub Pages (the `main` branch is the live
-site). It is plain HTML/CSS/JS — there is **no build step**.
+site). The live site is plain HTML/CSS/JS at the repository root — there is **no
+build step** for it.
+
+A generated replacement (Astro + Starlight, with the new user manual) is being
+built in `site/`. It is **not deployed yet**: GitHub Pages still publishes the
+root files. See `site/README.md` and `planning/SITE_PLATFORM.md`.
 
 Read this before editing. Most update mistakes come from not knowing which files
 are hand-maintained and which are written by automation.
@@ -35,12 +40,17 @@ are hand-maintained and which are written by automation.
 | `downloads/snapshot/*.json` | **CI (auto)** | Written by the app repo's RC deploy on main-branch pushes. |
 | `app/` | **CI (auto)** | The **deployed stable web app** build (`deploy.yml` copies `dist/` here). Includes its own `app/icons.svg`, `app/favicon.svg`. Do **not** touch. |
 | `app-rc/` | **CI (auto)** | The **deployed preview build** (`deploy-rc.yml`). Do **not** touch. |
+| `site/` | **You (manual)** | Source of the new generated site. Not live until the cutover. |
+| `.github/workflows/site.yml` | **You (manual)** | Builds and verifies `site/`; deployment is off until the cutover. |
+| `planning/` | **You (manual)** | Decision records and runbooks for the site and manual work. |
+| `.nojekyll` | **You (manual)** | Stops the Pages branch build from running Jekyll (which dropped `_`-prefixed app files). |
 
 The automation lives in the **app repo** (`PureCutCNC/purecutcnc`) under
 `.github/workflows/deploy*.yml`; those jobs check out this repo and push commits
 here as `github-actions[bot]` (e.g. `deploy: update app from release vX`,
-`downloads: update … stable metadata for vX`). There are **no workflows in this
-repo**.
+`downloads: update … stable metadata for vX`). This repo's only workflow,
+`site.yml`, builds and verifies `site/` on every push to `main` (including those
+automated commits) and on pull requests.
 
 ## How the moving parts work
 
@@ -98,6 +108,17 @@ Verify the symbol count matches and spot-check that referenced ids resolve.
   `<script src="icons-loader.js"></script>` + `<use href="icons.svg#id">`.
 - If a page needs an icon that isn't in `guide/icons.svg` yet, sync the sprite from
   the app repo first (don't hand-add a single symbol — keep the copy whole).
+
+## Working on the new site (`site/`)
+
+- Setup and commands are in `site/README.md`: `npm ci --prefix site`, then
+  `npm run build` and `npm run verify` inside `site/`.
+- New manual pages go in `site/src/content/docs/guide/<section>/`. When a page
+  replaces a legacy `guide/*.html` page, update its entry in
+  `site/config/legacy-routes.mjs` in the same PR.
+- The new site copies `app/`, `app-rc/`, and `downloads/` from the root at build
+  time and reads icons from `app-rc/icons.svg`, so it needs no hand-synced copies.
+- Until the cutover, fixes that must go live now still belong in the root files.
 
 ## Local preview & verification
 
