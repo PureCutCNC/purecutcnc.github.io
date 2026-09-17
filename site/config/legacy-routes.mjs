@@ -25,7 +25,6 @@ const PENDING_GUIDE_PAGES = [
 	'sketch-export',
 	'sketch-import',
 	'sketch-snapping',
-	'sketch-text',
 	'sketch-toolpaths',
 	'view-3d',
 	'view-simulation',
@@ -112,15 +111,26 @@ export const LEGACY_ROUTES = [
 			'switching-language': '/guide/reference/languages/',
 		},
 	},
-	// Partial migration: the rest of each legacy page remains pending with its workstream.
+	// Migrated: the Drawing Tools page is split across the Design pages.
 	{
 		from: '/guide/sketch-tools.html',
-		to: '/guide/',
-		pending: true,
+		to: '/guide/design/drawing-tools/',
 		anchors: {
+			overview: '/guide/design/drawing-tools/',
+			text: '/guide/design/text/#placing-text',
+			'more-shapes': '/guide/design/parametric-shapes/',
 			'canvas-navigation': '/guide/fundamentals/workspace/#navigation',
 		},
 	},
+	{
+		from: '/guide/sketch-text.html',
+		to: '/guide/design/text/',
+		anchors: {
+			'text-overview': '/guide/design/text/',
+			'text-cam': '/guide/design/text/#machining-text',
+		},
+	},
+	// Partial migration: the rest of the legacy page remains pending with its workstream.
 	{
 		from: '/guide/sketch-edit.html',
 		to: '/guide/',

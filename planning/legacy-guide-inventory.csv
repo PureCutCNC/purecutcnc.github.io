@@ -107,11 +107,11 @@ guide/sketch-snapping,snap-modes,Snap Modes,193,,accurate,migrate,/guide/design/
 guide/sketch-snapping,grid-settings,Grid Settings,117,,accurate,migrate,/guide/design/snapping-and-grid/#grid,W2,fund.grid,
 guide/sketch-snapping,axis-lock,Axis Lock,47,,accurate,migrate,/guide/design/snapping-and-grid/#axis-lock,W2,design.axis-lock;ref.shortcuts,
 guide/sketch-text,text-overview,Text as a Feature,61,,accurate,merge,/guide/design/text/,W2,design.text-tool,
-guide/sketch-text,placing-text,Placing Text,72,,incomplete,migrate,/guide/design/text/#placing,W2,design.text-tool,
-guide/sketch-text,text-styles,Text Styles,111,,accurate,migrate,/guide/design/text/#styles,W2,design.text-tool,
-guide/sketch-text,editing-text,Editing Text,80,,accurate,migrate,/guide/design/text/#editing,W2,design.text-edit-expand,
-guide/sketch-text,expand-text,Expand Text into Features,187,,stale,migrate,/guide/design/text/#expand,W2,design.text-edit-expand,No Remove original option.
-guide/sketch-text,text-cam,Machining Text,89,,incomplete,migrate,/guide/design/text/#machining,W2,design.text-machining,
+guide/sketch-text,placing-text,Placing Text,72,,incomplete,migrate,/guide/design/text/#placing-text,W2,design.text-tool;design.text-layout,
+guide/sketch-text,text-styles,Text Styles,111,,accurate,migrate,/guide/design/text/#text-styles,W2,design.text-tool,
+guide/sketch-text,editing-text,Editing Text,80,,accurate,migrate,/guide/design/text/#editing-text,W2,design.text-edit-expand,
+guide/sketch-text,expand-text,Expand Text into Features,187,,stale,migrate,/guide/design/text/#expand-text,W2,design.text-edit-expand,No Remove original option.
+guide/sketch-text,text-cam,Machining Text,89,,incomplete,migrate,/guide/design/text/#machining-text,W2,design.text-machining,
 guide/sketch-toolpaths,overview,Overview,95,,accurate,migrate,/guide/verify-export/toolpath-preview/,W5,verify.toolpath-legend,
 guide/sketch-toolpaths,show-legend,The Toolpath Legend,258,toolpath-legend.png,accurate,migrate,/guide/verify-export/toolpath-preview/#legend,W5,verify.toolpath-legend,Remove release-note phrasing.
 guide/sketch-toolpaths,shared-collapse,Collapsing the Legend,115,,accurate,migrate,/guide/verify-export/toolpath-preview/#collapse,W5,verify.toolpath-legend,
@@ -125,7 +125,7 @@ guide/sketch-tools,ellipse,Ellipse,109,sketch-ellipse-tool.png,accurate,migrate,
 guide/sketch-tools,polygon,Polygon,103,sketch-polygon-tool.png,accurate,migrate,/guide/design/drawing-tools/#polygon,W2,design.polygon-spline,
 guide/sketch-tools,spline,Spline,93,sketch-spline-tool.png,incomplete,migrate,/guide/design/drawing-tools/#spline,W2,design.polygon-spline,
 guide/sketch-tools,composite,Composite Path,144,sketch-composite-tool.png,accurate,migrate,/guide/design/drawing-tools/#composite,W2,design.composite,
-guide/sketch-tools,text,Text,73,sketch-text-dialog.png,accurate,merge,/guide/design/text/#placing,W2,design.text-tool,
+guide/sketch-tools,text,Text,73,sketch-text-dialog.png,accurate,merge,/guide/design/text/#placing-text,W2,design.text-tool,
 guide/sketch-tools,more-shapes,More Shapes,274,sketch-slot-tool.png;sketch-ngon-tool.png;sketch-gear-tool.png;sketch-roundrect-tool.png;sketch-chamferrect-tool.png,stale,migrate,/guide/design/parametric-shapes/,W2,design.parametric-shapes;design.gear,Gear module wording.
 guide/sketch-tools,canvas-navigation,Canvas Navigation,65,,stale,merge,/guide/fundamentals/workspace/#navigation,W1,fund.sketch-navigation,Space+drag is not implemented.
 guide/view-3d,3d-overview,3D View Overview,85,view-3d.png,accurate,migrate,/guide/verify-export/3d-view/,W5,verify.3d-view,
