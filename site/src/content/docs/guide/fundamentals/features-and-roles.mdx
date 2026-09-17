@@ -1,0 +1,68 @@
+---
+title: Features, roles, and depth
+description: Understand what each feature represents, how it affects the part, and how its Z range is defined.
+pageType: concept
+availability: stable
+status: draft
+---
+
+Every drawn or imported object in PureCut CNC is a feature. Its role tells the app whether the
+object contributes material, removes it, guides a toolpath, limits a machining area, or exists
+only as a drawing reference.
+
+## Main idea
+
+Set a feature's role in its properties after selecting it, or choose a creation target before
+drawing it. The role affects the 3D model, the feature tree, and which machining operations can
+use the feature. It is not merely a colour or a folder.
+
+## Roles
+
+| Role | What it represents | How PureCut CNC uses it |
+| --- | --- | --- |
+| Add | Material to keep or add to the solid model. | Add features form the stock-side shape of a 2.5D model. |
+| Subtract | Material to remove from the solid model. | A subtract feature removes its profile through its Z range. |
+| Line | An open or closed path without a solid area. | Lines can guide compatible operations. A closed line can be used by Engrave, Edge route, and V-carve operations. |
+| Region mask | A machining-area filter. | It limits where an operation may generate cuts; it is not cut by itself. |
+| Construction | Sketch reference geometry. | You can snap, mirror, and dimension against it, but it is never machined. |
+| Model | An imported 3D object. | It is shown as a model rather than a 2.5D add or subtract profile. |
+
+Regions and construction geometry live in their own sections of the feature tree. That separation
+is deliberate: they cannot be grouped with ordinary features or silently treated as material.
+See [Regions](/guide/fundamentals/regions/) for the machining-mask role.
+
+## Z range
+
+**Z top** and **Z bottom** are coordinates in the project, not a separate cut-depth setting.
+Together they define the vertical range of an add or subtract feature. Use the **Z range** slider
+or enter values in the feature properties to set that range.
+
+The role changes how depth works:
+
+- Regions follow the stock's vertical range because they filter the machining area.
+- Construction geometry has no machining depth.
+- A line created inside an add or subtract feature inherits that enclosing surface's Z top, so
+  compatible line operations begin on the relevant surface.
+
+Choose values based on the intended part, then use an operation's parameters to describe how the
+tool approaches and cuts it. See [Stock, origin, and units](/guide/fundamentals/stock-origin-units/)
+for the project coordinate system.
+
+## Order
+
+Feature order matters when PureCut CNC builds a 2.5D solid. The first 2.5D feature must be an
+add feature. If it is not, the feature tree shows a warning and the 3D model cannot build until
+you correct the order or change the feature's role.
+
+After that first solid, add and subtract features are evaluated in feature-tree order. Keep the
+tree ordered so it describes the part clearly, especially when one feature depends on material
+created or removed by an earlier one.
+
+## Related pages
+
+- [The workspace](/guide/fundamentals/workspace/) shows where to create and inspect features.
+- [Feature tree and properties](/guide/fundamentals/feature-tree/) explains selecting, ordering,
+  and editing features.
+- [Stock, origin, and units](/guide/fundamentals/stock-origin-units/) explains the coordinate
+  system that Z top and Z bottom use.
+- [Regions](/guide/fundamentals/regions/) explains the region-mask role.
