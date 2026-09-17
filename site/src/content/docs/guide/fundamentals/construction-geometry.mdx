@@ -1,39 +1,51 @@
 ---
 title: Construction geometry
-description: Use non-machining sketch geometry as a precise reference for drawing and editing.
+description: Draw reference lines and shapes to position a design, knowing they are never machined or added to the model.
 pageType: concept
 availability: stable
 status: draft
 ---
 
-Construction geometry is drawing reference geometry. It helps you place, constrain, mirror, and
-dimension a design without adding material, subtracting material, or becoming a machining target.
+Construction geometry is reference geometry for drawing: centrelines, symmetry axes, bolt circles,
+and layout guides. You can snap to it, mirror against it, and dimension to it, but it never
+becomes part of the part.
 
 ## Main idea
 
-Choose the **Construction** creation target before drawing a reference shape, or move existing
-reference work into the Construction section when that is appropriate. Construction objects keep
-their own section in the feature tree so they cannot be mistaken for normal material features or
-region masks.
+- **Create** construction geometry with the **Create construction geometry** target in the tool
+  rail. Any shape can be construction geometry, open or closed. New items are named
+  **Construction** with a number.
+- **Convert** an existing feature by changing its **Operation** to **Construction** in its
+  properties, or in the role menu on its tree row.
+- **Find** it in the **Construction** section of the feature tree, marked with a **ref** badge. It
+  has its own folders and can only be grouped with other construction geometry.
 
-Construction can support sketching in the same ways that other geometry can: use it as a visual
-reference, snap to it, align to it, and dimension against it. It does not have a machining depth
-and PureCut CNC excludes it from the model and toolpath targets.
+Construction geometry:
+
+- adds no material to the 3D model and has no Z range (**Not machined**);
+- cannot be an operation target: the Add menu says **Construction geometry is never machined —
+  deselect construction features first**;
+- is not simulated and is left out of exported models;
+- is drawn as dashed reference lines on the canvas and in printed designs.
 
 ## Typical uses
 
-- Draw a centreline, axis, or symmetry guide before creating the final material features.
-- Lay out a repeated pattern, then copy or mirror the finished features against the guide.
-- Keep an imported or traced reference visible while the actual add and subtract features remain
-  separate.
+- Draw a centreline or symmetry axis first, then mirror the finished features across it.
+- Draw a circle as a bolt circle, then snap hole centres to it or use it as the guide for
+  **Feature distribution** along a path.
+- Trace the outline of an imported drawing as a reference while you draw the real features
+  separately.
+- Dimension from construction geometry to the features that depend on it.
 
-Hide Construction from the status bar or its tree section when it makes a review harder to read;
-that changes display only and does not turn it into material.
+To tidy the view once the design is done, hide construction geometry with **Hide all construction
+geometry** on its tree row, or with the **Construction** toggle in the status bar. Hiding it
+changes nothing in the model or the toolpaths.
 
 ## Related pages
 
-- [Features, roles, and depth](/guide/fundamentals/features-and-roles/) compares Construction
-  with the other feature roles.
-- [Feature tree and properties](/guide/fundamentals/feature-tree/) explains the Construction
-  section and its visibility controls.
-- [The workspace](/guide/fundamentals/workspace/) shows where to select the Construction target.
+- [Features, roles, and depth](/guide/fundamentals/features-and-roles/): construction among the
+  other roles.
+- [Drawing tools](/guide/design/drawing-tools/#creation-target): the creation targets.
+- [Snapping and the grid](/guide/design/snapping-and-grid/): snapping to reference geometry.
+- [Aligning and distributing](/guide/design/arranging/#feature-distribution): copies along a
+  guide.

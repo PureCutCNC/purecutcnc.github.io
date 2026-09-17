@@ -1,119 +1,181 @@
 ---
 title: The workspace
-description: Learn where to design, inspect, set up, and control a PureCut CNC project.
+description: The parts of the PureCut CNC window, the Sketch, 3D view, and Simulation tabs, and how to navigate them.
 pageType: concept
 availability: stable
 status: draft
 ---
 
-PureCut CNC keeps drawing, model inspection, machining setup, and project controls in one
-workspace. The active view stays in the centre; the surrounding panels give you the controls
-for the part of the job you are doing.
+The PureCut CNC window keeps the design, the machining setup, and the checks in one workspace.
+This page names its parts and explains how to move around in it.
 
 ## Main idea
 
-The workspace has four practical areas:
+| Area | Where | What it holds |
+| --- | --- | --- |
+| Top toolbar | Top | Project, history, zoom, snapping, measuring, appearance, and language controls. |
+| Tool rail | Left edge | The drawing, arranging, and editing tools. |
+| Project panel | Left | The **Project tree** and the **Properties** of the selection. |
+| Centre | Middle | The **Sketch**, **3D view**, and **Simulation** tabs. |
+| CAM panel | Right | The **Operations** and **Tools** tabs, with the properties of the selected operation or tool. |
+| Status bar | Bottom | Units, stock size, view toggles, and the app version. |
 
-- The top toolbar holds project, history, and viewing commands.
-- The centre holds the current workspace view.
-- The project and CAM panels hold the part, setup, and machining information.
-- The tool rail and workflow panels provide the drawing and editing commands.
-
-On a desktop-sized screen, pull-out handles open the project and CAM panels without changing the
-current view. On a tablet, the same controls are presented in drawers so the canvas remains the
-main working area. See [Tablet and touch](/guide/fundamentals/tablet-and-touch/) for the tablet
-layout and gestures.
+The buttons at either end of the tab row, **Hide project panel** and **Hide CAM panel**, fold the
+side panels away to give the centre more room; the same buttons show them again. The divider in
+each side panel changes how much height the list and the properties get. On a tablet the side
+panels become drawers; see [Tablet and touch](/guide/fundamentals/tablet-and-touch/).
 
 ## Views
 
-Use the centre tabs to move between **Sketch**, **3D view**, and **Simulation**. The tab list
-supports the arrow keys as well as a pointer.
+Switch views with the tabs above the centre area, or with <kbd>←</kbd>, <kbd>→</kbd>,
+<kbd>Home</kbd>, and <kbd>End</kbd> once a tab has focus.
 
-- **Sketch** is where you draw, select, and edit features. It is the usual place to set up a
-  project.
-- **3D view** is where you inspect the stock, the solid model, and the toolpaths in three
-  dimensions.
-- **Simulation** shows the result of removing material from the stock. Use it to inspect the
-  result of a selected toolpath before exporting G-code.
+- **Sketch** is the 2D drawing view. Draw and edit features here, and see the toolpaths drawn over
+  them.
+- **3D view** shows the stock, the solid model built from the features, imported models, and the
+  toolpaths in 3D.
+- **Simulation** removes material from the stock along the toolpaths, so you can see what the
+  job will leave.
 
-The views answer different questions about the same project. A 3D view or simulation is useful
-for checking a result, but it does not replace checking the workholding, machine setup, and
-exported G-code before a cut.
+Each view answers different questions about the same project, and switching views changes
+nothing in it. None of them replaces checking the machine setup and the exported G-code; see
+[Working safely](/guide/start-here/safety/).
 
 ## Sketch overlays
 
-The Sketch view shows the stock outline and origin axes as well as your features. Its feature
-colours distinguish add and subtract material, regions, imported models, and the current
-selection. Expand the **Feature colors** legend from the status bar when you need to identify a
-colour.
+Besides your features, the Sketch view shows:
 
-Warnings on the canvas call out a profile that extends outside the stock or self-intersects.
-Those warnings are signals to correct the design before relying on a model or toolpath. Clamp
-and toolpath-collision display belongs to the machining views; see [Clamps and
-clearances](/guide/cam-setup/clamps-and-clearances/) when that page is available.
+- the stock outline, with its width and height labels (click a label to resize the stock);
+- the origin, marked **Origin** with its X and Y axes;
+- the grid;
+- each feature's name and Z range, when **Feature labels** is on in the status bar (the same
+  setting as **Show feature info in sketch** in the **Project** properties);
+- tabs and clamps, and the toolpaths of operations whose toolpath is shown.
+
+Features are coloured by role. The **Feature colors** legend on the canvas names the colours:
+**Subtract**, **Add feature**, **Region include**, **Region exclude**, **Imported model**, and
+**Selected**. Collapse the legend with **Collapse legend**; it then waits in the status bar.
+
+A feature that reaches outside the stock, or whose outline crosses itself, is flagged with a
+warning in its properties and while you edit it (**Extends outside stock**, **Self-intersecting
+profile**). Clamps that a shown toolpath runs into are highlighted.
 
 ## Top toolbar
 
-The top toolbar keeps everyday project actions together: **New project**, **Open project**,
-**Import geometry**, **Export model**, **Print design**, and **Save project**. It also contains
-**Undo**, **Redo**, **Zoom to model**, and **Zoom selected**.
+From left to right:
 
-The current project name reports whether it is saved or has unsaved changes. The bar also gives
-you the snap settings and the measurement tools, plus the appearance and interface-language
-controls. Use [Projects and files](/guide/fundamentals/projects-and-files/) for opening and
-saving, and [Keyboard shortcuts](/guide/reference/keyboard-shortcuts/) for their shortcuts.
+- the project name (click it to rename the project) and the **Saved** or **Unsaved** badge;
+- **New project**, **Open project**, **Import geometry**, **Export model**, **Print design**, and
+  **Save project**;
+- **Undo** and **Redo**;
+- **Zoom to model** and **Zoom selected**;
+- the snapping controls: **Enable snapping** or **Disable snapping**, and a button for each snap
+  mode;
+- the measuring controls: **Tape measure**, **Add dimension**, **Delete dimension**, and
+  **Show/hide dimensions**;
+- **Appearance** and **Language**.
+
+See [Projects and files](/guide/fundamentals/projects-and-files/),
+[Snapping and the grid](/guide/design/snapping-and-grid/),
+[Dimensions and constraints](/guide/design/dimensions-and-constraints/),
+[Themes and appearance](/guide/reference/themes/), and
+[Interface languages](/guide/reference/languages/).
 
 ## Tool rail
 
-The tool rail is the starting point for drawing and arranging in the Sketch view. Choose the
-creation target first, then choose a shape from the drawer. A target can create a normal feature,
-a line, a region, or construction geometry; the available shapes follow that choice.
+The tool rail is used in the Sketch view:
 
-Its other groups contain the commands for selection and arrangement, including copy, move,
-delete, resize, rotate, mirror, offset, constraints, join, cut, alignment, and distribution.
-Some commands appear only when the current selection makes them valid. The Edit Sketch panel
-holds the controls for changing the nodes and segments of an existing sketch.
+- At the top are the four creation targets (**Create features**, **Create lines**, **Create
+  regions**, **Create construction geometry**), the shape drawer, and a button for the last shape
+  you used. See [Drawing tools](/guide/design/drawing-tools/).
+- **Join closed features** and **Cut features** combine and split shapes. See
+  [Offset, join, and cut](/guide/design/shape-operations/).
+- With features selected, the transform tools appear: copy, move, delete, resize, rotate, mirror,
+  and offset, plus **Add constraint** and the **Align selected features** and **Distribute
+  selected features** menus. See [Selecting and transforming](/guide/design/selecting-and-transforming/)
+  and [Aligning and distributing](/guide/design/arranging/).
+- With a backdrop image selected, its move, resize, rotate, and delete tools appear instead. See
+  [Backdrop images](/guide/design/backdrop-images/).
+
+The point-editing tools are not in the rail: they are in the **Edit sketch** panel that opens when
+you edit a feature. See [Editing sketches](/guide/design/sketch-editing/).
 
 ## Status bar
 
-The status bar shows the stock dimensions and lets you change project units. Expand it for the
-**View visibility** controls: feature labels, grid, stock, backdrop, origin, regions,
-construction geometry, tabs, and clamps can each be shown or hidden without changing the project.
+From left to right, the status bar shows:
 
-It also opens **About PureCutCNC** and the expanded feature-colour legend. Hiding an item only
-changes what you see in the workspace; it does not delete or change the project data.
+- the project name;
+- the project units (for example **INCH**): click to change them, see
+  [Stock, origin, and units](/guide/fundamentals/stock-origin-units/#units);
+- the stock size (**Stock: 4 × 3 × 0.75 inch**);
+- the **View visibility** toggles: **Feature labels**, **Grid**, **Stock**, **Backdrop**,
+  **Origin**, **Regions**, **Construction**, **Tabs**, and **Clamps** (a toggle is unavailable when
+  the project has none of that item);
+- the collapsed feature colour legend, when you have collapsed it;
+- in the web app, the version (**PureCutCNC** and the version number), which opens
+  **About PureCutCNC**.
+
+These settings are saved with the project. Most only change what is drawn, but hiding clamps also
+removes them from clamp checking; see
+[Feature tree and properties](/guide/fundamentals/feature-tree/#visibility).
 
 ## Workflow panels
 
-Many canvas commands are staged: you may choose a feature, pick points, enter a value, then
-confirm the result. PureCut CNC shows the active command in a movable workflow panel. Follow the
-step shown in that panel rather than trying to complete the whole command in one click.
+Commands that need several steps, such as drawing a shape, moving features, or joining them, show a
+workflow panel on the canvas. Its title names the command, a line below says what to do next (for
+example **Click opposite corner or enter dimensions**), and its buttons offer the choices for that
+step. Drag the panel by its handle if it covers the part of the sketch you need.
 
-The available keyboard help depends on the active command. <kbd>Tab</kbd> opens numeric entry
-where a workflow offers it, and <kbd>Enter</kbd> completes an eligible shape or command.
-<kbd>Esc</kbd> cancels the current step or command. While drawing a polygon, spline, or composite
-path, <kbd>Backspace</kbd> removes the last point or segment; in a composite path,
-<kbd>L</kbd>, <kbd>A</kbd>, and <kbd>S</kbd> choose line, arc, and spline segments. In the Join,
-Cut, and applicable transform panels, <kbd>K</kbd> toggles whether to keep the originals.
+The panel's buttons show their keys:
+
+- <kbd>Tab</kbd> opens numeric entry, such as **Dimensions**, **Distance**, **Scale**, or **Angle**;
+- <kbd>Enter</kbd> confirms, or finishes an open path;
+- <kbd>Esc</kbd> cancels the step or the command;
+- <kbd>Backspace</kbd> removes the last point while drawing a polygon, spline, or composite path;
+- <kbd>L</kbd>, <kbd>A</kbd>, and <kbd>S</kbd> switch a composite path's next segment to a line, an
+  arc, or a spline;
+- <kbd>K</kbd> turns **Keep originals** on or off.
+
+All keys are listed on [Keyboard shortcuts](/guide/reference/keyboard-shortcuts/).
 
 ## Undo and redo
 
-**Undo** and **Redo** track edits to the project, including drawing and editing features. They do
-not undo application-wide preferences such as the selected interface language or appearance, and
-they do not undo changes to the machine library. Save a project when a meaningful milestone is
-complete so you have a file you can return to.
+**Undo** and **Redo** (<kbd>Ctrl</kbd>+<kbd>Z</kbd> and <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Z</kbd>,
+or <kbd>Cmd</kbd> on macOS) step through changes to the project, such as drawing and editing
+features, changing properties, and adding operations or tools. A multi-step command such as a move
+is one undo step.
+
+They do not cover application preferences, which are not part of the project: the appearance,
+the interface language, and your machine library. Zooming and panning are not undoable either.
 
 ## Navigation
 
-In the Sketch view, pan with middle-button drag, right-button drag, or <kbd>Shift</kbd>+drag.
-Scroll to zoom at the pointer location. **Zoom to model** frames the project, while **Zoom
-selected** lets you draw a window around the area to inspect. Double-click an editable feature to
-enter its sketch-editing mode.
+In the Sketch view:
+
+| Action | Mouse and keyboard |
+| --- | --- |
+| Pan | Drag with the middle or right button, or <kbd>Shift</kbd>+drag. |
+| Zoom | Scroll; the view zooms around the pointer. |
+| Frame the whole project | **Zoom to model**. |
+| Zoom to an area | **Zoom selected**, then drag a box around the area. <kbd>Esc</kbd> cancels. |
+| Select | Click a feature, or drag a box on empty canvas. See [Selecting and transforming](/guide/design/selecting-and-transforming/). |
+| Edit a feature's points | Double-click it. Double-clicking a tab or clamp edits it. |
+
+In the 3D view and the simulation:
+
+| Action | Mouse and keyboard |
+| --- | --- |
+| Orbit | Drag with the left button. |
+| Pan | Drag with the middle or right button, or <kbd>Shift</kbd>+drag. |
+| Zoom | Scroll. |
+| Standard views | The camera menu: **Top view**, **Bottom view**, **Front view**, **Back view**, **Right view**, **Left view**, **Isometric view**, **Fit to model**, and **Reset view**. |
+
+Touch gestures are on [Tablet and touch](/guide/fundamentals/tablet-and-touch/).
 
 ## Related pages
 
-- [Features, roles, and depth](/guide/fundamentals/features-and-roles/) explains what the
-  objects in the workspace mean.
-- [Feature tree and properties](/guide/fundamentals/feature-tree/) explains the project panel
-  and selection-specific properties.
-- [Quick Start](/quickstart/) uses the workspace to make a first project.
+- [Quick Start](/quickstart/): a first project that uses each part of the workspace.
+- [Features, roles, and depth](/guide/fundamentals/features-and-roles/): what the shapes in the
+  Sketch view mean.
+- [Feature tree and properties](/guide/fundamentals/feature-tree/): the project panel in detail.
+- [Working with operations](/guide/cam-setup/working-with-operations/): the CAM panel in detail.

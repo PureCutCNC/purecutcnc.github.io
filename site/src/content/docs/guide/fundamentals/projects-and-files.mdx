@@ -1,6 +1,6 @@
 ---
 title: Projects and files
-description: Create, open, name, and save PureCut CNC projects without losing work.
+description: Create a project from a template or an example, open and save .camj files, and keep track of unsaved changes.
 pageType: task
 availability: stable
 status: draft
@@ -8,76 +8,93 @@ status: draft
 
 import { Aside, Steps } from '@astrojs/starlight/components';
 
-A project keeps the design, stock, tools, operations, and setup information for one job together.
-Start a new project when the stock or design intent changes, and save a checkpoint before a major
-edit or before exporting G-code.
+A project holds everything about one job: the stock, origin, and units, the features, the tools,
+the operations, the selected machine, and the tabs and clamps. It is saved as a single `.camj` file.
 
 ## Create a new project
 
 <Steps>
 
-1. Select **New project** in the top toolbar.
+1. Click **New project** in the top toolbar.
 
-2. Choose a starting point. **Blank Metric** and **Blank Imperial** create a new empty project in
-   the selected units. **Current project** starts from the current project's setup, and **Template
-   file** lets you choose a saved template.
+2. Enter a **Project name**, then choose a **Template**:
 
-3. Check the preview before continuing. It summarizes the starting stock, features, tools,
-   operations, and machine information.
+   | Template | Starts with |
+   | --- | --- |
+   | **Blank metric** | An empty project in millimetres, with a 100 × 80 × 20 mm stock. |
+   | **Blank imperial** | An empty project in inches, with a 4 × 3 × 0.75 in stock. |
+   | **Current project** | The open project's setup (units, stock, origin, grid, tools, and machine) without its features, operations, tabs, or clamps. |
+   | **Template file** | The same setup, taken from a `.camj` file you load. |
 
-4. Confirm the choice, then set up the stock and origin before drawing or importing geometry.
+3. Check the **Template preview**. It lists the **Units**, **Stock**, **Features**, **Tools**,
+   **Operations**, and **Machine** the new project starts with.
+
+4. Click **Create project**.
 
 </Steps>
 
-If the current project has unsaved work, PureCut CNC asks whether it is safe to discard it before
-opening or creating another project. Save first when you want to keep that work.
+Then check the stock, origin, and units; see
+[Stock, origin, and units](/guide/fundamentals/stock-origin-units/).
+
+If the open project has unsaved changes, PureCut CNC asks **You have unsaved changes. Discard them
+and continue?** before it replaces the project. Cancel and save first if you want to keep them.
 
 ## Examples
 
-The New Project dialog also includes bundled examples, including **PureCutCNC**, **T Style guitar
-body**, and **Badge**. Open one when you want to inspect a complete project, learn how its
-features and operations relate, or start from a close example.
+The **New project** dialog also lists bundled examples under **Or open an example**:
 
-An example is an ordinary project after it opens. Save it under a new name before changing it if
-you want to preserve an untouched reference copy.
+| Example | Shows |
+| --- | --- |
+| **PureCutCNC** | Pocket and V-carving |
+| **T Style guitar body** | Pocket, drilling, and edge route outside |
+| **Badge** | Pocket, drilling, rest machining, and edge route outside |
 
-The empty workspace's **Start your part** card leads to the same project-starting choices. It is a
-convenient starting point, not a different kind of project.
+The same examples appear on the **Start your part** card that an empty workspace shows, next to
+**Draw a shape** and **Import a file**. An opened example is an ordinary project: save it under a
+new name if you want to keep the original unchanged.
 
 ## Open and save
 
 <Steps>
 
-1. Select **Open project** to choose a project file. PureCut CNC project files use the `.camj`
-   format; download-oriented touch workflows can also use the compatible `.camj.json` filename.
+1. To open a project, click **Open project** and choose a `.camj` file.
 
-2. Use **Save project** for a checkpoint. On the desktop app, Save writes to the current path;
-   in a browser, the browser either grants file access or receives a downloaded project file.
+2. To save, click **Save project**. The button is highlighted while there are unsaved changes.
 
-3. Use **Save As** in the desktop File menu when the current project needs a different name or
-   location.
-
-4. Watch the project name in the top toolbar. It indicates whether the current project is saved
-   or has unsaved changes.
+3. In the desktop app, **File** > **Save** writes to the file you opened or last saved, and
+   **File** > **Save As…** saves under a new name or location.
 
 </Steps>
 
-<Aside type="tip">
-Save before changing units, replacing stock, or making a wide edit to linked features. A saved
-checkpoint makes it easy to compare a later result with the version you intended to machine.
+In a browser, every save asks where to save the file, or downloads it if the browser cannot show a
+save dialog. The browser does not remember the file you opened, so choose the same file to replace
+it.
+
+On a tablet, projects are saved with the extension `.camj.json`, because tablet file pickers do not
+recognise `.camj`. PureCut CNC opens both.
+
+<Aside type="tip" title="Save checkpoints">
+	Save before changing units, replacing the stock, or making a wide edit to linked features, so you
+	have a version to go back to.
 </Aside>
 
 ## Project name and format
 
-Select the **Project** node in the feature tree when you need to review project-level properties,
-including its name and copy mode. The project file stores the machining setup as well as the
-sketch, so share the `.camj` file when another PureCut CNC user needs the whole job rather than
-only an exported drawing.
+The project name is shown at the left of the top toolbar, followed by **Saved** or **Unsaved**.
+Click the name to rename the project. The name is also the suggested file name when you save and
+when you export G-code.
+
+A `.camj` file contains the whole job, including the machining setup and a copy of the selected
+machine definition, so another PureCut CNC user can open it and export the same G-code. Your
+appearance, language, and machine library are not part of the project. The file contents are
+described on [File formats](/guide/reference/file-formats/#camj).
 
 ## Related pages
 
-- [Stock, origin, and units](/guide/fundamentals/stock-origin-units/) sets the job coordinate
-  system for a new project.
-- [Feature tree and properties](/guide/fundamentals/feature-tree/) explains the project-level
-  controls and the saved project structure.
-- [Quick Start](/quickstart/) walks through a first project from blank stock to exported G-code.
+- [Stock, origin, and units](/guide/fundamentals/stock-origin-units/): set up the job after you
+  create the project.
+- [Install and open PureCut CNC](/guide/start-here/install-and-open/): the desktop menus and the
+  **Start your part** card.
+- [Importing SVG, DXF, and projects](/guide/design/importing-2d/#camj): bring features in from
+  another project.
+- [Quick Start](/quickstart/): a first project from a blank template to G-code.
