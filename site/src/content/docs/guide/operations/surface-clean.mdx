@@ -1,0 +1,50 @@
+---
+title: Surface clean
+description: Clear the flat top area of closed add or model features around taller features at each step height.
+pageType: operation
+availability: stable
+status: draft
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+**Surface clean** machines the flat top of closed add or model features around taller add
+features. Use it for pads, terraces, and stepped surfaces rather than as a substitute for an
+outside contour cut.
+
+## Requirements
+
+| Requirement | Value |
+| --- | --- |
+| Target features | Closed add or model features; optional closed regions filter the cut |
+| Tool | Flat or ball endmill |
+| Passes | Rough or Finish |
+
+## Parameters
+
+Shared settings are documented in [Common operation parameters](/guide/operations/common-parameters/).
+
+| Parameter | Description |
+| --- | --- |
+| **Pattern** | Chooses Offset, Seeded circles, Parallel, or Trochoidal clearing. |
+| **Angle** | Sets the direction of parallel passes. |
+| **Finish walls** and **Finish floor** | Control which finishing surfaces are cut on a finish pass. |
+| **Stock to leave radial** and **Stock to leave axial** | Reserve material for a later finish pass. |
+
+## Strategies
+
+Surface clean offers **Offset**, **Seeded circles**, **Parallel**, and **Trochoidal** clearing.
+See [Clearing patterns](/guide/strategies/clearing-patterns/) and
+[Trochoidal cutting](/guide/strategies/trochoidal-cutting/#clearing).
+
+## Verifying the result
+
+<Aside type="caution" title="Inspect every step height">
+	Review the preview and simulation to confirm that the cleanup bands occur around the intended
+	taller features and that a finish pass removes the stock you deliberately left.
+</Aside>
+
+## Related pages
+
+- [Pocket](/guide/operations/pocket/): clear a closed subtract area instead.
+- [Choosing an operation](/guide/operations/): compare compatible feature roles.

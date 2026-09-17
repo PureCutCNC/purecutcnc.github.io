@@ -17,9 +17,6 @@
 /** Legacy guide pages that have not been migrated yet. */
 const PENDING_GUIDE_PAGES = [
 	'cam-debug-view',
-	'cam-export',
-	'cam-tabs-clamps',
-	'machine-library',
 	'post-processor-converter',
 	'sketch-export',
 	'sketch-toolpaths',
@@ -46,13 +43,59 @@ export const LEGACY_ROUTES = [
 	},
 	// Migrated: the new page keeps the legacy heading ids, so fragments pass through.
 	{ from: '/guide/cam-tools.html', to: '/guide/cam-setup/tool-library/' },
-	// Split page: only the Pocket card has a destination so far.
+	// Split page: W3 owns the setup and 2.5D-operation destinations. W4 adds strategies and 3D operations.
 	{
 		from: '/guide/cam-operations.html',
+		to: '/guide/operations/',
+		anchors: {
+			'adding-operations': '/guide/cam-setup/working-with-operations/#adding',
+			choosing: '/guide/operations/',
+			'operation-types': '/guide/operations/',
+			'feature-requirements': '/guide/operations/#requirements',
+			'operation-parameters': '/guide/operations/common-parameters/',
+			'op-pocket': '/guide/operations/pocket/',
+			'op-surface-clean': '/guide/operations/surface-clean/',
+			'op-edge-in': '/guide/operations/edge-route-inside/',
+			'op-edge-out': '/guide/operations/edge-route-outside/',
+			'op-vcarve-offset': '/guide/operations/v-carve-offset/',
+			'op-vcarve-medial': '/guide/operations/v-carve-medial/',
+			'op-engrave': '/guide/operations/engrave/',
+			'op-drill': '/guide/operations/drill/',
+			'helical-boring': '/guide/operations/drill/#helical',
+			countersinking: '/guide/operations/drill/#countersink',
+			'reassigning-targets': '/guide/cam-setup/working-with-operations/#targets',
+			'reordering-operations': '/guide/cam-setup/working-with-operations/#list',
+		},
+	},
+	{
+		from: '/guide/cam-tabs-clamps.html',
+		to: '/guide/cam-setup/tabs/',
+		anchors: {
+			'tabs-overview': '/guide/cam-setup/tabs/',
+			'clamps-overview': '/guide/cam-setup/clamps-and-clearances/',
+		},
+	},
+	{
+		from: '/guide/machine-library.html',
+		to: '/guide/cam-setup/machines/',
+		anchors: {
+			'two-places': '/guide/cam-setup/machines/#library',
+			'my-machines': '/guide/cam-setup/machines/#my-machines',
+			'status-badges': '/guide/cam-setup/machines/#badges',
+			'update-notice': '/guide/cam-setup/machines/#updates',
+			sharing: '/guide/cam-setup/machines/#my-machines',
+			'older-projects': '/guide/cam-setup/machines/#my-machines',
+		},
+	},
+	// W3 supplies the machine and clearance destinations; W5 will migrate the remaining export page.
+	{
+		from: '/guide/cam-export.html',
 		to: '/guide/',
 		pending: true,
 		anchors: {
-			'op-pocket': '/guide/operations/pocket/',
+			'machine-selection': '/guide/cam-setup/machines/',
+			clearances: '/guide/cam-setup/clamps-and-clearances/#clearances',
+			'custom-machines': '/guide/cam-setup/machines/#editor',
 		},
 	},
 	// Migrated: all of the Sketch view's destinations are now on the workspace page.
@@ -79,6 +122,7 @@ export const LEGACY_ROUTES = [
 			'properties-panel': '/guide/fundamentals/feature-tree/#properties',
 			'canvas-workflow-panels': '/guide/fundamentals/workspace/#workflow-panels',
 			'tablet-shell': '/guide/fundamentals/tablet-and-touch/',
+			'cam-panel': '/guide/cam-setup/working-with-operations/',
 		},
 	},
 	// Migrated: the Concepts page is split across the Fundamentals pages.

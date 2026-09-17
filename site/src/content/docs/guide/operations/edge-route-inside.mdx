@@ -1,0 +1,55 @@
+---
+title: Edge route inside
+description: Route the inside edge of closed subtract profiles with a contour or trochoidal rough pass.
+pageType: operation
+availability: stable
+status: draft
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+**Edge route inside** follows the inside edge of a closed subtract profile, offset by the tool
+radius. Use it for a precise internal contour or opening when a Pocket would remove unnecessary
+material.
+
+## Requirements
+
+| Requirement | Value |
+| --- | --- |
+| Target features | Closed subtract features; regions are supported by contour routing only |
+| Tool | Flat or ball endmill |
+| Passes | Rough or Finish |
+
+## Parameters
+
+Shared settings are documented in [Common operation parameters](/guide/operations/common-parameters/).
+
+| Parameter | Description |
+| --- | --- |
+| **Strategy** | Uses a contour, or a Trochoidal rough pass that leaves stock for contour finishing. |
+| **Stock to leave radial** | Reserves wall material for the finish contour. |
+| **Tabs** | Associates a tab set where the contour needs to retain material. |
+| **Rest machining** | Creates a follow-up operation for material the current tool cannot reach. |
+| **XY approach & exit** | Is available only when its entry and target conditions are compatible. |
+
+## Strategies
+
+Rough passes can use **Contour** or **Trochoidal** routing. Finish passes always use a contour.
+See [Trochoidal cutting](/guide/strategies/trochoidal-cutting/#edge-routes) and
+[Entry and exit moves](/guide/strategies/entry-and-exit/).
+
+## Limitations
+
+<Aside type="caution" title="Check entry and tabs together">
+	Trochoidal roughing uses Helix or Plunge entry. Tabs require a compatible Helix entry, so review
+	the warnings and the simulated final contour before running the program.
+</Aside>
+
+## Verifying the result
+
+Inspect the offset side, entry, tab bridges, and any remaining wall stock in the toolpath preview.
+
+## Related pages
+
+- [Edge route outside](/guide/operations/edge-route-outside/): route an external add or model contour.
+- [Tabs](/guide/cam-setup/tabs/): hold a routed part in the stock.

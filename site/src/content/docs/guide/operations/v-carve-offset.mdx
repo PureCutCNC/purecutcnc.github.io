@@ -1,0 +1,48 @@
+---
+title: V-carve offset
+description: Carve a tapered V-groove by following inset contours of compatible closed geometry with a V-bit.
+pageType: operation
+availability: stable
+status: draft
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+**V-carve offset** follows progressively narrower inset contours and lowers the V-bit at each
+pass. Use it for signage, engraving, and decorative closed geometry that benefits from a tapered
+groove.
+
+## Requirements
+
+| Requirement | Value |
+| --- | --- |
+| Target features | Compatible closed machining features or closed lines; optional closed regions filter the cut |
+| Tool | V-bit with its included angle set |
+| Passes | Single pass |
+
+## Parameters
+
+Shared settings are documented in [Common operation parameters](/guide/operations/common-parameters/).
+
+| Parameter | Description |
+| --- | --- |
+| **Max carve depth** | Limits the depth of the tapered groove. |
+| **Stepdown** | Limits how far the tool descends between generated contours. |
+| **Cut direction** | Chooses conventional or climb direction. |
+
+## Limitations
+
+<Aside type="caution" title="Use the actual V-bit angle">
+	The selected tool’s V angle determines the groove geometry. Verify the tool definition and
+	preview the depth before cutting finished artwork or a workpiece with limited thickness.
+</Aside>
+
+## Verifying the result
+
+Check that all intended letters and interior details have toolpaths and that the resulting groove
+does not exceed the material or desired depth.
+
+## Related pages
+
+- [V-carve medial](/guide/operations/v-carve-medial/): follow a profile’s medial axis instead.
+- [Tool library](/guide/cam-setup/tool-library/): define the V-bit angle and limits.

@@ -1,0 +1,59 @@
+---
+title: Drill
+description: Machine circular holes with standard, peck, dwell, chip-breaking, helical, or countersink cycles.
+pageType: operation
+availability: stable
+status: draft
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+**Drill** produces a hole at the center of each selected circle feature. It is intended for
+repeated hole patterns and can use canned cycles when the selected machine supports them.
+
+## Requirements
+
+| Requirement | Value |
+| --- | --- |
+| Target features | Circle features; optional closed regions filter the holes |
+| Tool | Drill, flat endmill for helical boring, or V-bit for countersinking |
+| Passes | Single pass |
+
+## Parameters
+
+Shared settings are documented in [Common operation parameters](/guide/operations/common-parameters/).
+
+| Parameter | Description |
+| --- | --- |
+| **Drill type** | Chooses Simple, Peck, Dwell, Chip breaking, Helical, or Countersink. |
+| **Retract height** | Sets the drilling retract height. |
+| **Peck depth** | Sets the increment for Peck and Chip breaking. |
+| **Dwell time** | Sets the pause for Dwell. |
+
+## Helical
+
+Helical boring uses a flat endmill to bore a hole wider than the cutter along a helix. The selected
+circle defines the bore diameter; it does not use the general entry-helix diameter setting.
+
+## Countersink
+
+Countersink uses a V-bit. Set **Countersink diameter**; the app shows the derived, read-only
+**Countersink depth** from that diameter and the selected V-bit angle.
+
+## Limitations
+
+<Aside type="danger" title="Safety: verify the machine and clamp warnings">
+	Machines without canned-cycle support expand the drilling cycle into individual moves. Holes
+	under clamps can be skipped. Inspect warnings, hole order, retracts, and the simulation before
+	exporting or running the program.
+</Aside>
+
+## Verifying the result
+
+Check every selected circle, the cycle parameters, the resulting depth, and any skipped-hole
+warning in the preview.
+
+## Related pages
+
+- [Machines](/guide/cam-setup/machines/): select the post-processor that emits the program.
+- [Clamps and clearances](/guide/cam-setup/clamps-and-clearances/): prevent workholding conflicts.

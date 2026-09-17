@@ -1,0 +1,54 @@
+---
+title: Edge route outside
+description: Route the outside edge of closed add or model profiles with a contour or trochoidal rough pass.
+pageType: operation
+availability: stable
+status: draft
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+**Edge route outside** follows the outside edge of a closed add or model profile, offset by the
+tool radius. It is the normal operation for separating a finished part from surrounding stock.
+
+## Requirements
+
+| Requirement | Value |
+| --- | --- |
+| Target features | Closed add or model features; regions are supported by contour routing only |
+| Tool | Flat or ball endmill |
+| Passes | Rough or Finish |
+
+## Parameters
+
+Shared settings are documented in [Common operation parameters](/guide/operations/common-parameters/).
+
+| Parameter | Description |
+| --- | --- |
+| **Strategy** | Uses a contour, or a Trochoidal rough pass that leaves stock for contour finishing. |
+| **Tabs** | Associates the tab set that retains the part during the final cut. |
+| **Stock to leave radial** | Reserves material for the finish contour. |
+| **Rest machining** | Creates a follow-up operation for material the selected tool cannot reach. |
+
+## Strategies
+
+Rough passes can use **Contour** or **Trochoidal** routing; finish passes always use a contour.
+See [Trochoidal cutting](/guide/strategies/trochoidal-cutting/#edge-routes).
+
+## Limitations
+
+<Aside type="danger" title="Safety: outside routing can release the part">
+	Use tabs and secure workholding before an outside route reaches the final depth. If combined
+	contours or mixed feature depths cause a warning, resolve it in the design or operation before
+	exporting; do not assume the part will remain supported.
+</Aside>
+
+## Verifying the result
+
+Confirm the tool stays on the outside of the intended contour, preserves each tab, and does not
+conflict with clamps or the planned machining order.
+
+## Related pages
+
+- [Tabs](/guide/cam-setup/tabs/): create and inspect retaining bridges.
+- [Clamps and clearances](/guide/cam-setup/clamps-and-clearances/): check the workholding setup.

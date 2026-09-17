@@ -1,0 +1,102 @@
+---
+title: Common operation parameters
+description: Reference the shared operation settings that control targets, tools, depth, speeds, and output.
+pageType: reference
+availability: stable
+status: draft
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+Operation properties are grouped by what they control. A group appears only when it applies to the selected operation, so use the operation’s own page for kind-specific settings and strategies.
+
+## Identity
+
+| Setting | Use |
+| --- | --- |
+| **Name** | Identifies the operation in the list, preview, and exports. |
+| **Description** | Stores a note about the intended cut or setup. |
+| **Kind** | Names the machining method. It controls which targets and settings are available. |
+| **Pass** | Identifies a rough or finish pass where the operation supports that split. |
+| **Enabled** | Includes or excludes the operation from toolpath generation and export. |
+
+## What it cuts
+
+| Setting | Use |
+| --- | --- |
+| **Target** | Shows the feature or stock target for the operation. |
+| **Target source** | Distinguishes feature targets from a stock target. |
+| **Use current selection** | Replaces the target with a compatible current selection. |
+
+Regions can also be part of a target as filters. They restrict the area a compatible operation may cut; see [Regions](/guide/fundamentals/regions/).
+
+## Tool
+
+| Setting | Use |
+| --- | --- |
+| **Tool** | Chooses the cutter. Its saved defaults seed a new operation’s speeds, feeds, stepdown, and stepover. |
+
+## Depth
+
+| Setting | Use |
+| --- | --- |
+| **Stepdown** | Limits how far the tool descends between levels. |
+| **Max cut depth** | Limits the depth for operations that expose it. |
+| **Retract height** | Sets the Z height used for retract moves where the operation exposes it. |
+
+## Speeds and feeds
+
+| Setting | Use |
+| --- | --- |
+| **Feed** | Sets the cutting feed rate. |
+| **Plunge feed** | Sets the feed rate used while entering material. |
+| **RPM** | Sets spindle speed. |
+| **Feed reduction** | Chooses whether the operation reduces feed for fully engaged cuts or according to cutter engagement. |
+
+## Strategy
+
+| Setting | Use |
+| --- | --- |
+| **Pattern** | Chooses the clearing or finishing pattern when the operation offers one. |
+| **Cut direction** | Chooses conventional or climb milling where applicable. |
+| **Machining order** | Chooses **Feature First** or **Level First** for an operation that supports both. |
+| **Stepover ratio** | Sets lateral spacing as a fraction of the selected tool diameter. |
+
+## Advanced overrides
+
+This group holds controls that only apply to a selected strategy, such as a trochoidal cut width
+and advance. A 3D finish operation can also place its advanced finishing controls here.
+
+## Entry and retract
+
+| Setting | Use |
+| --- | --- |
+| **Entry strategy** | Chooses a plunge, helix, or ramp for operations that support a controlled entry. |
+| **XY approach & exit** | Adds an approach and exit where the operation can safely carry them. |
+| **Retract height** | Sets the drilling retract height. |
+
+## Corners
+
+The **Corners** group appears for compatible clearing and edge-route operations. It can expose
+corner rounding, rounded ring links, wall-corner cleanup, and corner relief; their availability
+also depends on the selected pattern and pass.
+
+## Drilling
+
+Only **Drill** shows this group. It contains **Drill type** and the settings required by the
+chosen cycle, such as **Peck depth**, **Dwell time**, or **Countersink diameter**.
+
+## Output
+
+**Arc fitting** controls whether compatible paths are emitted with arc commands. Its effect also
+depends on the selected machine’s post-processor.
+
+<Aside type="caution" title="Tool defaults are starting values">
+Changing a tool or accepting its defaults does not prove that the settings are safe for the stock, machine, or workholding. Check the cutter limits and every enabled operation before machining.
+</Aside>
+
+## Related pages
+
+- [Working with operations](/guide/cam-setup/working-with-operations/): add, target, order, and generate operations.
+- [Tool library](/guide/cam-setup/tool-library/): maintain the tools and defaults operations use.
+- [Choosing an operation](/guide/operations/): select an operation for a feature.

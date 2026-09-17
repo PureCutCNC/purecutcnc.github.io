@@ -1,0 +1,68 @@
+---
+title: Working with operations
+description: Add, edit, order, target, and generate the operations that make your project’s toolpaths.
+pageType: task
+availability: stable
+status: draft
+---
+
+import { Aside, Steps } from '@astrojs/starlight/components';
+
+An operation connects selected features, a tool, and cutting settings to a toolpath. Use the **CAM** panel to add operations, then review their targets and settings before you generate or export anything.
+
+## Before you start
+
+- Create the features and stock that you want to machine, and add the required tools to the project.
+- Read [Features, roles, and depth](/guide/fundamentals/features-and-roles/) to understand why an operation accepts only particular feature roles and shapes.
+- Read [Working safely](/guide/start-here/safety/) before preparing a job for a machine.
+
+## Adding
+
+<Steps>
+
+1. Open the **CAM** panel, select **Operations**, then select **Add**.
+
+2. Review the compatible choices in the 2D or 3D group. The menu can offer **Rough**, **Finish**, or **Both** when an operation supports separate passes; it also identifies choices unavailable for the current selection.
+
+   Each information card explains the target requirement. Use **Select all compatible** when the
+   current selection contains several valid features; review the separate unavailable section
+   rather than treating it as an operation recommendation.
+
+3. Select an operation and pass. It is added to the operations list with the current compatible selection as its target.
+
+4. Select the new row to edit its properties. Use [Choosing an operation](/guide/operations/) when you need help matching the operation to the feature and intended cut.
+
+</Steps>
+
+## Context menu
+
+Use a feature’s context menu to create a compatible operation, or to add that feature to and remove it from an existing operation. The menu offers **Create operation**, **Add to operation**, and **Remove from operation** only when the selected feature is compatible.
+
+## Targets
+
+You can also select an operation and use **Use current selection** in **What it cuts** to replace its target. A stock target is used only by operations that offer it; a region in a valid feature target limits where the operation may cut rather than becoming a cut itself.
+
+If an option is unavailable, check the feature’s role, whether its profile is closed, and the operation’s requirements. A region can limit where an operation cuts, but it is not itself a shape to machine; see [Regions](/guide/fundamentals/regions/).
+
+## List
+
+The **Operations** list is the machining order. Drag a row to reorder it, use its controls to enable or disable it, and show or hide its toolpath. The header’s **Show all toolpaths** and **Hide all toolpaths** controls change every operation at once. Duplicate an operation when you need a related variation, or delete one that is no longer part of the plan. The expanded view also provides per-operation G-code and setup-booklet exports.
+
+<Aside type="caution" title="Order changes affect the job">
+An operation list is not just an organization tool: it controls the order in which the planned cuts run. After reordering, confirm that internal cuts, finishing passes, and separating outside cuts still occur in an order suitable for the material and workholding.
+</Aside>
+
+## Generation
+
+Toolpaths generate when an enabled operation is visible. A row reports whether its toolpath is up to date, generating, paused, or failed. Use the generation controls to stop, resume, or retry a calculation, and use the generation settings to choose the main-thread backend or the experimental background-thread backend.
+
+<Aside type="danger" title="Safety: inspect every generated toolpath">
+A visible toolpath is not proof that the machine can run it safely. Before machining, check the target, tool, depths, entry and retract moves, clearances, tabs, and workholding; then inspect the result in [Toolpath preview](/guide/verify-export/toolpath-preview/) and follow the dry-run guidance in [Working safely](/guide/start-here/safety/).
+</Aside>
+
+## Related pages
+
+- [CAM Plan](/guide/cam-setup/cam-plan/): start from an editable set of suggested operations and tools.
+- [Tool library](/guide/cam-setup/tool-library/): add and maintain the tools operations can use.
+- [Common operation parameters](/guide/operations/common-parameters/): understand settings shared by operations.
+- [Choosing an operation](/guide/operations/): select the right operation for a feature.

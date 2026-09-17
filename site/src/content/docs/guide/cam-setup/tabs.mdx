@@ -1,0 +1,46 @@
+---
+title: Tabs
+description: Hold an edge-routed part in its stock with rectangular or smooth tabs, then inspect the resulting cut.
+pageType: task
+availability: stable
+status: draft
+---
+
+import { Aside, Steps } from '@astrojs/starlight/components';
+
+Tabs leave small bridges of material so an edge-routed part stays attached to its stock until you
+remove it safely after machining.
+
+## Before you start
+
+- Create an **Edge route inside** or **Edge route outside** operation for the intended contour.
+- Decide how the stock will remain supported after the final contour is cut.
+
+## Add and adjust tabs
+
+<Steps>
+
+1. Select the **Tabs** node and add tabs automatically or place them manually on the contour.
+
+2. Choose a rectangular or smooth tab shape and set its dimensions.
+
+3. Select the edge-route operation and confirm that its **Tabs** setting uses the intended tab set.
+
+4. Inspect the toolpath and simulation before exporting.
+
+</Steps>
+
+Bulk edit changes matching tabs together. Use manual placement when automatic placement would put a
+tab near a clamp, a corner, or a feature that needs a clean edge.
+
+<Aside type="caution" title="Tabs intentionally block the final depth">
+	A tab prevents the route from cutting fully through at that location. The app warns when a tab
+	blocks the final depth or is outside the cut; correct the warning instead of assuming the part
+	will remain held safely. A smooth tab can fall back to a rectangular shape for a trochoidal edge
+	route.
+</Aside>
+
+## Related pages
+
+- [Edge route outside](/guide/operations/edge-route-outside/): cut a part free while keeping tabs.
+- [Clamps and clearances](/guide/cam-setup/clamps-and-clearances/): keep tabs and contours clear of workholding.
