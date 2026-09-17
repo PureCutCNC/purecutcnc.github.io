@@ -1,219 +1,198 @@
 ---
 title: Quick Start
-description: Go from a blank PureCut CNC project to exported G-code by sketching a part, adding a pocket operation, and previewing the toolpath.
+description: Draw a part with a circular pocket, add a rough pocket operation, inspect its toolpath, and export G-code for a machine-side check.
 pageType: tutorial
 availability: stable
 status: draft
 ---
 
 import { Aside } from '@astrojs/starlight/components';
-import AppIcon from '../../components/AppIcon.astro';
 import Screenshot from '../../components/Screenshot.astro';
 import newProject from '../../assets/manual/quickstart/new-project.png';
 import newRect from '../../assets/manual/quickstart/new-rect.png';
 import newCircle from '../../assets/manual/quickstart/new-circle.png';
-import circleProperties from '../../assets/manual/quickstart/circle-properties.png';
 import importTool from '../../assets/manual/quickstart/import-tool.png';
 import addPocketRough from '../../assets/manual/quickstart/add-pocket-rough.png';
 import previewSketch from '../../assets/manual/quickstart/preview-sketch.png';
 import preview3d from '../../assets/manual/quickstart/preview-3dview.png';
 import previewSimulation from '../../assets/manual/quickstart/preview-simulation.png';
-import exportGcode from '../../assets/manual/quickstart/export-gcode.png';
 
-Follow along to sketch a part, assign a machining operation, preview the toolpath, and export
-G-code — all in PureCut CNC.
+This walkthrough takes a blank project to exported G-code: a rectangular part with a circular
+pocket, cut with a 1/4″ endmill. It takes about ten minutes. You need PureCut CNC open in a
+desktop or tablet browser, or the desktop app; see
+[Install and open PureCut CNC](/guide/start-here/install-and-open/).
+
+The screenshots on this page come from an earlier version of the app, so some labels and panels
+differ from what you see. The steps describe the app as it is.
 
 ## How it works
 
-The model is the toolpath.
+The Quick Start explains only what its steps need. Three ideas carry it:
 
-- **Features are the building blocks.** You build a part by adding and subtracting 2D shapes —
-  rectangles, circles, polygons, imported curves — in the Sketch view. Each shape is a feature.
-- **Z top and Z bottom define the 3D shape.** Every feature has a vertical extent. Z top is where
-  the feature starts (the surface) and Z bottom is where it ends (the floor). These same values
-  directly control how deep machining operations cut — there are no separate depth fields to set.
-- **Feature type determines which operations apply.** An _additive_ feature represents material
-  that is present (for example, a raised boss). A _subtractive_ feature represents material that
-  is removed (for example, a pocket). The available operation types — pocket, contour, facing —
-  adapt accordingly.
-- **Features can be combined.** Overlapping features are merged into composite shapes. You can
-  also resize, move, and re-order features at any time; the model and toolpaths update to reflect
-  the change.
-- **Order matters.** Features are applied in the order they appear in the feature tree — top to
-  bottom. You can reorder them by dragging. The first feature must always be an _additive_ one
-  (it defines the base material to work from); the app marks it with a lock icon to indicate it
-  cannot be moved below any subtractive feature.
-- **Visibility drives calculation.** Making an operation visible in the feature tree is what
-  triggers its toolpath to be computed and shown in the 3D view. There is no separate Compute button.
+- Every shape you draw is a feature. Its role, add or subtract, says whether it is material or
+  a cavity, and its **Z top** and **Z bottom** say where it starts and ends vertically.
+- An operation turns selected features into a toolpath, using a tool from the project's tool
+  list.
+- The stock, origin, units, tools, machine, and operations are all saved in the project file.
 
-<div class="pc-steps">
+[Features, roles, and depth](/guide/fundamentals/features-and-roles/) and
+[Stock, origin, and units](/guide/fundamentals/stock-origin-units/) explain these in full.
 
 ## Create a new project
 
-Open PureCut CNC and click <AppIcon name="new" /> **New Project**. The dialog asks for a project
-name and a template. Select the **Blank Imperial** template ("Empty project in inches.") — the
-preview on the right confirms Units: **Inch** and a default Stock of **4 × 3 × 0.75**. Click
-**Create Project**.
+Click **New project** in the top toolbar. In the **New project** dialog, select the **Blank
+imperial** template ("Empty project in inches."). The **Template preview** lists inch units, a
+4 × 3 × 0.75 stock, and no machine. Click **Create project**.
 
-You land on the **Sketch** view with an empty canvas and a feature tree on the left. The default
-stock Z top of **0.75 in** is inherited by any features you create.
+The workspace opens in **Sketch** with an empty canvas. The origin sits at the lower-left corner of
+the stock, on its top surface.
 
-<Screenshot src={newProject} alt="New Project dialog with the Blank Imperial template selected" />
+<Screenshot src={newProject} alt="New project dialog with the Blank imperial template selected and a preview listing inch units, a 4 × 3 × 0.75 stock, and no machine" />
 
 ## Add the outer boundary rectangle
 
-In the toolbar, click the **Rectangle** tool. Click once on the canvas to place the first corner,
-then click again to set the opposite corner. Use the dimension inputs to lock the size to an exact
-value — for example, **4 × 3 inches**.
+In the tool rail, choose the creation target that makes features (its tooltip reads **Create
+features**), then choose **Rectangle** in the shape drawer. When the workflow panel asks you to
+**Click first corner**, click about 0.5 in inside the top-left corner of the stock. At **Click
+opposite corner or enter dimensions**, click **Dimensions** and enter a **Width** of 3 and a
+**Height** of 2.
 
-This rectangle defines the outer boundary of the model. Once placed, it appears as a feature in
-the tree. You can click it to select it and edit its dimensions in the properties panel at any time.
+<Screenshot src={newRect} alt="Sketch view with a pending 3 × 2 rectangle inside the stock outline, and the Rectangle workflow panel asking for the opposite corner or dimensions" />
 
-<Screenshot src={newRect} alt="Canvas with a rectangle drawn and its feature shown in the tree" />
+The rectangle appears in the feature tree. As the first solid in the project it is always an add
+feature: the material that remains. The stock around it is what an outside edge route would cut
+away later.
 
 ## Add a circle inside the rectangle
 
-Select the **Circle** tool. Click the center of the rectangle to place the origin, then drag
-outward to set the radius. A 1-inch radius works well inside a 4 × 3 boundary.
+Choose **Circle**. At **Click center point**, click the centre of the rectangle. At **Click to set
+radius or enter dimensions**, click **Dimensions** and enter a **Radius** of 0.75.
 
-With the circle selected, open its properties panel. The **Z top** will already be set to
-**0.75 in** (inherited from the stock). Set the **Z bottom** field to **0.5 in**. This means the
-floor of the pocket sits at 0.5 in — a cut depth of 0.75 − 0.5 = **0.25 in**.
+<Screenshot src={newCircle} alt="Sketch view with a circle being drawn inside a rectangle at radius 0.75, and the Circle workflow panel offering Dimensions and Cancel" />
+
+Because the circle lies inside an add feature, PureCut CNC makes it a subtract feature. Select it
+and check its properties: **Operation** reads **Subtract**, and **Z top** is 0.75, the top of the
+stock. Set **Z bottom** to 0.5. The pocket floor is then 0.5 in above the bottom of the stock, so
+the pocket is 0.25 in deep.
 
 <Aside title="Z is a coordinate, not a depth">
-	Z bottom is the absolute elevation of the pocket floor, not how deep to cut. The actual cutting
-	depth is always Z top minus Z bottom. In this case: 0.75 − 0.5 = 0.25 in.
+	**Z bottom** is where the pocket floor is, not how deep to cut. The depth is **Z top** minus
+	**Z bottom**: 0.75 − 0.5 = 0.25 in.
 </Aside>
-
-<Screenshot src={newCircle} alt="Circle centered in the rectangle" />
-
-<Screenshot
-	src={circleProperties}
-	alt="Circle properties panel with Z bottom set to 0.5"
-	maxWidth={360}
-/>
 
 ## Import a 1/4″ endmill from the tool library
 
-Click the **Tools** tab in the right-hand panel, then click **Import from library…** A dialog opens
-with the bundled library of standard metric and imperial tools. Type `1/4` in the search box,
-or use the type and unit filters to narrow the list.
+Open the **Tools** tab in the CAM panel and click **Import from library…**. The **Import tools
+from library** dialog lists 34 bundled metric and imperial tools. Type `1/4` in the search box,
+tick **1/4" Endmill**, and click **Import tool**. Tools already in the project are marked **In
+project**, so you do not import them twice.
 
-Tick the **1/4" Endmill** row and click **Import tool**. The tool is now in the project's tool list
-and can be assigned to any operation. You can tick several rows at once — the button counts what
-you have selected — and anything already in the project is badged **In project** so you don't
-import it twice. The [Tool library](/guide/cam-setup/tool-library/) page covers the dialog in detail.
+<Screenshot src={importTool} alt="Empty Tools list in the CAM panel with the Add tool and Import from library buttons" maxWidth={320} />
 
-<Screenshot
-	src={importTool}
-	alt="The Tools tab in the CAM panel, with the Import from library button"
-	maxWidth={320}
-/>
+Check that the tool's diameter and type match the cutter you will put in the spindle. Library
+values are a starting point, not a measurement of your tool. The
+[Tool library](/guide/cam-setup/tool-library/) page covers the dialog in detail.
 
 ## Create a rough pocket operation
 
-Select the circle in the feature tree (or on the canvas), then click **Add** in the Operations
-panel. From the operation type dropdown, choose **Pocket Rough**.
+Select the circle on the canvas or in the feature tree. Open the **Operations** tab, click **Add**,
+and on the **Pocket** row click **Rough**. The Add menu lists the operations your selection can
+use first. **Finish** would add a finishing pass instead, and **Both** adds one of each.
 
-In the operation settings, assign the **1/4" Endmill** you just imported. Review the default
-stepover and stepdown values — the app pre-fills sensible defaults based on the tool diameter.
-Leave them as-is for this walkthrough.
+<Screenshot src={addPocketRough} alt="Add menu open on the Pocket row, with Rough, Finish, and Both buttons above the Pocket description and its key points" maxWidth={420} />
 
-To calculate the toolpath and see it in the 3D view, make the operation **visible** by toggling its
-visibility icon in the feature tree. The toolpath is computed automatically whenever the operation
-is visible.
+The new **Pocket Rough** operation appears in the operations list. Select it to see its settings.
+PureCut CNC chooses a suitable tool from the project; check that **Tool** shows **1/4" Endmill**.
+Then look at **Stepdown**, **Stepover ratio**, **Feed**, **Plunge feed**, and **RPM**. They start
+from the tool's defaults, which are not a recommendation for your material or machine. For this
+walkthrough you can leave them as they are.
 
-<Aside type="tip" title="Optional: don't plunge straight in">
-	Open **Advanced** → **Entry** in the operation's settings and set **Entry Strategy** to
-	**Helix**. The tool then spirals down into each level instead of dropping vertically — easier on
-	the cutter, and clearly visible in the 3D preview. See [Entry
-	Moves](/guide/cam-operations.html#entry-moves).
+A new operation's toolpath is generated and shown straight away. The eye button on the operation's
+row hides and shows it.
+
+<Aside type="tip" title="Optional: spiral into the cut instead of plunging">
+	In the operation's **Entry & retract** group, set **Entry strategy** to **Helix**. The tool
+	then spirals down into each level instead of dropping straight in, which is easier on the
+	cutter and easy to see in the 3D view. See
+	[Entry and exit moves](/guide/strategies/entry-and-exit/).
 </Aside>
-
-<Screenshot
-	src={addPocketRough}
-	alt="Operations panel showing the Pocket Rough operation assigned to the circle with the 1/4″ endmill selected"
-	maxWidth={420}
-/>
 
 ## Preview the toolpath
 
-The workspace has three tabs — **Sketch**, **3D View**, and **Simulation** — and you can switch
-between them freely at any point.
+Switch between the **Sketch**, **3D view**, and **Simulation** tabs above the canvas at any time.
 
-In **Sketch** you can still see the geometry and the feature tree, and go back to tweak any feature
-or operation parameter. In **3D View** the pocket toolpath renders as colored lines over the stock
-block — rapid moves in one color, cutting passes in another. Use the mouse to orbit, zoom, and pan
-to inspect the path from any angle; zoom follows whatever is under the pointer. In **Simulation**
-you can watch the tool move through the material and see the machined result.
+- **Sketch** draws the toolpath over the features. You can still change any feature or operation
+  here.
+- **3D view** draws the toolpath over the stock and the model. Drag to orbit and scroll to zoom
+  at the pointer; the camera menu has the standard views.
+- **Simulation** removes material from the stock along the toolpath. In **Selected** mode, with
+  the operation selected, **Play** runs the tool through the cut.
 
-The small toolbar in the corner of either view — marked with the G-code icon — filters what the
-preview draws: cuts, lead-ins, rapids, plunges, retractions, and direction arrows. Turn the cuts
-off to look at just the entry moves, or collapse the toolbar entirely to clear the toolpaths out of
-both views and see the part on its own. Your choices come back when you expand it again.
+The toolpath display controls choose which moves are drawn: **Cuts**, **Lead-ins**, **Rapids**,
+**Plunges**, **Retractions**, and **Directions**. Turn off the cuts, for example, to look at just
+the entry moves.
 
-If anything looks wrong — unexpected depth, toolpath outside the boundary, missed area — switch
-back to **Sketch**, adjust the feature or operation, and the toolpath will recompute automatically.
+<Screenshot src={previewSketch} alt="Sketch view with the pocket toolpath drawn as concentric rings inside the circle, over the rectangle" />
 
-<Screenshot src={previewSketch} alt="Sketch view with the pocket feature and operation visible in the tree" />
-<Screenshot src={preview3d} alt="3D View showing the Pocket Rough toolpath over the stock block" />
-<Screenshot src={previewSimulation} alt="Simulation view showing the machined result" />
+<Screenshot src={preview3d} alt="3D view of the stock and the raised rectangle, with the circular pocket's toolpath drawn as concentric rings" />
+
+<Screenshot src={previewSimulation} alt="Simulation view showing the stock after the pocket toolpath has removed material" />
+
+Use the preview to answer specific questions. Does the pocket stop at the floor you set? Does the
+toolpath stay inside the circle? Does the tool enter and leave where you expect? If anything looks
+wrong, go back to **Sketch**, change the feature or operation, and look again. The toolpath is
+generated again after each change.
 
 ## Select a machine and export G-code
 
-In the feature tree, click the top-level **Project** entry to open the project properties panel.
-Find the **Machine** dropdown and select **Mach3**. This sets the post-processor; PureCut CNC will
-format the output with the dialect, units, and header/footer that Mach3 expects.
+A new project has no machine. Select **Project** at the top of the feature tree and set
+**Machine** to the definition for your controller, for example **Mach3**. The machine sets the
+G-code dialect, the units commands, and the file extension.
 
-Click **Export G-code**. The browser downloads a file ready to load directly into Mach3. Open it in
-a text editor to review the output before running it on your machine.
+In the CAM panel, click **Export**. The **Export G-code** dialog shows:
 
-<Aside type="danger" title="Safety: Verify before cutting">
-	Review the G-code in Mach3's toolpath display or run a dry cycle with the spindle off before
-	making contact with material.
+- **Machine**, with **Change** to choose a different one;
+- **Origin**: export uses the current project origin as machine X0 Y0 Z0;
+- **Project units**;
+- **Operations**: the operations to export. An operation that is off or has no tool cannot be
+  ticked. **Pocket Rough** starts ticked because its toolpath is shown;
+- **Options**, any **Errors** and **Warnings**, and **Preview (first 30 lines)** of the program.
+
+Check each of them, then click the export button (**Export .tap** for Mach3) and save the file.
+Open the file in your controller or a G-code viewer and compare it with your setup.
+
+<Aside type="danger" title="Safety: verify before cutting">
+	A preview and an exported file do not prove a job is safe. Check the program in your
+	controller, confirm that the work zero matches the project origin, and run the job with the
+	spindle off and the tool above the stock before cutting material. See
+	[Working safely](/guide/start-here/safety/).
 </Aside>
-
-<Screenshot
-	src={exportGcode}
-	alt="Project properties panel with Machine set to Mach3 and the Export G-code button visible"
-/>
-
-</div>
 
 ## Your turn
 
-You've got a project with a rough pocket operation on the circle. Here are a few things to try on
-your own — each one builds on what you just learned.
+You have a project with a rough pocket in a rectangular part. Each of these builds on it:
 
-1. **Leave some material.** Edit the Pocket Rough operation and set a radial and axial
-   stock-to-leave value, so the finish pass has something to clean up.
-2. **Add a finish pass.** Create a **Pocket Finish** operation on the same circle to clean up the
-   floor and walls to final size.
-3. **Route the outside rough.** Select the outer rectangle and add an **Edge route outside Rough**
-   operation to rough-cut the part boundary.
-4. **Route the outside finish.** Add an **Edge route outside Finish** operation on the same
-   rectangle to bring the perimeter to final dimension.
-5. **Add tabs so the part doesn't fly off.** Select the edge route operation and use the **Auto
-   place tabs** button in the operation properties to let the app place them automatically — or
-   add them manually from the project tree.
-6. **Add clamps on the left and right.** Use the clamp options in the project tree to place clamps
-   on both sides of the stock. Set their Z top to **1 in** so the tool clears them on rapid moves.
-7. **Try trochoidal roughing.** On the outside rough edge route, set **Strategy** to
-   **Trochoidal** and watch the toolpath turn into overlapping loops. See [Trochoidal
-   Cutting](/guide/cam-operations.html#trochoidal).
-8. **Relieve a corner.** Draw a square pocket instead of the circle, add a Pocket operation, and set
-   **Corner Relief** to **Dogbone** — now a square-cornered part will actually seat in it. See
-   [Corner Relief](/guide/cam-operations.html#corner-relief).
+1. **Leave material for a finish pass.** In **Pocket Rough**, set **Stock to leave radial** and
+   **Stock to leave axial** so a later pass has something to clean up.
+2. **Add a finish pass.** Select the circle again and add **Pocket** > **Finish**.
+3. **Rough the outside.** Select the rectangle and add **Edge route outside** > **Rough**.
+4. **Finish the outside.** Add **Edge route outside** > **Finish** on the same rectangle.
+5. **Hold the part with tabs.** Select the outside route and click **Auto place tabs** in its
+   settings. See [Tabs](/guide/cam-setup/tabs/).
+6. **Add clamps.** Under **Clamps** in the feature tree, use **Add clamp** to place a clamp on each
+   side of the stock, then check that the toolpaths clear them. See
+   [Clamps and clearances](/guide/cam-setup/clamps-and-clearances/).
+7. **Try trochoidal roughing.** In the outside rough route, set **Strategy** to **Trochoidal**.
+   See [Trochoidal cutting](/guide/strategies/trochoidal-cutting/).
+8. **Relieve square corners.** Draw a square pocket instead of the circle, add a pocket, and set
+   **Corner relief** to **Dogbone** so a square-cornered part fits into it. See
+   [Corner rounding and relief](/guide/strategies/corners/).
 
 ## Next steps
 
-You're ready to cut. That's the full workflow — project, geometry, tool, operation, preview, export. From here, explore
-more feature types, try a contour or drilling operation, or import your own geometry from SVG, DXF,
-STL, or OBJ, or pull folders in from an existing `.camj` project — including imported 3D models for
-the 3D Surface rough, finish, and cleanup operations.
-
-Then start on _how_ the cut happens: helix and ramp entries, trochoidal roughing and slotting,
-helical boring, and corner relief are all covered in [Machining
-Operations](/guide/cam-operations.html).
-
-[Open PureCut CNC](/app/) in a desktop or tablet browser, or get a [desktop build](/downloads/).
+- [Working safely](/guide/start-here/safety/): the checks that remain before any cut.
+- [The workspace](/guide/fundamentals/workspace/): the views, panels, and navigation used here.
+- [Features, roles, and depth](/guide/fundamentals/features-and-roles/): how roles and Z values
+  build the model.
+- [Tool library](/guide/cam-setup/tool-library/): importing and editing tools.
+- [Pocket](/guide/operations/pocket/): every pocket setting and pattern.

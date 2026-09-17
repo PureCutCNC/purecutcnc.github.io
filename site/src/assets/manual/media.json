@@ -42,28 +42,8 @@
 		"locale": "en",
 		"status": "reshoot"
 	},
-	"quickstart/circle-properties.png": {
-		"shows": "Circle properties with Z bottom set to 0.5",
-		"source": "legacy-guide",
-		"appCommit": null,
-		"fixture": null,
-		"viewport": null,
-		"theme": "dark",
-		"locale": "en",
-		"status": "reshoot"
-	},
-	"quickstart/export-gcode.png": {
-		"shows": "Project properties with Machine set to Mach3 and the export button",
-		"source": "legacy-guide",
-		"appCommit": null,
-		"fixture": null,
-		"viewport": null,
-		"theme": "dark",
-		"locale": "en",
-		"status": "reshoot"
-	},
 	"quickstart/import-tool.png": {
-		"shows": "Tools tab with the Import from library button",
+		"shows": "Empty Tools list in the CAM panel with the Add tool and Import from library buttons",
 		"source": "legacy-guide",
 		"appCommit": null,
 		"fixture": null,
@@ -73,7 +53,7 @@
 		"status": "reshoot"
 	},
 	"quickstart/new-circle.png": {
-		"shows": "Circle centred in the rectangle",
+		"shows": "Circle being drawn inside the rectangle at radius 0.75, with the Circle workflow panel",
 		"source": "legacy-guide",
 		"appCommit": null,
 		"fixture": null,
@@ -93,7 +73,7 @@
 		"status": "reshoot"
 	},
 	"quickstart/new-rect.png": {
-		"shows": "Rectangle on the canvas and its feature in the tree",
+		"shows": "Pending 3 × 2 rectangle inside the stock, with the Rectangle workflow panel",
 		"source": "legacy-guide",
 		"appCommit": null,
 		"fixture": null,
@@ -123,7 +103,7 @@
 		"status": "reshoot"
 	},
 	"quickstart/preview-sketch.png": {
-		"shows": "Sketch view with the pocket feature and its operation",
+		"shows": "Sketch view with the pocket toolpath inside the circle",
 		"source": "legacy-guide",
 		"appCommit": null,
 		"fixture": null,

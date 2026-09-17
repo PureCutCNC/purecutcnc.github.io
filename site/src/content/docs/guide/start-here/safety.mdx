@@ -1,0 +1,71 @@
+---
+title: Working safely
+description: Understand the operator checks that remain necessary after PureCut CNC generates a toolpath.
+pageType: concept
+availability: stable
+status: draft
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+PureCut CNC helps you inspect a job; it does not certify that the job is safe to run. Preview,
+simulation, warnings, and G-code export are verification aids. The operator remains responsible
+for the machine, workholding, stock, tooling, controller setup, and physical test procedure.
+
+## Main idea
+
+Treat every generated toolpath as a claim to inspect, not permission to cut. A path that looks
+reasonable on screen can still be wrong for the installed cutter, stock position, fixture,
+controller mode, work offset, or machine limits.
+
+PureCut CNC does not decide safe feeds, spindle speed, tool limits, controller capabilities, or
+machine setup for you. Keep project units, origin, machine selection, and post-processor choice
+explicit, because each affects the physical motion described by the exported program.
+
+## Review before export
+
+Before exporting, confirm:
+
+- The project units and stock dimensions match the material at the machine.
+- The project origin and the machine work offset use the same zeroing plan.
+- Every selected operation targets the intended geometry and has the intended tool.
+- The tool diameter, length, feed, plunge feed, spindle speed, and machine capability match the
+  actual setup.
+- Tabs, clamps, clearance heights, entry moves, retracts, and rapid moves are suitable for the
+  fixture and tool.
+- Warnings are understood and resolved rather than dismissed to make output look valid.
+
+Use the export dialog's operation checklist to verify exactly which valid operations will be
+included. Do not infer the exported set from a tree visibility state alone.
+
+## Review the generated result
+
+Use **Sketch**, **3D view**, and **Simulation** to inspect a change before export. Check material
+removal, depth, entries, exits, rapids, and clearance around fixtures. When a feature, tool,
+origin, machine, or operation changes, regenerate and review again; a previous preview no longer
+answers the new question.
+
+After export, open the G-code in the controller or another appropriate viewer. Check the program
+against the selected machine, origin, expected units, tool changes, and safe-Z behavior before it
+reaches the machine.
+
+## Test at the machine
+
+Set up the real stock and workholding, establish the work offset, and verify the installed tool.
+Use the machine's normal dry-run or air-cut procedure with the spindle off before allowing the
+tool to contact material. Stay ready to stop the machine while proving a new or changed job.
+
+<Aside type="danger" title="Safety: never rely on the screen alone">
+	Simulation cannot see a loose clamp, the wrong tool in the spindle, a controller setting, or an
+	incorrect physical zero. Resolve uncertainty at the machine before cutting.
+</Aside>
+
+## Related pages
+
+- [Quick Start](/quickstart/) shows where to inspect and export a simple operation.
+- [Stock, origin, and units](/guide/fundamentals/stock-origin-units/) covers the coordinate setup
+  that must match the machine.
+- [3D view](/guide/verify-export/3d-view/) and [Simulation](/guide/verify-export/simulation/)
+  explain what each view shows and how to read it.
+- [Exporting G-code](/guide/verify-export/gcode-export/) covers the export dialog and its
+  messages.
