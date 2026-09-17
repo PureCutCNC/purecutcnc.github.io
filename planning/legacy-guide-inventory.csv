@@ -41,7 +41,7 @@ guide/concepts,features,Features,87,,incomplete,merge,/guide/fundamentals/featur
 guide/concepts,z-coordinates,Z Top and Z Bottom,172,,incomplete,migrate,/guide/fundamentals/features-and-roles/#z-range,W1,fund.z-range,
 guide/concepts,add-subtract,Feature Operations,211,,stale,rewrite,/guide/fundamentals/features-and-roles/#roles,W1,fund.feature-roles,"Six roles, closed lines, STEP models."
 guide/concepts,regions,Regions,524,,incomplete,migrate,/guide/fundamentals/regions/,W1,fund.regions,Add mask limits.
-guide/concepts,construction,Construction Geometry,195,,accurate,migrate,/guide/fundamentals/construction-geometry/,W1,fund.construction,
+guide/concepts,construction,Construction Geometry,195,,accurate,migrate,/guide/fundamentals/construction-geometry/,W1,fund.status-bar;fund.construction,
 guide/concepts,tree-order,Feature Tree Order,131,,incomplete,migrate,/guide/fundamentals/features-and-roles/#order,W1,fund.tree-order,
 guide/concepts,feature-references,Feature References (Linked Instances),341,,stale,rewrite,/guide/fundamentals/linked-features/,W1,fund.context-menus;fund.linked-features,Nonexistent duplicate menu items.
 guide/concepts,visibility,Visibility and Toolpath Calculation,67,,stale,split,/guide/fundamentals/feature-tree/#visibility,W1,fund.visibility-lock;cam.generation,Generation part → /guide/cam-setup/working-with-operations/#generation.
