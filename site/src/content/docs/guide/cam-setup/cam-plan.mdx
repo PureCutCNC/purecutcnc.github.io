@@ -1,0 +1,46 @@
+---
+title: CAM Plan
+description: Review suggested operations, tools, rest passes, and shared tabs before adding them to a project.
+pageType: task
+availability: preview
+status: draft
+---
+
+import { Aside, Steps } from '@astrojs/starlight/components';
+
+Use CAM Plan to make a starting set of operations from the features already in your project. It proposes compatible operations and tools, but does not create or change operations until you review the plan and choose **Create operations**.
+
+## Before you start
+
+- Set up the stock and create the features you intend to machine. CAM Plan bases its recommendations on their role, closed shape, depth, and whether they reach the stock bottom.
+- Add suitable tools to the project or keep the bundled tool library available. A proposed operation needs a compatible tool with enough cutting depth before it can be created.
+- Read [Working safely](/guide/start-here/safety/) before preparing a job for a real machine.
+
+## Create a CAM Plan
+
+<Steps>
+
+1. Open the **CAM** panel and select **Plan**. The **CAM Plan** dialog opens with a summary of proposed operations, tools, existing operations, and features that need review.
+
+2. Read each item in **Recommended plan**. CAM Plan can suggest rough and finish passes for pockets and edge routes, drilling for matching circular subtracts, surface operations for supported imported models, and shared tabs for matching separating edge cuts. Existing operations stay unchanged.
+
+3. Select a proposed operation to inspect its reason, tool choice, target, and main parameters. Change values where the proposal does not match your material, cutter, machine, or intended result.
+
+4. Clear an operation's inclusion checkbox to leave it out. If the plan lists a feature under **Needs explicit review**, either enable an operation that covers it or confirm that no created operation will cover that feature.
+
+5. Use **Refresh recommendations** after changing the project or when an operation’s rest pass is marked stale. Move an operation only when its dependencies still allow the order; the dialog prevents moves that would place an operation before one it depends on.
+
+6. Check shared tab dimensions and whether tabs are enabled for every separating edge cut. Then select **Create operations** to add the included, valid operations together.
+
+</Steps>
+
+<Aside type="danger" title="Safety: verify every proposed cut before machining">
+CAM Plan recommendations can be incomplete or unsuitable for your stock, cutter, workholding, or machine. Before running the machine, verify each enabled operation’s target, tool, depth, feeds, entry, tabs, and order; then inspect the toolpaths and perform the normal dry-run and workholding checks in [Working safely](/guide/start-here/safety/).
+</Aside>
+
+## Related pages
+
+- [Tool library](/guide/cam-setup/tool-library/): add or inspect the tools CAM Plan can choose from.
+- [Working with operations](/guide/cam-setup/working-with-operations/): adjust operations after creating them from a plan.
+- [Tabs](/guide/cam-setup/tabs/): decide where separating cuts need tabs and how to configure them.
+- [Choosing an operation](/guide/operations/): learn which operation fits each feature and machining goal.
