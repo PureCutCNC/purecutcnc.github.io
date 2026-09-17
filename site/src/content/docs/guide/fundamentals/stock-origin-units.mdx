@@ -1,0 +1,78 @@
+---
+title: Stock, origin, and units
+description: Set the workpiece, job origin, and project units before creating toolpaths.
+pageType: task
+availability: stable
+status: draft
+---
+
+import { Aside, Steps } from '@astrojs/starlight/components';
+
+Set the stock, origin, and units before you create machining operations. They define the physical
+job that PureCut CNC displays and the coordinate information that it gives to the selected machine
+when you export G-code.
+
+## Stock
+
+<Steps>
+
+1. Select **Stock** in the feature tree.
+
+2. Set the width, height, thickness, and display colour for rectangular stock, or use a profile
+   when the stock needs a non-rectangular outline.
+
+3. Use the profile-stock controls to edit its sketch or reset it to a rectangle when appropriate.
+   You can also choose **Use as stock** from a compatible feature's context menu.
+
+4. Inspect the stock in **Sketch** and **3D view** before proceeding. Resize it by dimension when
+   the physical material changes.
+
+</Steps>
+
+Stock describes the workpiece, not its material grade or the clamps holding it. Set up clamps and
+their clearances separately before relying on a generated toolpath.
+
+## Origin
+
+<Steps>
+
+1. Select **Origin** in the feature tree.
+
+2. Choose an origin preset or use **Place origin** to set the XY location on the stock.
+
+3. Set or verify the origin's Z value so it matches the zeroing plan on the real machine.
+
+4. Before export, confirm the origin description in the export dialog matches the work offset and
+   touch-off procedure you will use at the machine.
+
+</Steps>
+
+The origin is the project coordinate reference sent with the export. It does not move the physical
+workpiece or set the machine's work offset for you.
+
+## Units
+
+Use the project-unit control in the status bar or the **Project** properties to change between
+metric and imperial units. PureCut CNC then opens the unit conversion dialog with two different
+choices:
+
+| Choice | What it does |
+| --- | --- |
+| **Convert values** | Preserves the physical size by converting the numbers, such as 1 in to 25.4 mm. This is the recommended choice for an existing job. |
+| **Keep values** | Keeps the same numbers but interprets them in the new unit, such as 1 in becoming 1 mm. Use it only when that reinterpretation is intentional. |
+
+Check the unit shown for every tool while reviewing an operation. A project-unit change is not a
+reason to assume a tool's dimensions or the real machine setup have been converted as intended.
+
+<Aside type="caution">
+**Keep values** can radically change the real-world size of stock, geometry, and machining
+settings. Inspect the stock, origin, tools, toolpaths, and exported G-code after choosing it.
+</Aside>
+
+## Related pages
+
+- [Projects and files](/guide/fundamentals/projects-and-files/) starts a project in the intended
+  unit system.
+- [Feature tree and properties](/guide/fundamentals/feature-tree/) locates the Stock, Origin,
+  and Project properties.
+- [Working safely](/guide/start-here/safety/) covers the final operator checks before a cut.

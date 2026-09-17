@@ -1,0 +1,53 @@
+---
+title: Tablet and touch
+description: Use the landscape tablet workspace, touch controls, and gestures without losing access to commands.
+pageType: reference
+availability: stable
+status: draft
+---
+
+PureCut CNC supports iPad-class tablets in landscape. Phone-sized touch devices are intentionally
+blocked because they do not provide a safe, workable canvas and command surface for a CNC project.
+
+## Tablet workspace
+
+The tablet shell keeps the active canvas or viewport central and puts project and CAM information
+in drawers that you can reopen. It provides touch-sized controls and preserves access to file,
+history, view, creation, selection, and CAM tasks without requiring a hover state or a keyboard
+modifier.
+
+| Control | Use on a tablet |
+| --- | --- |
+| Project and CAM drawers | Open a drawer when you need the feature tree, properties, operations, or tools, then close it to return space to the canvas. |
+| Tool rail and command surfaces | Choose drawing, arrangement, and selection commands with visible touch controls. |
+| Snap and measure popovers | Open their toolbar controls to adjust snapping or take a measurement. |
+| **Multi-select** | Use the visible toggle when selecting more than one object without a desktop modifier key. |
+| Rotate prompt | Turn the device to landscape when the app prompts for the supported working orientation. |
+
+## Touch navigation
+
+| Gesture | Result |
+| --- | --- |
+| Touch an object | Select or manipulate it when the active workflow allows it. |
+| Drag in empty canvas space | Pan without starting a geometry edit. |
+| Two-finger movement | Pan the view. |
+| Pinch with two fingers | Zoom the view while keeping the gesture centred on the canvas. |
+| Long-press or a visible more-action control | Open a contextual action where the surface provides one. |
+
+Touch and pen use the same project actions and workflow state as desktop input. The visible touch
+path is the reliable way to work: hover, right-click, double-click, and keyboard shortcuts are
+helpful desktop enhancements, not tablet-only requirements.
+
+## Workflow panels and focus
+
+Workflow panels work on tablet as they do on desktop. Follow the active step, use numeric entry
+when the command offers it, and apply or cancel the step before switching tasks. A dialog, drawer,
+or popup should return you to the canvas or control needed for the next step rather than losing an
+in-progress drawing state.
+
+## Related pages
+
+- [The workspace](/guide/fundamentals/workspace/) explains the common workspace controls.
+- [Feature tree and properties](/guide/fundamentals/feature-tree/) covers the project drawer.
+- [Keyboard shortcuts](/guide/reference/keyboard-shortcuts/) lists desktop shortcuts that do not
+  replace the tablet controls.

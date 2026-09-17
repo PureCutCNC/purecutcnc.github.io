@@ -1,0 +1,88 @@
+---
+title: Feature tree and properties
+description: Find project objects, adjust their properties, and use tree actions safely.
+pageType: reference
+availability: stable
+status: draft
+---
+
+The project panel combines a feature tree with a properties panel. Select an item in the tree to
+inspect it, change its available settings, or reveal the actions that apply to that selection.
+
+## The tree
+
+| Node | What it contains or controls |
+| --- | --- |
+| **Project** | Project-level settings, including the name and copy mode. |
+| **Grid** | Sketch grid settings and visibility. |
+| **Stock** | The workpiece size, shape, thickness, and display settings. |
+| **Origin** | The job origin that is used when the project is exported. |
+| **Backdrop** | A reference image, when the project has one. |
+| **Features** | Add, subtract, line, and imported-model features. |
+| **Regions** | Machining masks, kept separate from material features. |
+| **Construction** | Reference geometry that is not machined. |
+| **Tabs** | Tabs attached to compatible machining work. |
+| **Clamps** | Workholding geometry used for clearance checking. |
+
+The root rows provide **Show all** and **Hide all** actions where that visibility control makes
+sense. Folders can be expanded, collapsed, moved, and selected as a group.
+
+## Properties
+
+The properties panel changes with the selected row. It is the place to adjust an object's actual
+settings instead of treating the tree label or colour as its definition.
+
+| Selection | Examples of available properties |
+| --- | --- |
+| **Project** | Project name, units, and copy mode. |
+| **Stock** | Size, thickness, colour, and profile-stock controls such as editing the sketch or resetting it to a rectangle. |
+| **Origin** | Origin position, presets, and the Z value. |
+| **Feature** | Name, role, lock state, visibility, Z range, and role-specific settings. Imported models also expose orientation controls. |
+| **Region** | Mask mode and its sketch data. |
+| **Construction** | Its sketch data and display state. |
+| **Tab or clamp selection** | The applicable tab or clamp properties, including bulk editing for a multi-selection. |
+
+Use the expanded properties view when the available space in the panel is not enough to inspect a
+selection comfortably.
+
+## Folders and groups
+
+Folders organize Features, Regions, and Construction separately. A folder can hold a group so you
+can select or act on its members together. Grouping and folder assignment do not change a
+feature's role: a Region remains a mask and Construction remains reference geometry wherever it
+is organized.
+
+## Visibility
+
+The eye controls whether an item is shown in the workspace model and previews. Hiding an object is
+useful for inspection, but it is not a substitute for deciding what to export. Use the export
+dialog's operation checklist to confirm the G-code contents before saving the file.
+
+Lock a feature when its geometry should not be changed accidentally. Unlock it deliberately before
+using an edit or transform command. Visibility and locking are project settings, so save after a
+meaningful review state is established.
+
+## Context menu
+
+Right-click a feature on desktop, or long-press/use the visible touch context action where
+available, for commands that apply to the current selection. Depending on the selection, the menu
+can offer:
+
+- **Make unique** and **Select linked** for a feature that has linked instances.
+- **Create operation**, **Add to operation**, or **Remove from operation** for compatible CAM
+  targets.
+- **Edit sketch**, **Add constraint**, and transforms such as copy, move, resize, rotate,
+  mirror, offset, join, and cut.
+- Folder and group commands, **Use as stock**, and **Delete**.
+
+Commands that would be invalid for the selected objects are unavailable. Check the current
+selection before applying a group, transform, or operation action.
+
+## Related pages
+
+- [Features, roles, and depth](/guide/fundamentals/features-and-roles/) explains the feature
+  roles shown in the tree.
+- [Linked features](/guide/fundamentals/linked-features/) explains **Make unique** and
+  **Select linked**.
+- [Construction geometry](/guide/fundamentals/construction-geometry/) explains the separate
+  Construction section.
