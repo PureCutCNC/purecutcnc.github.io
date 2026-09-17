@@ -1,0 +1,58 @@
+---
+title: Privacy and data
+description: Where PureCut CNC keeps your projects and settings, and every network request the web and desktop apps make.
+pageType: reference
+availability: stable
+status: draft
+---
+
+PureCut CNC has no accounts and no cloud storage. Your projects and settings stay on your own
+computer. This page lists what the app stores and what it sends over the network.
+
+## Projects
+
+- A project is a `.camj` file. It exists only where you save it: the app does not upload it or
+  keep a copy anywhere else.
+- In the web app, **Open project** reads a file you choose, and **Save project** writes the file
+  through your browser's save dialog or downloads it. The project is processed entirely in the
+  browser.
+- Imported files (SVG, DXF, STL, OBJ, STEP, `.camj`, and backdrop images) are read on your
+  computer and are never uploaded.
+
+See [Projects and files](/guide/fundamentals/projects-and-files/) for opening and saving.
+
+## Settings stored on this device
+
+PureCut CNC keeps its preferences in the browser's local storage, or in the desktop app's own
+storage. They are not part of any project and are not sent anywhere.
+
+| Stored | Examples |
+| --- | --- |
+| Appearance | The selected theme or System mode, and your custom themes |
+| Language | The selected language and your custom language packs |
+| Machines | The machine definitions under **My machines** |
+| Layout | Collapsed sections, panel sizes, and the 2D toolpath renderer choice |
+| Desktop updates | The selected **Update Channel** |
+
+Clearing the site data for PureCut CNC in your browser removes these settings, including custom
+themes, language packs, and machines. Export the ones you want to keep first; see
+[Themes and appearance](/guide/reference/themes/), [Interface languages](/guide/reference/languages/),
+and [Machines](/guide/cam-setup/machines/).
+
+## Network requests
+
+| Request | App | When | What is sent |
+| --- | --- | --- | --- |
+| Loading the app | Web | When you open the web app | Ordinary requests for the app's files to the site host, GitHub Pages. The app loads parts such as the STEP importer, the tool library, and the examples from the same site when it first needs them. |
+| Page analytics | Web only | When the web app loads | A page-view count to GoatCounter (`purecutcnc.goatcounter.com`), which loads its counting script from `gc.zgo.at`. No project data is included. The desktop app has no analytics. |
+| Update check | Desktop only | Only when you choose **Check for Updates…** | A request to `purecutcnc.github.io` for the latest version file of the selected channel and your platform. Nothing from your projects is included. |
+| Links | Both | Only when you click one | Links such as the website, source code, releases, and downloads open in your browser. |
+
+The desktop app does not check for updates in the background and does not download or install
+updates by itself. See [Desktop updates](/guide/start-here/install-and-open/#desktop-updates).
+
+## Related pages
+
+- [Install and open PureCut CNC](/guide/start-here/install-and-open/): the web app, the desktop
+  app, and the update check.
+- [File formats](/guide/reference/file-formats/): what a `.camj` project file contains.

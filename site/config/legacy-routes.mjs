@@ -16,13 +16,9 @@
 
 /** Legacy guide pages that have not been migrated yet. */
 const PENDING_GUIDE_PAGES = [
-	'appearance',
 	'cam-debug-view',
 	'cam-export',
 	'cam-tabs-clamps',
-	'concepts',
-	'interface',
-	'language',
 	'machine-library',
 	'post-processor-converter',
 	'sketch-dimensions',
@@ -72,6 +68,48 @@ export const LEGACY_ROUTES = [
 			'sketch-navigation': '/guide/fundamentals/workspace/#navigation',
 			'sketch-overlays': '/guide/fundamentals/workspace/#sketch-overlays',
 			'sketch-workflow': '/guide/fundamentals/workspace/#views',
+		},
+	},
+	// Migrated: the Interface page is split across the Fundamentals pages. W3 supplies
+	// `cam-panel` when Working with operations exists.
+	{
+		from: '/guide/interface.html',
+		to: '/guide/fundamentals/workspace/',
+		anchors: {
+			layout: '/guide/fundamentals/workspace/',
+			'starting-a-project': '/guide/fundamentals/projects-and-files/',
+			toolbar: '/guide/fundamentals/workspace/#top-toolbar',
+			'feature-tree': '/guide/fundamentals/feature-tree/',
+			'properties-panel': '/guide/fundamentals/feature-tree/#properties',
+			'canvas-workflow-panels': '/guide/fundamentals/workspace/#workflow-panels',
+			'tablet-shell': '/guide/fundamentals/tablet-and-touch/',
+		},
+	},
+	// Migrated: the Concepts page is split across the Fundamentals pages.
+	{
+		from: '/guide/concepts.html',
+		to: '/guide/fundamentals/features-and-roles/',
+		anchors: {
+			features: '/guide/fundamentals/features-and-roles/',
+			'z-coordinates': '/guide/fundamentals/features-and-roles/#z-range',
+			'add-subtract': '/guide/fundamentals/features-and-roles/#roles',
+			regions: '/guide/fundamentals/regions/',
+			construction: '/guide/fundamentals/construction-geometry/',
+			'tree-order': '/guide/fundamentals/features-and-roles/#order',
+			'feature-references': '/guide/fundamentals/linked-features/',
+			visibility: '/guide/fundamentals/feature-tree/#visibility',
+			stock: '/guide/fundamentals/stock-origin-units/#stock',
+			origin: '/guide/fundamentals/stock-origin-units/#origin',
+			units: '/guide/fundamentals/stock-origin-units/#units',
+		},
+	},
+	// Migrated: the new page keeps the legacy heading ids, so fragments pass through.
+	{ from: '/guide/appearance.html', to: '/guide/reference/themes/' },
+	{
+		from: '/guide/language.html',
+		to: '/guide/reference/languages/',
+		anchors: {
+			'switching-language': '/guide/reference/languages/',
 		},
 	},
 	// Partial migration: the rest of each legacy page remains pending with its workstream.

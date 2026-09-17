@@ -1,8 +1,8 @@
 legacy_page,anchor,heading,words,screenshots,assessment,disposition,destination,workstream,capabilities,notes
-guide/appearance,appearance-modes,Appearance Modes,91,appearance-menu.png,accurate,migrate,/guide/reference/themes/,W1,ref.themes,
-guide/appearance,theme-manager,Theme Manager,158,theme-manager.png,accurate,migrate,/guide/reference/themes/#manager,W1,ref.themes,
-guide/appearance,custom-theme-editor,Custom Theme Editor,280,theme-editor.png,incomplete,migrate,/guide/reference/themes/#editor,W1,ref.themes,Readability checks can block Apply.
-guide/appearance,where-themes-apply,Where Themes Apply,75,,incomplete,rewrite,/guide/reference/themes/#scope,W1,ref.themes,Drop the palette-migration note.
+guide/appearance,appearance-modes,Appearance Modes,91,appearance-menu.png,accurate,migrate,/guide/reference/themes/#appearance-modes,W1,ref.themes,
+guide/appearance,theme-manager,Theme Manager,158,theme-manager.png,accurate,migrate,/guide/reference/themes/#theme-manager,W1,ref.themes,
+guide/appearance,custom-theme-editor,Custom Theme Editor,280,theme-editor.png,incomplete,migrate,/guide/reference/themes/#custom-theme-editor,W1,ref.themes,Readability checks can block Apply.
+guide/appearance,where-themes-apply,Where Themes Apply,75,,incomplete,rewrite,/guide/reference/themes/#where-themes-apply,W1,ref.themes,Drop the palette-migration note.
 guide/cam-debug-view,why-a-debug-view,Why a Separate Inspector,83,,accurate,migrate,/guide/verify-export/exported-motion/,W5,verify.exported-motion;verify.linear-optimizer,
 guide/cam-debug-view,opening-the-inspector,Opening the Inspector,115,,stale,rewrite,/guide/verify-export/exported-motion/#opening,W5,verify.exported-motion,Debug toolpath is dev-only; eligibility is a single planar operation.
 guide/cam-debug-view,motion-layers,Motion Layers,171,cam-debug-view-overlay.png,accurate,migrate,/guide/verify-export/exported-motion/#layers,W5,verify.exported-motion,
@@ -37,7 +37,7 @@ guide/cam-tools,tools-overview,Tools Overview,60,,accurate,migrate,/guide/cam-se
 guide/cam-tools,adding-tools,Adding Tools,338,cam-tool-library-import.png,stale,migrate,/guide/cam-setup/tool-library/#adding-tools,W3,cam.tool-import;cam.tool-manage,"Library has 34 entries, not 26."
 guide/cam-tools,tool-properties,Tool Properties,218,,accurate,migrate,/guide/cam-setup/tool-library/#tool-properties,W3,cam.tool-properties,
 guide/cam-tools,deleting-tools,Deleting Tools,48,,accurate,migrate,/guide/cam-setup/tool-library/#deleting-tools,W3,cam.tool-manage,
-guide/concepts,features,Features,87,,incomplete,merge,/guide/fundamentals/features-and-roles/,W1,fund.feature-roles,
+guide/concepts,features,Features,87,,incomplete,merge,/guide/fundamentals/features-and-roles/,W1,fund.feature-roles;ref.glossary,
 guide/concepts,z-coordinates,Z Top and Z Bottom,172,,incomplete,migrate,/guide/fundamentals/features-and-roles/#z-range,W1,fund.z-range,
 guide/concepts,add-subtract,Feature Operations,211,,stale,rewrite,/guide/fundamentals/features-and-roles/#roles,W1,fund.feature-roles,"Six roles, closed lines, STEP models."
 guide/concepts,regions,Regions,524,,incomplete,migrate,/guide/fundamentals/regions/,W1,fund.regions,Add mask limits.
@@ -51,7 +51,7 @@ guide/concepts,units,Units,68,,incomplete,migrate,/guide/fundamentals/stock-orig
 guide/index,intro,What is PureCut CNC?,120,,incomplete,migrate,/guide/,W1,start.product-overview;start.install-and-open;start.desktop-updates;start.privacy;ref.about,Already ported as a platform sample.
 guide/index,guide-sections,Guide Sections,306,,stale,drop,/guide/,W1,start.workflow-overview,Replaced by the new section overview.
 guide/index,workflow,Typical Workflow,120,,stale,rewrite,/guide/#workflow,W1,start.workflow-overview,
-guide/index,file-format,Project Files,64,,incomplete,split,/guide/fundamentals/projects-and-files/#open-save,W1,fund.open-save;fund.undo-redo,Format details → /guide/reference/file-formats/.
+guide/index,file-format,Project Files,64,,incomplete,split,/guide/fundamentals/projects-and-files/#open-and-save,W1,fund.open-save;fund.undo-redo,Format details → /guide/reference/file-formats/.
 guide/interface,layout,Application Layout,164,interface-overview.png;interface-panel-controls.png,accurate,migrate,/guide/fundamentals/workspace/,W1,fund.workspace-layout,
 guide/interface,starting-a-project,Starting a Project,236,new-project.png,accurate,migrate,/guide/fundamentals/projects-and-files/,W1,fund.new-project;fund.examples,
 guide/interface,toolbar,Toolbars,776,,stale,split,/guide/fundamentals/workspace/#top-toolbar,W1,fund.top-toolbar;fund.tool-rail,Tool rail and measure parts move to their own pages.
@@ -62,8 +62,8 @@ guide/interface,canvas-workflow-panels,Canvas Workflow Panels,307,,incomplete,re
 guide/interface,tablet-shell,Tablet Shell,302,interface-tablet-shell.png,incomplete,migrate,/guide/fundamentals/tablet-and-touch/,W1,fund.tablet,
 guide/interface,views,Working Views,128,,stale,rewrite,/guide/fundamentals/workspace/#views,W1,fund.working-views,Voxel wording.
 guide/language,switching-language,Switching the Interface Language,109,language-menu.png,accurate,migrate,/guide/reference/languages/,W1,ref.languages,
-guide/language,language-manager,Language Manager,120,language-manager.png,accurate,migrate,/guide/reference/languages/#manager,W1,ref.languages,
-guide/language,language-editor,Editing a Language Pack,218,language-editor.png,stale,migrate,/guide/reference/languages/#editor,W1,ref.languages,String count.
+guide/language,language-manager,Language Manager,120,language-manager.png,accurate,migrate,/guide/reference/languages/#language-manager,W1,ref.languages,
+guide/language,language-editor,Editing a Language Pack,218,language-editor.png,stale,migrate,/guide/reference/languages/#language-editor,W1,ref.languages,String count.
 guide/machine-library,two-places,Two Places a Machine Lives,199,,accurate,migrate,/guide/cam-setup/machines/#library,W3,cam.machine-library,
 guide/machine-library,my-machines,My Machines,179,cam-machine-manager.png,accurate,migrate,/guide/cam-setup/machines/#my-machines,W3,cam.machine-library,
 guide/machine-library,status-badges,Status Badges,103,,accurate,migrate,/guide/cam-setup/machines/#badges,W3,cam.machine-selection,
