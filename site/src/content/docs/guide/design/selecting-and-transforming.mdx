@@ -1,0 +1,177 @@
+---
+title: Selecting and transforming
+description: Select features on the canvas, then move, copy, resize, rotate, mirror, delete, cut, and paste them.
+pageType: task
+availability: stable
+status: draft
+---
+
+import { Aside, Steps } from '@astrojs/starlight/components';
+
+Most editing starts with a selection. Once features are selected, the transform tools appear in
+the tool rail, and the same commands are in the context menu. Transforms change where a feature
+is, not its shape definition, so they affect only the selected copies of a linked feature; see
+[Linked features](/guide/fundamentals/linked-features/).
+
+## Before you start
+
+- Open the **Sketch** view.
+- Unlock the features you want to change. While a locked feature is selected, the transform tools
+  are unavailable.
+
+## Select features
+
+| To select | Do this |
+| --- | --- |
+| One feature | Click its outline or inside it, or click its row in the feature tree. |
+| More features | <kbd>Shift</kbd>+click or <kbd>Ctrl</kbd>+click (on macOS, <kbd>Cmd</kbd>+click). Clicking a selected feature this way removes it from the selection. On a tablet, turn on **Multi** and tap. |
+| Features in an area | Drag a box on empty canvas. Every visible feature that lies completely inside the box is added to the selection. |
+| All visible features | <kbd>Ctrl</kbd>+<kbd>A</kbd> (<kbd>Cmd</kbd>+<kbd>A</kbd>). |
+| A whole folder | **Select all features in folder** on the folder's row. |
+| Nothing | Click empty canvas. |
+
+Clicking a member of a group selects the whole group. See
+[Feature tree and properties](/guide/fundamentals/feature-tree/#folders-and-groups).
+
+When shapes overlap, a click inside them selects the innermost shape, the one completely enclosed by
+the others, or else the topmost. When you click where two or more outlines lie on top of each other,
+the **Select feature** panel lists them (**N features overlap here. Choose one to select.**);
+choose the one you mean.
+
+## Transforms
+
+The transform tools work on the selected features. Each opens a workflow panel on the canvas;
+**Cancel** or <kbd>Esc</kbd> ends it without changing anything, and the tool's button in the rail
+cancels it too.
+
+### Move
+
+<Steps>
+
+1. Click **Move selected features**.
+
+2. At **Select from point**, click a reference point, for example a corner of the feature.
+
+3. At **Select target point**, click where that point should go. The features move by the
+   difference.
+
+</Steps>
+
+To move by an exact distance, press <kbd>Tab</kbd> after the first point: point in the direction to
+move, type the **Distance**, and click **Confirm**.
+
+### Copy
+
+Copy works like move, but leaves the originals in place.
+
+<Steps>
+
+1. Click **Copy selected features**.
+
+2. Click the reference point, then the target point, or press <kbd>Tab</kbd> to type the
+   **Distance**.
+
+3. At **Set copy count**, enter the number of **Copies** and click **Confirm**. With 3 copies, the
+   copies are placed one, two, and three times the distance from the original.
+
+</Steps>
+
+Copies are linked to the original. Copying a whole group creates a new group.
+
+### Resize
+
+Resize scales along a reference line that you draw.
+
+<Steps>
+
+1. Click **Resize selected features**.
+
+2. At **Select first reference**, click the point that stays fixed.
+
+3. At **Select second reference**, click a second point. The distance between the two points is the
+   original size.
+
+4. At **Scale to commit**, move the pointer along the reference line to preview, and click to
+   finish. Or click **Scale** (<kbd>Tab</kbd>) and type a factor, such as 2 to double the size.
+
+</Steps>
+
+The direction of the reference line decides what is scaled:
+
+- a line within 12° of a feature's width or height direction scales only that direction;
+- any other line scales both directions, each by its own ratio;
+- imported models always scale evenly, including their height.
+
+Draw the reference line along the dimension you want to change, and use a diagonal line only when
+you mean to scale both.
+
+### Rotate
+
+<Steps>
+
+1. Click **Rotate selected features**.
+
+2. At **Select origin**, click the centre of rotation.
+
+3. At **Select reference direction**, click a point that sets the starting angle.
+
+4. At **Rotate to commit**, move the pointer to preview and click to finish. Or click **Angle**
+   (<kbd>Tab</kbd>) and type the angle in degrees.
+
+</Steps>
+
+Turn on **Keep originals** (<kbd>K</kbd>) to rotate copies instead: after you click to set the
+angle, enter the number of **Copies**. Each copy is rotated one more step, so 5 copies at 60° fill
+the rest of a circle around the original.
+
+### Mirror
+
+<Steps>
+
+1. Click **Mirror selected features**.
+
+2. At **Select first line point** and **Select second line point**, click two points on the mirror
+   line. The preview follows the pointer until the second click.
+
+</Steps>
+
+With **Keep originals** (<kbd>K</kbd>) on, the mirrored features are copies and the originals stay.
+Construction geometry makes a good mirror line: snap to it; see
+[Construction geometry](/guide/fundamentals/construction-geometry/).
+
+### Delete
+
+**Delete selected features** removes the selection. **Undo** brings it back.
+
+<Aside type="caution" title="Transforms move operation targets too">
+	Operations follow the features they machine. After moving, resizing, or rotating a feature,
+	check that its toolpaths still stay inside the stock and clear of clamps.
+</Aside>
+
+## Clipboard
+
+The clipboard copies whole features: their shape, role, Z range, and properties.
+
+| Shortcut | Action |
+| --- | --- |
+| <kbd>Ctrl</kbd>+<kbd>C</kbd> | Copy the selected visible features. |
+| <kbd>Ctrl</kbd>+<kbd>X</kbd> | Copy the selected features and remove them. |
+| <kbd>Ctrl</kbd>+<kbd>V</kbd> | Paste. |
+
+After you paste, the **Paste features** panel asks you to **Click in the sketch to place** the
+features. They follow the pointer, keeping their arrangement, and snapping applies to the click.
+
+The clipboard belongs to PureCut CNC, not to the system: you cannot paste features into another
+program. It is kept while you open or create another project in the same window, so you can copy
+features from one project into another. On macOS use <kbd>Cmd</kbd>; the desktop app's **Edit**
+menu has the same commands.
+
+## Related pages
+
+- [Aligning and distributing](/guide/design/arranging/): line features up, space them evenly, and
+  create patterns of copies.
+- [Offset, join, and cut](/guide/design/shape-operations/): the other shape commands in the tool
+  rail.
+- [Snapping and the grid](/guide/design/snapping-and-grid/): pick exact reference points, and lock
+  an axis while moving.
+- [Linked features](/guide/fundamentals/linked-features/): what copies share.

@@ -1,0 +1,97 @@
+---
+title: Editing sketches
+description: Drag points, type segment dimensions, and add, delete, split, fillet, chamfer, trim, and extend the segments of a feature.
+pageType: task
+availability: stable
+status: draft
+---
+
+import { Aside, Steps } from '@astrojs/starlight/components';
+
+A sketch-editing session changes the points and segments of one feature. The session collects your
+edits; **Finish editing** keeps them and **Cancel editing** throws them away.
+
+## Before you start
+
+- Text cannot be edited this way: **Edit sketch** is unavailable for text features. Expand the text
+  first if you need to reshape letters; see [Text](/guide/design/text/#expand-text).
+- The feature must not be locked.
+- Editing the shape of a linked feature changes every linked copy. Make the copy unique first if
+  only this one should change; see [Linked features](/guide/fundamentals/linked-features/).
+
+## Edit a sketch
+
+<Steps>
+
+1. Double-click the feature on the canvas, or select it and click **Edit sketch** in its properties
+   or context menu. The **Edit sketch** panel opens, and the feature's points are shown.
+
+2. Make your changes. With **Move** active (the default), the step reads **Drag nodes, or click a
+   segment to edit its dimensions**:
+
+   - drag a point, or a curve handle, to move it;
+   - click a segment to show its **Selected segment** fields, **Length** and **Angle**, plus
+     **Radius** for an arc. Type to update the segment as you go.
+
+3. Pick a tool from the panel's row for other edits (see below).
+
+4. Click **Finish editing**, or press <kbd>Enter</kbd> when no tool is active. To discard all edits,
+   click **Cancel editing** or press <kbd>Esc</kbd> when no tool is active.
+
+</Steps>
+
+<kbd>Tab</kbd> starts dimension entry for the segment under the pointer. <kbd>Alt</kbd> locks point
+dragging to the X or Y axis; see [Snapping and the grid](/guide/design/snapping-and-grid/#axis-lock).
+<kbd>C</kbd> starts **Add constraint** for the feature.
+
+The panel warns while you edit if the profile crosses itself (**Self-intersecting profile**) or
+reaches outside the stock (**Extends outside stock**). You can still finish, but toolpaths and the
+3D model may be wrong for a self-intersecting profile.
+
+## Editing tools
+
+Choose a tool in the **Edit sketch** panel. The step line says what to click. A tool stays active
+until you choose **Move** or another tool; <kbd>Esc</kbd> or <kbd>Enter</kbd> leaves it and keeps
+what you did with it.
+
+| Tool | Use |
+| --- | --- |
+| **Add point** | Click a segment to insert a point there, splitting the segment in two. |
+| **Delete point** | Click points to remove them. The segments on either side are joined. |
+| **Delete segment** | Click segments to remove them. Deleting a segment of a closed profile opens it. Deleting one from the middle of an open path splits it into two features; the second is named **Split**. |
+| **Disconnect point** | Click a point to split the profile there (**Click an anchor to split**). A closed profile opens at that point; an open path is split into two features. |
+| **Round corner / fillet** | Click a corner, then click a second point or click **Radius** to type the radius. The corner becomes an arc. |
+| **Chamfer corner** | Click a corner, then click a second point or click **Distance** to type it. The corner is cut off by a straight line, the same distance along both sides. |
+| **Trim to cutting edge** | Click the part of a segment to remove, then click the segment that cuts it. |
+| **Extend to target** | Click near the open end of a segment, then click the segment it should reach. |
+
+Some tools only work on some geometry:
+
+- Fillet and chamfer need a corner between two straight segments.
+- Trim and extend work on open paths only; while you edit a closed profile their buttons are
+  unavailable.
+- A circle cannot be split or have a segment deleted.
+
+With trim and extend, the first <kbd>Esc</kbd> clears a segment you have picked without leaving
+the tool.
+
+<Aside type="caution" title="Opening a profile changes what can machine it">
+	Deleting a segment or disconnecting a point of a closed profile leaves an open path. Open paths
+	can only be engraved: pockets, edge routes, and V-carves that used the feature can no longer
+	machine it. Check the feature's operations after editing.
+</Aside>
+
+## Join open paths
+
+To connect two open paths, drag an endpoint of the path you are editing onto an endpoint of another
+open path. The other path becomes part of this one. Dragging one end of a path onto its own other
+end closes it.
+
+## Related pages
+
+- [Drawing tools](/guide/design/drawing-tools/): the shapes you edit here.
+- [Offset, join, and cut](/guide/design/shape-operations/): combine and split whole shapes.
+- [Dimensions and constraints](/guide/design/dimensions-and-constraints/): control sizes and
+  positions with driving dimensions and constraints.
+- [Stock, origin, and units](/guide/fundamentals/stock-origin-units/#stock): the stock outline uses
+  the same editing session.

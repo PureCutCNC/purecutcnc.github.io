@@ -1,0 +1,121 @@
+---
+title: Aligning and distributing
+description: Align and space selected features, and create grid, radial, and along-a-path patterns of copies.
+pageType: task
+availability: stable
+status: draft
+---
+
+import { Aside, Steps } from '@astrojs/starlight/components';
+
+The **Align selected features** and **Distribute selected features** menus in the tool rail line up
+and space existing features. The distribute menu also creates patterns of new copies with
+**Feature distribution**, and holds **Text layout** (see [Text](/guide/design/text/#text-layout)).
+
+## Before you start
+
+- Select the features to arrange. Locked features are left out of aligning and distributing, and a
+  selection that includes a locked feature cannot be used for feature distribution.
+- **Distribute selected features** appears in the tool rail once features are selected, and
+  **Align selected features** once two or more are.
+
+## Align
+
+Select two or more unlocked features, open **Align selected features**, and choose:
+
+| Command | Moves each feature so that |
+| --- | --- |
+| **Align left** | its left edge is on the leftmost edge of the selection. |
+| **Align center horizontally** | its centre is on the horizontal centre of the selection. |
+| **Align right** | its right edge is on the rightmost edge of the selection. |
+| **Align top** | its top edge is on the topmost edge of the selection. |
+| **Align center vertically** | its centre is on the vertical centre of the selection. |
+| **Align bottom** | its bottom edge is on the lowest edge of the selection. |
+
+Edges are the features' bounding boxes. The reference is the box around the whole selection, so the
+outermost feature does not move.
+
+## Distribute evenly
+
+Select three or more unlocked features, open **Distribute selected features**, and choose:
+
+| Command | Result |
+| --- | --- |
+| **Distribute horizontally (equal gaps)** | Equal space between the features, left to right. |
+| **Distribute horizontally (equal centers)** | Equal distance between the features' centres, left to right. |
+| **Distribute vertically (equal gaps)** | Equal space between the features, top to bottom. |
+| **Distribute vertically (equal centers)** | Equal distance between the centres, top to bottom. |
+
+The first and last feature stay where they are; the ones between them move.
+
+## Feature distribution
+
+**Feature distribution** makes a pattern of copies of the selected features in one step: a grid, a
+circle, or a row along a path. The copies are ordinary linked copies, not a pattern that updates
+later, and the whole distribution is one undo step. The selected features and any guide are not
+changed. Imported models cannot be distributed.
+
+<Steps>
+
+1. Select the features to copy.
+
+2. Open **Distribute selected features** and choose **Grid**, **Radial**, or **Along path**.
+
+3. Set the pattern in the **Feature distribution** panel (see below). The canvas previews the
+   copies, and the panel reports anything that stops the pattern.
+
+4. Click **Create copies**.
+
+</Steps>
+
+### Grid
+
+| Setting | Description |
+| --- | --- |
+| **Rows**, **Columns** | The grid size, counting the original, which is the top-left cell. At least two cells. Default 1 row and 2 columns. |
+| **X spacing**, **Y spacing** | The distance between neighbouring cells, to the right and downwards in the Sketch view. Default 2 in or 20 mm. |
+
+### Radial
+
+| Setting | Description |
+| --- | --- |
+| **Center** | Click **Pick center**, then click the centre on the sketch. Required, and it cannot be the centre of the selection itself. |
+| **Instances (incl. original)** | The number of positions, counting the original. Default 4. |
+| **Sweep** | The angle the pattern covers, in degrees. Default 360. |
+| **Orientation** | **Follow direction** turns each copy with the circle (the default); **Fixed** keeps the original's rotation. |
+
+The radius and start angle come from where the selection sits relative to the centre. A full 360°
+sweep spaces the instances evenly around the circle; a smaller sweep puts the first and last
+instances at its ends.
+
+### Along path
+
+| Setting | Description |
+| --- | --- |
+| **Guide** | Click **Pick guide**, then click a separate outline on the sketch: a line, arc, spline, composite path, or closed shape. |
+| **Instances (incl. original)** | The number of positions along the guide. Default 4. |
+| **Start offset**, **End offset** | How much of the guide to leave unused at each end. |
+| **Orientation** | **Follow direction** turns each copy with the guide (the default); **Fixed** keeps the original's rotation. |
+
+Copies are placed at equal distances along the guide. Construction geometry works well as a guide.
+
+### Scale taper
+
+All three types have **Start scale %** and **End scale %**. With values other than 100, the copies
+grow or shrink evenly from the first copy (at the start value) to the last (at the end value). The
+original keeps its size.
+
+<Aside type="caution" title="Scaled copies change the machining">
+	A scale taper changes the size of each copy, and so the size of what gets cut. Check that the
+	smallest copy can still be cut with your tool, for example that its narrowest gap is wider than
+	the cutter.
+</Aside>
+
+## Related pages
+
+- [Selecting and transforming](/guide/design/selecting-and-transforming/): single copies, rotated
+  copies, and mirrored copies.
+- [Linked features](/guide/fundamentals/linked-features/): what the copies share.
+- [Text](/guide/design/text/#text-layout): the **Text layout** entry in the same menu.
+- [Construction geometry](/guide/fundamentals/construction-geometry/): guides and centres for
+  patterns.

@@ -130,12 +130,17 @@ export const LEGACY_ROUTES = [
 			'text-cam': '/guide/design/text/#machining-text',
 		},
 	},
-	// Partial migration: the rest of the legacy page remains pending with its workstream.
+	// Partial migration: `constraints` waits for Dimensions and constraints.
 	{
 		from: '/guide/sketch-edit.html',
-		to: '/guide/',
+		to: '/guide/design/selecting-and-transforming/',
 		pending: true,
 		anchors: {
+			selecting: '/guide/design/selecting-and-transforming/',
+			alignment: '/guide/design/arranging/',
+			'feature-distribution': '/guide/design/arranging/#feature-distribution',
+			'shape-ops': '/guide/design/shape-operations/',
+			'sketch-edit': '/guide/design/sketch-editing/',
 			locking: '/guide/fundamentals/feature-tree/#visibility',
 		},
 	},
