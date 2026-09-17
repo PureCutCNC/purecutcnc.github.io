@@ -95,7 +95,7 @@ guide/sketch-edit,locking,Locking Features,38,,accurate,merge,/guide/fundamental
 guide/sketch-export,overview,Overview,88,,accurate,merge,/guide/verify-export/model-export-and-print/,W5,verify.model-export-stl;ref.file-formats,
 guide/sketch-export,export-model,Export Model — SVG & STL,295,sketch-export-svg.png;sketch-export-stl.png,accurate,migrate,/guide/verify-export/model-export-and-print/#stl,W5,verify.model-export-stl;verify.model-export-svg,SVG part → #svg.
 guide/sketch-export,print-design,Print Design,168,sketch-print-dialog.png,incomplete,migrate,/guide/verify-export/model-export-and-print/#print,W5,verify.print,
-guide/sketch-import,import-overview,Import Overview,138,,stale,rewrite,/guide/design/importing-2d/,W2,design.import-dialog;ref.file-formats,STEP and 3D import move to their own page.
+guide/sketch-import,import-overview,Import Overview,138,,stale,rewrite,/guide/design/importing-2d/,W2,design.import-dialog;design.import-step;ref.file-formats,STEP and 3D import move to their own page.
 guide/sketch-import,svg-import,SVG Import,109,,stale,rewrite,/guide/design/importing-2d/#svg,W2,design.import-svg,
 guide/sketch-import,dxf-import,DXF Import,88,,stale,rewrite,/guide/design/importing-2d/#dxf,W2,design.import-dxf,
 guide/sketch-import,stl-obj-import,STL and OBJ Import (3D Models),499,sketch-imported-model.png,incomplete,migrate,/guide/design/importing-3d-models/,W2,design.import-stl-obj;design.model-orientation,

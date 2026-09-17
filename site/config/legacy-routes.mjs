@@ -21,10 +21,8 @@ const PENDING_GUIDE_PAGES = [
 	'cam-tabs-clamps',
 	'machine-library',
 	'post-processor-converter',
-	'sketch-dimensions',
-	'sketch-export',
 	'sketch-import',
-	'sketch-snapping',
+	'sketch-export',
 	'sketch-toolpaths',
 	'view-3d',
 	'view-simulation',
@@ -130,18 +128,42 @@ export const LEGACY_ROUTES = [
 			'text-cam': '/guide/design/text/#machining-text',
 		},
 	},
-	// Partial migration: `constraints` waits for Dimensions and constraints.
+	// Migrated: the Design pages now cover all Sketch edit sections.
 	{
 		from: '/guide/sketch-edit.html',
 		to: '/guide/design/selecting-and-transforming/',
-		pending: true,
 		anchors: {
 			selecting: '/guide/design/selecting-and-transforming/',
 			alignment: '/guide/design/arranging/',
 			'feature-distribution': '/guide/design/arranging/#feature-distribution',
 			'shape-ops': '/guide/design/shape-operations/',
 			'sketch-edit': '/guide/design/sketch-editing/',
+			constraints: '/guide/design/dimensions-and-constraints/#constraints',
 			locking: '/guide/fundamentals/feature-tree/#visibility',
+		},
+	},
+	// Migrated: dimensions and snapping each have their own Design page.
+	{
+		from: '/guide/sketch-dimensions.html',
+		to: '/guide/design/dimensions-and-constraints/',
+		anchors: {
+			overview: '/guide/design/dimensions-and-constraints/',
+			toolbar: '/guide/design/dimensions-and-constraints/#toolbar',
+			'tape-measure': '/guide/design/dimensions-and-constraints/#tape',
+			'placing-dimensions': '/guide/design/dimensions-and-constraints/#placing',
+			'editing-dimensions': '/guide/design/dimensions-and-constraints/#driving',
+			visibility: '/guide/design/dimensions-and-constraints/#visibility',
+			limits: '/guide/design/dimensions-and-constraints/#limits',
+		},
+	},
+	{
+		from: '/guide/sketch-snapping.html',
+		to: '/guide/design/snapping-and-grid/',
+		anchors: {
+			'snap-overview': '/guide/design/snapping-and-grid/',
+			'snap-modes': '/guide/design/snapping-and-grid/#modes',
+			'grid-settings': '/guide/design/snapping-and-grid/#grid',
+			'axis-lock': '/guide/design/snapping-and-grid/#axis-lock',
 		},
 	},
 	...PENDING_GUIDE_PAGES.map((name) => ({
