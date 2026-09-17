@@ -70,10 +70,11 @@ radius or enter dimensions**, click **Dimensions** and enter a **Radius** of 0.7
 
 <Screenshot src={newCircle} alt="Sketch view with a circle being drawn inside a rectangle at radius 0.75, and the Circle workflow panel offering Dimensions and Cancel" />
 
-Because the circle lies inside an add feature, PureCut CNC makes it a subtract feature. Select it
-and check its properties: **Operation** reads **Subtract**, and **Z top** is 0.75, the top of the
-stock. Set **Z bottom** to 0.5. The pocket floor is then 0.5 in above the bottom of the stock, so
-the pocket is 0.25 in deep.
+Because the circle lies inside an add feature, PureCut CNC makes it a subtract feature; its row in
+the feature tree shows a minus badge. Press <kbd>Esc</kbd> to put the circle tool away, then select
+the circle. In the properties panel, expand **Shape**: **Operation** reads **Subtract**. Expand
+**Instance**: **Z top** is 0.75, the top of the stock. Set **Z bottom** to 0.5. The pocket floor is
+then 0.5 in above the bottom of the stock, so the pocket is 0.25 in deep.
 
 <Aside title="Z is a coordinate, not a depth">
 	**Z bottom** is where the pocket floor is, not how deep to cut. The depth is **Z top** minus
@@ -83,7 +84,8 @@ the pocket is 0.25 in deep.
 ## Import a 1/4″ endmill from the tool library
 
 Open the **Tools** tab in the CAM panel and click **Import from library…**. The **Import tools
-from library** dialog lists 34 bundled metric and imperial tools. Type `1/4` in the search box,
+from library** dialog lists the bundled tools, filtered to your project's units. Type `1/4` in the
+search box,
 tick **1/4" Endmill**, and click **Import tool**. Tools already in the project are marked **In
 project**, so you do not import them twice.
 
@@ -101,11 +103,12 @@ use first. **Finish** would add a finishing pass instead, and **Both** adds one 
 
 <Screenshot src={addPocketRough} alt="Add menu open on the Pocket row, with Rough, Finish, and Both buttons above the Pocket description and its key points" maxWidth={420} />
 
-The new **Pocket Rough** operation appears in the operations list. Select it to see its settings.
-PureCut CNC chooses a suitable tool from the project; check that **Tool** shows **1/4" Endmill**.
-Then look at **Stepdown**, **Stepover ratio**, **Feed**, **Plunge feed**, and **RPM**. They start
-from the tool's defaults, which are not a recommendation for your material or machine. For this
-walkthrough you can leave them as they are.
+The new **Pocket Rough** operation appears in the operations list, selected, with its settings
+below. PureCut CNC chooses a suitable tool from the project; check that **Tool** shows
+**1/4" Endmill**. Then look at **Stepdown** under **Depth**, at **Feed**, **Plunge feed**, and
+**RPM** under **Speeds & feeds**, and at **Stepover ratio** under **Strategy**, which starts
+collapsed. These values start from the tool's defaults, which are not a recommendation for your
+material or machine. For this walkthrough you can leave them as they are.
 
 A new operation's toolpath is generated and shown straight away. The eye button on the operation's
 row hides and shows it.
@@ -126,7 +129,8 @@ Switch between the **Sketch**, **3D view**, and **Simulation** tabs above the ca
 - **3D view** draws the toolpath over the stock and the model. Drag to orbit and scroll to zoom
   at the pointer; the camera menu has the standard views.
 - **Simulation** removes material from the stock along the toolpath. In **Selected** mode, with
-  the operation selected, **Play** runs the tool through the cut.
+  the operation selected, turn on **Play tool** and use the play button to run the tool through
+  the cut.
 
 The toolpath display controls choose which moves are drawn: **Cuts**, **Lead-ins**, **Rapids**,
 **Plunges**, **Retractions**, and **Directions**. Turn off the cuts, for example, to look at just
@@ -175,8 +179,9 @@ You have a project with a rough pocket in a rectangular part. Each of these buil
 1. **Leave material for a finish pass.** In **Pocket Rough**, set **Stock to leave radial** and
    **Stock to leave axial** so a later pass has something to clean up.
 2. **Add a finish pass.** Select the circle again and add **Pocket** > **Finish**.
-3. **Rough the outside.** Select the rectangle and add **Edge route outside** > **Rough**.
-4. **Finish the outside.** Add **Edge route outside** > **Finish** on the same rectangle.
+3. **Rough the outside.** Select the rectangle and, in the Add menu, click **Rough** on the **Edge
+   out** row. This creates an **Edge route outside** operation.
+4. **Finish the outside.** Add **Edge out** > **Finish** on the same rectangle.
 5. **Hold the part with tabs.** Select the outside route and click **Auto place tabs** in its
    settings. See [Tabs](/guide/cam-setup/tabs/).
 6. **Add clamps.** Under **Clamps** in the feature tree, use **Add clamp** to place a clamp on each
