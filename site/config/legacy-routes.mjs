@@ -21,7 +21,6 @@ const PENDING_GUIDE_PAGES = [
 	'cam-tabs-clamps',
 	'machine-library',
 	'post-processor-converter',
-	'sketch-import',
 	'sketch-export',
 	'sketch-toolpaths',
 	'view-3d',
@@ -164,6 +163,20 @@ export const LEGACY_ROUTES = [
 			'snap-modes': '/guide/design/snapping-and-grid/#modes',
 			'grid-settings': '/guide/design/snapping-and-grid/#grid',
 			'axis-lock': '/guide/design/snapping-and-grid/#axis-lock',
+		},
+	},
+	// Migrated: imports are split by source type, with backdrop images as their own task.
+	{
+		from: '/guide/sketch-import.html',
+		to: '/guide/design/importing-2d/',
+		anchors: {
+			'import-overview': '/guide/design/importing-2d/',
+			'svg-import': '/guide/design/importing-2d/#svg',
+			'dxf-import': '/guide/design/importing-2d/#dxf',
+			'stl-obj-import': '/guide/design/importing-3d-models/',
+			'camj-import': '/guide/design/importing-2d/#camj',
+			'after-import': '/guide/design/importing-2d/#after-import',
+			backdrop: '/guide/design/backdrop-images/',
 		},
 	},
 	...PENDING_GUIDE_PAGES.map((name) => ({
