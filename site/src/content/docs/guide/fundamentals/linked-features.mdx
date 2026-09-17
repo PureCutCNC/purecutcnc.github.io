@@ -1,6 +1,6 @@
 ---
 title: Linked features
-description: Understand shared feature definitions, copy mode, and when to make a copy independent.
+description: Understand linked copies that share one shape, what each copy keeps for itself, and how to make a copy independent.
 pageType: concept
 availability: stable
 status: draft
@@ -8,59 +8,72 @@ status: draft
 
 import { Aside, Steps } from '@astrojs/starlight/components';
 
-A linked feature is an instance that shares its underlying definition with one or more other
-instances. This makes repeated geometry easier to maintain: update the shared definition and all
-of its linked instances stay consistent.
+Copies of a feature in PureCut CNC are linked: they share one shape, so changing the shape of one
+copy changes all of them. This keeps repeated details, such as a row of identical holes, identical
+as the design changes. When one copy needs to be different, make it unique.
 
 ## Definitions and instances
 
-Think of a definition as the reusable shape data and an instance as one placed use of that shape
-in the project. Instances can have different placements while referring to the same definition.
-The feature tree marks a feature with a link badge when it has linked instances.
+Each feature is an instance of a definition. The definition is the shared part; the instance is one
+placed copy of it.
 
-This is useful for repeated details such as holes, tabs in a pattern, or a common profile. It also
-means that editing an instance's shared sketch can affect other instances, so check the link badge
-before making a local-looking edit.
+| Shared by all linked copies (**Shape**) | Kept by each copy (**Instance**) |
+| --- | --- |
+| The profile: its points, segments, and curves | Position, rotation, and scale |
+| The role (**Operation**) and a region's **Mask mode** | **Name** |
+| Text content, style, and font | **Z top** and **Z bottom** |
+| An imported model's mesh and **3D orientation** | **Folder**, **Visible**, and **Locked** |
+|  | A text feature's layout on a circle or path |
+
+The properties panel follows the same split. When a feature has linked copies, the **Shape**
+section is titled **Shape (shared with N instances)**, and the feature's row in the tree shows a
+link badge (**Linked — N instances share this definition**).
+
+So moving, rotating, or resizing one copy leaves the others where they are, but editing its points
+in a sketch-editing session, filleting a corner, or changing its role changes every copy.
 
 ## Copy mode
 
-The project copy mode controls what a copied feature becomes.
+These actions create linked copies:
 
-| Copy mode | Result |
-| --- | --- |
-| **Reference** | The new copy shares the original definition. Edits to the shared definition affect the linked copies. |
-| **Independent** | The new copy receives its own definition. Later edits do not change the original or other copies. |
+- the **Copy** tool, including copies made by rotate and mirror with **Keep originals**;
+- pasting copied or cut features;
+- **Feature distribution** (grid, radial, and along-a-path copies).
 
-Set the mode from the **Project** properties before you copy a feature. The menu does not offer
-separate “duplicate as reference” and “duplicate independent” commands; the project copy mode is
-the source of that decision.
+There is no setting in the app to make these copies independent instead, and no "duplicate
+independent" command. Projects store a copy mode, which is set to linked copies in new projects,
+and the app gives no way to change it. See
+[app issue #801](https://github.com/PureCutCNC/purecutcnc/issues/801).
+
+<Aside type="caution" title="Copies change together until you make them unique">
+	Editing the shape of one copy changes every linked copy, and every operation that machines
+	them. If one location needs a different shape, make that copy unique first.
+</Aside>
 
 ## Make one instance independent
 
 <Steps>
 
-1. Select the linked instance that needs its own geometry.
+1. Select the copy that needs its own shape.
 
-2. Open its context menu and choose **Make unique**.
+2. Choose **Make unique**, either in the context menu or in the **Shape** section of its
+   properties.
 
-3. Edit that newly independent feature as needed. The other instances continue to use the
-   original definition.
-
-4. Use **Select linked** from a linked feature's context menu when you need to review every
-   instance that still shares its definition.
+3. Edit it. The other copies keep the original shape.
 
 </Steps>
 
-<Aside type="caution">
-Make a unique copy before changing a repeated feature for one physical location only. Otherwise,
-the shared edit can change multiple parts of the design and their downstream machining targets.
-</Aside>
+To find every copy that shares a shape, right-click one and choose **Select linked instances**.
+
+An imported model's orientation is part of its shared shape: rotating one copy with
+**3D orientation** rotates all of them. Make the copy unique first to orient it on its own.
 
 ## Related pages
 
-- [Feature tree and properties](/guide/fundamentals/feature-tree/) shows the link badge and its
-  context-menu actions.
-- [Features, roles, and depth](/guide/fundamentals/features-and-roles/) explains the role that
-  every linked instance retains.
-- [Projects and files](/guide/fundamentals/projects-and-files/) shows where project copy mode is
-  set.
+- [Feature tree and properties](/guide/fundamentals/feature-tree/): the **Shape** and
+  **Instance** sections and the link badge.
+- [Selecting and transforming](/guide/design/selecting-and-transforming/): copying, pasting, and
+  the transforms that change one instance.
+- [Aligning and distributing](/guide/design/arranging/#feature-distribution): patterns of
+  linked copies.
+- [Editing sketches](/guide/design/sketch-editing/): edits that change every linked copy.

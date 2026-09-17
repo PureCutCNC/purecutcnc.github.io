@@ -1,6 +1,6 @@
 ---
 title: Regions
-description: Use include and exclude regions to limit the area in which a machining operation can cut.
+description: Use region masks to limit where an operation cuts, and understand how include and exclude regions combine.
 pageType: concept
 availability: stable
 status: draft
@@ -8,65 +8,85 @@ status: draft
 
 import { Aside } from '@astrojs/starlight/components';
 
-A region is a machining-area mask. It tells a selected operation where it may generate cutting
-moves, while the operation's targets still describe what geometry to cut. A region is not
-material, an operation target, or a contour that PureCut CNC machines on its own.
+A region is a closed shape that limits where an operation may cut. The operation's targets still
+say what to machine; the region says where. A region is never material, never a cut on its own,
+and never turned into a toolpath along its edge.
 
 ## Main idea
 
-Create a region by selecting the region creation target before drawing a closed profile. Regions
-appear in the **Regions** section of the feature tree. Select one to set whether it is an include
-or exclude region in its properties.
+- **Create** a region with the **Create regions** target in the tool rail, or change a closed
+  feature's **Operation** to **Region mask**. Regions must be closed. They are listed in the
+  **Regions** section of the feature tree and named **Region** with a number.
+- **Set its mode** with **Mask mode** in its properties: **Include** (the default) or **Exclude**.
+  The tree row shows an **include** or **exclude** badge.
+- **Apply it** by selecting it together with the targets when you add an operation, or by
+  right-clicking it and choosing **Add to operation**. An operation ignores regions it was not
+  given. The operation's target then lists the regions as filters.
 
-Apply regions when an operation needs to work only in part of an otherwise valid target: for
-example, to clear one area of a large pocket or to keep a cutter away from an area that must stay
-untouched. A region changes the operation's generated domain before toolpath generation; it does
-not delete moves after a toolpath has been made.
+A region's Z range always follows the stock (**Follows stock**): it filters in XY through the
+whole thickness.
 
 ## Include and exclude
 
-An include region adds its profile to the allowed machining area. An exclude region removes its
-profile from that area. The feature-tree order is significant:
+- An **include** region allows cutting inside it.
+- An **exclude** region forbids cutting inside it.
 
-1. A first include region starts the allowed area with that profile.
-2. A first exclude region starts from the operation's normal domain and removes that profile.
-3. Later includes add area back; later excludes remove area again.
+When an operation has several regions, they are applied in feature-tree order:
 
-This makes nested or overlapping regions predictable, but it also means that regions are an
-ordered mask, not just a collection of independent outlines. Keep the tree order readable and
-inspect the toolpath after changing it.
+1. If the first region is an include, the allowed area starts empty and the region is added to it.
+2. If the first region is an exclude, the allowed area starts as everything the operation would
+   cut, and the region is removed from it.
+3. Each later include adds its area back; each later exclude removes its area again.
+
+Several include regions together allow their combined area. With a mix of include and exclude
+regions, the order decides the result, so keep the tree order readable and check the toolpath
+after you reorder regions.
 
 ## Tool-centre boundary
 
-Regions constrain the generated toolpath domain. With an include region, a cutter can pass beyond
-the drawn boundary when that is needed to cover the included material, such as at a sharp corner.
-With an exclude region, the app keeps the cutter clear of the excluded area using the operation's
-effective clearance. The boundary is therefore not a universal line that the cutter edge always
-follows.
+The two modes treat the region's edge differently:
 
-<Aside type="caution" title="A region is not a workholding safety boundary">
-	Do not use an exclude region as a substitute for clamps or a machine setup check. Clamps have
-	their own size, height, and clearance rules. Confirm the generated toolpath, workholding, and
-	machine setup before cutting; see [Working safely](/guide/start-here/safety/).
+- **Include** means *everything inside must be cut*. To reach material right at the edge, such as
+  a sharp corner, the cutter may reach past the region's boundary.
+- **Exclude** means *the cutter stays out*. The whole cutter, not just its centre, is kept outside
+  the region, with the operation's clearance.
+
+Either way, a region can only reduce what an operation cuts. It never adds a cut that the
+operation would not make without it. Entry moves, such as helices, and links between cuts also stay
+inside the allowed area.
+
+For V-carving, the groove gets narrower as it gets shallower, so with an include region the
+shallower passes can reach slightly beyond the boundary. They never cut beyond what the operation
+would cut without the region.
+
+<Aside type="caution" title="An exclude region is not a clamp">
+	Use clamps, not exclude regions, to keep the cutter away from workholding. Clamps are checked
+	against the cutter's full width and their height, whatever the operation's strategy, and no
+	region order can undo them. See [Clamps and clearances](/guide/cam-setup/clamps-and-clearances/).
 </Aside>
 
 ## Where masks apply
 
-Regions can filter the domains of supported pocket, surface, V-carve, drilling, and contour-style
-operations. The result depends on the kind of geometry an operation generates, so a region never
-becomes an extra contour merely because it is selected.
+| Operations | How the region is applied |
+| --- | --- |
+| Pocket, surface clean, V-carve offset, V-carve medial, and the 3D surface operations | Limits the area that is cleared or finished. |
+| Edge route inside and outside, and engrave | Limits which parts of the path are cut. Edge routes honour regions only with the **Contour** strategy. |
+| Drill | Limits which holes are drilled. |
 
-Some strategies have specific limits. XY approach and exit arcs are not generated when an
-operation uses a region mask. Trochoidal edge routing is also limited to contour behaviour under
-a region mask. If a setting is unavailable or a warning appears, change the operation or inspect
-the toolpath rather than assuming the masked result matches an unmasked one.
+While a region is applied, some options are replaced:
+
+- **XY approach & exit** is not used. The operation reports **XY approach and exit are unavailable
+  while a region mask is applied to this operation, so the ordinary entry and retract were used.**
+- Check the operation's warnings after adding a region, and look at the toolpath: a masked result
+  is not simply the unmasked toolpath with parts removed.
 
 ## Related pages
 
-- [Features, roles, and depth](/guide/fundamentals/features-and-roles/) introduces the
-  region-mask role.
-- [Working with operations](/guide/cam-setup/working-with-operations/) explains assigning
-  targets and regions to an operation.
-- [Clamps and clearances](/guide/cam-setup/clamps-and-clearances/) explains machine-safe
-  workholding constraints.
-- [Working safely](/guide/start-here/safety/) gives the checks to make before running a machine.
+- [Features, roles, and depth](/guide/fundamentals/features-and-roles/): the region mask role
+  among the other roles.
+- [Working with operations](/guide/cam-setup/working-with-operations/): adding targets and regions
+  to an operation.
+- [Clamps and clearances](/guide/cam-setup/clamps-and-clearances/): keeping the cutter away from
+  workholding.
+- [3D finishing controls](/guide/strategies/3d-finishing/): combining regions with the slope
+  filter.

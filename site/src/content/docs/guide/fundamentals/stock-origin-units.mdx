@@ -1,6 +1,6 @@
 ---
 title: Stock, origin, and units
-description: Set the workpiece, job origin, and project units before creating toolpaths.
+description: Set the stock size or shape, place the work zero that exported G-code uses, and change project units safely.
 pageType: task
 availability: stable
 status: draft
@@ -8,9 +8,12 @@ status: draft
 
 import { Aside, Steps } from '@astrojs/starlight/components';
 
-Set the stock, origin, and units before you create machining operations. They define the physical
-job that PureCut CNC displays and the coordinate information that it gives to the selected machine
-when you export G-code.
+The stock is the material the job starts from, the origin is the point that becomes X0 Y0 Z0 on
+the machine, and the units decide how every number in the project is read. Set all three before
+you add operations, and check them again before you export.
+
+In project coordinates, the bottom of the stock is at Z 0 and its top is at the stock thickness.
+**Z top** and **Z bottom** of every feature use these coordinates.
 
 ## Stock
 
@@ -18,61 +21,92 @@ when you export G-code.
 
 1. Select **Stock** in the feature tree.
 
-2. Set the width, height, thickness, and display colour for rectangular stock, or use a profile
-   when the stock needs a non-rectangular outline.
+2. For rectangular stock, set **Width**, **Height**, and **Thickness**. **Color** and **Visible**
+   only change how it is drawn.
 
-3. Use the profile-stock controls to edit its sketch or reset it to a rectangle when appropriate.
-   You can also choose **Use as stock** from a compatible feature's context menu.
-
-4. Inspect the stock in **Sketch** and **3D view** before proceeding. Resize it by dimension when
-   the physical material changes.
+3. To resize the stock from the canvas instead, click one of its dimension labels (for example
+   **4 in**). In the **Resize stock** panel, type the new value. The panel says which side stays in
+   place, for example **Holding left side**; **Flip held point** holds the opposite side instead.
+   Click **Apply**.
 
 </Steps>
 
-Stock describes the workpiece, not its material grade or the clamps holding it. Set up clamps and
-their clearances separately before relying on a generated toolpath.
+Stock does not have to be a rectangle. To use a shape as the stock outline:
+
+<Steps>
+
+1. Draw the outline as a closed add feature.
+
+2. Right-click it and choose **Use as stock**. The feature leaves the feature tree and becomes the
+   stock outline, and the stock thickness is set to the feature's **Z top**.
+
+3. Select **Stock**. Its properties show the **Source feature**, and **Thickness** is still
+   editable. Use **Edit sketch** to change the outline, or **Reset to rectangle** to go back to
+   rectangular stock.
+
+</Steps>
+
+The stock has no material setting. Clamps are separate objects; see
+[Clamps and clearances](/guide/cam-setup/clamps-and-clearances/).
 
 ## Origin
+
+The origin is the work zero: export writes every coordinate relative to it (**Export uses the
+current project origin as machine X0 Y0 Z0.**). A new project puts it at the bottom-left corner of
+the stock, as seen in the Sketch view, on the top surface.
 
 <Steps>
 
 1. Select **Origin** in the feature tree.
 
-2. Choose an origin preset or use **Place origin** to set the XY location on the stock.
+2. Set the XY position:
 
-3. Set or verify the origin's Z value so it matches the zeroing plan on the real machine.
+   - click **Place origin**, then click the sketch (**Click the sketch to place machine X0 Y0.**);
+   - or click a preset:
 
-4. Before export, confirm the origin description in the export dialog matches the work offset and
-   touch-off procedure you will use at the machine.
+     | Preset | Origin |
+     | --- | --- |
+     | **Top left** | The top-left corner of the stock in the Sketch view, on its top surface. |
+     | **Center top** | The centre of the stock, on its top surface. |
+     | **Bottom left** | The bottom-left corner of the stock in the Sketch view, on its bottom surface (Z 0). |
+
+3. Check **Z**. **Place origin** does not change it, and the presets set it to the top or bottom of
+   the stock. Set **Z** to match where you will touch off the tool on the machine.
 
 </Steps>
 
-The origin is the project coordinate reference sent with the export. It does not move the physical
-workpiece or set the machine's work offset for you.
+<Aside type="danger" title="Safety: the origin must match your work zero">
+	If the origin in the project and the work zero set on the machine differ, every move in the
+	program is offset by the difference, including Z. Before running a job, confirm that you zero X,
+	Y, and Z at the same place as the project origin. See [Working safely](/guide/start-here/safety/).
+</Aside>
 
 ## Units
 
-Use the project-unit control in the status bar or the **Project** properties to change between
-metric and imperial units. PureCut CNC then opens the unit conversion dialog with two different
-choices:
+A project is in millimetres or inches. To change it, click the units button in the status bar (for
+example **INCH**) or change **Units** in the **Project** properties. The **Change project units?**
+dialog asks how to treat the existing numbers:
 
-| Choice | What it does |
+| Choice | Result |
 | --- | --- |
-| **Convert values** | Preserves the physical size by converting the numbers, such as 1 in to 25.4 mm. This is the recommended choice for an existing job. |
-| **Keep values** | Keeps the same numbers but interprets them in the new unit, such as 1 in becoming 1 mm. Use it only when that reinterpretation is intentional. |
+| **Convert values** (**Recommended**) | Keeps the physical size. Every length in the design, stock, dimensions, and operations is converted, so 1 in becomes 25.4 mm. |
+| **Keep numeric values** | Keeps the numbers and reads them in the new units, so 1 in becomes 1 mm. The project's physical size changes. |
 
-Check the unit shown for every tool while reviewing an operation. A project-unit change is not a
-reason to assume a tool's dimensions or the real machine setup have been converted as intended.
+Tools keep their own units: a 1/4″ endmill stays a 1/4″ endmill in a metric project. Each tool's
+**Units** is shown in its properties.
 
-<Aside type="caution">
-**Keep values** can radically change the real-world size of stock, geometry, and machining
-settings. Inspect the stock, origin, tools, toolpaths, and exported G-code after choosing it.
+<Aside type="caution" title="Keep numeric values rescales the job">
+	**Keep numeric values** changes the real size of the stock, the geometry, and every machining
+	value by a factor of 25.4. Use it only to fix a project that was set up in the wrong units, and
+	check the stock, the origin, and the toolpaths afterwards.
 </Aside>
 
 ## Related pages
 
-- [Projects and files](/guide/fundamentals/projects-and-files/) starts a project in the intended
-  unit system.
-- [Feature tree and properties](/guide/fundamentals/feature-tree/) locates the Stock, Origin,
-  and Project properties.
-- [Working safely](/guide/start-here/safety/) covers the final operator checks before a cut.
+- [Features, roles, and depth](/guide/fundamentals/features-and-roles/#z-range): the Z range
+  of features in these coordinates.
+- [Exporting G-code](/guide/verify-export/gcode-export/): how the origin and units appear in the
+  exported program.
+- [Clamps and clearances](/guide/cam-setup/clamps-and-clearances/): the other half of the physical
+  setup.
+- [Working safely](/guide/start-here/safety/): the checks to make at the machine.

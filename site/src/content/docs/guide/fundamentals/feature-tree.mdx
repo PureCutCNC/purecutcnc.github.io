@@ -1,88 +1,123 @@
 ---
 title: Feature tree and properties
-description: Find project objects, adjust their properties, and use tree actions safely.
+description: Every row of the project tree, the properties each selection shows, folders and groups, visibility, and the context menu.
 pageType: reference
 availability: stable
 status: draft
 ---
 
-The project panel combines a feature tree with a properties panel. Select an item in the tree to
-inspect it, change its available settings, or reveal the actions that apply to that selection.
+import { Aside } from '@astrojs/starlight/components';
+
+The project panel, on the left of the workspace, has two parts: the **Project tree** lists
+everything in the project, and **Properties** below it shows the settings of what is selected.
+**Expand properties panel** opens the properties in a larger panel; <kbd>Esc</kbd> closes it.
 
 ## The tree
 
-| Node | What it contains or controls |
-| --- | --- |
-| **Project** | Project-level settings, including the name and copy mode. |
-| **Grid** | Sketch grid settings and visibility. |
-| **Stock** | The workpiece size, shape, thickness, and display settings. |
-| **Origin** | The job origin that is used when the project is exported. |
-| **Backdrop** | A reference image, when the project has one. |
-| **Features** | Add, subtract, line, and imported-model features. |
-| **Regions** | Machining masks, kept separate from material features. |
-| **Construction** | Reference geometry that is not machined. |
-| **Tabs** | Tabs attached to compatible machining work. |
-| **Clamps** | Workholding geometry used for clearance checking. |
+| Row | What it holds | Row actions |
+| --- | --- | --- |
+| **Project** | Project-wide settings. | None. |
+| **Grid** | The sketch grid. | Show or hide. |
+| **Stock** | The material the job starts from. | Show or hide. |
+| **Origin** | The work zero used for export. | Show or hide. |
+| **Backdrop** | A reference image, if the project has one. | Show or hide, once an image is loaded. |
+| **Features** | Add, subtract, line, and model features, and their folders. | **Show all features**, **Hide all features**, **Add folder**. |
+| **Regions** | Region masks and their folders. | **Show all regions**, **Hide all regions**, **Add region folder**. |
+| **Construction** | Construction geometry and its folders. | **Show all construction geometry**, **Hide all construction geometry**, **Add construction folder**. |
+| **Tabs** | Tabs for edge routes. | **Show all tabs**, **Hide all tabs**, **Add tab**, **Select all tabs**. |
+| **Clamps** | Clamps the toolpaths must clear. | **Show all clamps**, **Hide all clamps**, **Add clamp**, **Select all clamps**. |
 
-The root rows provide **Show all** and **Hide all** actions where that visibility control makes
-sense. Folders can be expanded, collapsed, moved, and selected as a group.
+Each feature row has a role badge (click it to change the role), a show or hide button, and a grip
+for dragging the row (**Drag to reorder**). Badges also mark linked features (**Linked — N
+instances share this definition**), include and exclude regions, and construction geometry
+(**ref**).
 
 ## Properties
 
-The properties panel changes with the selected row. It is the place to adjust an object's actual
-settings instead of treating the tree label or colour as its definition.
+What the panel shows depends on the selection.
 
-| Selection | Examples of available properties |
+| Selection | Properties |
 | --- | --- |
-| **Project** | Project name, units, and copy mode. |
-| **Stock** | Size, thickness, colour, and profile-stock controls such as editing the sketch or resetting it to a rectangle. |
-| **Origin** | Origin position, presets, and the Z value. |
-| **Feature** | Name, role, lock state, visibility, Z range, and role-specific settings. Imported models also expose orientation controls. |
-| **Region** | Mask mode and its sketch data. |
-| **Construction** | Its sketch data and display state. |
-| **Tab or clamp selection** | The applicable tab or clamp properties, including bulk editing for a multi-selection. |
+| **Project** | **Name**; **Units** (**Millimeters** or **Inches**); **Show feature info in sketch**; the clearance heights **Safe Z** and **Op clear Z**; the clamp clearances **Clamp clear XY** and **Clamp clear Z**; **Machine**, with **Manage machines…**. |
+| **Grid** | **Grid extent**, **Major lines**, **Minor lines**, **Snap increment**, **Visible**. |
+| **Stock** (rectangular) | **Width**, **Height**, **Thickness**, **Color**, **Visible**. |
+| **Stock** (from a feature) | **Source feature**, **Thickness**, **Color**, **Visible**, **Edit sketch**, **Reset to rectangle**. |
+| **Origin** | **Name**, **Z**, **Visible**, **Place origin**, and the **Presets** **Top left**, **Center top**, and **Bottom left**. |
+| **Backdrop** | **Image** (**Load image** or **Replace image**), **Visible**, **Opacity**, **Width**, **Height**, **Angle**, and **Move**, **Resize**, **Rotate**, and **Delete**. |
+| A feature | **Shape**: **Operation** (the role), plus **Mask mode** for a region, the text settings for text, and **3D orientation** for a model. **Instance**: **Name**, **Z top** and **Z bottom**, **Folder**, **Visible**, **Locked**. Then **Edit sketch**, **Delete feature**, and any constraints. |
+| Several features | The same fields, showing **Mixed values** where the features differ, plus **Group** or **Ungroup** and **Delete selected**. |
+| Tabs or clamps | Their size, position, and height, for one or several at a time. See [Tabs](/guide/cam-setup/tabs/) and [Clamps and clearances](/guide/cam-setup/clamps-and-clearances/). |
 
-Use the expanded properties view when the available space in the panel is not enough to inspect a
-selection comfortably.
+The **Shape** section holds what linked copies share; when a feature has linked copies, its title
+reads **Shape (shared with N instances)**, and **Make unique** appears there. The **Instance**
+section holds what belongs to this copy alone. See [Linked features](/guide/fundamentals/linked-features/).
+
+A feature's properties also show a warning when its profile crosses itself (**This profile
+self-intersects. 3D/CAM results may be invalid.**) or reaches past the stock (**This profile extends
+outside the stock boundary.**).
 
 ## Folders and groups
 
-Folders organize Features, Regions, and Construction separately. A folder can hold a group so you
-can select or act on its members together. Grouping and folder assignment do not change a
-feature's role: a Region remains a mask and Construction remains reference geometry wherever it
-is organized.
+Folders organize the tree. Features, regions, and construction geometry each have their own
+folders, and a folder only holds its own kind.
+
+- Create a folder with **Add folder** (or **Add region folder**, **Add construction folder**) on the
+  section row, or choose **Add to folder** > **Create new…** in the context menu.
+- Move a feature into a folder with **Add to folder**, the **Folder** property, or by dragging it.
+- **Select all features in folder** on a folder row selects its contents.
+
+A group is a folder whose members act as one: clicking any member on the canvas or in the tree
+selects the whole group, and members cannot be dragged out of it. Select two or more features of
+the same kind and choose **Group** (or **Group features** on the folder row); **Ungroup** turns the
+group back into a plain folder. Groups do not change any feature's role.
 
 ## Visibility
 
-The eye controls whether an item is shown in the workspace model and previews. Hiding an object is
-useful for inspection, but it is not a substitute for deciding what to export. Use the export
-dialog's operation checklist to confirm the G-code contents before saving the file.
+The show or hide button on a row, the section-row actions, and the toggles in the status bar change
+an item's visibility. Visibility is saved in the project, and it changes more than what you see:
 
-Lock a feature when its geometry should not be changed accidentally. Unlock it deliberately before
-using an edit or transform command. Visibility and locking are project settings, so save after a
-meaningful review state is established.
+| Hidden item | Effect |
+| --- | --- |
+| Feature | Not drawn, and left out of the 3D model and of exported models. Operations that target it still generate toolpaths. |
+| Tab | Not drawn. Edge routes still leave the tab; 3D surface operations ignore it. |
+| Clamp | Not drawn, and **ignored by the clamp clearance and collision checks**. |
+| Stock, grid, origin | Not drawn. |
+
+<Aside type="danger" title="Safety: hidden clamps are not avoided">
+	Hiding a clamp, including with **Hide all clamps** or the **Clamps** status bar toggle, removes it
+	from clearance checking. Toolpaths can then pass through it. Show every clamp before you
+	generate and export toolpaths, and check the clearances; see
+	[Working safely](/guide/start-here/safety/). This behaviour is tracked in
+	[app issue #802](https://github.com/PureCutCNC/purecutcnc/issues/802).
+</Aside>
+
+**Locked** protects a feature from accidental changes. While a locked feature is selected, the
+transform tools in the tool rail are unavailable; its points cannot be edited; and join, offset,
+align, and distribute leave it out.
 
 ## Context menu
 
-Right-click a feature on desktop, or long-press/use the visible touch context action where
-available, for commands that apply to the current selection. Depending on the selection, the menu
-can offer:
+Right-click a feature on the canvas or in the tree, or long-press it on a touch screen. The menu
+offers what applies to the selection:
 
-- **Make unique** and **Select linked** for a feature that has linked instances.
-- **Create operation**, **Add to operation**, or **Remove from operation** for compatible CAM
-  targets.
-- **Edit sketch**, **Add constraint**, and transforms such as copy, move, resize, rotate,
-  mirror, offset, join, and cut.
-- Folder and group commands, **Use as stock**, and **Delete**.
+- **Make unique** and **Select linked instances**, for linked features;
+- **Create operation**, **Add to operation**, and **Remove from operation**;
+- **Edit sketch** and **Add constraint**;
+- **Copy**, **Move**, **Resize**, **Rotate**, **Mirror**, and **Offset** (their names change to
+  **Copy selected**, **Move selected**, or **Copy group** and so on for several features or a group);
+- **Add to folder**, **Group**, **Join**, and **Cut**;
+- **Use as stock**, for a closed add feature;
+- **Delete** (**Delete selected**, **Delete group**).
 
-Commands that would be invalid for the selected objects are unavailable. Check the current
-selection before applying a group, transform, or operation action.
+Unavailable items are greyed out, and their tooltip says why, for example **Locked features cannot
+be moved** or **Select two or more features to join**.
 
 ## Related pages
 
-- [Features, roles, and depth](/guide/fundamentals/features-and-roles/) explains the feature
-  roles shown in the tree.
-- [Linked features](/guide/fundamentals/linked-features/) explains **Make unique** and
-  **Select linked**.
-- [Construction geometry](/guide/fundamentals/construction-geometry/) explains the separate
-  Construction section.
+- [Features, roles, and depth](/guide/fundamentals/features-and-roles/): roles, Z ranges, and
+  why tree order matters.
+- [Linked features](/guide/fundamentals/linked-features/): **Make unique** and linked copies.
+- [Stock, origin, and units](/guide/fundamentals/stock-origin-units/): the Stock, Origin, and
+  Project settings in use.
+- [Clamps and clearances](/guide/cam-setup/clamps-and-clearances/): what **Safe Z**, **Op clear Z**,
+  and the clamp clearances do.
