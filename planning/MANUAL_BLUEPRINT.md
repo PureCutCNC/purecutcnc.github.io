@@ -328,11 +328,21 @@ in the English catalogue (`src/i18n/locales/en/` in the app) at the reviewed com
 menus and groups: **Entry & retract** > **Entry strategy**. If the app changes a label,
 the page changes with it.
 
-The guide describes the app as it should be. When a label is wrong or inconsistent in the
-app, file an app issue, write the corrected label in the guide, and list the issue in
-`blockedBy` for every screenshot that shows the old one. The checker applies such
-corrections to bold labels too (today: **V-bit** and **Z top** / **Z bottom**,
-PureCutCNC/purecutcnc#797).
+**When the app is wrong.** The guide writes labels and text as they should read, but it
+documents behaviour as the app has it today:
+
+- **A wrong or inconsistent label or UI text:**
+  - file an app issue;
+  - write the corrected label in the guide;
+  - list the issue in `blockedBy` for every screenshot that shows the old wording.
+
+  The checker applies such corrections to bold labels too. Today that covers **V-bit** and
+  **Z top** / **Z bottom** (PureCutCNC/purecutcnc#797).
+- **Missing or wrong behaviour:**
+  - file an app issue;
+  - describe what the app does now, never the intended behaviour as if it had shipped (#24);
+  - if the difference matters to the reader, say so in a `caution` callout;
+  - update the page when the fix ships.
 
 **Titles and headings** use sentence case. The proper names that keep their capitals are
 **PureCut CNC**, **User Guide**, **Quick Start**, **CAM Plan**, **Preview Build**, and
@@ -457,7 +467,7 @@ Every image has an entry in `site/src/assets/manual/media.json`, keyed by its pa
   `viewport`.
 - `blockedBy` lists issues (`owner/repo#number`) that must be fixed in the app before the
   screenshot can be taken correctly, for example `PureCutCNC/purecutcnc#795`. The page
-  itself is written to describe the correct behaviour; the screenshot waits.
+  already uses the corrected wording (see *When the app is wrong*); the screenshot waits.
 - `npm run content` prints the re-shoot count and every blocked image;
   `npm run content:cutover` fails while any image is `reshoot` or blocked.
 
@@ -535,8 +545,8 @@ entries and rows, keep the existing order, and rebase rather than resolve confli
 
 ## App follow-ups
 
-App issues filed while defining the guide. The guide already describes the fixed state, and
-the affected screenshots wait on them through `blockedBy`:
+App issues filed while defining the guide. Both are text issues, so the guide already uses
+the corrected wording, and the affected screenshots wait on them through `blockedBy`:
 
 - PureCutCNC/purecutcnc#795: operation descriptions list incomplete strategy choices.
 - PureCutCNC/purecutcnc#797: the tool type label **V-Bit**, and **Top Z** / **Bottom Z** in

@@ -179,7 +179,7 @@ The inventory also found these changes since v0.4.0:
 
 ### In-app text that disagrees with the app
 
-These belong in `PureCutCNC/purecutcnc`, not in the manual. None has been filed yet.
+These belong in `PureCutCNC/purecutcnc`, not in the manual. The first is filed as PureCutCNC/purecutcnc#795. The other two are left to the Wave 2 issues that own those pages: #30 (STEP) and #29 (Snapshot).
 
 - **Operation descriptions list incomplete strategy choices.** Some Add-menu descriptions enumerate the strategies an operation offers, and those lists are out of date:
   - **Pocket** and **Surface clean** give the pattern as offset or parallel, without Seeded circles or Trochoidal.
@@ -189,6 +189,8 @@ These belong in `PureCutCNC/purecutcnc`, not in the manual. None has been filed 
   Either complete the lists or stop enumerating strategies in descriptions.
 - The empty-state card lists import formats without STEP (`viewport.empty.importMeta`).
 - The desktop update menu calls the preview track **Snapshot**; the website calls it **Preview Build**.
+
+Found later, while defining the terminology rules in #22: the tool type label **V-Bit**, and **Top Z** / **Bottom Z** in CAM Plan and the setup booklet, disagree with the rest of the app (PureCutCNC/purecutcnc#797).
 
 ### Public-site copy to fix during release integration (Wave 3)
 
