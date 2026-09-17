@@ -112,6 +112,66 @@
 		"locale": "en",
 		"status": "reshoot"
 	},
+	"reference/languages/language-editor.png": {
+		"shows": "Edit language dialog for an English copy, with name, tag, counter, search, filter, and untranslated rows",
+		"source": "legacy-guide",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "reshoot"
+	},
+	"reference/languages/language-manager.png": {
+		"shows": "Manage languages dialog with the built-in languages and English selected",
+		"source": "legacy-guide",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "reshoot"
+	},
+	"reference/languages/language-menu.png": {
+		"shows": "Language menu with the built-in languages and Manage languages…",
+		"source": "legacy-guide",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "reshoot"
+	},
+	"reference/themes/appearance-menu.png": {
+		"shows": "Appearance menu with Dark, Light, System, and Manage themes…",
+		"source": "legacy-guide",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "reshoot"
+	},
+	"reference/themes/theme-editor.png": {
+		"shows": "Edit theme dialog for a copy of Dark, with colour rows and previews",
+		"source": "legacy-guide",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "reshoot"
+	},
+	"reference/themes/theme-manager.png": {
+		"shows": "Manage themes dialog with Dark selected and the Mode setting",
+		"source": "legacy-guide",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "reshoot"
+	},
 	"strategies/clearing-patterns/seeded-circles.png": {
 		"shows": "Pocket using the Seeded circles pattern",
 		"source": "legacy-guide",

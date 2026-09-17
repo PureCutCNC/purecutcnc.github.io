@@ -1,0 +1,89 @@
+---
+title: Keyboard shortcuts
+description: Every keyboard shortcut in PureCut CNC, for the web app, the desktop menus, and the sketch canvas.
+pageType: reference
+availability: stable
+status: draft
+---
+
+PureCut CNC uses a small set of keyboard shortcuts. On macOS, use <kbd>Cmd</kbd> where this page
+shows <kbd>Ctrl</kbd>. Shortcuts that use <kbd>Ctrl</kbd> or <kbd>Cmd</kbd> do nothing while you
+are typing in a text or number field, so the field gets the key instead.
+
+## Everywhere
+
+These work in the web app and in the desktop app.
+
+| Shortcut | macOS | Action |
+| --- | --- | --- |
+| <kbd>Ctrl</kbd>+<kbd>Z</kbd> | <kbd>Cmd</kbd>+<kbd>Z</kbd> | Undo the last project change. |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Z</kbd> or <kbd>Ctrl</kbd>+<kbd>Y</kbd> | <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>Z</kbd> | Redo. |
+| <kbd>Ctrl</kbd>+<kbd>A</kbd> | <kbd>Cmd</kbd>+<kbd>A</kbd> | Select every visible feature. |
+| <kbd>Ctrl</kbd>+<kbd>C</kbd> | <kbd>Cmd</kbd>+<kbd>C</kbd> | Copy the selected features. |
+| <kbd>Ctrl</kbd>+<kbd>X</kbd> | <kbd>Cmd</kbd>+<kbd>X</kbd> | Cut the selected features. |
+| <kbd>Ctrl</kbd>+<kbd>V</kbd> | <kbd>Cmd</kbd>+<kbd>V</kbd> | Paste copied or cut features. **Paste features** then asks you to click in the sketch to place them. |
+| <kbd>Ctrl</kbd>+<kbd>P</kbd> | <kbd>Cmd</kbd>+<kbd>P</kbd> | Open **Print design** for the current design. |
+
+Copied features stay inside PureCut CNC; they are not placed on the system clipboard. See
+[Selecting and transforming](/guide/design/selecting-and-transforming/) for copying and pasting.
+
+## Desktop menus
+
+The desktop app's native menus add these shortcuts. The web app has no shortcuts for these
+commands; use the top toolbar instead.
+
+| Shortcut | macOS | Menu command |
+| --- | --- | --- |
+| <kbd>Ctrl</kbd>+<kbd>N</kbd> | <kbd>Cmd</kbd>+<kbd>N</kbd> | **File** > **New** |
+| <kbd>Ctrl</kbd>+<kbd>O</kbd> | <kbd>Cmd</kbd>+<kbd>O</kbd> | **File** > **Open…** |
+| <kbd>Ctrl</kbd>+<kbd>S</kbd> | <kbd>Cmd</kbd>+<kbd>S</kbd> | **File** > **Save** |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>S</kbd> | <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>S</kbd> | **File** > **Save As…** |
+| <kbd>Ctrl</kbd>+<kbd>E</kbd> | <kbd>Cmd</kbd>+<kbd>E</kbd> | **File** > **Export G-code…** |
+| <kbd>Ctrl</kbd>+<kbd>P</kbd> | <kbd>Cmd</kbd>+<kbd>P</kbd> | **File** > **Print Design…** |
+| <kbd>Ctrl</kbd>+<kbd>Z</kbd> | <kbd>Cmd</kbd>+<kbd>Z</kbd> | **Edit** > **Undo** |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Z</kbd> | <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>Z</kbd> | **Edit** > **Redo** |
+| <kbd>Ctrl</kbd>+<kbd>C</kbd>, <kbd>Ctrl</kbd>+<kbd>X</kbd>, <kbd>Ctrl</kbd>+<kbd>V</kbd> | <kbd>Cmd</kbd>+<kbd>C</kbd>, <kbd>Cmd</kbd>+<kbd>X</kbd>, <kbd>Cmd</kbd>+<kbd>V</kbd> | **Edit** > **Copy**, **Cut**, **Paste** |
+| <kbd>Ctrl</kbd>+<kbd>Q</kbd> | <kbd>Cmd</kbd>+<kbd>Q</kbd> | **Quit PureCutCNC** |
+
+**Edit** > **Select All** has no shortcut of its own; <kbd>Ctrl</kbd>+<kbd>A</kbd> selects all
+features as described above.
+
+## Sketch canvas
+
+These keys work while a command is active on the sketch canvas. The workflow panel of each command
+shows the keys it accepts next to its buttons.
+
+| Key | Action |
+| --- | --- |
+| <kbd>Esc</kbd> | Cancel the current step or command. In sketch editing, the first press leaves the active edit tool, and a press with no tool active cancels the editing session. <kbd>Esc</kbd> also ends **Zoom selected**, the tape measure, and dimension placement. |
+| <kbd>Enter</kbd> | Confirm the current command. Finishes a polygon or spline with at least two points as an open path, finishes a composite path with at least one segment, and applies a sketch-editing session. |
+| <kbd>Tab</kbd> | Open numeric entry for the current step: dimensions, width, radius, distance, scale, or angle. In sketch editing, it edits the dimensions of the segment under the pointer. In **Cut**, it moves from choosing cutters to choosing targets. |
+| <kbd>Backspace</kbd> | Remove the last point of a polygon or spline, or the last segment of a composite path, while you draw it. |
+| <kbd>L</kbd>, <kbd>A</kbd>, <kbd>S</kbd> | While drawing a composite path, switch the next segment to a line, an arc, or a spline. |
+| <kbd>K</kbd> | Turn **Keep originals** on or off in **Join**, **Cut**, and the rotate and mirror transforms. |
+| <kbd>Alt</kbd> | Cycle the axis lock: **Lock X**, **Lock Y**, then off. See [Snapping and the grid](/guide/design/snapping-and-grid/). |
+| <kbd>C</kbd> | In sketch editing, with no edit tool active, start **Add constraint** for the selected feature. |
+| <kbd>Delete</kbd> or <kbd>Backspace</kbd> | Delete the selected dimension. |
+
+## Mouse and keyboard together
+
+| Input | Action |
+| --- | --- |
+| <kbd>Shift</kbd>+click, <kbd>Ctrl</kbd>+click | Add a feature to the selection, or remove it. |
+| <kbd>Shift</kbd>+drag | Pan the sketch, like a middle-button or right-button drag. |
+| Scroll | Zoom at the pointer. |
+
+Touch gestures are listed on [Tablet and touch](/guide/fundamentals/tablet-and-touch/).
+
+## Tabs and panels
+
+In the workspace view tabs and the CAM panel tabs, <kbd>←</kbd> and <kbd>→</kbd> move to the
+previous or next tab, and <kbd>Home</kbd> and <kbd>End</kbd> move to the first or last. <kbd>Esc</kbd>
+closes an expanded properties panel.
+
+## Related pages
+
+- [The workspace](/guide/fundamentals/workspace/): the toolbar, tool rail, and workflow panels
+  these keys control.
+- [Install and open PureCut CNC](/guide/start-here/install-and-open/): the desktop menus.
+- [Drawing tools](/guide/design/drawing-tools/): the commands that use the canvas keys.

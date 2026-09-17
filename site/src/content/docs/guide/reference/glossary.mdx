@@ -1,0 +1,89 @@
+---
+title: Glossary
+description: The terms PureCut CNC and this guide use, what they mean, and what other CAM programs call them.
+pageType: reference
+availability: stable
+status: draft
+---
+
+This glossary defines the terms the app and this guide use. If you are coming from another CAM
+program, the last column gives names you may know for the same idea. Terms in bold are labels as
+the app shows them.
+
+## Project and design
+
+| Term | Meaning | Elsewhere often called |
+| --- | --- | --- |
+| Add feature | A closed feature with the **Add** role: material that remains in the part. The first solid feature in a project is always an add feature. | Boss, raised area |
+| Backdrop | A reference image placed under the sketch for tracing. It is never machined. See [Backdrop images](/guide/design/backdrop-images/). | Underlay, trace image |
+| Construction geometry | Sketch-only reference geometry for snapping, mirroring, and dimensioning. It is never machined, simulated, or exported. See [Construction geometry](/guide/fundamentals/construction-geometry/). | Reference geometry, guides |
+| Constraint | A distance from a point on a feature to a point or edge of another feature. PureCut CNC positions the feature to keep that distance. See [Dimensions and constraints](/guide/design/dimensions-and-constraints/). | Parametric constraint |
+| Creation target | The choice in the tool rail that decides whether a new shape becomes a feature, a line, a region, or construction geometry. | Layer, drawing mode |
+| Dimension | A measurement drawn on the sketch. A driving dimension changes the geometry when you edit its value. | Annotation, driving dimension |
+| Feature | A shape in the project, drawn or imported. Its role decides what it does in the model and in machining. See [Features, roles, and depth](/guide/fundamentals/features-and-roles/). | Entity, object, vector |
+| Feature tree | The list of the project's stock, origin, features, regions, construction geometry, tabs, and clamps in the project panel. See [Feature tree and properties](/guide/fundamentals/feature-tree/). | Object list, layers panel |
+| Line | An open or closed path with the **Line** role. It adds no material; engrave and V-carve operations can follow it. | Open vector, path |
+| Linked features | Copies that share one definition, so editing the shape of one changes all of them. **Make unique** separates one copy. See [Linked features](/guide/fundamentals/linked-features/). | Instances, clones, components |
+| Model | An imported 3D model (STL, OBJ, or STEP) in the project. The 3D surface operations machine it. See [Importing 3D models](/guide/design/importing-3d-models/). | Mesh, 3D component |
+| Origin | The point on the stock that becomes machine X0 Y0 Z0 in the exported G-code. See [Stock, origin, and units](/guide/fundamentals/stock-origin-units/). | Work zero, WCS, datum |
+| Project | A `.camj` file that holds the stock, origin, features, tools, operations, machine choice, tabs, and clamps. | Job, document |
+| Region | A closed feature with the **Region mask** role. It limits where operations may cut and is never cut itself. Include regions add to the allowed area; exclude regions remove from it. See [Regions](/guide/fundamentals/regions/). | Machining boundary, containment |
+| Role | What a feature does: add, subtract, line, region, construction, or model. The properties panel shows it as **Operation**. | Feature type |
+| Sketch editing | The mode for changing a feature's points and segments, opened with **Edit sketch**. See [Editing sketches](/guide/design/sketch-editing/). | Node editing |
+| Stock | The block of material the job starts from, with its outline and thickness. See [Stock, origin, and units](/guide/fundamentals/stock-origin-units/). | Material, blank, workpiece |
+| Subtract feature | A closed feature with the **Subtract** role: a cavity removed from the material. | Pocket geometry, cut-out |
+| Workflow panel | The small movable panel that guides a staged canvas command, step by step. See [The workspace](/guide/fundamentals/workspace/#workflow-panels). | Command prompt |
+| Z top, Z bottom | A feature's vertical extent as coordinates: where it starts and where it ends. The cut depth of a subtract feature is **Z top** minus **Z bottom**. | Start depth, cut depth |
+
+## Machining
+
+| Term | Meaning | Elsewhere often called |
+| --- | --- | --- |
+| CAM Plan | A dialog that proposes operations, tools, and shared tabs for the project's features, for you to review before they are created. See [CAM Plan](/guide/cam-setup/cam-plan/). | Machining wizard, templates |
+| Clamp | A workholding obstacle placed on the stock. Toolpaths are checked against it and kept clear. See [Clamps and clearances](/guide/cam-setup/clamps-and-clearances/). | Fixture, hold-down |
+| Clearing pattern | How an operation clears an area: **Offset**, **Seeded circles**, **Parallel**, or **Trochoidal**. See [Clearing patterns](/guide/strategies/clearing-patterns/). | Pocketing strategy |
+| Climb, conventional | The **Cut direction**: whether the cutter's rotation moves with or against the feed. | Down milling, up milling |
+| Corner relief | An extra cut into inside corners so a square part fits: **Dogbone** or **T-bone**. See [Corner rounding and relief](/guide/strategies/corners/). | Dog-bone fillet, overcut |
+| Edge route | An operation that follows a closed profile: **Edge route inside** or **Edge route outside**. | Profile, contour cut |
+| Engrave | An operation that follows a path at a fixed depth. | Follow path, trace, on-line cut |
+| Entry strategy | How the cutter reaches cutting depth: **Plunge**, **Helix**, or **Ramp**. See [Entry and exit moves](/guide/strategies/entry-and-exit/). | Lead-in, ramping |
+| Feed reduction | Lower feed where the cutter is fully engaged, such as slotting. See [Feed reduction](/guide/strategies/feed-reduction/). | Adaptive feed, slot feed |
+| Machine | The machine definition that decides the G-code dialect, units commands, and file extension. See [Machines](/guide/cam-setup/machines/). | Post-processor, post |
+| Operation | A machining step applied to one or more target features, with its own tool and settings. Its **Kind** says what it does. See [Choosing an operation](/guide/operations/). | Toolpath, machining operation |
+| Pass | Whether an operation is the **Rough** or **Finish** pass. The Add menu's **Both** creates one of each. | Roughing, finishing |
+| Rest machining | A follow-up operation for a smaller tool that clears only what the first tool could not reach. See [Rest machining](/guide/strategies/rest-machining/). | Rest roughing, remachining |
+| Stepdown | The depth of material removed per level. | Depth per pass, depth of cut |
+| Stepover | The sideways distance between neighbouring passes. Operations set it as **Stepover ratio**, a fraction of the tool diameter. | Width of cut |
+| Stock to leave | Material an operation leaves for a later pass: **Stock to leave radial** on walls and **Stock to leave axial** on floors. | Allowance, leave stock |
+| Tab | A small bridge of material that an edge route leaves so the part stays attached to the stock. See [Tabs](/guide/cam-setup/tabs/). | Holding tab, bridge |
+| Target | The features an operation machines, set under **What it cuts**. Regions can be added to limit where it cuts. | Selection, geometry |
+| Toolpath | The path the cutter follows for an operation, generated from its targets and settings. | NC path, cutter path |
+| Trochoidal | Cutting with small overlapping loops to keep the cutter's engagement low. See [Trochoidal cutting](/guide/strategies/trochoidal-cutting/). | Adaptive clearing, dynamic milling |
+| V-carve | Carving with a V-bit, where the groove width follows the cut depth: **V-carve offset** and **V-carve medial**. | V-carving, prism carving |
+
+## Tools and cutting
+
+| Term | Meaning | Elsewhere often called |
+| --- | --- | --- |
+| Ball endmill | A cutter with a rounded tip, used for 3D finishing. | Ball nose |
+| Flat endmill | A cutter with a flat tip, for pockets, edge routes, and clearing. | Square endmill |
+| Feed | How fast the cutter moves through material while cutting. **Plunge feed** is the rate for downward moves. | Feed rate, plunge rate |
+| RPM | Spindle speed in revolutions per minute. | Spindle speed, S |
+| Tool library | The bundled metric and imperial tools you can import into a project with **Import from library…**. See [Tool library](/guide/cam-setup/tool-library/). | Tool database |
+| V-bit | A cutter with a pointed, angled tip, set by its **V angle**. | Engraving bit, V-cutter |
+
+## Checking and output
+
+| Term | Meaning | Elsewhere often called |
+| --- | --- | --- |
+| G-code | The program your machine controller runs, written by **Export**. See [Exporting G-code](/guide/verify-export/gcode-export/). | NC code, CNC program |
+| Preview Build | The version of the app built from its main branch between releases, with features not yet in a stable release. | Beta, nightly, snapshot |
+| Setup booklet | A PDF with an operation's setup details and pictures, for use at the machine. See [Setup booklets](/guide/verify-export/setup-booklets/). | Setup sheet |
+| Simulation | The view that removes material from the stock along the toolpaths, so you can check the result. See [Simulation](/guide/verify-export/simulation/). | Stock simulation, cut preview |
+
+## Related pages
+
+- [Features, roles, and depth](/guide/fundamentals/features-and-roles/): the model behind most
+  of these terms.
+- [Choosing an operation](/guide/operations/): how the operations compare.
+- [Interface languages](/guide/reference/languages/): these terms in other languages.
