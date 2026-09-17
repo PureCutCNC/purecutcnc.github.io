@@ -9,36 +9,55 @@ tableOfContents: false
 
 import { CardGrid, LinkCard } from '@astrojs/starlight/components';
 
-PureCut CNC is a 2.5D + 3D CAD/CAM workspace. You draw or import geometry, assign machining
-operations to it, check the result in 3D and simulation, and export G-code when it looks right.
-It runs as a desktop app on Windows, macOS, and Linux, and in any modern desktop or tablet
-browser. No account is needed, and your project data never leaves your machine.
+PureCut CNC is a 2.5D and 3D CAD/CAM program for CNC routers. You draw or import a part, assign
+machining operations to it, check the toolpaths in 3D and in simulation, and export G-code for
+your machine. It runs in a desktop or tablet browser and as a desktop app for macOS, Windows, and
+Linux. It needs no account, and your projects stay on your own computer.
 
-New to PureCut CNC? Start with the [Quick Start](/quickstart/): it takes you from a blank
-project to exported G-code in a few minutes.
+This guide describes the current app. Pages and sections marked **Preview Build** cover features
+that are not in a stable release yet.
 
-## Sample pages
-
-These pages exercise the new documentation platform. They were ported from the current guide
-and have not yet been checked against the app.
+## Start here
 
 <CardGrid>
-	<LinkCard title="Quick Start" description="A guided first project, from blank canvas to G-code." href="/quickstart/" />
-	<LinkCard title="Tool library" description="Import, define, and manage cutting tools." href="/guide/cam-setup/tool-library/" />
-	<LinkCard title="Pocket" description="Clear the inside of closed subtract features." href="/guide/operations/pocket/" />
+	<LinkCard title="Install and open PureCut CNC" description="Choose the web app or a desktop build, and open a first project." href="/guide/start-here/install-and-open/" />
+	<LinkCard title="Quick Start" description="Go from a blank project to exported G-code in about ten minutes." href="/quickstart/" />
+	<LinkCard title="Working safely" description="What the preview cannot tell you, and what to check before cutting." href="/guide/start-here/safety/" />
 </CardGrid>
+
+## Find your way
+
+| If you are | Start with | Then read |
+| --- | --- | --- |
+| New to PureCut CNC | [Install and open](/guide/start-here/install-and-open/) and the [Quick Start](/quickstart/) | [Working safely](/guide/start-here/safety/), then the Fundamentals pages in order, starting with [The workspace](/guide/fundamentals/workspace/) |
+| Looking up a tool, operation, setting, or shortcut | Search, or the section in the sidebar | The operation, strategy, or reference page, and its settings table |
+| Coming from another CAM program | The [Glossary](/guide/reference/glossary/) | [Features, roles, and depth](/guide/fundamentals/features-and-roles/), [Choosing an operation](/guide/operations/), and [Advanced strategies](/guide/strategies/clearing-patterns/) |
+| Fixing a problem with an import, a toolpath, a simulation, or an export | [Troubleshooting](/guide/reference/troubleshooting/) | [Warnings and messages](/guide/reference/warnings/) for the exact text the app shows |
+| Getting ready to cut | [Working safely](/guide/start-here/safety/) | [Simulation](/guide/verify-export/simulation/) and [Exporting G-code](/guide/verify-export/gcode-export/) |
+
+## Workflow
+
+A typical job goes through these steps. You can return to any of them at any time: toolpaths are
+generated again whenever the design or the machining settings change.
+
+1. **Set up the project.** Create or open a project, then check its stock, origin, and units.
+2. **Design the part.** Draw features or import SVG, DXF, STL, OBJ, or STEP files, and give each
+   feature its role and its Z top and Z bottom.
+3. **Plan the machining.** Add tools, then add operations to the features they should cut, or let
+   CAM Plan propose a set of operations for you to review.
+4. **Set up the cut.** Choose each operation's settings and strategies, and add tabs and clamps.
+5. **Verify.** Check the toolpaths in the 3D view and the simulation, and resolve any warnings.
+6. **Export.** Choose the machine, check which operations are exported, save the G-code, and check
+   it on the machine before cutting.
 
 ## Guide sections
 
-The User Guide is organized around what you are trying to do:
-
-| Section | What it covers |
-| --- | --- |
-| Start Here | Installing or opening the app, the Quick Start, and where to go next. |
-| Fundamentals | The workspace, features, the feature tree, stock, origin, and units. |
-| Design | Drawing, editing, snapping, constraints, dimensions, text, and import. |
-| CAM Setup | Tools, machines, post-processors, tabs, and clamps. |
-| Machining Operations | One page per operation, with its parameters and limits. |
-| Advanced Strategies | Entry moves, trochoidal cutting, corner relief, feed reduction, and 3D finishing. |
-| Verify and Export | 3D preview, simulation, exported-motion inspection, and G-code export. |
-| Reference and Troubleshooting | Settings, file formats, warnings, and fixes for common problems. |
+<CardGrid>
+	<LinkCard title="Fundamentals" description="The workspace, projects, features and their roles, stock, origin, units, and regions." href="/guide/fundamentals/workspace/" />
+	<LinkCard title="Design" description="Drawing, editing, snapping, dimensions and constraints, text, and importing." href="/guide/design/drawing-tools/" />
+	<LinkCard title="CAM Setup" description="Tools, operations, CAM Plan, machines, tabs, and clamps." href="/guide/cam-setup/tool-library/" />
+	<LinkCard title="Machining Operations" description="One page per operation, with its requirements and settings." href="/guide/operations/" />
+	<LinkCard title="Advanced Strategies" description="Clearing patterns, trochoidal cutting, entries, corners, feed reduction, rest machining, and 3D finishing." href="/guide/strategies/clearing-patterns/" />
+	<LinkCard title="Verify and Export" description="Toolpath preview, 3D view, simulation, G-code export, and setup booklets." href="/guide/verify-export/toolpath-preview/" />
+	<LinkCard title="Reference and Troubleshooting" description="Shortcuts, file formats, machine definitions, themes, languages, warnings, and fixes." href="/guide/reference/keyboard-shortcuts/" />
+</CardGrid>
