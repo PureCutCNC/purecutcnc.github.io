@@ -1,0 +1,206 @@
+---
+title: Drawing tools
+description: Draw rectangles, circles, ellipses, polygons, splines, and composite paths on the sketch canvas, with typed dimensions.
+pageType: task
+availability: stable
+status: draft
+---
+
+import { Aside, Steps } from '@astrojs/starlight/components';
+import Screenshot from '../../../../components/Screenshot.astro';
+import creationTarget from '../../../../assets/manual/design/drawing-tools/creation-target.png';
+import rectangleTool from '../../../../assets/manual/design/drawing-tools/rectangle.png';
+import circleTool from '../../../../assets/manual/design/drawing-tools/circle.png';
+import ellipseTool from '../../../../assets/manual/design/drawing-tools/ellipse.png';
+import polygonTool from '../../../../assets/manual/design/drawing-tools/polygon.png';
+import splineTool from '../../../../assets/manual/design/drawing-tools/spline.png';
+import compositeTool from '../../../../assets/manual/design/drawing-tools/composite.png';
+
+The drawing tools in the tool rail add shapes to the **Sketch** canvas. Every shape you draw becomes
+a feature in the feature tree; its role and Z range decide what it does in the model, as
+[Features, roles, and depth](/guide/fundamentals/features-and-roles/) explains. This page covers
+the basic shapes. Slots, regular polygons, gears, and rectangles with shaped corners are on
+[Slots, polygons, and gears](/guide/design/parametric-shapes/), and text is on
+[Text](/guide/design/text/).
+
+## Before you start
+
+- Open the **Sketch** view.
+- Snapping is on by default, so points you click snap to the grid and to existing geometry. See
+  [Snapping and the grid](/guide/design/snapping-and-grid/).
+
+## Draw a shape
+
+<Steps>
+
+1. Choose a creation target at the top of the tool rail (see below).
+
+2. Open the shape drawer and choose a shape. The drawer shows the shapes as icons; each tooltip
+   names the target and shape, for example **Add feature rectangle**. The button below the drawer
+   repeats the last shape you used.
+
+3. Follow the step shown in the shape's workflow panel: click points on the canvas, or click
+   **Dimensions** (or press <kbd>Tab</kbd>) to type exact values.
+
+4. When the shape is complete, the tool re-arms for another shape of the same kind, with the same
+   settings. Press <kbd>Esc</kbd> or click **Cancel** when you are done.
+
+</Steps>
+
+Tools stay armed so that you can place a row of circles or a set of slots without returning to the
+tool rail. Per-shape settings such as a polygon's side count or a rounded rectangle's corner radius
+carry over to the next shape.
+
+## Creation target
+
+The four buttons at the top of the tool rail decide what the next shape becomes. The drawing
+tools are the same for every target.
+
+| Button | New shapes become |
+| --- | --- |
+| **Create features** | Closed shapes become add or subtract features; open paths become line features. This is the default. |
+| **Create lines** | Line features, open or closed, for engraving and V-carving. |
+| **Create regions** | Region masks that limit where operations cut. Regions must be closed. |
+| **Create construction geometry** | Construction geometry for reference only. It is never machined. |
+
+A status label on the canvas shows the current target, for example **Drawing features**.
+
+With **Create features**, PureCut CNC chooses add or subtract for each closed shape: the first
+solid in a project is always an add feature, and a shape drawn inside an add feature becomes a
+subtract feature. Change the role afterwards in the feature's properties if you need to. See
+[Regions](/guide/fundamentals/regions/) and [Construction
+geometry](/guide/fundamentals/construction-geometry/) for what those targets are for.
+
+<Screenshot src={creationTarget} alt="The four creation target buttons at the top of the tool rail: features, lines, regions, and construction geometry" maxWidth={80} />
+
+## Rectangle
+
+<Steps>
+
+1. Choose the rectangle in the shape drawer.
+
+2. At **Click first corner**, click one corner.
+
+3. At **Click opposite corner or enter dimensions**, click the opposite corner, or click
+   **Dimensions** and enter the **Width** and **Height**.
+
+</Steps>
+
+Rectangles are drawn aligned with the X and Y axes. Rotate one afterwards with the rotate tool; see
+[Selecting and transforming](/guide/design/selecting-and-transforming/).
+
+<Screenshot src={rectangleTool} alt="A pending rectangle on the canvas with width and height readouts, and the Rectangle workflow panel asking for the opposite corner or dimensions" />
+
+## Circle
+
+<Steps>
+
+1. Choose the circle in the shape drawer.
+
+2. At **Click center point**, click the centre.
+
+3. At **Click to set radius or enter dimensions**, click a point on the circle, or click
+   **Dimensions** and enter the **Radius**.
+
+</Steps>
+
+Circles are stored as true circles, not as polygons, so pocket, edge route, and drill operations
+follow the exact curve. The drill operation accepts only circle features.
+
+<Screenshot src={circleTool} alt="A pending circle with its radius readout, and the Circle workflow panel asking for the radius or dimensions" />
+
+## Ellipse
+
+<Steps>
+
+1. Choose the ellipse in the shape drawer.
+
+2. At **Click center point**, click the centre.
+
+3. At **Click to set radii or enter dimensions**, click a point to set both radii, or click
+   **Dimensions** and enter the ellipse's **Width** and **Height**.
+
+</Steps>
+
+Ellipses are stored as true curves, and toolpaths follow the curve.
+
+<Screenshot src={ellipseTool} alt="A pending ellipse drawn from its centre with radius readouts, and the Ellipse workflow panel asking for the radii or dimensions" />
+
+## Polygon
+
+A polygon is a path of straight segments through the points you click.
+
+<Steps>
+
+1. Choose the polygon in the shape drawer.
+
+2. At **Click first point**, click the first point, then keep clicking to add points
+   (**Add one more point**, then **Add points or close**).
+
+3. Finish the shape:
+
+   - click the first point again to close it;
+   - or click **Finish** (or press <kbd>Enter</kbd>) to keep it as an open path.
+
+</Steps>
+
+While you draw, **Undo** (<kbd>Backspace</kbd>) removes the last point, and **Dimensions**
+(<kbd>Tab</kbd>) sets the next segment's **Length** and **Angle**. **Finish** needs at least two
+points, and it is not offered when drawing regions, which must be closed.
+
+A closed polygon can be pocketed, routed, V-carved, or surface-cleaned. An open path becomes a
+line feature that the engrave operation can follow.
+
+<Screenshot src={polygonTool} alt="A pending polygon with segment length readouts, and the Polygon workflow panel with Finish, Dimensions, Undo, and Cancel" />
+
+## Spline
+
+A spline is a smooth curve that passes through every point you click. Draw it like a polygon:
+click the first point again to close it, or click **Finish** (<kbd>Enter</kbd>) to keep it open.
+**Undo** (<kbd>Backspace</kbd>) removes the last point.
+
+To change the curve afterwards, edit it in a sketch-editing session; see
+[Editing sketches](/guide/design/sketch-editing/).
+
+<Screenshot src={splineTool} alt="A pending closed spline curving through several points, and the Spline workflow panel with Finish, Dimensions, Undo, and Cancel" />
+
+## Composite
+
+A composite path mixes straight lines, arcs, and spline curves in one feature.
+
+<Steps>
+
+1. Choose the composite shape in the shape drawer, then click the first point.
+
+2. Choose the kind of the next segment with the panel's **Line** (<kbd>L</kbd>), **Arc**
+   (<kbd>A</kbd>), and **Spline** (<kbd>S</kbd>) buttons. The step reads **Add line points**,
+   **Add arc points**, or **Add spline points**.
+
+3. Click to add segments. An arc takes two clicks: its end point, then a point that sets its
+   curvature (**Click arc curvature point**).
+
+4. Click the first point to close the path, or click **Finish** (<kbd>Enter</kbd>) to keep it
+   open. **Finish** needs at least one segment.
+
+</Steps>
+
+**Undo** (<kbd>Backspace</kbd>) removes the last segment. **Dimensions** (<kbd>Tab</kbd>) sets the
+next segment's **Length** and **Angle**, and for an arc also its **Radius**.
+
+<Screenshot src={compositeTool} alt="A pending composite path of lines, an arc, and spline segments, and the Composite workflow panel with Line, Arc, and Spline mode buttons" />
+
+<Aside title="Open and closed paths">
+	Closed profiles can be pocketed, edge-routed, V-carved, and surface-cleaned. Open paths are line
+	features: the engrave operation is the one that machines them.
+</Aside>
+
+## Related pages
+
+- [Slots, polygons, and gears](/guide/design/parametric-shapes/): the other shapes in the drawer.
+- [Snapping and the grid](/guide/design/snapping-and-grid/): place points exactly, and lock an
+  axis while drawing.
+- [Editing sketches](/guide/design/sketch-editing/): change a shape's points and segments after
+  you draw it.
+- [Features, roles, and depth](/guide/fundamentals/features-and-roles/): what the new feature's
+  role and Z range mean.
+- [Keyboard shortcuts](/guide/reference/keyboard-shortcuts/): every key the drawing tools accept.

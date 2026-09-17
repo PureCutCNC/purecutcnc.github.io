@@ -1,0 +1,149 @@
+---
+title: Slots, polygons, and gears
+description: Draw slots, regular polygons, spur gears, and rounded or chamfered rectangles from a few typed parameters.
+pageType: task
+availability: stable
+status: draft
+---
+
+import { Aside, Steps } from '@astrojs/starlight/components';
+import Screenshot from '../../../../components/Screenshot.astro';
+import slotTool from '../../../../assets/manual/design/parametric-shapes/slot.png';
+import regularPolygonTool from '../../../../assets/manual/design/parametric-shapes/regular-polygon.png';
+import gearTool from '../../../../assets/manual/design/parametric-shapes/gear.png';
+import roundedRectangleTool from '../../../../assets/manual/design/parametric-shapes/rounded-rectangle.png';
+import chamferedRectangleTool from '../../../../assets/manual/design/parametric-shapes/chamfered-rectangle.png';
+
+The second row of the shape drawer holds shapes that are defined by a few numbers: slots, regular
+polygons, gears, and rectangles with rounded or chamfered corners. They are drawn with the same
+creation targets and the same sticky behaviour as the basic shapes on
+[Drawing tools](/guide/design/drawing-tools/).
+
+Once placed, each of these shapes is an ordinary closed profile. Its parameters are not kept, so to
+change it afterwards, edit its points in a sketch-editing session (see
+[Editing sketches](/guide/design/sketch-editing/)) or draw it again.
+
+## Before you start
+
+- Open the **Sketch** view and choose a creation target.
+- Open the shape drawer. The shapes on this page are in its second row; their tooltips read, for
+  example, **Add feature slot**.
+
+## Slot
+
+A slot is a straight groove with semicircular ends, drawn along its centreline.
+
+<Steps>
+
+1. Choose the slot in the shape drawer.
+
+2. At **Click first end center**, click the centre of one end.
+
+3. At **Click second end center or enter dimensions**, click the centre of the other end, or click
+   **Dimensions** and enter the centreline **Length** and **Angle °**.
+
+4. At **Move cursor to set width, click to commit**, move the pointer to set the width and click,
+   or click **Width** and type it.
+
+</Steps>
+
+<Screenshot src={slotTool} alt="A pending slot with its width readout, and the Slot workflow panel asking to set the width, with Width and Cancel buttons" />
+
+## Regular polygon
+
+A regular polygon has equal sides and equal angles.
+
+<Steps>
+
+1. Choose the regular polygon in the shape drawer.
+
+2. In the workflow panel, set **Sides (3-50)**. The default is 6.
+
+3. At **Click center point**, click the centre.
+
+4. At **Click to set radius**, click a point to set the radius and rotation, or click **Radius** and
+   type the radius.
+
+</Steps>
+
+The radius is measured from the centre to a corner. The side count carries over to the next polygon
+you draw.
+
+<Screenshot src={regularPolygonTool} alt="A pending eight-sided polygon drawn from its centre, and the workflow panel with Sides (3-50) set to 8 and the Radius and Cancel buttons" />
+
+## Gear
+
+The gear tool draws a spur gear as one closed profile, with an optional bore.
+
+<Steps>
+
+1. Choose the gear in the shape drawer.
+
+2. At **Click center point**, click the centre.
+
+3. At **Click to set outside radius or enter radius**, click to set the outside radius, or click
+   **Radius** and type it.
+
+4. At **Set gear parameters**, adjust the settings below. The panel shows the outside radius, and
+   the preview updates as you type.
+
+5. Click **Confirm**.
+
+</Steps>
+
+| Setting | Description |
+| --- | --- |
+| **Tooth count** | 6 to 200 teeth. Default 24. |
+| **Whole depth** | Tooth height, from the root to the outside radius. The default is 2.25 times the module. |
+| **Tooth flank profile** | **Involute** (the standard gear tooth) or **Straight-sided**. |
+| **Pressure angle** | 10° to 35°, for involute teeth only. Default 20°. |
+| **Root form** | **Rounded root fillet**, **Flat root**, or **Sharp root**. |
+| **Root fillet radius** | For a rounded root. The default is 0.15 times the module, and the size is limited so the fillet fits. |
+| **Crest form** | **Flat crest** or **Rounded crest**. |
+| **Crest radius** | For a rounded crest. The default is 0.2 times the module, and the size is limited to fit. |
+| **Bore diameter** | Leave empty for no bore. |
+
+There is no module setting: PureCut CNC derives the module from the outside radius and the tooth
+count, as outside diameter ÷ (tooth count + 2). To make a gear with a given module, set the outside
+radius to module × (tooth count + 2) ÷ 2.
+
+The gear is placed in a group named **Gear** with a number. When you set a bore, the group also
+holds a subtract circle named **Gear Bore**, with the same Z range as the gear.
+
+<Screenshot src={gearTool} alt="A pending 24-tooth gear, and the Set gear parameters panel with tooth count, whole depth, flank profile, pressure angle, root and crest settings, bore diameter, and Confirm" />
+
+<Aside type="caution" title="Check the gear against your cutter">
+	The gear profile is exact, but an endmill cannot cut an inside corner smaller than its radius.
+	Check the root fillet against the tool you will use, and look at the result in the simulation.
+</Aside>
+
+## Rounded and chamfered rectangles
+
+These are rectangles with shaped corners. Draw them like a rectangle, with one extra setting in the
+workflow panel.
+
+<Steps>
+
+1. Choose the rounded rectangle or the chamfered rectangle in the shape drawer.
+
+2. Set **Corner radius** (rounded) or **Chamfer** (chamfered). The default is 0.2 in or 5 mm.
+
+3. At **Click first corner**, click one corner.
+
+4. At **Click opposite corner or enter dimensions**, click the opposite corner, or click
+   **Dimensions** and enter the **Width** and **Height**.
+
+</Steps>
+
+<Screenshot src={roundedRectangleTool} alt="A pending rounded rectangle, and its workflow panel with Corner radius set to 0.2" />
+
+<Screenshot src={chamferedRectangleTool} alt="A pending chamfered rectangle, and its workflow panel with Chamfer set to 0.2" />
+
+## Related pages
+
+- [Drawing tools](/guide/design/drawing-tools/): creation targets and the basic shapes.
+- [Editing sketches](/guide/design/sketch-editing/): change a placed shape's points and segments.
+- [Feature tree and properties](/guide/fundamentals/feature-tree/#folders-and-groups): groups such
+  as the one a gear is placed in.
+- [Corner rounding and relief](/guide/strategies/corners/): machining inside corners that a
+  cutter cannot reach.

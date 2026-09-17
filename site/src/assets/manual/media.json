@@ -12,6 +12,139 @@
 			"PureCutCNC/purecutcnc#797"
 		]
 	},
+	"design/drawing-tools/circle.png": {
+		"shows": "Pending circle with radius readout and the Circle workflow panel",
+		"source": "legacy-guide",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "reshoot"
+	},
+	"design/drawing-tools/composite.png": {
+		"shows": "Pending composite path and the Composite workflow panel with Line, Arc, and Spline modes",
+		"source": "legacy-guide",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "reshoot"
+	},
+	"design/drawing-tools/creation-target.png": {
+		"shows": "The four creation target buttons in the tool rail",
+		"source": "legacy-guide",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "reshoot"
+	},
+	"design/drawing-tools/ellipse.png": {
+		"shows": "Pending ellipse drawn from its centre and the Ellipse workflow panel",
+		"source": "legacy-guide",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "reshoot"
+	},
+	"design/drawing-tools/polygon.png": {
+		"shows": "Pending polygon and the Polygon workflow panel with Finish, Dimensions, Undo, and Cancel",
+		"source": "legacy-guide",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "reshoot"
+	},
+	"design/drawing-tools/rectangle.png": {
+		"shows": "Pending rectangle with width and height readouts and the Rectangle workflow panel",
+		"source": "legacy-guide",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "reshoot"
+	},
+	"design/drawing-tools/spline.png": {
+		"shows": "Pending closed spline and the Spline workflow panel",
+		"source": "legacy-guide",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "reshoot"
+	},
+	"design/parametric-shapes/chamfered-rectangle.png": {
+		"shows": "Pending chamfered rectangle and its Chamfer setting",
+		"source": "legacy-guide",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "reshoot"
+	},
+	"design/parametric-shapes/gear.png": {
+		"shows": "Pending 24-tooth gear and the Set gear parameters panel",
+		"source": "legacy-guide",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "reshoot"
+	},
+	"design/parametric-shapes/regular-polygon.png": {
+		"shows": "Pending eight-sided polygon and the workflow panel with the side count, titled Polygon",
+		"source": "legacy-guide",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "reshoot",
+		"blockedBy": [
+			"PureCutCNC/purecutcnc#800"
+		]
+	},
+	"design/parametric-shapes/rounded-rectangle.png": {
+		"shows": "Pending rounded rectangle and its Corner radius setting",
+		"source": "legacy-guide",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "reshoot"
+	},
+	"design/parametric-shapes/slot.png": {
+		"shows": "Pending slot and the Slot workflow panel at the width step",
+		"source": "legacy-guide",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "reshoot"
+	},
+	"design/text/add-text-dialog.png": {
+		"shows": "Add text dialog with outline style, Helvetiker Bold, height 0.4, and Subtract",
+		"source": "legacy-guide",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "reshoot"
+	},
 	"operations/pocket/offset-toolpath.png": {
 		"shows": "Pocket toolpath with offset rings inside a closed profile",
 		"source": "legacy-guide",

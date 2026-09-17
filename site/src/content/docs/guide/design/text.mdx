@@ -1,0 +1,185 @@
+---
+title: Text
+description: Add editable single-line text, choose a style and font, lay it on a circle or along a path, and pick operations to machine it.
+pageType: task
+availability: stable
+status: draft
+---
+
+import { Aside, Steps } from '@astrojs/starlight/components';
+import Availability from '../../../../components/Availability.astro';
+import Screenshot from '../../../../components/Screenshot.astro';
+import addTextDialog from '../../../../assets/manual/design/text/add-text-dialog.png';
+
+Text in PureCut CNC is a single feature that stays editable: you can change the words, the style,
+and the font at any time without drawing it again. You can move, copy, resize, rotate, and mirror it
+like any other feature, and machine it with engrave, V-carve, and pocket operations.
+
+## Before you start
+
+- Open the **Sketch** view.
+- Decide how the text will be cut. Engraved text uses the skeleton style; carved, pocketed, or
+  raised text uses the outline style. See [Machining text](#machining-text).
+
+## Placing text
+
+<Steps>
+
+1. Open the shape drawer and choose text (**Add feature text**). The **Add text** dialog opens.
+
+2. Fill in the dialog:
+
+   | Field | Description |
+   | --- | --- |
+   | **Text** | The words to place. Text is a single line: line breaks become spaces. |
+   | **Font style** | **Skeleton** or **Outline**. Default **Skeleton**. |
+   | **Font** | The fonts available for the chosen style. |
+   | **Height** | The text height in project units. Default 0.4 in or 10 mm. |
+   | **Operation** | **Subtract** (the default) or **Add**. |
+
+3. Click **Place text**.
+
+4. At **Tap the sketch to place the text.**, click where the text should go.
+
+</Steps>
+
+Like the other drawing tools, text placement stays armed after the first click, so each further
+click places another copy. Press <kbd>Esc</kbd> or click **Cancel** when you are done.
+
+The text becomes a feature in the feature tree. Its Z range starts like any new feature's; set
+**Z top** and **Z bottom** in its properties. See
+[Features, roles, and depth](/guide/fundamentals/features-and-roles/#z-range).
+
+<Screenshot src={addTextDialog} alt="The Add text dialog with sample text, Outline style, Helvetiker Bold font, height 0.4, and Subtract operation" maxWidth={560} />
+
+## Text styles
+
+| Style | What it produces | Fonts |
+| --- | --- | --- |
+| **Skeleton** | A single centreline stroke for each letter: open paths for engraving. | Simple Stroke, in regular, italic, condensed, and condensed italic (4 fonts). |
+| **Outline** | The closed outline of each letter: shapes to carve, pocket, or cut. | Helvetiker, Optimer, Gentilis, Droid Sans, Droid Sans Mono, and Droid Serif. Every family has regular and italic faces, all but Droid Sans Mono have bold, and Helvetiker also has condensed faces (26 fonts). |
+
+The **Font** list shows only the fonts of the selected style.
+
+## Editing text
+
+Select a text feature to edit it in the properties panel:
+
+- **Text**: the words.
+- **Style**: **Skeleton** or **Outline**. Changing the style resets the font to that style's
+  default.
+- **Font**: a font of the current style.
+- **Operation**, under **Shape**, and **Z top** and **Z bottom**, under **Instance**, as for any
+  feature.
+
+To change the size of text, use the resize tool (see
+[Selecting and transforming](/guide/design/selecting-and-transforming/#transforms)). Text cannot be
+opened in a sketch-editing session: **Edit sketch** is unavailable for text features. To reshape
+individual letters, expand the text first.
+
+## Text layout
+
+<Availability kind="preview" />
+
+Text is placed on a straight baseline. **Text layout** bends it onto a circle or along a guide
+shape.
+
+<Steps>
+
+1. Select one text feature. It must not be locked.
+
+2. In the tool rail, open **Distribute selected features** and choose **Text layout**.
+
+3. Choose a **Layout**: **Horizontal**, **On a circle**, or **Along a path**. Text that already
+   follows a circle or path opens with its current layout.
+
+4. Set up the layout (see the tables below). The canvas previews the result.
+
+5. Click **Apply**.
+
+</Steps>
+
+For **On a circle**:
+
+| Setting | Description |
+| --- | --- |
+| **Center** | Click **Pick center**, then click the circle's centre on the sketch. The panel then shows **Point selected**. |
+| **Radius** | Read-only: the distance from the centre to the text. |
+| **Angle** | Where on the circle the text sits, in degrees. |
+| **Sweep** | How much of the circle the text spans, in degrees. |
+| **Direction** | **Clockwise (over the top)** or **Anticlockwise (under the bottom)**. |
+
+For **Along a path**:
+
+| Setting | Description |
+| --- | --- |
+| **Guide** | Click **Pick guide**, then click another outline on the sketch, open or closed. Click directly on the outline, not inside it. |
+| **Start offset**, **End offset** | How far along the guide the text starts and ends. |
+| **Reverse direction** | Runs the text the other way along the guide. |
+
+For both:
+
+| Setting | Description |
+| --- | --- |
+| **Anchor** | Which part of the text sits at the layout position: **Start**, **Centre**, or **End**. |
+| **Fit** | **Keep text size** keeps the height and lets the span follow. **Fill the span** scales the whole text to fill the span, and the panel shows the resulting height (**Cuts at … tall**). |
+| **Orientation** | **Fixed** keeps every letter upright. **Follow the curve** turns each letter to follow the baseline. |
+
+**Apply** is unavailable until a centre or guide is picked. If the text is longer than the span, the
+panel warns you; widen the span or set **Fit** to **Fill the span**.
+
+To straighten text again, open **Text layout**, choose **Horizontal**, and click **Apply**. The
+layout belongs to that one text feature: if the text is a linked copy, the other copies stay as they
+are. See [Linked features](/guide/fundamentals/linked-features/).
+
+<Aside type="caution" title="Check the height after Fill the span">
+	**Fill the span** changes the size of the letters. Check the height shown in the panel against
+	your cutter before machining, especially for V-carved or engraved text.
+</Aside>
+
+## Expand text
+
+**Expand text to features**, in the properties of a text feature, turns the text into ordinary
+features that you can edit one letter at a time:
+
+- each letter becomes its own group in the feature tree;
+- outline text becomes closed features, one for each outline, so a letter such as O gives an outer
+  and an inner outline;
+- skeleton text becomes open line features along each stroke.
+
+The new features keep the text's role, Z range, visibility, and lock state. The original text
+feature stays in the project, so you can still edit the words; hide or delete it if you no longer
+need it. Expanding is a single undo step.
+
+The expanded features are independent of the text: changing the text afterwards does not change
+them.
+
+## Machining text
+
+Choose operations by style:
+
+| Text | Operation | Result |
+| --- | --- | --- |
+| Skeleton | **Engrave** | The cutter follows each stroke's centreline. |
+| Outline, **Subtract** | **V-carve offset** or **V-carve medial** | A V-bit carves the letters, with sharp inside corners. |
+| Outline, **Subtract** | **Pocket** | The letters are cleared to a flat floor. |
+| Outline, **Subtract** | **Edge route inside** | The cutter follows the inside of each letter's outline. |
+| Outline, **Line** | **V-carve offset** or **V-carve medial** | Carved letters without subtracting them from the model. |
+| Outline, **Add** | Operations that clear around raised features | Raised letters. See [Choosing an operation](/guide/operations/). |
+
+To use the **Line** role, change the text's **Operation** to **Line** in its properties. V-carving
+accepts closed line features as well as closed subtract features.
+
+<Aside type="caution" title="Trochoidal engraving widens the groove">
+	The engrave operation's **Trochoidal (slot)** strategy cuts a channel wider than the cutter.
+	Engraved text does not survive it; use **Direct** for text. See
+	[Engrave](/guide/operations/engrave/).
+</Aside>
+
+## Related pages
+
+- [Engrave](/guide/operations/engrave/), [V-carve offset](/guide/operations/v-carve-offset/), and
+  [V-carve medial](/guide/operations/v-carve-medial/): the operations text is most often cut with.
+- [Aligning and distributing](/guide/design/arranging/): the menu that holds **Text layout**.
+- [Drawing tools](/guide/design/drawing-tools/): creation targets and the shape drawer.
+- [Linked features](/guide/fundamentals/linked-features/): copies of text that share one definition.
