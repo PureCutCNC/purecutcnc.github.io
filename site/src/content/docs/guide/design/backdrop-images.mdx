@@ -1,0 +1,73 @@
+---
+title: Backdrop images
+description: Load a reference image behind the sketch, scale and align it, then trace the geometry you need.
+pageType: task
+availability: stable
+status: draft
+---
+
+import { Aside, Steps } from '@astrojs/starlight/components';
+
+A backdrop image is a visual reference behind the Sketch canvas. Use one to trace a scanned drawing,
+a photograph, or a template. It is not a feature: it does not add material, restrict an operation, or
+produce a toolpath.
+
+## Before you start
+
+- Start with a PNG or JPEG that you are allowed to use.
+- If the image is meant to be true size, identify one known measurement in it before loading it.
+- Open the **Sketch** view. Backdrops are aligned and traced there.
+
+## Load and align a backdrop
+
+<Steps>
+
+1. In the feature tree, select **Backdrop**. Click **Load image**, then choose the image file.
+
+   PureCut CNC centres the new image in the stock and fits it inside the stock while keeping its
+   original proportions. The image name and its pixel dimensions appear in the properties panel.
+
+2. Set **Opacity** low enough that new sketch geometry is easy to see over the image. Use **Visible**
+   to hide it temporarily without removing it.
+
+3. Calibrate the reference. Enter a known real-world value for **Width** or **Height**, then adjust
+   the other dimension if the reference itself is not proportionate. The dimensions use the project
+   units.
+
+4. Position it on the canvas. With **Backdrop** selected, click **Move**, **Resize**, or **Rotate**
+   in the properties panel or tool rail, then follow the canvas prompt. **Angle** also accepts a
+   numeric rotation in degrees.
+
+5. Draw or edit the features you need over the image. Use snapping, dimensions, and constraints to
+   make the traced geometry deliberate instead of relying on the image alone.
+
+</Steps>
+
+<Aside type="tip" title="Calibrate before tracing">
+Scale the backdrop from a dimension you trust, then add a dimension to the traced geometry and
+compare it with the source. A visually plausible image can still be stretched or photographed at an
+angle.
+</Aside>
+
+## Replace or remove the image
+
+Select **Backdrop** again and choose **Replace image** to keep the backdrop node but load another
+file. Choose **Delete** to remove the reference. Neither action deletes the sketch features you
+traced from it.
+
+## What the backdrop affects
+
+The backdrop is saved with the project as a visual reference. It appears only in the Sketch canvas:
+it is not part of the 3D model, an operation target, a toolpath, or exported G-code. Once the traced
+features are accurate, you can hide or delete the backdrop without changing those features or their
+operations.
+
+## Related pages
+
+- [Features, roles, and depth](/guide/fundamentals/features-and-roles/): how traced shapes become
+  material, cavities, lines, or regions.
+- [Snapping and the grid](/guide/design/snapping-and-grid/): place traced points precisely.
+- [Dimensions and constraints](/guide/design/dimensions-and-constraints/): verify and drive the
+  geometry after tracing.
+- [Importing SVG, DXF, and projects](/guide/design/importing-2d/): import usable vector geometry
+  instead of tracing it when a source drawing is available.
