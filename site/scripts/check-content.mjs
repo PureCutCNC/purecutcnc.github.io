@@ -38,7 +38,8 @@ export const REQUIRED_HEADINGS = {
 
 /**
  * Terminology, checked in prose. Bold text (UI labels, quoted as the app shows them),
- * code, link targets, and import lines are exempt.
+ * code, link targets, and import lines are exempt, except for rules marked `labels`:
+ * those cover app labels with a filed fix, which the guide already writes correctly.
  */
 export const TERMINOLOGY = [
 	[/\bG-Code\b|\bGCode\b|\bGcode\b/, 'write "G-code"'],
@@ -47,8 +48,9 @@ export const TERMINOLOGY = [
 	[/\bstep[ -]down\b/i, 'write "stepdown"'],
 	[/\bend[ -]mills?\b/i, 'write "endmill"'],
 	[/\bV-C(?:arve|ARVE)\b|\bv-carve\b|\b[Vv] ?[Cc]arve\b/, 'write "V-carve"'],
-	[/\bV-Bit\b|\bVbit\b|\bV bit\b/, 'write "V-bit" (bold UI labels may keep the app spelling)'],
-	[/\b(?:Top|Bottom) Z\b|\bZ[ -]?(?:Top|Bottom)\b|\bZ(?:top|bottom)\b/, 'write "Z top" / "Z bottom", as the feature properties do'],
+	// Bundled tool names such as `60° V-Bit` are names, not labels, and keep their spelling.
+	[/(?<!°\s)\bV-Bit\b|\bVbit\b|\bV bit\b/, 'write "V-bit", including the tool type label (PureCutCNC/purecutcnc#797)', { labels: true }],
+	[/\b(?:Top|Bottom) Z\b|\bZ[ -]?(?:Top|Bottom)\b|\bZ(?:top|bottom)\b/, 'write "Z top" / "Z bottom", including labels (PureCutCNC/purecutcnc#797)', { labels: true }],
 	[/\bPureCutCNC\b|\bPure Cut\b|\bPurecut\b/, 'write "PureCut CNC" (bold UI text may keep the app spelling)'],
 	[/\buser manual\b/i, 'the guide is called the "User Guide"'],
 	[/\bpreview build\b/, 'write "Preview Build"'],
@@ -99,11 +101,11 @@ function proseLines(body) {
 	});
 }
 
-function stripForTerminology(line) {
+function stripForTerminology(line, { keepLabels = false } = {}) {
 	if (/^\s*(import|export)\s/.test(line)) return '';
 	return line
 		.replace(/`[^`]*`/g, ' ')
-		.replace(/\*\*[^*]+\*\*/g, ' ')
+		.replace(/\*\*[^*]+\*\*/g, (label) => (keepLabels ? label : ' '))
 		.replace(/\]\([^)]*\)/g, ']')
 		.replace(/\b(src|href|slug|link)=("[^"]*"|\{[^}]*\})/g, ' ')
 		.replace(/https?:\/\/\S+/g, ' ');
@@ -112,8 +114,9 @@ function stripForTerminology(line) {
 function checkTerminology(where, text, lineOffset = 0) {
 	text.split('\n').forEach((line, index) => {
 		const prose = stripForTerminology(line);
-		for (const [pattern, advice] of TERMINOLOGY) {
-			const match = prose.match(pattern);
+		const withLabels = stripForTerminology(line, { keepLabels: true });
+		for (const [pattern, advice, options] of TERMINOLOGY) {
+			const match = (options?.labels ? withLabels : prose).match(pattern);
 			if (match) fail(`${where}:${index + 1 + lineOffset}`, `"${match[0]}": ${advice}`);
 		}
 	});

@@ -262,7 +262,7 @@ The inventory already records every old anchor's destination, so no workstream h
 
 ## Open questions for #22
 
-Settled in [MANUAL_BLUEPRINT.md](MANUAL_BLUEPRINT.md#open-questions); the CAM Plan labelling question remains open there.
+All four are settled in [MANUAL_BLUEPRINT.md](MANUAL_BLUEPRINT.md#settled-questions). CAM Plan is not experimental; it is labelled Preview Build until the next release.
 
 - **Preview labelling for CAM Plan.** Its engine index calls it a POC. The compute backend's background thread is labelled experimental in the UI.
 - **Quick Start location.** It stays at `/quickstart/` or moves under `/guide/start-here/`. Only its destination and redirect rows change.

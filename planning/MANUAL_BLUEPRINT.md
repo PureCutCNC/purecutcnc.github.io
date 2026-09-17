@@ -328,6 +328,12 @@ in the English catalogue (`src/i18n/locales/en/` in the app) at the reviewed com
 menus and groups: **Entry & retract** > **Entry strategy**. If the app changes a label,
 the page changes with it.
 
+The guide describes the app as it should be. When a label is wrong or inconsistent in the
+app, file an app issue, write the corrected label in the guide, and list the issue in
+`blockedBy` for every screenshot that shows the old one. The checker applies such
+corrections to bold labels too (today: **V-bit** and **Z top** / **Z bottom**,
+PureCutCNC/purecutcnc#797).
+
 **Titles and headings** use sentence case. The proper names that keep their capitals are
 **PureCut CNC**, **User Guide**, **Quick Start**, **CAM Plan**, **Preview Build**, and
 product names such as GRBL, grblHAL, LinuxCNC, Mach3, and UCCNC. Section labels in the
@@ -344,9 +350,9 @@ flags the common alternatives.
 | toolpath | tool path |
 | stepover, stepdown | step over, step-over, step down |
 | endmill, flat endmill, ball endmill | end mill |
-| V-bit | V-Bit, Vbit (the app's **V-Bit** tool type label stays as the app spells it) |
+| V-bit | V-Bit, Vbit, also in labels (bundled tool names such as `60° V-Bit` keep their spelling) |
 | V-carve | V-Carve, Vcarve |
-| Z top, Z bottom | Top Z, Bottom Z, ZTop |
+| Z top, Z bottom | Top Z, Bottom Z, ZTop, also in labels |
 | Preview Build | preview build |
 | click | click on |
 | for example, that is | e.g., i.e. |
@@ -399,9 +405,10 @@ new features between releases.
 - `availability: preview` means it is only in the Preview Build. The page shows a Preview
   Build notice. Inside a stable page, a preview section carries the `Availability` badge
   under its heading.
-- `availability: experimental` is for features the app itself labels experimental, such as
-  the **Background thread (experimental)** generation option. The notice asks readers to
-  check results more carefully.
+- `availability: experimental` is only for features the app itself labels experimental,
+  such as the **Background thread (experimental)** generation option. The notice asks
+  readers to check results more carefully. CAM Plan is not experimental: it is `preview`
+  until the next release, then `stable`.
 - When a release ships, one pull request switches the released features' pages and
   sections to `stable`. This is a step in the release playbook, and #24's release
   integration does it for the release that goes out with the cutover.
@@ -496,7 +503,8 @@ Wave 3 produces the final captures from the fixtures, as #24 plans.
 2. The author checks every claim, label, and default against the app at a specific commit,
    using the evidence listed for its rows in `planning/manual-coverage.csv`, and updates
    those rows (`coverage: accurate`).
-3. A reviewer from the row's `reviewer` column reads the page against the app. W3 and W4
+3. A reviewer from the row's `reviewer` column reads the page against the app, including
+   each image's alt text against the image itself. W3 and W4
    pages need a CAM toolpath or post/G-code reviewer, because they carry safety-sensitive
    claims.
 4. The page switches to `status: reviewed` with `reviewed.appCommit` (full SHA),
@@ -525,27 +533,24 @@ content pull request that needs one of them changed says so, and the change land
 `media.json` and the two CSV files are edited by several workstreams. Keep edits to your own
 entries and rows, keep the existing order, and rebase rather than resolve conflicts by hand.
 
-## App follow-ups found while writing this
+## App follow-ups
 
-The guide describes the app as it should read; these are app-side inconsistencies to fix
-(to be filed with the maintainer's agreement):
+App issues filed while defining the guide. The guide already describes the fixed state, and
+the affected screenshots wait on them through `blockedBy`:
 
-- The tool type label is **V-Bit** (`cam.toolType.vBit`); every other string says "V-bit".
-- The setup booklet and CAM Plan label Z values **Top Z** and **Bottom Z**
-  (`booklet.label.topZ`, `cam.plan.tabTop`); feature properties say **Z top** and **Z bottom**.
-- Operation descriptions list incomplete strategy choices: PureCutCNC/purecutcnc#795.
+- PureCutCNC/purecutcnc#795: operation descriptions list incomplete strategy choices.
+- PureCutCNC/purecutcnc#797: the tool type label **V-Bit**, and **Top Z** / **Bottom Z** in
+  CAM Plan and the setup booklet, disagree with **V-bit** and **Z top** / **Z bottom**
+  elsewhere.
 
-## Open questions
+## Settled questions
 
-- **CAM Plan.** It is new since v0.4.0, so it is `preview` until the next release. Its engine
-  documentation calls it a proof of concept, but the app does not label it experimental.
-  Should it be `experimental` in the guide (and labelled so in the app)?
-- **Experimental features.** Besides **Background thread (experimental)**, are there
-  features the maintainers want labelled experimental? The guide only uses the label where
-  the app does, unless decided otherwise here.
-- **Theme for the marketing pages** remains open in [SITE_PLATFORM.md](SITE_PLATFORM.md#open-questions);
-  it does not affect the guide.
+- **CAM Plan** is not experimental. It is `preview` until the next release.
+- **Experimental** is used only where the app labels a feature experimental.
+- **Quick Start** stays at `/quickstart/`.
+- **Regions** stay in Fundamentals, with their CAM-specific limits on the strategy pages
+  that use them.
+- **Themes and Interface languages** stay under Reference.
 
-The #21 questions are settled: the Quick Start stays at `/quickstart/`; Regions stay in
-Fundamentals, with their CAM-specific limits on the strategy pages that use them; Themes
-and Interface languages stay under Reference.
+The theme of the marketing pages is still open in
+[SITE_PLATFORM.md](SITE_PLATFORM.md#open-questions); it does not affect the guide.

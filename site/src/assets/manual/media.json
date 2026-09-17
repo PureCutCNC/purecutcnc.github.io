@@ -1,13 +1,16 @@
 {
 	"cam-setup/tool-library/import-dialog.png": {
-		"shows": "Import tools from library dialog with filters, selected rows, and the import button",
+		"shows": "Import tools from library dialog: search, type and unit filters, inch tool rows badged New, nothing selected",
 		"source": "legacy-guide",
 		"appCommit": null,
 		"fixture": null,
 		"viewport": null,
 		"theme": "dark",
 		"locale": "en",
-		"status": "reshoot"
+		"status": "reshoot",
+		"blockedBy": [
+			"PureCutCNC/purecutcnc#797"
+		]
 	},
 	"operations/pocket/offset-toolpath.png": {
 		"shows": "Pocket toolpath with offset rings inside a closed profile",
