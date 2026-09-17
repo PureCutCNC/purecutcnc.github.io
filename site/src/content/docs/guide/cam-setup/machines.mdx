@@ -1,0 +1,69 @@
+---
+title: Machines
+description: Select the machine that writes your G-code and manage the built-in and personal machine definitions.
+pageType: task
+availability: stable
+status: draft
+---
+
+import { Aside, Steps } from '@astrojs/starlight/components';
+
+Every project has a selected machine. Its post-processor determines the G-code dialect and which
+machine-specific capabilities—such as canned drilling cycles—are available.
+
+## Before you start
+
+- Confirm the controller and machine you will actually use.
+- Read [Working safely](/guide/start-here/safety/) before exporting a program for a real machine.
+
+## Select a machine
+
+<Steps>
+
+1. Select the **Project** node in the feature tree.
+
+2. Choose the machine in the **Machine** property. Its badge identifies whether it is a built-in
+   definition, a project copy, or needs attention.
+
+3. Generate and inspect the toolpaths again, then export a test program for the selected machine.
+
+</Steps>
+
+## Library
+
+Open **Manage machines** to browse built-in definitions and **My Machines**. A project stores a
+copy of its selected definition, so a project remains reproducible when your personal library
+changes. Import a definition into the manager when it is not already available.
+
+### My Machines
+
+Personal definitions live in **My Machines**. Share a definition by exporting it from the manager
+and import it into another library; older projects keep their own selected project copy.
+
+### Badges
+
+The machine badge distinguishes a built-in definition, a personal definition, and a project copy,
+and it draws attention to definitions that need review.
+
+## Updates
+
+When a definition used by a project has changed, the app shows an update notice. Compare the
+project copy with the available definition before accepting an update; a changed post-processor
+can change emitted G-code.
+
+## Editor
+
+The editor groups a definition into **General**, **Program**, **Tool change**, and **Coolant**.
+It also provides raw JSON, a variables reference, and validation feedback. Use the editor only
+when you understand the controller requirements for every changed field.
+
+<Aside type="danger" title="Safety: a machine definition changes machine output">
+	Do not assume that a generated program is safe merely because it parses. Review the machine,
+	work coordinate system, tool-change behavior, coolant commands, clearances, and first moves;
+	then dry-run it on the real controller.
+</Aside>
+
+## Related pages
+
+- [Clamps and clearances](/guide/cam-setup/clamps-and-clearances/): the project clearances used by generated motion.
+- [G-code export](/guide/verify-export/gcode-export/): choose operations and inspect the program before export.

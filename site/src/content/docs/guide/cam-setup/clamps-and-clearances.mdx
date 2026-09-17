@@ -1,0 +1,44 @@
+---
+title: Clamps and clearances
+description: Define the project clearances and clamp locations that generated motion must avoid.
+pageType: task
+availability: stable
+status: draft
+---
+
+import { Aside, Steps } from '@astrojs/starlight/components';
+
+Clearances establish safe travel heights and distances. Clamps mark physical workholding so the
+app can highlight conflicts and keep generated cuts clear of the clamped area.
+
+## Before you start
+
+- Measure the real stock, workholding, cutter stick-out, and machine travel.
+- Set the project origin and stock correctly before entering clearance values.
+
+## Clearances
+
+<Steps>
+
+1. Select the **Project** node in the feature tree.
+
+2. Set **Safe Z** for travel above the workholding, and **Op clear Z** for operation-level moves.
+
+3. Set **Clamp clear XY** and **Clamp clear Z** to the physical clearance your setup requires.
+
+4. Add clamps on the **Clamps** node and place them where the real clamps sit.
+
+5. Regenerate, inspect warnings, and simulate every enabled operation.
+
+</Steps>
+
+<Aside type="danger" title="Safety: clamps can leave material uncut">
+	Clamp avoidance is not limited to rapid moves. Generation keeps cutting motion clear of clamps,
+	which can leave material behind; drilling beneath a clamp can be skipped. Treat each clamp
+	warning as a required setup decision and inspect the resulting toolpath before machining.
+</Aside>
+
+## Related pages
+
+- [Tabs](/guide/cam-setup/tabs/): retain a routed part after cutting.
+- [Working safely](/guide/start-here/safety/): dry-run and machine setup guidance.

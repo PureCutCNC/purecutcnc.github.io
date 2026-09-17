@@ -39,19 +39,8 @@ can see exactly which geometry it will cut before you adjust anything.
 	alt="Operations list with an operation selected and its target features highlighted on the canvas and in the feature tree"
 />
 
-### Common parameters
-
-| Parameter | Description |
-| --- | --- |
-| Name | A descriptive name for the operation, shown in the operations list. |
-| Pass | Rough or Finish. |
-| Tool | The tool to use. Assigning a tool pre-fills the feed, plunge feed, stepdown, stepover, and RPM from the tool's defaults. |
-| Machining Order | **Feature First** fully machines one feature top-to-bottom before moving to the next. **Level First** machines one depth level across all target features before stepping down. |
-| Enabled | When unchecked, the operation is excluded from G-code export. The toolpath is still shown if visible. |
-| Feed | Cutting feed rate for this operation. |
-| Plunge Feed | Z-axis plunge feed rate. |
-| RPM | Spindle speed. |
-| Target | The features this operation applies to. Use **Use current selection** to reassign. |
+The settings shared with other operations are documented in
+[Common operation parameters](/guide/operations/common-parameters/).
 
 ### Pocket parameters
 
@@ -76,6 +65,10 @@ can see exactly which geometry it will cut before you adjust anything.
 Offset-pattern passes simplify their internal polylines back into arcs and full circles where the
 geometry allows, which gives shorter, smoother G-code with fewer line segments — especially on
 circular and rounded-corner pockets.
+
+Non-target subtract features that connect to the target can extend the material removed at their
+own depth. Inspect the bands and depth warnings when nearby subtract features overlap or meet the
+selected pocket.
 
 ## Strategies
 
@@ -105,4 +98,3 @@ It also supports [entry and exit moves](/guide/strategies/entry-and-exit/),
 
 - [Tool library](/guide/cam-setup/tool-library/) — tool defaults that fill these parameters.
 - [Quick Start](/quickstart/) — a first Pocket Rough operation, step by step.
-- [Entry moves](/guide/cam-operations.html#entry-moves) and [corner relief](/guide/cam-operations.html#corner-relief) in the current guide.

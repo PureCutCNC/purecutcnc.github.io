@@ -1,6 +1,6 @@
 ---
 title: Features, roles, and depth
-description: Understand what each feature role means, how Z top and Z bottom define depth, and why feature order matters.
+description: Understand how feature roles and Z ranges build the part and determine which toolpaths can cut it.
 pageType: concept
 availability: stable
 status: draft
@@ -21,6 +21,23 @@ The role is set when the feature is created and can be changed afterwards:
 
 The properties panel calls the role **Operation**. It is not a machining operation: those are
 added in the CAM panel.
+
+## How features become toolpaths
+
+Features describe the part; machining operations describe how a tool removes material from those
+features. An operation accepts only the roles and shapes it knows how to cut, then uses the
+feature's Z range as its machining depth. This is why changing a feature from **Add** to
+**Subtract**, opening a profile, or changing **Z bottom** can change which operations are
+available and the toolpath they generate.
+
+For example, a closed **Subtract** can be a pocket or an inside edge route, while a closed
+**Add** can become an outside edge route. A **Line** does not define material, so an engrave
+operation follows it instead. A **Region mask** modifies where a compatible operation can cut,
+but never becomes a cut on its own.
+
+Use [Choosing an operation](/guide/operations/) to select a machining method after defining the
+features, or [CAM Plan](/guide/cam-setup/cam-plan/) to review suggestions based on those feature
+roles, shapes, and depths.
 
 ## Roles
 

@@ -1,0 +1,47 @@
+---
+title: V-carve medial
+description: Carve a V-groove along the medial axis of compatible closed geometry with a V-bit.
+pageType: operation
+availability: stable
+status: draft
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+**V-carve medial** computes the medial axis of a closed profile and varies the V-groove depth with
+its local half-width. It gives sharp points at corners and a groove that follows the actual center
+of the available shape.
+
+## Requirements
+
+| Requirement | Value |
+| --- | --- |
+| Target features | Compatible closed machining features or closed lines; optional closed regions filter the cut |
+| Tool | V-bit with its included angle set |
+| Passes | Single pass |
+
+## Parameters
+
+Shared settings are documented in [Common operation parameters](/guide/operations/common-parameters/).
+
+| Parameter | Description |
+| --- | --- |
+| **Max carve depth** | Caps the calculated groove depth. |
+| **Cut direction** | Chooses conventional or climb direction. |
+
+## Limitations
+
+<Aside type="caution" title="Sampling is automatic">
+	V-carve medial has no **Step Size** field. The app adapts sampling to the shape so small
+	lettering and smooth curves remain usable; inspect the preview instead of trying to tune a
+	nonexistent sampling control.
+</Aside>
+
+## Verifying the result
+
+Inspect narrow channels, sharp corners, and small text in the toolpath preview before export.
+
+## Related pages
+
+- [V-carve offset](/guide/operations/v-carve-offset/): use inset contours rather than the medial axis.
+- [Choosing an operation](/guide/operations/): compare feature requirements.

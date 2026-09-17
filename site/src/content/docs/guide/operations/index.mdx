@@ -1,0 +1,38 @@
+---
+title: Choosing an operation
+description: Match a feature and machining goal to the PureCut CNC operation that can produce it.
+pageType: overview
+availability: stable
+status: draft
+tableOfContents: false
+---
+
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+Choose an operation from the feature’s role and geometry, then confirm its compatible target,
+tool, pass, and strategy. Regions can restrict a compatible cut but are not machining targets on
+their own. A 3D finish requires exactly one model; a STEP model counts as a model.
+
+## Requirements
+
+| Goal | Feature target | Operation |
+| --- | --- | --- |
+| Clear a closed internal area | Closed subtract | [Pocket](/guide/operations/pocket/) |
+| Face a closed top or model area | Closed add or model | [Surface clean](/guide/operations/surface-clean/) |
+| Cut an internal contour | Closed subtract | [Edge route inside](/guide/operations/edge-route-inside/) |
+| Cut an outside contour | Closed add or model | [Edge route outside](/guide/operations/edge-route-outside/) |
+| Carve closed artwork or a closed line | V-carve-compatible closed geometry | [V-carve offset](/guide/operations/v-carve-offset/) or [V-carve medial](/guide/operations/v-carve-medial/) |
+| Follow open or closed artwork | Machinable feature, with optional closed regions | [Engrave](/guide/operations/engrave/) |
+| Bore circular holes | Circles, with optional closed regions | [Drill](/guide/operations/drill/) |
+
+<CardGrid>
+	<LinkCard title="Common operation parameters" description="Settings shared by compatible operations." href="/guide/operations/common-parameters/" />
+	<LinkCard title="Pocket" description="Clear a closed subtract area." href="/guide/operations/pocket/" />
+	<LinkCard title="Surface clean" description="Face a closed add or model area." href="/guide/operations/surface-clean/" />
+	<LinkCard title="Edge route inside" description="Cut a closed subtract contour." href="/guide/operations/edge-route-inside/" />
+	<LinkCard title="Edge route outside" description="Cut a closed add or model contour." href="/guide/operations/edge-route-outside/" />
+	<LinkCard title="V-carve offset" description="Carve compatible closed geometry." href="/guide/operations/v-carve-offset/" />
+	<LinkCard title="V-carve medial" description="Carve medial-axis channels." href="/guide/operations/v-carve-medial/" />
+	<LinkCard title="Engrave" description="Follow a feature line directly or as a slot." href="/guide/operations/engrave/" />
+	<LinkCard title="Drill" description="Machine circular holes with supported cycles." href="/guide/operations/drill/" />
+</CardGrid>
