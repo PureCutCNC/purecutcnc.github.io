@@ -1,7 +1,7 @@
 # site/ — Astro + Starlight source for purecutcnc.github.io
 
 This directory builds the complete GitHub Pages artifact: the landing and downloads pages,
-the Starlight user manual, the legacy-URL redirect pages, and verbatim copies of the
+the Starlight User Guide, the legacy-URL redirect pages, and verbatim copies of the
 automation-owned `app/`, `app-rc/`, and `downloads/` directories from the repository root.
 
 It is **not deployed yet**. The revamp is assembled on the `site-revamp` integration branch
@@ -28,8 +28,10 @@ Then, from `site/`:
 | `npm run verify` | Checks the built artifact (see below). |
 | `npm run verify:cutover` | Same, but unmigrated legacy pages, links to legacy URLs, and out-of-sync legacy images are errors. |
 | `npm run legacy:sync` | Refreshes the frozen copies of the old site's images (see *URLs*). |
+| `npm run content` | Checks guide pages, templates, and the screenshot manifest against the authoring standard (see *Writing guide pages*). |
+| `npm run content:cutover` | Same, but every planned page must exist and be reviewed, and every screenshot must be current. |
 | `npm run coverage` | Validates and summarises the manual coverage data in `planning/` (see `planning/MANUAL_COVERAGE.md`). |
-| `npm run ci` | `check`, `coverage`, `build`, then `verify`, as CI runs them. |
+| `npm run ci` | `check`, `content`, `coverage`, `build`, then `verify`, as CI runs them. |
 
 Astro 7 may run `dev` and `preview` as background servers when not attached to a terminal;
 stop them with `npx astro dev stop` or `npx astro preview stop`.
@@ -45,7 +47,8 @@ stop them with `npx astro dev stop` or `npx astro preview stop`.
 - a legacy URL without its redirect page, or a redirect (or fragment mapping) that points at
   a page or `#id` that does not exist;
 - an internal link, image, script, or stylesheet (including `srcset` candidates) that does
-  not resolve, or a `#fragment` that has no matching `id` on the target page;
+  not resolve, or a `#fragment` that has no matching `id` on the target page. A link to a
+  page in the page tree that is not written yet is a warning (an error with `--cutover`);
 - an old image URL that is missing or differs from `config/legacy-assets.json` (and warns
   when a root image changed since the last `npm run legacy:sync`);
 - an empty or unreadable search index file, or a mismatch between the pages marked
@@ -59,24 +62,45 @@ redirect checks against a deployed site; the workflow uses it after each deploym
 
 | Path | Purpose |
 | --- | --- |
-| `astro.config.mjs` | Site, Starlight, sidebar, and component overrides. |
+| `astro.config.mjs` | Site, Starlight, and component overrides; builds the sidebar from the page tree. |
+| `config/manual-structure.mjs` | The page tree: every guide section and page, with its title, page type, and owning workstream. |
 | `config/generated-content.mjs` | The automation-owned directories and the URLs that must survive. |
 | `config/legacy-routes.mjs` | Every published legacy page URL and where it now goes. |
 | `config/legacy-assets.mjs`, `config/legacy-assets.json` | The old site's image URLs and the SHA-256 of each frozen copy. |
 | `scripts/sync-legacy-assets.mjs` | Copies the old site's images into `public/` and updates the manifest. |
-| `scripts/check-coverage.mjs` | Checks `planning/manual-coverage.csv` and `planning/legacy-guide-inventory.csv`, including Wave 2 page ownership. |
+| `scripts/check-content.mjs` | Checks guide pages, `templates/`, and `src/assets/manual/media.json` against the authoring standard. |
+| `scripts/check-coverage.mjs` | Checks `planning/manual-coverage.csv` and `planning/legacy-guide-inventory.csv` against the page tree, including Wave 2 page ownership. |
 | `integrations/site-artifact.mjs` | After the build: repairs an incomplete search index, writes the redirect pages, and copies the generated directories. Dev-server equivalent. |
 | `scripts/verify-artifact.mjs` | Artifact and deployed-site checks. |
-| `src/content.config.ts` | Manual frontmatter schema (Starlight's plus provisional `pageType` and `reviewed`). |
-| `src/content/docs/guide/` | The user manual, served under `/guide/`. |
+| `src/content.config.ts` | Guide frontmatter schema: Starlight's plus `pageType`, `availability`, `status`, and `reviewed`. |
+| `src/content/docs/guide/` | The User Guide, served under `/guide/`. |
 | `src/content/docs/quickstart.mdx` | The Quick Start, served at `/quickstart/`. |
 | `src/pages/` | Landing (`/`) and downloads (`/downloads/`) pages. |
-| `src/components/starlight/` | Starlight overrides: header with site navigation, mobile menu, wordmark. |
+| `src/components/starlight/` | Starlight overrides: header with site navigation, mobile menu, wordmark, and the page title with its generated draft and availability notices. |
+| `src/components/Availability.astro` | Badge for a preview or experimental section of a stable page. |
 | `src/components/Screenshot.astro` | Optimized, captioned manual screenshots; fails the build without alt text. |
 | `src/components/AppIcon.astro` | Inline icon from the app's own sprite (`app-rc/icons.svg`); fails on unknown names. |
 | `src/styles/` | Brand tokens, the Starlight theme mapping, and the marketing page styles. |
-| `src/assets/` | Images that the build optimizes. Use these for new pages. |
+| `src/assets/manual/` | Guide images, one folder per page, listed in `media.json`. |
+| `src/assets/landing/` | Images for the landing page. |
+| `templates/` | A starting file for each guide page type. |
 | `public/` | Files served as-is: the favicon and the frozen copies of the old site's images. |
+
+## Writing guide pages
+
+[`planning/MANUAL_BLUEPRINT.md`](../planning/MANUAL_BLUEPRINT.md) is the authoring standard.
+In short:
+
+1. Find the page in `config/manual-structure.mjs`; its path, title, page type, and owner are
+   fixed there. Adding, renaming, or moving a page is a change to that file, reviewed on its
+   own.
+2. Copy `templates/<page type>.mdx` to the matching path under `src/content/docs/` and keep
+   the required `##` sections in order.
+3. Put images in `src/assets/manual/<page folder>/` and describe each one in
+   `src/assets/manual/media.json`. A screenshot that cannot be taken until an app issue is
+   fixed lists that issue in `blockedBy`.
+4. Run `npm run content`, then `npm run ci`. The sidebar picks the page up by itself.
+5. After checking the page against the app, set `status: reviewed` and fill in `reviewed`.
 
 ## URLs
 

@@ -1,0 +1,145 @@
+{
+	"cam-setup/tool-library/import-dialog.png": {
+		"shows": "Import tools from library dialog: search, type and unit filters, inch tool rows badged New, nothing selected",
+		"source": "legacy-guide",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "reshoot",
+		"blockedBy": [
+			"PureCutCNC/purecutcnc#797"
+		]
+	},
+	"operations/pocket/offset-toolpath.png": {
+		"shows": "Pocket toolpath with offset rings inside a closed profile",
+		"source": "legacy-guide",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "reshoot"
+	},
+	"operations/pocket/target-highlight.png": {
+		"shows": "Selected operation highlighting its target features on the canvas and in the tree",
+		"source": "legacy-guide",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "reshoot"
+	},
+	"quickstart/add-pocket-rough.png": {
+		"shows": "Operations panel with Pocket Rough assigned to the circle and the 1/4 in end mill",
+		"source": "legacy-guide",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "reshoot"
+	},
+	"quickstart/circle-properties.png": {
+		"shows": "Circle properties with Z bottom set to 0.5",
+		"source": "legacy-guide",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "reshoot"
+	},
+	"quickstart/export-gcode.png": {
+		"shows": "Project properties with Machine set to Mach3 and the export button",
+		"source": "legacy-guide",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "reshoot"
+	},
+	"quickstart/import-tool.png": {
+		"shows": "Tools tab with the Import from library button",
+		"source": "legacy-guide",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "reshoot"
+	},
+	"quickstart/new-circle.png": {
+		"shows": "Circle centred in the rectangle",
+		"source": "legacy-guide",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "reshoot"
+	},
+	"quickstart/new-project.png": {
+		"shows": "New project dialog with the Blank imperial template selected",
+		"source": "legacy-guide",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "reshoot"
+	},
+	"quickstart/new-rect.png": {
+		"shows": "Rectangle on the canvas and its feature in the tree",
+		"source": "legacy-guide",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "reshoot"
+	},
+	"quickstart/preview-3dview.png": {
+		"shows": "3D view with the Pocket Rough toolpath over the stock",
+		"source": "legacy-guide",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "reshoot"
+	},
+	"quickstart/preview-simulation.png": {
+		"shows": "Simulation view showing the machined result",
+		"source": "legacy-guide",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "reshoot"
+	},
+	"quickstart/preview-sketch.png": {
+		"shows": "Sketch view with the pocket feature and its operation",
+		"source": "legacy-guide",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "reshoot"
+	},
+	"strategies/clearing-patterns/seeded-circles.png": {
+		"shows": "Pocket using the Seeded circles pattern",
+		"source": "legacy-guide",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "reshoot"
+	}
+}

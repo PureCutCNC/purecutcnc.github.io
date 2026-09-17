@@ -2,23 +2,23 @@
 title: Quick Start
 description: Go from a blank PureCut CNC project to exported G-code by sketching a part, adding a pocket operation, and previewing the toolpath.
 pageType: tutorial
-banner:
-  content: Platform preview. Ported from the current Quick Start and not yet re-checked against the app.
+availability: stable
+status: draft
 ---
 
 import { Aside } from '@astrojs/starlight/components';
 import AppIcon from '../../components/AppIcon.astro';
 import Screenshot from '../../components/Screenshot.astro';
-import newProject from '../../assets/quickstart/new-project.png';
-import newRect from '../../assets/quickstart/new-rect.png';
-import newCircle from '../../assets/quickstart/new-circle.png';
-import circleProperties from '../../assets/quickstart/circle-properties.png';
-import importTool from '../../assets/quickstart/import-tool.png';
-import addPocketRough from '../../assets/quickstart/add-pocket-rough.png';
-import previewSketch from '../../assets/quickstart/preview-sketch.png';
-import preview3d from '../../assets/quickstart/preview-3dview.png';
-import previewSimulation from '../../assets/quickstart/preview-simulation.png';
-import exportGcode from '../../assets/quickstart/export-gcode.png';
+import newProject from '../../assets/manual/quickstart/new-project.png';
+import newRect from '../../assets/manual/quickstart/new-rect.png';
+import newCircle from '../../assets/manual/quickstart/new-circle.png';
+import circleProperties from '../../assets/manual/quickstart/circle-properties.png';
+import importTool from '../../assets/manual/quickstart/import-tool.png';
+import addPocketRough from '../../assets/manual/quickstart/add-pocket-rough.png';
+import previewSketch from '../../assets/manual/quickstart/preview-sketch.png';
+import preview3d from '../../assets/manual/quickstart/preview-3dview.png';
+import previewSimulation from '../../assets/manual/quickstart/preview-simulation.png';
+import exportGcode from '../../assets/manual/quickstart/export-gcode.png';
 
 Follow along to sketch a part, assign a machining operation, preview the toolpath, and export
 G-code — all in PureCut CNC.
@@ -29,8 +29,8 @@ The model is the toolpath.
 
 - **Features are the building blocks.** You build a part by adding and subtracting 2D shapes —
   rectangles, circles, polygons, imported curves — in the Sketch view. Each shape is a feature.
-- **Top Z and Bottom Z define the 3D shape.** Every feature has a vertical extent. Top Z is where
-  the feature starts (the surface) and Bottom Z is where it ends (the floor). These same values
+- **Z top and Z bottom define the 3D shape.** Every feature has a vertical extent. Z top is where
+  the feature starts (the surface) and Z bottom is where it ends (the floor). These same values
   directly control how deep machining operations cut — there are no separate depth fields to set.
 - **Feature type determines which operations apply.** An _additive_ feature represents material
   that is present (for example, a raised boss). A _subtractive_ feature represents material that
@@ -56,7 +56,7 @@ preview on the right confirms Units: **Inch** and a default Stock of **4 × 3 ×
 **Create Project**.
 
 You land on the **Sketch** view with an empty canvas and a feature tree on the left. The default
-stock Top Z of **0.75 in** is inherited by any features you create.
+stock Z top of **0.75 in** is inherited by any features you create.
 
 <Screenshot src={newProject} alt="New Project dialog with the Blank Imperial template selected" />
 
@@ -76,33 +76,33 @@ the tree. You can click it to select it and edit its dimensions in the propertie
 Select the **Circle** tool. Click the center of the rectangle to place the origin, then drag
 outward to set the radius. A 1-inch radius works well inside a 4 × 3 boundary.
 
-With the circle selected, open its properties panel. The **Top Z** will already be set to
-**0.75 in** (inherited from the stock). Set the **Bottom Z** field to **0.5 in**. This means the
+With the circle selected, open its properties panel. The **Z top** will already be set to
+**0.75 in** (inherited from the stock). Set the **Z bottom** field to **0.5 in**. This means the
 floor of the pocket sits at 0.5 in — a cut depth of 0.75 − 0.5 = **0.25 in**.
 
 <Aside title="Z is a coordinate, not a depth">
-	Bottom Z is the absolute elevation of the pocket floor, not how deep to cut. The actual cutting
-	depth is always Top Z minus Bottom Z. In this case: 0.75 − 0.5 = 0.25 in.
+	Z bottom is the absolute elevation of the pocket floor, not how deep to cut. The actual cutting
+	depth is always Z top minus Z bottom. In this case: 0.75 − 0.5 = 0.25 in.
 </Aside>
 
 <Screenshot src={newCircle} alt="Circle centered in the rectangle" />
 
 <Screenshot
 	src={circleProperties}
-	alt="Circle properties panel with Bottom Z set to 0.5"
+	alt="Circle properties panel with Z bottom set to 0.5"
 	maxWidth={360}
 />
 
-## Import a 1/4″ end mill from the tool library
+## Import a 1/4″ endmill from the tool library
 
 Click the **Tools** tab in the right-hand panel, then click **Import from library…** A dialog opens
-with the bundled catalogue — 26 standard metric and imperial sizes. Type `1/4` in the search box,
+with the bundled library of standard metric and imperial tools. Type `1/4` in the search box,
 or use the type and unit filters to narrow the list.
 
-Tick the **1/4″ Endmill** row and click **Import tool**. The tool is now in the project's tool list
+Tick the **1/4" Endmill** row and click **Import tool**. The tool is now in the project's tool list
 and can be assigned to any operation. You can tick several rows at once — the button counts what
 you have selected — and anything already in the project is badged **In project** so you don't
-import it twice. The [Tool Library](/guide/cam-setup/tool-library/) page covers the dialog in detail.
+import it twice. The [Tool library](/guide/cam-setup/tool-library/) page covers the dialog in detail.
 
 <Screenshot
 	src={importTool}
@@ -115,7 +115,7 @@ import it twice. The [Tool Library](/guide/cam-setup/tool-library/) page covers 
 Select the circle in the feature tree (or on the canvas), then click **Add** in the Operations
 panel. From the operation type dropdown, choose **Pocket Rough**.
 
-In the operation settings, assign the **1/4″ End Mill** you just imported. Review the default
+In the operation settings, assign the **1/4" Endmill** you just imported. Review the default
 stepover and stepdown values — the app pre-fills sensible defaults based on the tool diameter.
 Leave them as-is for this walkthrough.
 
@@ -132,7 +132,7 @@ is visible.
 
 <Screenshot
 	src={addPocketRough}
-	alt="Operations panel showing the Pocket Rough operation assigned to the circle with the 1/4″ end mill selected"
+	alt="Operations panel showing the Pocket Rough operation assigned to the circle with the 1/4″ endmill selected"
 	maxWidth={420}
 />
 
@@ -168,7 +168,7 @@ format the output with the dialect, units, and header/footer that Mach3 expects.
 Click **Export G-code**. The browser downloads a file ready to load directly into Mach3. Open it in
 a text editor to review the output before running it on your machine.
 
-<Aside type="danger" title="Always verify before cutting">
+<Aside type="danger" title="Safety: Verify before cutting">
 	Review the G-code in Mach3's toolpath display or run a dry cycle with the spindle off before
 	making contact with material.
 </Aside>
@@ -197,7 +197,7 @@ your own — each one builds on what you just learned.
    place tabs** button in the operation properties to let the app place them automatically — or
    add them manually from the project tree.
 6. **Add clamps on the left and right.** Use the clamp options in the project tree to place clamps
-   on both sides of the stock. Set their Top Z to **1 in** so the tool clears them on rapid moves.
+   on both sides of the stock. Set their Z top to **1 in** so the tool clears them on rapid moves.
 7. **Try trochoidal roughing.** On the outside rough edge route, set **Strategy** to
    **Trochoidal** and watch the toolpath turn into overlapping loops. See [Trochoidal
    Cutting](/guide/cam-operations.html#trochoidal).
@@ -205,9 +205,9 @@ your own — each one builds on what you just learned.
    **Corner Relief** to **Dogbone** — now a square-cornered part will actually seat in it. See
    [Corner Relief](/guide/cam-operations.html#corner-relief).
 
-## You're ready to cut
+## Next steps
 
-That's the full workflow — project, geometry, tool, operation, preview, export. From here, explore
+You're ready to cut. That's the full workflow — project, geometry, tool, operation, preview, export. From here, explore
 more feature types, try a contour or drilling operation, or import your own geometry from SVG, DXF,
 STL, or OBJ, or pull folders in from an existing `.camj` project — including imported 3D models for
 the 3D Surface rough, finish, and cleanup operations.

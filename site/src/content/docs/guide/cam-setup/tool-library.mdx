@@ -1,14 +1,14 @@
 ---
-title: Tool Library
+title: Tool library
 description: Import, define, duplicate, and delete the cutting tools that PureCut CNC machining operations use.
 pageType: reference
-banner:
-  content: Platform preview. Ported from the current guide and not yet re-checked against the app.
+availability: stable
+status: draft
 ---
 
 import { Aside } from '@astrojs/starlight/components';
 import Screenshot from '../../../../components/Screenshot.astro';
-import toolLibraryImport from '../../../../assets/screenshots/cam-tool-library-import.png';
+import toolLibraryImport from '../../../../assets/manual/cam-setup/tool-library/import-dialog.png';
 
 ## Tools overview
 
@@ -22,20 +22,22 @@ get started is to import a tool from the bundled library.
 
 ### Import from library
 
-Click **Import from library…** in the Tools tab. A dedicated **Import tools from library** dialog
-opens over the app, so browsing the catalogue happens in a full-width space instead of the narrow
+Click **Import from library…** in the Tools tab. The **Import tools from library** dialog
+opens over the app, so you browse the library in a full-width space instead of the narrow
 side panel.
 
-The bundled library ships **26 standard sizes**:
+The bundled library ships 34 tools:
 
-- **Imperial** — flat endmills from 1/16″ to 3/4″, ball endmills from 1/16″ to 1/2″, and a 60° V-bit.
-- **Metric** — flat endmills from 1 mm to 12 mm and ball endmills from 1 mm to 8 mm.
+- **Imperial**: flat endmills from 1/16″ to 3/4″, ball endmills from 1/16″ to 1/2″, V-bits of
+  30°, 60°, 90°, and 120°, and an 82° countersink.
+- **Metric**: flat endmills from 1 mm to 12 mm, ball endmills from 1 mm to 8 mm, and V-bits of
+  30°, 60°, 90°, and 120°.
 
 Finding what you want:
 
-- **Search** by name or diameter — the field is focused as soon as the dialog opens.
-- **Type filter** — All Types, Flat Endmill, Ball Endmill, V-Bit, or Drill.
-- **Units filter** — All Units, mm, or in.
+- **Search** by name or diameter. The field is focused as soon as the dialog opens.
+- **Type filter**: **All types**, **Flat endmill**, **Ball endmill**, **V-bit**, or **Drill**.
+- **Units filter**: **All units**, **mm**, or **in**.
 - Each row shows flute count and the tool's usable depth, and is badged **In project** or **New**
   so you can see at a glance what you already have.
 
@@ -45,7 +47,7 @@ filters, search for another, and both stay selected. The action button counts wh
 
 <Screenshot
 	src={toolLibraryImport}
-	alt="Import tools from library dialog with the search field, type and unit filters, several selected rows badged In project or New, and the Import button showing the selection count"
+	alt="Import tools from library dialog with the search field, type and unit filters, a list of inch endmills, ball endmills, and a 60° V-bit, each badged New, and no tools selected yet"
 	maxWidth={520}
 />
 
@@ -57,7 +59,7 @@ filters, search for another, and both stay selected. The action button counts wh
 
 ### Add a tool manually
 
-Click **Add Tool** to create a new tool with default values. Edit the tool properties in the right
+Click **Add tool** to create a new tool with default values. Edit the tool properties in the right
 panel. This is useful when your specific tool is not in the bundled library.
 
 ### Duplicate a tool
@@ -71,19 +73,19 @@ Select a tool in the list to edit its properties in the right panel.
 
 | Property | Description |
 | --- | --- |
-| Name | A descriptive name for the tool, shown in operation dropdowns. |
-| Type | Flat Endmill, Ball Endmill, V-Bit, or Drill. V-Carve operations only accept V-Bit tools. |
-| Units | The unit system for this tool's dimensions (mm or inch). Tools can be used in projects with a different unit — values are converted automatically. |
-| Diameter | The cutting diameter of the tool. |
-| V Angle | The included angle of a V-bit in degrees (V-Bit type only). |
-| Flutes | Number of cutting flutes. Used for chip load calculations. |
-| Material | Carbide or HSS. Informational only. |
-| Default RPM | Spindle speed used as the default when this tool is assigned to an operation. |
-| Default Feed | Cutting feed rate used as the default when assigned to an operation. |
-| Plunge Feed | Plunge (Z-axis) feed rate used as the default. |
-| Stepdown | Default depth per pass. |
-| Max Cut Depth | Maximum total cutting depth. Set to 0 for no limit. Used by V-carve operations to limit carve depth. |
-| Stepover Ratio | Default stepover as a fraction of the tool diameter (0.01–1.0). For example, 0.4 = 40% of diameter. |
+| **Name** | A descriptive name for the tool, shown in operation dropdowns. |
+| **Type** | **Flat endmill**, **Ball endmill**, **V-bit**, or **Drill**. V-carve operations only accept V-bits. |
+| **Units** | The unit system for this tool's dimensions (**Millimeters** or **Inches**). Tools can be used in projects with a different unit; values are converted automatically. |
+| **Diameter** | The cutting diameter of the tool. |
+| **V angle** | The included angle of a V-bit in degrees (V-bits only). |
+| **Flutes** | Number of cutting flutes. Used for chip load calculations. |
+| **Material** | **Carbide** or **HSS**. Informational only. |
+| **Default RPM** | Spindle speed used as the default when this tool is assigned to an operation. |
+| **Default feed** | Cutting feed rate used as the default when assigned to an operation. |
+| **Plunge feed** | Plunge (Z-axis) feed rate used as the default. |
+| **Stepdown** | Default depth per pass. |
+| **Max cut depth** | Maximum total cutting depth. Set to 0 for no limit. Used by V-carve operations to limit carve depth. |
+| **Stepover ratio** | Default stepover as a fraction of the tool diameter (0.01–1.0). For example, 0.4 = 40% of diameter. |
 
 <Aside type="tip">
 	Default values from the tool are applied automatically when you assign the tool to an operation.

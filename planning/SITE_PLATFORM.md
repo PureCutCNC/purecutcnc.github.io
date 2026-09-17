@@ -147,7 +147,7 @@ Redirect pages are static HTML at the exact old path. A small script keeps the q
 and fragment and applies per-fragment mappings; a `<meta http-equiv="refresh">` covers
 clients without JavaScript, and `rel="canonical"` points at the new page. Tested in the
 built artifact: `/quickstart.html#step-tool` lands on
-`/quickstart/#import-a-14-end-mill-from-the-tool-library`,
+`/quickstart/#import-a-14-endmill-from-the-tool-library`,
 `/guide/cam-tools.html?ref=forum#tool-properties` keeps both the query and the fragment,
 and `/guide/cam-operations.html#op-pocket` lands on the Pocket page.
 
@@ -248,19 +248,23 @@ Checked in Chrome against `astro preview` of the artifact:
 
 ## Contract for the information architecture (#22)
 
-- **Frontmatter.** Starlight's `title` and `description` are required. The schema in
-  `site/src/content.config.ts` also accepts a provisional `pageType` (`overview`, `tutorial`,
-  `task`, `reference`, `troubleshooting`) and `reviewed: { appCommit, date }`. #22 decides
-  which become required; the build then rejects pages without them.
-- **URLs.** `/guide/<section>/<page>/`, with one folder per sidebar section. Sections list
-  their folder automatically, ordered by `sidebar.order`, so page authors never edit
-  `astro.config.mjs`.
+#22 filled in this contract; [MANUAL_BLUEPRINT.md](MANUAL_BLUEPRINT.md) is now the
+authority for page structure and authoring. What the platform provides:
+
+- **Page tree.** `site/config/manual-structure.mjs` lists every section and page with its
+  title, page type, and owning workstream. The sidebar is generated from it and shows the
+  pages that exist, so content pull requests never edit `astro.config.mjs`.
+- **Frontmatter.** `site/src/content.config.ts` requires `pageType`, `availability`, and
+  `status`, and accepts `reviewed: { appCommit, date, by }`. `npm run content`
+  (`site/scripts/check-content.mjs`) enforces the rules that span fields and files.
 - **Components available to pages.** `Screenshot` (optimized, captioned, alt text required),
-  `AppIcon` (verified against the app sprite), and Starlight's `Aside` (`note`, `tip`,
-  `caution`, `danger`), `Steps`, `Tabs`, `Card`, `LinkCard`, `Badge`, and `FileTree`.
-- **Shared files.** `astro.config.mjs` (sections), `config/legacy-routes.mjs`, and the
-  components belong to the platform. A Wave 2 issue that migrates a legacy page edits only
-  that page's entry in `legacy-routes.mjs`.
+  `AppIcon` (verified against the app sprite), `Availability` (a badge for a preview or
+  experimental section), and Starlight's `Aside`, `Steps`, `Tabs`, `Card`, `LinkCard`,
+  `Badge`, and `FileTree`. Draft and availability notices under the title are generated.
+- **Shared files.** `astro.config.mjs`, `config/manual-structure.mjs`,
+  `config/legacy-routes.mjs`, the components, and the scripts belong to the platform. A
+  Wave 2 issue that migrates a legacy page edits only that page's entry in
+  `legacy-routes.mjs`.
 
 ## Cutover runbook
 
@@ -269,10 +273,17 @@ Preconditions:
 1. #21 and #22 are approved and the Wave 2 content is merged into `site-revamp`.
 2. `main` has been merged into `site-revamp`, `npm run legacy:sync` has been run (and any
    changes committed), the latest `Site` run on `site-revamp` passed, and
-   `npm run verify:cutover` passes there.
+   `npm run content:cutover` and `npm run verify:cutover` pass there.
 3. That run's `site-preview` artifact has been reviewed: landing, downloads, Quick Start,
    several manual pages, search, and a sample of legacy links.
 4. `PAGES_DEPLOY_ENABLED` is unset or `false`.
+5. The `.nojekyll` change has been reviewed and approved on its own, because it changes the
+   live branch build at step 1, before the switch to Actions. Checked on 2026-09-16: no file
+   on `main` has front matter and there is no `_config.yml`, so Jekyll only renders the
+   Markdown files. Today `/AGENTS.html` and `/app/fonts/INDEX.html` (and the `app-rc/` copy)
+   return 200; after the merge they return 404, `.md` files are served as plain text, and
+   `app/assets/__vite-browser-external-*.js` starts returning 200 instead of 404. Nothing on
+   the site links to the pages that disappear. Repeat the check if `main` has gained files.
 
 Steps:
 
@@ -313,10 +324,7 @@ Rollback depends on the root files still existing, which is why their removal wa
 
 ## Open questions
 
-- Stable versus preview documentation, and how preview-only features are labeled (#22).
 - Whether the marketing pages should follow the light theme.
-- Whether the Quick Start stays at `/quickstart/` or moves under `/guide/` (#22); only its
-  redirect entry would change.
 - The repository grows with every automated `app-rc/` commit (57 MB packed today). Publishing
   the web app builds as workflow artifacts instead of commits would stop that, but it is an
   app-repository change and out of scope here.

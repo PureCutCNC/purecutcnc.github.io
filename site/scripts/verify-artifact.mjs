@@ -4,7 +4,8 @@
 //
 //   node scripts/verify-artifact.mjs              check site/dist
 //   node scripts/verify-artifact.mjs --cutover    also fail on unmigrated legacy pages, on
-//                                                 links that still use legacy URLs, and on
+//                                                 links that still use legacy URLs or point
+//                                                 at guide pages not written yet, and on
 //                                                 legacy images that changed since the last
 //                                                 `npm run legacy:sync`
 //   node scripts/verify-artifact.mjs --url https://purecutcnc.github.io
@@ -20,6 +21,7 @@ import { parseArgs } from 'node:util';
 import { GENERATED_DIRS, REPO_ROOT, REQUIRED_GENERATED_URLS } from '../config/generated-content.mjs';
 import { LEGACY_ASSET_SOURCES, readLegacyAssetManifest } from '../config/legacy-assets.mjs';
 import { LEGACY_ROUTES } from '../config/legacy-routes.mjs';
+import { plannedPage } from '../config/manual-structure.mjs';
 
 const { values: args } = parseArgs({
 	options: {
@@ -216,6 +218,8 @@ async function checkLinks(dist) {
 		);
 	});
 	let checked = 0;
+	// Pages may link to planned pages that another workstream has not written yet.
+	const unwritten = new Map();
 	for (const page of pages) {
 		const relative = path.relative(dist, page);
 		const pageUrl = new URL(`/${relative.split(path.sep).join('/').replace(/(^|\/)index\.html$/, '$1')}`, SITE_ORIGIN);
@@ -231,11 +235,18 @@ async function checkLinks(dist) {
 			if (url.origin !== SITE_ORIGIN) continue;
 			checked += 1;
 			const context = `${relative} links to ${raw}`;
+			if (plannedPage(url.pathname) && !(await resolvePath(dist, url.pathname))) {
+				unwritten.set(url.pathname, (unwritten.get(url.pathname) ?? new Set()).add(relative));
+				continue;
+			}
 			const target = await checkTarget(dist, url.pathname + url.hash, context);
 			if (target && redirectPages.has(target)) {
 				(args.cutover ? fail : warn)(`${context}, a legacy redirect; link to the new page instead`);
 			}
 		}
+	}
+	for (const [target, sources] of unwritten) {
+		(args.cutover ? fail : warn)(`${target} is a planned page that is not written yet; linked from ${[...sources].join(', ')}`);
 	}
 	return { pages: pages.length, checked };
 }

@@ -1,7 +1,28 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import { existsSync } from 'node:fs';
 import siteArtifact from './integrations/site-artifact.mjs';
+import { PAGES, SECTIONS, slugForPage } from './config/manual-structure.mjs';
+
+/**
+ * Sidebar from the approved page tree: each section lists its planned pages that
+ * exist, in planned order, and a section with no pages yet is left out. Content
+ * pull requests therefore never edit this file.
+ */
+function guideSidebar() {
+	const docsDir = new URL('./src/content/docs/', import.meta.url);
+	/** @param {string} slug */
+	const exists = (slug) =>
+		['.md', '.mdx', '/index.md', '/index.mdx'].some((suffix) => existsSync(new URL(`${slug}${suffix}`, docsDir)));
+	return SECTIONS.map((section) => ({
+		label: section.label,
+		items: PAGES.filter((entry) => entry.section === section.slug && exists(slugForPage(entry.path))).map((entry) => ({
+			slug: slugForPage(entry.path),
+			...(entry.label ? { label: entry.label } : {}),
+		})),
+	})).filter((group) => group.items.length > 0);
+}
 
 export default defineConfig({
 	site: 'https://purecutcnc.github.io',
@@ -12,7 +33,7 @@ export default defineConfig({
 		starlight({
 			title: 'PureCut CNC',
 			description:
-				'User manual for PureCut CNC, a 2.5D + 3D CAD/CAM workspace for desktop and the browser.',
+				'User Guide for PureCut CNC, a 2.5D + 3D CAD/CAM workspace for desktop and the browser.',
 			favicon: '/favicon.svg',
 			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/PureCutCNC/purecutcnc' }],
 			editLink: {
@@ -23,6 +44,7 @@ export default defineConfig({
 				Header: './src/components/starlight/Header.astro',
 				MobileMenuFooter: './src/components/starlight/MobileMenuFooter.astro',
 				SiteTitle: './src/components/starlight/SiteTitle.astro',
+				PageTitle: './src/components/starlight/PageTitle.astro',
 			},
 			head: [
 				{
@@ -35,20 +57,8 @@ export default defineConfig({
 				},
 			],
 			credits: false,
-			// Provisional sections for the platform spike; the real tree is the #22 deliverable.
-			// Sections list their folder's pages automatically (ordered by `sidebar.order`
-			// frontmatter), so adding a page never requires editing this file.
-			sidebar: [
-				{
-					label: 'Start Here',
-					items: [
-						{ label: 'Manual overview', slug: 'guide' },
-						{ label: 'Quick Start', slug: 'quickstart' },
-					],
-				},
-				{ label: 'CAM Setup', items: [{ autogenerate: { directory: 'guide/cam-setup' } }] },
-				{ label: 'Machining Operations', items: [{ autogenerate: { directory: 'guide/operations' } }] },
-			],
+			// The User Guide tree lives in config/manual-structure.mjs (issue #22).
+			sidebar: guideSidebar(),
 		}),
 		// Must stay after Starlight: its build hook runs once the search index exists.
 		siteArtifact(),

@@ -57,6 +57,9 @@ jobs:
       - name: Type-check
         run: npm run check
 
+      - name: Check guide pages against the authoring standard
+        run: npm run content
+
       - name: Check manual coverage data
         run: npm run coverage
 

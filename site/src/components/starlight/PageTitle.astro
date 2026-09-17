@@ -1,0 +1,38 @@
+---
+// Starlight override: the page title, followed by the standard notices driven by
+// frontmatter — draft pages (not yet checked against the app) and features that are
+// not in a stable release. Pages never write these notices by hand.
+import { Aside } from '@astrojs/starlight/components';
+import { AVAILABILITY } from '../availability';
+
+const { data } = Astro.locals.starlightRoute.entry;
+const isGuidePage = data.pageType !== 'utility';
+const draft = isGuidePage && data.status === 'draft';
+const notice = isGuidePage && data.availability && data.availability !== 'stable' ? AVAILABILITY[data.availability] : null;
+---
+
+<h1 id="_top">{data.title}</h1>
+{
+	draft && (
+		<Aside type="note" title="Draft">
+			This page has not yet been checked against the current app.
+		</Aside>
+	)
+}
+{
+	notice && (
+		<Aside type={notice.asideType} title={notice.label}>
+			{notice.pageText}
+		</Aside>
+	)
+}
+
+<style>
+	h1 {
+		margin-top: 1rem;
+		font-size: var(--sl-text-h1);
+		line-height: var(--sl-line-height-headings);
+		font-weight: 600;
+		color: var(--sl-color-white);
+	}
+</style>
