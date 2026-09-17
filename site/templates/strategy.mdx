@@ -1,0 +1,47 @@
+---
+# Template for a strategy page: a way of cutting that several operations offer, such as a
+# clearing pattern, an entry move, or corner relief. Strategies are not operations.
+# Copy to src/content/docs/guide/strategies/<page>.mdx.
+title: Strategy name
+description: One sentence on what this strategy changes about the cut and why you would choose it.
+pageType: strategy
+availability: stable
+status: draft
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import Screenshot from '../../../../components/Screenshot.astro';
+
+{/* Lead: what the strategy does to the toolpath, in one or two sentences. */}
+
+## How it works
+
+{/* The motion the tool makes, with a diagram or screenshot. Explain the trade-off (time,
+tool load, finish) in plain terms. */}
+
+## Where it applies
+
+{/* A table of the operations (and passes) that offer this strategy, each linking to its
+operation page. Keep it in step with the app's per-operation support. */}
+
+| Operation | Where to find it |
+| --- | --- |
+| [Operation name](/guide/operations/page/) | **Section** > **Label** |
+
+## Settings
+
+| Setting | Description |
+| --- | --- |
+| **Label** | What it controls, its units, and its default. |
+
+## Limitations
+
+{/* Cases where the strategy is skipped or falls back, with the warning the app shows. */}
+
+<Aside type="caution" title="Short statement of the limitation">
+	What happens and what to do instead.
+</Aside>
+
+## Related pages
+
+- [Page title](/guide/section/page/): why the reader would go there.

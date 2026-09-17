@@ -49,7 +49,7 @@ export const LEGACY_ROUTES = [
 			'step-project': '/quickstart/#create-a-new-project',
 			'step-rect': '/quickstart/#add-the-outer-boundary-rectangle',
 			'step-circle': '/quickstart/#add-a-circle-inside-the-rectangle',
-			'step-tool': '/quickstart/#import-a-14-end-mill-from-the-tool-library',
+			'step-tool': '/quickstart/#import-a-14-endmill-from-the-tool-library',
 			'step-operation': '/quickstart/#create-a-rough-pocket-operation',
 			'step-preview': '/quickstart/#preview-the-toolpath',
 			'step-export': '/quickstart/#select-a-machine-and-export-g-code',

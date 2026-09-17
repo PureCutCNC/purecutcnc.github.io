@@ -115,9 +115,12 @@ Verify the symbol count matches and spot-check that referenced ids resolve.
   open revamp PRs against it, not `main`; it reaches `main` in one merge before
   the cutover (see `planning/SITE_PLATFORM.md`).
 - Setup and commands are in `site/README.md`: `npm ci --prefix site`, then
-  `npm run build` and `npm run verify` inside `site/`.
-- New manual pages go in `site/src/content/docs/guide/<section>/`. When a page
-  replaces a legacy `guide/*.html` page, update its entry in
+  `npm run ci` inside `site/`.
+- Before writing a User Guide page, read `planning/MANUAL_BLUEPRINT.md`. Every
+  page is already listed, with its title, type, and owning workstream, in
+  `site/config/manual-structure.mjs`; start from `site/templates/<type>.mdx` and
+  run `npm run content`. Don't add pages or sections outside that file.
+- When a page replaces a legacy `guide/*.html` page, update its entry in
   `site/config/legacy-routes.mjs` in the same PR.
 - `planning/manual-coverage.csv` lists every capability the manual must cover
   and which page and workstream own it. Update its rows when your page lands

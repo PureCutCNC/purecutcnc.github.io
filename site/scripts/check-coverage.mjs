@@ -11,6 +11,8 @@
 // Files (repository root):
 //   planning/manual-coverage.csv          one row per user-facing capability
 //   planning/legacy-guide-inventory.csv   one row per section of the hand-maintained guide
+//   site/config/manual-structure.mjs      the page tree; every destination is one of its
+//                                         pages, owned by the row's workstream
 //
 // While the hand-maintained guide still exists, the inventory must list exactly
 // the sections its HTML contains. Once guide/ and quickstart.html are removed,
@@ -19,6 +21,7 @@ import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
+import { PAGES, plannedPage } from '../config/manual-structure.mjs';
 
 const REPO_ROOT = fileURLToPath(new URL('../../', import.meta.url));
 const COVERAGE_FILE = path.join(REPO_ROOT, 'planning/manual-coverage.csv');
@@ -36,29 +39,6 @@ const ENUMS = {
 	assessment: ['accurate', 'incomplete', 'stale'],
 	disposition: ['migrate', 'rewrite', 'split', 'merge', 'drop'],
 };
-
-/**
- * Wave 2 page ownership: the first matching rule owns a destination page, so
- * two workstreams can never be assigned the same file.
- */
-export const PAGE_OWNERS = [
-	['/guide/', 'W1', 'exact'],
-	['/quickstart/', 'W1', 'exact'],
-	['/guide/start-here/', 'W1'],
-	['/guide/fundamentals/', 'W1'],
-	['/guide/reference/themes/', 'W1'],
-	['/guide/reference/languages/', 'W1'],
-	['/guide/reference/keyboard-shortcuts/', 'W1'],
-	['/guide/reference/glossary/', 'W1'],
-	['/guide/reference/privacy-and-data/', 'W1'],
-	['/guide/design/', 'W2'],
-	['/guide/cam-setup/', 'W3'],
-	['/guide/operations/3d-', 'W4'],
-	['/guide/operations/', 'W3'],
-	['/guide/strategies/', 'W4'],
-	['/guide/verify-export/', 'W5'],
-	['/guide/reference/', 'W5'],
-];
 
 const { values: args } = parseArgs({
 	options: {
@@ -119,13 +99,6 @@ function readTable(file, header) {
 const list = (value) => value.split(';').map((item) => item.trim()).filter(Boolean);
 const pageOf = (destination) => destination.split('#')[0];
 
-export function ownerOf(destination) {
-	const page = pageOf(destination);
-	for (const [prefix, owner, mode] of PAGE_OWNERS) {
-		if (mode === 'exact' ? page === prefix : page.startsWith(prefix)) return owner;
-	}
-	return null;
-}
 
 function checkEnum(label, row, field) {
 	if (!ENUMS[field].includes(row[field])) fail(`${label}: ${field} "${row[field]}" is not one of ${ENUMS[field].join(', ')}`);
@@ -136,8 +109,11 @@ function checkDestination(label, row) {
 		fail(`${label}: destination "${row.destination}" must be a site path with a trailing slash and an optional #anchor`);
 		return;
 	}
-	const owner = ownerOf(row.destination);
-	if (owner !== row.workstream) fail(`${label}: ${pageOf(row.destination)} belongs to ${owner ?? 'no workstream'}, not ${row.workstream}`);
+	// Each page has exactly one owner in the page tree, so two Wave 2 workstreams can
+	// never be assigned the same file.
+	const page = plannedPage(pageOf(row.destination));
+	if (!page) fail(`${label}: ${pageOf(row.destination)} is not a page in config/manual-structure.mjs`);
+	else if (page.owner !== row.workstream) fail(`${label}: ${page.path} belongs to ${page.owner}, not ${row.workstream}`);
 }
 
 /** Sections of the hand-maintained guide, read from its HTML while it exists. */
@@ -201,6 +177,11 @@ for (const row of inventory) {
 	if (!expected) fail(`${label}: no capability row references this section`);
 }
 
+const destinations = new Set(coverage.map((row) => pageOf(row.destination)));
+for (const page of PAGES) {
+	if (!destinations.has(page.path)) fail(`${page.path}: no capability in manual-coverage.csv is assigned to this page`);
+}
+
 const legacy = legacySections();
 if (legacy) {
 	for (const key of legacy) if (!sectionKeys.has(key)) fail(`guide section ${key} is missing from legacy-guide-inventory.csv`);
@@ -244,5 +225,4 @@ console.log(`Capabilities by area and coverage\n\n${table(coverage, 'area', 'cov
 console.log(`Release-critical capabilities by workstream\n\n${table(coverage.filter((row) => row.priority === 'release-critical'), 'workstream', 'coverage', ENUMS.coverage)}\n`);
 console.log(`Changed since v0.4.0 by coverage\n\n${table(coverage.filter((row) => row.since_v040 !== 'no'), 'since_v040', 'coverage', ENUMS.coverage)}\n`);
 console.log(`Legacy guide sections by disposition and assessment\n\n${table(inventory, 'disposition', 'assessment', ENUMS.assessment)}\n`);
-const pages = new Set(coverage.map((row) => pageOf(row.destination)));
-console.log(`${coverage.length} capabilities, ${inventory.length} legacy sections, ${pages.size} proposed pages. Checks passed.`);
+console.log(`${coverage.length} capabilities, ${inventory.length} legacy sections, ${destinations.size} destination pages. Checks passed.`);

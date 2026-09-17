@@ -148,7 +148,7 @@ guide/view-sketch,sketch-workflow,When to Use Sketch View,104,,stale,drop,/guide
 quickstart,step-project,Create a new project,90,new-project.png,accurate,migrate,/quickstart/#create-a-new-project,W1,start.quickstart,Re-shoot the screenshot.
 quickstart,step-rect,Add the outer boundary rectangle,90,new-rect.png,accurate,migrate,/quickstart/#add-the-outer-boundary-rectangle,W1,start.quickstart,
 quickstart,step-circle,Add a circle inside the rectangle,137,new-circle.png;circle-properties.png,accurate,migrate,/quickstart/#add-a-circle-inside-the-rectangle,W1,start.quickstart,
-quickstart,step-tool,Import a 1/4″ end mill from the tool library,114,import-tool.png,stale,migrate,/quickstart/#import-a-14-end-mill-from-the-tool-library,W1,start.quickstart,Library size.
+quickstart,step-tool,Import a 1/4″ end mill from the tool library,114,import-tool.png,stale,migrate,/quickstart/#import-a-14-endmill-from-the-tool-library,W1,start.quickstart,Library size.
 quickstart,step-operation,Create a rough pocket operation,153,add-pocket-rough.png,stale,rewrite,/quickstart/#create-a-rough-pocket-operation,W1,start.quickstart,"Add menu, visibility toggle location, Entry & retract group."
 quickstart,step-preview,Preview the toolpath,213,preview-sketch.png;preview-3dview.png;preview-simulation.png,accurate,migrate,/quickstart/#preview-the-toolpath,W1,start.quickstart,
 quickstart,step-export,Select a machine and export G-code,107,export-gcode.png,stale,rewrite,/quickstart/#select-a-machine-and-export-g-code,W1,start.quickstart;start.safety,Export dialog checklist.

@@ -1,0 +1,67 @@
+---
+# Template for an operation page (one per operation type).
+# Copy to src/content/docs/guide/operations/<page>.mdx. The title and pageType must match
+# config/manual-structure.mjs, and the description stays under 170 characters.
+title: Operation name
+description: One sentence on what this operation cuts and which features it applies to.
+pageType: operation
+availability: stable
+status: draft
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import Screenshot from '../../../../components/Screenshot.astro';
+{/* Images live in src/assets/manual/operations/<page>/ and are listed in media.json. */}
+import overview from '../../../../assets/manual/operations/<page>/overview.png';
+
+{/* Lead: one or two sentences naming the operation as the app shows it (in bold), what it
+removes, and when to choose it over similar operations. */}
+
+**Operation name** removes … Use it when …
+
+<Screenshot src={overview} alt="Describe what the image shows, not what it is for" />
+
+## Requirements
+
+| Requirement | Value |
+| --- | --- |
+| Target features | Add features, subtract features, or both |
+| Profile | Open, closed, or either |
+| Tool | Tool types the operation accepts |
+| Passes | Rough, finish, or both |
+
+## Parameters
+
+{/* Operation-specific parameters only. Shared fields (name, tool, feeds, target, order)
+link to Common operation parameters instead of being repeated. Use the app's labels in bold,
+spelled exactly as in the English interface. */}
+
+The fields shared by every operation are described in
+[Common operation parameters](/guide/operations/common-parameters/).
+
+| Parameter | Description |
+| --- | --- |
+| **Label** | What it controls, its units, and its default. |
+
+## Strategies
+
+{/* Include only when the operation offers strategies (clearing patterns, drill types,
+finishing patterns). List exactly the ones the app offers for this operation and link each to
+its strategy page; do not document the strategy here. Delete this section otherwise. */}
+
+This operation offers the **…** and **…** patterns. See
+[Clearing patterns](/guide/strategies/clearing-patterns/) for how each one cuts.
+
+## Limitations
+
+{/* Optional. Known cases the operation does not handle, with the warning the app shows.
+Use a caution aside for anything that can produce a wrong cut. */}
+
+## Verifying the result
+
+{/* What to look at in the 3D view and simulation before exporting, and the warnings to
+expect. */}
+
+## Related pages
+
+- [Page title](/guide/section/page/): why the reader would go there.

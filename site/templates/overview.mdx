@@ -1,0 +1,19 @@
+---
+# Template for an overview page: the landing page of the guide or of a section.
+# Copy to src/content/docs/guide/<section>/index.mdx.
+title: Section title
+description: One sentence on what this section covers.
+pageType: overview
+availability: stable
+status: draft
+tableOfContents: false
+---
+
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+{/* Lead: who the section is for and what it helps them decide. Then route the reader:
+cards or a table that link to every page in the section. */}
+
+<CardGrid>
+	<LinkCard title="Page title" description="What the reader finds there." href="/guide/section/page/" />
+</CardGrid>

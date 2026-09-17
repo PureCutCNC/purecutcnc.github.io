@@ -81,7 +81,7 @@ node scripts/check-coverage.mjs --sections --where disposition=rewrite
 - Headers, enumerations, unique ids, required text, and the `missing` ⇔ empty `legacy_guide` rule.
 - Every `legacy_guide` reference exists in the inventory. Every inventory section is cited by at least one capability, and its `capabilities` column matches those citations exactly.
 - While `guide/` and `quickstart.html` exist, the inventory lists exactly the sections their HTML contains.
-- **Disjoint ownership.** Each destination page belongs to exactly one workstream through the prefix rules in `PAGE_OWNERS`, and every row's `workstream` must match its page.
+- **Disjoint ownership.** Every destination is a page in the page tree (`site/config/manual-structure.mjs`, defined by #22), each page there has exactly one owning workstream, and every row's `workstream` must match its page. Every planned page has at least one capability row.
 
 ### Keeping it current
 
@@ -195,11 +195,11 @@ These belong in `PureCutCNC/purecutcnc`, not in the manual. None has been filed 
 - The landing page says gears take a module input.
 - It says edge routes generate rest regions automatically.
 - It lists 3D import as STL and OBJ only.
-- The Tool Library sample page added in #25 still says 26 tools.
+- The Tool Library sample page added in #25 still says 26 tools (corrected in #22).
 
 ## Recommended Wave 2 issues
 
-Five workstreams, each owning a disjoint set of pages (the `PAGE_OWNERS` rules in `site/scripts/check-coverage.mjs`):
+Five workstreams, each owning a disjoint set of pages (the `owner` of each page in `site/config/manual-structure.mjs`):
 
 | Workstream | Owns | Pages | Capabilities | Release-critical | Missing / stale | Media rows |
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
@@ -236,7 +236,7 @@ The inventory already records every old anchor's destination, so no workstream h
 
 ### Order and dependencies
 
-1. **Before Wave 2:** #22 fixes the section slugs, page types and frontmatter. The platform then adds those sections to `astro.config.mjs` once, so no content PR touches it. Any renamed destination is updated here in the same change.
+1. **Before Wave 2:** #22 fixes the section slugs, page types and frontmatter in `site/config/manual-structure.mjs` ([MANUAL_BLUEPRINT.md](MANUAL_BLUEPRINT.md)). The sidebar is generated from it, so no content PR touches `astro.config.mjs`. Any renamed destination is updated here in the same change.
 2. **W1 goes first or in parallel.** Every other workstream links to its fundamentals pages (roles, regions, Z range, workspace).
 3. **W3 and W4 run in parallel.** W4's strategy pages are referenced from W3's operation pages, so agree the anchor ids listed in `destination` up front.
 4. **W5 can start any time.** Its reference pages collect warnings and formats from the other workstreams, so finish them last.
@@ -261,6 +261,8 @@ The inventory already records every old anchor's destination, so no workstream h
 - glossary, privacy, and implementation behaviour such as subtract folding.
 
 ## Open questions for #22
+
+Settled in [MANUAL_BLUEPRINT.md](MANUAL_BLUEPRINT.md#open-questions); the CAM Plan labelling question remains open there.
 
 - **Preview labelling for CAM Plan.** Its engine index calls it a POC. The compute backend's background thread is labelled experimental in the UI.
 - **Quick Start location.** It stays at `/quickstart/` or moves under `/guide/start-here/`. Only its destination and redirect rows change.

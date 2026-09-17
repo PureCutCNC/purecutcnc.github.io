@@ -14,7 +14,9 @@
     "verify:cutover": "node scripts/verify-artifact.mjs --cutover",
     "legacy:sync": "node scripts/sync-legacy-assets.mjs",
     "coverage": "node scripts/check-coverage.mjs",
-    "ci": "npm run check && npm run coverage && npm run build && npm run verify",
+    "content": "node scripts/check-content.mjs",
+    "content:cutover": "node scripts/check-content.mjs --cutover",
+    "ci": "npm run check && npm run content && npm run coverage && npm run build && npm run verify",
     "astro": "astro"
   },
   "dependencies": {
@@ -25,6 +27,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10",
+    "js-yaml": "4.3.2",
     "typescript": "6.0.3"
   }
 }

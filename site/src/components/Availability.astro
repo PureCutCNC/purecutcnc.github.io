@@ -1,0 +1,17 @@
+---
+// Availability badge for a section or option on an otherwise stable page. Put it on
+// its own line directly under the heading, never inside it: heading text becomes the
+// anchor, and the anchor must not change when the feature ships.
+import { Badge } from '@astrojs/starlight/components';
+import { AVAILABILITY, type NonStableAvailability } from './availability';
+
+interface Props {
+	kind: NonStableAvailability;
+}
+
+const { kind } = Astro.props;
+const entry = AVAILABILITY[kind];
+if (!entry) throw new Error(`Unknown availability "${kind}" on ${Astro.url.pathname}`);
+---
+
+<Badge text={entry.label} variant={entry.badgeVariant} size="small" />
