@@ -119,6 +119,9 @@ Verify the symbol count matches and spot-check that referenced ids resolve.
 - New manual pages go in `site/src/content/docs/guide/<section>/`. When a page
   replaces a legacy `guide/*.html` page, update its entry in
   `site/config/legacy-routes.mjs` in the same PR.
+- `planning/manual-coverage.csv` lists every capability the manual must cover
+  and which page and workstream own it. Update its rows when your page lands
+  (see `planning/MANUAL_COVERAGE.md`); `npm run coverage` checks it.
 - The new site copies `app/`, `app-rc/`, and `downloads/` from the root at build
   time and reads icons from `app-rc/icons.svg`, so it needs no hand-synced copies.
 - The old `images/` and `guide/screenshots/` URLs are kept as frozen copies in

@@ -28,7 +28,8 @@ Then, from `site/`:
 | `npm run verify` | Checks the built artifact (see below). |
 | `npm run verify:cutover` | Same, but unmigrated legacy pages, links to legacy URLs, and out-of-sync legacy images are errors. |
 | `npm run legacy:sync` | Refreshes the frozen copies of the old site's images (see *URLs*). |
-| `npm run ci` | `check`, `build`, then `verify`, as CI runs them. |
+| `npm run coverage` | Validates and summarises the manual coverage data in `planning/` (see `planning/MANUAL_COVERAGE.md`). |
+| `npm run ci` | `check`, `coverage`, `build`, then `verify`, as CI runs them. |
 
 Astro 7 may run `dev` and `preview` as background servers when not attached to a terminal;
 stop them with `npx astro dev stop` or `npx astro preview stop`.
@@ -63,6 +64,7 @@ redirect checks against a deployed site; the workflow uses it after each deploym
 | `config/legacy-routes.mjs` | Every published legacy page URL and where it now goes. |
 | `config/legacy-assets.mjs`, `config/legacy-assets.json` | The old site's image URLs and the SHA-256 of each frozen copy. |
 | `scripts/sync-legacy-assets.mjs` | Copies the old site's images into `public/` and updates the manifest. |
+| `scripts/check-coverage.mjs` | Checks `planning/manual-coverage.csv` and `planning/legacy-guide-inventory.csv`, including Wave 2 page ownership. |
 | `integrations/site-artifact.mjs` | After the build: repairs an incomplete search index, writes the redirect pages, and copies the generated directories. Dev-server equivalent. |
 | `scripts/verify-artifact.mjs` | Artifact and deployed-site checks. |
 | `src/content.config.ts` | Manual frontmatter schema (Starlight's plus provisional `pageType` and `reviewed`). |

@@ -57,6 +57,9 @@ jobs:
       - name: Type-check
         run: npm run check
 
+      - name: Check manual coverage data
+        run: npm run coverage
+
       - name: Build artifact
         run: npm run build
 

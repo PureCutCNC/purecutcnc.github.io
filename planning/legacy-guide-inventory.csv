@@ -1,0 +1,154 @@
+legacy_page,anchor,heading,words,screenshots,assessment,disposition,destination,workstream,capabilities,notes
+guide/appearance,appearance-modes,Appearance Modes,91,appearance-menu.png,accurate,migrate,/guide/reference/themes/,W1,ref.themes,
+guide/appearance,theme-manager,Theme Manager,158,theme-manager.png,accurate,migrate,/guide/reference/themes/#manager,W1,ref.themes,
+guide/appearance,custom-theme-editor,Custom Theme Editor,280,theme-editor.png,incomplete,migrate,/guide/reference/themes/#editor,W1,ref.themes,Readability checks can block Apply.
+guide/appearance,where-themes-apply,Where Themes Apply,75,,incomplete,rewrite,/guide/reference/themes/#scope,W1,ref.themes,Drop the palette-migration note.
+guide/cam-debug-view,why-a-debug-view,Why a Separate Inspector,83,,accurate,migrate,/guide/verify-export/exported-motion/,W5,verify.exported-motion;verify.linear-optimizer,
+guide/cam-debug-view,opening-the-inspector,Opening the Inspector,115,,stale,rewrite,/guide/verify-export/exported-motion/#opening,W5,verify.exported-motion,Debug toolpath is dev-only; eligibility is a single planar operation.
+guide/cam-debug-view,motion-layers,Motion Layers,171,cam-debug-view-overlay.png,accurate,migrate,/guide/verify-export/exported-motion/#layers,W5,verify.exported-motion,
+guide/cam-debug-view,move-counts,Move Counts,91,,accurate,migrate,/guide/verify-export/exported-motion/#counts,W5,verify.exported-motion,
+guide/cam-debug-view,verification,Verification,98,,accurate,migrate,/guide/verify-export/exported-motion/#verification,W5,verify.exported-motion,
+guide/cam-debug-view,arc-fitting-per-operation,Arc Fitting Per Operation,135,,accurate,migrate,/guide/verify-export/exported-motion/#arc-fitting,W5,verify.arc-fitting,Name the Output group.
+guide/cam-export,machine-selection,Machine Selection,125,,stale,rewrite,/guide/cam-setup/machines/,W3,cam.machine-selection,Add machine flow replaced by Manage machines.
+guide/cam-export,clearances,Clearance Settings,71,,accurate,migrate,/guide/cam-setup/clamps-and-clearances/#clearances,W3,cam.clearances,
+guide/cam-export,export-dialog,Export Dialog,97,cam-export-dialog.png,stale,rewrite,/guide/verify-export/gcode-export/,W5,start.safety;verify.gcode-export,"Checklist, options and messages."
+guide/cam-export,arc-validation,Arc Output That Controllers Accept,341,,accurate,migrate,/guide/verify-export/exported-motion/#arc-validation,W5,verify.arc-fitting,Trim the field-report narrative.
+guide/cam-export,what-is-exported,What Gets Exported,67,,stale,rewrite,/guide/verify-export/gcode-export/#selection,W5,verify.gcode-export,The default checklist replaces the enabled+visible rule.
+guide/cam-export,operation-booklet,Operation Booklets (PDF Setup Sheets),173,cam-operation-booklet.png,stale,rewrite,/guide/verify-export/setup-booklets/,W5,verify.booklet,Entry point moved to the CAM panel header.
+guide/cam-export,custom-machines,Custom Machine Definitions,720,cam-machine-editor.png,incomplete,split,/guide/cam-setup/machines/#editor,W3,cam.machine-editor;ref.machine-definitions,Field reference → /guide/reference/machine-definitions/.
+guide/cam-operations,adding-operations,Adding Operations,240,cam-add-operation-menu.png,incomplete,rewrite,/guide/cam-setup/working-with-operations/#adding,W3,fund.context-menus;cam.add-menu;cam.context-operations,Add menu partition and grouping.
+guide/cam-operations,choosing,Which Operation Do I Need?,258,,stale,rewrite,/guide/operations/,W3,ops.choosing,
+guide/cam-operations,operation-types,Operation Types,656,op-pocket.png;op-edge-in.png;op-edge-out.png;op-surface-clean.png;op-vcarve-offset.png;op-vcarve-medial.png;op-engrave.png;op-3d-rough.png;op-3d-finish.png;op-3d-cleanup.png;op-drill.png,stale,split,/guide/operations/,W3,ops.choosing;ops.pocket;ops.surface-clean;ops.edge-inside;ops.edge-outside;ops.vcarve-offset;ops.vcarve-medial;ops.engrave;ops.drill;ops.3d-rough;ops.3d-finish;ops.3d-cleanup,One page per operation; op-* anchors map to those pages.
+guide/cam-operations,feature-requirements,Feature Requirements by Operation,70,,stale,rewrite,/guide/operations/#requirements,W3,ops.choosing,
+guide/cam-operations,operation-parameters,Operation Parameters,1595,cam-operation-highlight.png;cam-3d-surface-toolpath.png;cam-3d-surface-waterline.png,stale,split,/guide/operations/common-parameters/,W3,cam.operation-groups;ops.common-parameters;ops.pocket;ops.surface-clean;ops.edge-inside;ops.edge-outside;ops.vcarve-offset;ops.vcarve-medial;ops.engrave;ops.drill;ops.3d-rough;ops.3d-finish;ops.3d-cleanup;strat.offset-parallel;strat.corner-rounding;strat.waterline-refinement;strat.model-protection,Per-kind tables move to each operation page; strategies move to /guide/strategies/.
+guide/cam-operations,feed-reduction,Feed Reduction,316,cam-feed-reduction-legend.png,accurate,migrate,/guide/strategies/feed-reduction/,W4,strat.feed-reduction;verify.feed-colours,
+guide/cam-operations,seeded-circle-clearing,Seeded Circle Clearing,143,cam-seeded-circles.png,accurate,migrate,/guide/strategies/clearing-patterns/#seeded-circles,W4,strat.seeded-circles,
+guide/cam-operations,entry-moves,Entry Moves — Helix & Ramp,430,cam-entry-helix.png;cam-entry-ramp.png,stale,rewrite,/guide/strategies/entry-and-exit/,W4,strat.entry;verify.operation-warnings,Group name and edge-route support.
+guide/cam-operations,trochoidal,Trochoidal Cutting,471,cam-trochoidal-toolpath.png;cam-trochoidal-edge.png,incomplete,migrate,/guide/strategies/trochoidal-cutting/,W4,strat.trochoidal-edge;strat.trochoidal-engrave,Add trochoidal clearing.
+guide/cam-operations,corner-relief,Corner Relief,375,cam-corner-relief.png,stale,migrate,/guide/strategies/corners/#corner-relief,W4,strat.corner-relief;verify.operation-warnings,Caption says Advanced; the group is Corners.
+guide/cam-operations,helical-boring,Helical Boring,132,,accurate,migrate,/guide/operations/drill/#helical,W3,ops.helical-boring,
+guide/cam-operations,countersinking,V-Bit Countersinking,105,,stale,migrate,/guide/operations/drill/#countersink,W3,ops.countersink,Field renamed.
+guide/cam-operations,rest-machining,Rest Machining,113,,stale,rewrite,/guide/strategies/rest-machining/,W4,strat.rest-machining,
+guide/cam-operations,reassigning-targets,Reassigning Operation Targets,102,,incomplete,migrate,/guide/cam-setup/working-with-operations/#targets,W3,fund.regions;cam.targets,
+guide/cam-operations,reordering-operations,Reordering Operations,34,,incomplete,merge,/guide/cam-setup/working-with-operations/#list,W3,cam.operation-list,
+guide/cam-tabs-clamps,tabs-overview,Tabs,739,tab-smooth-multipass.png,incomplete,migrate,/guide/cam-setup/tabs/,W3,cam.tabs,Add warnings; condense the bulk-edit notes.
+guide/cam-tabs-clamps,clamps-overview,Clamps,332,,stale,rewrite,/guide/cam-setup/clamps-and-clearances/,W3,cam.clamps,Generation-time clamp avoidance.
+guide/cam-tools,tools-overview,Tools Overview,60,,accurate,migrate,/guide/cam-setup/tool-library/,W3,cam.tool-manage,Already ported as a platform sample.
+guide/cam-tools,adding-tools,Adding Tools,338,cam-tool-library-import.png,stale,migrate,/guide/cam-setup/tool-library/#adding-tools,W3,cam.tool-import;cam.tool-manage,"Library has 34 entries, not 26."
+guide/cam-tools,tool-properties,Tool Properties,218,,accurate,migrate,/guide/cam-setup/tool-library/#tool-properties,W3,cam.tool-properties,
+guide/cam-tools,deleting-tools,Deleting Tools,48,,accurate,migrate,/guide/cam-setup/tool-library/#deleting-tools,W3,cam.tool-manage,
+guide/concepts,features,Features,87,,incomplete,merge,/guide/fundamentals/features-and-roles/,W1,fund.feature-roles,
+guide/concepts,z-coordinates,Z Top and Z Bottom,172,,incomplete,migrate,/guide/fundamentals/features-and-roles/#z-range,W1,fund.z-range,
+guide/concepts,add-subtract,Feature Operations,211,,stale,rewrite,/guide/fundamentals/features-and-roles/#roles,W1,fund.feature-roles,"Six roles, closed lines, STEP models."
+guide/concepts,regions,Regions,524,,incomplete,migrate,/guide/fundamentals/regions/,W1,fund.regions,Add mask limits.
+guide/concepts,construction,Construction Geometry,195,,accurate,migrate,/guide/fundamentals/construction-geometry/,W1,fund.construction,
+guide/concepts,tree-order,Feature Tree Order,131,,incomplete,migrate,/guide/fundamentals/features-and-roles/#order,W1,fund.tree-order,
+guide/concepts,feature-references,Feature References (Linked Instances),341,,stale,rewrite,/guide/fundamentals/linked-features/,W1,fund.context-menus;fund.linked-features,Nonexistent duplicate menu items.
+guide/concepts,visibility,Visibility and Toolpath Calculation,67,,stale,split,/guide/fundamentals/feature-tree/#visibility,W1,fund.visibility-lock;cam.generation,Generation part → /guide/cam-setup/working-with-operations/#generation.
+guide/concepts,stock,Stock,55,,stale,rewrite,/guide/fundamentals/stock-origin-units/#stock,W1,fund.stock,No editable material; profile stock.
+guide/concepts,origin,Machine Origin,93,,accurate,migrate,/guide/fundamentals/stock-origin-units/#origin,W1,fund.origin,
+guide/concepts,units,Units,68,,incomplete,migrate,/guide/fundamentals/stock-origin-units/#units,W1,fund.units,Add the conversion dialog.
+guide/index,intro,What is PureCut CNC?,120,,incomplete,migrate,/guide/,W1,start.product-overview;start.privacy,Already ported as a platform sample.
+guide/index,guide-sections,Guide Sections,306,,stale,drop,/guide/,W1,start.workflow-overview,Replaced by the new section overview.
+guide/index,workflow,Typical Workflow,120,,stale,rewrite,/guide/#workflow,W1,start.workflow-overview,
+guide/index,file-format,Project Files,64,,incomplete,split,/guide/fundamentals/projects-and-files/#open-save,W1,fund.open-save;fund.undo-redo,Format details → /guide/reference/file-formats/.
+guide/interface,layout,Application Layout,164,interface-overview.png;interface-panel-controls.png,accurate,migrate,/guide/fundamentals/workspace/,W1,fund.workspace-layout,
+guide/interface,starting-a-project,Starting a Project,236,new-project.png,accurate,migrate,/guide/fundamentals/projects-and-files/,W1,fund.new-project;fund.examples,
+guide/interface,toolbar,Toolbars,776,,stale,split,/guide/fundamentals/workspace/#top-toolbar,W1,fund.top-toolbar;fund.tool-rail,Tool rail and measure parts move to their own pages.
+guide/interface,feature-tree,Feature Tree,341,,stale,rewrite,/guide/fundamentals/feature-tree/,W1,fund.feature-tree;fund.folders-groups,
+guide/interface,properties-panel,Properties Panel,206,interface-panel-expand.png,incomplete,migrate,/guide/fundamentals/feature-tree/#properties,W1,fund.properties-panel,
+guide/interface,cam-panel,CAM Panel,123,,incomplete,migrate,/guide/cam-setup/working-with-operations/,W3,cam.cam-panel;cam.operation-groups,
+guide/interface,canvas-workflow-panels,Canvas Workflow Panels,307,,incomplete,rewrite,/guide/fundamentals/workspace/#workflow-panels,W1,fund.workflow-panels;ref.shortcuts,Remove release-note phrasing.
+guide/interface,tablet-shell,Tablet Shell,302,interface-tablet-shell.png,incomplete,migrate,/guide/fundamentals/tablet-and-touch/,W1,fund.tablet,
+guide/interface,views,Working Views,128,,stale,rewrite,/guide/fundamentals/workspace/#views,W1,fund.working-views,Voxel wording.
+guide/language,switching-language,Switching the Interface Language,109,language-menu.png,accurate,migrate,/guide/reference/languages/,W1,ref.languages,
+guide/language,language-manager,Language Manager,120,language-manager.png,accurate,migrate,/guide/reference/languages/#manager,W1,ref.languages,
+guide/language,language-editor,Editing a Language Pack,218,language-editor.png,stale,migrate,/guide/reference/languages/#editor,W1,ref.languages,String count.
+guide/machine-library,two-places,Two Places a Machine Lives,199,,accurate,migrate,/guide/cam-setup/machines/#library,W3,cam.machine-library,
+guide/machine-library,my-machines,My Machines,179,cam-machine-manager.png,accurate,migrate,/guide/cam-setup/machines/#my-machines,W3,cam.machine-library,
+guide/machine-library,status-badges,Status Badges,103,,accurate,migrate,/guide/cam-setup/machines/#badges,W3,cam.machine-selection,
+guide/machine-library,update-notice,Update Notices,191,,accurate,migrate,/guide/cam-setup/machines/#updates,W3,cam.machine-updates,
+guide/machine-library,sharing,Sharing a Project,93,,accurate,migrate,/guide/cam-setup/machines/#sharing,W3,cam.machine-library,
+guide/machine-library,older-projects,Older Projects,59,,accurate,migrate,/guide/cam-setup/machines/#older-projects,W3,cam.machine-library,
+guide/machine-library,related,Creating and Editing Definitions,47,,accurate,drop,/guide/cam-setup/machines/,W3,cam.machine-library,Navigation-only section.
+guide/post-processor-converter,what-it-is,What This Is,150,,accurate,migrate,/guide/reference/post-processor-converter/,W5,ref.post-converter,
+guide/post-processor-converter,running,Running It,214,,accurate,migrate,/guide/reference/post-processor-converter/#running,W5,ref.post-converter,
+guide/post-processor-converter,formats,Supported Formats,164,,accurate,migrate,/guide/reference/post-processor-converter/#formats,W5,ref.post-converter,
+guide/post-processor-converter,report,Reading the Report,178,,accurate,migrate,/guide/reference/post-processor-converter/#report,W5,ref.post-converter,
+guide/post-processor-converter,after,After Converting,138,,accurate,migrate,/guide/reference/post-processor-converter/#after,W5,start.safety;ref.post-converter,
+guide/sketch-dimensions,overview,Overview,126,sketch-dimensions-overview.png,accurate,migrate,/guide/design/dimensions-and-constraints/,W2,design.dimensions,
+guide/sketch-dimensions,toolbar,Toolbar Group,225,sketch-dimensions-toolbar.png,accurate,migrate,/guide/design/dimensions-and-constraints/#toolbar,W2,design.dimensions,
+guide/sketch-dimensions,tape-measure,Tape Measure,116,,accurate,migrate,/guide/design/dimensions-and-constraints/#tape,W2,design.tape-measure,
+guide/sketch-dimensions,placing-dimensions,Placing Dimensions,228,,accurate,migrate,/guide/design/dimensions-and-constraints/#placing,W2,design.dimensions,
+guide/sketch-dimensions,editing-dimensions,Editing & Repositioning,146,,accurate,migrate,/guide/design/dimensions-and-constraints/#driving,W2,design.driving-dimensions,
+guide/sketch-dimensions,visibility,Visibility,71,,accurate,migrate,/guide/design/dimensions-and-constraints/#visibility,W2,design.dimensions,
+guide/sketch-dimensions,limits,What Dimensions Don't Do,90,,accurate,migrate,/guide/design/dimensions-and-constraints/#limits,W2,design.dimensions,
+guide/sketch-edit,selecting,Selecting Features,65,,incomplete,migrate,/guide/design/selecting-and-transforming/,W2,design.selection,Add overlap picker and select all.
+guide/sketch-edit,transforms,Transform Tools,226,,stale,rewrite,/guide/design/selecting-and-transforming/#transforms,W2,design.transforms;design.offset,Offset moves to shape operations.
+guide/sketch-edit,clipboard,Feature Clipboard,168,,accurate,migrate,/guide/design/selecting-and-transforming/#clipboard,W2,design.clipboard;ref.shortcuts,
+guide/sketch-edit,alignment,Alignment and Distribution,102,,accurate,migrate,/guide/design/arranging/,W2,design.align-distribute,
+guide/sketch-edit,feature-distribution,Feature Distribution,202,,accurate,migrate,/guide/design/arranging/#feature-distribution,W2,design.feature-distribution,
+guide/sketch-edit,shape-ops,Shape Operations,134,,stale,rewrite,/guide/design/shape-operations/,W2,design.join;design.cut,Cut workflow.
+guide/sketch-edit,sketch-edit,Direct Sketch Editing,508,,incomplete,migrate,/guide/design/sketch-editing/,W2,design.sketch-edit-session;design.sketch-edit-tools;design.axis-lock,Add missing tools; fix axis-lock key.
+guide/sketch-edit,constraints,Constraints,120,,incomplete,migrate,/guide/design/dimensions-and-constraints/#constraints,W2,design.constraints,
+guide/sketch-edit,locking,Locking Features,38,,accurate,merge,/guide/fundamentals/feature-tree/#visibility,W1,fund.visibility-lock,
+guide/sketch-export,overview,Overview,88,,accurate,merge,/guide/verify-export/model-export-and-print/,W5,verify.model-export-stl;ref.file-formats,
+guide/sketch-export,export-model,Export Model — SVG & STL,295,sketch-export-svg.png;sketch-export-stl.png,accurate,migrate,/guide/verify-export/model-export-and-print/#stl,W5,verify.model-export-stl;verify.model-export-svg,SVG part → #svg.
+guide/sketch-export,print-design,Print Design,168,sketch-print-dialog.png,incomplete,migrate,/guide/verify-export/model-export-and-print/#print,W5,verify.print,
+guide/sketch-import,import-overview,Import Overview,138,,stale,rewrite,/guide/design/importing-2d/,W2,design.import-dialog;ref.file-formats,STEP and 3D import move to their own page.
+guide/sketch-import,svg-import,SVG Import,109,,stale,rewrite,/guide/design/importing-2d/#svg,W2,design.import-svg,
+guide/sketch-import,dxf-import,DXF Import,88,,stale,rewrite,/guide/design/importing-2d/#dxf,W2,design.import-dxf,
+guide/sketch-import,stl-obj-import,STL and OBJ Import (3D Models),499,sketch-imported-model.png,incomplete,migrate,/guide/design/importing-3d-models/,W2,design.import-stl-obj;design.model-orientation,
+guide/sketch-import,camj-import,Importing from a .camj Project,237,,incomplete,migrate,/guide/design/importing-2d/#camj,W2,design.import-camj,
+guide/sketch-import,after-import,After Import,80,,stale,rewrite,/guide/design/importing-2d/#after-import,W2,design.import-dialog,
+guide/sketch-import,backdrop,Backdrop Images,176,,accurate,migrate,/guide/design/backdrop-images/,W2,design.backdrop,
+guide/sketch-snapping,snap-overview,Snapping Overview,82,,accurate,migrate,/guide/design/snapping-and-grid/,W2,design.snapping,
+guide/sketch-snapping,snap-modes,Snap Modes,193,,accurate,migrate,/guide/design/snapping-and-grid/#modes,W2,design.snapping,
+guide/sketch-snapping,grid-settings,Grid Settings,117,,accurate,migrate,/guide/design/snapping-and-grid/#grid,W2,fund.grid,
+guide/sketch-snapping,axis-lock,Axis Lock,47,,accurate,migrate,/guide/design/snapping-and-grid/#axis-lock,W2,design.axis-lock;ref.shortcuts,
+guide/sketch-text,text-overview,Text as a Feature,61,,accurate,merge,/guide/design/text/,W2,design.text-tool,
+guide/sketch-text,placing-text,Placing Text,72,,incomplete,migrate,/guide/design/text/#placing,W2,design.text-tool,
+guide/sketch-text,text-styles,Text Styles,111,,accurate,migrate,/guide/design/text/#styles,W2,design.text-tool,
+guide/sketch-text,editing-text,Editing Text,80,,accurate,migrate,/guide/design/text/#editing,W2,design.text-edit-expand,
+guide/sketch-text,expand-text,Expand Text into Features,187,,stale,migrate,/guide/design/text/#expand,W2,design.text-edit-expand,No Remove original option.
+guide/sketch-text,text-cam,Machining Text,89,,incomplete,migrate,/guide/design/text/#machining,W2,design.text-machining,
+guide/sketch-toolpaths,overview,Overview,95,,accurate,migrate,/guide/verify-export/toolpath-preview/,W5,verify.toolpath-legend,
+guide/sketch-toolpaths,show-legend,The Toolpath Legend,258,toolpath-legend.png,accurate,migrate,/guide/verify-export/toolpath-preview/#legend,W5,verify.toolpath-legend,Remove release-note phrasing.
+guide/sketch-toolpaths,shared-collapse,Collapsing the Legend,115,,accurate,migrate,/guide/verify-export/toolpath-preview/#collapse,W5,verify.toolpath-legend,
+guide/sketch-toolpaths,in-sketch,In the Sketch View,71,toolpath-sketch.png,accurate,merge,/guide/verify-export/toolpath-preview/,W5,verify.toolpath-legend,
+guide/sketch-toolpaths,in-3d,In the 3D View,78,toolpath-3d.png,accurate,merge,/guide/verify-export/3d-view/#toolpaths,W5,verify.toolpath-legend,
+guide/sketch-tools,overview,Drawing Tools Overview,196,,accurate,migrate,/guide/design/drawing-tools/,W2,design.sticky-tools,
+guide/sketch-tools,creation-target,Creation Target & Line Mode,159,sketch-creation-target.png,accurate,migrate,/guide/design/drawing-tools/#creation-target,W2,design.creation-target,
+guide/sketch-tools,rectangle,Rectangle,90,sketch-rect-tool.png,accurate,migrate,/guide/design/drawing-tools/#rectangle,W2,design.basic-shapes,
+guide/sketch-tools,circle,Circle,62,sketch-circle-tool.png,accurate,migrate,/guide/design/drawing-tools/#circle,W2,design.basic-shapes,
+guide/sketch-tools,ellipse,Ellipse,109,sketch-ellipse-tool.png,accurate,migrate,/guide/design/drawing-tools/#ellipse,W2,design.basic-shapes,
+guide/sketch-tools,polygon,Polygon,103,sketch-polygon-tool.png,accurate,migrate,/guide/design/drawing-tools/#polygon,W2,design.polygon-spline,
+guide/sketch-tools,spline,Spline,93,sketch-spline-tool.png,incomplete,migrate,/guide/design/drawing-tools/#spline,W2,design.polygon-spline,
+guide/sketch-tools,composite,Composite Path,144,sketch-composite-tool.png,accurate,migrate,/guide/design/drawing-tools/#composite,W2,design.composite,
+guide/sketch-tools,text,Text,73,sketch-text-dialog.png,accurate,merge,/guide/design/text/#placing,W2,design.text-tool,
+guide/sketch-tools,more-shapes,More Shapes,274,sketch-slot-tool.png;sketch-ngon-tool.png;sketch-gear-tool.png;sketch-roundrect-tool.png;sketch-chamferrect-tool.png,stale,migrate,/guide/design/parametric-shapes/,W2,design.parametric-shapes;design.gear,Gear module wording.
+guide/sketch-tools,canvas-navigation,Canvas Navigation,65,,stale,merge,/guide/fundamentals/workspace/#navigation,W1,fund.sketch-navigation,Space+drag is not implemented.
+guide/view-3d,3d-overview,3D View Overview,85,view-3d.png,accurate,migrate,/guide/verify-export/3d-view/,W5,verify.3d-view,
+guide/view-3d,3d-navigation,Navigation,83,,stale,rewrite,/guide/verify-export/3d-view/#navigation,W5,verify.3d-view,No double-click reset; add camera menu.
+guide/view-3d,3d-model,The CSG Model,108,,accurate,migrate,/guide/verify-export/3d-view/#model,W5,verify.3d-view,
+guide/view-3d,3d-toolpaths,Toolpath Visualization,122,,accurate,merge,/guide/verify-export/3d-view/#toolpaths,W5,verify.toolpath-legend,
+guide/view-3d,open-features,Open Features (Polylines),78,view-3d-open-features.png,accurate,migrate,/guide/verify-export/3d-view/#open-features,W5,verify.3d-view,
+guide/view-3d,imported-models,Imported Models,88,view-3d-imported-model.png,incomplete,migrate,/guide/verify-export/3d-view/#imported-models,W5,verify.3d-view,STEP models.
+guide/view-3d,stl-export,Exporting Models,46,,accurate,drop,/guide/verify-export/model-export-and-print/,W5,verify.model-export-stl,Pointer only.
+guide/view-simulation,sim-overview,Simulation Overview,79,view-simulation.png,accurate,migrate,/guide/verify-export/simulation/,W5,verify.simulation,
+guide/view-simulation,sim-controls,Playback Controls,131,,incomplete,migrate,/guide/verify-export/simulation/#controls,W5,verify.simulation,"Mode, play tool, step."
+guide/view-simulation,sim-navigation,Navigation,27,,accurate,merge,/guide/verify-export/simulation/#controls,W5,verify.simulation,
+guide/view-simulation,sim-what-to-check,What to Check,126,view-simulation-play.png,accurate,migrate,/guide/verify-export/simulation/#checklist,W5,verify.sim-checklist,
+guide/view-simulation,sim-gpu,GPU-Accelerated Heightfield,171,view-simulation-heightfield.png,accurate,migrate,/guide/verify-export/simulation/#detail,W5,verify.simulation,Trim implementation detail.
+guide/view-simulation,sim-performance,Performance Notes,97,,incomplete,split,/guide/verify-export/simulation/#limits,W5,verify.webgl-fallback;verify.sim-checklist,WebGL part → /guide/reference/troubleshooting/#webgl.
+guide/view-sketch,sketch-overview,Sketch View Overview,87,view-sketch.png,accurate,merge,/guide/fundamentals/workspace/#views,W1,fund.working-views,
+guide/view-sketch,sketch-navigation,Navigation & Selection,67,,accurate,merge,/guide/fundamentals/workspace/#navigation,W1,fund.sketch-navigation;design.selection,
+guide/view-sketch,sketch-overlays,What You See In Sketch View,266,,accurate,migrate,/guide/fundamentals/workspace/#sketch-overlays,W1,fund.sketch-overlays,
+guide/view-sketch,sketch-workflow,When to Use Sketch View,104,,stale,drop,/guide/fundamentals/workspace/#views,W1,fund.working-views,Context banners no longer exist.
+quickstart,step-project,Create a new project,90,new-project.png,accurate,migrate,/quickstart/#create-a-new-project,W1,start.quickstart,Re-shoot the screenshot.
+quickstart,step-rect,Add the outer boundary rectangle,90,new-rect.png,accurate,migrate,/quickstart/#add-the-outer-boundary-rectangle,W1,start.quickstart,
+quickstart,step-circle,Add a circle inside the rectangle,137,new-circle.png;circle-properties.png,accurate,migrate,/quickstart/#add-a-circle-inside-the-rectangle,W1,start.quickstart,
+quickstart,step-tool,Import a 1/4″ end mill from the tool library,114,import-tool.png,stale,migrate,/quickstart/#import-a-14-end-mill-from-the-tool-library,W1,start.quickstart,Library size.
+quickstart,step-operation,Create a rough pocket operation,153,add-pocket-rough.png,stale,rewrite,/quickstart/#create-a-rough-pocket-operation,W1,start.quickstart,"Add menu, visibility toggle location, Entry & retract group."
+quickstart,step-preview,Preview the toolpath,213,preview-sketch.png;preview-3dview.png;preview-simulation.png,accurate,migrate,/quickstart/#preview-the-toolpath,W1,start.quickstart,
+quickstart,step-export,Select a machine and export G-code,107,export-gcode.png,stale,rewrite,/quickstart/#select-a-machine-and-export-g-code,W1,start.quickstart;start.safety,Export dialog checklist.
