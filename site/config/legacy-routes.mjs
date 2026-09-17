@@ -26,16 +26,13 @@ const PENDING_GUIDE_PAGES = [
 	'machine-library',
 	'post-processor-converter',
 	'sketch-dimensions',
-	'sketch-edit',
 	'sketch-export',
 	'sketch-import',
 	'sketch-snapping',
 	'sketch-text',
 	'sketch-toolpaths',
-	'sketch-tools',
 	'view-3d',
 	'view-simulation',
-	'view-sketch',
 ];
 
 /** @type {{ from: string, to: string, anchors?: Record<string, string>, pending?: boolean }[]} */
@@ -64,6 +61,34 @@ export const LEGACY_ROUTES = [
 		pending: true,
 		anchors: {
 			'op-pocket': '/guide/operations/pocket/',
+		},
+	},
+	// Migrated: all of the Sketch view's destinations are now on the workspace page.
+	{
+		from: '/guide/view-sketch.html',
+		to: '/guide/fundamentals/workspace/',
+		anchors: {
+			'sketch-overview': '/guide/fundamentals/workspace/#views',
+			'sketch-navigation': '/guide/fundamentals/workspace/#navigation',
+			'sketch-overlays': '/guide/fundamentals/workspace/#sketch-overlays',
+			'sketch-workflow': '/guide/fundamentals/workspace/#views',
+		},
+	},
+	// Partial migration: the rest of each legacy page remains pending with its workstream.
+	{
+		from: '/guide/sketch-tools.html',
+		to: '/guide/',
+		pending: true,
+		anchors: {
+			'canvas-navigation': '/guide/fundamentals/workspace/#navigation',
+		},
+	},
+	{
+		from: '/guide/sketch-edit.html',
+		to: '/guide/',
+		pending: true,
+		anchors: {
+			locking: '/guide/fundamentals/feature-tree/#visibility',
 		},
 	},
 	...PENDING_GUIDE_PAGES.map((name) => ({

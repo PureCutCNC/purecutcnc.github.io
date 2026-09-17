@@ -1,0 +1,39 @@
+---
+title: Construction geometry
+description: Use non-machining sketch geometry as a precise reference for drawing and editing.
+pageType: concept
+availability: stable
+status: draft
+---
+
+Construction geometry is drawing reference geometry. It helps you place, constrain, mirror, and
+dimension a design without adding material, subtracting material, or becoming a machining target.
+
+## Main idea
+
+Choose the **Construction** creation target before drawing a reference shape, or move existing
+reference work into the Construction section when that is appropriate. Construction objects keep
+their own section in the feature tree so they cannot be mistaken for normal material features or
+region masks.
+
+Construction can support sketching in the same ways that other geometry can: use it as a visual
+reference, snap to it, align to it, and dimension against it. It does not have a machining depth
+and PureCut CNC excludes it from the model and toolpath targets.
+
+## Typical uses
+
+- Draw a centreline, axis, or symmetry guide before creating the final material features.
+- Lay out a repeated pattern, then copy or mirror the finished features against the guide.
+- Keep an imported or traced reference visible while the actual add and subtract features remain
+  separate.
+
+Hide Construction from the status bar or its tree section when it makes a review harder to read;
+that changes display only and does not turn it into material.
+
+## Related pages
+
+- [Features, roles, and depth](/guide/fundamentals/features-and-roles/) compares Construction
+  with the other feature roles.
+- [Feature tree and properties](/guide/fundamentals/feature-tree/) explains the Construction
+  section and its visibility controls.
+- [The workspace](/guide/fundamentals/workspace/) shows where to select the Construction target.

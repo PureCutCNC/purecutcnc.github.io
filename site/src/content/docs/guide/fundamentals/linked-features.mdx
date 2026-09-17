@@ -1,0 +1,66 @@
+---
+title: Linked features
+description: Understand shared feature definitions, copy mode, and when to make a copy independent.
+pageType: concept
+availability: stable
+status: draft
+---
+
+import { Aside, Steps } from '@astrojs/starlight/components';
+
+A linked feature is an instance that shares its underlying definition with one or more other
+instances. This makes repeated geometry easier to maintain: update the shared definition and all
+of its linked instances stay consistent.
+
+## Definitions and instances
+
+Think of a definition as the reusable shape data and an instance as one placed use of that shape
+in the project. Instances can have different placements while referring to the same definition.
+The feature tree marks a feature with a link badge when it has linked instances.
+
+This is useful for repeated details such as holes, tabs in a pattern, or a common profile. It also
+means that editing an instance's shared sketch can affect other instances, so check the link badge
+before making a local-looking edit.
+
+## Copy mode
+
+The project copy mode controls what a copied feature becomes.
+
+| Copy mode | Result |
+| --- | --- |
+| **Reference** | The new copy shares the original definition. Edits to the shared definition affect the linked copies. |
+| **Independent** | The new copy receives its own definition. Later edits do not change the original or other copies. |
+
+Set the mode from the **Project** properties before you copy a feature. The menu does not offer
+separate “duplicate as reference” and “duplicate independent” commands; the project copy mode is
+the source of that decision.
+
+## Make one instance independent
+
+<Steps>
+
+1. Select the linked instance that needs its own geometry.
+
+2. Open its context menu and choose **Make unique**.
+
+3. Edit that newly independent feature as needed. The other instances continue to use the
+   original definition.
+
+4. Use **Select linked** from a linked feature's context menu when you need to review every
+   instance that still shares its definition.
+
+</Steps>
+
+<Aside type="caution">
+Make a unique copy before changing a repeated feature for one physical location only. Otherwise,
+the shared edit can change multiple parts of the design and their downstream machining targets.
+</Aside>
+
+## Related pages
+
+- [Feature tree and properties](/guide/fundamentals/feature-tree/) shows the link badge and its
+  context-menu actions.
+- [Features, roles, and depth](/guide/fundamentals/features-and-roles/) explains the role that
+  every linked instance retains.
+- [Projects and files](/guide/fundamentals/projects-and-files/) shows where project copy mode is
+  set.
