@@ -181,7 +181,12 @@ The inventory also found these changes since v0.4.0:
 
 These belong in `PureCutCNC/purecutcnc`, not in the manual. None has been filed yet.
 
-- The Add-menu descriptions are out of date. **Pocket** and **Surface clean** mention only offset and parallel patterns, and **3D surface rough** only offset; none mentions Seeded circles or Trochoidal. **Drill** lists four cycle types and omits the Helical and Countersink modes.
+- **Operation descriptions list incomplete strategy choices.** Some Add-menu descriptions enumerate the strategies an operation offers, and those lists are out of date:
+  - **Pocket** and **Surface clean** give the pattern as offset or parallel, without Seeded circles or Trochoidal.
+  - **3D surface rough** mentions only offset clearing.
+  - **Drill** lists four cycle types, without the Helical and Countersink drill types.
+
+  Either complete the lists or stop enumerating strategies in descriptions.
 - The empty-state card lists import formats without STEP (`viewport.empty.importMeta`).
 - The desktop update menu calls the preview track **Snapshot**; the website calls it **Preview Build**.
 
