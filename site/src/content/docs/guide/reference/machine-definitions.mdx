@@ -1,0 +1,41 @@
+---
+title: Machine definition reference
+description: Understand the JSON fields that control a machine’s G-code dialect and capabilities.
+pageType: reference
+availability: stable
+status: draft
+---
+
+Machine definitions determine the file extension, coordinate rules, program text, motion syntax, and machine capabilities used by G-code export. Duplicate a built-in definition or import JSON in **Manage machines** before editing a custom one.
+
+## Built-in machines
+
+| Definition | Extension |
+| --- | --- |
+| **Generic** | `.nc` |
+| **GRBL 1.1** | `.nc` |
+| **grblHAL** | `.nc` |
+| **LinuxCNC** | `.ngc` |
+| **Mach3** | `.tap` |
+| **UCCNC** | `.txt` |
+
+## Definition groups
+
+| Group | Controls |
+| --- | --- |
+| Program | File extension, comments, header, and program end. |
+| Coordinates | Units, origin mapping, axis directions, and numeric format. |
+| Motion commands | Rapid, linear, and arc commands and the supported arc format. |
+| Feed and spindle | Feed and spindle command letters and related output. |
+| Tool change | Whether the definition can emit tool changes and their command sequence. |
+| Canned cycles | Supported drilling cycles, or no canned cycles. |
+| Coolant | Coolant command support. |
+
+## Validation
+
+PureCut CNC validates a machine definition before using it. Export can be blocked when a selected operation needs an output capability the active definition does not provide, such as a tool change. Test any custom definition with a safe, simple program and your controller documentation before using it on a job.
+
+## Related pages
+
+- [Machines](/guide/cam-setup/machines/): choose, duplicate, import, and manage machines.
+- [Exporting G-code](/guide/verify-export/gcode-export/): use the active definition to prepare output.
