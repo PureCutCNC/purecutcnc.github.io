@@ -1,4 +1,4 @@
-/* Starlight theme mapped onto the PureCut CNC palette. Unlayered, so it wins over
+/* Starlight theme mapped onto the PureCutCNC palette. Unlayered, so it wins over
    Starlight's own layered defaults. */
 
 :root {
@@ -133,9 +133,8 @@
 	box-sizing: content-box;
 }
 
-/* Parameter tables keep the first column readable on narrow screens. */
+/* First column of every markdown table gets a slightly heavier look. */
 .sl-markdown-content table td:first-child {
-	white-space: nowrap;
 	font-weight: 600;
 	color: var(--sl-color-white);
 }

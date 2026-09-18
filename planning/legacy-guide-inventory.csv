@@ -48,7 +48,7 @@ guide/concepts,visibility,Visibility and Toolpath Calculation,67,,stale,split,/g
 guide/concepts,stock,Stock,55,,stale,rewrite,/guide/fundamentals/stock-origin-units/#stock,W1,fund.stock,No editable material; profile stock.
 guide/concepts,origin,Machine Origin,93,,accurate,migrate,/guide/fundamentals/stock-origin-units/#origin,W1,fund.origin,
 guide/concepts,units,Units,68,,incomplete,migrate,/guide/fundamentals/stock-origin-units/#units,W1,fund.units,Add the conversion dialog.
-guide/index,intro,What is PureCut CNC?,120,,incomplete,migrate,/guide/,W1,start.product-overview;start.install-and-open;start.desktop-updates;start.privacy;ref.about,Already ported as a platform sample.
+guide/index,intro,What is PureCutCNC?,120,,incomplete,migrate,/guide/,W1,start.product-overview;start.install-and-open;start.desktop-updates;start.privacy;ref.about,Already ported as a platform sample.
 guide/index,guide-sections,Guide Sections,306,,stale,drop,/guide/,W1,start.workflow-overview,Replaced by the new section overview.
 guide/index,workflow,Typical Workflow,120,,stale,rewrite,/guide/#workflow,W1,start.workflow-overview,
 guide/index,file-format,Project Files,64,,incomplete,split,/guide/fundamentals/projects-and-files/#open-and-save,W1,fund.open-save;fund.undo-redo,Format details → /guide/reference/file-formats/.

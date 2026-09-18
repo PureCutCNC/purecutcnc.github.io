@@ -8,7 +8,7 @@ status: draft
 
 import VisualPending from '../../../../components/VisualPending.astro';
 
-Every shape in a PureCut CNC project, drawn or imported, is a feature. A feature has a role, which
+Every shape in a PureCutCNC project, drawn or imported, is a feature. A feature has a role, which
 says what the shape does, and a Z range, which says where it sits vertically. Together they build
 the 3D model and decide which machining operations can use the feature.
 
@@ -93,7 +93,7 @@ on thick stock. Some roles work differently:
 
 
 <VisualPending id="features-first-solid-warning" />
-PureCut CNC builds the 3D model by applying visible add and subtract features in feature-tree
+PureCutCNC builds the 3D model by applying visible add and subtract features in feature-tree
 order, from the top of the tree down:
 
 - The first solid feature must be an add feature. It is the starting material. If the first

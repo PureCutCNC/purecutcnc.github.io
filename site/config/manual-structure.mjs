@@ -30,9 +30,9 @@ const page = (path, section, title, type, owner, label) => ({ path, section, tit
 
 /** Planned pages, in sidebar order within each section. */
 export const PAGES = [
-	page('/guide/', 'start-here', 'PureCut CNC User Guide', 'overview', 'W1', 'Guide overview'),
+	page('/guide/', 'start-here', 'PureCutCNC User Guide', 'overview', 'W1', 'Guide overview'),
 	page('/quickstart/', 'start-here', 'Quick Start', 'tutorial', 'W1'),
-	page('/guide/start-here/install-and-open/', 'start-here', 'Install and open PureCut CNC', 'task', 'W1'),
+	page('/guide/start-here/install-and-open/', 'start-here', 'Install and open PureCutCNC', 'task', 'W1'),
 	page('/guide/start-here/safety/', 'start-here', 'Working safely', 'concept', 'W1'),
 
 	page('/guide/fundamentals/workspace/', 'fundamentals', 'The workspace', 'concept', 'W1'),

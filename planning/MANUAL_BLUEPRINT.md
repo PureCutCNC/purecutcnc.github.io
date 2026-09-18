@@ -28,7 +28,7 @@ same commit as the inventory.
 
 | Question | Decision |
 | --- | --- |
-| Name | **PureCut CNC User Guide** ("User Guide" for short), not "user manual". |
+| Name | **PureCutCNC User Guide** ("User Guide" for short), not "user manual". |
 | Sections | Start Here, Fundamentals, Design, CAM Setup, Machining Operations, Advanced Strategies, Verify and Export, Reference and Troubleshooting. |
 | Size | 68 pages, all listed below, each owned by exactly one Wave 2 workstream. |
 | Quick Start | Stays at `/quickstart/` as the only guided first project. It links to Fundamentals instead of explaining concepts twice. |
@@ -45,7 +45,7 @@ same commit as the inventory.
 | --- | --- | --- |
 | **First-time user** with a CNC router and a first part to make | A complete project from blank canvas to G-code, then enough background to make their own | Guide overview → Install and open → Quick Start → Working safely → Fundamentals, in order → the operation pages the Quick Start used |
 | **Returning user looking something up**: one tool, operation, parameter, or shortcut | The exact field, its units and default, and what it changes in the cut | Search, or the sidebar → an operation, strategy, or reference page → the parameter table |
-| **User switching from another CAM program** | How PureCut CNC names and models things they already know | Glossary → Features, roles, and depth → Choosing an operation → Advanced Strategies |
+| **User switching from another CAM program** | How PureCutCNC names and models things they already know | Glossary → Features, roles, and depth → Choosing an operation → Advanced Strategies |
 | **User troubleshooting** an import, toolpath, simulation, or export | The symptom, why it happens, and the fix | Troubleshooting (grouped by where the problem shows) → Warnings and messages (the exact text the app shows) → the page that explains the setting |
 | **User preparing to cut** | A checklist of what to verify and what the preview cannot tell them | Working safely → each operation's Verifying the result → Simulation → Exporting G-code |
 
@@ -64,9 +64,9 @@ order, as soon as their files exist. Owners are the Wave 2 workstreams from
 
 | Page | URL | Type | Owner |
 | --- | --- | --- | --- |
-| PureCut CNC User Guide | `/guide/` | overview | W1 |
+| PureCutCNC User Guide | `/guide/` | overview | W1 |
 | Quick Start | `/quickstart/` | tutorial | W1 |
-| Install and open PureCut CNC | `/guide/start-here/install-and-open/` | task | W1 |
+| Install and open PureCutCNC | `/guide/start-here/install-and-open/` | task | W1 |
 | Working safely | `/guide/start-here/safety/` | concept | W1 |
 
 #### Fundamentals (`fundamentals`)
@@ -345,7 +345,7 @@ documents behaviour as the app has it today:
   - update the page when the fix ships.
 
 **Titles and headings** use sentence case. The proper names that keep their capitals are
-**PureCut CNC**, **User Guide**, **Quick Start**, **CAM Plan**, **Preview Build**, and
+**PureCutCNC**, **User Guide**, **Quick Start**, **CAM Plan**, **Preview Build**, and
 product names such as GRBL, grblHAL, LinuxCNC, Mach3, and UCCNC. Section labels in the
 sidebar are title case, as the issue set them.
 
@@ -354,7 +354,7 @@ flags the common alternatives.
 
 | Write | Not |
 | --- | --- |
-| PureCut CNC | PureCutCNC, Purecut (the app's own "PureCutCNC" is fine inside a bold UI label) |
+| PureCutCNC | PureCut CNC, Pure Cut, Purecut |
 | User Guide | user manual |
 | G-code | G-Code, Gcode, GCode |
 | toolpath | tool path |

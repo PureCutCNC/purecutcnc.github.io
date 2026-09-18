@@ -15,17 +15,26 @@ if (!visual) {
 	throw new Error(`VisualPending ${id} on ${Astro.url.pathname} is not in planning/manual-visual-inventory.json.`);
 }
 
-const labels = {
-	proposed: 'Visual proposed',
-	planned: 'Visual planned',
-	blocked: 'Visual blocked',
+const statusLabels = {
+	proposed: 'proposed',
+	planned: 'planned',
+	blocked: 'blocked',
 };
 
-if (!(visual.status in labels)) {
+const kindLabels = {
+	screenshot: 'Screenshot',
+	diagram: 'Diagram',
+};
+
+if (!(visual.status in statusLabels)) {
 	throw new Error(`VisualPending ${id} has resolved status ${visual.status}; replace or remove the marker.`);
 }
 
-const label = labels[visual.status as keyof typeof labels];
+if (!(visual.kind in kindLabels)) {
+	throw new Error(`VisualPending ${id} has unsupported kind ${visual.kind}.`);
+}
+
+const label = `${kindLabels[visual.kind as keyof typeof kindLabels]} ${statusLabels[visual.status as keyof typeof statusLabels]}`;
 ---
 
 <aside class="visual-pending" aria-label={label}>

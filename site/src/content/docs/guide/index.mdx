@@ -1,16 +1,20 @@
 ---
-title: PureCut CNC User Guide
-description: How to design parts, set up machining operations, verify toolpaths, and export G-code with PureCut CNC.
+title: PureCutCNC User Guide
+description: How to design parts, set up machining operations, verify toolpaths, and export G-code with PureCutCNC.
 pageType: overview
 availability: stable
-status: draft
-tableOfContents: false
+status: reviewed
+reviewed:
+  appCommit: 2dc197eebe9c11272ad0bc24194d4a7c6de19055
+  date: 2026-09-18
+  by: frankp
 ---
 
-import VisualPending from '../../../components/VisualPending.astro';
 import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+import Screenshot from '../../../components/Screenshot.astro';
+import workflowOverview from '../../../assets/manual/guide-overview/workflow-overview.svg';
 
-PureCut CNC is a 2.5D and 3D CAD/CAM program for CNC routers. You draw or import a part, assign
+PureCutCNC is a 2.5D and 3D CAD/CAM program for CNC routers. You draw or import a part, assign
 machining operations to it, check the toolpaths in 3D and in simulation, and export G-code for
 your machine. It runs in a desktop or tablet browser and as a desktop app for macOS, Windows, and
 Linux. It needs no account, and your projects stay on your own computer.
@@ -21,7 +25,7 @@ that are not in a stable release yet.
 ## Start here
 
 <CardGrid>
-	<LinkCard title="Install and open PureCut CNC" description="Choose the web app or a desktop build, and open a first project." href="/guide/start-here/install-and-open/" />
+	<LinkCard title="Install and open PureCutCNC" description="Choose the web app or a desktop build, and open a first project." href="/guide/start-here/install-and-open/" />
 	<LinkCard title="Quick Start" description="Go from a blank project to exported G-code in about ten minutes." href="/quickstart/" />
 	<LinkCard title="Working safely" description="What the preview cannot tell you, and what to check before cutting." href="/guide/start-here/safety/" />
 </CardGrid>
@@ -30,16 +34,16 @@ that are not in a stable release yet.
 
 | If you are | Start with | Then read |
 | --- | --- | --- |
-| New to PureCut CNC | [Install and open](/guide/start-here/install-and-open/) and the [Quick Start](/quickstart/) | [Working safely](/guide/start-here/safety/), then the Fundamentals pages in order, starting with [The workspace](/guide/fundamentals/workspace/) |
+| New to PureCutCNC | [Install and open](/guide/start-here/install-and-open/) and the [Quick Start](/quickstart/) | [Working safely](/guide/start-here/safety/), then the Fundamentals pages in order, starting with [The workspace](/guide/fundamentals/workspace/) |
 | Looking up a tool, operation, setting, or shortcut | Search, or the section in the sidebar | The operation, strategy, or reference page, and its settings table |
 | Coming from another CAM program | The [Glossary](/guide/reference/glossary/) | [Features, roles, and depth](/guide/fundamentals/features-and-roles/), [Choosing an operation](/guide/operations/), and [Advanced strategies](/guide/strategies/clearing-patterns/) |
-| Fixing a problem with an import, a toolpath, a simulation, or an export | [Troubleshooting](/guide/reference/troubleshooting/) | [Warnings and messages](/guide/reference/warnings/) for the exact text the app shows |
+| Fixing a problem with an import, toolpath, simulation, or an export | [Troubleshooting](/guide/reference/troubleshooting/) | [Warnings and messages](/guide/reference/warnings/) for the exact text the app shows |
 | Getting ready to cut | [Working safely](/guide/start-here/safety/) | [Simulation](/guide/verify-export/simulation/) and [Exporting G-code](/guide/verify-export/gcode-export/) |
 
 ## Workflow
 
 
-<VisualPending id="guide-workflow-overview" />
+<Screenshot src={workflowOverview} alt="PureCutCNC workflow from project setup and design through CAM, verification, export, and machine-side checks" />
 A typical job goes through these steps. You can return to any of them at any time: toolpaths are
 generated again whenever the design or the machining settings change.
 
