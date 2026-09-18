@@ -20,6 +20,7 @@ const DOCS_DIR = path.join(SITE_ROOT, 'src/content/docs');
 const TEMPLATES_DIR = path.join(SITE_ROOT, 'templates');
 const MANUAL_ASSETS_DIR = path.join(SITE_ROOT, 'src/assets/manual');
 const MEDIA_MANIFEST = path.join(MANUAL_ASSETS_DIR, 'media.json');
+const VISUAL_INVENTORY = path.join(SITE_ROOT, '../planning/manual-visual-inventory.json');
 
 const { values: args } = parseArgs({ options: { cutover: { type: 'boolean', default: false } } });
 
@@ -61,6 +62,8 @@ export const TERMINOLOGY = [
 const MEDIA_EXTENSIONS = /\.(png|jpe?g|webp|svg)$/i;
 const MEDIA_SOURCES = ['capture', 'legacy-guide', 'diagram'];
 const MEDIA_STATUSES = ['current', 'reshoot'];
+const VISUAL_KINDS = ['screenshot', 'diagram'];
+const VISUAL_STATUSES = ['proposed', 'planned', 'blocked', 'captured'];
 
 const errors = [];
 const warnings = [];
@@ -102,7 +105,7 @@ function proseLines(body) {
 }
 
 function stripForTerminology(line, { keepLabels = false } = {}) {
-	if (/^\s*(import|export)\s/.test(line)) return '';
+	if (/^\s*(import|export)\s/.test(line) || /<VisualPending\b/.test(line)) return '';
 	return line
 		.replace(/`[^`]*`/g, ' ')
 		.replace(/\*\*[^*]+\*\*/g, (label) => (keepLabels ? label : ' '))
@@ -255,12 +258,155 @@ function checkManifest(usedImages) {
 			if (blockedBy.length) fail(at, `still waiting on ${blockedBy.join(', ')}`);
 		}
 	}
+	return { summary, manifest };
+}
+
+function findVisualMarkers(body) {
+	const markers = [];
+	const pattern = /<VisualPending\s+id=["']([^"']+)["']\s*\/>/g;
+	for (const match of body.matchAll(pattern)) {
+		markers.push({ id: match[1], line: body.slice(0, match.index).split('\n').length - 1 });
+	}
+	return markers;
+}
+
+function checkMarkerPlacement(where, body, marker, afterHeading) {
+	const lines = body.split('\n');
+	const headings = lines.flatMap((line, index) => {
+		const match = line.match(/^(#{2,6})\s+(.*?)\s*#*\s*$/);
+		return match ? [{ line: index, level: match[1].length, text: match[2] }] : [];
+	});
+	if (afterHeading === '$intro') {
+		const firstHeading = headings[0]?.line ?? lines.length;
+		if (marker.line >= firstHeading) fail(where, `${marker.id} must appear in the introduction before the first heading`);
+		return;
+	}
+	const heading = headings.find((entry) => entry.text === afterHeading);
+	if (!heading) {
+		fail(where, `${marker.id} names missing placement heading "${afterHeading}"`);
+		return;
+	}
+	const nextBoundary = headings.find((entry) => entry.line > heading.line && entry.level <= heading.level)?.line ?? lines.length;
+	if (marker.line <= heading.line || marker.line >= nextBoundary) {
+		fail(where, `${marker.id} must appear after "${afterHeading}" and before the next peer section`);
+	}
+}
+
+function checkVisualInventory(pageBodies, mediaManifest) {
+	const where = 'planning/manual-visual-inventory.json';
+	let inventory = {};
+	try {
+		inventory = JSON.parse(readFileSync(VISUAL_INVENTORY, 'utf8'));
+	} catch (error) {
+		fail(where, `unreadable: ${error.message}`);
+		return { proposed: 0, planned: 0, blocked: 0, captured: 0, notNeeded: 0, proposedNotNeeded: 0 };
+	}
+	if (inventory.version !== 1) fail(where, 'version must be 1');
+	if (!Array.isArray(inventory.pages)) fail(where, 'pages must be an array');
+	if (!Array.isArray(inventory.visuals)) fail(where, 'visuals must be an array');
+
+	const pageDecisions = new Map();
+	for (const entry of inventory.pages ?? []) {
+		const at = `${where} page ${entry.page ?? '(missing)'}`;
+		if (!plannedPage(entry.page) || !PAGES.some((page) => page.path === entry.page)) fail(at, 'page is not in the planned User Guide');
+		if (pageDecisions.has(entry.page)) fail(at, 'duplicate page decision');
+		pageDecisions.set(entry.page, entry);
+		if (!['visuals', 'not-needed'].includes(entry.decision)) fail(at, 'decision must be visuals or not-needed');
+		if (entry.decision === 'not-needed') {
+			if (!['proposed', 'approved'].includes(entry.reviewStatus)) fail(at, 'not-needed reviewStatus must be proposed or approved');
+			if (typeof entry.rationale !== 'string' || !entry.rationale.trim()) fail(at, 'not-needed decisions require a rationale');
+		}
+	}
+	for (const page of PAGES) if (!pageDecisions.has(page.path)) fail(where, `${page.path} has no visual decision`);
+
+	const markersByPage = new Map();
+	for (const [page, record] of pageBodies) {
+		for (const marker of findVisualMarkers(record.body)) {
+			markersByPage.set(page, [...(markersByPage.get(page) ?? []), { ...marker, where: record.where, body: record.body }]);
+		}
+	}
+
+	const ids = new Set();
+	const visualById = new Map();
+	const assets = new Set();
+	const visualsByPage = new Map();
+	const summary = { proposed: 0, planned: 0, blocked: 0, captured: 0, notNeeded: 0, proposedNotNeeded: 0 };
+	for (const visual of inventory.visuals ?? []) {
+		const at = `${where} visual ${visual.id ?? '(missing)'}`;
+		if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(visual.id ?? '')) fail(at, 'id must be stable lowercase kebab case');
+		if (ids.has(visual.id)) fail(at, 'duplicate id');
+		ids.add(visual.id);
+		visualById.set(visual.id, visual);
+		if (!PAGES.some((page) => page.path === visual.page)) fail(at, 'page is not in the planned User Guide');
+		visualsByPage.set(visual.page, [...(visualsByPage.get(visual.page) ?? []), visual]);
+		if (!VISUAL_KINDS.includes(visual.kind)) fail(at, `kind must be one of ${VISUAL_KINDS.join(', ')}`);
+		if (!VISUAL_STATUSES.includes(visual.status)) fail(at, `status must be one of ${VISUAL_STATUSES.join(', ')}`);
+		for (const field of ['afterHeading', 'purpose', 'brief', 'asset', 'alt']) {
+			if (typeof visual[field] !== 'string' || !visual[field].trim()) fail(at, `${field} is required`);
+		}
+		if (visual.alt?.startsWith('Screenshot of ')) fail(at, 'alt text should describe the useful content without starting with "Screenshot of"');
+		const expectedDir = assetDirForPage(visual.page);
+		if (path.posix.dirname(visual.asset ?? '') !== expectedDir) fail(at, `asset must be in ${expectedDir}/`);
+		if (visual.kind === 'screenshot' && !/\.png$/.test(visual.asset ?? '')) fail(at, 'screenshots use PNG');
+		if (visual.kind === 'diagram' && !/\.svg$/.test(visual.asset ?? '')) fail(at, 'diagrams use SVG');
+		if (assets.has(visual.asset)) fail(at, `asset ${visual.asset} is assigned to more than one visual`);
+		assets.add(visual.asset);
+		const blockedBy = visual.blockedBy ?? [];
+		if (!Array.isArray(blockedBy) || blockedBy.some((ref) => !/^[\w.-]+\/[\w.-]+#\d+$/.test(ref))) {
+			fail(at, 'blockedBy must be a list like ["PureCutCNC/purecutcnc#795"]');
+		}
+		if (visual.status === 'blocked' && blockedBy.length === 0) fail(at, 'blocked visuals need blockedBy');
+		if (visual.status !== 'blocked' && blockedBy.length > 0) fail(at, 'only blocked visuals may have blockedBy');
+
+		const markers = (markersByPage.get(visual.page) ?? []).filter((marker) => marker.id === visual.id);
+		if (visual.status === 'captured') {
+			if (markers.length) fail(at, 'captured visual must replace its VisualPending marker');
+			const assetFile = path.join(MANUAL_ASSETS_DIR, visual.asset);
+			if (!existsSync(assetFile)) fail(at, `captured asset ${visual.asset} does not exist`);
+			const media = mediaManifest[visual.asset];
+			if (!media) fail(at, `captured asset ${visual.asset} has no media.json entry`);
+			else {
+				if (media.status !== 'current') fail(at, `captured asset ${visual.asset} must be current in media.json`);
+				const expectedSource = visual.kind === 'diagram' ? 'diagram' : 'capture';
+				if (media.source !== expectedSource) fail(at, `captured ${visual.kind} needs media.json source ${expectedSource}`);
+			}
+			const used = pageBodies.get(visual.page)?.usedImages ?? [];
+			if (!used.includes(visual.asset)) fail(at, `captured asset ${visual.asset} is not imported by ${visual.page}`);
+		} else {
+			if (markers.length !== 1) fail(at, `needs exactly one VisualPending marker on ${visual.page}; found ${markers.length}`);
+			else checkMarkerPlacement(markers[0].where, markers[0].body, markers[0], visual.afterHeading);
+			if (args.cutover) fail(at, `${visual.status} visual must be captured before the cutover`);
+		}
+		summary[visual.status] = (summary[visual.status] ?? 0) + 1;
+	}
+
+	for (const [page, markers] of markersByPage) {
+		for (const marker of markers) {
+			const visual = visualById.get(marker.id);
+			if (!visual) fail(marker.where, `VisualPending ${marker.id} is not in the visual inventory`);
+			else if (visual.page !== page) fail(marker.where, `VisualPending ${marker.id} belongs on ${visual.page}, not ${page}`);
+		}
+		if (!pageDecisions.has(page)) fail(markers[0].where, 'page with VisualPending markers has no visual decision');
+	}
+	for (const [page, decision] of pageDecisions) {
+		const count = visualsByPage.get(page)?.length ?? 0;
+		if (decision.decision === 'visuals' && count === 0) fail(`${where} page ${page}`, 'visuals decision needs at least one visual');
+		if (decision.decision === 'not-needed' && count > 0) fail(`${where} page ${page}`, 'not-needed decision cannot also have visuals');
+		if (decision.decision === 'not-needed') {
+			summary.notNeeded += 1;
+			if (decision.reviewStatus === 'proposed') {
+				summary.proposedNotNeeded += 1;
+				if (args.cutover) fail(`${where} page ${page}`, 'proposed not-needed decision needs human approval before the cutover');
+			}
+		}
+	}
 	return summary;
 }
 
 // ── Pages ──────────────────────────────────────────────────────────────────
 const pageFiles = listFiles(DOCS_DIR, (name) => /\.mdx?$/.test(name));
 const found = new Map();
+const pageBodies = new Map();
 const usedImages = [];
 const statusCount = { draft: 0, reviewed: 0 };
 for (const file of pageFiles) {
@@ -275,12 +421,15 @@ for (const file of pageFiles) {
 	found.set(pagePath, planned);
 	const text = readFileSync(file, 'utf8');
 	const { data, body, bodyLine } = splitFrontmatter(text, where);
+	pageBodies.set(pagePath, { body, where, usedImages: [] });
 	checkFrontmatter(where, data, planned);
 	checkTerminology(`${where} (frontmatter)`, frontmatterText(data));
 	const lines = proseLines(body);
 	checkTerminology(where, lines.join('\n'), bodyLine - 1);
 	checkHeadings(where, lines, bodyLine, planned.type);
-	usedImages.push(...checkBodyRules(where, lines, bodyLine, file, planned.type === 'utility' ? null : pagePath));
+	const pageImages = checkBodyRules(where, lines, bodyLine, file, planned.type === 'utility' ? null : pagePath);
+	usedImages.push(...pageImages);
+	pageBodies.get(pagePath).usedImages = pageImages.map((image) => path.relative(MANUAL_ASSETS_DIR, image).split(path.sep).join('/'));
 	if (planned.type !== 'utility') {
 		statusCount[data.status] = (statusCount[data.status] ?? 0) + 1;
 		if (args.cutover && data.status !== 'reviewed') fail(where, 'every page must be reviewed before the cutover');
@@ -306,7 +455,8 @@ for (const type of PAGE_TYPES.filter((type) => type !== 'utility')) {
 	checkTerminology(where, lines.join('\n'), bodyLine - 1);
 }
 
-const media = checkManifest(usedImages);
+const { summary: media, manifest: mediaManifest } = checkManifest(usedImages);
+const visuals = checkVisualInventory(pageBodies, mediaManifest);
 
 for (const message of warnings) console.warn(`warning: ${message}`);
 if (errors.length) {
@@ -318,5 +468,6 @@ if (errors.length) {
 const utility = UTILITY_PAGES.filter((entry) => found.has(entry.path)).length;
 console.log(`Pages: ${found.size - utility} of ${PAGES.length} planned exist (${statusCount.draft} draft, ${statusCount.reviewed} reviewed), plus ${utility} utility page(s).`);
 console.log(`Screenshots: ${media.current} current, ${media.reshoot} to re-shoot, ${media.blocked.length} waiting on app changes.`);
+console.log(`Visual decisions: ${visuals.proposed} proposed, ${visuals.planned} planned, ${visuals.blocked} blocked, ${visuals.captured} captured; ${visuals.notNeeded} not needed (${visuals.proposedNotNeeded} awaiting approval).`);
 for (const line of media.blocked) console.log(`  ${line}`);
 console.log(warnings.length ? `Checks passed with ${warnings.length} warning(s).` : 'Checks passed.');

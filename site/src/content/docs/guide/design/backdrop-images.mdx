@@ -6,6 +6,7 @@ availability: stable
 status: draft
 ---
 
+import VisualPending from '../../../../components/VisualPending.astro';
 import { Aside, Steps } from '@astrojs/starlight/components';
 
 A backdrop image is a visual reference behind the Sketch canvas. Use one to trace a scanned drawing,
@@ -20,6 +21,8 @@ produce a toolpath.
 
 ## Load and align a backdrop
 
+
+<VisualPending id="backdrop-alignment" />
 <Steps>
 
 1. In the feature tree, select **Backdrop**. Click **Load image**, then choose the image file.

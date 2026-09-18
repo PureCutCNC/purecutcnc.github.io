@@ -6,6 +6,7 @@ availability: stable
 status: draft
 ---
 
+import VisualPending from '../../../../components/VisualPending.astro';
 import Screenshot from '../../../../components/Screenshot.astro';
 import toolpathLegend from '../../../../assets/manual/verify-export/toolpath-preview/toolpath-legend.png';
 
@@ -19,6 +20,8 @@ Open the **Show** control in the viewport corner to choose which overlays are vi
 
 <Screenshot src={toolpathLegend} alt="Toolpath legend with movement visibility controls" />
 
+<VisualPending id="toolpath-preview-legend" />
+
 ## Feed colours
 
 Turn on **Feed colours** in the legend to colour cutting moves by their programmed feed percentage. The **Feed percentage** key explains the colour scale. It is a quick way to find feed reductions; it does not prove that a feed is safe for your material, cutter, or machine.
@@ -27,6 +30,8 @@ Turn on **Feed colours** in the legend to colour cutting moves by their programm
 
 ## Levels
 
+
+<VisualPending id="toolpath-preview-controls" />
 For planar toolpaths, use the vertical **Toolpath level** rail to isolate a cutting Z level. Choose **All** to restore every level. This filter changes only the preview, not the generated toolpath or exported G-code.
 
 ## Renderer

@@ -6,6 +6,7 @@ availability: stable
 status: draft
 ---
 
+import VisualPending from '../../../../components/VisualPending.astro';
 import { Aside, Steps } from '@astrojs/starlight/components';
 
 An operation connects selected features, a tool, and cutting settings to a toolpath. Use the **CAM** panel to add operations, then review their targets and settings before you generate or export anything.
@@ -18,6 +19,8 @@ An operation connects selected features, a tool, and cutting settings to a toolp
 
 ## Adding
 
+
+<VisualPending id="operations-add-menu" />
 <Steps>
 
 1. Open the **CAM** panel, select **Operations**, then select **Add**.
@@ -46,6 +49,8 @@ If an option is unavailable, check the feature’s role, whether its profile is 
 
 ## List
 
+
+<VisualPending id="operations-list-status" />
 The **Operations** list is the machining order. Drag a row to reorder it, use its controls to enable or disable it, and show or hide its toolpath. The header’s **Show all toolpaths** and **Hide all toolpaths** controls change every operation at once. Duplicate an operation when you need a related variation, or delete one that is no longer part of the plan. The expanded view also provides per-operation G-code and setup-booklet exports.
 
 <Aside type="caution" title="Order changes affect the job">
@@ -54,6 +59,8 @@ An operation list is not just an organization tool: it controls the order in whi
 
 ## Generation
 
+
+<VisualPending id="operations-generation-menu" />
 Toolpaths generate when an enabled operation is visible. A row reports whether its toolpath is up to date, generating, paused, or failed. Use the generation controls to stop, resume, or retry a calculation, and use the generation settings to choose the main-thread backend or the experimental background-thread backend.
 
 <Aside type="danger" title="Safety: inspect every generated toolpath">

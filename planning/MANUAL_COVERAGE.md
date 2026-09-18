@@ -175,7 +175,7 @@ The inventory also found these changes since v0.4.0:
 - **Duplicated topics.** Sketch navigation appears twice with conflicting controls (`sketch-tools#canvas-navigation` and `view-sketch#sketch-navigation`). Toolpath display is split between `sketch-toolpaths`, `view-3d` and `view-sketch`. Z-coordinate rules are repeated in Concepts and the Quick Start.
 - **Hard-to-find content.** Feed colours are documented only on the Operations page. The machine definition field reference sits inside the G-code Export page, and booklets are also documented there.
 - **Release-note phrasing** ("Only K is new", "Every rapid is now drawn", "moved from the earlier orange accent") appears in at least eight sections. It should be rewritten as reference text.
-- **Screenshots.** The guide references 69 screenshots, and every one predates the current UI. Of the 149 rows, 100 ask for new or re-shot media (the `media` column). Wave 3 should produce them from a deterministic fixture, as #24 plans.
+- **Screenshots.** The guide references 69 screenshots, and every one predates the current UI. Of the 149 rows, 100 ask for new or re-shot media (the `media` column). `planning/manual-visual-inventory.json` turns those capability hints into page-level proposals and explicit text-only decisions. Human review promotes useful proposals into the deterministic capture queue; Wave 3 then produces them from recorded fixtures, as #24 plans.
 
 ### In-app text that disagrees with the app
 

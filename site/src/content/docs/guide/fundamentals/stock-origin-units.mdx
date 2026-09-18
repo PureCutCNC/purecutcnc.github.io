@@ -6,6 +6,7 @@ availability: stable
 status: draft
 ---
 
+import VisualPending from '../../../../components/VisualPending.astro';
 import { Aside, Steps } from '@astrojs/starlight/components';
 
 The stock is the material the job starts from, the origin is the point that becomes X0 Y0 Z0 on
@@ -17,6 +18,8 @@ In project coordinates, the bottom of the stock is at Z 0 and its top is at the 
 
 ## Stock
 
+
+<VisualPending id="stock-properties" />
 <Steps>
 
 1. Select **Stock** in the feature tree.
@@ -51,6 +54,8 @@ The stock has no material setting. Clamps are separate objects; see
 
 ## Origin
 
+
+<VisualPending id="origin-placement" />
 The origin is the work zero: export writes every coordinate relative to it (**Export uses the
 current project origin as machine X0 Y0 Z0.**). A new project puts it at the bottom-left corner of
 the stock, as seen in the Sketch view, on the top surface.
@@ -83,6 +88,8 @@ the stock, as seen in the Sketch view, on the top surface.
 
 ## Units
 
+
+<VisualPending id="units-conversion" />
 A project is in millimetres or inches. To change it, click the units button in the status bar (for
 example **INCH**) or change **Units** in the **Project** properties. The **Change project units?**
 dialog asks how to treat the existing numbers:

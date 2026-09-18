@@ -6,6 +6,7 @@ availability: stable
 status: draft
 ---
 
+import VisualPending from '../../../../components/VisualPending.astro';
 import { Aside, Steps } from '@astrojs/starlight/components';
 import Screenshot from '../../../../components/Screenshot.astro';
 import slotTool from '../../../../assets/manual/design/parametric-shapes/slot.png';
@@ -49,6 +50,8 @@ A slot is a straight groove with semicircular ends, drawn along its centreline.
 
 <Screenshot src={slotTool} alt="A pending slot with its width readout, and the Slot workflow panel asking to set the width, with Width and Cancel buttons" />
 
+<VisualPending id="parametric-slot" />
+
 ## Regular polygon
 
 A regular polygon has equal sides and equal angles.
@@ -70,6 +73,8 @@ The radius is measured from the centre to a corner. The side count carries over 
 you draw.
 
 <Screenshot src={regularPolygonTool} alt="A pending eight-sided polygon drawn from its centre, and the workflow panel with Sides (3-50) set to 8 and the Radius and Cancel buttons" />
+
+<VisualPending id="parametric-regular-polygon" />
 
 ## Gear
 
@@ -112,6 +117,8 @@ holds a subtract circle named **Gear Bore**, with the same Z range as the gear.
 
 <Screenshot src={gearTool} alt="A pending 24-tooth gear, and the Set gear parameters panel with tooth count, whole depth, flank profile, pressure angle, root and crest settings, bore diameter, and Confirm" />
 
+<VisualPending id="parametric-gear" />
+
 <Aside type="caution" title="Check the gear against your cutter">
 	The gear profile is exact, but an endmill cannot cut an inside corner smaller than its radius.
 	Check the root fillet against the tool you will use, and look at the result in the simulation.
@@ -137,7 +144,11 @@ workflow panel.
 
 <Screenshot src={roundedRectangleTool} alt="A pending rounded rectangle, and its workflow panel with Corner radius set to 0.2" />
 
+<VisualPending id="parametric-rounded-rectangle" />
+
 <Screenshot src={chamferedRectangleTool} alt="A pending chamfered rectangle, and its workflow panel with Chamfer set to 0.2" />
+
+<VisualPending id="parametric-chamfered-rectangle" />
 
 ## Related pages
 

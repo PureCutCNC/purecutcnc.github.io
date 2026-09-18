@@ -6,6 +6,7 @@ availability: stable
 status: draft
 ---
 
+import VisualPending from '../../../../components/VisualPending.astro';
 import { Steps } from '@astrojs/starlight/components';
 import Screenshot from '../../../../components/Screenshot.astro';
 import booklet from '../../../../assets/manual/verify-export/setup-booklets/cam-operation-booklet.png';
@@ -30,6 +31,8 @@ A setup booklet is a PDF summary for one selected operation. It keeps the operat
 </Steps>
 
 <Screenshot src={booklet} alt="CAM panel action for exporting an operation booklet PDF" />
+
+<VisualPending id="setup-booklet-export" />
 
 ## Contents
 

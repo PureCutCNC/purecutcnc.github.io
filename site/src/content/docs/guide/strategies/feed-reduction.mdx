@@ -6,10 +6,13 @@ availability: stable
 status: draft
 ---
 
+import VisualPending from '../../../../components/VisualPending.astro';
 import { Aside } from '@astrojs/starlight/components';
 
 ## How it works
 
+
+<VisualPending id="feed-reduction-legend" />
 Feed reduction lowers the programmed cutting feed when engagement is more demanding. **Slots only**
 uses the configured **Slot Feed** percentage for full-width cutting stretches. **Engagement**
 uses the cutter's actual engagement on the emitted path to choose a bounded feed scale.

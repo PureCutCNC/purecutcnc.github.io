@@ -88,6 +88,33 @@
 	color: var(--sl-color-gray-3);
 }
 
+/* Unresolved screenshot and diagram proposals stay conspicuous during review. */
+.sl-markdown-content .visual-pending {
+	margin-block: 1.5rem;
+	padding: 1rem 1.1rem;
+	border: 2px dashed var(--sl-color-orange);
+	border-radius: 0.55rem;
+	background: color-mix(in srgb, var(--sl-color-orange-low) 42%, transparent);
+}
+.sl-markdown-content .visual-pending__heading {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 0.5rem 1rem;
+	color: var(--sl-color-orange-high);
+}
+.sl-markdown-content .visual-pending p {
+	margin-block: 0.55rem 0;
+}
+.sl-markdown-content .visual-pending__purpose,
+.sl-markdown-content .visual-pending__blocked {
+	font-size: var(--sl-text-sm);
+}
+.sl-markdown-content .visual-pending code {
+	font-size: var(--sl-text-xs);
+}
+
 /* Inline app icons, matching the app's stroke icons. */
 .pc-app-icon {
 	display: inline-block;

@@ -6,6 +6,7 @@ availability: preview
 status: draft
 ---
 
+import VisualPending from '../../../../components/VisualPending.astro';
 import { Aside, Steps } from '@astrojs/starlight/components';
 
 Use CAM Plan to make a starting set of operations from the features already in your project. It proposes compatible operations and tools, but does not create or change operations until you review the plan and choose **Create operations**.
@@ -19,6 +20,8 @@ Use CAM Plan to make a starting set of operations from the features already in y
 
 ## Create a CAM Plan
 
+
+<VisualPending id="cam-plan-recommendations" />
 <Steps>
 
 1. Open the **CAM** panel and select **Plan**. The **CAM Plan** dialog opens with a summary of proposed operations, tools, existing operations, and features that need review.

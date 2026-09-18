@@ -6,6 +6,7 @@ availability: stable
 status: draft
 ---
 
+import VisualPending from '../../../../components/VisualPending.astro';
 import { Aside, Steps } from '@astrojs/starlight/components';
 
 Most editing starts with a selection. Once features are selected, the transform tools appear in
@@ -21,6 +22,8 @@ is, not its shape definition, so they affect only the selected copies of a linke
 
 ## Select features
 
+
+<VisualPending id="selection-overlap-picker" />
 | To select | Do this |
 | --- | --- |
 | One feature | Click its outline or inside it, or click its row in the feature tree. |
@@ -40,6 +43,8 @@ choose the one you mean.
 
 ## Transforms
 
+
+<VisualPending id="selection-transform-panel" />
 The transform tools work on the selected features. Each opens a workflow panel on the canvas;
 **Cancel** or <kbd>Esc</kbd> ends it without changing anything, and the tool's button in the rail
 cancels it too.

@@ -6,6 +6,8 @@ availability: stable
 status: draft
 ---
 
+import VisualPending from '../../../../components/VisualPending.astro';
+
 Every shape in a PureCut CNC project, drawn or imported, is a feature. A feature has a role, which
 says what the shape does, and a Z range, which says where it sits vertically. Together they build
 the 3D model and decide which machining operations can use the feature.
@@ -41,6 +43,8 @@ roles, shapes, and depths.
 
 ## Roles
 
+
+<VisualPending id="features-role-matrix" />
 | Role | What it is | How it is used |
 | --- | --- | --- |
 | **Add** | Material that remains in the part. | Builds up the 3D model. Edge route outside and surface clean machine add features. |
@@ -61,6 +65,8 @@ stay separate from feature folders.
 
 ## Z range
 
+
+<VisualPending id="features-z-range" />
 **Z top** and **Z bottom** are Z coordinates in the project, not a depth setting. They are in the
 **Instance** section of a feature's properties, as two fields and a slider.
 
@@ -85,6 +91,8 @@ on thick stock. Some roles work differently:
 
 ## Order
 
+
+<VisualPending id="features-first-solid-warning" />
 PureCut CNC builds the 3D model by applying visible add and subtract features in feature-tree
 order, from the top of the tree down:
 

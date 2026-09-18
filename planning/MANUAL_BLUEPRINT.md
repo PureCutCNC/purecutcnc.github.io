@@ -471,6 +471,31 @@ Every image has an entry in `site/src/assets/manual/media.json`, keyed by its pa
 - `npm run content` prints the re-shoot count and every blocked image;
   `npm run content:cutover` fails while any image is `reshoot` or blocked.
 
+### Visual decisions before capture
+
+`planning/manual-visual-inventory.json` is the canonical visual queue. Every planned page has
+one explicit decision:
+
+- `visuals`, with one or more screenshot or diagram entries; or
+- `not-needed`, with a rationale and a human review state.
+
+An agent-authored entry begins as `proposed`. The page renders
+`<VisualPending id="…" />` at the suggested location, showing the capture brief and why the
+visual would help. During content review, the reviewer may accept, move, rewrite, split, or
+remove the suggestion. An accepted visual becomes `planned`; a text-only decision becomes an
+approved `not-needed` decision. `blocked` entries name the app issue that prevents an accurate
+capture. Only a final asset with matching current `media.json` provenance becomes `captured`.
+
+Content review and visual completion are separate dimensions. Page frontmatter may record
+`status: reviewed` while an accepted visual is still pending; the unresolved marker remains
+visible and the page is not cutover-ready. `npm run content` validates decisions, ids, page and
+heading placement, markers, asset folders, and captured metadata. `npm run content:cutover`
+rejects every proposed, planned, blocked, legacy re-shoot, or unapproved text-only decision.
+
+Every new or materially revised manual page must update the visual inventory in the same pull
+request. Do not silently omit a visual decision, and do not treat an agent proposal as product
+verification.
+
 Wave 3 produces the final captures from the fixtures, as #24 plans.
 
 ## Accessibility

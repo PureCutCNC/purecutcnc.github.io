@@ -6,12 +6,16 @@ availability: stable
 status: draft
 ---
 
+import VisualPending from '../../../../components/VisualPending.astro';
+
 Construction geometry is reference geometry for drawing: centrelines, symmetry axes, bolt circles,
 and layout guides. You can snap to it, mirror against it, and dimension to it, but it never
 becomes part of the part.
 
 ## Main idea
 
+
+<VisualPending id="construction-geometry" />
 - **Create** construction geometry with the **Create construction geometry** target in the tool
   rail. Any shape can be construction geometry, open or closed. New items are named
   **Construction** with a number.

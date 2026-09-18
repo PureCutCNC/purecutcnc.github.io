@@ -6,6 +6,7 @@ availability: stable
 status: draft
 ---
 
+import VisualPending from '../../../../components/VisualPending.astro';
 import { Aside } from '@astrojs/starlight/components';
 
 ## How it works
@@ -35,6 +36,8 @@ simple offset or parallel pass.
 
 ## Clearing
 
+
+<VisualPending id="trochoidal-clearing" />
 For pocket, surface-clean, and 3D-rough operations, **Cut width** controls the orbiting channel
 width and **Advance** controls forward progress between orbits. Ring links join coverage where
 possible; narrow or tight areas can force fallback behaviour. A finish-floor orbit rule preserves
@@ -42,6 +45,8 @@ the intended floor coverage when a finish pass is enabled.
 
 ## Edge routes
 
+
+<VisualPending id="trochoidal-edge-route" />
 For a rough edge route, Trochoidal widens its orbits toward the wall. Check the generated path for
 tabs and warnings: a degenerate guide, an invalid guide, or the move budget can prevent the
 expected path from being emitted.

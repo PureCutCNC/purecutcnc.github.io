@@ -6,6 +6,7 @@ availability: stable
 status: draft
 ---
 
+import VisualPending from '../../../../components/VisualPending.astro';
 import { Aside } from '@astrojs/starlight/components';
 
 ## How it works
@@ -22,6 +23,8 @@ target cusp height on compatible ball-endmill work.
 
 ## Settings
 
+
+<VisualPending id="finishing-patterns" />
 | Setting | Description |
 | --- | --- |
 | **Pattern** | Chooses Parallel, Waterline, or Constant scallop. |
@@ -43,12 +46,16 @@ ordinary stepover ratio for that configuration.
 
 ## Scallop height
 
+
+<VisualPending id="finishing-scallop-height" />
 Use a smaller scallop height for a finer surface at the cost of more passes. Choose a value that
 matches the finish requirement and the tool geometry, then compare the toolpath density in the
 preview before committing to machining time.
 
 ## Slope filter
 
+
+<VisualPending id="finishing-slope-filter" />
 **Filter by surface slope** limits finishing to the chosen minimum and maximum surface slope. Use
 separate operations when steep walls and shallow floors need different strategies or finishes.
 

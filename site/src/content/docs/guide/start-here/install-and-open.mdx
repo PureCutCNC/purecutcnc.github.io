@@ -6,6 +6,7 @@ availability: stable
 status: draft
 ---
 
+import VisualPending from '../../../../components/VisualPending.astro';
 import { Aside, Steps } from '@astrojs/starlight/components';
 
 PureCut CNC runs in a browser and as a desktop app for macOS, Windows, and Linux. Both use the
@@ -14,6 +15,8 @@ other. No account is needed.
 
 ## Choose how to run it
 
+
+<VisualPending id="install-run-options" />
 | Option | Use it when | How to start |
 | --- | --- | --- |
 | Web app | You want to start straight away in a desktop or tablet browser. | Open [the web app](/app/). |
@@ -77,6 +80,8 @@ Their keyboard shortcuts are listed on [Keyboard shortcuts](/guide/reference/key
 
 ## Desktop updates
 
+
+<VisualPending id="install-desktop-update-channel" />
 The desktop app does not update itself and does not check for updates in the background. To check,
 choose **Check for Updates…** from the **PureCutCNC** menu. The app compares its version with the
 latest build on the selected channel and tells you whether you are up to date. If a newer version

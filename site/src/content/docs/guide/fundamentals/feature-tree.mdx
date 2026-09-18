@@ -6,6 +6,7 @@ availability: stable
 status: draft
 ---
 
+import VisualPending from '../../../../components/VisualPending.astro';
 import { Aside } from '@astrojs/starlight/components';
 
 The project panel, on the left of the workspace, has two parts: the **Project tree** lists
@@ -14,6 +15,8 @@ everything in the project, and **Properties** below it shows the settings of wha
 
 ## The tree
 
+
+<VisualPending id="feature-tree-sections" />
 | Row | What it holds | Row actions |
 | --- | --- | --- |
 | **Project** | Project-wide settings. | None. |
@@ -34,6 +37,8 @@ instances share this definition**), include and exclude regions, and constructio
 
 ## Properties
 
+
+<VisualPending id="feature-tree-properties" />
 What the panel shows depends on the selection.
 
 | Selection | Properties |
@@ -97,6 +102,8 @@ align, and distribute leave it out.
 
 ## Context menu
 
+
+<VisualPending id="feature-tree-context-menu" />
 Right-click a feature on the canvas or in the tree, or long-press it on a touch screen. The menu
 offers what applies to the selection:
 

@@ -6,6 +6,7 @@ availability: stable
 status: draft
 ---
 
+import VisualPending from '../../../../components/VisualPending.astro';
 import { Aside } from '@astrojs/starlight/components';
 import Screenshot from '../../../../components/Screenshot.astro';
 import opPocket from '../../../../assets/manual/operations/pocket/offset-toolpath.png';
@@ -14,6 +15,8 @@ import operationHighlight from '../../../../assets/manual/operations/pocket/targ
 **Pocket** clears the interior of a closed subtract feature. It supports rough and finish passes and four clearing patterns.
 
 <Screenshot src={opPocket} alt="Pocket clearing toolpath with offset passes inside a closed profile" maxWidth={560} />
+
+<VisualPending id="pocket-offset-toolpath" />
 
 ## Requirements
 
@@ -38,6 +41,8 @@ can see exactly which geometry it will cut before you adjust anything.
 	src={operationHighlight}
 	alt="Operations list with an operation selected and its target features highlighted on the canvas and in the feature tree"
 />
+
+<VisualPending id="pocket-target-highlight" />
 
 The settings shared with other operations are documented in
 [Common operation parameters](/guide/operations/common-parameters/).

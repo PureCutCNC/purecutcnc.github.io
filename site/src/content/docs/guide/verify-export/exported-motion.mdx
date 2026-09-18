@@ -6,6 +6,7 @@ availability: stable
 status: draft
 ---
 
+import VisualPending from '../../../../components/VisualPending.astro';
 import Screenshot from '../../../../components/Screenshot.astro';
 import motionInspector from '../../../../assets/manual/verify-export/exported-motion/cam-debug-view-overlay.png';
 
@@ -16,6 +17,8 @@ The exported motion inspector is a diagnostic view for comparing the path genera
 Open **Export G-code**, select exactly one eligible planar operation, and choose **Inspect exported motion**. The button does not depend on the development-only **Debug toolpath** checkbox. It appears only after preparation succeeds for one operation whose motion can be represented as a flat plan trace; drilling, operations with no cuts, and continuously varying-Z motion are not eligible.
 
 <Screenshot src={motionInspector} alt="Exported motion inspector comparing motion layers" />
+
+<VisualPending id="exported-motion-inspector" />
 
 ## Layers
 
