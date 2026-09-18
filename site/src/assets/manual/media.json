@@ -314,5 +314,85 @@
 		"theme": "dark",
 		"locale": "en",
 		"status": "reshoot"
+	},
+	"verify-export/toolpath-preview/toolpath-legend.png": {
+		"shows": "Toolpath legend with movement visibility controls",
+		"source": "legacy-guide",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "reshoot"
+	},
+	"verify-export/3d-view/view-3d.png": {
+		"shows": "3D view showing stock, model, and toolpath",
+		"source": "legacy-guide",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "reshoot"
+	},
+	"verify-export/simulation/view-simulation-play.png": {
+		"shows": "Simulation view with playback controls",
+		"source": "legacy-guide",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "reshoot"
+	},
+	"verify-export/gcode-export/cam-export-dialog.png": {
+		"shows": "Export G-code dialog with machine, operation checklist, options, and preview",
+		"source": "legacy-guide",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "reshoot"
+	},
+	"verify-export/exported-motion/cam-debug-view-overlay.png": {
+		"shows": "Exported motion inspector comparing motion layers",
+		"source": "legacy-guide",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "reshoot"
+	},
+	"verify-export/setup-booklets/cam-operation-booklet.png": {
+		"shows": "CAM panel action for exporting an operation booklet PDF",
+		"source": "legacy-guide",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "reshoot"
+	},
+	"verify-export/model-export-and-print/sketch-export-stl.png": {
+		"shows": "Export model dialog with STL options",
+		"source": "legacy-guide",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "reshoot"
+	},
+	"verify-export/model-export-and-print/sketch-print-dialog.png": {
+		"shows": "Print design dialog with paper, scale, and content choices",
+		"source": "legacy-guide",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "reshoot"
 	}
 }

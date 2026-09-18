@@ -1,0 +1,41 @@
+---
+title: Setup booklets
+description: Export a PDF setup booklet for the operation currently selected in the CAM panel.
+pageType: task
+availability: stable
+status: draft
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import Screenshot from '../../../../components/Screenshot.astro';
+import booklet from '../../../../assets/manual/verify-export/setup-booklets/cam-operation-booklet.png';
+
+A setup booklet is a PDF summary for one selected operation. It keeps the operation, tool, settings, and its captured preview together for use at the machine.
+
+## Before you start
+
+- Select the operation in the CAM panel and make sure it has a valid toolpath.
+- Treat the booklet as setup documentation, not as controller output. You still need to verify the exported G-code and physical setup.
+
+## Export a setup booklet
+
+<Steps>
+
+1. Select one operation in the CAM panel.
+
+2. Use the CAM panel header action **Export booklet (PDF)**.
+
+3. Wait for the operation toolpath and snapshot to be captured, then choose where to save the PDF.
+
+</Steps>
+
+<Screenshot src={booklet} alt="CAM panel action for exporting an operation booklet PDF" />
+
+## Contents
+
+The PDF is built from one captured revision. It includes the selected operation’s setup information, tool, parameter rows, toolpath summary, and preview image. The output uses the current interface language where localized text is available.
+
+## Related pages
+
+- [Working with operations](/guide/cam-setup/working-with-operations/): select and inspect an operation in the CAM panel.
+- [Exporting G-code](/guide/verify-export/gcode-export/): produce the program that a controller runs.

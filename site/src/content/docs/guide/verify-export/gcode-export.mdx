@@ -1,0 +1,58 @@
+---
+title: Exporting G-code
+description: Select a machine and operation checklist, inspect the prepared program, and save G-code for your controller.
+pageType: task
+availability: stable
+status: draft
+---
+
+import { Aside, Steps } from '@astrojs/starlight/components';
+import Screenshot from '../../../../components/Screenshot.astro';
+import exportDialog from '../../../../assets/manual/verify-export/gcode-export/cam-export-dialog.png';
+
+G-code export prepares a controller program from the selected operation checklist and the active machine definition.
+
+## Before you start
+
+- Generate and inspect the operations you intend to run.
+- Select the intended machine and confirm the project origin and units.
+- Review the setup and simulation; G-code is the point at which a planning mistake can become machine motion.
+
+## Export G-code
+
+<Steps>
+
+1. Open **Export G-code** from the CAM controls.
+
+2. Confirm **Machine**, **Origin**, and **Project units**. Use **Change** to choose a different machine.
+
+3. In **Operations**, review the per-operation checklist and select the operations to include.
+
+4. In **Options**, choose whether to use **Emit tool changes (M6)** and **Emit coolant commands** for this program.
+
+5. Read **Errors**, **Warnings**, and **Preview (first 30 lines)**. When there are no export-blocking errors, select **Export .ext** and choose a save location.
+
+</Steps>
+
+<Screenshot src={exportDialog} alt="Export G-code dialog with machine, operation checklist, options, and preview" />
+
+<Aside type="danger" title="Safety: verify the program before cutting">
+
+Exported G-code can move a real machine. Confirm the machine, origin, tool, workholding, clearances, and controller settings, then dry-run or otherwise verify the program according to [Working safely](/guide/start-here/safety/) before cutting material.
+
+</Aside>
+
+## Selection
+
+The checklist is the source of truth for this export. By default, it selects operations that are enabled, have a tool assigned, and have a visible toolpath. A hidden but otherwise eligible operation can still be checked manually; an operation that is off or has no tool is not eligible and displays its reason.
+
+## Messages
+
+**Errors** stop the program from being exported until you resolve them. For example, choose a machine, select an operation, assign a tool, or reopen the dialog when its preview is out of date. A machine that cannot emit a requested tool change is also an export-blocking condition when tool changes are enabled.
+
+**Warnings** identify behavior to review, such as a fallback or toolpath warning. They are not automatically export-blocking; read the message and decide whether the resulting program is appropriate for your machine.
+
+## Related pages
+
+- [Machines](/guide/cam-setup/machines/): select and configure the machine used for export.
+- [Exported motion inspector](/guide/verify-export/exported-motion/): compare one eligible planar operation with its prepared output.

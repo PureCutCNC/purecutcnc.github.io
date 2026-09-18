@@ -16,12 +16,7 @@
 
 /** Legacy guide pages that have not been migrated yet. */
 const PENDING_GUIDE_PAGES = [
-	'cam-debug-view',
 	'post-processor-converter',
-	'sketch-export',
-	'sketch-toolpaths',
-	'view-3d',
-	'view-simulation',
 ];
 
 /** @type {{ from: string, to: string, anchors?: Record<string, string>, pending?: boolean }[]} */
@@ -97,15 +92,75 @@ export const LEGACY_ROUTES = [
 			'older-projects': '/guide/cam-setup/machines/#my-machines',
 		},
 	},
-	// W3 supplies the machine and clearance destinations; W5 will migrate the remaining export page.
+	// W3 supplies the machine and clearance destinations; W5 owns the export workflow destinations.
 	{
 		from: '/guide/cam-export.html',
-		to: '/guide/',
-		pending: true,
+		to: '/guide/verify-export/gcode-export/',
 		anchors: {
 			'machine-selection': '/guide/cam-setup/machines/',
 			clearances: '/guide/cam-setup/clamps-and-clearances/#clearances',
 			'custom-machines': '/guide/cam-setup/machines/#editor',
+			'export-dialog': '/guide/verify-export/gcode-export/',
+			'arc-validation': '/guide/verify-export/exported-motion/#arc-validation',
+			'what-is-exported': '/guide/verify-export/gcode-export/#selection',
+			'operation-booklet': '/guide/verify-export/setup-booklets/',
+		},
+	},
+	{
+		from: '/guide/cam-debug-view.html',
+		to: '/guide/verify-export/exported-motion/',
+		anchors: {
+			'why-a-debug-view': '/guide/verify-export/exported-motion/',
+			'opening-the-inspector': '/guide/verify-export/exported-motion/#opening',
+			'motion-layers': '/guide/verify-export/exported-motion/#layers',
+			'move-counts': '/guide/verify-export/exported-motion/#counts',
+			verification: '/guide/verify-export/exported-motion/#verification',
+			'arc-fitting-per-operation': '/guide/verify-export/exported-motion/#arc-fitting',
+		},
+	},
+	{
+		from: '/guide/sketch-export.html',
+		to: '/guide/verify-export/model-export-and-print/',
+		anchors: {
+			overview: '/guide/verify-export/model-export-and-print/',
+			'export-model': '/guide/verify-export/model-export-and-print/#stl',
+			'print-design': '/guide/verify-export/model-export-and-print/#print',
+		},
+	},
+	{
+		from: '/guide/sketch-toolpaths.html',
+		to: '/guide/verify-export/toolpath-preview/',
+		anchors: {
+			overview: '/guide/verify-export/toolpath-preview/',
+			'show-legend': '/guide/verify-export/toolpath-preview/#legend',
+			'shared-collapse': '/guide/verify-export/toolpath-preview/#collapse',
+			'in-sketch': '/guide/verify-export/toolpath-preview/',
+			'in-3d': '/guide/verify-export/3d-view/#toolpaths',
+		},
+	},
+	{
+		from: '/guide/view-3d.html',
+		to: '/guide/verify-export/3d-view/',
+		anchors: {
+			'3d-overview': '/guide/verify-export/3d-view/',
+			'3d-navigation': '/guide/verify-export/3d-view/#navigation',
+			'3d-model': '/guide/verify-export/3d-view/#model',
+			'3d-toolpaths': '/guide/verify-export/3d-view/#toolpaths',
+			'open-features': '/guide/verify-export/3d-view/#open-features',
+			'imported-models': '/guide/verify-export/3d-view/#imported-models',
+			'stl-export': '/guide/verify-export/model-export-and-print/',
+		},
+	},
+	{
+		from: '/guide/view-simulation.html',
+		to: '/guide/verify-export/simulation/',
+		anchors: {
+			'sim-overview': '/guide/verify-export/simulation/',
+			'sim-controls': '/guide/verify-export/simulation/#controls',
+			'sim-navigation': '/guide/verify-export/simulation/#controls',
+			'sim-what-to-check': '/guide/verify-export/simulation/#checklist',
+			'sim-gpu': '/guide/verify-export/simulation/#detail',
+			'sim-performance': '/guide/verify-export/simulation/#limits',
 		},
 	},
 	// Migrated: all of the Sketch view's destinations are now on the workspace page.

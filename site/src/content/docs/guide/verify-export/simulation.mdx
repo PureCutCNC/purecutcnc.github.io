@@ -1,0 +1,61 @@
+---
+title: Simulation
+description: Replay selected machining operations to inspect material removal and cutting motion before export.
+pageType: task
+availability: stable
+status: draft
+---
+
+import { Aside, Steps } from '@astrojs/starlight/components';
+import Screenshot from '../../../../components/Screenshot.astro';
+import simulationPlay from '../../../../assets/manual/verify-export/simulation/view-simulation-play.png';
+
+Simulation removes material from a virtual stock using generated toolpaths. It helps expose an unexpected order, depth, or remaining material before you create G-code.
+
+## Before you start
+
+- Generate the operations you want to inspect and resolve their errors.
+- Check the stock, origin, tool, depths, and workholding first; simulation uses the project and generated toolpaths, not a machine controller.
+
+## Run a simulation
+
+<Steps>
+
+1. Open the **Sim** tab.
+
+2. Choose whether to simulate the selected operation set or the visible operations, then choose a suitable detail level.
+
+3. Use **Play** to replay the path, or **Step** to advance it deliberately. Use the progress control to inspect another point in the run.
+
+4. Use **Stop** to pause playback. Use **Reset** to return the simulated stock to its initial state.
+
+</Steps>
+
+<Screenshot src={simulationPlay} alt="Simulation view with playback controls" />
+
+## Controls
+
+The playback bar provides **Play**, **Step**, speed, progress, **Stop**, and **Reset** controls. The current move, position, and progress readouts help you locate a questionable part of the motion. You can dock or undock the view as needed while inspecting it.
+
+## Detail
+
+Higher detail can make smaller changes to the simulated surface easier to see, but takes more memory and rendering time. Start with a practical setting, then increase detail only where you need a closer check.
+
+## Checklist
+
+Check that material is removed where you expect, that the cutter stays clear of clamps and fixtures, and that entry, retract, and travel moves make sense. Compare the result with the toolpath preview and the operation settings.
+
+## Limits
+
+Simulation is an aid, not a safety guarantee. It cannot confirm your physical machine setup, controller interpretation, actual tool dimensions, material behavior, or clamp placement. Verify the exported program and dry-run safely before cutting.
+
+<Aside type="caution" title="Use simulation as a check">
+
+A clean simulation does not make an unsafe setup safe. Follow [Working safely](/guide/start-here/safety/) when setting up and running the machine.
+
+</Aside>
+
+## Related pages
+
+- [Toolpath preview](/guide/verify-export/toolpath-preview/): inspect individual motion types and feeds.
+- [Exporting G-code](/guide/verify-export/gcode-export/): prepare the controller program after verification.
