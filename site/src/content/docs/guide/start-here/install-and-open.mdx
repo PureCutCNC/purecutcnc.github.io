@@ -6,8 +6,10 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
 import { Aside, Steps } from '@astrojs/starlight/components';
+import Screenshot from '../../../../components/Screenshot.astro';
+import runOptions from '../../../../assets/manual/start-here/install-and-open/run-options.png';
+import desktopUpdateChannel from '../../../../assets/manual/start-here/install-and-open/desktop-update-channel.png';
 
 PureCutCNC runs in a browser and as a desktop app for macOS, Windows, and Linux. Both use the
 same workspace and the same `.camj` project files, so you can start in one and continue in the
@@ -15,8 +17,7 @@ other. No account is needed.
 
 ## Choose how to run it
 
-
-<VisualPending id="install-run-options" />
+<Screenshot src={runOptions} alt="Downloads page Download matrix of macOS, Windows, and Linux Stable and Preview Build packages next to the Choose a track panel, the Also available in the browser panel, and the System requirements panel" />
 | Option | Use it when | How to start |
 | --- | --- | --- |
 | Web app | You want to start straight away in a desktop or tablet browser. | Open [the web app](/app/). |
@@ -80,8 +81,7 @@ Their keyboard shortcuts are listed on [Keyboard shortcuts](/guide/reference/key
 
 ## Desktop updates
 
-
-<VisualPending id="install-desktop-update-channel" />
+<Screenshot src={desktopUpdateChannel} alt="macOS PureCutCNC menu open over a dark-theme workspace with Update Channel expanded and Stable currently selected alongside Snapshot" />
 The desktop app does not update itself and does not check for updates in the background. To check,
 choose **Check for Updates…** from the **PureCutCNC** menu. The app compares its version with the
 latest build on the selected channel and tells you whether you are up to date. If a newer version

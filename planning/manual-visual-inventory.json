@@ -202,10 +202,10 @@
 			"afterHeading": "Choose how to run it",
 			"kind": "screenshot",
 			"purpose": "Help readers distinguish the stable web app, preview app, and desktop downloads.",
-			"brief": "The downloads page with Stable Web App, Preview Web App, and desktop download choices visible together.",
+			"brief": "The Downloads page Download matrix listing macOS, Windows, and Linux Stable and Preview Build packages, alongside the Choose a track panel explaining Stable and Preview Build, the Also available in the browser panel with Open stable web app and Open Preview Build buttons, and the System requirements panel listing Browser app and Desktop build needs.",
 			"asset": "start-here/install-and-open/run-options.png",
-			"alt": "PureCutCNC download choices for the stable web app, preview web app, and desktop builds",
-			"status": "proposed",
+			"alt": "Downloads page Download matrix of macOS, Windows, and Linux Stable and Preview Build packages next to the Choose a track panel, the Also available in the browser panel, and the System requirements panel",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -214,10 +214,10 @@
 			"afterHeading": "Desktop updates",
 			"kind": "screenshot",
 			"purpose": "Show where desktop users switch between Stable and Snapshot updates.",
-			"brief": "The desktop application menu with Check for Updates and the Update Channel submenu open.",
+			"brief": "The macOS PureCutCNC menu open with Update Channel expanded to show Stable (currently selected) and Snapshot, over a dark-theme workspace with the project tree visible.",
 			"asset": "start-here/install-and-open/desktop-update-channel.png",
-			"alt": "Desktop application menu with Check for Updates and Stable and Snapshot update channels",
-			"status": "proposed",
+			"alt": "macOS PureCutCNC menu open over a dark-theme workspace with Update Channel expanded and Stable currently selected alongside Snapshot",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{

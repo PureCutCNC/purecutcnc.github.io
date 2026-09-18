@@ -434,5 +434,27 @@
 		"locale": "en",
 		"status": "current",
 		"blockedBy": []
+	},
+	"start-here/install-and-open/run-options.png": {
+		"shows": "Downloads page Download matrix of macOS, Windows, and Linux Stable and Preview Build packages next to the Choose a track panel, the Also available in the browser panel, and the System requirements panel",
+		"source": "capture",
+		"appCommit": "0000000000000000000000000000000000000000",
+		"fixture": "site/fixtures/install-run-options.camj",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"start-here/install-and-open/desktop-update-channel.png": {
+		"shows": "macOS PureCutCNC menu open over a dark-theme workspace with Update Channel expanded and Stable currently selected alongside Snapshot",
+		"source": "capture",
+		"appCommit": "0000000000000000000000000000000000000000",
+		"fixture": "site/fixtures/install-desktop-update-channel.camj",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
 	}
 }
