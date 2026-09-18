@@ -1,0 +1,43 @@
+---
+title: Toolpath preview
+description: Read the toolpath overlays, feed colours, Z levels, and renderer controls before you simulate or export.
+pageType: reference
+availability: stable
+status: draft
+---
+
+import Screenshot from '../../../../components/Screenshot.astro';
+import toolpathLegend from '../../../../assets/manual/verify-export/toolpath-preview/toolpath-legend.png';
+
+Use the toolpath preview in the Sketch and 3D views to check the moves PureCut CNC has generated. It is a visual aid: use it with [Simulation](/guide/verify-export/simulation/) and the operation warnings before you cut.
+
+## Toolpath legend
+
+<span id="legend"></span>
+
+Open the **Show** control in the viewport corner to choose which overlays are visible. You can independently show **Cuts**, **Lead-ins**, **Rapids**, **Plunges**, **Retractions**, and **Directions**. The same visibility choices are shared by the Sketch and 3D views. An amber overlay calls attention to a clamp collision.
+
+<Screenshot src={toolpathLegend} alt="Toolpath legend with movement visibility controls" />
+
+## Feed colours
+
+Turn on **Feed colours** in the legend to colour cutting moves by their programmed feed percentage. The **Feed percentage** key explains the colour scale. It is a quick way to find feed reductions; it does not prove that a feed is safe for your material, cutter, or machine.
+
+<span id="collapse"></span>
+
+## Levels
+
+For planar toolpaths, use the vertical **Toolpath level** rail to isolate a cutting Z level. Choose **All** to restore every level. This filter changes only the preview, not the generated toolpath or exported G-code.
+
+## Renderer
+
+The **2D renderer** control switches between **Canvas** and **GPU** rendering. If panning or zooming a dense preview is slow, the app can offer **Enable GPU**. If GPU rendering cannot start, it reports **GPU unavailable; using Canvas.** and leaves the Canvas preview available; use **Retry GPU** after the underlying issue is resolved.
+
+## Warnings
+
+Read warnings in the operation properties and in the export dialog before relying on a preview. A warning identifies something to inspect; it does not necessarily prevent export. Errors are shown separately and can disable export until the underlying problem is corrected. See [Warnings and messages](/guide/reference/warnings/) when that reference page is available.
+
+## Related pages
+
+- [3D view](/guide/verify-export/3d-view/): inspect the stock, model, and toolpaths in three dimensions.
+- [Simulation](/guide/verify-export/simulation/): replay material removal before making a part.

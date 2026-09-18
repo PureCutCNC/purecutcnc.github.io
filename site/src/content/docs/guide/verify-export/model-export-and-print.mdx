@@ -1,0 +1,54 @@
+---
+title: Exporting models and printing
+description: Save a project as STL or SVG, or prepare a scaled print of the current design.
+pageType: task
+availability: stable
+status: draft
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import Screenshot from '../../../../components/Screenshot.astro';
+import stlExport from '../../../../assets/manual/verify-export/model-export-and-print/sketch-export-stl.png';
+import printDialog from '../../../../assets/manual/verify-export/model-export-and-print/sketch-print-dialog.png';
+
+Use **Export model** to save a 3D STL or 2D SVG, and **Print design** to make a paper reference from the sketch.
+
+## Before you start
+
+- Ensure the visible features represent the geometry you want to share.
+- Check project units and dimensions before sending a model or printed plan to another workflow.
+
+## Export a model
+
+<Steps>
+
+1. Open **Export model**.
+
+2. Choose a **Format**, enter a **File name**, and set the format-specific options.
+
+3. Read **Summary**, **Warnings**, or **Error** messages. Resolve **No solid geometry to export — add visible features first.** before exporting an STL.
+
+4. Choose **Export .stl** or **Export .svg**, then choose a location.
+
+</Steps>
+
+<Screenshot src={stlExport} alt="Export model dialog with STL options" />
+
+## STL
+
+Choose **STL encoding** as **Binary (recommended — smaller, faster)** or **ASCII (human-readable)**. Set **Curve quality** to control how finely curves are tessellated; finer settings create more triangles. Use **Include imported meshes** only when those meshes belong in the output.
+
+## SVG
+
+SVG is a 2D vector export. Choose the **Export area**, then select the required **Content** such as **Tabs**, **Clamps**, **Feature labels**, **Grid**, and **Color** or **Monochrome**. The summary reports the exported size at 1:1.
+
+## Print
+
+Open **Print design** to choose **Paper**, orientation, margins, **Print area**, **Scale**, and X/Y offsets. Its **Content** options include **Grid**, **Backdrop image**, **Feature labels**, **Tabs**, **Clamps**, **Toolpath overlays**, **Title block**, and **Color** or **Monochrome**. Use **Print…** only after checking the reported printed size and any clipping warning.
+
+<Screenshot src={printDialog} alt="Print design dialog with paper, scale, and content choices" />
+
+## Related pages
+
+- [Importing 3D models](/guide/design/importing-3d-models/): bring supported models into a project.
+- [3D view](/guide/verify-export/3d-view/): inspect the model before exporting it.
