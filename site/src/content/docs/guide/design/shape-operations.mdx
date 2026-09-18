@@ -6,6 +6,7 @@ availability: stable
 status: draft
 ---
 
+import VisualPending from '../../../../components/VisualPending.astro';
 import { Steps } from '@astrojs/starlight/components';
 
 These three commands make new shapes from existing ones. Each is one undo step. They work on the
@@ -20,6 +21,8 @@ they came from.
 
 ## Offset
 
+
+<VisualPending id="shape-offset-preview" />
 **Create offset feature** makes a new outline at a fixed distance inside or outside the selected
 closed features. The originals stay as they are.
 
@@ -70,6 +73,8 @@ path's endpoint. See [Editing sketches](/guide/design/sketch-editing/#join-open-
 
 ## Cut
 
+
+<VisualPending id="shape-cut-workflow" />
 **Cut features** removes the area of one or more shapes, the cutters, from others, the targets, or
 splits the targets along open paths.
 

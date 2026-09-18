@@ -6,6 +6,7 @@ availability: stable
 status: draft
 ---
 
+import VisualPending from '../../../../components/VisualPending.astro';
 import { Aside, Steps } from '@astrojs/starlight/components';
 import Screenshot from '../../../../components/Screenshot.astro';
 import exportDialog from '../../../../assets/manual/verify-export/gcode-export/cam-export-dialog.png';
@@ -35,6 +36,8 @@ G-code export prepares a controller program from the selected operation checklis
 </Steps>
 
 <Screenshot src={exportDialog} alt="Export G-code dialog with machine, operation checklist, options, and preview" />
+
+<VisualPending id="gcode-export-dialog" />
 
 <Aside type="danger" title="Safety: verify the program before cutting">
 

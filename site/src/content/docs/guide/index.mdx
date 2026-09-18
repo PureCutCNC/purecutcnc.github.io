@@ -7,6 +7,7 @@ status: draft
 tableOfContents: false
 ---
 
+import VisualPending from '../../../components/VisualPending.astro';
 import { CardGrid, LinkCard } from '@astrojs/starlight/components';
 
 PureCut CNC is a 2.5D and 3D CAD/CAM program for CNC routers. You draw or import a part, assign
@@ -37,6 +38,8 @@ that are not in a stable release yet.
 
 ## Workflow
 
+
+<VisualPending id="guide-workflow-overview" />
 A typical job goes through these steps. You can return to any of them at any time: toolpaths are
 generated again whenever the design or the machining settings change.
 

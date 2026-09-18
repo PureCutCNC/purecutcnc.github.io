@@ -6,6 +6,7 @@ availability: stable
 status: draft
 ---
 
+import VisualPending from '../../../../components/VisualPending.astro';
 import Screenshot from '../../../../components/Screenshot.astro';
 import view3d from '../../../../assets/manual/verify-export/3d-view/view-3d.png';
 
@@ -13,8 +14,12 @@ Open the **3D** tab to examine the project as a solid. It is especially useful f
 
 <Screenshot src={view3d} alt="PureCut CNC 3D view showing stock, model, and toolpath" />
 
+<VisualPending id="view-3d-model-toolpath" />
+
 ## Navigation
 
+
+<VisualPending id="view-3d-camera-menu" />
 Drag to orbit, use the wheel or trackpad to zoom, and pan with the camera controls. Open the camera menu to choose a view preset, including isometric and orthographic directions such as top, front, and right. Use **Reset view** in that menu to return to the default isometric view; double-clicking the viewport does not reset the camera.
 
 ## Model

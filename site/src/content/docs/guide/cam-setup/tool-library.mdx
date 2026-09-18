@@ -6,6 +6,7 @@ availability: stable
 status: draft
 ---
 
+import VisualPending from '../../../../components/VisualPending.astro';
 import { Aside } from '@astrojs/starlight/components';
 import Screenshot from '../../../../components/Screenshot.astro';
 import toolLibraryImport from '../../../../assets/manual/cam-setup/tool-library/import-dialog.png';
@@ -20,6 +21,8 @@ get started is to import a tool from the bundled library.
 
 ## Managing
 
+
+<VisualPending id="tool-library-management" />
 Use the tools list to add, duplicate, and remove the project’s cutters. Select a tool to edit its properties in the panel beside the list.
 
 ### Adding tools
@@ -54,6 +57,8 @@ filters, search for another, and both stay selected. The action button counts wh
 	alt="Import tools from library dialog with the search field, type and unit filters, a list of inch endmills, ball endmills, and a 60° V-bit, each badged New, and no tools selected yet"
 	maxWidth={520}
 />
+
+<VisualPending id="tool-library-import" />
 
 <Aside type="tip" title="Already imported the old eight?">
 	The original bundled entries are unchanged, so tools you imported from earlier versions still

@@ -6,6 +6,7 @@ availability: stable
 status: draft
 ---
 
+import VisualPending from '../../../../components/VisualPending.astro';
 import { Aside, Steps } from '@astrojs/starlight/components';
 import Availability from '../../../../components/Availability.astro';
 
@@ -21,6 +22,8 @@ on [Importing SVG, DXF, and projects](/guide/design/importing-2d/).
 
 ## Import a model
 
+
+<VisualPending id="import-3d-multibody" />
 <Steps>
 
 1. Click **Import geometry**, then choose the `.stl`, `.obj`, `.step`, or `.stp` file.
@@ -63,6 +66,8 @@ bodies is imported as a single feature instead, with a warning.
 
 ## STEP files
 
+
+<VisualPending id="import-step-settings" />
 <span id="step"></span>
 
 <Availability kind="preview" />
@@ -84,6 +89,8 @@ connection in the web app.
 
 ## Orientation
 
+
+<VisualPending id="import-model-orientation" />
 Select an imported model and open **3D orientation** in its properties:
 
 | Control | What it does |

@@ -6,6 +6,7 @@ availability: stable
 status: draft
 ---
 
+import VisualPending from '../../../../components/VisualPending.astro';
 import { Aside } from '@astrojs/starlight/components';
 
 A region is a closed shape that limits where an operation may cut. The operation's targets still
@@ -28,6 +29,8 @@ whole thickness.
 
 ## Include and exclude
 
+
+<VisualPending id="regions-include-exclude" />
 - An **include** region allows cutting inside it.
 - An **exclude** region forbids cutting inside it.
 

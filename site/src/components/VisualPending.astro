@@ -1,0 +1,41 @@
+---
+// Visible marker for an unresolved manual visual. The canonical description lives
+// in planning/manual-visual-inventory.json so reviewers and capture batches use the
+// same brief.
+import inventory from '../../../planning/manual-visual-inventory.json';
+
+interface Props {
+	id: string;
+}
+
+const { id } = Astro.props;
+const visual = inventory.visuals.find((entry) => entry.id === id);
+
+if (!visual) {
+	throw new Error(`VisualPending ${id} on ${Astro.url.pathname} is not in planning/manual-visual-inventory.json.`);
+}
+
+const labels = {
+	proposed: 'Visual proposed',
+	planned: 'Visual planned',
+	blocked: 'Visual blocked',
+};
+
+if (!(visual.status in labels)) {
+	throw new Error(`VisualPending ${id} has resolved status ${visual.status}; replace or remove the marker.`);
+}
+
+const label = labels[visual.status as keyof typeof labels];
+---
+
+<aside class="visual-pending" aria-label={label}>
+	<div class="visual-pending__heading">
+		<strong>{label}</strong>
+		<code>{visual.id}</code>
+	</div>
+	<p>{visual.brief}</p>
+	<p class="visual-pending__purpose"><strong>Why it helps:</strong> {visual.purpose}</p>
+	{visual.status === 'blocked' && visual.blockedBy.length > 0 && (
+		<p class="visual-pending__blocked"><strong>Waiting on:</strong> {visual.blockedBy.join(', ')}</p>
+	)}
+</aside>

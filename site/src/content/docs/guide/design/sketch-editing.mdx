@@ -6,6 +6,7 @@ availability: stable
 status: draft
 ---
 
+import VisualPending from '../../../../components/VisualPending.astro';
 import { Aside, Steps } from '@astrojs/starlight/components';
 
 A sketch-editing session changes the points and segments of one feature. The session collects your
@@ -21,6 +22,8 @@ edits; **Finish editing** keeps them and **Cancel editing** throws them away.
 
 ## Edit a sketch
 
+
+<VisualPending id="sketch-edit-session" />
 <Steps>
 
 1. Double-click the feature on the canvas, or select it and click **Edit sketch** in its properties
@@ -50,6 +53,8 @@ reaches outside the stock (**Extends outside stock**). You can still finish, but
 
 ## Editing tools
 
+
+<VisualPending id="sketch-edit-tools" />
 Choose a tool in the **Edit sketch** panel. The step line says what to click. A tool stays active
 until you choose **Move** or another tool; <kbd>Esc</kbd> or <kbd>Enter</kbd> leaves it and keeps
 what you did with it.

@@ -6,10 +6,13 @@ availability: stable
 status: draft
 ---
 
+import VisualPending from '../../../../components/VisualPending.astro';
 import { Aside } from '@astrojs/starlight/components';
 
 **Drill** produces a hole at the center of each selected circle feature. It is intended for
 repeated hole patterns and can use canned cycles when the selected machine supports them.
+
+<VisualPending id="drill-hole-order" />
 
 ## Requirements
 
@@ -32,11 +35,15 @@ Shared settings are documented in [Common operation parameters](/guide/operation
 
 ## Helical
 
+
+<VisualPending id="drill-helical-bore" />
 Helical boring uses a flat endmill to bore a hole wider than the cutter along a helix. The selected
 circle defines the bore diameter; it does not use the general entry-helix diameter setting.
 
 ## Countersink
 
+
+<VisualPending id="drill-countersink-geometry" />
 Countersink uses a V-bit. Set **Countersink diameter**; the app shows the derived, read-only
 **Countersink depth** from that diameter and the selected V-bit angle.
 

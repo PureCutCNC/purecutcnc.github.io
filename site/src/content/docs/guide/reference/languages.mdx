@@ -6,6 +6,7 @@ availability: stable
 status: draft
 ---
 
+import VisualPending from '../../../../components/VisualPending.astro';
 import Screenshot from '../../../../components/Screenshot.astro';
 import languageMenu from '../../../../assets/manual/reference/languages/language-menu.png';
 import languageManager from '../../../../assets/manual/reference/languages/language-manager.png';
@@ -30,6 +31,8 @@ packs you have made are listed under **Custom languages**, and **Manage language
 language manager.
 
 <Screenshot src={languageMenu} alt="Language menu open from the top toolbar, listing English (checked), 简体中文, Deutsch, Español, and Français, with Manage languages… below" maxWidth={440} />
+
+<VisualPending id="languages-menu" />
 
 ## What changes
 
@@ -68,6 +71,8 @@ says how many; open the pack in the editor to fix them.
 
 <Screenshot src={languageManager} alt="Manage languages dialog with the five built-in languages in the list, English selected and marked Active and Built-in with language tag en, and the Duplicate & edit and Import language buttons" />
 
+<VisualPending id="languages-manager" />
+
 ## Language editor
 
 **Edit** opens the language editor for a custom pack.
@@ -95,6 +100,8 @@ available while any translation has a placeholder mismatch, and the editor says 
 - **Cancel** discards the changes.
 
 <Screenshot src={languageEditor} alt="Edit language dialog for an English copy: Language name and BCP-47 language tag fields, the translated counter, search and Show filters, and rows of untranslated strings in the file section" />
+
+<VisualPending id="languages-editor" />
 
 Language packs are stored in this browser or desktop app. To use one on another device, export it
 and import it there.

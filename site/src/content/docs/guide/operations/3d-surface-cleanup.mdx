@@ -6,11 +6,14 @@ availability: stable
 status: draft
 ---
 
+import VisualPending from '../../../../components/VisualPending.astro';
 import { Aside } from '@astrojs/starlight/components';
 
 **3D surface cleanup** clears eligible walls and floors at the deepest retained Z of each step.
 Use it to clean residual step geometry; it is not a general-purpose replacement for 3D surface
 finish.
+
+<VisualPending id="surface-cleanup-passes" />
 
 ## Requirements
 

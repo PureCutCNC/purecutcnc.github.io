@@ -6,6 +6,7 @@ availability: stable
 status: draft
 ---
 
+import VisualPending from '../../../../components/VisualPending.astro';
 import { Aside, Steps } from '@astrojs/starlight/components';
 
 **Import geometry** brings shapes from other programs into the project as ordinary features, which you
@@ -20,6 +21,8 @@ OBJ, and STEP models are on [Importing 3D models](/guide/design/importing-3d-mod
 
 ## Import a file
 
+
+<VisualPending id="import-2d-dialog" />
 <Steps>
 
 1. Click **Import geometry** in the top toolbar.
@@ -62,6 +65,8 @@ drawing is the outline of a part with holes and pockets.
 
 ## SVG
 
+
+<VisualPending id="import-svg-summary" />
 - Rectangles, circles, ellipses, lines, polylines, polygons, and paths are imported, including
   Bézier curves and arcs.
 - Units come from the SVG's `width`, `height`, and `viewBox`. When the file does not state a physical
@@ -72,6 +77,8 @@ drawing is the outline of a part with holes and pockets.
 
 ## DXF
 
+
+<VisualPending id="import-dxf-layers" />
 - `LINE`, `ARC`, `CIRCLE`, `LWPOLYLINE`, `POLYLINE`, and `SPLINE` entities are imported, and block
   references (`INSERT`) are expanded. Text entities are ignored.
 - Units come from the file's `$INSUNITS` setting. When it is missing, choose the **Source units**.
@@ -88,6 +95,8 @@ drawing is the outline of a part with holes and pockets.
 
 ## Importing from another project
 
+
+<VisualPending id="import-project-folders" />
 <span id="camj"></span>
 
 Choose a `.camj` file to copy folders from another PureCut CNC project into this one.

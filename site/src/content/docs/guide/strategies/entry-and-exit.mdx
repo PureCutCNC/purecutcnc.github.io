@@ -6,10 +6,13 @@ availability: stable
 status: draft
 ---
 
+import VisualPending from '../../../../components/VisualPending.astro';
 import { Aside } from '@astrojs/starlight/components';
 
 ## How it works
 
+
+<VisualPending id="entry-and-xy-approach" />
 The **Entry strategy** controls how the tool reaches cutting depth: **Plunge**, **Helix**, or
 **Ramp**. A helix or ramp uses its angle setting; a helix also has a diameter setting. When a
 strategy cannot fit the geometry, the app reports the fallback in its warnings.

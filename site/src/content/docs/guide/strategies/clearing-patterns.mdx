@@ -6,17 +6,18 @@ availability: stable
 status: draft
 ---
 
+import VisualPending from '../../../../components/VisualPending.astro';
 import { Aside } from '@astrojs/starlight/components';
 import Screenshot from '../../../../components/Screenshot.astro';
 import seededCircles from '../../../../assets/manual/strategies/clearing-patterns/seeded-circles.png';
 
 ## How it works
 
+
+<VisualPending id="clearing-offset-parallel" />
 **Offset** follows successive inset contours. **Parallel** sweeps straight raster passes at the
 selected angle. **Seeded circles** starts from circles placed in the area, then joins the remaining
 coverage. Choose the pattern based on the desired finish, path shape, and the feature geometry.
-
-<Screenshot src={seededCircles} alt="Seeded-circle clearing pattern covering a pocket" maxWidth={560} />
 
 ## Where it applies
 
@@ -40,12 +41,18 @@ G-code smaller and motion smoother.
 
 ## Seeded circles
 
+<Screenshot src={seededCircles} alt="Seeded-circle clearing pattern covering a pocket" maxWidth={560} />
+
+<VisualPending id="clearing-seeded-circles" />
+
 Seeded circles begin from circular seed positions and then clear the remaining material. They are
 useful when circular motion suits the geometry, but you should inspect the final links and islands
 in the toolpath preview before machining.
 
 ## Overlapping subtracts
 
+
+<VisualPending id="clearing-overlapping-subtracts" />
 Non-target subtract features that meet a target can extend the resolved cut region at their own
 depth. Long connected chains can reach the resolver's chain limit and report a warning. Inspect
 the resolved bands and warnings when nearby pockets overlap; split the geometry or targets if the

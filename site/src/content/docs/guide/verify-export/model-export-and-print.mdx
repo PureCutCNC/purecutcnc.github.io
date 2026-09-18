@@ -6,6 +6,7 @@ availability: stable
 status: draft
 ---
 
+import VisualPending from '../../../../components/VisualPending.astro';
 import { Steps } from '@astrojs/starlight/components';
 import Screenshot from '../../../../components/Screenshot.astro';
 import stlExport from '../../../../assets/manual/verify-export/model-export-and-print/sketch-export-stl.png';
@@ -32,14 +33,18 @@ Use **Export model** to save a 3D STL or 2D SVG, and **Print design** to make a 
 
 </Steps>
 
+## STL
+
 <Screenshot src={stlExport} alt="Export model dialog with STL options" />
 
-## STL
+<VisualPending id="model-export-stl" />
 
 Choose **STL encoding** as **Binary (recommended — smaller, faster)** or **ASCII (human-readable)**. Set **Curve quality** to control how finely curves are tessellated; finer settings create more triangles. Use **Include imported meshes** only when those meshes belong in the output.
 
 ## SVG
 
+
+<VisualPending id="model-export-svg" />
 SVG is a 2D vector export. Choose the **Export area**, then select the required **Content** such as **Tabs**, **Clamps**, **Feature labels**, **Grid**, and **Color** or **Monochrome**. The summary reports the exported size at 1:1.
 
 ## Print
@@ -47,6 +52,8 @@ SVG is a 2D vector export. Choose the **Export area**, then select the required 
 Open **Print design** to choose **Paper**, orientation, margins, **Print area**, **Scale**, and X/Y offsets. Its **Content** options include **Grid**, **Backdrop image**, **Feature labels**, **Tabs**, **Clamps**, **Toolpath overlays**, **Title block**, and **Color** or **Monochrome**. Use **Print…** only after checking the reported printed size and any clipping warning.
 
 <Screenshot src={printDialog} alt="Print design dialog with paper, scale, and content choices" />
+
+<VisualPending id="model-print-dialog" />
 
 ## Related pages
 

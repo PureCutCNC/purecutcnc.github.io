@@ -6,11 +6,15 @@ availability: stable
 status: draft
 ---
 
+import VisualPending from '../../../../components/VisualPending.astro';
+
 The PureCut CNC window keeps the design, the machining setup, and the checks in one workspace.
 This page names its parts and explains how to move around in it.
 
 ## Main idea
 
+
+<VisualPending id="workspace-layout" />
 | Area | Where | What it holds |
 | --- | --- | --- |
 | Top toolbar | Top | Project, history, zoom, snapping, measuring, appearance, and language controls. |
@@ -27,6 +31,8 @@ panels become drawers; see [Tablet and touch](/guide/fundamentals/tablet-and-tou
 
 ## Views
 
+
+<VisualPending id="workspace-views" />
 Switch views with the tabs above the centre area, or with <kbd>←</kbd>, <kbd>→</kbd>,
 <kbd>Home</kbd>, and <kbd>End</kbd> once a tab has focus.
 
@@ -43,6 +49,8 @@ nothing in it. None of them replaces checking the machine setup and the exported
 
 ## Sketch overlays
 
+
+<VisualPending id="workspace-sketch-overlays" />
 Besides your features, the Sketch view shows:
 
 - the stock outline, with its width and height labels (click a label to resize the stock);
@@ -121,6 +129,8 @@ removes them from clamp checking; see
 
 ## Workflow panels
 
+
+<VisualPending id="workspace-workflow-panel" />
 Commands that need several steps, such as drawing a shape, moving features, or joining them, show a
 workflow panel on the canvas. Its title names the command, a line below says what to do next (for
 example **Click opposite corner or enter dimensions**), and its buttons offer the choices for that

@@ -6,6 +6,7 @@ availability: stable
 status: draft
 ---
 
+import VisualPending from '../../../../components/VisualPending.astro';
 import { Aside, Steps } from '@astrojs/starlight/components';
 
 The **Align selected features** and **Distribute selected features** menus in the tool rail line up
@@ -50,6 +51,8 @@ The first and last feature stay where they are; the ones between them move.
 
 ## Feature distribution
 
+
+<VisualPending id="arranging-feature-distribution" />
 **Feature distribution** makes a pattern of copies of the selected features in one step: a grid, a
 circle, or a row along a path. The copies are ordinary linked copies, not a pattern that updates
 later, and the whole distribution is one undo step. The selected features and any guide are not

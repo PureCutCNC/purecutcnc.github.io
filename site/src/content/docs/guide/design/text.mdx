@@ -6,6 +6,7 @@ availability: stable
 status: draft
 ---
 
+import VisualPending from '../../../../components/VisualPending.astro';
 import { Aside, Steps } from '@astrojs/starlight/components';
 import Availability from '../../../../components/Availability.astro';
 import Screenshot from '../../../../components/Screenshot.astro';
@@ -52,6 +53,8 @@ The text becomes a feature in the feature tree. Its Z range starts like any new 
 
 <Screenshot src={addTextDialog} alt="The Add text dialog with sample text, Outline style, Helvetiker Bold font, height 0.4, and Subtract operation" maxWidth={560} />
 
+<VisualPending id="text-add-dialog" />
+
 ## Text styles
 
 | Style | What it produces | Fonts |
@@ -79,6 +82,8 @@ individual letters, expand the text first.
 
 ## Text layout
 
+
+<VisualPending id="text-layout" />
 <Availability kind="preview" />
 
 Text is placed on a straight baseline. **Text layout** bends it onto a circle or along a guide
@@ -139,6 +144,8 @@ are. See [Linked features](/guide/fundamentals/linked-features/).
 
 ## Expand text
 
+
+<VisualPending id="text-expanded-glyphs" />
 **Expand text to features**, in the properties of a text feature, turns the text into ordinary
 features that you can edit one letter at a time:
 

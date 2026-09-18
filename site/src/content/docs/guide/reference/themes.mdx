@@ -6,6 +6,7 @@ availability: stable
 status: draft
 ---
 
+import VisualPending from '../../../../components/VisualPending.astro';
 import { Aside } from '@astrojs/starlight/components';
 import Screenshot from '../../../../components/Screenshot.astro';
 import appearanceMenu from '../../../../assets/manual/reference/themes/appearance-menu.png';
@@ -31,6 +32,8 @@ Custom themes you have made are listed under **Custom themes**, grouped into **D
 
 <Screenshot src={appearanceMenu} alt="Appearance menu open from the top toolbar, listing Dark, Light, and System with Dark checked, and Manage themes… below" maxWidth={450} />
 
+<VisualPending id="themes-appearance-menu" />
+
 ## Theme manager
 
 **Manage themes…** lists the two built-in themes, **Dark** and **Light**, and your custom themes.
@@ -53,6 +56,8 @@ A custom theme's details show its **Family** (dark or light), the theme it is **
 how many colours it changes (**Changed colors**).
 
 <Screenshot src={themeManager} alt="Manage themes dialog with Dark and Light in the list, Dark selected and marked Active and Built-in, and the Duplicate to edit, Import theme, and Mode controls" />
+
+<VisualPending id="themes-manager" />
 
 ### Mode
 
@@ -84,6 +89,8 @@ Next to the colours, a preview shows **Panel & text**, **Controls**, **Messages*
 **Apply theme** saves the theme and makes it active. **Cancel** discards the changes.
 
 <Screenshot src={themeEditor} alt="Edit theme dialog for a copy of Dark: the Theme name field and Surfaces and Text colour rows on the left, and the Panel & text, Controls, Messages, and Sketch canvas previews on the right" />
+
+<VisualPending id="themes-editor" />
 
 ## Readability checks
 
