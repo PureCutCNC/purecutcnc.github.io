@@ -1,0 +1,55 @@
+---
+title: 3D surface rough
+description: Remove material from a 3D model in step levels before a surface-finishing operation.
+pageType: operation
+availability: stable
+status: draft
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+**3D surface rough** removes bulk material from a model in horizontal levels. Use it before 3D
+surface finish when the model needs a controlled roughing pass rather than a 2.5D pocket.
+
+## Requirements
+
+| Requirement | Value |
+| --- | --- |
+| Target features | 3D model features; regions can limit the cut |
+| Tool | Flat or ball endmill |
+| Passes | Rough only |
+
+## Parameters
+
+Shared settings are documented in [Common operation parameters](/guide/operations/common-parameters/).
+
+| Parameter | Description |
+| --- | --- |
+| **Pattern** | Chooses Offset, Seeded circles, Parallel, or Trochoidal coverage at each level. |
+| **Stepdown** | Sets the vertical distance between roughing levels. |
+| **Stock to leave radial** and **Stock to leave axial** | Leave wall or floor material for surface finishing. |
+| **Finish walls** and **Finish floor** | Control the optional finishing work on eligible surfaces. |
+
+## Strategies
+
+The roughing patterns are described in [Clearing patterns](/guide/strategies/clearing-patterns/) and
+[Trochoidal cutting](/guide/strategies/trochoidal-cutting/#clearing). It also supports
+[entry and exit moves](/guide/strategies/entry-and-exit/) and [feed reduction](/guide/strategies/feed-reduction/).
+
+## Limitations
+
+The operation protects the model cross-section and retained 2.5D material instead of simply
+cutting every horizontal band. Nearby features, regions, clamps, and tabs can therefore split or
+omit a pass. Review the warnings and the preview rather than assuming each level is continuous.
+
+## Verifying the result
+
+<Aside type="caution" title="Leave enough material for the finish pass">
+	Inspect the stepped result in simulation and confirm that the tool reaches the intended areas
+	without gouging protected geometry. A roughing pass is not a final surface finish.
+</Aside>
+
+## Related pages
+
+- [3D surface finish](/guide/operations/3d-surface-finish/): finish the model after roughing.
+- [3D finishing controls](/guide/strategies/3d-finishing/): choose the finishing pattern and protection controls.

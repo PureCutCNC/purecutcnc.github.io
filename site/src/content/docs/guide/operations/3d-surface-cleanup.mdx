@@ -1,0 +1,54 @@
+---
+title: 3D surface cleanup
+description: Clean model walls and floors at retained step depths with independent finishing controls.
+pageType: operation
+availability: stable
+status: draft
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+**3D surface cleanup** clears eligible walls and floors at the deepest retained Z of each step.
+Use it to clean residual step geometry; it is not a general-purpose replacement for 3D surface
+finish.
+
+## Requirements
+
+| Requirement | Value |
+| --- | --- |
+| Target features | 3D model features; regions can limit the cut |
+| Tool | Flat or ball endmill |
+| Passes | Finish only |
+
+## Parameters
+
+Shared settings are documented in [Common operation parameters](/guide/operations/common-parameters/).
+
+| Parameter | Description |
+| --- | --- |
+| **Pattern** | Chooses Offset, Seeded circles, or Parallel floor coverage. |
+| **Finish walls** | Enables eligible wall cleanup. |
+| **Finish floor** | Enables eligible floor cleanup. |
+| **Stock to leave** | Leaving material changes what a finish pass can reach. |
+
+## Strategies
+
+The floor patterns are covered by [Clearing patterns](/guide/strategies/clearing-patterns/).
+Cleanup does not offer Trochoidal, Waterline, or Constant scallop patterns.
+
+## Limitations
+
+<Aside type="caution" title="Cleanup may have nothing to cut">
+	Cleanup follows retained step depths and only emits the enabled wall or floor work. If stock to
+	leave, a region, or protection removes that work, the result can be intentionally sparse.
+</Aside>
+
+## Verifying the result
+
+Confirm independently that the wall and floor passes appear where expected, then inspect the
+remaining surface in 3D before exporting.
+
+## Related pages
+
+- [3D surface finish](/guide/operations/3d-surface-finish/): final finish over one model.
+- [Clearing patterns](/guide/strategies/clearing-patterns/): understand cleanup floor coverage.

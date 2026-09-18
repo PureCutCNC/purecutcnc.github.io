@@ -1,0 +1,42 @@
+---
+title: Rest machining
+description: Create a smaller-tool follow-up operation from the material a compatible rough operation leaves behind.
+pageType: strategy
+availability: stable
+status: draft
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+## How it works
+
+Rest machining is an explicit action, not an automatic side effect of adding an operation. Select
+a feature-targeted Pocket or edge-route operation, then use **Create rest operation** in **What it
+cuts**. The app creates rest-region features and a related operation; choose a smaller tool before
+generating it.
+
+## Where it applies
+
+| Operation | Where to find it |
+| --- | --- |
+| [Pocket](/guide/operations/pocket/) | **What it cuts** > **Rest machining** |
+| [Inside edge route](/guide/operations/edge-route-inside/) | **What it cuts** > **Rest machining** |
+| [Outside edge route](/guide/operations/edge-route-outside/) | **What it cuts** > **Rest machining** |
+
+## Settings
+
+The generated rest operation inherits compatible settings and targets, includes the new rest
+regions, and starts without a selected tool. Select the smaller tool and review all inherited depth
+and feed settings before generating it.
+
+## Limitations
+
+<Aside type="caution" title="Trochoidal edge routes cannot create a rest operation">
+	A trochoidal edge route has no area leftover that the rest-region generator can derive. A
+	trochoidal pocket is supported because its channel width provides that information.
+</Aside>
+
+## Related pages
+
+- [Tool library](/guide/cam-setup/tool-library/): add the smaller follow-up tool.
+- [Working with operations](/guide/cam-setup/working-with-operations/): review the generated operation in the list.

@@ -1,0 +1,64 @@
+---
+title: Clearing patterns
+description: Choose offset, seeded-circle, or parallel passes to cover a 2.5D clearing area.
+pageType: strategy
+availability: stable
+status: draft
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import Screenshot from '../../../../components/Screenshot.astro';
+import seededCircles from '../../../../assets/manual/strategies/clearing-patterns/seeded-circles.png';
+
+## How it works
+
+**Offset** follows successive inset contours. **Parallel** sweeps straight raster passes at the
+selected angle. **Seeded circles** starts from circles placed in the area, then joins the remaining
+coverage. Choose the pattern based on the desired finish, path shape, and the feature geometry.
+
+<Screenshot src={seededCircles} alt="Seeded-circle clearing pattern covering a pocket" maxWidth={560} />
+
+## Where it applies
+
+| Operation | Where to find it |
+| --- | --- |
+| [Pocket](/guide/operations/pocket/) | **Strategy** > **Pattern** |
+| [Surface clean](/guide/operations/surface-clean/) | **Strategy** > **Pattern** |
+| [3D surface rough](/guide/operations/3d-surface-rough/) | **Strategy** > **Pattern** |
+| [3D surface cleanup](/guide/operations/3d-surface-cleanup/) | **Strategy** > **Pattern** (floor cleanup) |
+
+## Settings
+
+| Setting | Description |
+| --- | --- |
+| **Pattern** | Selects Offset, Seeded circles, or Parallel where the operation offers them. |
+| **Angle** | Sets the direction of Parallel passes. |
+| **Stepover Ratio** | Sets the lateral gap between applicable passes as a fraction of the tool diameter. |
+
+Offset paths simplify compatible polylines into arcs and circles, which can make the generated
+G-code smaller and motion smoother.
+
+## Seeded circles
+
+Seeded circles begin from circular seed positions and then clear the remaining material. They are
+useful when circular motion suits the geometry, but you should inspect the final links and islands
+in the toolpath preview before machining.
+
+## Overlapping subtracts
+
+Non-target subtract features that meet a target can extend the resolved cut region at their own
+depth. Long connected chains can reach the resolver's chain limit and report a warning. Inspect
+the resolved bands and warnings when nearby pockets overlap; split the geometry or targets if the
+result is not the region you intended to clear.
+
+## Limitations
+
+<Aside type="caution" title="A pattern is not available on every operation">
+	3D surface finish uses Parallel, Waterline, and Constant scallop instead. Cleanup does not
+	offer Trochoidal, Waterline, or Constant scallop.
+</Aside>
+
+## Related pages
+
+- [Trochoidal cutting](/guide/strategies/trochoidal-cutting/): a load-managed alternative for supported roughing operations.
+- [Corners](/guide/strategies/corners/): rounding and relief controls for compatible contour paths.

@@ -1,0 +1,52 @@
+---
+title: Corner rounding and relief
+description: Smooth eligible contour transitions or add dogbone and T-bone relief to inside corners.
+pageType: strategy
+availability: stable
+status: draft
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+## How it works
+
+The **Corners** group can round outside contour corners, make compatible link junctions tangent,
+and clean reachable wall corners. **Corner relief** deliberately removes extra material at inside
+corners so a square mating part can seat.
+
+## Where it applies
+
+| Operation | Where to find it |
+| --- | --- |
+| [Pocket](/guide/operations/pocket/) | **Corners** on supported non-trochoidal patterns |
+| [Surface clean](/guide/operations/surface-clean/) | **Corners** where its clearing controls apply |
+| [3D surface rough](/guide/operations/3d-surface-rough/) | **Corners** where its clearing controls apply |
+| [Inside edge route](/guide/operations/edge-route-inside/) | **Corners** |
+| [Outside edge route](/guide/operations/edge-route-outside/) | **Corners** |
+
+## Settings
+
+| Setting | Description |
+| --- | --- |
+| **Round outside corners** | Rounds eligible external contour corners. |
+| **Round link corners** | Uses tangent links where compatible clearing rings meet. |
+| **Clean wall corners** | Removes reachable material left by rounded rings. |
+| **Corner relief** | Selects None, Dogbone, T-bone, or T-bone longest edge. |
+
+## Corner relief
+
+Dogbone relief opens the corner with a smaller circular extension. T-bone options remove more
+material and select a wall direction; **T-bone longest edge** chooses the longer adjacent edge.
+The generator skips corners it cannot cut safely and reports a warning.
+
+## Limitations
+
+<Aside type="caution" title="Relief changes the finished part">
+	Corner relief is intentional overcutting. It is unavailable on trochoidal pockets and can be
+	skipped near tabs or where the cutter has not actually passed through the corner.
+</Aside>
+
+## Related pages
+
+- [Clearing patterns](/guide/strategies/clearing-patterns/): choose the compatible contour pattern first.
+- [Trochoidal cutting](/guide/strategies/trochoidal-cutting/): why trochoidal pockets cannot use corner relief.

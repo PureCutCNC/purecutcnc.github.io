@@ -1,0 +1,71 @@
+---
+title: 3D finishing controls
+description: Choose a 3D finishing pattern and tune waterline, scallop-height, slope, and protection controls.
+pageType: strategy
+availability: stable
+status: draft
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+## How it works
+
+3D surface finish offers three patterns. **Parallel** follows repeated scan lines, **Waterline**
+follows contour rings around the model, and **Constant scallop** varies the path spacing to hold a
+target cusp height on compatible ball-endmill work.
+
+## Where it applies
+
+| Operation | Where to find it |
+| --- | --- |
+| [3D surface finish](/guide/operations/3d-surface-finish/) | **Strategy** |
+
+## Settings
+
+| Setting | Description |
+| --- | --- |
+| **Pattern** | Chooses Parallel, Waterline, or Constant scallop. |
+| **Scallop height** | Sets the target cusp height for compatible ball-endmill finishing. |
+| **Filter by surface slope** | Sets the minimum and maximum surface slopes to machine. |
+
+## Waterline
+
+Waterline can use **Adaptive refinement**. When it is enabled, **Adaptive spacing** and **Max
+rings / band** control the refinement of each contour band. Budget warnings mean the requested
+ring detail could not all be emitted; inspect the resulting coverage instead of treating the
+setting as guaranteed.
+
+## Constant scallop
+
+Constant scallop is a finish pattern for the operation. With a ball endmill, **Scallop height**
+sets the target cusp height and the panel shows the implied cusp information. It replaces the
+ordinary stepover ratio for that configuration.
+
+## Scallop height
+
+Use a smaller scallop height for a finer surface at the cost of more passes. Choose a value that
+matches the finish requirement and the tool geometry, then compare the toolpath density in the
+preview before committing to machining time.
+
+## Slope filter
+
+**Filter by surface slope** limits finishing to the chosen minimum and maximum surface slope. Use
+separate operations when steep walls and shallow floors need different strategies or finishes.
+
+## Protection
+
+3D surface operations protect the model cross-section and retained 2.5D material. Nearby features,
+regions, clamps, and tabs can interrupt or suppress unsafe moves. This is intentional: review the
+warnings and the 3D result for uncovered bands instead of forcing a path through protected material.
+
+## Limitations
+
+<Aside type="danger" title="Safety: a beautiful preview still needs a dry run">
+	Finishing paths can be dense and slope-limited. Confirm the model target, tool, workholding,
+	clearances, protected areas, and final simulation before exporting or running the job.
+</Aside>
+
+## Related pages
+
+- [3D surface rough](/guide/operations/3d-surface-rough/): remove bulk material first.
+- [3D surface cleanup](/guide/operations/3d-surface-cleanup/): clean eligible retained steps.
