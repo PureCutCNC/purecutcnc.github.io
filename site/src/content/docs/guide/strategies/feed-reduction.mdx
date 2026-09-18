@@ -1,0 +1,43 @@
+---
+title: Feed reduction
+description: Reduce programmed feed for full-width slots or vary it with measured cutter engagement.
+pageType: strategy
+availability: stable
+status: draft
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+## How it works
+
+Feed reduction lowers the programmed cutting feed when engagement is more demanding. **Slots only**
+uses the configured **Slot Feed** percentage for full-width cutting stretches. **Engagement**
+uses the cutter's actual engagement on the emitted path to choose a bounded feed scale.
+
+## Where it applies
+
+| Operation | Where to find it |
+| --- | --- |
+| [Pocket](/guide/operations/pocket/) | **Speeds & feeds** |
+| [Surface clean](/guide/operations/surface-clean/) | **Speeds & feeds** |
+| [3D surface rough](/guide/operations/3d-surface-rough/) | **Speeds & feeds** |
+| Compatible edge-route roughing | **Speeds & feeds** |
+
+## Settings
+
+| Setting | Description |
+| --- | --- |
+| **Feed reduction** | Selects Off, Slots only, or Engagement where the operation supports it. |
+| **Slot Feed** | The percentage of programmed feed used for a full-width slot; the default is 60%. |
+
+## Limitations
+
+<Aside type="caution" title="Reduction does not choose a safe base feed">
+	These controls only reduce the programmed feed. Set the material, tool, spindle speed, and base
+	feed correctly first, then inspect the feed-colour legend and simulation before machining.
+</Aside>
+
+## Related pages
+
+- [Trochoidal cutting](/guide/strategies/trochoidal-cutting/): control engagement by changing the toolpath.
+- [Common operation parameters](/guide/operations/common-parameters/): shared feed and spindle settings.

@@ -1,0 +1,53 @@
+---
+title: Entry and exit moves
+description: Choose a plunge, helix, or ramp entry and configure eligible tangent XY approach and exit moves.
+pageType: strategy
+availability: stable
+status: draft
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+## How it works
+
+The **Entry strategy** controls how the tool reaches cutting depth: **Plunge**, **Helix**, or
+**Ramp**. A helix or ramp uses its angle setting; a helix also has a diameter setting. When a
+strategy cannot fit the geometry, the app reports the fallback in its warnings.
+
+## Where it applies
+
+| Operation | Where to find it |
+| --- | --- |
+| [Pocket](/guide/operations/pocket/) | **Entry & retract** |
+| [Surface clean](/guide/operations/surface-clean/) | **Entry & retract** |
+| [3D surface rough](/guide/operations/3d-surface-rough/) | **Entry & retract** |
+| [Inside edge route](/guide/operations/edge-route-inside/) | **Entry & retract** |
+| [Outside edge route](/guide/operations/edge-route-outside/) | **Entry & retract** |
+| [Trochoidal cutting](/guide/strategies/trochoidal-cutting/) | Supported entry controls where the operation offers them |
+
+## Settings
+
+| Setting | Description |
+| --- | --- |
+| **Entry strategy** | Chooses Plunge, Helix, or Ramp. |
+| **Ramp angle** | Sets the descent angle for a ramp or helix. |
+| **Helix diameter** | Sets the helix size for a helical entry. |
+
+## XY approach
+
+**XY approach & exit** can add a direct or tangent-arc lead-in and lead-out on compatible wall
+cuts. It is offered for eligible Pocket, Surface clean, 3D surface rough, and edge-route work.
+Edge routes need a ramped entry; trochoidal rough edge routes do not offer this control. A region
+mask can also make the lead unavailable.
+
+## Limitations
+
+<Aside type="caution" title="Use the reported fallback">
+	The tool cannot always fit a helix, ramp, or tangent lead in the selected geometry. Read the
+	warning and inspect the first cutting move; do not assume the requested entry was generated.
+</Aside>
+
+## Related pages
+
+- [Trochoidal cutting](/guide/strategies/trochoidal-cutting/): trochoidal entries and edge-route limits.
+- [Working safely](/guide/start-here/safety/): verify entry, retract, and clearance motion before machining.

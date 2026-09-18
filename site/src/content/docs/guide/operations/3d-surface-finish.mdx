@@ -1,0 +1,53 @@
+---
+title: 3D surface finish
+description: Finish one 3D model with parallel, waterline, or constant-scallop toolpaths.
+pageType: operation
+availability: stable
+status: draft
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+**3D surface finish** machines the final surface of one model. Choose it after roughing when the
+finish, cusp height, and slope coverage matter more than bulk removal rate.
+
+## Requirements
+
+| Requirement | Value |
+| --- | --- |
+| Target features | Exactly one 3D model feature |
+| Tool | Flat or ball endmill; scallop-height control requires a ball endmill |
+| Passes | Finish only |
+
+## Parameters
+
+Shared settings are documented in [Common operation parameters](/guide/operations/common-parameters/).
+
+| Parameter | Description |
+| --- | --- |
+| **Pattern** | Chooses Parallel, Waterline, or Constant scallop. |
+| **Slope filter** | Limits the operation to the selected surface-slope range. |
+| **Scallop height** | Sets the target cusp height for ball-endmill finishing. |
+| **Stepdown** | Controls applicable vertical refinement settings. |
+
+## Strategies
+
+Read [3D finishing controls](/guide/strategies/3d-finishing/) for each pattern, waterline
+refinement, scallop height, the slope filter, and protection behaviour.
+
+## Limitations
+
+Only one model can be the target. Parallel and constant-scallop passes do not use the 2.5D
+clearing-pattern controls, while waterline uses adaptive ring settings instead of a stepover ratio.
+
+## Verifying the result
+
+<Aside type="danger" title="Safety: inspect slope-limited coverage">
+	A slope filter deliberately leaves portions of a model uncut. Inspect the 3D preview and
+	simulation for missed bands, protected areas, and the final surface before exporting G-code.
+</Aside>
+
+## Related pages
+
+- [3D surface rough](/guide/operations/3d-surface-rough/): prepare a model for finishing.
+- [3D surface cleanup](/guide/operations/3d-surface-cleanup/): clean eligible walls and floors at retained levels.
