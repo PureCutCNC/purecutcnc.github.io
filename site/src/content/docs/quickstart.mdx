@@ -6,9 +6,9 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../components/VisualPending.astro';
 import { Aside } from '@astrojs/starlight/components';
 import Screenshot from '../../components/Screenshot.astro';
+import emptyWorkspace from '../../assets/manual/quickstart/empty-workspace.png';
 import newProject from '../../assets/manual/quickstart/new-project.png';
 import newRect from '../../assets/manual/quickstart/new-rect.png';
 import newCircle from '../../assets/manual/quickstart/new-circle.png';
@@ -16,6 +16,7 @@ import importTool from '../../assets/manual/quickstart/import-tool.png';
 import addPocketRough from '../../assets/manual/quickstart/add-pocket-rough.png';
 import previewSketch from '../../assets/manual/quickstart/preview-sketch.png';
 import preview3d from '../../assets/manual/quickstart/preview-3dview.png';
+import machineAndExport from '../../assets/manual/quickstart/machine-and-export.png';
 import previewSimulation from '../../assets/manual/quickstart/preview-simulation.png';
 
 This walkthrough takes a blank project to exported G-code: a rectangular part with a circular
@@ -50,7 +51,7 @@ the stock, on its top surface.
 
 <Screenshot src={newProject} alt="New project dialog with the Blank imperial template selected and a preview listing inch units, a 4 × 3 × 0.75 stock, and no machine" />
 
-<VisualPending id="quickstart-new-project" />
+<Screenshot src={emptyWorkspace} alt="Empty PureCutCNC workspace in Sketch view with the 4 × 3 × 0.75 inch stock outline visible and the origin marker at the lower-left corner of the stock" />
 
 ## Add the outer boundary rectangle
 
@@ -60,9 +61,7 @@ features**), then choose **Rectangle** in the shape drawer. When the workflow pa
 opposite corner or enter dimensions**, click **Dimensions** and enter a **Width** of 3 and a
 **Height** of 2.
 
-<Screenshot src={newRect} alt="Sketch view with a pending 3 × 2 rectangle inside the stock outline, and the Rectangle workflow panel asking for the opposite corner or dimensions" />
-
-<VisualPending id="quickstart-outer-rectangle" />
+<Screenshot src={newRect} alt="Sketch canvas with a pending 3 by 2 inch rectangle inside the 4 by 3 inch stock outline, the origin marker at the lower-left corner of the stock, and the Rectangle workflow panel offering a Dimensions button" />
 
 The rectangle appears in the feature tree. As the first solid in the project it is always an add
 feature: the material that remains. The stock around it is what an outside edge route would cut
@@ -73,9 +72,7 @@ away later.
 Choose **Circle**. At **Click center point**, click the centre of the rectangle. At **Click to set
 radius or enter dimensions**, click **Dimensions** and enter a **Radius** of 0.75.
 
-<Screenshot src={newCircle} alt="Sketch view with a circle being drawn inside a rectangle at radius 0.75, and the Circle workflow panel offering Dimensions and Cancel" />
-
-<VisualPending id="quickstart-inner-circle" />
+<Screenshot src={newCircle} alt="Sketch canvas with a pending 0.75 inch radius circle inside the 3 by 2 inch rectangle, the origin marker at the lower-left corner of the stock, and the Circle workflow panel offering a Dimensions button" />
 
 Because the circle lies inside an add feature, PureCutCNC makes it a subtract feature; its row in
 the feature tree shows a minus badge. Press <kbd>Esc</kbd> to put the circle tool away, then select
@@ -96,9 +93,7 @@ search box,
 tick **1/4" Endmill**, and click **Import tool**. Tools already in the project are marked **In
 project**, so you do not import them twice.
 
-<Screenshot src={importTool} alt="Empty Tools list in the CAM panel with the Add tool and Import from library buttons" maxWidth={320} />
-
-<VisualPending id="quickstart-import-tool" />
+<Screenshot src={importTool} alt="Import tools from library dialog with search, type, and unit filters, the 1/4 inch Endmill row selected, and Import tool ready" maxWidth={320} />
 
 Check that the tool's diameter and type match the cutter you will put in the spindle. Library
 values are a starting point, not a measurement of your tool. The
@@ -106,13 +101,17 @@ values are a starting point, not a measurement of your tool. The
 
 ## Create a rough pocket operation
 
-Select the circle on the canvas or in the feature tree. Open the **Operations** tab, click **Add**,
-and on the **Pocket** row click **Rough**. The Add menu lists the operations your selection can
-use first. **Finish** would add a finishing pass instead, and **Both** adds one of each.
+Right-click the circle on the canvas (or its row in the feature tree) and choose **Create
+operation** &rsaquo; **Create pocket**. PureCutCNC adds a rough pocket using a suitable tool from
+the project — for this tutorial it picks the 1/4″ Endmill you imported. The operations menu also
+offers **Create inside route**, **Create V-carve (offset / medial)**, **Create engraving**, and
+**Create drilling**, each appropriate for different feature shapes.
 
-<Screenshot src={addPocketRough} alt="Add menu open on the Pocket row, with Rough, Finish, and Both buttons above the Pocket description and its key points" maxWidth={420} />
+The older route still works: select the circle, open the **Operations** tab, click **Add**, and on
+the **Pocket** row click **Rough** (or **Finish** / **Both**). The context menu above is the faster
+path when the feature is already selected.
 
-<VisualPending id="quickstart-add-pocket" />
+<Screenshot src={addPocketRough} alt="Right-click context menu on the subtract circle with Create operation expanded and Create pocket highlighted" maxWidth={420} />
 
 The new **Pocket Rough** operation appears in the operations list, selected, with its settings
 below. PureCutCNC chooses a suitable tool from the project; check that **Tool** shows
@@ -147,17 +146,11 @@ The toolpath display controls choose which moves are drawn: **Cuts**, **Lead-ins
 **Plunges**, **Retractions**, and **Directions**. Turn off the cuts, for example, to look at just
 the entry moves.
 
-<Screenshot src={previewSketch} alt="Sketch view with the pocket toolpath drawn as concentric rings inside the circle, over the rectangle" />
+<Screenshot src={previewSketch} alt="Sketch view with a move-type legend at the top, offset pocket toolpath rings drawn in red inside the circle, and the surrounding rectangle outline" />
 
-<VisualPending id="quickstart-preview-sketch" />
+<Screenshot src={preview3d} alt="3D view of the 4 by 3 inch stock with the circular pocket toolpath drawn as concentric red rings over the stock surface and the Z slider on the left" />
 
-<Screenshot src={preview3d} alt="3D view of the stock and the raised rectangle, with the circular pocket's toolpath drawn as concentric rings" />
-
-<VisualPending id="quickstart-preview-3d" />
-
-<Screenshot src={previewSimulation} alt="Simulation view showing the stock after the pocket toolpath has removed material" />
-
-<VisualPending id="quickstart-preview-simulation" />
+<Screenshot src={previewSimulation} alt="Simulation view of the 4 by 3 inch stock with the circular pocket partially cut, in Selected mode with the Detail slider at 680 and Play tool ready" />
 
 Use the preview to answer specific questions. Does the pocket stop at the floor you set? Does the
 toolpath stay inside the circle? Does the tool enter and leave where you expect? If anything looks
@@ -166,10 +159,10 @@ generated again after each change.
 
 ## Select a machine and export G-code
 
+<Screenshot src={machineAndExport} alt="Export G-code dialog with GRBL 1.1 selected, the Pocket Rough operation checked, Emit tool changes on, and a preview of the first 30 lines of generated G-code on the right" />
 
-<VisualPending id="quickstart-machine-export" />
 A new project has no machine. Select **Project** at the top of the feature tree and set
-**Machine** to the definition for your controller, for example **Mach3**. The machine sets the
+**Machine** to the definition for your controller, for example **GRBL 1.1**. The machine sets the
 G-code dialect, the units commands, and the file extension.
 
 In the CAM panel, click **Export**. The **Export G-code** dialog shows:
@@ -181,7 +174,7 @@ In the CAM panel, click **Export**. The **Export G-code** dialog shows:
   ticked. **Pocket Rough** starts ticked because its toolpath is shown;
 - **Options**, any **Errors** and **Warnings**, and **Preview (first 30 lines)** of the program.
 
-Check each of them, then click the export button (**Export .tap** for Mach3) and save the file.
+Check each of them, then click the export button (**Export .nc** for GRBL 1.1) and save the file.
 Open the file in your controller or a G-code viewer and compare it with your setup.
 
 <Aside type="danger" title="Safety: verify before cutting">

@@ -94,10 +94,10 @@
 			"afterHeading": "Create a new project",
 			"kind": "screenshot",
 			"purpose": "Show the exact starting template and stock settings used by the tutorial.",
-			"brief": "The New project dialog with Blank imperial selected and the tutorial stock preview visible.",
-			"asset": "quickstart/new-project.png",
-			"alt": "New project dialog with Blank imperial selected and the tutorial stock dimensions in the preview",
-			"status": "proposed",
+			"brief": "Empty PureCutCNC workspace in Sketch view, with the project tree on the left, the 4 × 3 × 0.75 inch stock outline and origin marker on the canvas, and the Operations and Properties panels on the right.",
+			"asset": "quickstart/empty-workspace.png",
+			"alt": "Empty PureCutCNC workspace in Sketch view with the 4 × 3 × 0.75 inch stock outline visible and the origin marker at the lower-left corner of the stock",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -106,10 +106,10 @@
 			"afterHeading": "Add the outer boundary rectangle",
 			"kind": "screenshot",
 			"purpose": "Connect the typed dimensions with the pending geometry and workflow panel.",
-			"brief": "A pending 3 by 2 rectangle inside the stock with its dimension readouts and Rectangle workflow panel.",
+			"brief": "A pending 3 by 2 rectangle inside the 4 by 3 inch stock, with the Rectangle workflow panel offering Dimensions.",
 			"asset": "quickstart/new-rect.png",
-			"alt": "Pending 3 by 2 rectangle inside the stock with dimension readouts and the Rectangle workflow panel",
-			"status": "proposed",
+			"alt": "Sketch canvas with a pending 3 by 2 inch rectangle inside the 4 by 3 inch stock outline, the origin marker at the lower-left corner of the stock, and the Rectangle workflow panel offering a Dimensions button",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -118,10 +118,10 @@
 			"afterHeading": "Add a circle inside the rectangle",
 			"kind": "screenshot",
 			"purpose": "Show the intended circle placement and the drawing state before it is confirmed.",
-			"brief": "A circle being drawn inside the rectangle at the tutorial radius with the Circle workflow panel visible.",
+			"brief": "A pending 0.75 inch radius circle centered inside the 3 by 2 inch rectangle, with the Circle workflow panel offering Dimensions.",
 			"asset": "quickstart/new-circle.png",
-			"alt": "Circle being drawn inside the rectangle with its radius readout and the Circle workflow panel",
-			"status": "proposed",
+			"alt": "Sketch canvas with a pending 0.75 inch radius circle inside the 3 by 2 inch rectangle, the origin marker at the lower-left corner of the stock, and the Circle workflow panel offering a Dimensions button",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -129,11 +129,11 @@
 			"page": "/quickstart/",
 			"afterHeading": "Import a 1/4″ endmill from the tool library",
 			"kind": "screenshot",
-			"purpose": "Help first-time users find the tool-library entry point in the CAM panel.",
-			"brief": "The empty Tools list with Add tool and Import from library controls visible.",
+			"purpose": "Show the tool-library dialog with the 1/4″ endmill row selected, ready to import.",
+			"brief": "Import tools from library dialog with search and type filters, the 1/4″ Endmill row selected, and Import tool ready.",
 			"asset": "quickstart/import-tool.png",
-			"alt": "Empty Tools list in the CAM panel with Add tool and Import from library controls",
-			"status": "proposed",
+			"alt": "Import tools from library dialog with search and type and unit filters, the 1/4 inch Endmill row selected, and Import tool ready",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -141,11 +141,11 @@
 			"page": "/quickstart/",
 			"afterHeading": "Create a rough pocket operation",
 			"kind": "screenshot",
-			"purpose": "Show where Rough is chosen and how the Pocket operation is described.",
-			"brief": "The Add operation menu open on Pocket with Rough, Finish, and Both controls and the operation explanation visible.",
+			"purpose": "Show the shortcut: right-clicking the subtract feature and picking the operation from the Create operation submenu.",
+			"brief": "Right-click context menu on the subtract circle, with Create operation expanded to show Create pocket as the first option.",
 			"asset": "quickstart/add-pocket-rough.png",
-			"alt": "Add operation menu open on Pocket with Rough, Finish, and Both choices",
-			"status": "proposed",
+			"alt": "Right-click context menu on the subtract circle with Create operation expanded and Create pocket highlighted",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -154,10 +154,10 @@
 			"afterHeading": "Preview the toolpath",
 			"kind": "screenshot",
 			"purpose": "Show the generated pocket path in the design context.",
-			"brief": "The Sketch view with offset pocket rings inside the circle and the surrounding rectangle visible.",
+			"brief": "The Sketch view with the move-type legend at the top, offset pocket rings drawn as Cuts inside the circle, and the surrounding rectangle outline.",
 			"asset": "quickstart/preview-sketch.png",
-			"alt": "Sketch view with offset pocket toolpath rings inside the circle",
-			"status": "proposed",
+			"alt": "Sketch view with a move-type legend at the top, offset pocket toolpath rings drawn in red inside the circle, and the surrounding rectangle outline",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -166,10 +166,10 @@
 			"afterHeading": "Preview the toolpath",
 			"kind": "screenshot",
 			"purpose": "Show how the same operation appears against the modeled stock and feature depth.",
-			"brief": "The 3D view of the tutorial stock and raised rectangle with the pocket toolpath visible.",
+			"brief": "The 3D view of the 4 by 3 inch stock with the circular pocket toolpath drawn as concentric red rings over the stock surface and the Z slider on the left.",
 			"asset": "quickstart/preview-3dview.png",
-			"alt": "3D view of the tutorial stock with the circular pocket toolpath visible",
-			"status": "proposed",
+			"alt": "3D view of the 4 by 3 inch stock with the circular pocket toolpath drawn as concentric red rings over the stock surface and the Z slider on the left",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -178,10 +178,10 @@
 			"afterHeading": "Preview the toolpath",
 			"kind": "screenshot",
 			"purpose": "Show the expected removed material rather than only the toolpath lines.",
-			"brief": "The Simulation view after the pocket has been cut, with the playback result clearly visible.",
+			"brief": "The Simulation view mid-cut: the 4 by 3 inch stock with the circular pocket partially cut, Selected mode active, Detail slider at 680, Play tool button ready.",
 			"asset": "quickstart/preview-simulation.png",
-			"alt": "Simulation view showing the tutorial stock after the circular pocket has been cut",
-			"status": "proposed",
+			"alt": "Simulation view of the 4 by 3 inch stock with the circular pocket partially cut, in Selected mode with the Detail slider at 680 and Play tool ready",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -190,10 +190,10 @@
 			"afterHeading": "Select a machine and export G-code",
 			"kind": "screenshot",
 			"purpose": "Make the final tutorial handoff from project settings to export concrete.",
-			"brief": "The selected machine on the Project properties and the resulting Export G-code dialog with the pocket operation checked.",
+			"brief": "Export G-code dialog with GRBL 1.1 selected, the Pocket Rough operation checked, Emit tool changes on, and a preview of the first 30 lines of generated G-code on the right.",
 			"asset": "quickstart/machine-and-export.png",
-			"alt": "Selected project machine and Export G-code dialog with the tutorial pocket operation checked",
-			"status": "proposed",
+			"alt": "Export G-code dialog with GRBL 1.1 selected, the Pocket Rough operation checked, Emit tool changes on, and a preview of the first 30 lines of generated G-code on the right",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{

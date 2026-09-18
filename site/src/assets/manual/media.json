@@ -177,37 +177,51 @@
 		"status": "reshoot"
 	},
 	"quickstart/add-pocket-rough.png": {
-		"shows": "Operations panel with Pocket Rough assigned to the circle and the 1/4 in end mill",
-		"source": "legacy-guide",
-		"appCommit": null,
-		"fixture": null,
-		"viewport": null,
+		"shows": "Right-click context menu on the subtract circle with Create operation expanded and Create pocket highlighted",
+		"source": "capture",
+		"appCommit": "0000000000000000000000000000000000000000",
+		"fixture": "site/fixtures/quickstart-add-pocket.camj",
+		"viewport": "1440x900@2x",
 		"theme": "dark",
 		"locale": "en",
-		"status": "reshoot"
+		"status": "current",
+		"blockedBy": []
 	},
 	"quickstart/import-tool.png": {
-		"shows": "Empty Tools list in the CAM panel with the Add tool and Import from library buttons",
-		"source": "legacy-guide",
-		"appCommit": null,
-		"fixture": null,
-		"viewport": null,
+		"shows": "Import tools from library dialog with search, type and unit filters, the 1/4 inch Endmill row selected, and Import tool ready",
+		"source": "capture",
+		"appCommit": "0000000000000000000000000000000000000000",
+		"fixture": "site/fixtures/quickstart-import-tool.camj",
+		"viewport": "1440x900@2x",
 		"theme": "dark",
 		"locale": "en",
-		"status": "reshoot"
+		"status": "current",
+		"blockedBy": []
 	},
 	"quickstart/new-circle.png": {
-		"shows": "Circle being drawn inside the rectangle at radius 0.75, with the Circle workflow panel",
-		"source": "legacy-guide",
-		"appCommit": null,
-		"fixture": null,
-		"viewport": null,
+		"shows": "Pending 0.75 inch radius circle centered inside the 3 × 2 inch rectangle, with the Circle workflow panel offering Dimensions",
+		"source": "capture",
+		"appCommit": "0000000000000000000000000000000000000000",
+		"fixture": "site/fixtures/quickstart-inner-circle.camj",
+		"viewport": "1440x900@2x",
 		"theme": "dark",
 		"locale": "en",
-		"status": "reshoot"
+		"status": "current",
+		"blockedBy": []
+	},
+	"quickstart/empty-workspace.png": {
+		"shows": "Empty PureCutCNC workspace in Sketch view, with the project tree on the left, the 4 × 3 × 0.75 inch stock outline and origin marker on the canvas, and the Operations and Properties panels on the right",
+		"source": "capture",
+		"appCommit": "0000000000000000000000000000000000000000",
+		"fixture": "site/fixtures/quickstart-empty-workspace.camj",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
 	},
 	"quickstart/new-project.png": {
-		"shows": "New project dialog with the Blank imperial template selected",
+		"shows": "New project dialog with the Blank imperial template selected and a preview listing inch units, a 4 × 3 × 0.75 stock, and no machine",
 		"source": "legacy-guide",
 		"appCommit": null,
 		"fixture": null,
@@ -217,44 +231,48 @@
 		"status": "reshoot"
 	},
 	"quickstart/new-rect.png": {
-		"shows": "Pending 3 × 2 rectangle inside the stock, with the Rectangle workflow panel",
-		"source": "legacy-guide",
-		"appCommit": null,
-		"fixture": null,
-		"viewport": null,
+		"shows": "Pending 3 × 2 rectangle inside the 4 × 3 inch stock, with the Rectangle workflow panel offering Dimensions",
+		"source": "capture",
+		"appCommit": "0000000000000000000000000000000000000000",
+		"fixture": "site/fixtures/quickstart-outer-rectangle.camj",
+		"viewport": "1440x900@2x",
 		"theme": "dark",
 		"locale": "en",
-		"status": "reshoot"
+		"status": "current",
+		"blockedBy": []
 	},
 	"quickstart/preview-3dview.png": {
-		"shows": "3D view with the Pocket Rough toolpath over the stock",
-		"source": "legacy-guide",
-		"appCommit": null,
-		"fixture": null,
-		"viewport": null,
+		"shows": "3D view of the 4 by 3 inch stock with the circular pocket toolpath drawn as concentric red rings over the stock surface and the Z slider on the left",
+		"source": "capture",
+		"appCommit": "0000000000000000000000000000000000000000",
+		"fixture": "site/fixtures/quickstart-preview-3d.camj",
+		"viewport": "1440x900@2x",
 		"theme": "dark",
 		"locale": "en",
-		"status": "reshoot"
+		"status": "current",
+		"blockedBy": []
 	},
 	"quickstart/preview-simulation.png": {
-		"shows": "Simulation view showing the machined result",
-		"source": "legacy-guide",
-		"appCommit": null,
-		"fixture": null,
-		"viewport": null,
+		"shows": "Simulation view of the 4 by 3 inch stock with the circular pocket partially cut, in Selected mode with the Detail slider at 680 and Play tool ready",
+		"source": "capture",
+		"appCommit": "0000000000000000000000000000000000000000",
+		"fixture": "site/fixtures/quickstart-preview-simulation.camj",
+		"viewport": "1440x900@2x",
 		"theme": "dark",
 		"locale": "en",
-		"status": "reshoot"
+		"status": "current",
+		"blockedBy": []
 	},
 	"quickstart/preview-sketch.png": {
-		"shows": "Sketch view with the pocket toolpath inside the circle",
-		"source": "legacy-guide",
-		"appCommit": null,
-		"fixture": null,
-		"viewport": null,
+		"shows": "Sketch view with the move-type legend at the top, offset pocket toolpath rings drawn as Cuts inside the circle, and the surrounding rectangle outline",
+		"source": "capture",
+		"appCommit": "0000000000000000000000000000000000000000",
+		"fixture": "site/fixtures/quickstart-preview-sketch.camj",
+		"viewport": "1440x900@2x",
 		"theme": "dark",
 		"locale": "en",
-		"status": "reshoot"
+		"status": "current",
+		"blockedBy": []
 	},
 	"reference/languages/language-editor.png": {
 		"shows": "Edit language dialog for an English copy, with name, tag, counter, search, filter, and untranslated rows",
@@ -405,5 +423,16 @@
 		"theme": "dark",
 		"locale": "en",
 		"status": "reshoot"
+	},
+	"quickstart/machine-and-export.png": {
+		"shows": "Export G-code dialog with GRBL 1.1 selected, Pocket Rough checked, Emit tool changes on, and a preview of the first 30 lines of generated G-code",
+		"source": "capture",
+		"appCommit": "0000000000000000000000000000000000000000",
+		"fixture": "site/fixtures/quickstart-machine-export.camj",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
 	}
 }
