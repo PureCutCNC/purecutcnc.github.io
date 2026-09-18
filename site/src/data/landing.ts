@@ -21,7 +21,7 @@ export const STRATEGIES: Card[] = [
 	{
 		icon: "〰️",
 		title: "Smoother Offset Links",
-		html: "When offset rings can be joined safely, PureCut CNC uses a tangent arc-line-arc link instead of a sharp dogleg. Where that curve does not fit, it keeps the proven straight transition, so the toolpath stays predictable."
+		html: "When offset rings can be joined safely, PureCutCNC uses a tangent arc-line-arc link instead of a sharp dogleg. Where that curve does not fit, it keeps the proven straight transition, so the toolpath stays predictable."
 	},
 	{
 		icon: "📶",

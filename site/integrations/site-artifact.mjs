@@ -50,7 +50,7 @@ export function renderRedirectPage({ to, anchors = {} }, site) {
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Page moved | PureCut CNC</title>
+<title>Page moved | PureCutCNC</title>
 <meta name="robots" content="noindex">
 <link rel="canonical" href="${escapeHtml(canonical)}">
 <script>${script}</script>

@@ -1,4 +1,15 @@
 {
+	"guide-overview/workflow-overview.svg": {
+		"shows": "Six-step PureCutCNC workflow from project setup and design through CAM, verification, export, and machine-side checks",
+		"source": "diagram",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
 	"cam-setup/tool-library/import-dialog.png": {
 		"shows": "Import tools from library dialog: search, type and unit filters, inch tool rows badged New, nothing selected",
 		"source": "legacy-guide",

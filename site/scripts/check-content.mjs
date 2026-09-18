@@ -52,7 +52,7 @@ export const TERMINOLOGY = [
 	// Bundled tool names such as `60° V-Bit` are names, not labels, and keep their spelling.
 	[/(?<!°\s)\bV-Bit\b|\bVbit\b|\bV bit\b/, 'write "V-bit", including the tool type label (PureCutCNC/purecutcnc#797)', { labels: true }],
 	[/\b(?:Top|Bottom) Z\b|\bZ[ -]?(?:Top|Bottom)\b|\bZ(?:top|bottom)\b/, 'write "Z top" / "Z bottom", including labels (PureCutCNC/purecutcnc#797)', { labels: true }],
-	[/\bPureCutCNC\b|\bPure Cut\b|\bPurecut\b/, 'write "PureCut CNC" (bold UI text may keep the app spelling)'],
+	[/\bPureCut\s+CNC\b|\bPure\s+Cut\b|\bPurecut\b/, 'write "PureCutCNC"', { labels: true }],
 	[/\buser manual\b/i, 'the guide is called the "User Guide"'],
 	[/\bpreview build\b/, 'write "Preview Build"'],
 	[/\bclick on\b/i, 'write "click"'],

@@ -19,9 +19,9 @@ import preview3d from '../../assets/manual/quickstart/preview-3dview.png';
 import previewSimulation from '../../assets/manual/quickstart/preview-simulation.png';
 
 This walkthrough takes a blank project to exported G-code: a rectangular part with a circular
-pocket, cut with a 1/4″ endmill. It takes about ten minutes. You need PureCut CNC open in a
+pocket, cut with a 1/4″ endmill. It takes about ten minutes. You need PureCutCNC open in a
 desktop or tablet browser, or the desktop app; see
-[Install and open PureCut CNC](/guide/start-here/install-and-open/).
+[Install and open PureCutCNC](/guide/start-here/install-and-open/).
 
 The screenshots on this page come from an earlier version of the app, so some labels and panels
 differ from what you see. The steps describe the app as it is.
@@ -77,7 +77,7 @@ radius or enter dimensions**, click **Dimensions** and enter a **Radius** of 0.7
 
 <VisualPending id="quickstart-inner-circle" />
 
-Because the circle lies inside an add feature, PureCut CNC makes it a subtract feature; its row in
+Because the circle lies inside an add feature, PureCutCNC makes it a subtract feature; its row in
 the feature tree shows a minus badge. Press <kbd>Esc</kbd> to put the circle tool away, then select
 the circle. In the properties panel, expand **Shape**: **Operation** reads **Subtract**. Expand
 **Instance**: **Z top** is 0.75, the top of the stock. Set **Z bottom** to 0.5. The pocket floor is
@@ -115,7 +115,7 @@ use first. **Finish** would add a finishing pass instead, and **Both** adds one 
 <VisualPending id="quickstart-add-pocket" />
 
 The new **Pocket Rough** operation appears in the operations list, selected, with its settings
-below. PureCut CNC chooses a suitable tool from the project; check that **Tool** shows
+below. PureCutCNC chooses a suitable tool from the project; check that **Tool** shows
 **1/4" Endmill**. Then look at **Stepdown** under **Depth**, at **Feed**, **Plunge feed**, and
 **RPM** under **Speeds & feeds**, and at **Stepover ratio** under **Strategy**, which starts
 collapsed. These values start from the tool's defaults, which are not a recommendation for your

@@ -1,6 +1,6 @@
 ---
 title: Working safely
-description: Understand the operator checks that remain necessary after PureCut CNC generates a toolpath.
+description: Understand the operator checks that remain necessary after PureCutCNC generates a toolpath.
 pageType: concept
 availability: stable
 status: draft
@@ -8,7 +8,7 @@ status: draft
 
 import { Aside } from '@astrojs/starlight/components';
 
-PureCut CNC helps you inspect a job; it does not certify that the job is safe to run. Preview,
+PureCutCNC helps you inspect a job; it does not certify that the job is safe to run. Preview,
 simulation, warnings, and G-code export are verification aids. The operator remains responsible
 for the machine, workholding, stock, tooling, controller setup, and physical test procedure.
 
@@ -18,7 +18,7 @@ Treat every generated toolpath as a claim to inspect, not permission to cut. A p
 reasonable on screen can still be wrong for the installed cutter, stock position, fixture,
 controller mode, work offset, or machine limits.
 
-PureCut CNC does not decide safe feeds, spindle speed, tool limits, controller capabilities, or
+PureCutCNC does not decide safe feeds, spindle speed, tool limits, controller capabilities, or
 machine setup for you. Keep project units, origin, machine selection, and post-processor choice
 explicit, because each affects the physical motion described by the exported program.
 

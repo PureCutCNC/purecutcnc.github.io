@@ -31,9 +31,9 @@ export default defineConfig({
 	trailingSlash: 'always',
 	integrations: [
 		starlight({
-			title: 'PureCut CNC',
+			title: 'PureCutCNC',
 			description:
-				'User Guide for PureCut CNC, a 2.5D + 3D CAD/CAM workspace for desktop and the browser.',
+				'User Guide for PureCutCNC, a 2.5D + 3D CAD/CAM workspace for desktop and the browser.',
 			favicon: '/favicon.svg',
 			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/PureCutCNC/purecutcnc' }],
 			editLink: {

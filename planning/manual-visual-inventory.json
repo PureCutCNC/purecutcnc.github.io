@@ -84,8 +84,8 @@
 			"purpose": "Give new readers a map of the full design-to-machine process before they choose a section.",
 			"brief": "A simple left-to-right workflow from project setup through design, CAM, preview, simulation, export, and machine-side verification.",
 			"asset": "guide-overview/workflow-overview.svg",
-			"alt": "PureCut CNC workflow from project setup and design through CAM, verification, export, and machine-side checks",
-			"status": "proposed",
+			"alt": "PureCutCNC workflow from project setup and design through CAM, verification, export, and machine-side checks",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -204,7 +204,7 @@
 			"purpose": "Help readers distinguish the stable web app, preview app, and desktop downloads.",
 			"brief": "The downloads page with Stable Web App, Preview Web App, and desktop download choices visible together.",
 			"asset": "start-here/install-and-open/run-options.png",
-			"alt": "PureCut CNC download choices for the stable web app, preview web app, and desktop builds",
+			"alt": "PureCutCNC download choices for the stable web app, preview web app, and desktop builds",
 			"status": "proposed",
 			"blockedBy": []
 		},
@@ -228,7 +228,7 @@
 			"purpose": "Orient new readers to the named interface regions used throughout the guide.",
 			"brief": "A full desktop workspace showing the top toolbar, tool rail, project panel, CAM panel, view tabs, canvas, and status bar without drawn annotations.",
 			"asset": "fundamentals/workspace/workspace-layout.png",
-			"alt": "Full PureCut CNC workspace with the top toolbar, tool rail, project and CAM panels, canvas, view tabs, and status bar visible",
+			"alt": "Full PureCutCNC workspace with the top toolbar, tool rail, project and CAM panels, canvas, view tabs, and status bar visible",
 			"status": "proposed",
 			"blockedBy": []
 		},
@@ -288,7 +288,7 @@
 			"purpose": "Show where bundled examples and the first-project entry point appear.",
 			"brief": "The empty-state Start your part card alongside the bundled example-project choices.",
 			"asset": "fundamentals/projects-and-files/examples.png",
-			"alt": "Start your part empty-state card and bundled PureCut CNC example projects",
+			"alt": "Start your part empty-state card and bundled PureCutCNC example projects",
 			"status": "proposed",
 			"blockedBy": []
 		},
@@ -960,7 +960,7 @@
 			"purpose": "Help readers choose an operation from the machining goal and target geometry.",
 			"brief": "A decision map from facing, clearing, profiling, engraving, drilling, and 3D goals to their compatible operation and target types.",
 			"asset": "operations/index/operation-choice-map.svg",
-			"alt": "Decision map from machining goals and target geometry to PureCut CNC operations",
+			"alt": "Decision map from machining goals and target geometry to PureCutCNC operations",
 			"status": "proposed",
 			"blockedBy": []
 		},
