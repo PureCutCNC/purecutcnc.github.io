@@ -1,0 +1,36 @@
+---
+title: Post-processor converter
+description: Convert a supported external CAM post-processor into a draft PureCut CNC machine definition.
+pageType: reference
+availability: stable
+status: draft
+---
+
+The Post-processor Converter is a developer command-line tool in the PureCut CNC source repository. It extracts literal, supported settings from an external CAM post and writes a draft machine definition plus a conversion report. It is not an in-app importer.
+
+## Running the converter
+
+From the app repository, run:
+
+```
+npx tsx src/postProcessorConverter/cli.ts --input <file> --output <file.json>
+```
+
+Use the supported input format and optional CLI flags shown by `--help`. Keep the original post and generated report with the output while reviewing it.
+
+## Formats
+
+The converter has adapters for supported external post formats, including Autodesk CPS, Mastercam PST, SheetCAM, Vectric/Estlcam, Visual Mill, ArtCAM, and ECam sources. It extracts only what it can identify safely; unsupported machine types or evaluated control flow are reported rather than guessed.
+
+## Report
+
+The command writes the requested machine definition JSON and a neighboring `.report.json` file, and prints a human-readable report. The report records extracted fields, defaults, omissions, and blockers so that you can distinguish an observed setting from a generic fallback.
+
+## After conversion
+
+Import the JSON through **Manage machines**, review every field, and test with a harmless program. Do not use a converted definition as-is for a production machine until its output has been checked against the controller and the source post.
+
+## Related pages
+
+- [Machine definition reference](/guide/reference/machine-definitions/): understand the generated fields.
+- [Exporting G-code](/guide/verify-export/gcode-export/): prepare a controller program with the reviewed definition.

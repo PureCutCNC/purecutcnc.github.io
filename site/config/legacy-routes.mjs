@@ -16,7 +16,6 @@
 
 /** Legacy guide pages that have not been migrated yet. */
 const PENDING_GUIDE_PAGES = [
-	'post-processor-converter',
 ];
 
 /** @type {{ from: string, to: string, anchors?: Record<string, string>, pending?: boolean }[]} */
@@ -161,6 +160,17 @@ export const LEGACY_ROUTES = [
 			'sim-what-to-check': '/guide/verify-export/simulation/#checklist',
 			'sim-gpu': '/guide/verify-export/simulation/#detail',
 			'sim-performance': '/guide/verify-export/simulation/#limits',
+		},
+	},
+	{
+		from: '/guide/post-processor-converter.html',
+		to: '/guide/reference/post-processor-converter/',
+		anchors: {
+			'what-it-is': '/guide/reference/post-processor-converter/',
+			running: '/guide/reference/post-processor-converter/#running-the-converter',
+			formats: '/guide/reference/post-processor-converter/#formats',
+			report: '/guide/reference/post-processor-converter/#report',
+			after: '/guide/reference/post-processor-converter/#after-conversion',
 		},
 	},
 	// Migrated: all of the Sketch view's destinations are now on the workspace page.

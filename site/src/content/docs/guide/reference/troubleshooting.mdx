@@ -1,0 +1,50 @@
+---
+title: Troubleshooting
+description: Resolve common import, generation, display, and export problems before you continue a job.
+pageType: troubleshooting
+availability: stable
+status: draft
+---
+
+## Import and project files
+
+### An imported file fails or has the wrong size
+
+**Cause:** The file type, units, or source geometry may not match the import path.
+
+**Fix:** Confirm the format and units, then use the matching import workflow. See [Importing SVG, DXF, and projects](/guide/design/importing-2d/) or [Importing 3D models](/guide/design/importing-3d-models/).
+
+## Generation and export
+
+### Generation is paused, fails, or produces an error
+
+**Cause:** An operation can be invalid, missing a tool, blocked by its geometry, or superseded after an edit.
+
+**Fix:** Read the operation message, correct the named setting, and generate again. Inspect the toolpath and simulation before export.
+
+### Export is unavailable
+
+**Cause:** The active machine, selection, tool assignment, preview, or required output capability is invalid.
+
+**Fix:** Review **Errors** in **Export G-code**, then reopen the dialog after correcting the project. See [Exporting G-code](/guide/verify-export/gcode-export/).
+
+## Graphics and simulation
+
+### The 3D or Sim view reports that WebGL is unavailable
+
+<span id="webgl"></span>
+
+**Cause:** WebGL2 is unavailable or its graphics context was lost.
+
+**Fix:** The 2D workspace remains usable. Try closing competing graphics-heavy apps, updating graphics drivers or the browser, and reopening the view. If it persists, use the Sketch toolpath preview and report the environment details with the warning.
+
+### A 3D mesh is too dense to work with
+
+**Cause:** The imported mesh exceeds a practical detail limit for the current device.
+
+**Fix:** Simplify or split the source mesh, then import it again. Use a smaller or lower-detail model when the imported mesh is only a reference.
+
+## Related pages
+
+- [Warnings and messages](/guide/reference/warnings/): understand messages at their source.
+- [Working safely](/guide/start-here/safety/): verify the machine setup before cutting.

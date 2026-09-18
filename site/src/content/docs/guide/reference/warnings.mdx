@@ -1,0 +1,26 @@
+---
+title: Warnings and messages
+description: Use warnings and errors to find the part of a project or export that needs attention.
+pageType: reference
+availability: stable
+status: draft
+---
+
+PureCut CNC reports messages where it has enough information to identify a condition worth reviewing. Read the message where it appears, then correct the project or export setting before continuing.
+
+## Operation messages
+
+Operation properties can report geometry, target, tool, depth, clamp, tab, or generation conditions. A warning tells you what to inspect; it does not by itself mean that generation or export is impossible. An error indicates that the operation cannot produce a valid result until corrected.
+
+## Export messages
+
+The **Export G-code** dialog separates **Errors** from **Warnings**. Errors include no selected machine, no selected operation, a missing tool, an out-of-date preview, or an unsupported required capability. Warnings can describe a fallback or a generated-toolpath condition. Read both, but do not imply that every warning blocks export.
+
+## What to do
+
+Check the named operation, tool, machine, and project settings first. Regenerate after an edit, inspect the toolpath and simulation, then reopen export if the preview is out of date. If the message concerns a custom machine, compare the definition with your controller documentation.
+
+## Related pages
+
+- [Toolpath preview](/guide/verify-export/toolpath-preview/): inspect warnings alongside generated paths.
+- [Troubleshooting](/guide/reference/troubleshooting/): resolve common import, generation, and graphics problems.
