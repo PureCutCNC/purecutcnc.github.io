@@ -6,7 +6,8 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
+import Screenshot from '../../../../components/Screenshot.astro';
+import tabletWorkspace from '../../../../assets/manual/fundamentals/tablet-and-touch/tablet-workspace.png';
 
 PureCutCNC runs on iPad-class tablets in landscape orientation. It uses the tablet layout
 automatically on a touch screen or any device without hover. Phones are not supported: on a touch
@@ -16,7 +17,11 @@ screen whose shorter side is under 500 pixels, the app shows
 ## Tablet workspace
 
 
-<VisualPending id="tablet-workspace" />
+<Screenshot
+	src={tabletWorkspace}
+	alt="PureCutCNC in its tablet layout, with a command bar holding Open project panel, the Sketch, 3D, and Sim tabs, snapping and measuring buttons and Open operations panel, a tool rail down the left edge, and Lock and Multi buttons over the canvas"
+	caption="On a touch screen the panels become drawers and every command has a visible control."
+/>
 The tablet layout keeps the canvas as large as possible and moves the panels into drawers:
 
 | Control | What it does |

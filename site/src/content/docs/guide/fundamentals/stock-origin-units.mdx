@@ -6,7 +6,10 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
+import Screenshot from '../../../../components/Screenshot.astro';
+import stockProperties from '../../../../assets/manual/fundamentals/stock-origin-units/stock-properties.png';
+import originPlacement from '../../../../assets/manual/fundamentals/stock-origin-units/origin-placement.png';
+import unitConversion from '../../../../assets/manual/fundamentals/stock-origin-units/unit-conversion.png';
 import { Aside, Steps } from '@astrojs/starlight/components';
 
 The stock is the material the job starts from, the origin is the point that becomes X0 Y0 Z0 on
@@ -19,7 +22,11 @@ In project coordinates, the bottom of the stock is at Z 0 and its top is at the 
 ## Stock
 
 
-<VisualPending id="stock-properties" />
+<Screenshot
+	src={stockProperties}
+	alt="Stock selected in the project tree, with Name, Width, Height, Thickness, Color, and Visible in the properties panel, next to the canvas showing the stock outline labelled 4 in and 3 in"
+	caption="Rectangular stock. A shape used with Use as stock shows a Source feature here instead of Width and Height."
+/>
 <Steps>
 
 1. Select **Stock** in the feature tree.
@@ -55,7 +62,11 @@ The stock has no material setting. Clamps are separate objects; see
 ## Origin
 
 
-<VisualPending id="origin-placement" />
+<Screenshot
+	src={originPlacement}
+	alt="Origin selected in the project tree, with Z, a Place origin button, and Top left, Center top, and Bottom left presets in the properties panel, and the labelled origin marker at the lower-left corner of the stock on the canvas"
+	caption="The marker on the canvas is the work zero that exported G-code is written against."
+/>
 The origin is the work zero: export writes every coordinate relative to it (**Export uses the
 current project origin as machine X0 Y0 Z0.**). A new project puts it at the bottom-left corner of
 the stock, as seen in the Sketch view, on the top surface.
@@ -89,7 +100,11 @@ the stock, as seen in the Sketch view, on the top surface.
 ## Units
 
 
-<VisualPending id="units-conversion" />
+<Screenshot
+	src={unitConversion}
+	alt="Change project units dialog showing an in to mm conversion with two choices: Convert values, marked Recommended, which preserves physical size so 1 in becomes 25.4 mm, and Keep numeric values, which reinterprets the numbers"
+	caption="Convert values keeps the part the same physical size; Keep numeric values changes it."
+/>
 A project is in millimetres or inches. To change it, click the units button in the status bar (for
 example **INCH**) or change **Units** in the **Project** properties. The **Change project units?**
 dialog asks how to treat the existing numbers:

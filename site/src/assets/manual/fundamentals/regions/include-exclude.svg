@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 392" role="img" aria-labelledby="title description">
+	<title id="title">How include and exclude regions combine</title>
+	<desc id="description">Three steps in feature-tree order: the operation alone would cut its whole target, the first include region narrows the allowed area to itself, and a later exclude region removes its own area from the result.</desc>
+	<defs>
+		<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+			<path d="M 0 0 L 10 5 L 0 10 z" fill="#00c8ff" />
+		</marker>
+		<pattern id="allowed" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+			<rect width="8" height="8" fill="#00c8ff" fill-opacity="0.13" />
+			<line x1="0" y1="0" x2="0" y2="8" stroke="#00c8ff" stroke-opacity="0.55" stroke-width="2" />
+		</pattern>
+		<style>
+			.title { font: 700 25px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #e2e2e6; }
+			.step { font: 700 12px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; letter-spacing: 0.12em; fill: #00c8ff; }
+			.heading { font: 700 16px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #ffffff; }
+			.detail { font: 14px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #c6c6cf; }
+			.key { font: 13px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #9a9aa8; }
+		</style>
+	</defs>
+
+	<rect width="860" height="392" rx="24" fill="#0c0f14" />
+	<rect x="1" y="1" width="858" height="390" rx="23" fill="none" stroke="#2a2a30" stroke-width="2" />
+	<text class="title" x="430" y="44" text-anchor="middle">Regions are applied in feature-tree order</text>
+
+	<g transform="translate(36, 78)">
+		<text class="step" x="0" y="0">STEP 1</text>
+		<text class="heading" x="0" y="26">Operation alone</text>
+		<g transform="translate(0, 44)">
+			<rect x="0" y="0" width="232" height="150" rx="6" fill="#12161d" stroke="#b59a3f" stroke-width="2" stroke-dasharray="6 5" />
+			<rect x="20" y="20" width="192" height="110" rx="8" fill="url(#allowed)" stroke="#00c8ff" stroke-width="2" />
+		</g>
+		<text class="detail" x="0" y="222">Every target the operation was given.</text>
+	</g>
+
+	<g transform="translate(314, 78)">
+		<text class="step" x="0" y="0">STEP 2</text>
+		<text class="heading" x="0" y="26">First region: include</text>
+		<g transform="translate(0, 44)">
+			<rect x="0" y="0" width="232" height="150" rx="6" fill="#12161d" stroke="#b59a3f" stroke-width="2" stroke-dasharray="6 5" />
+			<rect x="20" y="20" width="192" height="110" rx="8" fill="none" stroke="#3b3b44" stroke-width="2" stroke-dasharray="4 4" />
+			<rect x="44" y="36" width="126" height="86" rx="10" fill="url(#allowed)" stroke="#9966CC" stroke-width="3" />
+		</g>
+		<text class="detail" x="0" y="222">Starts empty, then adds its own area.</text>
+	</g>
+
+	<g transform="translate(592, 78)">
+		<text class="step" x="0" y="0">STEP 3</text>
+		<text class="heading" x="0" y="26">Then an exclude</text>
+		<g transform="translate(0, 44)">
+			<rect x="0" y="0" width="232" height="150" rx="6" fill="#12161d" stroke="#b59a3f" stroke-width="2" stroke-dasharray="6 5" />
+			<rect x="20" y="20" width="192" height="110" rx="8" fill="none" stroke="#3b3b44" stroke-width="2" stroke-dasharray="4 4" />
+			<path d="M 54 36 H 160 a 10 10 0 0 1 10 10 V 112 a 10 10 0 0 1 -10 10 H 54 a 10 10 0 0 1 -10 -10 V 46 a 10 10 0 0 1 10 -10 Z M 104 56 H 152 V 100 H 104 Z" fill="url(#allowed)" fill-rule="evenodd" stroke="#9966CC" stroke-width="3" />
+			<rect x="104" y="56" width="48" height="44" fill="#9966CC" fill-opacity="0.16" stroke="#9966CC" stroke-width="2.5" stroke-dasharray="6 4" />
+		</g>
+		<text class="detail" x="0" y="222">Removes its area from the result.</text>
+	</g>
+
+	<g fill="none" stroke="#00c8ff" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow)">
+		<path d="M 282 197 H 304" />
+		<path d="M 560 197 H 582" />
+	</g>
+
+	<g transform="translate(36, 352)">
+		<rect x="0" y="-11" width="22" height="16" rx="3" fill="url(#allowed)" stroke="#00c8ff" stroke-width="2" />
+		<text class="key" x="32" y="2">Where the operation may cut</text>
+		<rect x="252" y="-11" width="22" height="16" rx="3" fill="none" stroke="#9966CC" stroke-width="3" />
+		<text class="key" x="284" y="2">Include region</text>
+		<rect x="430" y="-11" width="22" height="16" rx="3" fill="#9966CC" fill-opacity="0.16" stroke="#9966CC" stroke-width="2.5" stroke-dasharray="5 3" />
+		<text class="key" x="462" y="2">Exclude region</text>
+		<rect x="616" y="-11" width="22" height="16" rx="3" fill="none" stroke="#b59a3f" stroke-width="2" stroke-dasharray="4 3" />
+		<text class="key" x="648" y="2">Stock</text>
+	</g>
+</svg>

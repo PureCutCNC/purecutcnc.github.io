@@ -6,7 +6,8 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
+import Screenshot from '../../../../components/Screenshot.astro';
+import constructionGeometry from '../../../../assets/manual/fundamentals/construction-geometry/construction-geometry.png';
 
 Construction geometry is reference geometry for drawing: centrelines, symmetry axes, bolt circles,
 and layout guides. You can snap to it, mirror against it, and dimension to it, but it never
@@ -15,7 +16,11 @@ becomes part of the part.
 ## Main idea
 
 
-<VisualPending id="construction-geometry" />
+<Screenshot
+	src={constructionGeometry}
+	alt="Project tree with a Construction section containing a centre line marked REF, and the canvas showing that line drawn dashed across a green add feature and blue subtract features"
+	caption="Construction geometry is drawn dashed, carries a ref badge, and is never machined."
+/>
 - **Create** construction geometry with the **Create construction geometry** target in the tool
   rail. Any shape can be construction geometry, open or closed. New items are named
   **Construction** with a number.

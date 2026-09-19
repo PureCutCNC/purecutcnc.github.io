@@ -6,7 +6,10 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
+import Screenshot from '../../../../components/Screenshot.astro';
+import treeSections from '../../../../assets/manual/fundamentals/feature-tree/tree-sections.png';
+import properties from '../../../../assets/manual/fundamentals/feature-tree/properties.png';
+import contextMenu from '../../../../assets/manual/fundamentals/feature-tree/context-menu.png';
 import { Aside } from '@astrojs/starlight/components';
 
 The project panel, on the left of the workspace, has two parts: the **Project tree** lists
@@ -16,7 +19,12 @@ everything in the project, and **Properties** below it shows the settings of wha
 ## The tree
 
 
-<VisualPending id="feature-tree-sections" />
+<Screenshot
+	src={treeSections}
+	maxWidth={360}
+	alt="Expanded PureCutCNC project tree showing the Project, Grid, Stock, Origin, Backdrop, Features, Regions, Construction, Tabs, and Clamps rows, with five features, four tabs, and two clamps"
+	caption="Every tree row, with the bundled PureCutCNC example loaded."
+/>
 | Row | What it holds | Row actions |
 | --- | --- | --- |
 | **Project** | Project-wide settings. | None. |
@@ -38,7 +46,11 @@ instances share this definition**), include and exclude regions, and constructio
 ## Properties
 
 
-<VisualPending id="feature-tree-properties" />
+<Screenshot
+	src={properties}
+	alt="Expanded Properties dialog for the feature Rect 2, with a Shape column showing Operation Subtract and an Instance column showing Name, Z top, Z bottom, Folder, Visible, and Locked"
+	caption="Expand properties panel opens the same settings in a wider, multi-column view."
+/>
 What the panel shows depends on the selection.
 
 | Selection | Properties |
@@ -103,7 +115,12 @@ align, and distribute leave it out.
 ## Context menu
 
 
-<VisualPending id="feature-tree-context-menu" />
+<Screenshot
+	src={contextMenu}
+	maxWidth={420}
+	alt="Feature context menu open on Rect 1 in the project tree, listing operation, sketch, transform, folder, grouping, cut, use as stock, and delete actions"
+	caption="Actions that do not apply to the selection are dimmed."
+/>
 Right-click a feature on the canvas or in the tree, or long-press it on a touch screen. The menu
 offers what applies to the selection:
 
