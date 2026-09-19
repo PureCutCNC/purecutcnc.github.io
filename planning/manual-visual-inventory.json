@@ -857,7 +857,7 @@
 			"brief": "Several stacked features with the overlap picker open and the corresponding tree items visible.",
 			"asset": "design/selecting-and-transforming/overlap-picker.png",
 			"alt": "Overlap picker listing stacked features at the clicked canvas position",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -869,19 +869,55 @@
 			"brief": "A rotate-with-copies or mirror operation in progress with the selected features and transform panel visible.",
 			"asset": "design/selecting-and-transforming/transform-panel.png",
 			"alt": "Feature transform in progress with copy and keep-original controls",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
-			"id": "arranging-feature-distribution",
+			"id": "arranging-distribute-grid",
 			"page": "/guide/design/arranging/",
-			"afterHeading": "Feature distribution",
+			"afterHeading": "Grid",
 			"kind": "screenshot",
-			"purpose": "Compare the spatial results of grid, radial, and path distribution.",
-			"brief": "A compact three-state comparison of one source feature distributed in a grid, radially, and along a guide path with the relevant panel visible.",
-			"asset": "design/arranging/feature-distribution.png",
-			"alt": "One feature distributed in grid, radial, and path arrangements",
-			"status": "proposed",
+			"purpose": "Show a grid distribution being set up, and the rows, columns and spacing that shape it.",
+			"brief": "A grid distribution in progress: two rows by three columns at 0.6 in spacing, with the Feature distribution panel.",
+			"asset": "design/arranging/distribute-grid.png",
+			"alt": "Feature distribution panel set to 2 rows, 3 columns and 0.6 inch spacing, with the source rectangle and five dashed preview copies laid out as that grid",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "arranging-distribute-radial",
+			"page": "/guide/design/arranging/",
+			"afterHeading": "Radial",
+			"kind": "screenshot",
+			"purpose": "Show a radial distribution being set up, and how sweep and instance count place the copies around a centre.",
+			"brief": "A radial distribution in progress: eight instances swept around a picked centre, with the Feature distribution panel.",
+			"asset": "design/arranging/distribute-radial.png",
+			"alt": "Feature distribution panel set to eight instances over a 360 degree sweep, with the copies previewed in a ring around the picked centre point",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "arranging-distribute-path",
+			"page": "/guide/design/arranging/",
+			"afterHeading": "Along path",
+			"kind": "screenshot",
+			"purpose": "Show an along-path distribution being set up, and how the copies follow a separate guide outline.",
+			"brief": "An along-path distribution in progress: six instances following a spline guide, with the Feature distribution panel.",
+			"asset": "design/arranging/distribute-path.png",
+			"alt": "Feature distribution panel with Spline 2 as the guide and six instances, and the copies previewed following the spline across the canvas",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "arranging-scale-taper",
+			"page": "/guide/design/arranging/",
+			"afterHeading": "Scale taper",
+			"kind": "screenshot",
+			"purpose": "Show what a scale taper does to a pattern, which the numbers alone do not convey. Shot as committed copies because previewed copies carry labels that cannot be hidden.",
+			"brief": "A radial distribution of twelve circles tapering from 100 percent at the original to 10 percent at the last copy.",
+			"asset": "design/arranging/scale-taper.png",
+			"alt": "Twelve circles in a ring, shrinking steadily from the green full-size original round to a tiny copy at ten percent",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -893,7 +929,7 @@
 			"brief": "An offset workflow in progress with source geometry, live preview, direction, and typed distance visible.",
 			"asset": "design/shape-operations/offset-preview.png",
 			"alt": "Offset workflow with source contour, live offset preview, direction, and distance",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -901,11 +937,11 @@
 			"page": "/guide/design/shape-operations/",
 			"afterHeading": "Cut",
 			"kind": "screenshot",
-			"purpose": "Show the two-stage cutter-then-target selection and its resulting split geometry.",
-			"brief": "The Cut workflow panel during target selection with open cutter geometry and the previewed split result.",
+			"purpose": "Show the two-stage cutter-then-target selection, and that an open path can be the cutter for a closed target.",
+			"brief": "The Cut panel at Select targets, with an open path locked as the cutter and the closed feature it crosses picked as the target.",
 			"asset": "design/shape-operations/cut-workflow.png",
-			"alt": "Cut workflow selecting targets after cutter geometry, with the split result previewed",
-			"status": "proposed",
+			"alt": "Cut workflow panel reading 1 target selected with Keep originals, an open path crossing a rectangle as the cutter, and the rectangle highlighted as the target",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -914,22 +950,34 @@
 			"afterHeading": "Edit a sketch",
 			"kind": "screenshot",
 			"purpose": "Show the node-level editing state and the controls that replace normal selection.",
-			"brief": "An active sketch edit session with nodes, segment dimensions, the edit panel, Finish, and Cancel visible.",
+			"brief": "An active sketch edit session with the profile's nodes shown, one segment selected with its length on the canvas, and the Edit sketch panel with its tool row, Finish, and Cancel.",
 			"asset": "design/sketch-editing/edit-session.png",
-			"alt": "Active sketch edit session with editable nodes, dimensions, and Finish and Cancel controls",
-			"status": "proposed",
+			"alt": "Sketch edit session with the rectangle's corner nodes shown, its top segment selected and labelled 1.375, and the Edit sketch panel showing Selected segment Length and Angle",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
-			"id": "sketch-edit-tools",
+			"id": "sketch-edit-fillet",
 			"page": "/guide/design/sketch-editing/",
 			"afterHeading": "Editing tools",
 			"kind": "screenshot",
-			"purpose": "Show representative fillet and trim previews in the shared editing interface.",
-			"brief": "A split comparison of a fillet preview and a trim selection with their workflow controls visible.",
-			"asset": "design/sketch-editing/editing-tools.png",
-			"alt": "Fillet preview and trim selection in sketch editing workflows",
-			"status": "proposed",
+			"purpose": "Show the fillet tool mid-command: a corner picked and the arc previewing as the radius follows the pointer.",
+			"brief": "Round corner / fillet in progress on a rectangle corner, with the live arc preview and the Radius entry.",
+			"asset": "design/sketch-editing/fillet.png",
+			"alt": "Sketch edit session with Round corner / fillet active, a rectangle corner picked, an R 0.25 arc previewing, and the Radius entry in the panel",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "sketch-edit-trim",
+			"page": "/guide/design/sketch-editing/",
+			"afterHeading": "Editing tools",
+			"kind": "screenshot",
+			"purpose": "Show the trim tool's two clicks, and that it is available only while editing an open path.",
+			"brief": "Trim to cutting edge in progress on a self-crossing open path, after the part to remove has been picked.",
+			"asset": "design/sketch-editing/trim.png",
+			"alt": "Sketch edit session on an open self-crossing path with Trim to cutting edge active and the step reading Click the cutting segment",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -937,11 +985,11 @@
 			"page": "/guide/design/snapping-and-grid/",
 			"afterHeading": "Snap modes",
 			"kind": "screenshot",
-			"purpose": "Show the available snap modes and the live label that confirms the active target.",
-			"brief": "The snap popover open while the pointer snaps to a visible intersection or midpoint label on the canvas.",
+			"purpose": "Show where the snap modes live, which are on by default, and the live label that names the snap before you click.",
+			"brief": "The toolbar snap buttons with the default modes on, and a live Midpoint label at the pointer on a feature's edge.",
 			"asset": "design/snapping-and-grid/snap-popover.png",
-			"alt": "Snap popover open with a live snap label on the canvas",
-			"status": "proposed",
+			"alt": "Toolbar snap buttons with snapping, grid, point, line, midpoint, and center on and intersection and perpendicular off, and a Midpoint label at the pointer on a rectangle's top edge",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -952,8 +1000,8 @@
 			"purpose": "Show the available annotation forms in realistic placement around a part.",
 			"brief": "A part with several dimension types, anchors, labels, and one selected annotation visible.",
 			"asset": "design/dimensions-and-constraints/dimensions-on-part.png",
-			"alt": "Part with multiple dimension annotation types and visible anchors",
-			"status": "proposed",
+			"alt": "Rectangle with horizontal and vertical dimensions and a circle with a radius dimension, with one dimension selected and its Edit dimension panel open",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -962,10 +1010,10 @@
 			"afterHeading": "Constraints",
 			"kind": "screenshot",
 			"purpose": "Connect constraint anchors and references with the fields used to define them.",
-			"brief": "A fixed-distance constraint between features with its anchor, reference, distance, and validity state visible.",
+			"brief": "A fixed-distance constraint being set between two features, with its anchor, reference point and distance visible.",
 			"asset": "design/dimensions-and-constraints/constraint-panel.png",
-			"alt": "Fixed-distance constraint with anchor, reference, distance, and validity controls",
-			"status": "proposed",
+			"alt": "Constraint workflow at Set distance, with a dashed line from the anchor point on one rectangle to the reference point on another and a Distance field",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{

@@ -6,7 +6,9 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
+import Screenshot from '../../../../components/Screenshot.astro';
+import AppIcon from '../../../../components/AppIcon.astro';
+import snapModes from '../../../../assets/manual/design/snapping-and-grid/snap-popover.png';
 
 Snapping pulls the pointer to exact positions while you draw, move, measure, or edit: grid points,
 corners, midpoints, centres, and intersections. It applies to every click a command asks for, not
@@ -15,22 +17,23 @@ just to drawing.
 ## Snap modes
 
 
-<VisualPending id="snapping-popover" />
 <span id="modes"></span>
 
-The snapping controls are in the top toolbar: one button turns snapping on or off (**Enable
-snapping** / **Disable snapping**), and one button per mode turns that mode on or off. On a tablet
-the same controls are in the **Snap settings** popover.
+The snapping controls are in the top toolbar: one button turns snapping on or off
+(<AppIcon name="snap" /> **Enable snapping** / **Disable snapping**), and one button per mode turns
+that mode on or off. On a tablet the same controls are in the **Snap settings** popover.
+
+<Screenshot src={snapModes} alt="Toolbar snap buttons with snapping, grid, point, line, midpoint, and center on and intersection and perpendicular off, and a Midpoint label at the pointer on a rectangle's top edge" caption="A label next to the pointer names the snap that will be used." />
 
 | Mode | Snaps to | On by default |
 | --- | --- | --- |
-| **Snap to grid** | The nearest multiple of the grid's **Snap increment**. | Yes |
-| **Snap to point** | Corners and end points of features, the stock, tabs, and clamps, and the origin. | Yes |
-| **Snap to line** | The nearest point on any segment. | Yes |
-| **Snap to midpoint** | The middle of segments. | Yes |
-| **Snap to center** | The centre of circles and arcs. | Yes |
-| **Snap to intersection** | Points where two segments cross, even where there is no corner. | No |
-| **Snap perpendicular** | The point on a segment that makes a right angle with the previous point of the command. | No |
+| <AppIcon name="snap-grid" /> **Snap to grid** | The nearest multiple of the grid's **Snap increment**. | Yes |
+| <AppIcon name="snap-point" /> **Snap to point** | Corners and end points of features, the stock, tabs, and clamps, and the origin. | Yes |
+| <AppIcon name="snap-line" /> **Snap to line** | The nearest point on any segment. | Yes |
+| <AppIcon name="snap-midpoint" /> **Snap to midpoint** | The middle of segments. | Yes |
+| <AppIcon name="snap-center" /> **Snap to center** | The centre of circles and arcs. | Yes |
+| <AppIcon name="snap-intersection" /> **Snap to intersection** | Points where two segments cross, even where there is no corner. | No |
+| <AppIcon name="snap-perpendicular" /> **Snap perpendicular** | The point on a segment that makes a right angle with the previous point of the command. | No |
 
 Snapping considers visible features, including construction geometry and regions, and visible tabs
 and clamps. When the pointer is within reach of several candidates, a point, midpoint, centre, or

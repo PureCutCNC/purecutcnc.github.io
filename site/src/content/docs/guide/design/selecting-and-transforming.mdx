@@ -6,7 +6,10 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
+import Screenshot from '../../../../components/Screenshot.astro';
+import AppIcon from '../../../../components/AppIcon.astro';
+import overlapPicker from '../../../../assets/manual/design/selecting-and-transforming/overlap-picker.png';
+import transformPanel from '../../../../assets/manual/design/selecting-and-transforming/transform-panel.png';
 import { Aside, Steps } from '@astrojs/starlight/components';
 
 Most editing starts with a selection. Once features are selected, the transform tools appear in
@@ -23,7 +26,6 @@ is, not its shape definition, so they affect only the selected copies of a linke
 ## Select features
 
 
-<VisualPending id="selection-overlap-picker" />
 | To select | Do this |
 | --- | --- |
 | One feature | Click its outline or inside it, or click its row in the feature tree. |
@@ -41,19 +43,22 @@ the others, or else the topmost. When you click where two or more outlines lie o
 the **Select feature** panel lists them (**N features overlap here. Choose one to select.**);
 choose the one you mean.
 
+<Screenshot src={overlapPicker} alt="Select feature panel reading 2 features overlap here, listing Rect 2 and Rect 1 as rectangles, with both rows visible in the feature tree beside it" />
+
 ## Transforms
 
 
-<VisualPending id="selection-transform-panel" />
 The transform tools work on the selected features. Each opens a workflow panel on the canvas;
 **Cancel** or <kbd>Esc</kbd> ends it without changing anything, and the tool's button in the rail
 cancels it too.
+
+<Screenshot src={transformPanel} alt="Rotate workflow at Set copy count with Copies set to 5, the selected rectangle, and the rotated preview at -51.3 degrees on the canvas" caption="Rotate with Keep originals on, at the copy-count step." />
 
 ### Move
 
 <Steps>
 
-1. Click **Move selected features**.
+1. Click <AppIcon name="move" /> **Move selected features**.
 
 2. At **Select from point**, click a reference point, for example a corner of the feature.
 
@@ -89,7 +94,7 @@ Resize scales along a reference line that you draw.
 
 <Steps>
 
-1. Click **Resize selected features**.
+1. Click <AppIcon name="resize" /> **Resize selected features**.
 
 2. At **Select first reference**, click the point that stays fixed.
 
@@ -114,7 +119,7 @@ you mean to scale both.
 
 <Steps>
 
-1. Click **Rotate selected features**.
+1. Click <AppIcon name="rotate" /> **Rotate selected features**.
 
 2. At **Select origin**, click the centre of rotation.
 
@@ -133,7 +138,7 @@ the rest of a circle around the original.
 
 <Steps>
 
-1. Click **Mirror selected features**.
+1. Click <AppIcon name="mirror" /> **Mirror selected features**.
 
 2. At **Select first line point** and **Select second line point**, click two points on the mirror
    line. The preview follows the pointer until the second click.

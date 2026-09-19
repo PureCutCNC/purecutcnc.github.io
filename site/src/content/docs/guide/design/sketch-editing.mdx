@@ -6,7 +6,11 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
+import Screenshot from '../../../../components/Screenshot.astro';
+import AppIcon from '../../../../components/AppIcon.astro';
+import editSession from '../../../../assets/manual/design/sketch-editing/edit-session.png';
+import filletTool from '../../../../assets/manual/design/sketch-editing/fillet.png';
+import trimTool from '../../../../assets/manual/design/sketch-editing/trim.png';
 import { Aside, Steps } from '@astrojs/starlight/components';
 
 A sketch-editing session changes the points and segments of one feature. The session collects your
@@ -23,7 +27,7 @@ edits; **Finish editing** keeps them and **Cancel editing** throws them away.
 ## Edit a sketch
 
 
-<VisualPending id="sketch-edit-session" />
+<Screenshot src={editSession} alt="Sketch edit session with the rectangle's corner nodes shown, its top segment selected and labelled 1.375, and the Edit sketch panel showing Selected segment Length and Angle" />
 <Steps>
 
 1. Double-click the feature on the canvas, or select it and click **Edit sketch** in its properties
@@ -54,21 +58,24 @@ reaches outside the stock (**Extends outside stock**). You can still finish, but
 ## Editing tools
 
 
-<VisualPending id="sketch-edit-tools" />
 Choose a tool in the **Edit sketch** panel. The step line says what to click. A tool stays active
-until you choose **Move** or another tool; <kbd>Esc</kbd> or <kbd>Enter</kbd> leaves it and keeps
+until you choose <AppIcon name="move" /> **Move** or another tool; <kbd>Esc</kbd> or <kbd>Enter</kbd> leaves it and keeps
 what you did with it.
 
 | Tool | Use |
 | --- | --- |
-| **Add point** | Click a segment to insert a point there, splitting the segment in two. |
-| **Delete point** | Click points to remove them. The segments on either side are joined. |
-| **Delete segment** | Click segments to remove them. Deleting a segment of a closed profile opens it. Deleting one from the middle of an open path splits it into two features; the second is named **Split**. |
-| **Disconnect point** | Click a point to split the profile there (**Click an anchor to split**). A closed profile opens at that point; an open path is split into two features. |
-| **Round corner / fillet** | Click a corner, then click a second point or click **Radius** to type the radius. The corner becomes an arc. |
-| **Chamfer corner** | Click a corner, then click a second point or click **Distance** to type it. The corner is cut off by a straight line, the same distance along both sides. |
-| **Trim to cutting edge** | Click the part of a segment to remove, then click the segment that cuts it. |
-| **Extend to target** | Click near the open end of a segment, then click the segment it should reach. |
+| <AppIcon name="point-add" /> **Add point** | Click a segment to insert a point there, splitting the segment in two. |
+| <AppIcon name="point-delete" /> **Delete point** | Click points to remove them. The segments on either side are joined. |
+| <AppIcon name="segment-delete" /> **Delete segment** | Click segments to remove them. Deleting a segment of a closed profile opens it. Deleting one from the middle of an open path splits it into two features; the second is named **Split**. |
+| <AppIcon name="disconnect" /> **Disconnect point** | Click a point to split the profile there (**Click an anchor to split**). A closed profile opens at that point; an open path is split into two features. |
+| <AppIcon name="fillet" /> **Round corner / fillet** | Click a corner, then click a second point or click **Radius** to type the radius. The corner becomes an arc. |
+| <AppIcon name="chamfer" /> **Chamfer corner** | Click a corner, then click a second point or click **Distance** to type it. The corner is cut off by a straight line, the same distance along both sides. |
+| <AppIcon name="trim" /> **Trim to cutting edge** | Click the part of a segment to remove, then click the segment that cuts it. |
+| <AppIcon name="extend" /> **Extend to target** | Click near the open end of a segment, then click the segment it should reach. |
+
+<Screenshot src={filletTool} alt="Sketch edit session with Round corner / fillet active, a rectangle corner picked, an R 0.25 arc previewing, and the Radius entry in the panel" caption="Fillet, after picking the corner: the arc follows the pointer until the second click." />
+
+<Screenshot src={trimTool} alt="Sketch edit session on an open self-crossing path with Trim to cutting edge active and the step reading Click the cutting segment" caption="Trim, after picking the part to remove. It is available only while editing an open path." />
 
 Some tools only work on some geometry:
 

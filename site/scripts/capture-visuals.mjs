@@ -98,6 +98,50 @@ async function clickTo(page, fx, fy) {
 	return point
 }
 
+/** Click, and keep clicking, until the workflow panel actually moves on. */
+async function clickUntil(page, fx, fy, tries = 4) {
+	const read = () => page.evaluate(() => document.querySelector('.canvas-workflow-panel')?.textContent?.trim() ?? '')
+	const before = await read()
+	for (let i = 0; i < tries; i++) {
+		await clickTo(page, fx, fy)
+		if ((await read()) !== before) return
+		await page.waitForTimeout(300)
+	}
+	throw new Error(`canvas click at ${fx},${fy} never registered`)
+}
+
+/** Open the toolbar's Add dimension menu and choose one of its six types. */
+async function addDimension(page, type) {
+	await page.getByRole('button', { name: 'Add dimension' }).first().click()
+	await page.waitForTimeout(800)
+	await page.locator(`[class*=popover] button[aria-label="${type}"]`).first().click()
+	await page.waitForTimeout(800)
+}
+
+/** Open the tool rail's Distribute menu and choose one of its modes. */
+async function distribute(page, mode) {
+	await page.getByRole('button', { name: 'Distribute selected features' }).first().click()
+	await page.waitForTimeout(800)
+	// Scope to the popover: a bare "Grid" also matches the status bar's grid toggle.
+	await page.locator(`[class*=popover] button[aria-label="${mode}"]`).first().click()
+	await page.waitForTimeout(1500)
+}
+
+/** Draw one rectangle, select it, and open its sketch edit session. */
+async function editRectangle(page) {
+	await page.getByRole('button', { name: 'Add feature rectangle' }).first().click()
+	await page.waitForTimeout(450)
+	await clickUntil(page, 0.3, 0.36)
+	await clickUntil(page, 0.62, 0.62)
+	await page.waitForTimeout(1000)
+	await page.keyboard.press('Escape')
+	await page.waitForTimeout(600)
+	await clickTo(page, 0.46, 0.49)
+	await page.waitForTimeout(800)
+	await page.getByRole('button', { name: 'Edit sketch' }).first().click()
+	await page.waitForTimeout(1300)
+}
+
 /** Choose a shape from the tool rail's shape drawer. */
 async function pickShape(page, name) {
 	await page.getByRole('button', { name: 'Choose feature shape' }).click()
@@ -397,6 +441,423 @@ const RECIPES = [
 			await moveTo(page, 0.80, 0.36)
 		},
 		clip: clipCanvas,
+	},
+
+	{
+		id: 'arranging-scale-taper',
+		asset: 'design/arranging/scale-taper.png',
+		viewport: { width: 1440, height: 900 },
+		collapseLegend: true,
+		async steps(page) {
+			// Twelve per-copy labels would cover the ring, and the taper is the subject here.
+			await page.locator('[title="Hide feature labels"]').first().click()
+			await page.waitForTimeout(600)
+			await pickShape(page, 'Add feature circle')
+			// A small circle: twelve of them have to fit round the ring without overlapping.
+			await clickTo(page, 0.46, 0.26)
+			await clickTo(page, 0.495, 0.26)
+			await page.waitForTimeout(1100)
+			await page.keyboard.press('Escape')
+			await page.waitForTimeout(700)
+			await clickTo(page, 0.46, 0.26)
+			await page.waitForTimeout(900)
+			await distribute(page, 'Radial')
+			await page.getByRole('button', { name: /Pick center/i }).first().click()
+			await page.waitForTimeout(700)
+			await clickTo(page, 0.46, 0.46)
+			await page.waitForTimeout(1300)
+			const field = (i) => page.locator('.canvas-workflow-panel input[type=number]').nth(i)
+			await field(0).fill('12')
+			await page.waitForTimeout(700)
+			await field(2).fill('100')
+			await page.waitForTimeout(500)
+			await field(3).fill('10')
+			await page.waitForTimeout(2200)
+			// Committed rather than previewed, deliberately: every previewed copy carries a
+			// "Feature distribution preview" label that the Feature labels toggle does not
+			// control, and twelve of them overlap into mush. The taper itself is the subject,
+			// so the real copies read better. The preview is correct since #813 was fixed.
+			await page.getByRole('button', { name: 'Create copies' }).first().click()
+			await page.waitForTimeout(2500)
+		},
+		clip: clipCanvas,
+	},
+
+	// --- Design: dimensions and constraints ------------------------------------
+	{
+		id: 'dimensions-on-part',
+		asset: 'design/dimensions-and-constraints/dimensions-on-part.png',
+		viewport: { width: 1440, height: 900 },
+		collapseLegend: true,
+		async steps(page) {
+			await page.getByRole('button', { name: 'Add feature rectangle' }).first().click()
+			await page.waitForTimeout(450)
+			await clickUntil(page, 0.24, 0.34)
+			await clickUntil(page, 0.52, 0.56)
+			await page.waitForTimeout(1000)
+			await page.keyboard.press('Escape')
+			await page.waitForTimeout(600)
+			// A circle as well, so a radius dimension has something to measure.
+			await pickShape(page, 'Add feature circle')
+			await clickUntil(page, 0.7, 0.45)
+			await clickUntil(page, 0.78, 0.45)
+			await page.waitForTimeout(1000)
+			await page.keyboard.press('Escape')
+			await page.waitForTimeout(700)
+			await addDimension(page, 'Horizontal dimension')
+			await clickTo(page, 0.24, 0.34)
+			await clickTo(page, 0.52, 0.34)
+			await clickTo(page, 0.38, 0.27)
+			await page.waitForTimeout(900)
+			await addDimension(page, 'Vertical dimension')
+			await clickTo(page, 0.24, 0.34)
+			await clickTo(page, 0.24, 0.56)
+			await clickTo(page, 0.17, 0.45)
+			await page.waitForTimeout(900)
+			await addDimension(page, 'Radius dimension')
+			// Centre first, then a point on the edge.
+			await clickTo(page, 0.7, 0.45)
+			await page.waitForTimeout(800)
+			await clickTo(page, 0.8, 0.34)
+			await page.waitForTimeout(1000)
+			// Select one of them, so the shot also shows a dimension being edited.
+			await clickTo(page, 0.38, 0.27)
+			await page.waitForTimeout(1000)
+		},
+		clip: clipCanvas,
+	},
+	{
+		id: 'constraints-panel',
+		asset: 'design/dimensions-and-constraints/constraint-panel.png',
+		viewport: { width: 1440, height: 900 },
+		collapseLegend: true,
+		async steps(page) {
+			await page.getByRole('button', { name: 'Add feature rectangle' }).first().click()
+			await page.waitForTimeout(450)
+			await clickUntil(page, 0.22, 0.32)
+			await clickUntil(page, 0.36, 0.46)
+			await page.waitForTimeout(900)
+			await clickUntil(page, 0.56, 0.5)
+			await clickUntil(page, 0.7, 0.64)
+			await page.waitForTimeout(1200)
+			await page.keyboard.press('Escape')
+			await page.waitForTimeout(600)
+			await clickTo(page, 0.29, 0.39)
+			await page.waitForTimeout(800)
+			await page.getByRole('button', { name: 'Add constraint' }).first().click()
+			await page.waitForTimeout(900)
+			await clickTo(page, 0.36, 0.46)
+			await page.waitForTimeout(1000)
+			await clickTo(page, 0.56, 0.5)
+			await page.waitForTimeout(1200)
+		},
+		clip: clipCanvas,
+	},
+
+	// --- Design: arranging -----------------------------------------------------
+	{
+		id: 'arranging-distribute-grid',
+		asset: 'design/arranging/distribute-grid.png',
+		viewport: { width: 1440, height: 900 },
+		collapseLegend: true,
+		async steps(page) {
+			// Each previewed copy carries a "Feature distribution preview" label, and six of
+			// them overlap into mush.
+			await page.locator('[title="Hide feature labels"]').first().click()
+			await page.waitForTimeout(600)
+			await page.getByRole('button', { name: 'Add feature rectangle' }).first().click()
+			await page.waitForTimeout(450)
+			await clickUntil(page, 0.2, 0.46)
+			await clickUntil(page, 0.27, 0.53)
+			await page.waitForTimeout(1000)
+			await page.keyboard.press('Escape')
+			await page.waitForTimeout(600)
+			await clickTo(page, 0.235, 0.495)
+			await page.waitForTimeout(800)
+			await distribute(page, 'Grid')
+			const field = (i) => page.locator('.canvas-workflow-panel input[type=number]').nth(i)
+			await field(0).click()
+			await page.keyboard.press('ArrowUp')
+			await page.waitForTimeout(600)
+			await field(1).click()
+			await page.keyboard.press('ArrowUp')
+			await page.waitForTimeout(600)
+			await field(2).fill('0.6')
+			await page.keyboard.press('Tab')
+			await field(3).fill('0.6')
+			await page.keyboard.press('Tab')
+			await page.waitForTimeout(1800)
+		},
+		clip: clipCanvas,
+	},
+	{
+		id: 'arranging-distribute-radial',
+		asset: 'design/arranging/distribute-radial.png',
+		viewport: { width: 1440, height: 900 },
+		collapseLegend: true,
+		async steps(page) {
+			await page.getByRole('button', { name: 'Add feature rectangle' }).first().click()
+			await page.waitForTimeout(450)
+			await clickUntil(page, 0.44, 0.22)
+			await clickUntil(page, 0.52, 0.3)
+			await page.waitForTimeout(1000)
+			await page.keyboard.press('Escape')
+			await page.waitForTimeout(600)
+			await clickTo(page, 0.48, 0.26)
+			await page.waitForTimeout(800)
+			await distribute(page, 'Radial')
+			await page.getByRole('button', { name: /Pick center/i }).first().click()
+			await page.waitForTimeout(700)
+			await clickTo(page, 0.48, 0.52)
+			await page.waitForTimeout(1200)
+			await page.locator('.canvas-workflow-panel input[type=number]').first().fill('8')
+			await page.waitForTimeout(1600)
+		},
+		clip: clipCanvas,
+	},
+	{
+		id: 'arranging-distribute-path',
+		asset: 'design/arranging/distribute-path.png',
+		viewport: { width: 1440, height: 900 },
+		collapseLegend: true,
+		async steps(page) {
+			await page.getByRole('button', { name: 'Add feature rectangle' }).first().click()
+			await page.waitForTimeout(450)
+			await clickUntil(page, 0.2, 0.24)
+			await clickUntil(page, 0.27, 0.31)
+			await page.waitForTimeout(1000)
+			await page.keyboard.press('Escape')
+			await page.waitForTimeout(600)
+			// A separate outline for the copies to follow.
+			await pickShape(page, 'Add feature spline')
+			for (const [fx, fy] of [[0.24, 0.62], [0.4, 0.48], [0.58, 0.64], [0.76, 0.5]]) {
+				await clickTo(page, fx, fy)
+				await page.waitForTimeout(800)
+			}
+			await page.getByRole('button', { name: 'Finish' }).first().click()
+			await page.waitForTimeout(1400)
+			await page.keyboard.press('Escape')
+			await page.waitForTimeout(600)
+			await clickTo(page, 0.235, 0.275)
+			await page.waitForTimeout(900)
+			await distribute(page, 'Along path')
+			await page.getByRole('button', { name: /Pick guide/i }).first().click()
+			await page.waitForTimeout(700)
+			// Away from the end points: a click near the spline's middle misses it.
+			await clickTo(page, 0.58, 0.64)
+			await page.waitForTimeout(1400)
+			await page.locator('.canvas-workflow-panel input[type=number]').first().fill('6')
+			await page.waitForTimeout(1600)
+		},
+		clip: clipCanvas,
+	},
+
+	// --- Design: sketch editing ------------------------------------------------
+	// Shared opener: one rectangle, selected, with its sketch edit session running.
+	{
+		id: 'sketch-edit-session',
+		asset: 'design/sketch-editing/edit-session.png',
+		viewport: { width: 1440, height: 900 },
+		collapseLegend: true,
+		async steps(page) {
+			await editRectangle(page)
+			// Clicking a segment is what puts its Length and Angle in the panel.
+			await clickTo(page, 0.46, 0.36)
+			await page.waitForTimeout(1200)
+		},
+		clip: clipCanvas,
+	},
+	{
+		id: 'sketch-edit-fillet',
+		asset: 'design/sketch-editing/fillet.png',
+		viewport: { width: 1440, height: 900 },
+		collapseLegend: true,
+		async steps(page) {
+			await editRectangle(page)
+			await page.getByRole('button', { name: 'Round corner / fillet' }).first().click()
+			await page.waitForTimeout(700)
+			await clickTo(page, 0.3, 0.36)
+			await page.waitForTimeout(1000)
+			// Held on hover: the radius follows the pointer until the second click.
+			await moveTo(page, 0.36, 0.42)
+			await page.waitForTimeout(1000)
+		},
+		clip: clipCanvas,
+	},
+	{
+		id: 'sketch-edit-trim',
+		asset: 'design/sketch-editing/trim.png',
+		viewport: { width: 1440, height: 900 },
+		collapseLegend: true,
+		async steps(page) {
+			// Trim is unavailable on a closed profile, so this needs an open path, and one
+			// that crosses itself so there is a cutting edge within the same sketch.
+			await pickShape(page, 'Add feature polygon')
+			for (const [fx, fy] of [[0.28, 0.36], [0.62, 0.6], [0.62, 0.36], [0.28, 0.6]]) {
+				await clickTo(page, fx, fy)
+				await page.waitForTimeout(800)
+			}
+			await page.getByRole('button', { name: 'Finish' }).first().click()
+			await page.waitForTimeout(1400)
+			await page.keyboard.press('Escape')
+			await page.waitForTimeout(600)
+			await clickTo(page, 0.45, 0.48)
+			await page.waitForTimeout(900)
+			await page.getByRole('button', { name: 'Edit sketch' }).first().click()
+			await page.waitForTimeout(1300)
+			await page.getByRole('button', { name: 'Trim to cutting edge' }).first().click()
+			await page.waitForTimeout(800)
+			await clickTo(page, 0.58, 0.39)
+			await page.waitForTimeout(1100)
+		},
+		clip: clipCanvas,
+	},
+
+	// --- Design: shape operations ----------------------------------------------
+	{
+		id: 'shape-offset-preview',
+		asset: 'design/shape-operations/offset-preview.png',
+		viewport: { width: 1440, height: 900 },
+		collapseLegend: true,
+		async steps(page) {
+			await page.getByRole('button', { name: 'Add feature rectangle' }).first().click()
+			await page.waitForTimeout(450)
+			await clickUntil(page, 0.32, 0.38)
+			await clickUntil(page, 0.6, 0.6)
+			await page.waitForTimeout(1000)
+			await page.keyboard.press('Escape')
+			await page.waitForTimeout(600)
+			await clickTo(page, 0.46, 0.49)
+			await page.waitForTimeout(700)
+			await page.getByRole('button', { name: 'Create offset feature' }).first().click()
+			await page.waitForTimeout(800)
+			// Outside the shape, so the preview reads as an outward offset.
+			await moveTo(page, 0.66, 0.49)
+			await page.waitForTimeout(900)
+		},
+		clip: clipCanvas,
+	},
+	{
+		id: 'shape-cut-workflow',
+		asset: 'design/shape-operations/cut-workflow.png',
+		viewport: { width: 1440, height: 900 },
+		collapseLegend: true,
+		async steps(page) {
+			await page.getByRole('button', { name: 'Add feature rectangle' }).first().click()
+			await page.waitForTimeout(450)
+			await clickUntil(page, 0.28, 0.34)
+			await clickUntil(page, 0.66, 0.64)
+			await page.waitForTimeout(1000)
+			await page.keyboard.press('Escape')
+			await page.waitForTimeout(600)
+			// An open path across the rectangle: the cutter that splits a closed target.
+			await pickShape(page, 'Add feature polygon')
+			// Plain clicks here: after the second point the panel stops changing, so there is
+			// nothing for clickUntil to watch.
+			for (const [fx, fy] of [[0.22, 0.46], [0.46, 0.56], [0.72, 0.44]]) {
+				await clickTo(page, fx, fy)
+				await page.waitForTimeout(800)
+			}
+			await page.getByRole('button', { name: 'Finish' }).first().click()
+			await page.waitForTimeout(1400)
+			await page.keyboard.press('Escape')
+			await page.waitForTimeout(600)
+			await clickTo(page, 0.46, 0.56)
+			await page.waitForTimeout(900)
+			await page.getByRole('button', { name: 'Cut features' }).first().click()
+			await page.waitForTimeout(1000)
+			await clickTo(page, 0.45, 0.39)
+			await page.waitForTimeout(1400)
+		},
+		clip: clipCanvas,
+	},
+
+	// --- Design: selecting and transforming ------------------------------------
+	{
+		id: 'selection-overlap-picker',
+		asset: 'design/selecting-and-transforming/overlap-picker.png',
+		viewport: { width: 1440, height: 900 },
+		collapseLegend: true,
+		async steps(page) {
+			// Two rectangles on the same corners. The picker appears where outlines lie on top
+			// of one another; a shape merely enclosed by another selects directly instead.
+			await page.getByRole('button', { name: 'Add feature rectangle' }).first().click()
+			await page.waitForTimeout(450)
+			await clickUntil(page, 0.3, 0.34)
+			await clickUntil(page, 0.62, 0.62)
+			await page.waitForTimeout(900)
+			// The tool re-arms itself, so the second rectangle needs no trip to the rail.
+			await clickUntil(page, 0.3, 0.34)
+			await clickUntil(page, 0.62, 0.62)
+			await page.waitForTimeout(1200)
+			await page.keyboard.press('Escape')
+			await page.waitForTimeout(600)
+			await clickTo(page, 0.46, 0.34)
+			await page.waitForTimeout(1000)
+		},
+		// The tree as well: the picker's entries are meant to be read against its rows.
+		clip: clipWorkspaceLeft,
+	},
+	{
+		id: 'selection-transform-panel',
+		asset: 'design/selecting-and-transforming/transform-panel.png',
+		viewport: { width: 1440, height: 900 },
+		collapseLegend: true,
+		async steps(page) {
+			await page.getByRole('button', { name: 'Add feature rectangle' }).first().click()
+			await page.waitForTimeout(450)
+			await clickUntil(page, 0.3, 0.4)
+			await clickUntil(page, 0.44, 0.54)
+			await page.waitForTimeout(1000)
+			await page.keyboard.press('Escape')
+			await page.waitForTimeout(600)
+			await clickTo(page, 0.37, 0.47)
+			await page.waitForTimeout(700)
+			await page.getByRole('button', { name: 'Rotate selected features' }).first().click()
+			await page.waitForTimeout(700)
+			await clickUntil(page, 0.5, 0.6)
+			await clickUntil(page, 0.62, 0.6)
+			// Tick the box rather than pressing K: the shortcut does not always land.
+			await page.locator('.canvas-workflow-panel input[type=checkbox]').first().check()
+			await page.waitForTimeout(500)
+			await clickUntil(page, 0.62, 0.42)
+			await page.waitForTimeout(1000)
+			// Filled but not confirmed: Enter commits the rotation and the panel closes.
+			await page.locator('.canvas-workflow-panel input:not([type=checkbox])').first().fill('5')
+			await page.waitForTimeout(1200)
+		},
+		clip: clipWorkspaceLeft,
+	},
+
+	// --- Design: snapping ------------------------------------------------------
+	{
+		id: 'snapping-popover',
+		asset: 'design/snapping-and-grid/snap-popover.png',
+		viewport: { width: 1440, height: 900 },
+		collapseLegend: true,
+		async steps(page) {
+			// One committed rectangle to snap to. The bundled examples carry toolpaths, which
+			// bury the snap label under contour lines.
+			await page.getByRole('button', { name: 'Add feature rectangle' }).first().click()
+			await page.waitForTimeout(450)
+			await clickUntil(page, 0.24, 0.28)
+			await clickUntil(page, 0.74, 0.60)
+			await page.waitForTimeout(1200)
+			await page.getByRole('button', { name: 'Collapse feature color legend' }).first().click().catch(() => {})
+			await page.waitForTimeout(500)
+			// The tool re-arms, so hovering the top edge's midpoint raises the snap label.
+			for (const fx of [0.49, 0.5, 0.485, 0.495]) {
+				await moveTo(page, fx, 0.28)
+				await page.waitForTimeout(600)
+			}
+		},
+		// Toolbar through the canvas: the buttons and the label are the subject together.
+		clip: (page) =>
+			page.evaluate(() => {
+				const c = document.querySelector('.sketch-viewport__canvas') ?? document.querySelector('canvas')
+				const r = c.getBoundingClientRect()
+				return { x: Math.round(r.x), y: 0, width: Math.round(r.width), height: Math.round(r.y + r.height * 0.72) }
+			}),
 	},
 
 	// --- Design: parametric shapes ---------------------------------------------

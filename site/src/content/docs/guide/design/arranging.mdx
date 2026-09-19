@@ -6,10 +6,15 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
+import Screenshot from '../../../../components/Screenshot.astro';
+import AppIcon from '../../../../components/AppIcon.astro';
+import distributeGrid from '../../../../assets/manual/design/arranging/distribute-grid.png';
+import distributeRadial from '../../../../assets/manual/design/arranging/distribute-radial.png';
+import distributePath from '../../../../assets/manual/design/arranging/distribute-path.png';
+import scaleTaper from '../../../../assets/manual/design/arranging/scale-taper.png';
 import { Aside, Steps } from '@astrojs/starlight/components';
 
-The **Align selected features** and **Distribute selected features** menus in the tool rail line up
+The <AppIcon name="align" /> **Align selected features** and <AppIcon name="distribute" /> **Distribute selected features** menus in the tool rail line up
 and space existing features. The distribute menu also creates patterns of new copies with
 **Feature distribution**, and holds **Text layout** (see [Text](/guide/design/text/#text-layout)).
 
@@ -26,12 +31,12 @@ Select two or more unlocked features, open **Align selected features**, and choo
 
 | Command | Moves each feature so that |
 | --- | --- |
-| **Align left** | its left edge is on the leftmost edge of the selection. |
-| **Align center horizontally** | its centre is on the horizontal centre of the selection. |
-| **Align right** | its right edge is on the rightmost edge of the selection. |
-| **Align top** | its top edge is on the topmost edge of the selection. |
-| **Align center vertically** | its centre is on the vertical centre of the selection. |
-| **Align bottom** | its bottom edge is on the lowest edge of the selection. |
+| <AppIcon name="align-left" /> **Align left** | its left edge is on the leftmost edge of the selection. |
+| <AppIcon name="align-center-horizontal" /> **Align center horizontally** | its centre is on the horizontal centre of the selection. |
+| <AppIcon name="align-right" /> **Align right** | its right edge is on the rightmost edge of the selection. |
+| <AppIcon name="align-top" /> **Align top** | its top edge is on the topmost edge of the selection. |
+| <AppIcon name="align-center-vertical" /> **Align center vertically** | its centre is on the vertical centre of the selection. |
+| <AppIcon name="align-bottom" /> **Align bottom** | its bottom edge is on the lowest edge of the selection. |
 
 Edges are the features' bounding boxes. The reference is the box around the whole selection, so the
 outermost feature does not move.
@@ -42,17 +47,16 @@ Select three or more unlocked features, open **Distribute selected features**, a
 
 | Command | Result |
 | --- | --- |
-| **Distribute horizontally (equal gaps)** | Equal space between the features, left to right. |
-| **Distribute horizontally (equal centers)** | Equal distance between the features' centres, left to right. |
-| **Distribute vertically (equal gaps)** | Equal space between the features, top to bottom. |
-| **Distribute vertically (equal centers)** | Equal distance between the centres, top to bottom. |
+| <AppIcon name="distribute-horizontal-gaps" /> **Distribute horizontally (equal gaps)** | Equal space between the features, left to right. |
+| <AppIcon name="distribute-horizontal-centers" /> **Distribute horizontally (equal centers)** | Equal distance between the features' centres, left to right. |
+| <AppIcon name="distribute-vertical-gaps" /> **Distribute vertically (equal gaps)** | Equal space between the features, top to bottom. |
+| <AppIcon name="distribute-vertical-centers" /> **Distribute vertically (equal centers)** | Equal distance between the centres, top to bottom. |
 
 The first and last feature stay where they are; the ones between them move.
 
 ## Feature distribution
 
 
-<VisualPending id="arranging-feature-distribution" />
 **Feature distribution** makes a pattern of copies of the selected features in one step: a grid, a
 circle, or a row along a path. The copies are ordinary linked copies, not a pattern that updates
 later, and the whole distribution is one undo step. The selected features and any guide are not
@@ -78,6 +82,8 @@ changed. Imported models cannot be distributed.
 | **Rows**, **Columns** | The grid size, counting the original, which is the top-left cell. At least two cells. Default 1 row and 2 columns. |
 | **X spacing**, **Y spacing** | The distance between neighbouring cells, to the right and downwards in the Sketch view. Default 2 in or 20 mm. |
 
+<Screenshot src={distributeGrid} alt="Feature distribution panel set to 2 rows, 3 columns and 0.6 inch spacing, with the source rectangle and five dashed preview copies laid out as that grid" caption="The canvas previews the copies as you set the pattern." />
+
 ### Radial
 
 | Setting | Description |
@@ -91,6 +97,8 @@ The radius and start angle come from where the selection sits relative to the ce
 sweep spaces the instances evenly around the circle; a smaller sweep puts the first and last
 instances at its ends.
 
+<Screenshot src={distributeRadial} alt="Feature distribution panel set to eight instances over a 360 degree sweep, with the copies previewed in a ring around the picked centre point" caption="Radial, with eight instances swept a full 360 degrees." />
+
 ### Along path
 
 | Setting | Description |
@@ -102,11 +110,15 @@ instances at its ends.
 
 Copies are placed at equal distances along the guide. Construction geometry works well as a guide.
 
+<Screenshot src={distributePath} alt="Feature distribution panel with Spline 2 as the guide and six instances, and the copies previewed following the spline across the canvas" caption="Along path, with six instances following a spline guide." />
+
 ### Scale taper
 
 All three types have **Start scale %** and **End scale %**. With values other than 100, the copies
 grow or shrink evenly from the first copy (at the start value) to the last (at the end value). The
 original keeps its size.
+
+<Screenshot src={scaleTaper} alt="Twelve circles in a ring, shrinking steadily from the green full-size original round to a tiny copy at ten percent" caption="A radial distribution of twelve circles tapering from 100% to 10%." />
 
 <Aside type="caution" title="Scaled copies change the machining">
 	A scale taper changes the size of each copy, and so the size of what gets cut. Check that the

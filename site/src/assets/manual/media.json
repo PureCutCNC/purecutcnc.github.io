@@ -674,5 +674,159 @@
 		"locale": "en",
 		"status": "current",
 		"blockedBy": []
+	},
+	"design/snapping-and-grid/snap-popover.png": {
+		"shows": "The toolbar snap group with snapping, grid, point, line, midpoint, and center enabled and intersection and perpendicular off, and a Midpoint label beside the pointer on the top edge of a drawn rectangle",
+		"source": "capture",
+		"appCommit": "eca1f5d1d6f8468b6c85dbc80f063662195121dc",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"design/selecting-and-transforming/overlap-picker.png": {
+		"shows": "The Select feature panel reading 2 features overlap here, Choose one to select, listing Rect 2 and Rect 1 both badged RECTANGLE, with the same two rows in the feature tree alongside",
+		"source": "capture",
+		"appCommit": "eca1f5d1d6f8468b6c85dbc80f063662195121dc",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"design/selecting-and-transforming/transform-panel.png": {
+		"shows": "The Rotate workflow at its Set copy count step with Copies set to 5, the selected Rect 1, and the dashed rotate preview at -51.3 degrees with the origin and reference-direction markers",
+		"source": "capture",
+		"appCommit": "eca1f5d1d6f8468b6c85dbc80f063662195121dc",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"design/shape-operations/offset-preview.png": {
+		"shows": "The Offset workflow at Preview distance with its Distance entry, the solid source rectangle, and a dashed outward offset preview labelled 0.25 following the pointer",
+		"source": "capture",
+		"appCommit": "eca1f5d1d6f8468b6c85dbc80f063662195121dc",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"design/shape-operations/cut-workflow.png": {
+		"shows": "The Cut workflow at Select targets reading 1 target selected with a Keep originals checkbox, an open V-shaped path locked as the cutter, and the rectangle it crosses highlighted as the chosen target",
+		"source": "capture",
+		"appCommit": "eca1f5d1d6f8468b6c85dbc80f063662195121dc",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"design/sketch-editing/edit-session.png": {
+		"shows": "A sketch edit session on a rectangle with all four corner nodes shown, the top segment selected and labelled 1.375 on the canvas, and the Edit sketch panel showing its tool row and a Selected segment Length of 1.375 and Angle of 0",
+		"source": "capture",
+		"appCommit": "eca1f5d1d6f8468b6c85dbc80f063662195121dc",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"design/sketch-editing/fillet.png": {
+		"shows": "A sketch edit session with Round corner / fillet active, the rectangle's top-left corner picked, an R 0.25 arc previewing as the pointer moves, and the Radius entry in the Edit sketch panel",
+		"source": "capture",
+		"appCommit": "eca1f5d1d6f8468b6c85dbc80f063662195121dc",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"design/sketch-editing/trim.png": {
+		"shows": "A sketch edit session on an open self-crossing path with Trim to cutting edge active, the part to remove already picked, and the step reading Click the cutting segment",
+		"source": "capture",
+		"appCommit": "eca1f5d1d6f8468b6c85dbc80f063662195121dc",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"design/arranging/distribute-grid.png": {
+		"shows": "The Feature distribution panel set to 2 rows, 3 columns and 0.6 in spacing, with the source rectangle and five dashed preview copies laid out as that grid on the canvas",
+		"source": "capture",
+		"appCommit": "345477837b30cd8c12b2dc8d364ab26cfc9dc473",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"design/arranging/distribute-radial.png": {
+		"shows": "The Feature distribution panel set to a picked centre, eight instances, a 360 degree sweep and Follow direction, with the copies previewed in a ring around the centre point",
+		"source": "capture",
+		"appCommit": "eca1f5d1d6f8468b6c85dbc80f063662195121dc",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"design/arranging/distribute-path.png": {
+		"shows": "The Feature distribution panel with Spline 2 as the guide, six instances and Follow direction, with the copies previewed following the spline from left to right",
+		"source": "capture",
+		"appCommit": "eca1f5d1d6f8468b6c85dbc80f063662195121dc",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"design/dimensions-and-constraints/dimensions-on-part.png": {
+		"shows": "A rectangle carrying a horizontal 1.25 and a vertical 0.875 dimension and a circle carrying an R 0.375 radius dimension, with the horizontal dimension selected and the Edit dimension panel showing Hold left, a Distance of 1.25, Flip held point, Apply and Cancel",
+		"source": "capture",
+		"appCommit": "eca1f5d1d6f8468b6c85dbc80f063662195121dc",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"design/dimensions-and-constraints/constraint-panel.png": {
+		"shows": "The Constraint workflow at Set distance with a Distance of 0.8839, and a dashed line from the anchor point on Rect 1 to the reference point on Rect 2, the reference labelled Point",
+		"source": "capture",
+		"appCommit": "eca1f5d1d6f8468b6c85dbc80f063662195121dc",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"design/arranging/scale-taper.png": {
+		"shows": "Twelve circles distributed radially and committed, shrinking steadily around the ring from the green full-size original at 100 percent to a tiny copy at 10 percent, with feature labels hidden",
+		"source": "capture",
+		"appCommit": "345477837b30cd8c12b2dc8d364ab26cfc9dc473",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
 	}
 }
