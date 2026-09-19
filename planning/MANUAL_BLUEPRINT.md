@@ -438,7 +438,7 @@ the ones to check for `preview` until the next release.
 | Format | PNG for UI captures; SVG for diagrams; WebP or JPEG only for photographs. The build generates responsive sizes. |
 | App state | Default **Dark** theme, English interface, default panel layout, no personal files or paths visible. |
 | Viewport | Desktop captures in a 1440 × 900 window at 2× scale (`1440x900@2x`). Tablet captures, only on tablet pages, at 1180 × 820 at 2×. |
-| Cropping | Crop to the part that matters, with a little context so the reader can find it. Use `maxWidth` for dialogs and panels so they are not upscaled. No drawn arrows or boxes on captures; describe the location in text or use a diagram. |
+| Cropping | Crop to the part that matters, with a little context so the reader can find it. Use `maxWidth` for dialogs and panels so they are not upscaled. Draw on a capture only where the annotation carries what prose cannot — numbered callouts that name regions, or a marked dimension span. Keep that style consistent: white markers, dark chips, no leader lines crossing. Never add arrows or boxes as decoration, or in place of a sentence that would do the job. |
 | Source | Captured from a committed fixture project at a recorded app commit, so a screenshot can be retaken. Fixtures live in `site/fixtures/` (created with the first capture), or are named as `app:<path>` for a file in the app repository at that commit. |
 | Diagrams | SVG, using the site's colour tokens, with text as real text. The SVG source is the asset. |
 | Alt text | Required (the build fails without it). Say what the image shows that matters for the page, in one or two sentences; don't start with "Screenshot of". Purely decorative images are not used. |
