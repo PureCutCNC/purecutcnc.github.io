@@ -67,6 +67,45 @@ const clipDialog = (selector, margin = 60) => (page) =>
 		}
 	}, margin)
 
+/** The sketch canvas, where every Design capture happens. Its content is drawn, not DOM. */
+const canvasRect = (page) =>
+	page.evaluate(() => {
+		const c = document.querySelector('.sketch-viewport__canvas') ?? document.querySelector('canvas')
+		const r = c.getBoundingClientRect()
+		return { x: Math.round(r.x), y: Math.round(r.y), w: Math.round(r.width), h: Math.round(r.height) }
+	})
+
+const clipCanvas = async (page) => {
+	const { x, y, w, h } = await canvasRect(page)
+	return { x, y, width: w, height: h }
+}
+
+/** Points are fractions of the canvas, so a recipe survives a canvas that changes size. */
+async function moveTo(page, fx, fy) {
+	const { x, y, w, h } = await canvasRect(page)
+	const px = x + Math.round(w * fx)
+	const py = y + Math.round(h * fy)
+	await page.mouse.move(px, py, { steps: 8 })
+	await page.waitForTimeout(180)
+	return { x: px, y: py }
+}
+
+async function clickTo(page, fx, fy) {
+	const point = await moveTo(page, fx, fy)
+	await page.mouse.click(point.x, point.y)
+	// The canvas silently drops points that arrive too close together, so space them.
+	await page.waitForTimeout(500)
+	return point
+}
+
+/** Choose a shape from the tool rail's shape drawer. */
+async function pickShape(page, name) {
+	await page.getByRole('button', { name: 'Choose feature shape' }).click()
+	await page.waitForTimeout(450)
+	await page.getByRole('button', { name, exact: true }).click()
+	await page.waitForTimeout(500)
+}
+
 const RECIPES = [
 	{
 		id: 'feature-tree-sections',
@@ -193,6 +232,244 @@ const RECIPES = [
 		steps: (page) => page.getByRole('button', { name: 'Collapse feature color legend' }).first().click(),
 		clip: null, // the whole layout is the subject
 	},
+
+	// --- Design: drawing tools -------------------------------------------------
+	// These draw on the empty Untitled project rather than a bundled example: a tool
+	// shot wants nothing else on the canvas, and empty is default state, so there is
+	// no fixture file to keep in step with the app. Every shape is left PENDING and
+	// never committed, so the project stays empty and the recipe repeats cleanly.
+	{
+		id: 'drawing-shape-drawer',
+		asset: 'design/drawing-tools/shape-drawer.png',
+		viewport: { width: 1440, height: 900 },
+		steps: (page) => page.getByRole('button', { name: 'Choose feature shape' }).click(),
+		// The rail as well as the drawer: the point of the shot is where the drawer opens from.
+		clip: (page) =>
+			page.evaluate(() => {
+				const drawer = document.querySelector('.toolbar-creation-picker__drawer').getBoundingClientRect()
+				const rail = [...document.querySelectorAll('button')]
+					.map((b) => b.getBoundingClientRect())
+					.filter((r) => r.width > 0 && r.x < 60 && r.y > 40 && r.y < 500)
+				const top = Math.min(drawer.top, ...rail.map((r) => r.top))
+				const bottom = Math.max(drawer.bottom, ...rail.map((r) => r.bottom))
+				const m = 10
+				return {
+					x: 0,
+					y: Math.round(top - m),
+					width: Math.round(drawer.right + m),
+					height: Math.round(bottom - top + m * 2),
+				}
+			}),
+	},
+	{
+		id: 'drawing-creation-target',
+		asset: 'design/drawing-tools/creation-target.png',
+		viewport: { width: 1440, height: 900 },
+		clip: (page) =>
+			page.evaluate(() => {
+				const names = ['Create features', 'Create lines', 'Create regions', 'Create construction geometry']
+				const rects = names
+					.map((n) => [...document.querySelectorAll('button')].find((b) => (b.getAttribute('aria-label') ?? b.getAttribute('title')) === n))
+					.filter(Boolean)
+					.map((el) => el.getBoundingClientRect())
+				const x = Math.min(...rects.map((r) => r.x))
+				const y = Math.min(...rects.map((r) => r.y))
+				const right = Math.max(...rects.map((r) => r.right))
+				const bottom = Math.max(...rects.map((r) => r.bottom))
+				// 6px only: a wider margin catches a sliver of the shape drawer below.
+				const m = 6
+				return {
+					x: Math.max(0, Math.round(x - m)),
+					y: Math.round(y - m),
+					width: Math.round(right - x + m * 2),
+					height: Math.round(bottom - y + m * 2),
+				}
+			}),
+	},
+	{
+		id: 'drawing-typed-dimensions',
+		asset: 'design/drawing-tools/typed-dimensions.png',
+		viewport: { width: 1440, height: 900 },
+		collapseLegend: true,
+		async steps(page) {
+			await page.getByRole('button', { name: 'Add feature rectangle' }).first().click()
+			await page.waitForTimeout(450)
+			await clickTo(page, 0.26, 0.30)
+			// Tab is what swaps the panel for the typed-entry form.
+			await page.keyboard.press('Tab')
+			await page.waitForTimeout(700)
+			// Real values rather than the 0 the form opens with, so the shot also shows the
+			// pending rectangle tracking what is typed.
+			const fields = page.locator('.canvas-workflow-panel input')
+			await fields.nth(0).fill('2.5')
+			await page.waitForTimeout(350)
+			await fields.nth(1).fill('1.5')
+			await page.waitForTimeout(700)
+		},
+		clip: clipCanvas,
+	},
+	{
+		id: 'drawing-rectangle',
+		asset: 'design/drawing-tools/rectangle.png',
+		viewport: { width: 1440, height: 900 },
+		collapseLegend: true,
+		async steps(page) {
+			// Rectangle is the rail's default shape, so it needs no drawer visit.
+			await page.getByRole('button', { name: 'Add feature rectangle' }).first().click()
+			await page.waitForTimeout(450)
+			await clickTo(page, 0.22, 0.32)
+			// Held on hover: the second corner is never clicked, so the rectangle stays pending.
+			await moveTo(page, 0.70, 0.72)
+		},
+		clip: clipCanvas,
+	},
+	{
+		id: 'drawing-circle',
+		asset: 'design/drawing-tools/circle.png',
+		viewport: { width: 1440, height: 900 },
+		collapseLegend: true,
+		async steps(page) {
+			await pickShape(page, 'Add feature circle')
+			await clickTo(page, 0.48, 0.55)
+			// Level with the centre, so grid snapping yields a round radius rather than 1.0753.
+			await moveTo(page, 0.72, 0.55)
+		},
+		clip: clipCanvas,
+	},
+	{
+		id: 'drawing-ellipse',
+		asset: 'design/drawing-tools/ellipse.png',
+		viewport: { width: 1440, height: 900 },
+		collapseLegend: true,
+		async steps(page) {
+			await pickShape(page, 'Add feature ellipse')
+			await clickTo(page, 0.48, 0.56)
+			await moveTo(page, 0.74, 0.34)
+		},
+		clip: clipCanvas,
+	},
+	{
+		id: 'drawing-polygon',
+		asset: 'design/drawing-tools/polygon.png',
+		viewport: { width: 1440, height: 900 },
+		collapseLegend: true,
+		async steps(page) {
+			await pickShape(page, 'Add feature polygon')
+			for (const [fx, fy] of [[0.24, 0.72], [0.32, 0.34], [0.64, 0.30], [0.76, 0.62]]) {
+				await clickTo(page, fx, fy)
+			}
+			// Left open on purpose: an unfinished chain is what shows Finish/Undo/Cancel.
+			await moveTo(page, 0.48, 0.80)
+		},
+		clip: clipCanvas,
+	},
+	{
+		id: 'drawing-spline',
+		asset: 'design/drawing-tools/spline.png',
+		viewport: { width: 1440, height: 900 },
+		collapseLegend: true,
+		async steps(page) {
+			await pickShape(page, 'Add feature spline')
+			// A single hump: a zig-zag makes the closed profile self-intersect and the panel
+			// then carries a warning that has nothing to do with the spline tool.
+			for (const [fx, fy] of [[0.20, 0.66], [0.34, 0.40], [0.54, 0.34], [0.70, 0.44]]) {
+				await clickTo(page, fx, fy)
+			}
+			await moveTo(page, 0.80, 0.66)
+		},
+		clip: clipCanvas,
+	},
+	{
+		id: 'drawing-composite',
+		asset: 'design/drawing-tools/composite.png',
+		viewport: { width: 1440, height: 900 },
+		collapseLegend: true,
+		async steps(page) {
+			await pickShape(page, 'Add feature composite')
+			await clickTo(page, 0.22, 0.66)
+			await clickTo(page, 0.36, 0.66)
+			await page.getByRole('button', { name: /^Arc \(A\)$/ }).click()
+			await page.waitForTimeout(450)
+			await clickTo(page, 0.52, 0.36)
+			await page.getByRole('button', { name: /^Spline \(S\)$/ }).click()
+			await page.waitForTimeout(450)
+			await clickTo(page, 0.68, 0.56)
+			await moveTo(page, 0.80, 0.36)
+		},
+		clip: clipCanvas,
+	},
+
+	// --- Design: parametric shapes ---------------------------------------------
+	{
+		id: 'parametric-slot',
+		asset: 'design/parametric-shapes/slot.png',
+		viewport: { width: 1440, height: 900 },
+		collapseLegend: true,
+		async steps(page) {
+			await pickShape(page, 'Add feature slot')
+			await clickTo(page, 0.28, 0.52)
+			await clickTo(page, 0.68, 0.52)
+			// Both ends are set; the third step is width, which is the step the page documents.
+			await moveTo(page, 0.68, 0.36)
+		},
+		clip: clipCanvas,
+	},
+	{
+		id: 'parametric-regular-polygon',
+		asset: 'design/parametric-shapes/regular-polygon.png',
+		viewport: { width: 1440, height: 900 },
+		collapseLegend: true,
+		async steps(page) {
+			await pickShape(page, 'Add feature regular polygon')
+			// Sides defaults to 6; the page talks about eight.
+			const sides = page.locator('.canvas-workflow-panel input').first()
+			await sides.fill('8')
+			await sides.press('Enter')
+			await page.waitForTimeout(400)
+			await clickTo(page, 0.46, 0.56)
+			await moveTo(page, 0.70, 0.56)
+		},
+		clip: clipCanvas,
+	},
+	{
+		id: 'parametric-gear',
+		asset: 'design/parametric-shapes/gear.png',
+		viewport: { width: 1440, height: 900 },
+		collapseLegend: true,
+		async steps(page) {
+			await pickShape(page, 'Add feature gear')
+			// Placed right of centre so the tall parameters panel does not sit over the gear.
+			await clickTo(page, 0.58, 0.62)
+			// Setting the radius is what opens the full parameter list.
+			await clickTo(page, 0.78, 0.62)
+			await page.waitForTimeout(1200)
+		},
+		clip: clipCanvas,
+	},
+	{
+		id: 'parametric-rounded-rectangle',
+		asset: 'design/parametric-shapes/rounded-rectangle.png',
+		viewport: { width: 1440, height: 900 },
+		collapseLegend: true,
+		async steps(page) {
+			await pickShape(page, 'Add feature rounded rectangle')
+			await clickTo(page, 0.24, 0.32)
+			await moveTo(page, 0.72, 0.74)
+		},
+		clip: clipCanvas,
+	},
+	{
+		id: 'parametric-chamfered-rectangle',
+		asset: 'design/parametric-shapes/chamfered-rectangle.png',
+		viewport: { width: 1440, height: 900 },
+		collapseLegend: true,
+		async steps(page) {
+			await pickShape(page, 'Add feature chamfered rectangle')
+			await clickTo(page, 0.24, 0.32)
+			await moveTo(page, 0.72, 0.74)
+		},
+		clip: clipCanvas,
+	},
 ]
 
 function parseArgs(argv) {
@@ -246,9 +523,23 @@ async function capture(browser, recipe) {
 		const page = await context.newPage()
 		await page.goto(APP_URL, { waitUntil: 'networkidle' })
 
-		await page.getByRole('button', { name: FIXTURES[recipe.fixture] }).click()
-		// The example has to finish building its model before anything is worth capturing.
-		await page.waitForTimeout(2500)
+		if (recipe.fixture) {
+			await page.getByRole('button', { name: FIXTURES[recipe.fixture] }).click()
+			// The example has to finish building its model before anything is worth capturing.
+			await page.waitForTimeout(2500)
+		} else {
+			// Empty project: dismiss "Start your part" and draw on the bare 4x3 stock. Design
+			// tool shots want nothing else on the canvas, and an empty project is default state,
+			// so there is no fixture file to keep in step with the app.
+			await page.getByRole('button', { name: /^close$/i }).first().click()
+			await page.waitForTimeout(600)
+		}
+
+		if (recipe.collapseLegend) {
+			// The feature-colour legend sits on the lower-right canvas, over the drawn shape.
+			await page.getByRole('button', { name: 'Collapse feature color legend' }).first().click()
+			await page.waitForTimeout(400)
+		}
 
 		if (recipe.steps) await recipe.steps(page)
 		await page.waitForTimeout(800)
@@ -259,7 +550,8 @@ async function capture(browser, recipe) {
 		await page.screenshot({ path: target, clip })
 
 		const { width, height } = recipe.viewport
-		return { ok: true, viewport: `${width}x${height}@2x`, fixture: `Example: ${recipe.fixture}` }
+		const fixture = recipe.fixture ? `Example: ${recipe.fixture}` : 'Empty project'
+		return { ok: true, viewport: `${width}x${height}@2x`, fixture }
 	} finally {
 		await context.close()
 	}

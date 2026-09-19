@@ -6,9 +6,9 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
 import { Aside, Steps } from '@astrojs/starlight/components';
 import Screenshot from '../../../../components/Screenshot.astro';
+import AppIcon from '../../../../components/AppIcon.astro';
 import slotTool from '../../../../assets/manual/design/parametric-shapes/slot.png';
 import regularPolygonTool from '../../../../assets/manual/design/parametric-shapes/regular-polygon.png';
 import gearTool from '../../../../assets/manual/design/parametric-shapes/gear.png';
@@ -36,7 +36,7 @@ A slot is a straight groove with semicircular ends, drawn along its centreline.
 
 <Steps>
 
-1. Choose the slot in the shape drawer.
+1. Choose the <AppIcon name="slot" /> slot in the shape drawer.
 
 2. At **Click first end center**, click the centre of one end.
 
@@ -50,7 +50,6 @@ A slot is a straight groove with semicircular ends, drawn along its centreline.
 
 <Screenshot src={slotTool} alt="A pending slot with its width readout, and the Slot workflow panel asking to set the width, with Width and Cancel buttons" />
 
-<VisualPending id="parametric-slot" />
 
 ## Regular polygon
 
@@ -58,7 +57,7 @@ A regular polygon has equal sides and equal angles.
 
 <Steps>
 
-1. Choose the regular polygon in the shape drawer.
+1. Choose the <AppIcon name="ngon" /> regular polygon in the shape drawer.
 
 2. In the workflow panel, set **Sides (3-50)**. The default is 6.
 
@@ -74,7 +73,6 @@ you draw.
 
 <Screenshot src={regularPolygonTool} alt="A pending eight-sided polygon drawn from its centre, and the workflow panel with Sides (3-50) set to 8 and the Radius and Cancel buttons" />
 
-<VisualPending id="parametric-regular-polygon" />
 
 ## Gear
 
@@ -82,7 +80,7 @@ The gear tool draws a spur gear as one closed profile, with an optional bore.
 
 <Steps>
 
-1. Choose the gear in the shape drawer.
+1. Choose the <AppIcon name="gear" /> gear in the shape drawer.
 
 2. At **Click center point**, click the centre.
 
@@ -117,7 +115,6 @@ holds a subtract circle named **Gear Bore**, with the same Z range as the gear.
 
 <Screenshot src={gearTool} alt="A pending 24-tooth gear, and the Set gear parameters panel with tooth count, whole depth, flank profile, pressure angle, root and crest settings, bore diameter, and Confirm" />
 
-<VisualPending id="parametric-gear" />
 
 <Aside type="caution" title="Check the gear against your cutter">
 	The gear profile is exact, but an endmill cannot cut an inside corner smaller than its radius.
@@ -131,7 +128,8 @@ workflow panel.
 
 <Steps>
 
-1. Choose the rounded rectangle or the chamfered rectangle in the shape drawer.
+1. Choose the <AppIcon name="roundrect" /> rounded rectangle or the
+   <AppIcon name="chamferrect" /> chamfered rectangle in the shape drawer.
 
 2. Set **Corner radius** (rounded) or **Chamfer** (chamfered). The default is 0.2 in or 5 mm.
 
@@ -144,11 +142,9 @@ workflow panel.
 
 <Screenshot src={roundedRectangleTool} alt="A pending rounded rectangle, and its workflow panel with Corner radius set to 0.2" />
 
-<VisualPending id="parametric-rounded-rectangle" />
 
 <Screenshot src={chamferedRectangleTool} alt="A pending chamfered rectangle, and its workflow panel with Chamfer set to 0.2" />
 
-<VisualPending id="parametric-chamfered-rectangle" />
 
 ## Related pages
 

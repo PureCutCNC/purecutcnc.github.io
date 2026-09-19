@@ -6,74 +6,294 @@
 		"locale": "en"
 	},
 	"pages": [
-		{ "page": "/guide/", "decision": "visuals" },
-		{ "page": "/quickstart/", "decision": "visuals" },
-		{ "page": "/guide/start-here/install-and-open/", "decision": "visuals" },
-		{ "page": "/guide/start-here/safety/", "decision": "not-needed", "reviewStatus": "proposed", "rationale": "The page is a short safety checklist; a product image could imply that the interface replaces machine-side verification." },
-		{ "page": "/guide/fundamentals/workspace/", "decision": "visuals" },
-		{ "page": "/guide/fundamentals/projects-and-files/", "decision": "visuals" },
-		{ "page": "/guide/fundamentals/features-and-roles/", "decision": "visuals" },
-		{ "page": "/guide/fundamentals/feature-tree/", "decision": "visuals" },
-		{ "page": "/guide/fundamentals/linked-features/", "decision": "visuals" },
-		{ "page": "/guide/fundamentals/stock-origin-units/", "decision": "visuals" },
-		{ "page": "/guide/fundamentals/regions/", "decision": "visuals" },
-		{ "page": "/guide/fundamentals/construction-geometry/", "decision": "visuals" },
-		{ "page": "/guide/fundamentals/tablet-and-touch/", "decision": "visuals" },
-		{ "page": "/guide/design/drawing-tools/", "decision": "visuals" },
-		{ "page": "/guide/design/parametric-shapes/", "decision": "visuals" },
-		{ "page": "/guide/design/text/", "decision": "visuals" },
-		{ "page": "/guide/design/selecting-and-transforming/", "decision": "visuals" },
-		{ "page": "/guide/design/arranging/", "decision": "visuals" },
-		{ "page": "/guide/design/shape-operations/", "decision": "visuals" },
-		{ "page": "/guide/design/sketch-editing/", "decision": "visuals" },
-		{ "page": "/guide/design/snapping-and-grid/", "decision": "visuals" },
-		{ "page": "/guide/design/dimensions-and-constraints/", "decision": "visuals" },
-		{ "page": "/guide/design/importing-2d/", "decision": "visuals" },
-		{ "page": "/guide/design/importing-3d-models/", "decision": "visuals" },
-		{ "page": "/guide/design/backdrop-images/", "decision": "visuals" },
-		{ "page": "/guide/cam-setup/tool-library/", "decision": "visuals" },
-		{ "page": "/guide/cam-setup/working-with-operations/", "decision": "visuals" },
-		{ "page": "/guide/cam-setup/cam-plan/", "decision": "visuals" },
-		{ "page": "/guide/cam-setup/machines/", "decision": "visuals" },
-		{ "page": "/guide/cam-setup/tabs/", "decision": "visuals" },
-		{ "page": "/guide/cam-setup/clamps-and-clearances/", "decision": "visuals" },
-		{ "page": "/guide/operations/", "decision": "visuals" },
-		{ "page": "/guide/operations/common-parameters/", "decision": "visuals" },
-		{ "page": "/guide/operations/pocket/", "decision": "visuals" },
-		{ "page": "/guide/operations/surface-clean/", "decision": "visuals" },
-		{ "page": "/guide/operations/edge-route-inside/", "decision": "visuals" },
-		{ "page": "/guide/operations/edge-route-outside/", "decision": "visuals" },
-		{ "page": "/guide/operations/v-carve-offset/", "decision": "visuals" },
-		{ "page": "/guide/operations/v-carve-medial/", "decision": "visuals" },
-		{ "page": "/guide/operations/engrave/", "decision": "visuals" },
-		{ "page": "/guide/operations/drill/", "decision": "visuals" },
-		{ "page": "/guide/operations/3d-surface-rough/", "decision": "visuals" },
-		{ "page": "/guide/operations/3d-surface-finish/", "decision": "visuals" },
-		{ "page": "/guide/operations/3d-surface-cleanup/", "decision": "visuals" },
-		{ "page": "/guide/strategies/clearing-patterns/", "decision": "visuals" },
-		{ "page": "/guide/strategies/trochoidal-cutting/", "decision": "visuals" },
-		{ "page": "/guide/strategies/entry-and-exit/", "decision": "visuals" },
-		{ "page": "/guide/strategies/corners/", "decision": "visuals" },
-		{ "page": "/guide/strategies/feed-reduction/", "decision": "visuals" },
-		{ "page": "/guide/strategies/rest-machining/", "decision": "visuals" },
-		{ "page": "/guide/strategies/3d-finishing/", "decision": "visuals" },
-		{ "page": "/guide/verify-export/toolpath-preview/", "decision": "visuals" },
-		{ "page": "/guide/verify-export/3d-view/", "decision": "visuals" },
-		{ "page": "/guide/verify-export/simulation/", "decision": "visuals" },
-		{ "page": "/guide/verify-export/gcode-export/", "decision": "visuals" },
-		{ "page": "/guide/verify-export/exported-motion/", "decision": "visuals" },
-		{ "page": "/guide/verify-export/setup-booklets/", "decision": "visuals" },
-		{ "page": "/guide/verify-export/model-export-and-print/", "decision": "visuals" },
-		{ "page": "/guide/reference/keyboard-shortcuts/", "decision": "not-needed", "reviewStatus": "proposed", "rationale": "The tables are searchable, accessible, and more useful than an image of key labels." },
-		{ "page": "/guide/reference/file-formats/", "decision": "not-needed", "reviewStatus": "proposed", "rationale": "The page is a compact compatibility table with no spatial workflow to illustrate." },
-		{ "page": "/guide/reference/machine-definitions/", "decision": "not-needed", "reviewStatus": "proposed", "rationale": "The field and validation tables are the authoritative reference; editor visuals belong on the Machines task page." },
-		{ "page": "/guide/reference/post-processor-converter/", "decision": "not-needed", "reviewStatus": "proposed", "rationale": "Copyable commands and report examples are more useful than a terminal screenshot." },
-		{ "page": "/guide/reference/themes/", "decision": "visuals" },
-		{ "page": "/guide/reference/languages/", "decision": "visuals" },
-		{ "page": "/guide/reference/warnings/", "decision": "not-needed", "reviewStatus": "proposed", "rationale": "The page is a message lookup; representative warning states are proposed on the task pages where they occur." },
-		{ "page": "/guide/reference/troubleshooting/", "decision": "visuals" },
-		{ "page": "/guide/reference/glossary/", "decision": "not-needed", "reviewStatus": "proposed", "rationale": "A searchable term list does not gain useful meaning from a decorative image." },
-		{ "page": "/guide/reference/privacy-and-data/", "decision": "not-needed", "reviewStatus": "proposed", "rationale": "The page explains storage and network boundaries; an interface image would not clarify those guarantees." }
+		{
+			"page": "/guide/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/quickstart/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/start-here/install-and-open/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/start-here/safety/",
+			"decision": "not-needed",
+			"reviewStatus": "proposed",
+			"rationale": "The page is a short safety checklist; a product image could imply that the interface replaces machine-side verification."
+		},
+		{
+			"page": "/guide/fundamentals/workspace/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/fundamentals/projects-and-files/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/fundamentals/features-and-roles/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/fundamentals/feature-tree/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/fundamentals/linked-features/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/fundamentals/stock-origin-units/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/fundamentals/regions/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/fundamentals/construction-geometry/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/fundamentals/tablet-and-touch/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/design/drawing-tools/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/design/parametric-shapes/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/design/text/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/design/selecting-and-transforming/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/design/arranging/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/design/shape-operations/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/design/sketch-editing/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/design/snapping-and-grid/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/design/dimensions-and-constraints/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/design/importing-2d/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/design/importing-3d-models/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/design/backdrop-images/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/cam-setup/tool-library/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/cam-setup/working-with-operations/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/cam-setup/cam-plan/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/cam-setup/machines/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/cam-setup/tabs/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/cam-setup/clamps-and-clearances/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/operations/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/operations/common-parameters/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/operations/pocket/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/operations/surface-clean/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/operations/edge-route-inside/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/operations/edge-route-outside/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/operations/v-carve-offset/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/operations/v-carve-medial/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/operations/engrave/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/operations/drill/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/operations/3d-surface-rough/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/operations/3d-surface-finish/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/operations/3d-surface-cleanup/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/strategies/clearing-patterns/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/strategies/trochoidal-cutting/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/strategies/entry-and-exit/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/strategies/corners/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/strategies/feed-reduction/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/strategies/rest-machining/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/strategies/3d-finishing/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/verify-export/toolpath-preview/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/verify-export/3d-view/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/verify-export/simulation/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/verify-export/gcode-export/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/verify-export/exported-motion/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/verify-export/setup-booklets/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/verify-export/model-export-and-print/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/reference/keyboard-shortcuts/",
+			"decision": "not-needed",
+			"reviewStatus": "proposed",
+			"rationale": "The tables are searchable, accessible, and more useful than an image of key labels."
+		},
+		{
+			"page": "/guide/reference/file-formats/",
+			"decision": "not-needed",
+			"reviewStatus": "proposed",
+			"rationale": "The page is a compact compatibility table with no spatial workflow to illustrate."
+		},
+		{
+			"page": "/guide/reference/machine-definitions/",
+			"decision": "not-needed",
+			"reviewStatus": "proposed",
+			"rationale": "The field and validation tables are the authoritative reference; editor visuals belong on the Machines task page."
+		},
+		{
+			"page": "/guide/reference/post-processor-converter/",
+			"decision": "not-needed",
+			"reviewStatus": "proposed",
+			"rationale": "Copyable commands and report examples are more useful than a terminal screenshot."
+		},
+		{
+			"page": "/guide/reference/themes/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/reference/languages/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/reference/warnings/",
+			"decision": "not-needed",
+			"reviewStatus": "proposed",
+			"rationale": "The page is a message lookup; representative warning states are proposed on the task pages where they occur."
+		},
+		{
+			"page": "/guide/reference/troubleshooting/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/reference/glossary/",
+			"decision": "not-needed",
+			"reviewStatus": "proposed",
+			"rationale": "A searchable term list does not gain useful meaning from a decorative image."
+		},
+		{
+			"page": "/guide/reference/privacy-and-data/",
+			"decision": "not-needed",
+			"reviewStatus": "proposed",
+			"rationale": "The page explains storage and network boundaries; an interface image would not clarify those guarantees."
+		}
 	],
 	"visuals": [
 		{
@@ -425,6 +645,18 @@
 			"blockedBy": []
 		},
 		{
+			"id": "drawing-shape-drawer",
+			"page": "/guide/design/drawing-tools/",
+			"afterHeading": "Shape drawer",
+			"kind": "screenshot",
+			"purpose": "Locate the control the page sends the reader to for every shape, and show which shapes each of its two rows holds.",
+			"brief": "The tool rail with the shape drawer open: the basic shapes in its top row and the parametric shapes in its second.",
+			"asset": "design/drawing-tools/shape-drawer.png",
+			"alt": "Tool rail with the shape drawer open, showing rectangle, circle, ellipse, polygon, spline, composite, and text in the top row, and slot, regular polygon, gear, rounded rectangle, and chamfered rectangle in the second",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
 			"id": "drawing-creation-target",
 			"page": "/guide/design/drawing-tools/",
 			"afterHeading": "Creation target",
@@ -433,7 +665,19 @@
 			"brief": "The four creation-target buttons for features, lines, regions, and construction at the top of the tool rail.",
 			"asset": "design/drawing-tools/creation-target.png",
 			"alt": "Creation-target buttons for features, lines, regions, and construction geometry",
-			"status": "proposed",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "drawing-typed-dimensions",
+			"page": "/guide/design/drawing-tools/",
+			"afterHeading": "Typed dimensions",
+			"kind": "screenshot",
+			"purpose": "Show the typed-entry form every tool offers, and that the pending shape follows the numbers as they are typed.",
+			"brief": "The Rectangle workflow panel switched to Enter dimensions with Width and Height filled in, and the pending rectangle on the canvas matching them.",
+			"asset": "design/drawing-tools/typed-dimensions.png",
+			"alt": "Rectangle workflow panel in its Enter dimensions form with Width 2.5 and Height 1.5, and the pending rectangle on the canvas reading 2.5 by 1.5 to match",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -445,7 +689,7 @@
 			"brief": "A pending rectangle with width and height readouts and the Rectangle workflow panel.",
 			"asset": "design/drawing-tools/rectangle.png",
 			"alt": "Pending rectangle with width and height readouts and the Rectangle workflow panel",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -457,7 +701,7 @@
 			"brief": "A pending circle with its radius readout and the Circle workflow panel.",
 			"asset": "design/drawing-tools/circle.png",
 			"alt": "Pending circle with radius readout and the Circle workflow panel",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -465,11 +709,11 @@
 			"page": "/guide/design/drawing-tools/",
 			"afterHeading": "Ellipse",
 			"kind": "screenshot",
-			"purpose": "Show the two-radius interaction that differs from drawing a circle.",
-			"brief": "A pending centre-out ellipse with both radius readouts and the Ellipse workflow panel.",
+			"purpose": "Show the set-radii step, where a single click fixes both radii, unlike the circle's one radius.",
+			"brief": "A pending centre-out ellipse with its radius readout repeated in each quadrant and the Ellipse workflow panel.",
 			"asset": "design/drawing-tools/ellipse.png",
-			"alt": "Pending ellipse with two radius readouts and the Ellipse workflow panel",
-			"status": "proposed",
+			"alt": "Pending ellipse with its radius readout repeated in each quadrant and the Ellipse workflow panel",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -481,7 +725,7 @@
 			"brief": "A pending polygon with point and length feedback plus Finish, Dimensions, Undo, and Cancel.",
 			"asset": "design/drawing-tools/polygon.png",
 			"alt": "Pending polygon with its workflow panel showing Finish, Dimensions, Undo, and Cancel",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -493,7 +737,7 @@
 			"brief": "A pending spline curving through several points with its workflow panel visible.",
 			"asset": "design/drawing-tools/spline.png",
 			"alt": "Pending spline curving through several points with the Spline workflow panel",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -505,7 +749,7 @@
 			"brief": "A composite path in progress with line, arc, and spline segments and the mode controls visible.",
 			"asset": "design/drawing-tools/composite.png",
 			"alt": "Composite path in progress with line, arc, and spline segments and mode controls",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -517,7 +761,7 @@
 			"brief": "A pending slot with its width readout and the Slot workflow panel at the width step.",
 			"asset": "design/parametric-shapes/slot.png",
 			"alt": "Pending slot with width readout and the Slot workflow panel",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -529,8 +773,8 @@
 			"brief": "A pending eight-sided polygon and the workflow panel with Sides and Radius controls.",
 			"asset": "design/parametric-shapes/regular-polygon.png",
 			"alt": "Pending eight-sided regular polygon with Sides and Radius controls",
-			"status": "blocked",
-			"blockedBy": ["PureCutCNC/purecutcnc#800"]
+			"status": "captured",
+			"blockedBy": []
 		},
 		{
 			"id": "parametric-gear",
@@ -541,7 +785,7 @@
 			"brief": "A pending gear and the full Set gear parameters panel with representative values.",
 			"asset": "design/parametric-shapes/gear.png",
 			"alt": "Pending gear with tooth, depth, flank, pressure-angle, root, crest, and bore settings",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -553,7 +797,7 @@
 			"brief": "A pending rounded rectangle with the Corner radius control visible.",
 			"asset": "design/parametric-shapes/rounded-rectangle.png",
 			"alt": "Pending rounded rectangle with its Corner radius control",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -565,7 +809,7 @@
 			"brief": "A pending chamfered rectangle with the Chamfer control visible.",
 			"asset": "design/parametric-shapes/chamfered-rectangle.png",
 			"alt": "Pending chamfered rectangle with its Chamfer control",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -830,7 +1074,9 @@
 			"asset": "cam-setup/tool-library/import-dialog.png",
 			"alt": "Import tools dialog with search, type and unit filters and selectable tool rows",
 			"status": "blocked",
-			"blockedBy": ["PureCutCNC/purecutcnc#797"]
+			"blockedBy": [
+				"PureCutCNC/purecutcnc#797"
+			]
 		},
 		{
 			"id": "tool-library-management",

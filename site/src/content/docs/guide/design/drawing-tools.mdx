@@ -6,9 +6,9 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
 import { Aside, Steps } from '@astrojs/starlight/components';
 import Screenshot from '../../../../components/Screenshot.astro';
+import AppIcon from '../../../../components/AppIcon.astro';
 import creationTarget from '../../../../assets/manual/design/drawing-tools/creation-target.png';
 import rectangleTool from '../../../../assets/manual/design/drawing-tools/rectangle.png';
 import circleTool from '../../../../assets/manual/design/drawing-tools/circle.png';
@@ -16,6 +16,8 @@ import ellipseTool from '../../../../assets/manual/design/drawing-tools/ellipse.
 import polygonTool from '../../../../assets/manual/design/drawing-tools/polygon.png';
 import splineTool from '../../../../assets/manual/design/drawing-tools/spline.png';
 import compositeTool from '../../../../assets/manual/design/drawing-tools/composite.png';
+import shapeDrawer from '../../../../assets/manual/design/drawing-tools/shape-drawer.png';
+import typedDimensions from '../../../../assets/manual/design/drawing-tools/typed-dimensions.png';
 
 The drawing tools in the tool rail add shapes to the **Sketch** canvas. Every shape you draw becomes
 a feature in the feature tree; its role and Z range decide what it does in the model, as
@@ -36,9 +38,7 @@ the basic shapes. Slots, regular polygons, gears, and rectangles with shaped cor
 
 1. Choose a creation target at the top of the tool rail (see below).
 
-2. Open the shape drawer and choose a shape. The drawer shows the shapes as icons; each tooltip
-   names the target and shape, for example **Add feature rectangle**. The button below the drawer
-   repeats the last shape you used.
+2. Open the shape drawer and choose a shape. See [Shape drawer](#shape-drawer) below.
 
 3. Follow the step shown in the shape's workflow panel: click points on the canvas, or click
    **Dimensions** (or press <kbd>Tab</kbd>) to type exact values.
@@ -51,6 +51,19 @@ the basic shapes. Slots, regular polygons, gears, and rectangles with shaped cor
 Tools stay armed so that you can place a row of circles or a set of slots without returning to the
 tool rail. Per-shape settings such as a polygon's side count or a rounded rectangle's corner radius
 carry over to the next shape.
+
+## Shape drawer
+
+The tool rail's <AppIcon name="feature-drawer" /> **Choose feature shape** button opens the shape
+drawer. Its top row holds the shapes on this page — rectangle, circle, ellipse, polygon, spline,
+and composite — together with text; its second row holds the parametric shapes: slot, regular
+polygon, gear, rounded rectangle, and chamfered rectangle. Each button's tooltip names the creation
+target and the shape, for example **Add feature rectangle**.
+
+The button directly below the drawer button repeats the last shape you used, so you can re-arm that
+shape without opening the drawer again.
+
+<Screenshot src={shapeDrawer} alt="Tool rail with the shape drawer open, showing rectangle, circle, ellipse, polygon, spline, composite, and text in the top row, and slot, regular polygon, gear, rounded rectangle, and chamfered rectangle in the second" maxWidth={262} />
 
 ## Creation target
 
@@ -74,13 +87,24 @@ geometry](/guide/fundamentals/construction-geometry/) for what those targets are
 
 <Screenshot src={creationTarget} alt="The four creation target buttons at the top of the tool rail: features, lines, regions, and construction geometry" maxWidth={80} />
 
-<VisualPending id="drawing-creation-target" />
+
+## Typed dimensions
+
+Every drawing tool takes typed values instead of a second click. Press <kbd>Tab</kbd>, or click the
+panel's typed-entry button, and the workflow panel becomes a small form. The button names what it
+will ask for: **Dimensions (Tab)** on the basic shapes, **Radius (Tab)** on a gear or regular
+polygon, **Width (Tab)** at a slot's width step.
+
+The pending shape follows the numbers as you type them, so you can check the size before you
+confirm. Confirm places the shape; cancel returns you to clicking.
+
+<Screenshot src={typedDimensions} alt="Rectangle workflow panel in its Enter dimensions form with Width 2.5 and Height 1.5, and the pending rectangle on the canvas reading 2.5 by 1.5 to match" />
 
 ## Rectangle
 
 <Steps>
 
-1. Choose the rectangle in the shape drawer.
+1. Choose the <AppIcon name="rect" /> rectangle in the shape drawer.
 
 2. At **Click first corner**, click one corner.
 
@@ -94,13 +118,12 @@ Rectangles are drawn aligned with the X and Y axes. Rotate one afterwards with t
 
 <Screenshot src={rectangleTool} alt="A pending rectangle on the canvas with width and height readouts, and the Rectangle workflow panel asking for the opposite corner or dimensions" />
 
-<VisualPending id="drawing-rectangle" />
 
 ## Circle
 
 <Steps>
 
-1. Choose the circle in the shape drawer.
+1. Choose the <AppIcon name="circle" /> circle in the shape drawer.
 
 2. At **Click center point**, click the centre.
 
@@ -114,13 +137,12 @@ follow the exact curve. The drill operation accepts only circle features.
 
 <Screenshot src={circleTool} alt="A pending circle with its radius readout, and the Circle workflow panel asking for the radius or dimensions" />
 
-<VisualPending id="drawing-circle" />
 
 ## Ellipse
 
 <Steps>
 
-1. Choose the ellipse in the shape drawer.
+1. Choose the <AppIcon name="ellipse" /> ellipse in the shape drawer.
 
 2. At **Click center point**, click the centre.
 
@@ -131,9 +153,8 @@ follow the exact curve. The drill operation accepts only circle features.
 
 Ellipses are stored as true curves, and toolpaths follow the curve.
 
-<Screenshot src={ellipseTool} alt="A pending ellipse drawn from its centre with radius readouts, and the Ellipse workflow panel asking for the radii or dimensions" />
+<Screenshot src={ellipseTool} alt="A pending ellipse drawn from its centre with its radius readout repeated in each quadrant, and the Ellipse workflow panel asking for the radii or dimensions" />
 
-<VisualPending id="drawing-ellipse" />
 
 ## Polygon
 
@@ -141,7 +162,7 @@ A polygon is a path of straight segments through the points you click.
 
 <Steps>
 
-1. Choose the polygon in the shape drawer.
+1. Choose the <AppIcon name="polygon" /> polygon in the shape drawer.
 
 2. At **Click first point**, click the first point, then keep clicking to add points
    (**Add one more point**, then **Add points or close**).
@@ -162,20 +183,18 @@ line feature that the engrave operation can follow.
 
 <Screenshot src={polygonTool} alt="A pending polygon with segment length readouts, and the Polygon workflow panel with Finish, Dimensions, Undo, and Cancel" />
 
-<VisualPending id="drawing-polygon" />
 
 ## Spline
 
-A spline is a smooth curve that passes through every point you click. Draw it like a polygon:
+A <AppIcon name="spline" /> spline is a smooth curve that passes through every point you click. Draw it like a polygon:
 click the first point again to close it, or click **Finish** (<kbd>Enter</kbd>) to keep it open.
 **Undo** (<kbd>Backspace</kbd>) removes the last point.
 
 To change the curve afterwards, edit it in a sketch-editing session; see
 [Editing sketches](/guide/design/sketch-editing/).
 
-<Screenshot src={splineTool} alt="A pending closed spline curving through several points, and the Spline workflow panel with Finish, Dimensions, Undo, and Cancel" />
+<Screenshot src={splineTool} alt="An unfinished spline curving through four points, and the Spline workflow panel with Finish, Dimensions, Undo, and Cancel" />
 
-<VisualPending id="drawing-spline" />
 
 ## Composite
 
@@ -183,7 +202,8 @@ A composite path mixes straight lines, arcs, and spline curves in one feature.
 
 <Steps>
 
-1. Choose the composite shape in the shape drawer, then click the first point.
+1. Choose the <AppIcon name="composite" /> composite shape in the shape drawer, then click the first
+   point.
 
 2. Choose the kind of the next segment with the panel's **Line** (<kbd>L</kbd>), **Arc**
    (<kbd>A</kbd>), and **Spline** (<kbd>S</kbd>) buttons. The step reads **Add line points**,
@@ -200,9 +220,8 @@ A composite path mixes straight lines, arcs, and spline curves in one feature.
 **Undo** (<kbd>Backspace</kbd>) removes the last segment. **Dimensions** (<kbd>Tab</kbd>) sets the
 next segment's **Length** and **Angle**, and for an arc also its **Radius**.
 
-<Screenshot src={compositeTool} alt="A pending composite path of lines, an arc, and spline segments, and the Composite workflow panel with Line, Arc, and Spline mode buttons" />
+<Screenshot src={compositeTool} alt="A composite path in progress with a straight segment, an arc, and a spline, and the Composite workflow panel with Line, Arc, and Spline mode buttons" />
 
-<VisualPending id="drawing-composite" />
 
 <Aside title="Open and closed paths">
 	Closed profiles can be pocketed, edge-routed, V-carved, and surface-cleaned. Open paths are line
