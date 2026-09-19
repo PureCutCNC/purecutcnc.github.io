@@ -62,6 +62,11 @@ export const TERMINOLOGY = [
 const MEDIA_EXTENSIONS = /\.(png|jpe?g|webp|svg)$/i;
 const MEDIA_SOURCES = ['capture', 'legacy-guide', 'diagram'];
 const MEDIA_STATUSES = ['current', 'reshoot'];
+// The project a capture can be retaken from. This was free text, so nothing stopped a label
+// nobody had defined. "Blank imperial"/"Blank metric" name a New project template; "Empty
+// project" is the untouched project the app opens with. See MANUAL_BLUEPRINT.md.
+const MEDIA_FIXTURE =
+	/^(Empty project|Blank imperial|Blank metric|Example: .+|site\/fixtures\/[\w./-]+|app:[\w./-]+)$/;
 const VISUAL_KINDS = ['screenshot', 'diagram'];
 const VISUAL_STATUSES = ['proposed', 'planned', 'blocked', 'captured'];
 
@@ -244,7 +249,9 @@ function checkManifest(usedImages) {
 		if (entry.source === 'capture') {
 			if (!/^[0-9a-f]{40}$/.test(entry.appCommit ?? '')) fail(at, 'a capture needs appCommit (full SHA)');
 			if (!/^\d+x\d+@\d(\.\d+)?x$/.test(entry.viewport ?? '')) fail(at, 'a capture needs viewport like 1440x900@2x');
-			if (typeof entry.fixture !== 'string' || !entry.fixture) fail(at, 'a capture needs the fixture it was taken from');
+			if (typeof entry.fixture !== 'string' || !MEDIA_FIXTURE.test(entry.fixture)) {
+				fail(at, 'fixture must be "Empty project", "Example: <card name>", "site/fixtures/<file>", or "app:<path>"');
+			}
 		}
 		if (entry.source === 'legacy-guide' && entry.status !== 'reshoot') fail(at, 'legacy-guide images must be marked reshoot');
 		const blockedBy = entry.blockedBy ?? [];
