@@ -132,6 +132,41 @@ Verify the symbol count matches and spot-check that referenced ids resolve.
   `npm run legacy:sync` in `site/` if those images changed.
 - Until the cutover, fixes that must go live now still belong in the root files.
 
+### Tracking issues
+
+Every manual workstream has a GitHub issue that owns it: #29 W1 Foundations,
+#30 W2 Design and import, #31 W3 CAM setup and 2.5D operations, #32 W4 3D
+operations and strategies, #33 W5 Verify, export and reference, under the #28
+Wave 2 tracker and the #24 initiative. Visual coverage is #47.
+
+- **Read your issue before starting.** It holds the page list, the acceptance
+  criteria, and the contracts with other workstreams — shared files, anchors
+  another workstream links to, and who owns which redirect entry.
+- **Don't trust its status.** Issue checklists go stale; the checks do not. Get
+  the real state from `npm run content`, `npm run coverage`, and
+  `node scripts/check-coverage.mjs --where workstream=W3`. Where an issue and
+  the checks disagree, the checks are right.
+- **Comment on the issue when work lands**, with what is now true and what is
+  left. This is the step that keeps being skipped: in Wave 2 all five
+  workstreams merged their pages and none updated its issue, so the next
+  session had to re-derive the state from the repo.
+- **Merging the prose is not finishing.** A workstream is done when its pages
+  are `status: reviewed`, its `manual-coverage.csv` rows are `accurate`, and
+  its visuals are captured — that is, when `npm run content:cutover` and
+  `npm run verify:cutover` pass for its pages. `npm run ci` passes long before
+  that, so it cannot tell you a workstream is complete.
+- **File app defects in `PureCutCNC/purecutcnc`**, not here, and list the issue
+  in `blockedBy` for any screenshot it affects.
+
+### Screenshots
+
+`npm run capture` (`site/scripts/capture-visuals.mjs`) replays each screenshot
+from a recipe — fixture project, viewport, panel sizes, interaction, crop — so a
+re-shoot after an app change is one command instead of a remembered sequence.
+Add a recipe per visual rather than capturing by hand; `--only id,id` re-runs a
+subset. Recipes are validated against `planning/manual-visual-inventory.json`
+and abort on drift.
+
 ## Local preview & verification
 
 From the repo root:
