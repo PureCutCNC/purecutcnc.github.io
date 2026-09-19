@@ -456,5 +456,60 @@
 		"locale": "en",
 		"status": "current",
 		"blockedBy": []
+	},
+	"fundamentals/workspace/workspace-layout.png": {
+		"shows": "Full PureCutCNC workspace with numbered callouts (1 top toolbar, 2 tool rail, 3 project panel, 4 centre area, 5 CAM panel, 6 status bar)",
+		"source": "capture",
+		"appCommit": "2dc197eebe9c11272ad0bc24194d4a7c6de19055",
+		"fixture": "Blank imperial",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"fundamentals/workspace/workspace-views.png": {
+		"shows": "Side-by-side Sketch, 3D view, and Simulation of the same project",
+		"source": "capture",
+		"appCommit": "2dc197eebe9c11272ad0bc24194d4a7c6de19055",
+		"fixture": "Blank imperial",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"fundamentals/workspace/sketch-overlays.png": {
+		"shows": "Sketch view with stock boundary, origin marker, grid, one green Add feature, several labelled blue Subtract features with Z ranges, four corner clamps, four corner tabs, and the on-canvas Feature colors legend",
+		"source": "capture",
+		"appCommit": "2dc197eebe9c11272ad0bc24194d4a7c6de19055",
+		"fixture": "Blank imperial",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"fundamentals/workspace/workflow-panel.png": {
+		"shows": "Sketch view with a Rectangle workflow panel, its Dimensions (Tab) button and Cancel action, and a pending rectangle on the canvas with live dimension readouts",
+		"source": "capture",
+		"appCommit": "2dc197eebe9c11272ad0bc24194d4a7c6de19055",
+		"fixture": "Blank imperial",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"fundamentals/projects-and-files/new-project-dialog.png": {
+		"shows": "New project dialog with Project name, Template chooser (Blank metric, Blank imperial, Current project, Template file), Template preview listing Units, Stock, Features, Tools, Operations, and Machine, and Or open an example with three bundled projects",
+		"source": "capture",
+		"appCommit": "2dc197eebe9c11272ad0bc24194d4a7c6de19055",
+		"fixture": "Blank imperial",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
 	}
 }
