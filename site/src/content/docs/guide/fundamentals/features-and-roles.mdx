@@ -6,7 +6,9 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
+import Screenshot from '../../../../components/Screenshot.astro';
+import zRange from '../../../../assets/manual/fundamentals/features-and-roles/z-range.png';
+import firstSolidWarning from '../../../../assets/manual/fundamentals/features-and-roles/first-solid-warning.png';
 
 Every shape in a PureCutCNC project, drawn or imported, is a feature. A feature has a role, which
 says what the shape does, and a Z range, which says where it sits vertically. Together they build
@@ -43,8 +45,6 @@ roles, shapes, and depths.
 
 ## Roles
 
-
-<VisualPending id="features-role-matrix" />
 | Role | What it is | How it is used |
 | --- | --- | --- |
 | **Add** | Material that remains in the part. | Builds up the 3D model. Edge route outside and surface clean machine add features. |
@@ -66,13 +66,18 @@ stay separate from feature folders.
 ## Z range
 
 
-<VisualPending id="features-z-range" />
+<Screenshot
+	src={zRange}
+	alt="3D view of a part inside its stock with two marked vertical spans: the pocket from its rim down to its floor, labelled Z top, Z bottom, and cut depth, and the outer body from its top down to its bottom, labelled Z top, Z bottom, and height"
+	caption="The same two fields on both roles: the subtract's span is the cut depth, the add's span is the material it adds."
+/>
 **Z top** and **Z bottom** are Z coordinates in the project, not a depth setting. They are in the
 **Instance** section of a feature's properties, as two fields and a slider.
 
 - For a subtract feature, **Z top** is where the cavity starts and **Z bottom** is its floor. The
   cut depth is **Z top** minus **Z bottom**.
-- For an add feature, the range is the height of the material it adds.
+- For an add feature, **Z bottom** positions the feature vertically inside the model, and the range is the height of the material it adds.
+- For a line feature, **Z top** positions the line vertically in the model.
 
 The operations that machine a feature cut to its Z range: there is no separate depth field to
 keep in step. Z values use the same coordinates as the stock, whose bottom is at Z 0 and top at
@@ -92,7 +97,11 @@ on thick stock. Some roles work differently:
 ## Order
 
 
-<VisualPending id="features-first-solid-warning" />
+<Screenshot
+	src={firstSolidWarning}
+	alt="PureCutCNC project tree showing the warning First 2.5D feature must be Add, with the subtract feature Rect 2 above the add feature Rect 1, and the Properties panel below showing Operation Subtract with Z top 0.75 and Z bottom 0"
+	caption="The first 2.5D feature here is a subtract, so the model does not build until an add feature comes first."
+/>
 PureCutCNC builds the 3D model by applying visible add and subtract features in feature-tree
 order, from the top of the tree down:
 

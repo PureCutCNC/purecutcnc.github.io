@@ -1,33 +1,35 @@
 {
-  "name": "purecutcnc-site",
-  "private": true,
-  "type": "module",
-  "engines": {
-    "node": ">=22.12.0"
-  },
-  "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "check": "astro check",
-    "verify": "node scripts/verify-artifact.mjs",
-    "verify:cutover": "node scripts/verify-artifact.mjs --cutover",
-    "legacy:sync": "node scripts/sync-legacy-assets.mjs",
-    "coverage": "node scripts/check-coverage.mjs",
-    "content": "node scripts/check-content.mjs",
-    "content:cutover": "node scripts/check-content.mjs --cutover",
-    "ci": "npm run check && npm run content && npm run coverage && npm run build && npm run verify",
-    "astro": "astro"
-  },
-  "dependencies": {
-    "@astrojs/starlight": "0.42.1",
-    "astro": "7.3.3",
-    "pagefind": "1.5.2",
-    "sharp": "0.35.4"
-  },
-  "devDependencies": {
-    "@astrojs/check": "0.9.10",
-    "js-yaml": "4.3.2",
-    "typescript": "6.0.3"
-  }
+	"name": "purecutcnc-site",
+	"private": true,
+	"type": "module",
+	"engines": {
+		"node": ">=22.12.0"
+	},
+	"scripts": {
+		"dev": "astro dev",
+		"build": "astro build",
+		"preview": "astro preview",
+		"check": "astro check",
+		"verify": "node scripts/verify-artifact.mjs",
+		"verify:cutover": "node scripts/verify-artifact.mjs --cutover",
+		"legacy:sync": "node scripts/sync-legacy-assets.mjs",
+		"coverage": "node scripts/check-coverage.mjs",
+		"content": "node scripts/check-content.mjs",
+		"content:cutover": "node scripts/check-content.mjs --cutover",
+		"capture": "node scripts/capture-visuals.mjs",
+		"ci": "npm run check && npm run content && npm run coverage && npm run build && npm run verify",
+		"astro": "astro"
+	},
+	"dependencies": {
+		"@astrojs/starlight": "0.42.1",
+		"astro": "7.3.3",
+		"pagefind": "1.5.2",
+		"sharp": "0.35.4"
+	},
+	"devDependencies": {
+		"@astrojs/check": "0.9.10",
+		"@playwright/test": "^1.63.0",
+		"js-yaml": "4.3.2",
+		"typescript": "6.0.3"
+	}
 }

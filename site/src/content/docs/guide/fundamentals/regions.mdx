@@ -6,7 +6,8 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
+import Screenshot from '../../../../components/Screenshot.astro';
+import includeExclude from '../../../../assets/manual/fundamentals/regions/include-exclude.svg';
 import { Aside } from '@astrojs/starlight/components';
 
 A region is a closed shape that limits where an operation may cut. The operation's targets still
@@ -30,7 +31,11 @@ whole thickness.
 ## Include and exclude
 
 
-<VisualPending id="regions-include-exclude" />
+<Screenshot
+	src={includeExclude}
+	alt="Three panels showing where an operation may cut: first its whole target, then only inside an include region, then the same area with an exclude region cut out of it"
+	caption="Order matters: the first region sets the starting area, and each later region adds or removes from it."
+/>
 - An **include** region allows cutting inside it.
 - An **exclude** region forbids cutting inside it.
 

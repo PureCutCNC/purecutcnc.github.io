@@ -456,5 +456,192 @@
 		"locale": "en",
 		"status": "current",
 		"blockedBy": []
+	},
+	"fundamentals/workspace/workspace-layout.png": {
+		"shows": "Full PureCutCNC workspace with numbered callouts (1 top toolbar, 2 tool rail, 3 project panel, 4 centre area, 5 CAM panel, 6 status bar)",
+		"source": "capture",
+		"appCommit": "2dc197eebe9c11272ad0bc24194d4a7c6de19055",
+		"fixture": "Blank imperial",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"fundamentals/workspace/workspace-views.png": {
+		"shows": "Side-by-side Sketch, 3D view, and Simulation of the same project",
+		"source": "capture",
+		"appCommit": "2dc197eebe9c11272ad0bc24194d4a7c6de19055",
+		"fixture": "Blank imperial",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"fundamentals/workspace/sketch-overlays.png": {
+		"shows": "Sketch view with stock boundary, origin marker, grid, one green Add feature, several labelled blue Subtract features with Z ranges, four corner clamps, four corner tabs, and the on-canvas Feature colors legend",
+		"source": "capture",
+		"appCommit": "2dc197eebe9c11272ad0bc24194d4a7c6de19055",
+		"fixture": "Blank imperial",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"fundamentals/workspace/workflow-panel.png": {
+		"shows": "Sketch view with a Rectangle workflow panel, its Dimensions (Tab) button and Cancel action, and a pending rectangle on the canvas with live dimension readouts",
+		"source": "capture",
+		"appCommit": "2dc197eebe9c11272ad0bc24194d4a7c6de19055",
+		"fixture": "Blank imperial",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"fundamentals/projects-and-files/new-project-dialog.png": {
+		"shows": "New project dialog with Project name, Template chooser (Blank metric, Blank imperial, Current project, Template file), Template preview listing Units, Stock, Features, Tools, Operations, and Machine, and Or open an example with three bundled projects",
+		"source": "capture",
+		"appCommit": "2dc197eebe9c11272ad0bc24194d4a7c6de19055",
+		"fixture": "Blank imperial",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"fundamentals/features-and-roles/z-range.png": {
+		"shows": "3D view of a part inside its stock, annotated with two vertical spans: the pocket from its rim down to its floor (Z top, Z bottom, cut depth) and the outer body from its top down to its bottom (Z top, Z bottom, height)",
+		"source": "capture",
+		"appCommit": "2dc197eebe9c11272ad0bc24194d4a7c6de19055",
+		"fixture": "Blank imperial",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"fundamentals/features-and-roles/first-solid-warning.png": {
+		"shows": "Project tree with the First 2.5D feature must be Add warning, the subtract feature Rect 2 listed above the add feature Rect 1, and the Properties panel showing Rect 2's Subtract operation with Z top 0.75 and Z bottom 0",
+		"source": "capture",
+		"appCommit": "2dc197eebe9c11272ad0bc24194d4a7c6de19055",
+		"fixture": "Blank imperial",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"fundamentals/feature-tree/tree-sections.png": {
+		"shows": "Project tree of the bundled PureCutCNC example expanded to show Project, Grid, Stock, Origin, Backdrop, Features with five features, Regions, Construction, Tabs with four tabs, and Clamps with two clamps",
+		"source": "capture",
+		"appCommit": "2dc197eebe9c11272ad0bc24194d4a7c6de19055",
+		"fixture": "Example: PureCutCNC",
+		"viewport": "1440x2000@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"fundamentals/feature-tree/properties.png": {
+		"shows": "Expanded Properties view for the selected feature Rect 2, with the Shape column showing Operation Subtract and the Instance column showing Name, Z top 0.75, Z bottom 0.6, Folder, Visible, and Locked",
+		"source": "capture",
+		"appCommit": "2dc197eebe9c11272ad0bc24194d4a7c6de19055",
+		"fixture": "Example: PureCutCNC",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"fundamentals/feature-tree/context-menu.png": {
+		"shows": "Feature context menu opened on Rect 1, listing Create operation, Add to operation, Remove from operation, Edit sketch, Add constraint, Copy, Move, Resize, Rotate, Mirror, Offset, Add to folder, Group, Join, Cut, Use as stock, and Delete",
+		"source": "capture",
+		"appCommit": "2dc197eebe9c11272ad0bc24194d4a7c6de19055",
+		"fixture": "Example: PureCutCNC",
+		"viewport": "1440x1000@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"fundamentals/regions/include-exclude.svg": {
+		"shows": "Three steps showing how an operation’s allowed cutting area is narrowed: the operation alone, then a first include region, then a later exclude region that removes its own area",
+		"source": "diagram",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"fundamentals/linked-features/definition-and-instances.svg": {
+		"shows": "One definition shared by three instances that each keep their own position, name, and Z range, and the same set after Make unique gives the third instance its own definition",
+		"source": "diagram",
+		"appCommit": null,
+		"fixture": null,
+		"viewport": null,
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"fundamentals/stock-origin-units/stock-properties.png": {
+		"shows": "Stock selected in the project tree, with its Name, Width, Height, Thickness, Color, and Visible controls in the properties panel and the stock outline and its 4 in and 3 in labels on the canvas",
+		"source": "capture",
+		"appCommit": "2dc197eebe9c11272ad0bc24194d4a7c6de19055",
+		"fixture": "Example: PureCutCNC",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"fundamentals/stock-origin-units/origin-placement.png": {
+		"shows": "Origin selected in the project tree, with its Z value, Place origin button, and the Top left, Center top, and Bottom left presets, and the origin marker drawn at the lower-left corner of the stock",
+		"source": "capture",
+		"appCommit": "2dc197eebe9c11272ad0bc24194d4a7c6de19055",
+		"fixture": "Example: PureCutCNC",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"fundamentals/stock-origin-units/unit-conversion.png": {
+		"shows": "The Change project units? dialog converting inches to millimetres, offering Convert values (marked Recommended) and Keep numeric values, each with an explanation",
+		"source": "capture",
+		"appCommit": "2dc197eebe9c11272ad0bc24194d4a7c6de19055",
+		"fixture": "Example: PureCutCNC",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"fundamentals/construction-geometry/construction-geometry.png": {
+		"shows": "The Construction section of the project tree holding a centre line with a REF badge, beside the canvas where that centre line is drawn as a dashed reference line across the guitar body, with the feature colour legend visible",
+		"source": "capture",
+		"appCommit": "2dc197eebe9c11272ad0bc24194d4a7c6de19055",
+		"fixture": "Example: T Style guitar body",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"fundamentals/tablet-and-touch/tablet-workspace.png": {
+		"shows": "The tablet layout at an iPad-class landscape viewport: the command bar with Open project panel, the view tabs, snapping and measuring buttons and Open operations panel, the tool rail down the left, and the Lock and Multi buttons over the canvas",
+		"source": "capture",
+		"appCommit": "2dc197eebe9c11272ad0bc24194d4a7c6de19055",
+		"fixture": "Example: PureCutCNC",
+		"viewport": "1180x820@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
 	}
 }

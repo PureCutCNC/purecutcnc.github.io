@@ -6,23 +6,30 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
+import Screenshot from '../../../../components/Screenshot.astro';
+import workspaceLayout from '../../../../assets/manual/fundamentals/workspace/workspace-layout.png';
+import workspaceViews from '../../../../assets/manual/fundamentals/workspace/workspace-views.png';
+import sketchOverlays from '../../../../assets/manual/fundamentals/workspace/sketch-overlays.png';
+import workflowPanel from '../../../../assets/manual/fundamentals/workspace/workflow-panel.png';
 
 The PureCutCNC window keeps the design, the machining setup, and the checks in one workspace.
 This page names its parts and explains how to move around in it.
 
 ## Main idea
 
-
-<VisualPending id="workspace-layout" />
-| Area | Where | What it holds |
-| --- | --- | --- |
-| Top toolbar | Top | Project, history, zoom, snapping, measuring, appearance, and language controls. |
-| Tool rail | Left edge | The drawing, arranging, and editing tools. |
-| Project panel | Left | The **Project tree** and the **Properties** of the selection. |
-| Centre | Middle | The **Sketch**, **3D view**, and **Simulation** tabs. |
-| CAM panel | Right | The **Operations** and **Tools** tabs, with the properties of the selected operation or tool. |
-| Status bar | Bottom | Units, stock size, view toggles, and the app version. |
+<Screenshot
+	src={workspaceLayout}
+	alt="Full PureCutCNC workspace with numbered callouts: 1 top toolbar, 2 tool rail, 3 project panel, 4 centre area, 5 CAM panel, 6 status bar"
+	caption="The numbered regions referenced throughout the guide."
+/>
+| № | Area | Where | What it holds |
+| --- | --- | --- | --- |
+| 1 | Top toolbar | Top | Project, history, zoom, snapping, measuring, appearance, and language controls. |
+| 2 | Tool rail | Left edge | The drawing, arranging, and editing tools. |
+| 3 | Project panel | Left | The **Project tree** and the **Properties** of the selection. |
+| 4 | Centre | Middle | The **Sketch**, **3D view**, and **Simulation** tabs. |
+| 5 | CAM panel | Right | The **Operations** and **Tools** tabs, with the properties of the selected operation or tool. |
+| 6 | Status bar | Bottom | Units, stock size, view toggles, and the app version. |
 
 The buttons at either end of the tab row, **Hide project panel** and **Hide CAM panel**, fold the
 side panels away to give the centre more room; the same buttons show them again. The divider in
@@ -32,7 +39,11 @@ panels become drawers; see [Tablet and touch](/guide/fundamentals/tablet-and-tou
 ## Views
 
 
-<VisualPending id="workspace-views" />
+<Screenshot
+	src={workspaceViews}
+	alt="The same project shown side by side in Sketch, 3D view, and Simulation"
+	caption="The same project in each of the three centre views."
+/>
 Switch views with the tabs above the centre area, or with <kbd>←</kbd>, <kbd>→</kbd>,
 <kbd>Home</kbd>, and <kbd>End</kbd> once a tab has focus.
 
@@ -50,7 +61,11 @@ nothing in it. None of them replaces checking the machine setup and the exported
 ## Sketch overlays
 
 
-<VisualPending id="workspace-sketch-overlays" />
+<Screenshot
+	src={sketchOverlays}
+	alt="Sketch view showing the stock boundary, origin marker, grid, a green Add feature and several labelled blue Subtract features, four corner clamps and tabs, and the on-canvas Feature colors legend"
+	caption="The overlays the Sketch view draws around your features."
+/>
 Besides your features, the Sketch view shows:
 
 - the stock outline, with its width and height labels (click a label to resize the stock);
@@ -130,7 +145,11 @@ removes them from clamp checking; see
 ## Workflow panels
 
 
-<VisualPending id="workspace-workflow-panel" />
+<Screenshot
+	src={workflowPanel}
+	alt="Rectangle creation in progress with its floating workflow panel showing Dimensions (Tab) and Cancel buttons, and a pending rectangle on the canvas with live dimension readouts"
+	caption="A multi-step command keeps a workflow panel pinned to the canvas."
+/>
 Commands that need several steps, such as drawing a shape, moving features, or joining them, show a
 workflow panel on the canvas. Its title names the command, a line below says what to do next (for
 example **Click opposite corner or enter dimensions**), and its buttons offer the choices for that

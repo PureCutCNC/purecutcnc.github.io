@@ -6,7 +6,8 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
+import Screenshot from '../../../../components/Screenshot.astro';
+import definitionAndInstances from '../../../../assets/manual/fundamentals/linked-features/definition-and-instances.svg';
 import { Aside, Steps } from '@astrojs/starlight/components';
 
 Copies of a feature in PureCutCNC are linked: they share one shape, so changing the shape of one
@@ -16,7 +17,11 @@ as the design changes. When one copy needs to be different, make it unique.
 ## Definitions and instances
 
 
-<VisualPending id="linked-features-instances" />
+<Screenshot
+	src={definitionAndInstances}
+	alt="Diagram of one definition linked to three instances named Rect 1, Rect 2, and Rect 3, and below it the same set after Make unique, where Rect 3 has its own definition and Rect 1 and Rect 2 stay linked"
+	caption="The definition holds the shape; each instance holds its own placement and settings."
+/>
 Each feature is an instance of a definition. The definition is the shared part; the instance is one
 placed copy of it.
 

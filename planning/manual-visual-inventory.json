@@ -226,10 +226,10 @@
 			"afterHeading": "Main idea",
 			"kind": "screenshot",
 			"purpose": "Orient new readers to the named interface regions used throughout the guide.",
-			"brief": "A full desktop workspace showing the top toolbar, tool rail, project panel, CAM panel, view tabs, canvas, and status bar without drawn annotations.",
+			"brief": "A full desktop workspace with numbered white circles (1–6) labelling the top toolbar, tool rail, project panel, centre area, CAM panel, and status bar.",
 			"asset": "fundamentals/workspace/workspace-layout.png",
-			"alt": "Full PureCutCNC workspace with the top toolbar, tool rail, project and CAM panels, canvas, view tabs, and status bar visible",
-			"status": "proposed",
+			"alt": "Full PureCutCNC workspace with numbered callouts: 1 top toolbar, 2 tool rail, 3 project panel, 4 centre area, 5 CAM panel, 6 status bar",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -238,10 +238,10 @@
 			"afterHeading": "Views",
 			"kind": "screenshot",
 			"purpose": "Compare the purpose and visual result of the three main work views.",
-			"brief": "A three-panel composite from one project showing Sketch, 3D view, and Simulation with their tabs selected.",
+			"brief": "Side-by-side composite of one project in Sketch, 3D view, and Simulation, with each view's own toolbar and overlays preserved.",
 			"asset": "fundamentals/workspace/workspace-views.png",
-			"alt": "The same project shown in Sketch, 3D view, and Simulation",
-			"status": "proposed",
+			"alt": "The same project shown side by side in Sketch, 3D view, and Simulation",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -249,11 +249,11 @@
 			"page": "/guide/fundamentals/workspace/",
 			"afterHeading": "Sketch overlays",
 			"kind": "screenshot",
-			"purpose": "Show the stock, origin, role colours, and warnings together in their canvas context.",
-			"brief": "A Sketch view containing several feature roles, the origin labels, stock boundary, feature-colour legend, and one out-of-stock or collision warning.",
+			"purpose": "Show the stock, origin, role colours, clamps, tabs, and the Feature colors legend together in their canvas context.",
+			"brief": "Sketch view of one project: orange stock boundary with 20 × 15 in labels, origin marker at the lower-left, grid, one green Add feature, several labelled blue Subtract features with Z ranges, four yellow corner clamps, four light-blue corner tabs, and the on-canvas Feature colors legend in the lower-right.",
 			"asset": "fundamentals/workspace/sketch-overlays.png",
-			"alt": "Sketch view with stock and origin labels, feature-role colours, the colour legend, and a canvas warning",
-			"status": "proposed",
+			"alt": "Sketch view showing the stock boundary, origin marker, grid, a green Add feature and several labelled blue Subtract features, four corner clamps and tabs, and the on-canvas Feature colors legend",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -262,10 +262,10 @@
 			"afterHeading": "Workflow panels",
 			"kind": "screenshot",
 			"purpose": "Make the floating workflow-panel pattern and its keyboard hints recognizable.",
-			"brief": "A rectangle creation in progress with the canvas workflow panel, dimension controls, keyboard hints, and Cancel action visible.",
+			"brief": "Sketch view mid-draw: a Rectangle workflow panel pinned to the canvas with its title, instruction, Dimensions (Tab) button, and Cancel action, plus a pending rectangle on the canvas with live dimension readouts on each edge and a Pending rectangle label.",
 			"asset": "fundamentals/workspace/workflow-panel.png",
-			"alt": "Rectangle creation in progress with its floating workflow panel and keyboard hints",
-			"status": "proposed",
+			"alt": "Rectangle creation in progress with its floating workflow panel showing Dimensions (Tab) and Cancel buttons, and a pending rectangle on the canvas with live dimension readouts",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -274,46 +274,22 @@
 			"afterHeading": "Create a new project",
 			"kind": "screenshot",
 			"purpose": "Show the available project templates and the information in their preview.",
-			"brief": "The New project dialog with Blank metric, Blank imperial, Current project, and Template file choices visible.",
+			"brief": "New project dialog with the Project name field, the Template chooser listing Blank metric, Blank imperial, Current project, and Template file, the Template preview listing Units, Stock, Features, Tools, Operations, and Machine, the Or open an example row, and the Cancel and Create project buttons.",
 			"asset": "fundamentals/projects-and-files/new-project-dialog.png",
-			"alt": "New project dialog listing blank metric, blank imperial, current project, and template file choices",
-			"status": "proposed",
-			"blockedBy": []
-		},
-		{
-			"id": "projects-examples",
-			"page": "/guide/fundamentals/projects-and-files/",
-			"afterHeading": "Examples",
-			"kind": "screenshot",
-			"purpose": "Show where bundled examples and the first-project entry point appear.",
-			"brief": "The empty-state Start your part card alongside the bundled example-project choices.",
-			"asset": "fundamentals/projects-and-files/examples.png",
-			"alt": "Start your part empty-state card and bundled PureCutCNC example projects",
-			"status": "proposed",
-			"blockedBy": []
-		},
-		{
-			"id": "features-role-matrix",
-			"page": "/guide/fundamentals/features-and-roles/",
-			"afterHeading": "Roles",
-			"kind": "diagram",
-			"purpose": "Clarify which roles create material, remove material, provide paths, filter machining, or stay sketch-only.",
-			"brief": "A role matrix for Add, Subtract, Line, Region, Construction, and Model with material, target, and filter responsibilities.",
-			"asset": "fundamentals/features-and-roles/role-matrix.svg",
-			"alt": "Matrix comparing Add, Subtract, Line, Region, Construction, and Model roles in design and machining",
-			"status": "proposed",
+			"alt": "New project dialog showing the Project name field, Template chooser with Blank metric, Blank imperial, Current project, and Template file, the Template preview listing Units, Stock, Features, Tools, Operations, and Machine, and the Or open an example row",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
 			"id": "features-z-range",
 			"page": "/guide/fundamentals/features-and-roles/",
 			"afterHeading": "Z range",
-			"kind": "diagram",
-			"purpose": "Distinguish Z coordinates from cut depth and show how feature extents sit in stock.",
-			"brief": "A stock cross-section labeling Z top, Z bottom, zero, and the resulting feature or cut depth.",
-			"asset": "fundamentals/features-and-roles/z-range.svg",
-			"alt": "Stock cross-section showing Z top, Z bottom, zero, and feature depth",
-			"status": "proposed",
+			"kind": "screenshot",
+			"purpose": "Distinguish Z coordinates from cut depth, and show that the same two fields describe different spans on an add and a subtract feature.",
+			"brief": "3D view of a part inside its stock with two annotated vertical spans: the pocket from its rim down to its floor, labelled Z top, Z bottom, and cut depth; and the outer body from its top down to its bottom, labelled Z top, Z bottom, and height.",
+			"asset": "fundamentals/features-and-roles/z-range.png",
+			"alt": "3D view of a part inside its stock with two marked vertical spans: the pocket from its rim down to its floor, labelled Z top, Z bottom, and cut depth, and the outer body from its top down to its bottom, labelled Z top, Z bottom, and height",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -322,10 +298,10 @@
 			"afterHeading": "Order",
 			"kind": "screenshot",
 			"purpose": "Make the first-solid rule and its tree warning easy to recognize.",
-			"brief": "A feature tree whose first 2.5D feature is not Add, showing the first-feature warning and the resulting canvas state.",
+			"brief": "Project tree whose first 2.5D feature is a subtract, showing the First 2.5D feature must be Add warning above Rect 2 (Subtract) and Rect 1 (Add), with the Properties panel confirming Rect 2's operation and Z range.",
 			"asset": "fundamentals/features-and-roles/first-solid-warning.png",
-			"alt": "Feature tree showing the warning produced when the first 2.5D feature is not Add",
-			"status": "proposed",
+			"alt": "PureCutCNC project tree showing the warning First 2.5D feature must be Add, with the subtract feature Rect 2 above the add feature Rect 1, and the Properties panel below showing Operation Subtract with Z top 0.75 and Z bottom 0",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -334,10 +310,10 @@
 			"afterHeading": "The tree",
 			"kind": "screenshot",
 			"purpose": "Show the full node hierarchy and the controls that recur in later instructions.",
-			"brief": "The project tree expanded to show Project, Grid, Stock, Origin, Backdrop, Features, Regions, Construction, Tabs, and Clamps.",
+			"brief": "Project tree of the bundled PureCutCNC example, widened so no row label truncates, showing Project, Grid, Stock, Origin, Backdrop, Features, Regions, Construction, Tabs, and Clamps.",
 			"asset": "fundamentals/feature-tree/tree-sections.png",
-			"alt": "Expanded project tree showing all major project, geometry, tab, and clamp sections",
-			"status": "proposed",
+			"alt": "Expanded PureCutCNC project tree showing the Project, Grid, Stock, Origin, Backdrop, Features, Regions, Construction, Tabs, and Clamps rows, with five features, four tabs, and two clamps",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -346,10 +322,10 @@
 			"afterHeading": "Properties",
 			"kind": "screenshot",
 			"purpose": "Show how selection changes the properties panel and where expanded editing opens.",
-			"brief": "A selected feature with its properties visible and the expanded multi-column properties view open.",
+			"brief": "The expanded Properties view for a selected feature, with the Shape and Instance sections open side by side over the dimmed workspace.",
 			"asset": "fundamentals/feature-tree/properties.png",
-			"alt": "Selected feature with its properties panel and expanded properties view",
-			"status": "proposed",
+			"alt": "Expanded Properties dialog for the feature Rect 2, with a Shape column showing Operation Subtract and an Instance column showing Name, Z top, Z bottom, Folder, Visible, and Locked",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -358,10 +334,10 @@
 			"afterHeading": "Context menu",
 			"kind": "screenshot",
 			"purpose": "Show the dense set of feature actions in the menu readers are told to open.",
-			"brief": "A representative feature context menu with operation, sketch, transform, grouping, stock, and delete actions visible.",
+			"brief": "The feature context menu open on a tree row, showing the operation, sketch, transform, folder, grouping, stock, and delete actions, with unavailable entries dimmed.",
 			"asset": "fundamentals/feature-tree/context-menu.png",
-			"alt": "Feature context menu with operation, sketch, transform, grouping, stock, and delete actions",
-			"status": "proposed",
+			"alt": "Feature context menu open on Rect 1 in the project tree, listing operation, sketch, transform, folder, grouping, cut, use as stock, and delete actions",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -370,10 +346,10 @@
 			"afterHeading": "Definitions and instances",
 			"kind": "diagram",
 			"purpose": "Explain the otherwise invisible relationship between one definition and several linked placements.",
-			"brief": "One feature definition branching to several placed instances, with one instance becoming independent through Make unique.",
+			"brief": "Two rows: one definition linked to three instances, then the same set after Make unique, where the third instance has its own definition and the other two stay linked.",
 			"asset": "fundamentals/linked-features/definition-and-instances.svg",
-			"alt": "One feature definition linked to several instances, with one instance made independent",
-			"status": "proposed",
+			"alt": "Diagram of one definition linked to three instances named Rect 1, Rect 2, and Rect 3, and below it the same set after Make unique, where Rect 3 has its own definition and Rect 1 and Rect 2 stay linked",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -382,10 +358,10 @@
 			"afterHeading": "Stock",
 			"kind": "screenshot",
 			"purpose": "Show the stock controls and the difference between rectangular and profile stock.",
-			"brief": "The Stock node selected with size, thickness, colour, and profile-stock controls visible beside the canvas.",
+			"brief": "The Stock node selected, with the rectangular stock controls (Width, Height, Thickness, Color, Visible) in the properties panel beside the canvas showing the stock outline and its dimension labels.",
 			"asset": "fundamentals/stock-origin-units/stock-properties.png",
-			"alt": "Stock properties showing size, thickness, colour, and profile-stock controls",
-			"status": "proposed",
+			"alt": "Stock selected in the project tree, with Name, Width, Height, Thickness, Color, and Visible in the properties panel, next to the canvas showing the stock outline labelled 4 in and 3 in",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -394,10 +370,10 @@
 			"afterHeading": "Origin",
 			"kind": "screenshot",
 			"purpose": "Connect origin presets and manual placement with the marker shown on the part.",
-			"brief": "Origin properties with preset buttons visible and the machine-origin marker placed on the stock.",
+			"brief": "Origin properties with the Place origin button and the three presets visible, beside the canvas where the origin marker sits at the lower-left corner of the stock.",
 			"asset": "fundamentals/stock-origin-units/origin-placement.png",
-			"alt": "Origin properties with presets and the machine-origin marker on the stock",
-			"status": "proposed",
+			"alt": "Origin selected in the project tree, with Z, a Place origin button, and Top left, Center top, and Bottom left presets in the properties panel, and the labelled origin marker at the lower-left corner of the stock on the canvas",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -406,10 +382,10 @@
 			"afterHeading": "Units",
 			"kind": "screenshot",
 			"purpose": "Show the consequential choice between converting values and keeping the numbers.",
-			"brief": "The unit conversion dialog with Convert values and Keep numbers choices and their explanations.",
+			"brief": "The Change project units? dialog with the Convert values and Keep numeric values choices and the explanation of each.",
 			"asset": "fundamentals/stock-origin-units/unit-conversion.png",
-			"alt": "Unit conversion dialog offering Convert values and Keep numbers",
-			"status": "proposed",
+			"alt": "Change project units dialog showing an in to mm conversion with two choices: Convert values, marked Recommended, which preserves physical size so 1 in becomes 25.4 mm, and Keep numeric values, which reinterprets the numbers",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -418,10 +394,10 @@
 			"afterHeading": "Include and exclude",
 			"kind": "diagram",
 			"purpose": "Show how ordered include and exclude shapes combine into one machining mask.",
-			"brief": "A sequence of include and exclude region shapes and the resulting tool-centre boundary used by an operation.",
+			"brief": "Three panels in feature-tree order: the operation’s whole target, the allowed area after a first include region, and the same area with a later exclude region removed from it.",
 			"asset": "fundamentals/regions/include-exclude.svg",
-			"alt": "Include and exclude region shapes combining into a machining mask and tool-centre boundary",
-			"status": "proposed",
+			"alt": "Three panels showing where an operation may cut: first its whole target, then only inside an include region, then the same area with an exclude region cut out of it",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -430,10 +406,10 @@
 			"afterHeading": "Main idea",
 			"kind": "screenshot",
 			"purpose": "Show construction geometry as visible sketch aid rather than machinable material.",
-			"brief": "A sketch with construction lines and circles, regular features, the Construction tree section, and the role legend visible.",
+			"brief": "A project whose Construction tree section holds a centre line with a ref badge, drawn on the canvas as a dashed reference line across the real add and subtract features.",
 			"asset": "fundamentals/construction-geometry/construction-geometry.png",
-			"alt": "Sketch showing construction lines and circles separately from machinable features",
-			"status": "proposed",
+			"alt": "Project tree with a Construction section containing a centre line marked REF, and the canvas showing that line drawn dashed across a green add feature and blue subtract features",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -442,10 +418,10 @@
 			"afterHeading": "Tablet workspace",
 			"kind": "screenshot",
 			"purpose": "Orient touch users to the layout that differs materially from desktop.",
-			"brief": "The app at the tablet viewport with command bar, tool rail, drawers, snap controls, and Multi-select visible.",
+			"brief": "The app at a tablet viewport, with the command bar, the Open project panel and Open operations panel drawer buttons, the tool rail, the snap and measure controls, and the Lock and Multi buttons.",
 			"asset": "fundamentals/tablet-and-touch/tablet-workspace.png",
-			"alt": "Tablet workspace with command bar, tool rail, drawers, snap controls, and Multi-select",
-			"status": "proposed",
+			"alt": "PureCutCNC in its tablet layout, with a command bar holding Open project panel, the Sketch, 3D, and Sim tabs, snapping and measuring buttons and Open operations panel, a tool rail down the left edge, and Lock and Multi buttons over the canvas",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
