@@ -439,7 +439,7 @@ the ones to check for `preview` until the next release.
 | App state | Default **Dark** theme, English interface, default panel layout, no personal files or paths visible. |
 | Viewport | Desktop captures in a 1440 × 900 window at 2× scale (`1440x900@2x`). Tablet captures, only on tablet pages, at 1180 × 820 at 2×. |
 | Cropping | Crop to the part that matters, with a little context so the reader can find it. Use `maxWidth` for dialogs and panels so they are not upscaled. Draw on a capture only where the annotation carries what prose cannot — numbered callouts that name regions, or a marked dimension span. Keep that style consistent: white markers, dark chips, no leader lines crossing. Never add arrows or boxes as decoration, or in place of a sentence that would do the job. |
-| Source | Captured at a recorded app commit from a project a reader can get back to, so a screenshot can be retaken. `media.json` names it in `fixture`, which must be one of five forms and nothing else: `site/fixtures/<file>` for a fixture committed here (created with the first capture); `app:<path>` for a file in the app repository at that commit; `Example: <card name>` for a project bundled with the app, which is the `app:<path>` case written as the card you click in **Start your part** (`public/examples/` in the app repository); `Blank imperial` or `Blank metric` for a project made from that template in the **New project** dialog, which is the form to use when the units matter; or `Empty project` for the untouched project the app opens with, when the shot only needs a bare canvas. `npm run content` rejects anything else: `fixture` was free text, and a reader cannot act on a label nobody defined. |
+| Source | Captured at a recorded app commit from a project a reader can get back to, so a screenshot can be retaken. `media.json` names it in `fixture`, which must be one of five forms and nothing else: `site/fixtures/<file>` for a fixture committed here (created with the first capture); `app:<path>` for a file in the app repository at that commit; `Example: <card name>` for a project bundled with the app, which is the `app:<path>` case written as the card you click in **Start your part** (`public/examples/` in the app repository); `Blank imperial` or `Blank metric` for a project made from that template in the **New project** dialog, which is the form to use when the units matter; `Empty project` for the untouched project the app opens with, when the shot only needs a bare canvas; or `site:<path>` for a page of this site rather than the app, such as `site:/downloads/`, which has no project and no app commit behind it and so records `appCommit: null`. `npm run content` rejects anything else: `fixture` was free text, and a reader cannot act on a label nobody defined. |
 | Diagrams | SVG, using the site's colour tokens, with text as real text. The SVG source is the asset. |
 | Alt text | Required (the build fails without it). Say what the image shows that matters for the page, in one or two sentences; don't start with "Screenshot of". Purely decorative images are not used. |
 | Captions | Optional; use one when the image needs a sentence of context the prose does not give. |
@@ -465,6 +465,12 @@ Every image has an entry in `site/src/assets/manual/media.json`, keyed by its pa
   always `status: reshoot`).
 - `status` is `current` or `reshoot`. A capture needs `appCommit`, `fixture`, and
   `viewport`.
+- `appCommit` is the app commit the capture was taken against, and it comes from
+  `npm run capture`, which reads the app repository's HEAD and prints it with the other
+  mechanical fields. Copy it across rather than typing a SHA: a hand-written one goes
+  stale silently, because the app moves on, the image is re-shot, and the record still
+  names the commit before the change. Set `PURECUT_APP_REPO` if the app checkout is not
+  beside the docs one; the capture warns rather than guessing when it cannot find it.
 - `blockedBy` lists issues (`owner/repo#number`) that must be fixed in the app before the
   screenshot can be taken correctly, for example `PureCutCNC/purecutcnc#795`. The page
   already uses the corrected wording (see *When the app is wrong*); the screenshot waits.
