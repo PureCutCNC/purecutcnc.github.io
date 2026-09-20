@@ -1385,7 +1385,7 @@
 			"brief": "The same engrave operation using the Trochoidal strategy, so the difference in the path is visible beside the Direct one.",
 			"asset": "operations/engrave/trochoidal.png",
 			"alt": "The same engrave toolpath using the Trochoidal strategy, the cutter orbiting along the line instead of following it once",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{

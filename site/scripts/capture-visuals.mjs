@@ -196,17 +196,14 @@ async function setUiSelect(page, current, value) {
 		trigger.click()
 	}, current)
 	await page.waitForTimeout(900)
-	// Options are divs in the open dropdown, and their labels carry qualifiers the caller
-	// should not have to spell out — "Trochoidal" is shown as "Trochoidal (slot)".
-	await page.evaluate((val) => {
-		const open = document.querySelector('.ui-select--open .ui-select__dropdown')
-		if (!open) throw new Error('no dropdown is open')
-		const opt = [...open.querySelectorAll('.ui-select__option')].find((o) =>
-			o.textContent.trim().startsWith(val),
-		)
-		if (!opt) throw new Error(`no option starting "${val}"`)
-		opt.click()
-	}, value)
+	// A synthetic click on the option does not commit the choice — the control listens
+	// for real pointer input — so this goes through Playwright. Labels carry qualifiers
+	// the caller should not have to spell out: "Trochoidal" is shown as "Trochoidal
+	// (slot)", so the match is a substring.
+	await page
+		.locator('.ui-select--open .ui-select__option', { hasText: value })
+		.first()
+		.click()
 	await page.waitForTimeout(2500)
 	await page.waitForFunction(
 		() =>
@@ -217,6 +214,14 @@ async function setUiSelect(page, current, value) {
 		{ timeout: 300000 },
 	)
 	await page.waitForTimeout(2000)
+	const now = await page.evaluate(
+		(cur) =>
+			[...document.querySelectorAll('.panel-right .ui-select__label')].some(
+				(e) => e.textContent.trim() === cur,
+			),
+		current,
+	)
+	if (now) throw new Error(`the dropdown still shows "${current}"; the choice did not take`)
 }
 
 /** Create an operation the way a reader would: select geometry, open Add, pick the

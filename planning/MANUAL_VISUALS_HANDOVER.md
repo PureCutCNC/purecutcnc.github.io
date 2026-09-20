@@ -62,7 +62,11 @@ separate bugs, all silent, all the same mistake:
   when the pass is missing, list what the row does offer.
 
 **Some clicks must be real.** `element.click()` inside `page.evaluate` does
-nothing for controls like **Add clamp**; use Playwright's click. The reverse is
+nothing for controls that listen for pointer input — **Add clamp**, and the
+options in the properties panel's custom dropdowns. The dropdown case was the
+worst, because it failed silently: the menu closed, the value did not change, and
+two screenshots came out identical without any error. Use Playwright's click, and
+read the value back afterwards. The reverse is
 also true: buttons that only appear on row hover need the JS click, or the
 visibility check stalls. `Open project` builds a transient file input, so drive
 it with `page.waitForEvent('filechooser')`.
