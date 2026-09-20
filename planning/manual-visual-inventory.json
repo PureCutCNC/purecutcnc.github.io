@@ -1133,10 +1133,8 @@
 			"brief": "The Import tools from library dialog with search, type and unit filters, tool rows, and selection controls.",
 			"asset": "cam-setup/tool-library/import-dialog.png",
 			"alt": "Import tools dialog with search, type and unit filters and selectable tool rows",
-			"status": "blocked",
-			"blockedBy": [
-				"PureCutCNC/purecutcnc#797"
-			]
+			"status": "captured",
+			"blockedBy": []
 		},
 		{
 			"id": "tool-library-management",
@@ -1144,10 +1142,10 @@
 			"afterHeading": "Managing",
 			"kind": "screenshot",
 			"purpose": "Show tool creation, duplication, deletion, and the in-use protection state.",
-			"brief": "The Tools list with Add, duplicate, and delete actions, including one tool that cannot be deleted because an operation uses it.",
+			"brief": "The Tools list with its Add, Import, duplicate and remove actions. A tool that an operation uses is not shown as undeletable: the app does not disable the control, so the prose has to carry that.",
 			"asset": "cam-setup/tool-library/tool-management.png",
 			"alt": "Tools list with add, duplicate, delete, and in-use protection states",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1156,10 +1154,10 @@
 			"afterHeading": "Adding",
 			"kind": "screenshot",
 			"purpose": "Show operation groups, Rough and Finish choices, compatibility, and unavailable targets together.",
-			"brief": "The Add operation menu with 2D and 3D groups, Rough, Finish, Both, an info card, and an unavailable-for-selection section.",
+			"brief": "The Add operation menu with one entry opened to its illustration, description and key points, and the other entries showing their Rough, Finish and Both buttons. The unavailable-for-selection section sits below the opened card, out of frame.",
 			"asset": "cam-setup/working-with-operations/add-menu.png",
 			"alt": "Add operation menu with 2D and 3D groups, pass choices, operation details, and unavailable targets",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1168,10 +1166,10 @@
 			"afterHeading": "List",
 			"kind": "screenshot",
 			"purpose": "Show operation order, enablement, visibility, and generation status in the list where they are managed.",
-			"brief": "An operations list with several tools and operations, drag handles, enabled and visible states, and up-to-date, generating, and paused indicators.",
+			"brief": "The operations list with enable dots and per-row show, duplicate and delete buttons, and the selected operation's parameters below. Generating and paused states are transient and are described in the prose instead.",
 			"asset": "cam-setup/working-with-operations/operation-list.png",
 			"alt": "Operations list showing order, enabled and visible states, tools, and generation status",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1180,10 +1178,10 @@
 			"afterHeading": "Generation",
 			"kind": "screenshot",
 			"purpose": "Show Stop, Resume, Retry, and compute-backend controls in the status context where they appear.",
-			"brief": "The toolpath generation settings menu open beside a paused or failed operation with recovery controls and compute backend visible.",
+			"brief": "The toolpath generation menu with the current state, the stop control, and the compute backend choice.",
 			"asset": "cam-setup/working-with-operations/generation-menu.png",
 			"alt": "Toolpath generation menu with stop, resume, retry, and compute-backend controls",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1195,7 +1193,7 @@
 			"brief": "The CAM Plan dialog with recommended operations, tools, editable parameters, include checkboxes, rest passes, shared tabs, and coverage review.",
 			"asset": "cam-setup/cam-plan/recommendations.png",
 			"alt": "CAM Plan dialog with editable operation recommendations, tools, inclusion choices, and coverage review",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1204,10 +1202,10 @@
 			"afterHeading": "Editor",
 			"kind": "screenshot",
 			"purpose": "Show where machine definitions are edited and validated.",
-			"brief": "The machine editor with General, Program, Tool change, Coolant, raw JSON, variables, and validation areas visible.",
+			"brief": "The machine editor for a duplicated definition, showing General and Program, with Advanced (raw JSON) and Variables reference collapsed. Tool change and Coolant continue below the fold.",
 			"asset": "cam-setup/machines/machine-editor.png",
 			"alt": "Machine editor with definition sections, raw JSON, variables, and validation feedback",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1216,10 +1214,10 @@
 			"afterHeading": "Add and adjust tabs",
 			"kind": "screenshot",
 			"purpose": "Compare smooth and rectangular tab crossings and show their canvas controls.",
-			"brief": "An outside route with smooth and rectangular tabs, tab handles, bulk-edit controls, and a representative tab warning.",
+			"brief": "Several tabs selected together on an outside route, with the bulk-edit fields and the shape note. Smooth and Rectangular differ in Z motion, which the Sketch view does not show.",
 			"asset": "cam-setup/tabs/tab-crossings.png",
 			"alt": "Outside route with smooth and rectangular tabs, tab handles, and a tab warning",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1228,10 +1226,10 @@
 			"afterHeading": "Clearances",
 			"kind": "screenshot",
 			"purpose": "Show how clamp clearances affect generated motion and leave material uncut.",
-			"brief": "A clamp beside a toolpath with collision highlighting, clearance motion, uncut material, and the corresponding operation warning.",
+			"brief": "An outside route detouring around a clamp placed on its contour, with the operation's toolpath warnings naming the clamp and the uncut material. The clamp is avoided rather than hit, so nothing is highlighted as a collision.",
 			"asset": "cam-setup/clamps-and-clearances/clamp-avoidance.png",
 			"alt": "Clamp near a toolpath with clearance motion, collision highlighting, uncut material, and a warning",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{

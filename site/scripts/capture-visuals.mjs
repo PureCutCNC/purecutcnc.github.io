@@ -13,6 +13,7 @@
 // The dev server must already be running; this script never starts or modifies it.
 // Nothing here writes media.json — the prose fields there are hand-written, so the
 // summary prints the mechanical fields instead and you copy across what changed.
+import { execFileSync } from 'node:child_process'
 import { readFileSync, existsSync, mkdirSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -25,6 +26,39 @@ const assetRoot = join(siteRoot, 'src/assets/manual')
 const inventoryPath = join(repoRoot, 'planning/manual-visual-inventory.json')
 
 const APP_URL = process.env.PURECUT_APP_URL ?? 'http://localhost:1420/'
+
+/**
+ * The app commit a capture records. It is read here rather than typed into media.json,
+ * because a hand-copied SHA goes stale silently: the app moves on, the screenshots are
+ * re-shot, and the recorded commit still names the old one.
+ *
+ * The running app cannot be asked — in dev its version.json is just { version: 'dev' } —
+ * so this reads the app repository's HEAD. Set PURECUT_APP_REPO if it is not beside the
+ * docs checkout.
+ */
+function appCommit() {
+	const git = (dir, args) =>
+		execFileSync('git', ['-C', dir, ...args], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim()
+	const candidates = []
+	if (process.env.PURECUT_APP_REPO) candidates.push(process.env.PURECUT_APP_REPO)
+	try {
+		// From a worktree, the main checkout is what sits beside the app repository.
+		const main = git(repoRoot, ['rev-parse', '--path-format=absolute', '--git-common-dir'])
+		candidates.push(join(main, '../../purecutcnc'))
+	} catch {}
+	candidates.push(join(repoRoot, '../purecutcnc'), join(repoRoot, '../../purecutcnc'))
+	for (const dir of candidates) {
+		try {
+			// Confirm it is the app and not some other repository that happens to be there.
+			const remote = git(dir, ['remote', 'get-url', 'origin'])
+			if (!/PureCutCNC\/purecutcnc(\.git)?$/i.test(remote.replace(/\/$/, ''))) continue
+			return git(dir, ['rev-parse', 'HEAD'])
+		} catch {}
+	}
+	return null
+}
+
+const APP_COMMIT = appCommit()
 
 // The bundled example projects, by the name shown on their card in "Start your part".
 const FIXTURES = {
@@ -41,6 +75,47 @@ const SPLIT_TREE = { 'panel-split:left-center': '0.25', 'panel-split:project-tre
 // Shorter still: the backdrop's properties run to Angle plus five buttons, and the
 // default split cuts them off.
 const SHORT_TREE = { 'panel-split:left-center': '0.25', 'panel-split:project-tree': '0.34' }
+
+// The CAM panel is narrow by default, which makes a panel-only crop a tall, thin
+// strip that the page then has to shrink. A wider panel, and a list that is only as
+// tall as its contents need, gives a shot that reads at its natural size.
+const CAM_TOOLS = { 'panel-split:center-right': '0.34', 'panel-split:tools': '0.30' }
+const CAM_OPS = { 'panel-split:center-right': '0.34', 'panel-split:operations': '0.52' }
+
+/** The CAM panel from its top down to the last row named, so a short list is not
+    padded out with the empty space the panel reserves below it. */
+const clipCamList = (lastRow) => (page) =>
+	page.evaluate((t) => {
+		const panel = document.querySelector('.panel-right').getBoundingClientRect()
+		const rows = [...document.querySelectorAll('.panel-right *')].filter(
+			(e) => e.children.length === 0 && e.textContent.trim() === t,
+		)
+		const last = rows[rows.length - 1]
+		const bottom = last ? last.getBoundingClientRect().bottom + 22 : panel.bottom
+		return {
+			x: Math.round(panel.x),
+			y: Math.round(panel.y),
+			width: Math.round(Math.min(panel.width, window.innerWidth - panel.x)),
+			height: Math.round(Math.min(bottom, window.innerHeight) - panel.y),
+		}
+	}, lastRow)
+
+/** Canvas and CAM panel together, for shots where an operation's warning explains
+    what the canvas is showing. */
+const clipCanvasAndCam = (page) =>
+	page.evaluate(() => {
+		const canvas = (
+			document.querySelector('.sketch-viewport__canvas') ?? document.querySelector('canvas')
+		).getBoundingClientRect()
+		const cam = document.querySelector('.panel-right')?.getBoundingClientRect()
+		const right = cam ? Math.min(cam.right, window.innerWidth) : window.innerWidth
+		return {
+			x: Math.round(canvas.x),
+			y: Math.round(canvas.y),
+			width: Math.round(right - canvas.x),
+			height: Math.round(Math.min(canvas.bottom, window.innerHeight) - canvas.y),
+		}
+	})
 
 /** Everything left of the CAM panel: tree, properties, and the canvas beside them. */
 const clipWorkspaceLeft = (page) =>
@@ -71,6 +146,18 @@ const clipDialog = (selector, margin = 60) => (page) =>
 	}, margin)
 
 
+/** The CAM panel on the right: the operations or tools list and the properties below it. */
+const clipCamPanel = (page) =>
+	page.locator('.panel-right').evaluate((el) => {
+		const r = el.getBoundingClientRect()
+		return {
+			x: Math.round(r.x),
+			y: Math.round(r.y),
+			width: Math.round(Math.min(r.width, window.innerWidth - r.x)),
+			height: Math.round(Math.min(r.bottom, window.innerHeight) - r.y),
+		}
+	})
+
 /** A file the app itself serves, so the fixture is the app's own copy at this commit. */
 async function appFile(name, url) {
 	const res = await fetch(new URL(url, APP_URL))
@@ -81,6 +168,27 @@ async function appFile(name, url) {
 /** The Source units dropdown, which has no test id of its own. */
 const sourceUnits = (page) =>
 	page.locator('.import-dialog__info-row', { hasText: 'Source units' }).locator('select')
+
+/** Set a number field the way a user would, so the app sees the change, and check it
+    took. Fields are matched by class: the labels in this panel are not tied to their
+    inputs, so matching on label text silently writes to the wrong box. */
+async function setNumberField(page, selector, value) {
+	await page.evaluate(
+		([sel, v]) => {
+			const input = document.querySelector(sel)
+			if (!input) throw new Error(`no field at ${sel}`)
+			const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set
+			setter.call(input, v)
+			input.dispatchEvent(new Event('input', { bubbles: true }))
+			input.dispatchEvent(new Event('change', { bubbles: true }))
+			input.blur()
+		},
+		[selector, value],
+	)
+	await page.waitForTimeout(800)
+	const got = await page.evaluate((sel) => document.querySelector(sel)?.value, selector)
+	if (got !== value) throw new Error(`${selector} is ${got}, expected ${value}`)
+}
 
 /** Open Import geometry and choose a file. The dialog builds its file input when it opens. */
 async function importFile(page, source) {
@@ -967,6 +1075,254 @@ const RECIPES = [
 		clip: clipCanvas,
 	},
 
+	// --- CAM setup ---
+	// Every shot here runs on a bundled example: the CAM panel needs tools, operations
+	// and generated toolpaths, and the examples already carry them.
+	{
+		id: 'operations-add-menu',
+		asset: 'cam-setup/working-with-operations/add-menu.png',
+		fixture: 'PureCutCNC',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			// With nothing selected the menu is only the unavailable list; a subtract
+			// feature is what makes it show the operations it can actually offer.
+			await page.getByText('Rect 2', { exact: true }).first().click()
+			await page.waitForTimeout(1200)
+			await page.getByRole('button', { name: /^Add$/ }).first().click()
+			await page.waitForSelector('.cam-add-menu')
+			await page.waitForTimeout(800)
+			// Each row collapses to its title; opening one shows the info card and key
+			// points, which is the part of the menu worth documenting.
+			await page.evaluate(() => {
+				const row = [...document.querySelectorAll('.cam-add-menu *')].find(
+					(e) => e.children.length === 0 && e.textContent.trim() === 'Pocket',
+				)
+				row?.closest('button, [role=button], div')?.click()
+			})
+			await page.waitForTimeout(1200)
+		},
+		clip: clipDialog('.cam-add-menu', 24),
+	},
+	{
+		id: 'operations-list-status',
+		asset: 'cam-setup/working-with-operations/operation-list.png',
+		fixture: 'PureCutCNC',
+		viewport: { width: 1440, height: 900 },
+		storage: CAM_OPS,
+		async steps(page) {
+			// With nothing selected the properties half of the panel is an empty prompt.
+			await page.getByText('Pocket Rough', { exact: true }).first().click()
+			await page.waitForTimeout(2000)
+		},
+		clip: clipCamPanel,
+	},
+	{
+		id: 'cam-plan-recommendations',
+		asset: 'cam-setup/cam-plan/recommendations.png',
+		fixture: 'PureCutCNC',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			await page.getByRole('button', { name: /^Plan$/ }).first().click()
+			await page.waitForSelector('.dialog--cam-plan')
+			// The plan is computed after the dialog opens.
+			await page.waitForTimeout(3500)
+		},
+		clip: clipDialog('.dialog--cam-plan', 0),
+	},
+	{
+		id: 'tool-library-management',
+		asset: 'cam-setup/tool-library/tool-management.png',
+		fixture: 'PureCutCNC',
+		viewport: { width: 1440, height: 900 },
+		storage: CAM_TOOLS,
+		async steps(page) {
+			await page.getByRole('tab', { name: /^Tools$/ }).click()
+			await page.waitForTimeout(1800)
+		},
+		// The page only needs the list and its actions, and the panel reserves a lot of
+		// empty height below three tools.
+		clip: clipCamList('60° V-Bit'),
+	},
+
+	{
+		id: 'machines-library-editor',
+		asset: 'cam-setup/machines/machine-editor.png',
+		fixture: 'PureCutCNC',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			await page.evaluate(() => document.querySelector('.tree-row--project')?.click())
+			await page.waitForTimeout(1200)
+			await page.getByText(/Manage machines/).first().click()
+			await page.waitForSelector('.dialog--machine-manager')
+			await page.waitForTimeout(1200)
+			// Built-in definitions are read-only, so the editor is only reachable through
+			// a duplicate. Duplicating opens the editor on the copy.
+			const clickIn = (starts) =>
+				page.evaluate((t) => {
+					const el = [...document.querySelectorAll('.dialog--machine-manager button')].find(
+						(b) => b.textContent.trim().startsWith(t),
+					)
+					if (!el) throw new Error(`no machine-manager button starting ${t}`)
+					el.click()
+				}, starts)
+			await clickIn('GRBL 1.1')
+			await page.waitForTimeout(1000)
+			await clickIn('Duplicate to edit')
+			await page.waitForTimeout(2500)
+		},
+		clip: clipDialog('.dialog:has-text("Edit machine")', 0),
+	},
+	{
+		id: 'tabs-crossing-shapes',
+		asset: 'cam-setup/tabs/tab-crossings.png',
+		fixture: 'PureCutCNC',
+		viewport: { width: 1440, height: 900 },
+		storage: SPLIT_TREE,
+		async steps(page) {
+			// One tab of each shape, so the page can show what the toggle changes.
+			const setShape = async (tab, shape) => {
+				await page.getByText(tab, { exact: true }).first().click()
+				await page.waitForTimeout(1200)
+				await page.evaluate((s) => {
+					const el = [...document.querySelectorAll('.panel-left button')].find(
+						(b) => b.textContent.trim() === s,
+					)
+					el?.click()
+				}, shape)
+				await page.waitForTimeout(1200)
+			}
+			await setShape('Rect 1 Tab', 'Rectangular')
+			await setShape('Rect 1 Tab 2', 'Smooth')
+			// Only the route that carries the tabs, so the gaps they leave are legible.
+			await page.evaluate(() => {
+				const click = (name) => {
+					const el = [...document.querySelectorAll('button')].find(
+						(b) => (b.getAttribute('aria-label') ?? '') === name,
+					)
+					if (el) el.click()
+				}
+				click('Hide all toolpaths')
+			})
+			await page.waitForTimeout(1200)
+			await page.evaluate(() => {
+				const el = [...document.querySelectorAll('button')].find(
+					(b) => (b.getAttribute('aria-label') ?? '') === 'Show toolpath for Edge route outside Rough',
+				)
+				el?.click()
+			})
+			await page.waitForTimeout(2500)
+			// Selecting them all is what shows the bulk-edit fields.
+			await page.evaluate(() => {
+				const el = [...document.querySelectorAll('button')].find(
+					(b) => (b.getAttribute('aria-label') ?? '') === 'Select all tabs',
+				)
+				el?.click()
+			})
+			await page.waitForTimeout(2000)
+		},
+		clip: clipWorkspaceLeft,
+	},
+	{
+		id: 'operations-generation-menu',
+		asset: 'cam-setup/working-with-operations/generation-menu.png',
+		fixture: 'PureCutCNC',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			await page.evaluate(() => {
+				const el = [...document.querySelectorAll('button')].find((b) =>
+					/Toolpath generation settings/.test(b.getAttribute('aria-label') ?? ''),
+				)
+				el?.click()
+			})
+			await page.waitForSelector('.cam-generation-menu')
+			await page.waitForTimeout(1000)
+		},
+		clip: clipDialog('.cam-generation-menu', 24),
+	},
+	{
+		id: 'clamps-avoidance-warning',
+		asset: 'cam-setup/clamps-and-clearances/clamp-avoidance.png',
+		fixture: 'PureCutCNC',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			// The example's own clamps sit clear of every toolpath, so the collision has to
+			// be built: place a clamp straddling the outside route on the left edge.
+			const box = await canvasRect(page)
+			const panelText = () =>
+				page.evaluate(() => document.querySelector('.canvas-workflow-panel')?.innerText ?? '')
+			const cornerAt = async (fx, fy) => {
+				const before = await panelText()
+				for (let i = 0; i < 4; i++) {
+					await page.mouse.move(box.x + box.w * fx, box.y + box.h * fy)
+					await page.waitForTimeout(350)
+					await page.mouse.click(box.x + box.w * fx, box.y + box.h * fy)
+					await page.waitForTimeout(800)
+					if ((await panelText()) !== before) return
+				}
+				throw new Error(`clamp corner at ${fx},${fy} never registered`)
+			}
+			await page.locator('.tree-row--clamps').first().hover()
+			await page.waitForTimeout(500)
+			await page.getByRole('button', { name: 'Add clamp' }).click()
+			await page.waitForSelector('.canvas-workflow-panel')
+			await page.waitForTimeout(600)
+			await cornerAt(0.1, 0.4)
+			await cornerAt(0.21, 0.58)
+			// The tool stays armed for the next clamp; dismiss it so the panel is not in shot.
+			await page.keyboard.press('Escape')
+			await page.waitForTimeout(1500)
+			// A new clamp defaults to Z top 0.315, which is inside the 0.75 stock, so it reads
+			// as an obstruction in the material rather than workholding standing on it. The
+			// example's own clamps use 1.
+			await page.getByText('Clamp 3', { exact: true }).first().click()
+			await page.waitForTimeout(1200)
+			await setNumberField(page, '.panel-left .z-range-slider__field--top', '1')
+			await page.waitForTimeout(2000)
+			await page.waitForFunction(
+				() =>
+					[...document.querySelectorAll('button')].some((b) =>
+						/Toolpaths up to date/.test(b.getAttribute('aria-label') ?? ''),
+					),
+				null,
+				{ timeout: 300000 },
+			)
+			await page.waitForTimeout(2500)
+			await page.evaluate(() => {
+				const el = [...document.querySelectorAll('button')].find(
+					(b) => (b.getAttribute('aria-label') ?? '') === 'Hide all toolpaths',
+				)
+				el?.click()
+			})
+			await page.waitForTimeout(1200)
+			await page.evaluate(() => {
+				const el = [...document.querySelectorAll('button')].find(
+					(b) =>
+						(b.getAttribute('aria-label') ?? '') ===
+						'Show toolpath for Edge route outside Rough',
+				)
+				el?.click()
+			})
+			await page.waitForTimeout(2000)
+			// Selecting the operation is what puts its warnings on screen.
+			await page.getByText('Edge route outside Rough', { exact: true }).first().click()
+			await page.waitForTimeout(2500)
+		},
+		clip: clipCanvasAndCam,
+	},
+	{
+		id: 'tool-library-import',
+		asset: 'cam-setup/tool-library/import-dialog.png',
+		fixture: 'PureCutCNC',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			await page.getByRole('tab', { name: /^Tools$/ }).click()
+			await page.waitForTimeout(1500)
+			await page.getByRole('button', { name: /Import from library/ }).click()
+			await page.waitForSelector('.dialog--tool-library')
+			await page.waitForTimeout(1500)
+		},
+		clip: clipDialog('.dialog--tool-library', 0),
+	},
 	// --- Design: importing ---
 	// The 2D and 3D fixtures are authored here rather than downloaded, so the repository
 	// carries no third-party model licence. import-rapid.obj is the exception: it is
@@ -1350,8 +1706,13 @@ try {
 const failed = results.filter((r) => !r.ok)
 console.log(`\nCaptured ${results.length - failed.length} of ${results.length}.`)
 console.log('\nmedia.json fields for the captures above:')
+if (!APP_COMMIT) {
+	console.log('  ! Could not read the app repository HEAD, so "appCommit" is not shown below.')
+	console.log('    Set PURECUT_APP_REPO to the app checkout and re-run, or the records will be wrong.')
+}
 for (const result of results.filter((r) => r.ok)) {
 	console.log(`  ${result.recipe.asset}`)
-	console.log(`    "fixture": ${JSON.stringify(result.fixture)}, "viewport": "${result.viewport}", "theme": "dark", "locale": "en"`)
+	const commit = APP_COMMIT ? `"appCommit": "${APP_COMMIT}", ` : ''
+	console.log(`    ${commit}"fixture": ${JSON.stringify(result.fixture)}, "viewport": "${result.viewport}", "theme": "dark", "locale": "en"`)
 }
 if (failed.length) process.exit(1)
