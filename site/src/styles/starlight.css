@@ -139,6 +139,16 @@
 	color: var(--sl-color-white);
 }
 
+/* A control name in that column reads as one label with its icon, so keep them on
+   one line and let the description column give up the width instead. Only once
+   there is room: the longest names ("Distribute horizontally (equal centers)")
+   overrun the content column on a phone, and the table does not scroll. */
+@media (min-width: 48rem) {
+	.sl-markdown-content table td:first-child:has(.pc-app-icon) {
+		white-space: nowrap;
+	}
+}
+
 /* Quick Start: number the step headings. */
 .pc-steps {
 	counter-reset: pc-step;

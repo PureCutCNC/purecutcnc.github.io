@@ -6,11 +6,12 @@ availability: stable
 status: reviewed
 reviewed:
   appCommit: 2dc197eebe9c11272ad0bc24194d4a7c6de19055
-  date: 2026-09-19
+  date: 2026-09-20
   by: frankp
 ---
 
 import Screenshot from '../../../../components/Screenshot.astro';
+import AppIcon from '../../../../components/AppIcon.astro';
 import newProjectDialog from '../../../../assets/manual/fundamentals/projects-and-files/new-project-dialog.png';
 import { Aside, Steps } from '@astrojs/starlight/components';
 
@@ -27,7 +28,7 @@ the operations, the selected machine, and the tabs and clamps. It is saved as a 
 />
 <Steps>
 
-1. Click **New project** in the top toolbar.
+1. Click <AppIcon name="new" /> **New project** in the top toolbar.
 
 2. Enter a **Project name**, then choose a **Template**:
 
@@ -69,9 +70,10 @@ new name if you want to keep the original unchanged.
 
 <Steps>
 
-1. To open a project, click **Open project** and choose a `.camj` file.
+1. To open a project, click <AppIcon name="open" /> **Open project** and choose a `.camj` file.
 
-2. To save, click **Save project**. The button is highlighted while there are unsaved changes.
+2. To save, click <AppIcon name="save" /> **Save project**. The button is highlighted while there
+   are unsaved changes.
 
 3. In the desktop app, **File** > **Save** writes to the file you opened or last saved, and
    **File** > **Save As…** saves under a new name or location.
