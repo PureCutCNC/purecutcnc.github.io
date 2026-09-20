@@ -6,12 +6,13 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
+import Screenshot from '../../../../components/Screenshot.astro';
+import propertyGroups from '../../../../assets/manual/operations/common-parameters/property-groups.png';
 import { Aside } from '@astrojs/starlight/components';
 
 Operation properties are grouped by what they control. A group appears only when it applies to the selected operation, so use the operation’s own page for kind-specific settings and strategies.
 
-<VisualPending id="common-parameters-groups" />
+<Screenshot src={propertyGroups} alt="The expanded operation properties dialog for a pocket, with Identity, What it cuts, Tool, Depth, Speeds and feeds, Strategy, Entry and retract, Corners and Output shown as separate groups" caption="Expanding the properties shows every parameter group at once. Which groups appear depends on the operation." />
 
 ## Identity
 

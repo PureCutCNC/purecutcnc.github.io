@@ -1253,7 +1253,7 @@
 			"brief": "An expanded operation properties panel showing Identity, What it cuts, Tool, Depth, Speeds and feeds, Strategy, overrides, Entry and retract, Corners, Drilling, and Output groups.",
 			"asset": "operations/common-parameters/property-groups.png",
 			"alt": "Expanded operation properties panel showing all major parameter groups",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1265,7 +1265,19 @@
 			"brief": "A pocket with offset clearing rings and its containing feature visible.",
 			"asset": "operations/pocket/offset-toolpath.png",
 			"alt": "Pocket toolpath with offset clearing rings inside a closed profile",
-			"status": "proposed",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "pocket-result",
+			"page": "/guide/operations/pocket/",
+			"afterHeading": "Verifying the result",
+			"kind": "screenshot",
+			"purpose": "Show what the operation leaves in the stock, next to the toolpath that produced it.",
+			"brief": "The simulated stock after a pocket operation, with the cleared cavities and their floors visible.",
+			"asset": "operations/pocket/result.png",
+			"alt": "The simulated stock after a pocket rough pass, with the pickup cavities and neck pocket cleared to a flat floor",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1277,7 +1289,7 @@
 			"brief": "A selected pocket operation with its targets highlighted on the canvas and in the feature tree.",
 			"asset": "operations/pocket/target-highlight.png",
 			"alt": "Selected pocket operation with target features highlighted on the canvas and in the tree",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1313,7 +1325,19 @@
 			"brief": "An outside edge route around a part with several tabs and their crossings visible.",
 			"asset": "operations/edge-route-outside/outside-route.png",
 			"alt": "Outside edge-route toolpath around a part with holding tabs",
-			"status": "proposed",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "edge-outside-result",
+			"page": "/guide/operations/edge-route-outside/",
+			"afterHeading": "Verifying the result",
+			"kind": "screenshot",
+			"purpose": "Show the part cut free of the stock, with the tabs still holding it.",
+			"brief": "The simulated stock after an outside edge route, with the part separated except at its tabs.",
+			"asset": "operations/edge-route-outside/result.png",
+			"alt": "The simulated stock after an outside edge route, the part cut free except where tabs still join it to the surrounding material",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1325,7 +1349,7 @@
 			"brief": "A V-carve offset operation on lettering or a tapered closed profile with the toolpath visible in 3D.",
 			"asset": "operations/v-carve-offset/toolpath.png",
 			"alt": "V-carve offset toolpath with changing depth inside a closed profile",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1337,7 +1361,7 @@
 			"brief": "A V-carve medial operation on a shape with varying width, shown with its centreline path and 3D result.",
 			"asset": "operations/v-carve-medial/toolpath.png",
 			"alt": "V-carve medial centreline toolpath and variable-depth result",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1361,7 +1385,19 @@
 			"brief": "A drilling toolpath over several holes with numbered order or clearly visible connecting rapid moves.",
 			"asset": "operations/drill/hole-order.png",
 			"alt": "Drilling toolpath showing the order in which several holes are visited",
-			"status": "proposed",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "drill-result",
+			"page": "/guide/operations/drill/",
+			"afterHeading": "Verifying the result",
+			"kind": "screenshot",
+			"purpose": "Show the finished holes, which the top-down toolpath cannot convey.",
+			"brief": "The simulated stock after a drilling operation, with the holes bored to depth.",
+			"asset": "operations/drill/result.png",
+			"alt": "The simulated stock after a drilling operation, with a row of holes bored through to depth",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{

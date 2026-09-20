@@ -165,24 +165,26 @@
 		"blockedBy": []
 	},
 	"operations/pocket/offset-toolpath.png": {
-		"shows": "Pocket toolpath with offset rings inside a closed profile",
-		"source": "legacy-guide",
-		"appCommit": null,
-		"fixture": null,
-		"viewport": null,
+		"shows": "Pickup and neck cavities filled with concentric offset clearing rings, zoomed so the ring spacing reads",
+		"source": "capture",
+		"appCommit": "b4ffabbdf900d42027545907d23e3cd7bf9b6aa3",
+		"fixture": "Example: T Style guitar body",
+		"viewport": "1440x900@2x",
 		"theme": "dark",
 		"locale": "en",
-		"status": "reshoot"
+		"status": "current",
+		"blockedBy": []
 	},
 	"operations/pocket/target-highlight.png": {
-		"shows": "Selected operation highlighting its target features on the canvas and in the tree",
-		"source": "legacy-guide",
-		"appCommit": null,
-		"fixture": null,
-		"viewport": null,
+		"shows": "A selected pocket operation with its targets outlined on the canvas and highlighted in the feature tree",
+		"source": "capture",
+		"appCommit": "b4ffabbdf900d42027545907d23e3cd7bf9b6aa3",
+		"fixture": "Example: PureCutCNC",
+		"viewport": "1440x900@2x",
 		"theme": "dark",
 		"locale": "en",
-		"status": "reshoot"
+		"status": "current",
+		"blockedBy": []
 	},
 	"quickstart/add-pocket-rough.png": {
 		"shows": "Right-click context menu on the subtract circle with Create operation expanded and Create pocket highlighted",
@@ -1028,6 +1030,94 @@
 	},
 	"cam-setup/clamps-and-clearances/clamp-avoidance.png": {
 		"shows": "An outside route detouring around a clamp placed over its contour and raised to Z top 1 so it stands on the 0.75 inch stock rather than sitting inside it, with TOOLPATH WARNINGS reading 'Toolpath was kept clear of clamp “Clamp 3” — material under it and inside its clearance is left uncut' and a fallback-entry warning",
+		"source": "capture",
+		"appCommit": "b4ffabbdf900d42027545907d23e3cd7bf9b6aa3",
+		"fixture": "Example: PureCutCNC",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"operations/common-parameters/property-groups.png": {
+		"shows": "The expanded operation properties for a pocket, showing every parameter group",
+		"source": "capture",
+		"appCommit": "b4ffabbdf900d42027545907d23e3cd7bf9b6aa3",
+		"fixture": "Example: PureCutCNC",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"operations/pocket/result.png": {
+		"shows": "The Simulation view after the pocket pass, cavities cleared to a flat floor, Selected scope, Detail 1200",
+		"source": "capture",
+		"appCommit": "b4ffabbdf900d42027545907d23e3cd7bf9b6aa3",
+		"fixture": "Example: T Style guitar body",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"operations/edge-route-outside/outside-route.png": {
+		"shows": "An outside edge route with gaps where each tab crosses it",
+		"source": "capture",
+		"appCommit": "b4ffabbdf900d42027545907d23e3cd7bf9b6aa3",
+		"fixture": "Example: PureCutCNC",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"operations/edge-route-outside/result.png": {
+		"shows": "The Simulation view after an outside route, the part free in its channel with tabs still holding it",
+		"source": "capture",
+		"appCommit": "b4ffabbdf900d42027545907d23e3cd7bf9b6aa3",
+		"fixture": "Example: PureCutCNC",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"operations/drill/hole-order.png": {
+		"shows": "Ten bridge holes with the rapids linking them in drilling order, zoomed to the cluster",
+		"source": "capture",
+		"appCommit": "b4ffabbdf900d42027545907d23e3cd7bf9b6aa3",
+		"fixture": "Example: T Style guitar body",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"operations/drill/result.png": {
+		"shows": "The Simulation view after drilling, the holes bored into the stock",
+		"source": "capture",
+		"appCommit": "b4ffabbdf900d42027545907d23e3cd7bf9b6aa3",
+		"fixture": "Example: T Style guitar body",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"operations/v-carve-medial/toolpath.png": {
+		"shows": "The Simulation view of a V-carve medial pass, the groove following each stroke's centreline",
+		"source": "capture",
+		"appCommit": "b4ffabbdf900d42027545907d23e3cd7bf9b6aa3",
+		"fixture": "Example: PureCutCNC",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"operations/v-carve-offset/toolpath.png": {
+		"shows": "The Simulation view of a V-carve offset pass, letters cleared with tapered walls",
 		"source": "capture",
 		"appCommit": "b4ffabbdf900d42027545907d23e3cd7bf9b6aa3",
 		"fixture": "Example: PureCutCNC",

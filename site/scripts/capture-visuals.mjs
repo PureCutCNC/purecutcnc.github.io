@@ -169,6 +169,104 @@ async function appFile(name, url) {
 const sourceUnits = (page) =>
 	page.locator('.import-dialog__info-row', { hasText: 'Source units' }).locator('select')
 
+/** Zoom the sketch in on a point, given as fractions of the canvas. The default view
+    fits the whole stock, which leaves an operation's toolpath a few pixels wide. */
+async function zoomTo(page, fx, fy, steps = 5) {
+	const box = await canvasRect(page)
+	const x = box.x + box.w * fx
+	const y = box.y + box.h * fy
+	await page.mouse.move(x, y)
+	await page.waitForTimeout(300)
+	for (let i = 0; i < steps; i++) {
+		await page.mouse.wheel(0, -240)
+		await page.waitForTimeout(220)
+	}
+	await page.waitForTimeout(900)
+}
+
+/** The centre view on its own: the 3D or simulation viewport without the panels. */
+const clipCentreView = (page) =>
+	page.locator('.centre-view--active').evaluate((el) => {
+		const r = el.getBoundingClientRect()
+		return {
+			x: Math.round(r.x),
+			y: Math.round(r.y),
+			width: Math.round(r.width),
+			height: Math.round(r.height),
+		}
+	})
+
+/** What one operation leaves in the stock. The Simulation view already sits at the last
+    toolpath level, so nothing has to be played; the scope is set to Selected so the cut
+    shown belongs to this operation alone, and Detail is raised because the default
+    resolution renders pocket walls as coarse steps. */
+async function simulateResult(page, opName, { detail = 1200, zoom = 0, at = [0.5, 0.5] } = {}) {
+	await page.getByText(opName, { exact: true }).first().click()
+	await page.waitForTimeout(1500)
+	await page.getByRole('tab', { name: /Simulation/i }).click()
+	await page.waitForTimeout(5000)
+	await page.evaluate(() => {
+		const el = [...document.querySelectorAll('button')].find((b) => b.textContent.trim() === 'Selected')
+		if (el && el.getAttribute('aria-pressed') !== 'true') el.click()
+	})
+	await page.waitForTimeout(1500)
+	await page.evaluate((value) => {
+		const slider = [...document.querySelectorAll('input[type=range]')].find(
+			(i) => Number(i.max) >= 1000 && Number(i.min) >= 100,
+		)
+		if (!slider) throw new Error('no detail slider')
+		const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set
+		setter.call(slider, String(value))
+		slider.dispatchEvent(new Event('input', { bubbles: true }))
+		slider.dispatchEvent(new Event('change', { bubbles: true }))
+	}, detail)
+	// Re-meshing at a higher resolution takes a moment.
+	await page.waitForTimeout(9000)
+	if (zoom) {
+		// The simulation opens framed on the whole stock, which leaves small features —
+		// drilled holes, carved lettering — a few pixels across.
+		const view = await page.locator('.centre-view--active').boundingBox()
+		await page.mouse.move(view.x + view.width * at[0], view.y + view.height * at[1])
+		await page.waitForTimeout(300)
+		for (let i = 0; i < zoom; i++) {
+			await page.mouse.wheel(0, -240)
+			await page.waitForTimeout(260)
+		}
+		await page.waitForTimeout(1500)
+	}
+}
+
+/** Show only the named move types in the viewport legend. The legend reports its state
+    through aria-pressed; there is no "off" class, so testing the class name silently
+    leaves every toggle alone. */
+async function showMoveTypes(page, keep) {
+	await page.evaluate((wanted) => {
+		for (const b of document.querySelectorAll('.viewport-toolpath-vis__item')) {
+			const name = b.textContent.trim()
+			if (name === 'GPU' || name === 'Feed colours') continue
+			const on = b.getAttribute('aria-pressed') === 'true'
+			if (wanted.includes(name) !== on) b.click()
+		}
+	}, keep)
+	await page.waitForTimeout(2000)
+}
+
+/** Draw only the named operation's toolpath, so its shape is legible. */
+async function onlyToolpath(page, opName) {
+	const click = (name) =>
+		page.evaluate((n) => {
+			const el = [...document.querySelectorAll('button')].find(
+				(b) => (b.getAttribute('aria-label') ?? '') === n,
+			)
+			if (!el) throw new Error(`no button labelled ${n}`)
+			el.click()
+		}, name)
+	await click('Hide all toolpaths')
+	await page.waitForTimeout(1200)
+	await click(`Show toolpath for ${opName}`)
+	await page.waitForTimeout(2500)
+}
+
 /** Set a number field the way a user would, so the app sees the change, and check it
     took. Fields are matched by class: the labels in this panel are not tied to their
     inputs, so matching on label text silently writes to the wrong box. */
@@ -1075,6 +1173,124 @@ const RECIPES = [
 		clip: clipCanvas,
 	},
 
+	// --- Machining operations ---
+	{
+		id: 'common-parameters-groups',
+		asset: 'operations/common-parameters/property-groups.png',
+		fixture: 'PureCutCNC',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			await page.getByText('Pocket Rough', { exact: true }).first().click()
+			await page.waitForTimeout(2000)
+			await page.evaluate(() => {
+				const el = [...document.querySelectorAll('button')].find((b) =>
+					/Expand operation properties/.test(b.getAttribute('aria-label') ?? ''),
+				)
+				el?.click()
+			})
+			await page.waitForSelector('.dialog--panel-expand')
+			await page.waitForTimeout(1500)
+		},
+		clip: clipDialog('.dialog--panel-expand', 0),
+	},
+	{
+		id: 'pocket-offset-toolpath',
+		asset: 'operations/pocket/offset-toolpath.png',
+		// The PureCutCNC example's pocket is a thin border around lettering, which cannot
+		// show nested rings. The guitar's pickup and neck cavities are real pockets.
+		fixture: 'T Style guitar body',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			await onlyToolpath(page, 'Pocket Rough')
+			// At the default zoom the rings are hairlines.
+			await zoomTo(page, 0.55, 0.5, 3)
+		},
+		clip: clipCanvas,
+	},
+	{
+		id: 'pocket-target-highlight',
+		asset: 'operations/pocket/target-highlight.png',
+		fixture: 'PureCutCNC',
+		viewport: { width: 1440, height: 900 },
+		storage: SPLIT_TREE,
+		async steps(page) {
+			await onlyToolpath(page, 'Pocket Rough')
+			// Selecting the operation is what highlights its targets on the canvas and tree.
+			await page.getByText('Pocket Rough', { exact: true }).first().click()
+			await page.waitForTimeout(2500)
+			await zoomTo(page, 0.5, 0.5, 2)
+		},
+		clip: clipWorkspaceLeft,
+	},
+	{
+		id: 'edge-outside-route',
+		asset: 'operations/edge-route-outside/outside-route.png',
+		fixture: 'PureCutCNC',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			await onlyToolpath(page, 'Edge route outside Rough')
+			// The route runs around the stock edge, so zooming into the middle loses it.
+			await zoomTo(page, 0.5, 0.5, 1)
+		},
+		clip: clipCanvas,
+	},
+	{
+		id: 'drill-hole-order',
+		asset: 'operations/drill/hole-order.png',
+		// Ten bridge holes show the order far better than the Badge example's four.
+		fixture: 'T Style guitar body',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			// Rapids between holes are what show the order they are drilled in.
+			await showMoveTypes(page, ['Cuts', 'Lead-ins', 'Rapids', 'Plunges'])
+			await onlyToolpath(page, 'Drill bridge holes')
+			// A drilling toolpath is vertical moves, which a top view draws as points, so the
+			// rapids carry the order. The cluster sits left of centre, not at the body centre.
+			await zoomTo(page, 0.345, 0.5, 4)
+		},
+		clip: clipCanvas,
+	},
+
+	{
+		id: 'pocket-result',
+		asset: 'operations/pocket/result.png',
+		fixture: 'T Style guitar body',
+		viewport: { width: 1440, height: 900 },
+		steps: (page) => simulateResult(page, 'Pocket Rough'),
+		clip: clipCentreView,
+	},
+	{
+		id: 'edge-outside-result',
+		asset: 'operations/edge-route-outside/result.png',
+		fixture: 'PureCutCNC',
+		viewport: { width: 1440, height: 900 },
+		steps: (page) => simulateResult(page, 'Edge route outside Finish'),
+		clip: clipCentreView,
+	},
+	{
+		id: 'drill-result',
+		asset: 'operations/drill/result.png',
+		fixture: 'T Style guitar body',
+		viewport: { width: 1440, height: 900 },
+		steps: (page) => simulateResult(page, 'Drill bridge holes', { zoom: 9, at: [0.38, 0.42] }),
+		clip: clipCentreView,
+	},
+	{
+		id: 'vcarve-medial-result',
+		asset: 'operations/v-carve-medial/toolpath.png',
+		fixture: 'PureCutCNC',
+		viewport: { width: 1440, height: 900 },
+		steps: (page) => simulateResult(page, 'V-Carve medial', { zoom: 3, at: [0.5, 0.45] }),
+		clip: clipCentreView,
+	},
+	{
+		id: 'vcarve-offset-result',
+		asset: 'operations/v-carve-offset/toolpath.png',
+		fixture: 'PureCutCNC',
+		viewport: { width: 1440, height: 900 },
+		steps: (page) => simulateResult(page, 'V-Carve offset', { zoom: 3, at: [0.5, 0.5] }),
+		clip: clipCentreView,
+	},
 	// --- CAM setup ---
 	// Every shot here runs on a bundled example: the CAM panel needs tools, operations
 	// and generated toolpaths, and the examples already carry them.
