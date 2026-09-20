@@ -6,7 +6,11 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
+import Screenshot from '../../../../components/Screenshot.astro';
+import importDialog from '../../../../assets/manual/design/importing-2d/import-dialog.png';
+import svgSummary from '../../../../assets/manual/design/importing-2d/svg-summary.png';
+import dxfLayers from '../../../../assets/manual/design/importing-2d/dxf-layers.png';
+import projectFolders from '../../../../assets/manual/design/importing-2d/project-folders.png';
 import { Aside, Steps } from '@astrojs/starlight/components';
 
 **Import geometry** brings shapes from other programs into the project as ordinary features, which you
@@ -22,7 +26,7 @@ OBJ, and STEP models are on [Importing 3D models](/guide/design/importing-3d-mod
 ## Import a file
 
 
-<VisualPending id="import-2d-dialog" />
+<Screenshot src={importDialog} alt="The Import geometry dialog with bracket.svg chosen: Geometry mode Auto, an import summary of nine shapes made up of two open lines, one closed line, one add solid and five subtract solids, and Source units detected as Inch against Project units Inch" caption="The dialog reads the file and reports what it will create before you import." />
 <Steps>
 
 1. Click **Import geometry** in the top toolbar.
@@ -66,7 +70,7 @@ drawing is the outline of a part with holes and pockets.
 ## SVG
 
 
-<VisualPending id="import-svg-summary" />
+<Screenshot src={svgSummary} alt="The same SVG with Geometry mode set to Solid regions: the closed line of the Auto summary is gone and the subtract count has risen from five to six" caption="The same file in Solid regions: the closed stroke-only shape becomes a subtract solid instead of a line." />
 - Rectangles, circles, ellipses, lines, polylines, polygons, and paths are imported, including
   Bézier curves and arcs.
 - Units come from the SVG's `width`, `height`, and `viewBox`. When the file does not state a physical
@@ -78,7 +82,7 @@ drawing is the outline of a part with holes and pockets.
 ## DXF
 
 
-<VisualPending id="import-dxf-layers" />
+<Screenshot src={dxfLayers} alt="The DXF import dialog with a Layers list showing ENGRAVE, HOLES, NOTES and OUTLINE all selected, a Join tolerance of 0.01 inch, the Cross-Layer join switch, and Source units detected as Inch" caption="Every layer in the file is listed, and each one becomes a folder in the feature tree." />
 - `LINE`, `ARC`, `CIRCLE`, `LWPOLYLINE`, `POLYLINE`, and `SPLINE` entities are imported, and block
   references (`INSERT`) are expanded. Text entities are ignored.
 - Units come from the file's `$INSUNITS` setting. When it is missing, choose the **Source units**.
@@ -96,7 +100,7 @@ drawing is the outline of a part with holes and pockets.
 ## Importing from another project
 
 
-<VisualPending id="import-project-folders" />
+<Screenshot src={projectFolders} alt="The import dialog for a PureCutCNC project, listing the source project’s folders — Neck pickup, Bridge holes, Bridge pickup, Body and Neck pocket — with the number of features in each, all selected" caption="Importing from a project lists its folders with the number of features in each." />
 <span id="camj"></span>
 
 Choose a `.camj` file to copy folders from another PureCutCNC project into this one.

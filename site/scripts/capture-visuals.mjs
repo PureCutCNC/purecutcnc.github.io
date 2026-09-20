@@ -38,6 +38,9 @@ const FIXTURES = {
 // own row labels ("Feat…", and Tabs/Clamps lose their label entirely at the default).
 const WIDE_TREE = { 'panel-split:left-center': '0.25', 'panel-split:project-tree': '0.78' }
 const SPLIT_TREE = { 'panel-split:left-center': '0.25', 'panel-split:project-tree': '0.5' }
+// Shorter still: the backdrop's properties run to Angle plus five buttons, and the
+// default split cuts them off.
+const SHORT_TREE = { 'panel-split:left-center': '0.25', 'panel-split:project-tree': '0.34' }
 
 /** Everything left of the CAM panel: tree, properties, and the canvas beside them. */
 const clipWorkspaceLeft = (page) =>
@@ -66,6 +69,34 @@ const clipDialog = (selector, margin = 60) => (page) =>
 			height: Math.round(Math.min(r.height + m * 2, window.innerHeight)),
 		}
 	}, margin)
+
+
+/** A file the app itself serves, so the fixture is the app's own copy at this commit. */
+async function appFile(name, url) {
+	const res = await fetch(new URL(url, APP_URL))
+	if (!res.ok) throw new Error(`${url} -> HTTP ${res.status}`)
+	return { name, mimeType: 'application/octet-stream', buffer: Buffer.from(await res.arrayBuffer()) }
+}
+
+/** The Source units dropdown, which has no test id of its own. */
+const sourceUnits = (page) =>
+	page.locator('.import-dialog__info-row', { hasText: 'Source units' }).locator('select')
+
+/** Open Import geometry and choose a file. The dialog builds its file input when it opens. */
+async function importFile(page, source) {
+	await page.getByRole('button', { name: 'Import geometry' }).click()
+	await page.waitForSelector('.dialog-backdrop')
+	const files = typeof source === 'string' ? join(siteRoot, 'fixtures', source) : source
+	await page.locator('input[type=file]').first().setInputFiles(files)
+	// Settings and the summary only appear once the dialog has parsed the file, and a
+	// STEP file has to load the OCCT importer first, so wait on the content, not a delay.
+	await page.waitForFunction(
+		() => /Format|Folders/.test(document.querySelector('.dialog-backdrop')?.innerText ?? ''),
+		null,
+		{ timeout: 60000 },
+	)
+	await page.waitForTimeout(900)
+}
 
 /** The sketch canvas, where every Design capture happens. Its content is drawn, not DOM. */
 const canvasRect = (page) =>
@@ -111,11 +142,18 @@ async function clickUntil(page, fx, fy, tries = 4) {
 }
 
 /** Place a text feature. The canvas drops taps, so keep trying until it lands. */
-async function placeText(page, { words, height, fx, fy }) {
+async function placeText(page, { words, height, fx, fy, outline = false }) {
 	await pickShape(page, 'Add feature text')
 	await page.waitForTimeout(1300)
 	const dialog = page.locator('.dialog--import')
 	await dialog.locator('textarea').first().fill(words)
+	if (outline) {
+		// Custom dropdown, not a <select>: click to open, then pick.
+		await dialog.getByRole('button', { name: 'Skeleton' }).click()
+		await page.waitForTimeout(700)
+		await page.getByText('Outline', { exact: true }).first().click()
+		await page.waitForTimeout(900)
+	}
 	if (height) await dialog.locator('input[type=number]').first().fill(String(height))
 	await page.waitForTimeout(400)
 	await page.getByRole('button', { name: 'Place text' }).click()
@@ -503,6 +541,40 @@ const RECIPES = [
 		clip: clipCanvas,
 	},
 
+	// --- Design: backdrop images -----------------------------------------------
+	{
+		id: 'backdrop-alignment',
+		asset: 'design/backdrop-images/backdrop-alignment.png',
+		viewport: { width: 1440, height: 900 },
+		storage: SHORT_TREE,
+		collapseLegend: true,
+		async steps(page) {
+			await page.locator('[title="Hide feature labels"]').first().click()
+			await page.waitForTimeout(500)
+			await page.getByText('Backdrop', { exact: true }).first().click()
+			await page.waitForTimeout(900)
+			// The picker is a hidden file input, so the image goes straight in.
+			await page.locator('input[type=file]').first().setInputFiles(join(siteRoot, 'fixtures/backdrop-bracket.png'))
+			await page.waitForTimeout(2500)
+			// Dim it, or traced geometry does not read over the image.
+			await page.locator('.panel-left input[type=range]').first().fill('35')
+			await page.waitForTimeout(800)
+			// Trace the upper bolt hole. Its centre lands on 1.125, 1.875 in, which is a grid
+			// point, so snapping puts the circle concentric instead of dragging it off.
+			await pickShape(page, 'Add feature circle')
+			await clickUntil(page, 0.293, 0.407)
+			await clickUntil(page, 0.326, 0.407)
+			await page.waitForTimeout(1200)
+			await page.keyboard.press('Escape')
+			await page.waitForTimeout(600)
+			// Loading renames the tree row to the file, so "Backdrop" would now match the
+			// status bar's visibility toggle and hide the image.
+			await page.getByText('backdrop-bracket', { exact: true }).first().click()
+			await page.waitForTimeout(1200)
+		},
+		clip: clipWorkspaceLeft,
+	},
+
 	// --- Design: text ----------------------------------------------------------
 	{
 		id: 'text-add-dialog',
@@ -567,8 +639,11 @@ const RECIPES = [
 			// structure that this visual is about.
 			await page.locator('[title="Hide feature labels"]').first().click()
 			await page.waitForTimeout(600)
-			await placeText(page, { words: 'PURE', height: 0.6, fx: 0.34, fy: 0.4 })
-			await page.getByText('PURE', { exact: true }).first().click()
+			// Outline text, and letters that all have counters: the page's point is that a
+			// glyph such as O yields an outer and an inner outline, which skeleton text
+			// cannot show at all.
+			await placeText(page, { words: 'PRO', height: 0.8, fx: 0.34, fy: 0.4, outline: true })
+			await page.getByText('PRO', { exact: true }).first().click()
 			await page.waitForTimeout(1000)
 			// Expand text to features sits inside SHAPE, which opens collapsed.
 			for (const header of await page.locator('.disclosure-section__header').all()) {
@@ -872,6 +947,111 @@ const RECIPES = [
 		clip: clipCanvas,
 	},
 
+	{
+		id: 'snapping-axis-lock',
+		asset: 'design/snapping-and-grid/axis-lock.png',
+		viewport: { width: 1440, height: 900 },
+		collapseLegend: true,
+		async steps(page) {
+			await pickShape(page, 'Add feature polygon')
+			await clickUntil(page, 0.28, 0.45)
+			// Alt cycles the lock: once for Lock X, twice for Lock Y.
+			await page.keyboard.press('Alt')
+			await page.waitForTimeout(600)
+			// Well off the axis on purpose, so the shot shows the lock overriding the pointer
+			// rather than the pointer happening to be on the line.
+			await moveTo(page, 0.64, 0.24)
+			await page.waitForTimeout(900)
+		},
+		// Whole canvas: the Lock X chip sits in its bottom-left corner.
+		clip: clipCanvas,
+	},
+
+	// --- Design: importing ---
+	// The 2D and 3D fixtures are authored here rather than downloaded, so the repository
+	// carries no third-party model licence. import-rapid.obj is the exception: it is
+	// public domain and earns its size by arriving offset from the origin, which is what
+	// the Orientation controls are for.
+	{
+		id: 'import-2d-dialog',
+		asset: 'design/importing-2d/import-dialog.png',
+		viewport: { width: 1440, height: 900 },
+		steps: (page) => importFile(page, 'bracket.svg'),
+		clip: clipDialog('.dialog--import', 40),
+	},
+	{
+		id: 'import-svg-summary',
+		asset: 'design/importing-2d/svg-summary.png',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			await importFile(page, 'bracket.svg')
+			await page.getByTestId('import-geometry-mode').selectOption('solid-regions')
+			await page.waitForTimeout(900)
+		},
+		clip: clipDialog('.dialog--import', 40),
+	},
+	{
+		id: 'import-dxf-layers',
+		asset: 'design/importing-2d/dxf-layers.png',
+		viewport: { width: 1440, height: 900 },
+		steps: (page) => importFile(page, 'bracket.dxf'),
+		clip: clipDialog('.dialog--import', 40),
+	},
+	{
+		id: 'import-project-folders',
+		asset: 'design/importing-2d/project-folders.png',
+		viewport: { width: 1440, height: 900 },
+		steps: async (page) =>
+			importFile(page, await appFile('t-style-body.camj', 'examples/t-style-body.camj')),
+		clip: clipDialog('.dialog--import', 40),
+	},
+	{
+		id: 'import-3d-multibody',
+		asset: 'design/importing-3d-models/multi-body-import.png',
+		viewport: { width: 1440, height: 900 },
+		storage: SPLIT_TREE,
+		async steps(page) {
+			await importFile(page, 'three-bodies.obj')
+			await sourceUnits(page).selectOption('inch')
+			await page.waitForTimeout(500)
+			await page.getByRole('button', { name: /^Import$/ }).click()
+			// The three solids have to be built and drawn before the tree settles.
+			await page.waitForTimeout(6000)
+			await page.getByRole('tab', { name: /3D view/i }).click()
+			await page.waitForTimeout(3000)
+		},
+		clip: null, // tree and 3D view together are the subject
+	},
+	{
+		id: 'import-step-settings',
+		asset: 'design/importing-3d-models/step-settings.png',
+		viewport: { width: 1440, height: 900 },
+		steps: (page) => importFile(page, 'bracket.step'),
+		clip: clipDialog('.dialog--import', 40),
+	},
+	{
+		id: 'import-model-orientation',
+		asset: 'design/importing-3d-models/model-orientation.png',
+		viewport: { width: 1440, height: 900 },
+		// The orientation section runs to Lift and Reset; the default split cuts it off.
+		storage: SHORT_TREE,
+		async steps(page) {
+			await importFile(page, 'rapid.obj')
+			await sourceUnits(page).selectOption('mm')
+			await page.waitForTimeout(500)
+			await page.getByRole('button', { name: /^Import$/ }).click()
+			await page.waitForTimeout(8000)
+			await page.getByRole('tab', { name: /3D view/i }).click()
+			await page.waitForTimeout(2500)
+			await page.getByText('rapid', { exact: false }).first().click()
+			await page.waitForTimeout(1200)
+			// The orientation controls live in a collapsed section of the model's properties.
+			await page.getByText('3D ORIENTATION', { exact: false }).first().click()
+			await page.waitForTimeout(900)
+		},
+		clip: clipWorkspaceLeft,
+	},
+
 	// --- Design: selecting and transforming ------------------------------------
 	{
 		id: 'selection-overlap-picker',
@@ -946,10 +1126,13 @@ const RECIPES = [
 			await page.getByRole('button', { name: 'Collapse feature color legend' }).first().click().catch(() => {})
 			await page.waitForTimeout(500)
 			// The tool re-arms, so hovering the top edge's midpoint raises the snap label.
-			for (const fx of [0.49, 0.5, 0.485, 0.495]) {
-				await moveTo(page, fx, 0.28)
-				await page.waitForTimeout(600)
-			}
+			// It has to be one clear move onto the point from somewhere else: nudging a few
+			// pixels leaves the crosshair drawn but no label, which is how the first version
+			// of this shot lost it.
+			await moveTo(page, 0.35, 0.45)
+			await page.waitForTimeout(400)
+			await moveTo(page, 0.49, 0.28)
+			await page.waitForTimeout(700)
 		},
 		// Toolbar through the canvas: the buttons and the label are the subject together.
 		clip: (page) =>

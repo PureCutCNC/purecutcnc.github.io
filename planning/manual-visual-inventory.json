@@ -842,9 +842,9 @@
 			"afterHeading": "Expand text",
 			"kind": "screenshot",
 			"purpose": "Show the tree structure created when editable text becomes feature geometry.",
-			"brief": "Expanded text with one feature group per glyph in the tree and the original text retained.",
+			"brief": "Expanded outline text with one feature group per glyph in the tree, each holding an outer and an inner outline, and the original text retained.",
 			"asset": "design/text/expanded-glyphs.png",
-			"alt": "Expanded text represented as grouped glyph features while the original text remains in the tree",
+			"alt": "Expanded outline text as grouped glyph features, each group holding an add feature for the outer outline and a subtract feature for the counter, while the original text remains in the tree",
 			"status": "captured",
 			"blockedBy": []
 		},
@@ -993,6 +993,18 @@
 			"blockedBy": []
 		},
 		{
+			"id": "snapping-axis-lock",
+			"page": "/guide/design/snapping-and-grid/",
+			"afterHeading": "Axis lock",
+			"kind": "screenshot",
+			"purpose": "Show the axis lock holding a point on one axis while the pointer is somewhere else, and the chip that says which lock is on.",
+			"brief": "A segment being drawn with Lock X on: the point held on the horizontal through the start point while the pointer sits off it, and the Lock X chip on the canvas.",
+			"asset": "design/snapping-and-grid/axis-lock.png",
+			"alt": "A pending segment held horizontal by Lock X while the pointer sits above and right of it, with a red Lock X chip in the corner of the canvas",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
 			"id": "dimensions-on-part",
 			"page": "/guide/design/dimensions-and-constraints/",
 			"afterHeading": "Placing dimensions",
@@ -1025,7 +1037,7 @@
 			"brief": "The 2D import dialog with a representative file selected, unit detection, destination units, and summary area visible.",
 			"asset": "design/importing-2d/import-dialog.png",
 			"alt": "2D import dialog with file, source units, project units, progress, and summary controls",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1037,7 +1049,7 @@
 			"brief": "An SVG import using Solid regions with the resulting Add and Subtract counts in the summary.",
 			"asset": "design/importing-2d/svg-summary.png",
 			"alt": "SVG import in Solid regions mode with Add and Subtract feature counts",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1049,7 +1061,7 @@
 			"brief": "The DXF layer picker with several layers, join tolerance, cross-layer joining, and detected units.",
 			"asset": "design/importing-2d/dxf-layers.png",
 			"alt": "DXF layer picker with layer selection, join tolerance, cross-layer joining, and units",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1061,7 +1073,7 @@
 			"brief": "The project import folder picker with nested folders and the include-stock option visible.",
 			"asset": "design/importing-2d/project-folders.png",
 			"alt": "Project import dialog with folder selection and include-stock option",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1073,7 +1085,7 @@
 			"brief": "A multi-body STL or OBJ import with axis controls, split-body result, and the resulting Model features visible.",
 			"asset": "design/importing-3d-models/multi-body-import.png",
 			"alt": "Multi-body mesh import with axis controls and separate Model features",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1085,7 +1097,7 @@
 			"brief": "The STEP import settings with declared units, surface tolerance, size information, and import limits visible.",
 			"asset": "design/importing-3d-models/step-settings.png",
 			"alt": "STEP import settings with units, surface tolerance, size information, and limits",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1097,7 +1109,7 @@
 			"brief": "An imported model in 3D view with the orientation section open to X, Y, Z, quarter-turn, lift, and reset controls.",
 			"asset": "design/importing-3d-models/model-orientation.png",
 			"alt": "Imported model with orientation, quarter-turn, lift, and reset controls",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1108,8 +1120,8 @@
 			"purpose": "Show the relationship between the reference image, traced features, and alignment controls.",
 			"brief": "A backdrop image behind traced geometry with opacity, size, angle, move, resize, and rotate controls visible.",
 			"asset": "design/backdrop-images/backdrop-alignment.png",
-			"alt": "Backdrop image aligned behind traced geometry with opacity and transform controls",
-			"status": "proposed",
+			"alt": "A dimmed reference drawing behind the sketch with a traced circle on one of its bolt holes, and the backdrop opacity, size, angle and transform controls",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{

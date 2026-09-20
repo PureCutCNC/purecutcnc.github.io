@@ -687,6 +687,17 @@
 		"status": "current",
 		"blockedBy": []
 	},
+	"design/snapping-and-grid/axis-lock.png": {
+		"shows": "A Polygon command mid-draw with Lock X on: the pending segment held horizontal from the first point and labelled 1.625, the pointer and its Grid snap label up and to the right of the line, and a red Lock X chip in the bottom-left corner of the canvas",
+		"source": "capture",
+		"appCommit": "e86464007feb96c3be6580bae974a89bef49baa7",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
 	"design/selecting-and-transforming/overlap-picker.png": {
 		"shows": "The Select feature panel reading 2 features overlap here, Choose one to select, listing Rect 2 and Rect 1 both badged RECTANGLE, with the same two rows in the feature tree alongside",
 		"source": "capture",
@@ -842,10 +853,98 @@
 		"blockedBy": []
 	},
 	"design/text/expanded-glyphs.png": {
-		"shows": "The feature tree after Expand text to features: the original PURE text retained, with a group per glyph beneath it and the R group holding two outline features, beside the plain glyph outlines on the canvas",
+		"shows": "The feature tree after Expand text to features on outline text: the original PRO retained, a group per glyph beneath it, and each group holding an add feature for the outer outline and a subtract feature for the counter, beside the PRO letterforms on the canvas",
 		"source": "capture",
 		"appCommit": "e86464007feb96c3be6580bae974a89bef49baa7",
 		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"design/backdrop-images/backdrop-alignment.png": {
+		"shows": "A reference drawing loaded as a backdrop and dimmed to 35 percent, with a traced circle sitting concentric on one of its bolt holes, beside the backdrop properties showing Visible, Opacity, Width 3.6, Height 2.4, Angle 90 and the Replace image, Move, Resize, Rotate and Delete buttons",
+		"source": "capture",
+		"appCommit": "e86464007feb96c3be6580bae974a89bef49baa7",
+		"fixture": "site/fixtures/backdrop-bracket.png",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"design/importing-2d/import-dialog.png": {
+		"shows": "The Import geometry dialog with bracket.svg chosen, showing Geometry mode Auto, the import summary (9 total, 2 open lines, 1 closed line, 1 add solid, 5 subtract solids), Format SVG, Source units detected as Inch, and Project units Inch",
+		"source": "capture",
+		"appCommit": "e86464007feb96c3be6580bae974a89bef49baa7",
+		"fixture": "site/fixtures/bracket.svg",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"design/importing-2d/svg-summary.png": {
+		"shows": "The same SVG with Geometry mode set to Solid regions: no Closed lines row and Subtract (solid) risen from 5 to 6, showing what the mode changes",
+		"source": "capture",
+		"appCommit": "e86464007feb96c3be6580bae974a89bef49baa7",
+		"fixture": "site/fixtures/bracket.svg",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"design/importing-2d/dxf-layers.png": {
+		"shows": "The DXF import dialog with the Layers list (ENGRAVE, HOLES, NOTES, OUTLINE) all selected, Deselect all, Join tolerance 0.01 in, Cross-Layer join, and Source units detected as Inch from $INSUNITS",
+		"source": "capture",
+		"appCommit": "e86464007feb96c3be6580bae974a89bef49baa7",
+		"fixture": "site/fixtures/bracket.dxf",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"design/importing-2d/project-folders.png": {
+		"shows": "The import dialog for a .camj project, listing the source project's folders with feature counts (Neck pickup 1, Bridge holes 10, Bridge pickup 1, Body 3, Neck pocket 5) and the note that backdrop, grid, machine definitions and global constraints are not imported",
+		"source": "capture",
+		"appCommit": "e86464007feb96c3be6580bae974a89bef49baa7",
+		"fixture": "app:public/examples/t-style-body.camj",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"design/importing-3d-models/multi-body-import.png": {
+		"shows": "The workspace after importing a three-body OBJ: the feature tree holds a group of three model features and the 3D view shows the block, cylinder and wedge inside the stock",
+		"source": "capture",
+		"appCommit": "e86464007feb96c3be6580bae974a89bef49baa7",
+		"fixture": "site/fixtures/three-bodies.obj",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"design/importing-3d-models/step-settings.png": {
+		"shows": "The STEP import settings: Format STEP, Source units Millimeter with 'Units declared in the file: mm', Project units Inch, Axis orientation Original (Z-up), Silhouette Z steps Auto, and Surface tolerance 0.0005 in",
+		"source": "capture",
+		"appCommit": "e86464007feb96c3be6580bae974a89bef49baa7",
+		"fixture": "site/fixtures/bracket.step",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"design/importing-3d-models/model-orientation.png": {
+		"shows": "The 3D orientation properties of an imported model: Rotate X/Y/Z with -90 and +90 buttons, Lift 0.9707, 'Model height: 1.2103 in', and Reset to import orientation, beside the model floating above the stock in the 3D view",
+		"source": "capture",
+		"appCommit": "e86464007feb96c3be6580bae974a89bef49baa7",
+		"fixture": "site/fixtures/rapid.obj",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
 		"locale": "en",

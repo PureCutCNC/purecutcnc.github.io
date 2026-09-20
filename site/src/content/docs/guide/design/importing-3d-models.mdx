@@ -6,7 +6,10 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
+import Screenshot from '../../../../components/Screenshot.astro';
+import multiBody from '../../../../assets/manual/design/importing-3d-models/multi-body-import.png';
+import stepSettings from '../../../../assets/manual/design/importing-3d-models/step-settings.png';
+import modelOrientation from '../../../../assets/manual/design/importing-3d-models/model-orientation.png';
 import { Aside, Steps } from '@astrojs/starlight/components';
 import Availability from '../../../../components/Availability.astro';
 
@@ -23,7 +26,7 @@ on [Importing SVG, DXF, and projects](/guide/design/importing-2d/).
 ## Import a model
 
 
-<VisualPending id="import-3d-multibody" />
+<Screenshot src={multiBody} alt="A three-body OBJ after importing: the feature tree holds a group of three model features, and the 3D view shows a block, a cylinder and a wedge sitting inside the stock" caption="A file with several bodies arrives as one group holding a model feature per body." />
 <Steps>
 
 1. Click **Import geometry**, then choose the `.stl`, `.obj`, `.step`, or `.stp` file.
@@ -67,7 +70,7 @@ bodies is imported as a single feature instead, with a warning.
 ## STEP files
 
 
-<VisualPending id="import-step-settings" />
+<Screenshot src={stepSettings} alt="The STEP import settings: Format STEP, Source units Millimeter with the note Units declared in the file mm, Project units Inch, Axis orientation Original Z-up, and a Surface tolerance of 0.0005 inch" caption="A STEP file states its own units, and Surface tolerance controls how finely its surfaces are converted." />
 <span id="step"></span>
 
 <Availability kind="preview" />
@@ -90,7 +93,7 @@ connection in the web app.
 ## Orientation
 
 
-<VisualPending id="import-model-orientation" />
+<Screenshot src={modelOrientation} alt="The 3D orientation properties of an imported model: Rotate X, Y and Z with minus and plus ninety degree buttons, a Lift of 0.9707, the note Model height 1.2103 in, and Reset to import orientation, beside a 3D view of the model floating above the stock" caption="This model arrived nearly an inch above the stock; Lift sets it back down." />
 Select an imported model and open **3D orientation** in its properties:
 
 | Control | What it does |
