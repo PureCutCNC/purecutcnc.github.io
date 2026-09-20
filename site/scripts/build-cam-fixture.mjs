@@ -13,8 +13,13 @@
 //   cam-demo.obj  a relief to rough, finish and clean up in 3D
 //
 // It drives the app the way a reader would, so the result is a project they could have
-// built themselves. Re-run it if the fixture needs rebuilding; do not hand-edit the
-// .camj, which embeds the mesh.
+// built themselves.
+//
+// It builds the geometry and the tools only. The committed fixture also carries five
+// operations added in the app — Surface clean Rough, 3D surface rough, 3D surface
+// finish, Edge route inside Rough, Edge route outside Rough — which the captures
+// select rather than create. Re-running this therefore produces the base project, not
+// the committed one: check with the owner before overwriting site/fixtures/cam-demo.camj.
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { chromium } from '@playwright/test'
@@ -76,7 +81,9 @@ await importFixture('cam-demo.svg')
 await importFixture('cam-demo.obj', 'inch')
 
 // 2. Inset the plate. A feature whose top is flush with the stock top gives a surface
-// clean nothing to remove — it reports "resolver produced no depth bands".
+// clean nothing to remove — it reports "resolver produced no depth bands" — and the
+// gap has to be worth several stepdowns, not one: at 0.62 (0.13 of material, about one
+// stepdown) it still found nothing. 0.25 leaves 0.5 in, four bands at the default.
 await page.getByText('Plate 2', { exact: true }).first().click()
 await page.waitForTimeout(1500)
 // A feature's properties open collapsed, so the Z fields do not exist yet.
@@ -91,7 +98,7 @@ await page.evaluate(() => {
 	const input = document.querySelector('.panel-left .z-range-slider__field--top')
 	if (!input) throw new Error('no Z top field on the plate')
 	const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set
-	setter.call(input, '0.62')
+	setter.call(input, '0.25')
 	input.dispatchEvent(new Event('input', { bubbles: true }))
 	input.dispatchEvent(new Event('change', { bubbles: true }))
 	input.blur()
@@ -100,8 +107,8 @@ await page.waitForTimeout(2500)
 const plateTop = await page.evaluate(
 	() => document.querySelector('.panel-left .z-range-slider__field--top')?.value,
 )
-if (plateTop !== '0.62') throw new Error(`plate Z top is ${plateTop}, expected 0.62`)
-step('plate inset to Z top 0.62')
+if (plateTop !== '0.25') throw new Error(`plate Z top is ${plateTop}, expected 0.62`)
+step('plate inset to Z top 0.25')
 
 // 3. Tools, so an operation has something to cut with.
 await page.getByRole('tab', { name: /^Tools$/ }).click()

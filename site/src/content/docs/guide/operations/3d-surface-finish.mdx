@@ -6,7 +6,8 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
+import Screenshot from '../../../../components/Screenshot.astro';
+import finishPattern from '../../../../assets/manual/operations/3d-surface-finish/finish-patterns.png';
 import { Aside } from '@astrojs/starlight/components';
 
 **3D surface finish** machines the final surface of one model. Choose it after roughing when the
@@ -34,7 +35,7 @@ Shared settings are documented in [Common operation parameters](/guide/operation
 ## Strategies
 
 
-<VisualPending id="surface-finish-patterns" />
+<Screenshot src={finishPattern} alt="A 3D finish toolpath running in close parallel passes across the whole surface of a relief model" caption="The finish pass follows the surface itself. Its pattern is a strategy choice — see 3D finishing." />
 Read [3D finishing controls](/guide/strategies/3d-finishing/) for each pattern, waterline
 refinement, scallop height, the slope filter, and protection behaviour.
 

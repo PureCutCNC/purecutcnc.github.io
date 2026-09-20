@@ -1128,7 +1128,7 @@
 		"blockedBy": []
 	},
 	"operations/edge-route-inside/inside-route.png": {
-		"shows": "An inside edge route around the fixture's teardrop pocket, the toolpath offset inside the profile by the cutter radius",
+		"shows": "The fixture's Edge route inside Rough operation around the teardrop pocket, offset inside the profile by the cutter radius",
 		"source": "capture",
 		"appCommit": "b4ffabbdf900d42027545907d23e3cd7bf9b6aa3",
 		"fixture": "site/fixtures/cam-demo.camj",
@@ -1151,6 +1151,39 @@
 	},
 	"operations/engrave/trochoidal.png": {
 		"shows": "The fixture's scroll curve engraved with the Trochoidal strategy, the cutter orbiting along the line in a dense chain of loops",
+		"source": "capture",
+		"appCommit": "b4ffabbdf900d42027545907d23e3cd7bf9b6aa3",
+		"fixture": "site/fixtures/cam-demo.camj",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"operations/surface-clean/toolpath-bands.png": {
+		"shows": "The fixture's Surface clean Rough operation covering the plate's top in offset bands, stepping down through the 0.5 in of material above it",
+		"source": "capture",
+		"appCommit": "b4ffabbdf900d42027545907d23e3cd7bf9b6aa3",
+		"fixture": "site/fixtures/cam-demo.camj",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"operations/3d-surface-rough/rough-levels.png": {
+		"shows": "The fixture's 3D surface rough operation over the relief, cutting at several Z levels with stock retained around the model",
+		"source": "capture",
+		"appCommit": "b4ffabbdf900d42027545907d23e3cd7bf9b6aa3",
+		"fixture": "site/fixtures/cam-demo.camj",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"operations/3d-surface-finish/finish-patterns.png": {
+		"shows": "The fixture's 3D surface finish operation, close parallel passes following the whole surface of the relief",
 		"source": "capture",
 		"appCommit": "b4ffabbdf900d42027545907d23e3cd7bf9b6aa3",
 		"fixture": "site/fixtures/cam-demo.camj",

@@ -1301,7 +1301,7 @@
 			"brief": "A Surface clean operation with visible cutting bands covering the top of an Add feature.",
 			"asset": "operations/surface-clean/toolpath-bands.png",
 			"alt": "Surface clean toolpath bands covering the top of an Add feature",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1445,7 +1445,7 @@
 			"brief": "A 3D rough operation with several Z levels and retained stock around the model visible.",
 			"asset": "operations/3d-surface-rough/rough-levels.png",
 			"alt": "3D surface rough toolpath with stepped Z levels around the model",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1454,10 +1454,10 @@
 			"afterHeading": "Strategies",
 			"kind": "screenshot",
 			"purpose": "Compare the three finish patterns on the same model.",
-			"brief": "Parallel, Waterline, and Constant scallop finish toolpaths shown side by side on one model.",
+			"brief": "A single 3D finish operation over the model, showing the pass pattern following the surface. The three-way comparison of patterns belongs to strategies/3d-finishing.",
 			"asset": "operations/3d-surface-finish/finish-patterns.png",
 			"alt": "Parallel, waterline, and constant-scallop finish toolpaths on the same model",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{

@@ -1389,7 +1389,7 @@ const RECIPES = [
 		fixture: 'site/fixtures/cam-demo.camj',
 		viewport: { width: 1440, height: 900 },
 		async steps(page) {
-			const op = await addOperation(page, 'Plate 2', 'Surface', 'Rough')
+			const op = 'Surface clean Rough'
 			await onlyToolpath(page, op)
 			await zoomTo(page, 0.5, 0.5, 1)
 		},
@@ -1401,7 +1401,7 @@ const RECIPES = [
 		fixture: 'site/fixtures/cam-demo.camj',
 		viewport: { width: 1440, height: 900 },
 		async steps(page) {
-			const op = await addOperation(page, 'Teardrop pocket 2', 'Edge in', 'Both')
+			const op = 'Edge route inside Rough'
 			await onlyToolpath(page, op)
 			await zoomTo(page, 0.7, 0.51, 3)
 		},
@@ -1445,7 +1445,7 @@ const RECIPES = [
 		fixture: 'site/fixtures/cam-demo.camj',
 		viewport: { width: 1440, height: 900 },
 		async steps(page) {
-			const op = await addOperation(page, 'cam-demo', '3D surface rough')
+			const op = '3D surface rough'
 			await onlyToolpath(page, op)
 			await zoomTo(page, 0.34, 0.51, 2)
 		},
@@ -1457,7 +1457,7 @@ const RECIPES = [
 		fixture: 'site/fixtures/cam-demo.camj',
 		viewport: { width: 1440, height: 900 },
 		async steps(page) {
-			const op = await addOperation(page, 'cam-demo', '3D surface finish')
+			const op = '3D surface finish'
 			await onlyToolpath(page, op)
 			await zoomTo(page, 0.34, 0.51, 2)
 		},
