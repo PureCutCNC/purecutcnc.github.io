@@ -6,14 +6,15 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
+import Screenshot from '../../../../components/Screenshot.astro';
+import insideRoute from '../../../../assets/manual/operations/edge-route-inside/inside-route.png';
 import { Aside } from '@astrojs/starlight/components';
 
 **Edge route inside** follows the inside edge of a closed subtract profile, offset by the tool
 radius. Use it for a precise internal contour or opening when a Pocket would remove unnecessary
 material.
 
-<VisualPending id="edge-inside-route" />
+<Screenshot src={insideRoute} alt="An inside edge route running around a teardrop-shaped pocket, the toolpath offset inside the profile by the cutter radius" caption="An inside route follows the profile from within, offset by the cutter radius." />
 
 ## Requirements
 

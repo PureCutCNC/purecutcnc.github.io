@@ -7,6 +7,8 @@ status: draft
 ---
 
 import VisualPending from '../../../../components/VisualPending.astro';
+import Screenshot from '../../../../components/Screenshot.astro';
+import engraveDirect from '../../../../assets/manual/operations/engrave/direct.png';
 import { Aside } from '@astrojs/starlight/components';
 
 **Engrave** follows an open or closed sketch path at a fixed carve depth. Choose Direct for text,
@@ -33,7 +35,7 @@ Shared settings are documented in [Common operation parameters](/guide/operation
 ## Strategies
 
 
-<VisualPending id="engrave-direct" />
+<Screenshot src={engraveDirect} alt="An engrave toolpath following an open curve once, with direction arrows along it" caption="Direct engraving follows the line once, at the depth you set." />
 
 <VisualPending id="engrave-trochoidal" />
 See [Trochoidal cutting](/guide/strategies/trochoidal-cutting/#slots) for the wider-slot strategy.

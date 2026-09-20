@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 2D geometry for the CAM fixture project, sized to the 4 x 3 in blank imperial
+     stock. Each piece exists for an operation the bundled examples cannot demonstrate,
+     and they are kept clear of one another and of the relief model (which occupies the
+     left half) so no shot has two subjects fighting for the same space.
+
+       Plate           add feature, a top face to surface clean
+       Teardrop pocket closed subtract profile, to pocket and to route inside
+       Scroll upper/lower  open stroke-only curves, to engrave -->
+<svg xmlns="http://www.w3.org/2000/svg" width="4in" height="3in" viewBox="0 0 4 3">
+  <path id="Plate" d="M 0.30 0.60 A 0.30 0.30 0 0 1 0.60 0.30 L 3.40 0.30
+           A 0.30 0.30 0 0 1 3.70 0.60 L 3.70 2.40
+           A 0.30 0.30 0 0 1 3.40 2.70 L 0.60 2.70
+           A 0.30 0.30 0 0 1 0.30 2.40 Z" fill="#b0b0b0"/>
+  <!-- Right of the model: a closed profile with curvature, so an inside route reads as
+       a shape rather than a rectangle. -->
+  <path id="Teardrop pocket" d="M 2.38 1.50
+           C 2.38 1.12, 2.68 0.86, 3.02 0.86
+           C 3.40 0.86, 3.44 1.16, 3.44 1.50
+           C 3.44 1.88, 3.38 2.14, 3.02 2.14
+           C 2.66 2.14, 2.38 1.88, 2.38 1.50 Z" fill="#404040"/>
+  <!-- Above and below the model: open lines, so they import as lines and can be
+       engraved. Kept clear of the plate's rounded corners. -->
+  <path id="Scroll upper" d="M 0.62 0.56 C 1.00 0.80, 1.55 0.34, 1.98 0.60"
+        fill="none" stroke="#202020" stroke-width="0.02"/>
+  <path id="Scroll lower" d="M 0.62 2.44 C 1.00 2.20, 1.55 2.66, 1.98 2.40"
+        fill="none" stroke="#202020" stroke-width="0.02"/>
+</svg>

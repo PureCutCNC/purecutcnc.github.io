@@ -1375,52 +1375,52 @@ const RECIPES = [
 		viewport: { width: 1440, height: 900 },
 		steps: (page) => simulateResult(page, 'V-Carve offset', { zoom: 3, at: [0.5, 0.5] }),
 		clip: clipCentreView,
-	},	{
-		id: 'edge-inside-route',
-		asset: 'operations/edge-route-inside/inside-route.png',
-		fixture: 'PureCutCNC',
-		viewport: { width: 1440, height: 900 },
-		async steps(page) {
-			const op = await addOperation(page, 'Rect 2', 'Edge in', 'Both')
-			await onlyToolpath(page, op)
-			await zoomTo(page, 0.5, 0.5, 2)
-		},
-		clip: clipCanvas,
-	},
+	},	// These six run on the committed CAM fixture: the bundled examples carry no model
+	// and no open-line geometry, so engrave, edge route inside, surface clean and the
+	// three 3D-surface operations have nothing to be shot against.
 	{
 		id: 'surface-clean-bands',
 		asset: 'operations/surface-clean/toolpath-bands.png',
-		fixture: 'PureCutCNC',
+		fixture: 'site/fixtures/cam-demo.camj',
 		viewport: { width: 1440, height: 900 },
 		async steps(page) {
-			const op = await addOperation(page, 'Rect 1', 'Surface', 'Rough')
+			const op = await addOperation(page, 'Plate 2', 'Surface', 'Rough')
 			await onlyToolpath(page, op)
 			await zoomTo(page, 0.5, 0.5, 1)
 		},
 		clip: clipCanvas,
 	},
 	{
-		id: 'engrave-direct',
-		asset: 'operations/engrave/direct.png',
-		fixture: 'PureCutCNC',
+		id: 'edge-inside-route',
+		asset: 'operations/edge-route-inside/inside-route.png',
+		fixture: 'site/fixtures/cam-demo.camj',
 		viewport: { width: 1440, height: 900 },
 		async steps(page) {
-			const op = await addOperation(page, 'Rect 2', 'Engrave')
+			const op = await addOperation(page, 'Teardrop pocket 2', 'Edge in', 'Both')
 			await onlyToolpath(page, op)
-			// Engraving a closed profile traces its outline, so frame a straight run of it
-			// rather than the empty middle.
-			await zoomTo(page, 0.5, 0.26, 4)
+			await zoomTo(page, 0.7, 0.51, 3)
+		},
+		clip: clipCanvas,
+	},
+	{
+		id: 'engrave-direct',
+		asset: 'operations/engrave/direct.png',
+		fixture: 'site/fixtures/cam-demo.camj',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			const op = await addOperation(page, 'Scroll upper 2', 'Engrave')
+			await onlyToolpath(page, op)
+			await zoomTo(page, 0.34, 0.27, 4)
 		},
 		clip: clipCanvas,
 	},
 	{
 		id: 'engrave-trochoidal',
 		asset: 'operations/engrave/trochoidal.png',
-		fixture: 'PureCutCNC',
+		fixture: 'site/fixtures/cam-demo.camj',
 		viewport: { width: 1440, height: 900 },
 		async steps(page) {
-			const op = await addOperation(page, 'Rect 2', 'Engrave')
-			// Same operation, same framing as the Direct shot, so the pages sit side by side.
+			const op = await addOperation(page, 'Scroll upper 2', 'Engrave')
 			await page.evaluate(() =>
 				[...document.querySelectorAll('*')]
 					.find((e) => e.children.length === 0 && /^strategy$/i.test(e.textContent.trim()))
@@ -1429,7 +1429,47 @@ const RECIPES = [
 			await page.waitForTimeout(1200)
 			await setUiSelect(page, 'Direct', 'Trochoidal')
 			await onlyToolpath(page, op)
-			await zoomTo(page, 0.5, 0.26, 4)
+			// Same framing as the Direct shot, so the two read as a pair.
+			await zoomTo(page, 0.34, 0.27, 4)
+		},
+		clip: clipCanvas,
+	},
+	{
+		id: 'surface-rough-levels',
+		asset: 'operations/3d-surface-rough/rough-levels.png',
+		fixture: 'site/fixtures/cam-demo.camj',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			const op = await addOperation(page, 'cam-demo', '3D surface rough')
+			await onlyToolpath(page, op)
+			await zoomTo(page, 0.34, 0.51, 2)
+		},
+		clip: clipCanvas,
+	},
+	{
+		id: 'surface-finish-patterns',
+		asset: 'operations/3d-surface-finish/finish-patterns.png',
+		fixture: 'site/fixtures/cam-demo.camj',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			const op = await addOperation(page, 'cam-demo', '3D surface finish')
+			await onlyToolpath(page, op)
+			await zoomTo(page, 0.34, 0.51, 2)
+		},
+		clip: clipCanvas,
+	},
+	{
+		id: 'surface-cleanup-passes',
+		asset: 'operations/3d-surface-cleanup/cleanup-passes.png',
+		fixture: 'site/fixtures/cam-demo.camj',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			// Cleanup targets what a rough and a finish leave behind, so both come first.
+			await addOperation(page, 'cam-demo', '3D surface rough')
+			await addOperation(page, 'cam-demo', '3D surface finish')
+			const op = await addOperation(page, 'cam-demo', '3D surface cleanup')
+			await onlyToolpath(page, op)
+			await zoomTo(page, 0.34, 0.51, 2)
 		},
 		clip: clipCanvas,
 	},
@@ -1982,7 +2022,23 @@ async function capture(browser, recipe) {
 		const page = await context.newPage()
 		await page.goto(APP_URL, { waitUntil: 'networkidle' })
 
-		if (recipe.fixture) {
+		if (recipe.fixture?.startsWith('site/fixtures/')) {
+			// A project committed here rather than bundled with the app. Open project builds
+			// a transient file input, so it is driven through the file chooser event.
+			await page.getByRole('button', { name: /^close$/i }).first().click().catch(() => {})
+			await page.waitForTimeout(600)
+			const [chooser] = await Promise.all([
+				page.waitForEvent('filechooser'),
+				page.getByRole('button', { name: 'Open project' }).click(),
+			])
+			await chooser.setFiles(join(repoRoot, recipe.fixture))
+			await page.waitForFunction(
+				() => !/Start your part/.test(document.body.innerText),
+				null,
+				{ timeout: 120000 },
+			)
+			await page.waitForTimeout(6000)
+		} else if (recipe.fixture) {
 			await page.getByRole('button', { name: FIXTURES[recipe.fixture] }).click()
 			// The example has to finish building its model before anything is worth capturing.
 			await page.waitForTimeout(2500)
@@ -2009,7 +2065,11 @@ async function capture(browser, recipe) {
 		await page.screenshot({ path: target, clip })
 
 		const { width, height } = recipe.viewport
-		const fixture = recipe.fixture ? `Example: ${recipe.fixture}` : 'Empty project'
+		const fixture = !recipe.fixture
+		? 'Empty project'
+		: recipe.fixture.startsWith('site/fixtures/')
+			? recipe.fixture
+			: `Example: ${recipe.fixture}`
 		return { ok: true, viewport: `${width}x${height}@2x`, fixture }
 	} finally {
 		await context.close()

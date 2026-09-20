@@ -1126,5 +1126,27 @@
 		"locale": "en",
 		"status": "current",
 		"blockedBy": []
+	},
+	"operations/edge-route-inside/inside-route.png": {
+		"shows": "An inside edge route around the fixture's teardrop pocket, the toolpath offset inside the profile by the cutter radius",
+		"source": "capture",
+		"appCommit": "b4ffabbdf900d42027545907d23e3cd7bf9b6aa3",
+		"fixture": "site/fixtures/cam-demo.camj",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"operations/engrave/direct.png": {
+		"shows": "An engrave toolpath following one of the fixture's open scroll curves, with direction arrows along it",
+		"source": "capture",
+		"appCommit": "b4ffabbdf900d42027545907d23e3cd7bf9b6aa3",
+		"fixture": "site/fixtures/cam-demo.camj",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
 	}
 }

@@ -1313,7 +1313,7 @@
 			"brief": "An inside edge route around a closed profile with the contour and cutter diameter visible.",
 			"asset": "operations/edge-route-inside/inside-route.png",
 			"alt": "Inside edge-route toolpath following the inside of a closed profile",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1373,7 +1373,7 @@
 			"brief": "An engrave operation using the Direct strategy: the cutter follows the line once.",
 			"asset": "operations/engrave/direct.png",
 			"alt": "An engrave toolpath following each line of the design once, using the Direct strategy",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
