@@ -156,14 +156,15 @@
 		"blockedBy": []
 	},
 	"design/text/add-text-dialog.png": {
-		"shows": "Add text dialog with outline style, Helvetiker Bold, height 0.4, and Subtract",
-		"source": "legacy-guide",
-		"appCommit": null,
-		"fixture": null,
-		"viewport": null,
+		"shows": "The Add text dialog with PURECUT typed in, Font style set to Outline, Font Helvetiker Bold, Height 0.4 and Operation Subtract, above the note that outline text generates closed features",
+		"source": "capture",
+		"appCommit": "e86464007feb96c3be6580bae974a89bef49baa7",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
 		"theme": "dark",
 		"locale": "en",
-		"status": "reshoot"
+		"status": "current",
+		"blockedBy": []
 	},
 	"operations/pocket/offset-toolpath.png": {
 		"shows": "Pocket toolpath with offset rings inside a closed profile",
@@ -822,6 +823,28 @@
 		"shows": "Twelve circles distributed radially and committed, shrinking steadily around the ring from the green full-size original at 100 percent to a tiny copy at 10 percent, with feature labels hidden",
 		"source": "capture",
 		"appCommit": "345477837b30cd8c12b2dc8d364ab26cfc9dc473",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"design/text/text-layout.png": {
+		"shows": "The Text layout panel set to Along a path with Spline 2 as the guide, Anchor Centre, Fit filling the span and Orientation following the curve, and the text previewed running along the spline",
+		"source": "capture",
+		"appCommit": "e86464007feb96c3be6580bae974a89bef49baa7",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"design/text/expanded-glyphs.png": {
+		"shows": "The feature tree after Expand text to features: the original PURE text retained, with a group per glyph beneath it and the R group holding two outline features, beside the plain glyph outlines on the canvas",
+		"source": "capture",
+		"appCommit": "e86464007feb96c3be6580bae974a89bef49baa7",
 		"fixture": "Empty project",
 		"viewport": "1440x900@2x",
 		"theme": "dark",

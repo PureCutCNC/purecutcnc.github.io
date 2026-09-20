@@ -6,11 +6,13 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
+import AppIcon from '../../../../components/AppIcon.astro';
 import { Aside, Steps } from '@astrojs/starlight/components';
 import Availability from '../../../../components/Availability.astro';
 import Screenshot from '../../../../components/Screenshot.astro';
 import addTextDialog from '../../../../assets/manual/design/text/add-text-dialog.png';
+import textLayout from '../../../../assets/manual/design/text/text-layout.png';
+import expandedGlyphs from '../../../../assets/manual/design/text/expanded-glyphs.png';
 
 Text in PureCutCNC is a single feature that stays editable: you can change the words, the style,
 and the font at any time without drawing it again. You can move, copy, resize, rotate, and mirror it
@@ -26,7 +28,7 @@ like any other feature, and machine it with engrave, V-carve, and pocket operati
 
 <Steps>
 
-1. Open the shape drawer and choose text (**Add feature text**). The **Add text** dialog opens.
+1. Open the shape drawer and choose <AppIcon name="text" /> text (**Add feature text**). The **Add text** dialog opens.
 
 2. Fill in the dialog:
 
@@ -53,7 +55,6 @@ The text becomes a feature in the feature tree. Its Z range starts like any new 
 
 <Screenshot src={addTextDialog} alt="The Add text dialog with sample text, Outline style, Helvetiker Bold font, height 0.4, and Subtract operation" maxWidth={560} />
 
-<VisualPending id="text-add-dialog" />
 
 ## Text styles
 
@@ -83,7 +84,7 @@ individual letters, expand the text first.
 ## Text layout
 
 
-<VisualPending id="text-layout" />
+<Screenshot src={textLayout} alt="Text following a curved spline guide, with the Text layout panel showing Along a path, the Spline 2 guide, start and end offsets, Anchor Centre, Fit set to fill the span, and Orientation following the curve" />
 <Availability kind="preview" />
 
 Text is placed on a straight baseline. **Text layout** bends it onto a circle or along a guide
@@ -145,7 +146,7 @@ are. See [Linked features](/guide/fundamentals/linked-features/).
 ## Expand text
 
 
-<VisualPending id="text-expanded-glyphs" />
+<Screenshot src={expandedGlyphs} alt="The feature tree after expanding text: the original PURE text still present, with a group per glyph beneath it and the R group holding two outline features" />
 **Expand text to features**, in the properties of a text feature, turns the text into ordinary
 features that you can edit one letter at a time:
 

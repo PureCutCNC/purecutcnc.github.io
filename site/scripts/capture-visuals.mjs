@@ -110,6 +110,26 @@ async function clickUntil(page, fx, fy, tries = 4) {
 	throw new Error(`canvas click at ${fx},${fy} never registered`)
 }
 
+/** Place a text feature. The canvas drops taps, so keep trying until it lands. */
+async function placeText(page, { words, height, fx, fy }) {
+	await pickShape(page, 'Add feature text')
+	await page.waitForTimeout(1300)
+	const dialog = page.locator('.dialog--import')
+	await dialog.locator('textarea').first().fill(words)
+	if (height) await dialog.locator('input[type=number]').first().fill(String(height))
+	await page.waitForTimeout(400)
+	await page.getByRole('button', { name: 'Place text' }).click()
+	await page.waitForTimeout(900)
+	const placed = () => page.evaluate((w) => (document.querySelector('.panel-content')?.innerText ?? '').includes(w), words)
+	for (let i = 0; i < 5 && !(await placed()); i++) {
+		await clickTo(page, fx, fy)
+		await page.waitForTimeout(1400)
+	}
+	if (!(await placed())) throw new Error(`text "${words}" never placed`)
+	await page.keyboard.press('Escape')
+	await page.waitForTimeout(700)
+}
+
 /** Open the toolbar's Add dimension menu and choose one of its six types. */
 async function addDimension(page, type) {
 	await page.getByRole('button', { name: 'Add dimension' }).first().click()
@@ -481,6 +501,86 @@ const RECIPES = [
 			await page.waitForTimeout(2500)
 		},
 		clip: clipCanvas,
+	},
+
+	// --- Design: text ----------------------------------------------------------
+	{
+		id: 'text-add-dialog',
+		asset: 'design/text/add-text-dialog.png',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			await pickShape(page, 'Add feature text')
+			await page.waitForTimeout(1300)
+			const dialog = page.locator('.dialog--import')
+			await dialog.locator('textarea').first().fill('PURECUT')
+			// These are custom dropdowns, not <select>: click to open, then pick the option.
+			// (The Text layout panel, confusingly, does use real <select> elements.)
+			await dialog.getByRole('button', { name: 'Skeleton' }).click()
+			await page.waitForTimeout(700)
+			await page.getByText('Outline', { exact: true }).first().click()
+			await page.waitForTimeout(1000)
+		},
+		clip: clipDialog('.dialog--import', 20),
+	},
+	{
+		id: 'text-layout',
+		asset: 'design/text/text-layout.png',
+		viewport: { width: 1440, height: 900 },
+		collapseLegend: true,
+		async steps(page) {
+			// Small source text: with Fit set to fill the span the run is sized by the guide,
+			// so a short original stays tucked behind the panel instead of overrunning the shot.
+			await placeText(page, { words: 'PURECUT', height: 0.15, fx: 0.28, fy: 0.3 })
+			await pickShape(page, 'Add feature spline')
+			for (const [fx, fy] of [[0.22, 0.62], [0.4, 0.5], [0.58, 0.64], [0.76, 0.52]]) {
+				await clickTo(page, fx, fy)
+				await page.waitForTimeout(800)
+			}
+			await page.getByRole('button', { name: 'Finish' }).first().click()
+			await page.waitForTimeout(1500)
+			await page.keyboard.press('Escape')
+			await page.waitForTimeout(700)
+			await page.getByText('PURECUT', { exact: true }).first().click()
+			await page.waitForTimeout(1000)
+			await distribute(page, 'Text layout')
+			await page.locator('.canvas-workflow-panel select').first().selectOption({ label: 'Along a path' })
+			await page.waitForTimeout(1300)
+			await page.getByRole('button', { name: /Pick guide/i }).first().click()
+			await page.waitForTimeout(800)
+			// Away from the ends: a click near the spline's middle misses it.
+			await clickTo(page, 0.58, 0.64)
+			await page.waitForTimeout(1400)
+			const fit = page.locator('.canvas-workflow-panel select').filter({ hasText: 'Keep text size' }).first()
+			await fit.selectOption({ label: 'Fill the span' })
+			await page.waitForTimeout(1500)
+		},
+		clip: clipWorkspaceLeft,
+	},
+	{
+		id: 'text-expanded-glyphs',
+		asset: 'design/text/expanded-glyphs.png',
+		viewport: { width: 1440, height: 900 },
+		storage: WIDE_TREE,
+		collapseLegend: true,
+		async steps(page) {
+			// One label per glyph feature piles up on the canvas, and the tree carries the
+			// structure that this visual is about.
+			await page.locator('[title="Hide feature labels"]').first().click()
+			await page.waitForTimeout(600)
+			await placeText(page, { words: 'PURE', height: 0.6, fx: 0.34, fy: 0.4 })
+			await page.getByText('PURE', { exact: true }).first().click()
+			await page.waitForTimeout(1000)
+			// Expand text to features sits inside SHAPE, which opens collapsed.
+			for (const header of await page.locator('.disclosure-section__header').all()) {
+				if ((await header.getAttribute('aria-expanded')) === 'false') {
+					await header.click()
+					await page.waitForTimeout(400)
+				}
+			}
+			await page.getByRole('button', { name: 'Expand text to features' }).first().click()
+			await page.waitForTimeout(3000)
+		},
+		clip: clipWorkspaceLeft,
 	},
 
 	// --- Design: dimensions and constraints ------------------------------------

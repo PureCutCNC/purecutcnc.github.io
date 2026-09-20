@@ -821,7 +821,7 @@
 			"brief": "The Add text dialog with representative outline text settings and Subtract selected.",
 			"asset": "design/text/add-text-dialog.png",
 			"alt": "Add text dialog with content, outline style, font, height, and Subtract role settings",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -833,7 +833,7 @@
 			"brief": "Text laid out along a curved guide with the Text layout panel open to its path, fit, offset, anchor, and orientation controls.",
 			"asset": "design/text/text-layout.png",
 			"alt": "Text arranged along a curved guide with the Text layout controls open",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -845,7 +845,7 @@
 			"brief": "Expanded text with one feature group per glyph in the tree and the original text retained.",
 			"asset": "design/text/expanded-glyphs.png",
 			"alt": "Expanded text represented as grouped glyph features while the original text remains in the tree",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
