@@ -184,6 +184,91 @@ async function zoomTo(page, fx, fy, steps = 5) {
 	await page.waitForTimeout(900)
 }
 
+/** Pick a value in one of the properties panel's custom dropdowns, found by the value it
+    currently shows. These are not <select> elements, so selectOption does not reach them. */
+async function setUiSelect(page, current, value) {
+	await page.evaluate((cur) => {
+		const label = [...document.querySelectorAll('.panel-right .ui-select__label')].find(
+			(e) => e.textContent.trim() === cur,
+		)
+		const trigger = label?.closest('.ui-select')?.querySelector('.ui-select__trigger')
+		if (!trigger) throw new Error(`no dropdown currently showing "${cur}"`)
+		trigger.click()
+	}, current)
+	await page.waitForTimeout(900)
+	// Options are divs in the open dropdown, and their labels carry qualifiers the caller
+	// should not have to spell out — "Trochoidal" is shown as "Trochoidal (slot)".
+	await page.evaluate((val) => {
+		const open = document.querySelector('.ui-select--open .ui-select__dropdown')
+		if (!open) throw new Error('no dropdown is open')
+		const opt = [...open.querySelectorAll('.ui-select__option')].find((o) =>
+			o.textContent.trim().startsWith(val),
+		)
+		if (!opt) throw new Error(`no option starting "${val}"`)
+		opt.click()
+	}, value)
+	await page.waitForTimeout(2500)
+	await page.waitForFunction(
+		() =>
+			[...document.querySelectorAll('button')].some((b) =>
+				/Toolpaths up to date/.test(b.getAttribute('aria-label') ?? ''),
+			),
+		null,
+		{ timeout: 300000 },
+	)
+	await page.waitForTimeout(2000)
+}
+
+/** Create an operation the way a reader would: select geometry, open Add, pick the
+    entry and its pass. Returns the new operation's name, which the app derives from the
+    kind and pass, so callers do not have to guess it. The bundled examples cover only
+    five of the eleven operation kinds; the rest have to be made. */
+async function addOperation(page, feature, entry, pass = 'Add') {
+	const names = () =>
+		page.evaluate(() =>
+			[...document.querySelectorAll('.panel-right button')]
+				.map((b) => (b.getAttribute('aria-label') ?? '').match(/^(?:Show|Hide) toolpath for (.+)$/)?.[1])
+				.filter(Boolean),
+		)
+	const before = new Set(await names())
+	await page.getByText(feature, { exact: true }).first().click()
+	await page.waitForTimeout(1200)
+	await page.getByRole('button', { name: /^Add$/ }).first().click()
+	await page.waitForSelector('.cam-add-menu')
+	await page.waitForTimeout(800)
+	await page.evaluate(
+		([op, btn]) => {
+			// Scope to the row. Walking up from the label reaches the whole menu, where the
+			// first button matching the pass belongs to some other operation entirely.
+			const item = [...document.querySelectorAll('.cam-add-menu .cam-operation-item')].find((el) =>
+				el.textContent.trim().startsWith(op),
+			)
+			if (!item) throw new Error(`no "${op}" entry in the add menu`)
+			const buttons = [...item.querySelectorAll('button')]
+			const b = buttons.find((x) => x.textContent.trim() === btn)
+			if (!b) {
+				const offered = buttons.map((x) => x.textContent.trim()).join(', ')
+				throw new Error(`"${op}" has no "${btn}" button; it offers: ${offered}`)
+			}
+			b.click()
+		},
+		[entry, pass],
+	)
+	await page.waitForTimeout(2500)
+	await page.waitForFunction(
+		() =>
+			[...document.querySelectorAll('button')].some((b) =>
+				/Toolpaths up to date/.test(b.getAttribute('aria-label') ?? ''),
+			),
+		null,
+		{ timeout: 300000 },
+	)
+	await page.waitForTimeout(2000)
+	const added = (await names()).filter((n) => !before.has(n))
+	if (!added.length) throw new Error(`adding ${entry} created no operation`)
+	return added[0]
+}
+
 /** The centre view on its own: the 3D or simulation viewport without the panels. */
 const clipCentreView = (page) =>
 	page.locator('.centre-view--active').evaluate((el) => {
@@ -1290,7 +1375,65 @@ const RECIPES = [
 		viewport: { width: 1440, height: 900 },
 		steps: (page) => simulateResult(page, 'V-Carve offset', { zoom: 3, at: [0.5, 0.5] }),
 		clip: clipCentreView,
+	},	{
+		id: 'edge-inside-route',
+		asset: 'operations/edge-route-inside/inside-route.png',
+		fixture: 'PureCutCNC',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			const op = await addOperation(page, 'Rect 2', 'Edge in', 'Both')
+			await onlyToolpath(page, op)
+			await zoomTo(page, 0.5, 0.5, 2)
+		},
+		clip: clipCanvas,
 	},
+	{
+		id: 'surface-clean-bands',
+		asset: 'operations/surface-clean/toolpath-bands.png',
+		fixture: 'PureCutCNC',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			const op = await addOperation(page, 'Rect 1', 'Surface', 'Rough')
+			await onlyToolpath(page, op)
+			await zoomTo(page, 0.5, 0.5, 1)
+		},
+		clip: clipCanvas,
+	},
+	{
+		id: 'engrave-direct',
+		asset: 'operations/engrave/direct.png',
+		fixture: 'PureCutCNC',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			const op = await addOperation(page, 'Rect 2', 'Engrave')
+			await onlyToolpath(page, op)
+			// Engraving a closed profile traces its outline, so frame a straight run of it
+			// rather than the empty middle.
+			await zoomTo(page, 0.5, 0.26, 4)
+		},
+		clip: clipCanvas,
+	},
+	{
+		id: 'engrave-trochoidal',
+		asset: 'operations/engrave/trochoidal.png',
+		fixture: 'PureCutCNC',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			const op = await addOperation(page, 'Rect 2', 'Engrave')
+			// Same operation, same framing as the Direct shot, so the pages sit side by side.
+			await page.evaluate(() =>
+				[...document.querySelectorAll('*')]
+					.find((e) => e.children.length === 0 && /^strategy$/i.test(e.textContent.trim()))
+					?.click(),
+			)
+			await page.waitForTimeout(1200)
+			await setUiSelect(page, 'Direct', 'Trochoidal')
+			await onlyToolpath(page, op)
+			await zoomTo(page, 0.5, 0.26, 4)
+		},
+		clip: clipCanvas,
+	},
+
 	// --- CAM setup ---
 	// Every shot here runs on a bundled example: the CAM panel needs tools, operations
 	// and generated toolpaths, and the examples already carry them.

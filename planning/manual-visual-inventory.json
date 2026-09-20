@@ -1365,14 +1365,26 @@
 			"blockedBy": []
 		},
 		{
-			"id": "engrave-strategies",
+			"id": "engrave-direct",
 			"page": "/guide/operations/engrave/",
 			"afterHeading": "Strategies",
 			"kind": "screenshot",
 			"purpose": "Compare direct centreline engraving with trochoidal slot clearing.",
-			"brief": "The same open-line design engraved with Direct and Trochoidal strategies side by side.",
-			"asset": "operations/engrave/direct-and-trochoidal.png",
-			"alt": "Direct and trochoidal engraving toolpaths on the same open-line design",
+			"brief": "An engrave operation using the Direct strategy: the cutter follows the line once.",
+			"asset": "operations/engrave/direct.png",
+			"alt": "An engrave toolpath following each line of the design once, using the Direct strategy",
+			"status": "proposed",
+			"blockedBy": []
+		},
+		{
+			"id": "engrave-trochoidal",
+			"page": "/guide/operations/engrave/",
+			"afterHeading": "Strategies",
+			"kind": "screenshot",
+			"purpose": "Compare direct centreline engraving with trochoidal slot clearing.",
+			"brief": "The same engrave operation using the Trochoidal strategy, so the difference in the path is visible beside the Direct one.",
+			"asset": "operations/engrave/trochoidal.png",
+			"alt": "The same engrave toolpath using the Trochoidal strategy, the cutter orbiting along the line instead of following it once",
 			"status": "proposed",
 			"blockedBy": []
 		},
