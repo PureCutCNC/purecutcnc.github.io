@@ -1,0 +1,53 @@
+---
+title: Seeded-circle clearing
+description: Clear open areas from fitted circular seeds before offset rings finish the remaining material.
+pageType: strategy
+availability: stable
+status: draft
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import Screenshot from '../../../../components/Screenshot.astro';
+import seededCircles from '../../../../assets/manual/strategies/seeded-circles/seeded-circles.png';
+
+## How it works
+
+<Screenshot src={seededCircles} alt="Seeded-circle clearing across a large rectangular pocket: concentric rings grow from several circular seeds around open areas, linked by rapid moves" />
+
+**Seeded circles** finds circular regions that fit inside the selected clearing area, grows a stack
+of circles from each seed, then uses offset rings for material that remains. It can make the first
+passes in open rounded areas more direct than starting every area at its wall.
+
+## Where it applies
+
+| Operation | Where to find it |
+| --- | --- |
+| [Pocket](/guide/operations/pocket/) | **Strategy** > **Pattern** |
+| [Surface clean](/guide/operations/surface-clean/) | **Strategy** > **Pattern** |
+| [3D surface rough](/guide/operations/3d-surface-rough/) | **Strategy** > **Pattern** |
+| [3D surface cleanup](/guide/operations/3d-surface-cleanup/) | **Strategy** > **Pattern** (floor cleanup) |
+
+## Settings
+
+| Setting | Description |
+| --- | --- |
+| **Pattern** | Select **Seeded circles** to enable the seed-first clearing plan. |
+| **Stepover Ratio** | Sets the lateral gap between the circles and the offset rings that complete coverage. |
+| **Round link junctions** | Shapes eligible transitions between the remaining offset rings; see [Linking clearing passes](/guide/strategies/link-junctions/). |
+
+## Limitations
+
+<Aside type="caution" title="Seeds must fit the clearing area">
+	A narrow area may have no valid circular seed. In that case the operation falls back to its
+	offset-ring coverage; inspect the preview rather than assuming circles were generated.
+</Aside>
+
+Separate seed stacks travel at safe Z before the next one begins. Preview the path where several
+open areas or islands are involved, especially before machining a part with clamps or other
+obstacles.
+
+## Related pages
+
+- [Clearing patterns](/guide/strategies/clearing-patterns/): compare the offset and parallel alternatives.
+- [Linking clearing passes](/guide/strategies/link-junctions/): smooth eligible offset-ring transitions after seed passes.
+- [Toolpath preview](/guide/verify-export/toolpath-preview/): inspect the generated coverage and travel moves.

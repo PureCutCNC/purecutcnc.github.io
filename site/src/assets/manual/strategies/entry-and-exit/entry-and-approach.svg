@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 560" role="img" aria-labelledby="title description">
+	<title id="title">Entry strategies and the XY approach</title>
+	<desc id="description">Plunge, helix, and ramp are three ways down to cutting depth, drawn from the side; the XY approach is a separate control that curves the cut onto the wall and off it again, drawn from above.</desc>
+	<defs>
+		<marker id="eaArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+			<path d="M 0 0 L 10 5 L 0 10 z" fill="#ff7a5c" />
+		</marker>
+		<marker id="eaTick" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+			<path d="M 0 0 L 10 5 L 0 10 z" fill="#00c8ff" />
+		</marker>
+		<style>
+			.title { font: 700 25px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #e2e2e6; }
+			.step { font: 700 11px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; letter-spacing: 0.12em; fill: #00c8ff; }
+			.heading { font: 700 16px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #ffffff; }
+			.detail { font: 14px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #c6c6cf; }
+			.key { font: 13px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #9a9aa8; }
+			.dim { font: 700 12px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #00c8ff; }
+			.cut { stroke: #ff7a5c; stroke-width: 2.5; fill: none; }
+			.dimline { stroke: #00c8ff; stroke-width: 1.4; }
+		</style>
+	</defs>
+
+	<rect width="860" height="560" rx="24" fill="#0c0f14" />
+	<rect x="1" y="1" width="858" height="558" rx="23" fill="none" stroke="#2a2a30" stroke-width="2" />
+	<text class="title" x="430" y="46" text-anchor="middle">Three ways down, and one way onto the wall</text>
+
+	<text class="step" x="40" y="86">ENTRY STRATEGY · FROM THE SIDE</text>
+
+	<!-- Plunge -->
+	<g transform="translate(40, 98)">
+		<text class="heading" x="0" y="16">Plunge</text>
+		<rect x="0" y="30" width="230" height="140" rx="4" fill="#1a1f29" stroke="#5c5c68" stroke-width="2" />
+		<line x1="0" y1="30" x2="230" y2="30" stroke="#9a9aa8" stroke-width="2.5" />
+		<path d="M 56 30 L 56 124" class="cut" />
+		<path d="M 56 124 L 206 124" class="cut" marker-end="url(#eaArrow)" />
+		<circle cx="56" cy="30" r="4" fill="#ff7a5c" />
+		<text class="key" x="115" y="192" text-anchor="middle">Straight down, then cut.</text>
+	</g>
+
+	<!-- Helix -->
+	<g transform="translate(315, 98)">
+		<text class="heading" x="0" y="16">Helix</text>
+		<rect x="0" y="30" width="230" height="140" rx="4" fill="#1a1f29" stroke="#5c5c68" stroke-width="2" />
+		<line x1="0" y1="30" x2="230" y2="30" stroke="#9a9aa8" stroke-width="2.5" />
+		<path d="M 48 46 A 48 14 0 0 0 144 66" class="cut" />
+		<path d="M 144 66 A 48 14 0 0 0 48 86" class="cut" stroke-opacity="0.45" stroke-dasharray="5 4" />
+		<path d="M 48 86 A 48 14 0 0 0 144 106" class="cut" />
+		<path d="M 144 106 A 48 14 0 0 0 48 124" class="cut" stroke-opacity="0.45" stroke-dasharray="5 4" />
+		<path d="M 48 124 A 48 14 0 0 0 144 130" class="cut" />
+		<path d="M 144 130 L 206 130" class="cut" marker-end="url(#eaArrow)" />
+		<circle cx="48" cy="46" r="4" fill="#ff7a5c" />
+		<line x1="48" y1="152" x2="144" y2="152" class="dimline" marker-start="url(#eaTick)" marker-end="url(#eaTick)" />
+		<text class="dim" x="96" y="166" text-anchor="middle">Helix diameter</text>
+		<text class="key" x="115" y="192" text-anchor="middle">Circles down at the ramp angle.</text>
+	</g>
+
+	<!-- Ramp -->
+	<g transform="translate(590, 98)">
+		<text class="heading" x="0" y="16">Ramp</text>
+		<rect x="0" y="30" width="230" height="140" rx="4" fill="#1a1f29" stroke="#5c5c68" stroke-width="2" />
+		<line x1="0" y1="30" x2="230" y2="30" stroke="#9a9aa8" stroke-width="2.5" />
+		<line x1="38" y1="58" x2="186" y2="58" stroke="#00c8ff" stroke-width="1" stroke-dasharray="4 4" />
+		<path d="M 38 58 L 158 96 L 38 128 L 158 130" class="cut" />
+		<path d="M 158 130 L 206 130" class="cut" marker-end="url(#eaArrow)" />
+		<circle cx="38" cy="58" r="4" fill="#ff7a5c" />
+		<path d="M 86 58 A 48 48 0 0 0 90 73" class="dimline" fill="none" />
+		<text class="dim" x="98" y="76">Ramp angle</text>
+		<text class="key" x="115" y="192" text-anchor="middle">Slopes down and back along the path.</text>
+	</g>
+
+	<text class="step" x="40" y="330">XY APPROACH &amp; EXIT · FROM ABOVE</text>
+
+	<!-- Tangent lead-in and lead-out -->
+	<g transform="translate(40, 342)">
+		<text class="heading" x="0" y="16">Tangent arc on and off</text>
+		<rect x="0" y="30" width="480" height="118" rx="4" fill="#12161d" stroke="#2a2a30" stroke-width="2" />
+		<rect x="24" y="82" width="432" height="60" fill="#1a1f29" />
+		<line x1="24" y1="82" x2="456" y2="82" stroke="#9a9aa8" stroke-width="2.5" />
+		<text class="key" x="240" y="118" text-anchor="middle">Material</text>
+		<!-- The exit is the horizontal mirror of the entry, so both joins meet the wall tangentially. -->
+		<path d="M 90 48 C 90 64, 104 70, 120 70" class="cut" />
+		<path d="M 120 70 L 360 70" class="cut" />
+		<path d="M 360 70 C 376 70, 390 64, 390 48" class="cut" marker-end="url(#eaArrow)" />
+		<circle cx="90" cy="48" r="4" fill="#ff7a5c" />
+		<circle cx="390" cy="48" r="4" fill="#ff7a5c" />
+		<text class="key" x="120" y="42" text-anchor="middle">start</text>
+		<text class="key" x="390" y="42" text-anchor="middle">end</text>
+	</g>
+
+	<!-- No approach -->
+	<g transform="translate(560, 342)">
+		<text class="heading" x="0" y="16">Without it</text>
+		<rect x="0" y="30" width="260" height="118" rx="4" fill="#12161d" stroke="#2a2a30" stroke-width="2" />
+		<rect x="24" y="82" width="212" height="60" fill="#1a1f29" />
+		<line x1="24" y1="82" x2="236" y2="82" stroke="#9a9aa8" stroke-width="2.5" />
+		<text class="key" x="130" y="118" text-anchor="middle">Material</text>
+		<path d="M 60 70 L 200 70" class="cut" marker-end="url(#eaArrow)" />
+		<circle cx="60" cy="70" r="4" fill="#ff7a5c" />
+		<text class="key" x="60" y="42" text-anchor="middle">start</text>
+	</g>
+
+	<text class="detail" x="430" y="522" text-anchor="middle">Entry strategy is about Z; the XY approach is about how the cut meets the wall.</text>
+	<text class="key" x="430" y="544" text-anchor="middle">When the geometry cannot take the entry you asked for, the app reports the fallback it used instead.</text>
+</svg>

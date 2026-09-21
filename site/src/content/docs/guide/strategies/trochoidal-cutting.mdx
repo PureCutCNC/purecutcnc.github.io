@@ -6,8 +6,10 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
 import { Aside } from '@astrojs/starlight/components';
+import Screenshot from '../../../../components/Screenshot.astro';
+import pocketRings from '../../../../assets/manual/strategies/trochoidal-cutting/pocket-rings.png';
+import edgeRoute from '../../../../assets/manual/strategies/trochoidal-cutting/edge-route.png';
 
 ## How it works
 
@@ -36,8 +38,8 @@ simple offset or parallel pass.
 
 ## Clearing
 
+<Screenshot src={pocketRings} alt="A trochoidal pocket toolpath: overlapping cutting orbits advancing round the pocket, with the orbited links that join one ring of coverage to the next" />
 
-<VisualPending id="trochoidal-clearing" />
 For pocket, surface-clean, and 3D-rough operations, **Cut width** controls the orbiting channel
 width and **Advance** controls forward progress between orbits. Ring links join coverage where
 possible; narrow or tight areas can force fallback behaviour. A finish-floor orbit rule preserves
@@ -45,8 +47,8 @@ the intended floor coverage when a finish pass is enabled.
 
 ## Edge routes
 
+<Screenshot src={edgeRoute} alt="A trochoidal rough edge route: the cutter oscillating in tight loops along the pocket wall instead of tracing it once" />
 
-<VisualPending id="trochoidal-edge-route" />
 For a rough edge route, Trochoidal widens its orbits toward the wall. Check the generated path for
 tabs and warnings: a degenerate guide, an invalid guide, or the move budget can prevent the
 expected path from being emitted.

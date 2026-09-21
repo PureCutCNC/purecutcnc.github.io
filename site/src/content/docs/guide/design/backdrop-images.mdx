@@ -6,7 +6,8 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
+import Screenshot from '../../../../components/Screenshot.astro';
+import backdropAlignment from '../../../../assets/manual/design/backdrop-images/backdrop-alignment.png';
 import { Aside, Steps } from '@astrojs/starlight/components';
 
 A backdrop image is a visual reference behind the Sketch canvas. Use one to trace a scanned drawing,
@@ -22,7 +23,7 @@ produce a toolpath.
 ## Load and align a backdrop
 
 
-<VisualPending id="backdrop-alignment" />
+<Screenshot src={backdropAlignment} alt="A dimmed reference drawing behind the sketch with a traced circle sitting on one of its bolt holes, and the backdrop properties showing Visible, Opacity, Width 3.6, Height 2.4, Angle, and the Replace image, Move, Resize, Rotate and Delete buttons" />
 <Steps>
 
 1. In the feature tree, select **Backdrop**. Click **Load image**, then choose the image file.

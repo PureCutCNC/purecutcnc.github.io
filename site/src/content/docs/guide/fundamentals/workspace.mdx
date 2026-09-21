@@ -6,11 +6,12 @@ availability: stable
 status: reviewed
 reviewed:
   appCommit: 2dc197eebe9c11272ad0bc24194d4a7c6de19055
-  date: 2026-09-19
+  date: 2026-09-20
   by: frankp
 ---
 
 import Screenshot from '../../../../components/Screenshot.astro';
+import AppIcon from '../../../../components/AppIcon.astro';
 import workspaceLayout from '../../../../assets/manual/fundamentals/workspace/workspace-layout.png';
 import workspaceViews from '../../../../assets/manual/fundamentals/workspace/workspace-views.png';
 import sketchOverlays from '../../../../assets/manual/fundamentals/workspace/sketch-overlays.png';
@@ -35,10 +36,11 @@ This page names its parts and explains how to move around in it.
 | 5 | CAM panel | Right | The **Operations** and **Tools** tabs, with the properties of the selected operation or tool. |
 | 6 | Status bar | Bottom | Units, stock size, view toggles, and the app version. |
 
-The buttons at either end of the tab row, **Hide project panel** and **Hide CAM panel**, fold the
-side panels away to give the centre more room; the same buttons show them again. The divider in
-each side panel changes how much height the list and the properties get. On a tablet the side
-panels become drawers; see [Tablet and touch](/guide/fundamentals/tablet-and-touch/).
+The buttons at either end of the tab row, <AppIcon name="chevrons-left" /> **Hide project panel**
+and <AppIcon name="chevrons-right" /> **Hide CAM panel**, fold the side panels away to give the
+centre more room; the same buttons show them again. The divider in each side panel changes how much
+height the list and the properties get. On a tablet the side panels become drawers; see
+[Tablet and touch](/guide/fundamentals/tablet-and-touch/).
 
 ## Views
 
@@ -92,15 +94,17 @@ profile**). Clamps that a shown toolpath runs into are highlighted.
 From left to right:
 
 - the project name (click it to rename the project) and the **Saved** or **Unsaved** badge;
-- **New project**, **Open project**, **Import geometry**, **Export model**, **Print design**, and
-  **Save project**;
-- **Undo** and **Redo**;
-- **Zoom to model** and **Zoom selected**;
-- the snapping controls: **Enable snapping** or **Disable snapping**, and a button for each snap
-  mode;
-- the measuring controls: **Tape measure**, **Add dimension**, **Delete dimension**, and
-  **Show/hide dimensions**;
-- **Appearance** and **Language**.
+- <AppIcon name="new" /> **New project**, <AppIcon name="open" /> **Open project**,
+  <AppIcon name="import" /> **Import geometry**, <AppIcon name="export" /> **Export model**,
+  <AppIcon name="print" /> **Print design**, and <AppIcon name="save" /> **Save project**;
+- <AppIcon name="undo" /> **Undo** and <AppIcon name="redo" /> **Redo**;
+- <AppIcon name="fit" /> **Zoom to model** and <AppIcon name="fit-window" /> **Zoom selected**;
+- the snapping controls: <AppIcon name="snap" /> **Enable snapping** or **Disable snapping**, and a
+  button for each snap mode;
+- the measuring controls: <AppIcon name="tape-measure" /> **Tape measure**,
+  <AppIcon name="measure" /> **Add dimension**, <AppIcon name="trash" /> **Delete dimension**, and
+  <AppIcon name="eye" /> **Show/hide dimensions**;
+- <AppIcon name="appearance" /> **Appearance** and <AppIcon name="language" /> **Language**.
 
 See [Projects and files](/guide/fundamentals/projects-and-files/),
 [Snapping and the grid](/guide/design/snapping-and-grid/),
@@ -112,10 +116,13 @@ See [Projects and files](/guide/fundamentals/projects-and-files/),
 
 The tool rail is used in the Sketch view:
 
-- At the top are the four creation targets (**Create features**, **Create lines**, **Create
-  regions**, **Create construction geometry**), the shape drawer, and a button for the last shape
-  you used. See [Drawing tools](/guide/design/drawing-tools/).
-- **Join closed features** and **Cut features** combine and split shapes. See
+- At the top are the four creation targets (<AppIcon name="plus" /> **Create features**,
+  <AppIcon name="snap-line" /> **Create lines**, <AppIcon name="pocket" /> **Create regions**,
+  <AppIcon name="construction" /> **Create construction geometry**), the
+  <AppIcon name="feature-drawer" /> shape drawer, and a button for the last shape you used. See
+  [Drawing tools](/guide/design/drawing-tools/).
+- <AppIcon name="merge" /> **Join closed features** and <AppIcon name="cut" /> **Cut features**
+  combine and split shapes. See
   [Offset, join, and cut](/guide/design/shape-operations/).
 - With features selected, the transform tools appear: copy, move, delete, resize, rotate, mirror,
   and offset, plus **Add constraint** and the **Align selected features** and **Distribute
@@ -173,8 +180,9 @@ All keys are listed on [Keyboard shortcuts](/guide/reference/keyboard-shortcuts/
 
 ## Undo and redo
 
-**Undo** and **Redo** (<kbd>Ctrl</kbd>+<kbd>Z</kbd> and <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Z</kbd>,
-or <kbd>Cmd</kbd> on macOS) step through changes to the project, such as drawing and editing
+<AppIcon name="undo" /> **Undo** and <AppIcon name="redo" /> **Redo**
+(<kbd>Ctrl</kbd>+<kbd>Z</kbd> and <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Z</kbd>, or <kbd>Cmd</kbd>
+on macOS) step through changes to the project, such as drawing and editing
 features, changing properties, and adding operations or tools. A multi-step command such as a move
 is one undo step.
 
@@ -189,8 +197,8 @@ In the Sketch view:
 | --- | --- |
 | Pan | Drag with the middle or right button, or <kbd>Shift</kbd>+drag. |
 | Zoom | Scroll; the view zooms around the pointer. |
-| Frame the whole project | **Zoom to model**. |
-| Zoom to an area | **Zoom selected**, then drag a box around the area. <kbd>Esc</kbd> cancels. |
+| Frame the whole project | <AppIcon name="fit" /> **Zoom to model**. |
+| Zoom to an area | <AppIcon name="fit-window" /> **Zoom selected**, then drag a box around the area. <kbd>Esc</kbd> cancels. |
 | Select | Click a feature, or drag a box on empty canvas. See [Selecting and transforming](/guide/design/selecting-and-transforming/). |
 | Edit a feature's points | Double-click it. Double-clicking a tab or clamp edits it. |
 
@@ -201,7 +209,7 @@ In the 3D view and the simulation:
 | Orbit | Drag with the left button. |
 | Pan | Drag with the middle or right button, or <kbd>Shift</kbd>+drag. |
 | Zoom | Scroll. |
-| Standard views | The camera menu: **Top view**, **Bottom view**, **Front view**, **Back view**, **Right view**, **Left view**, **Isometric view**, **Fit to model**, and **Reset view**. |
+| Standard views | The <AppIcon name="view-iso" /> **Camera view** menu: <AppIcon name="view-top" /> **Top view**, <AppIcon name="view-bottom" /> **Bottom view**, <AppIcon name="view-front" /> **Front view**, <AppIcon name="view-back" /> **Back view**, <AppIcon name="view-right" /> **Right view**, <AppIcon name="view-left" /> **Left view**, <AppIcon name="view-iso" /> **Isometric view**, **Fit to model**, and **Reset view**. |
 
 Touch gestures are on [Tablet and touch](/guide/fundamentals/tablet-and-touch/).
 

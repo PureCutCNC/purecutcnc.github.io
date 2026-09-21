@@ -6,10 +6,9 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
 import { Steps } from '@astrojs/starlight/components';
 import Screenshot from '../../../../components/Screenshot.astro';
-import booklet from '../../../../assets/manual/verify-export/setup-booklets/cam-operation-booklet.png';
+import pocketRoughBooklet from '../../../../assets/manual/verify-export/setup-booklets/pocket-rough-booklet.png';
 
 A setup booklet is a PDF summary for one selected operation. It keeps the operation, tool, settings, and its captured preview together for use at the machine.
 
@@ -30,13 +29,15 @@ A setup booklet is a PDF summary for one selected operation. It keeps the operat
 
 </Steps>
 
-<Screenshot src={booklet} alt="CAM panel action for exporting an operation booklet PDF" />
-
-<VisualPending id="setup-booklet-export" />
-
 ## Contents
 
 The PDF is built from one captured revision. It includes the selected operation’s setup information, tool, parameter rows, toolpath summary, and preview image. The output uses the current interface language where localized text is available.
+
+## Sample booklet
+
+Download the <a href="/samples/pocket-rough-booklet.pdf" target="_blank" rel="noopener">Pocket Rough sample booklet (PDF)</a>. It shows the finished first page of a booklet, including the operation snapshot, tool details, and operation settings.
+
+<Screenshot maxWidth={687} src={pocketRoughBooklet} alt="First page of a Pocket Rough operation booklet showing the operation snapshot, overview, tool details, and operation settings" caption="Pocket Rough sample booklet" />
 
 ## Related pages
 

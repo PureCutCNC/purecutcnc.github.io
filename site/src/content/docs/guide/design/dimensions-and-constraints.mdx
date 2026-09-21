@@ -6,7 +6,10 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
+import Screenshot from '../../../../components/Screenshot.astro';
+import AppIcon from '../../../../components/AppIcon.astro';
+import dimensionsOnPart from '../../../../assets/manual/design/dimensions-and-constraints/dimensions-on-part.png';
+import constraintPanel from '../../../../assets/manual/design/dimensions-and-constraints/constraint-panel.png';
 import { Aside, Steps } from '@astrojs/starlight/components';
 
 PureCutCNC has three ways to work with sizes on the sketch:
@@ -23,17 +26,18 @@ toolpaths of those features.
 
 <span id="toolbar"></span>
 
-The top toolbar holds **Tape measure**, **Add dimension** (a menu of six types), **Delete
-dimension**, and **Show/hide dimensions**. On a tablet they are in the measure popover.
+The top toolbar holds <AppIcon name="tape-measure" /> **Tape measure**, <AppIcon name="measure" />
+**Add dimension** (a menu of six types), <AppIcon name="trash" /> **Delete dimension**, and
+<AppIcon name="eye" /> **Show/hide dimensions**. On a tablet they are in the measure popover.
 
 | Dimension | Measures |
 | --- | --- |
-| **Aligned dimension** | The straight distance between two points. |
-| **Horizontal dimension** | The X distance between two points. |
-| **Vertical dimension** | The Y distance between two points. |
-| **Radius dimension** | The radius of a circle or arc. |
-| **Diameter dimension** | The diameter of a circle or arc. |
-| **Angle dimension** | The angle between two lines that meet at a point. |
+| <AppIcon name="dim-aligned" /> **Aligned dimension** | The straight distance between two points. |
+| <AppIcon name="dim-horizontal" /> **Horizontal dimension** | The X distance between two points. |
+| <AppIcon name="dim-vertical" /> **Vertical dimension** | The Y distance between two points. |
+| <AppIcon name="dim-radius" /> **Radius dimension** | The radius of a circle or arc. |
+| <AppIcon name="dim-diameter" /> **Diameter dimension** | The diameter of a circle or arc. |
+| <AppIcon name="dim-angle" /> **Angle dimension** | The angle between two lines that meet at a point. |
 
 ## Tape measure
 
@@ -59,7 +63,7 @@ measurements are not saved and are not part of undo.
 ## Placing dimensions
 
 
-<VisualPending id="dimensions-on-part" />
+<Screenshot src={dimensionsOnPart} alt="A rectangle with horizontal 1.25 and vertical 0.875 dimensions and a circle with an R 0.375 radius dimension, with the horizontal one selected and its Edit dimension panel showing Hold left and a Distance of 1.25" />
 <span id="placing"></span>
 
 <Steps>
@@ -139,7 +143,7 @@ The setting is saved with the project. The tape measure is not affected.
 ## Constraints
 
 
-<VisualPending id="constraints-panel" />
+<Screenshot src={constraintPanel} alt="Constraint workflow at Set distance with a Distance of 0.8839, a dashed line running from the anchor point on Rect 1 to the reference point on Rect 2, and the reference labelled Point" />
 A constraint keeps a point on a feature at a fixed distance from another point. PureCutCNC moves the
 feature to keep that distance, and moves it again when the other point moves.
 
@@ -147,7 +151,7 @@ feature to keep that distance, and moves it again when the other point moves.
 
 1. Select the feature to position.
 
-2. Click **Add constraint** in the tool rail, or choose **Add constraint** in the context menu. In a
+2. Click <AppIcon name="constraint" /> **Add constraint** in the tool rail, or choose **Add constraint** in the context menu. In a
    sketch-editing session, press <kbd>C</kbd>.
 
 3. At **Pick anchor point**, click a snap point on the selected feature (**Tap a snap point on this

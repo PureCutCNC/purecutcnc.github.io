@@ -6,7 +6,10 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
+import Screenshot from '../../../../components/Screenshot.astro';
+import addMenu from '../../../../assets/manual/cam-setup/working-with-operations/add-menu.png';
+import operationList from '../../../../assets/manual/cam-setup/working-with-operations/operation-list.png';
+import generationMenu from '../../../../assets/manual/cam-setup/working-with-operations/generation-menu.png';
 import { Aside, Steps } from '@astrojs/starlight/components';
 
 An operation connects selected features, a tool, and cutting settings to a toolpath. Use the **CAM** panel to add operations, then review their targets and settings before you generate or export anything.
@@ -20,7 +23,7 @@ An operation connects selected features, a tool, and cutting settings to a toolp
 ## Adding
 
 
-<VisualPending id="operations-add-menu" />
+<Screenshot src={addMenu} maxWidth={400} alt="The Add operation menu with Pocket opened to show its illustration, description and key points, and V-carve offset, V-carve medial and Edge in listed below with their Rough, Finish and Both buttons" caption="Opening an entry shows what the operation does and what it needs before you add it." />
 <Steps>
 
 1. Open the **CAM** panel, select **Operations**, then select **Add**.
@@ -50,7 +53,7 @@ If an option is unavailable, check the feature’s role, whether its profile is 
 ## List
 
 
-<VisualPending id="operations-list-status" />
+<Screenshot src={operationList} maxWidth={400} alt="The Operations tab listing six operations, each with an enable dot and buttons to show its toolpath, duplicate it and delete it, with the selected operation’s identity fields in the properties below" caption="Selecting an operation opens its parameters in the properties below the list." />
 The **Operations** list is the machining order. Drag a row to reorder it, use its controls to enable or disable it, and show or hide its toolpath. The header’s **Show all toolpaths** and **Hide all toolpaths** controls change every operation at once. Duplicate an operation when you need a related variation, or delete one that is no longer part of the plan. The expanded view also provides per-operation G-code and setup-booklet exports.
 
 <Aside type="caution" title="Order changes affect the job">
@@ -60,7 +63,7 @@ An operation list is not just an organization tool: it controls the order in whi
 ## Generation
 
 
-<VisualPending id="operations-generation-menu" />
+<Screenshot src={generationMenu} maxWidth={348} alt="The toolpath generation menu reading Toolpaths up to date above a Stop button, and a Compute section offering Main thread, currently selected, or Background thread (experimental)" caption="The generation menu reports the current state and chooses which thread generates toolpaths." />
 Toolpaths generate when an enabled operation is visible. A row reports whether its toolpath is up to date, generating, paused, or failed. Use the generation controls to stop, resume, or retry a calculation, and use the generation settings to choose the main-thread backend or the experimental background-thread backend.
 
 <Aside type="danger" title="Safety: inspect every generated toolpath">

@@ -6,7 +6,8 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
+import Screenshot from '../../../../components/Screenshot.astro';
+import tabCrossings from '../../../../assets/manual/cam-setup/tabs/tab-crossings.png';
 import { Aside, Steps } from '@astrojs/starlight/components';
 
 Tabs leave small bridges of material so an edge-routed part stays attached to its stock until you
@@ -20,10 +21,11 @@ remove it safely after machining.
 ## Add and adjust tabs
 
 
-<VisualPending id="tabs-crossing-shapes" />
+<Screenshot src={tabCrossings} alt="Four tabs selected together on an outside route, drawn as dashed squares where the toolpath crosses them, with the properties panel showing one set of width, height, Z top, Z bottom and shape fields for all four" caption="Selecting several tabs edits them together; the shape note explains the trade-off between Smooth and Rectangular." />
 <Steps>
 
-1. Select the **Tabs** node and add tabs automatically or place them manually on the contour.
+1. Place the tabs: either select the **Tabs** node and add them on the contour yourself, or open
+   the edge-route operation and use **Auto place tabs** (see below).
 
 2. Choose a rectangular or smooth tab shape and set its dimensions.
 
@@ -32,6 +34,17 @@ remove it safely after machining.
 4. Inspect the toolpath and simulation before exporting.
 
 </Steps>
+
+### Auto place tabs
+
+An edge-route operation can space a set of tabs around its own contour for you. Select the
+operation, and in its properties click **Auto place tabs** in the **Tabs** row. There is no dialog:
+the tabs appear on the contour straight away, and you can then move or resize them like any others.
+
+**Auto place tabs** adds to the tabs already on that contour rather than replacing them, so running
+it a second time leaves the two sets overlapping. The operation then reports a warning naming the
+pairs, for example **Tabs "Rect 1 Tab" and "Rect 1 Tab 5" overlap in a way that may produce
+ambiguous output.** Delete one set before placing another.
 
 Bulk edit changes matching tabs together. Use manual placement when automatic placement would put a
 tab near a clamp, a corner, or a feature that needs a clean edge.

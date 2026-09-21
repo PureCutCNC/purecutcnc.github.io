@@ -6,9 +6,12 @@ availability: stable
 status: draft
 ---
 
+import AppIcon from '../../../../components/AppIcon.astro';
+
 PureCutCNC uses a small set of keyboard shortcuts. On macOS, use <kbd>Cmd</kbd> where this page
-shows <kbd>Ctrl</kbd>. Shortcuts that use <kbd>Ctrl</kbd> or <kbd>Cmd</kbd> do nothing while you
-are typing in a text or number field, so the field gets the key instead.
+shows <kbd>Ctrl</kbd>, and <kbd>Option</kbd> where it shows <kbd>Alt</kbd>. Shortcuts that use
+<kbd>Ctrl</kbd> or <kbd>Cmd</kbd> do nothing while you are typing in a text or number field, so
+the field gets the key instead.
 
 ## Everywhere
 
@@ -22,7 +25,7 @@ These work in the web app and in the desktop app.
 | <kbd>Ctrl</kbd>+<kbd>C</kbd> | <kbd>Cmd</kbd>+<kbd>C</kbd> | Copy the selected features. |
 | <kbd>Ctrl</kbd>+<kbd>X</kbd> | <kbd>Cmd</kbd>+<kbd>X</kbd> | Cut the selected features. |
 | <kbd>Ctrl</kbd>+<kbd>V</kbd> | <kbd>Cmd</kbd>+<kbd>V</kbd> | Paste copied or cut features. **Paste features** then asks you to click in the sketch to place them. |
-| <kbd>Ctrl</kbd>+<kbd>P</kbd> | <kbd>Cmd</kbd>+<kbd>P</kbd> | Open **Print design** for the current design. |
+| <kbd>Ctrl</kbd>+<kbd>P</kbd> | <kbd>Cmd</kbd>+<kbd>P</kbd> | Open <AppIcon name="print" /> **Print design** for the current design. |
 
 Copied features stay inside PureCutCNC; they are not placed on the system clipboard. See
 [Selecting and transforming](/guide/design/selecting-and-transforming/) for copying and pasting.
@@ -55,14 +58,14 @@ shows the keys it accepts next to its buttons.
 
 | Key | Action |
 | --- | --- |
-| <kbd>Esc</kbd> | Cancel the current step or command. In sketch editing, the first press leaves the active edit tool, and a press with no tool active cancels the editing session. <kbd>Esc</kbd> also ends **Zoom selected**, the tape measure, and dimension placement. |
+| <kbd>Esc</kbd> | Cancel the current step or command. In sketch editing, the first press leaves the active edit tool, and a press with no tool active cancels the editing session. <kbd>Esc</kbd> also ends <AppIcon name="fit-window" /> **Zoom selected**, the <AppIcon name="tape-measure" /> tape measure, and dimension placement. |
 | <kbd>Enter</kbd> | Confirm the current command. Finishes a polygon or spline with at least two points as an open path, finishes a composite path with at least one segment, and applies a sketch-editing session. |
 | <kbd>Tab</kbd> | Open numeric entry for the current step: dimensions, width, radius, distance, scale, or angle. In sketch editing, it edits the dimensions of the segment under the pointer. In **Cut**, it moves from choosing cutters to choosing targets. |
 | <kbd>Backspace</kbd> | Remove the last point of a polygon or spline, or the last segment of a composite path, while you draw it. |
 | <kbd>L</kbd>, <kbd>A</kbd>, <kbd>S</kbd> | While drawing a composite path, switch the next segment to a line, an arc, or a spline. |
-| <kbd>K</kbd> | Turn **Keep originals** on or off in **Join**, **Cut**, and the rotate and mirror transforms. |
+| <kbd>K</kbd> | Turn **Keep originals** on or off in <AppIcon name="merge" /> **Join**, <AppIcon name="cut" /> **Cut**, and the rotate and mirror transforms. |
 | <kbd>Alt</kbd> | Cycle the axis lock: **Lock X**, **Lock Y**, then off. See [Snapping and the grid](/guide/design/snapping-and-grid/). |
-| <kbd>C</kbd> | In sketch editing, with no edit tool active, start **Add constraint** for the selected feature. |
+| <kbd>C</kbd> | In sketch editing, with no edit tool active, start <AppIcon name="constraint" /> **Add constraint** for the selected feature. |
 | <kbd>Delete</kbd> or <kbd>Backspace</kbd> | Delete the selected dimension. |
 
 ## Mouse and keyboard together

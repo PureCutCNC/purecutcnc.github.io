@@ -1,21 +1,22 @@
 ---
 title: Corner rounding and relief
-description: Smooth eligible contour transitions or add dogbone and T-bone relief to inside corners.
+description: Round eligible contour corners or add dogbone and T-bone relief to inside corners.
 pageType: strategy
 availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
 import { Aside } from '@astrojs/starlight/components';
+import Screenshot from '../../../../components/Screenshot.astro';
+import roundingAndRelief from '../../../../assets/manual/strategies/corners/rounding-and-relief.svg';
 
 ## How it works
 
+<Screenshot src={roundingAndRelief} alt="Rounding turns the path on an arc and makes ring links tangent, leaving the finished wall unchanged. Relief cuts extra material at an inside corner: with none, the cutter's radius stays in the corner; dogbone dips down the corner's diagonal; T-bone runs into one of the two walls." />
 
-<VisualPending id="corner-rounding-relief" />
-The **Corners** group can round outside contour corners, make compatible link junctions tangent,
-and clean reachable wall corners. **Corner relief** deliberately removes extra material at inside
-corners so a square mating part can seat.
+The **Corners** group can round outside contour corners and clean reachable wall corners.
+**Corner relief** deliberately removes extra material at inside corners so a square mating part can
+seat. For the separate ring-to-ring transition control, see [Linking clearing passes](/guide/strategies/link-junctions/).
 
 ## Where it applies
 
@@ -32,7 +33,6 @@ corners so a square mating part can seat.
 | Setting | Description |
 | --- | --- |
 | **Round outside corners** | Rounds eligible external contour corners. |
-| **Round link corners** | Uses tangent links where compatible clearing rings meet. |
 | **Clean wall corners** | Removes reachable material left by rounded rings. |
 | **Corner relief** | Selects None, Dogbone, T-bone, or T-bone longest edge. |
 
@@ -52,4 +52,5 @@ The generator skips corners it cannot cut safely and reports a warning.
 ## Related pages
 
 - [Clearing patterns](/guide/strategies/clearing-patterns/): choose the compatible contour pattern first.
+- [Linking clearing passes](/guide/strategies/link-junctions/): use tangent transitions between compatible rings.
 - [Trochoidal cutting](/guide/strategies/trochoidal-cutting/): why trochoidal pockets cannot use corner relief.

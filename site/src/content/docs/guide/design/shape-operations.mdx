@@ -6,7 +6,10 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
+import Screenshot from '../../../../components/Screenshot.astro';
+import AppIcon from '../../../../components/AppIcon.astro';
+import offsetPreview from '../../../../assets/manual/design/shape-operations/offset-preview.png';
+import cutWorkflow from '../../../../assets/manual/design/shape-operations/cut-workflow.png';
 import { Steps } from '@astrojs/starlight/components';
 
 These three commands make new shapes from existing ones. Each is one undo step. They work on the
@@ -22,8 +25,7 @@ they came from.
 ## Offset
 
 
-<VisualPending id="shape-offset-preview" />
-**Create offset feature** makes a new outline at a fixed distance inside or outside the selected
+<AppIcon name="offset" /> **Create offset feature** makes a new outline at a fixed distance inside or outside the selected
 closed features. The originals stay as they are.
 
 <Steps>
@@ -42,9 +44,11 @@ closed features. The originals stay as they are.
 When several features are selected, they are offset as one combined outline: offsets of shapes that
 come close to each other merge. The new features are selected afterwards.
 
+<Screenshot src={offsetPreview} alt="Offset workflow at Preview distance, with the source rectangle and a dashed outward offset preview at 0.25 following the pointer" />
+
 ## Join
 
-**Join closed features** merges overlapping closed shapes into one.
+<AppIcon name="merge" /> **Join closed features** merges overlapping closed shapes into one.
 
 <Steps>
 
@@ -74,8 +78,7 @@ path's endpoint. See [Editing sketches](/guide/design/sketch-editing/#join-open-
 ## Cut
 
 
-<VisualPending id="shape-cut-workflow" />
-**Cut features** removes the area of one or more shapes, the cutters, from others, the targets, or
+<AppIcon name="cut" /> **Cut features** removes the area of one or more shapes, the cutters, from others, the targets, or
 splits the targets along open paths.
 
 <Steps>
@@ -91,6 +94,8 @@ splits the targets along open paths.
    **Confirm**.
 
 </Steps>
+
+<Screenshot src={cutWorkflow} alt="Cut workflow panel reading 1 target selected with Keep originals, an open path crossing a rectangle as the cutter, and the rectangle highlighted as the target" />
 
 | Cutter | Closed target | Open target |
 | --- | --- | --- |

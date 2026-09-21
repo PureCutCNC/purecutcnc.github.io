@@ -6,11 +6,12 @@ availability: stable
 status: reviewed
 reviewed:
   appCommit: 2dc197eebe9c11272ad0bc24194d4a7c6de19055
-  date: 2026-09-19
+  date: 2026-09-20
   by: frankp
 ---
 
 import Screenshot from '../../../../components/Screenshot.astro';
+import AppIcon from '../../../../components/AppIcon.astro';
 import treeSections from '../../../../assets/manual/fundamentals/feature-tree/tree-sections.png';
 import properties from '../../../../assets/manual/fundamentals/feature-tree/properties.png';
 import contextMenu from '../../../../assets/manual/fundamentals/feature-tree/context-menu.png';
@@ -18,14 +19,14 @@ import { Aside } from '@astrojs/starlight/components';
 
 The project panel, on the left of the workspace, has two parts: the **Project tree** lists
 everything in the project, and **Properties** below it shows the settings of what is selected.
-**Expand properties panel** opens the properties in a larger panel; <kbd>Esc</kbd> closes it.
+<AppIcon name="expand" /> **Expand properties panel** opens the properties in a larger panel;
+<kbd>Esc</kbd> closes it.
 
 ## The tree
 
 
 <Screenshot
-	src={treeSections}
-	maxWidth={360}
+	src={treeSections} maxWidth={271}
 	alt="Expanded PureCutCNC project tree showing the Project, Grid, Stock, Origin, Backdrop, Features, Regions, Construction, Tabs, and Clamps rows, with five features, four tabs, and two clamps"
 	caption="Every tree row, with the bundled PureCutCNC example loaded."
 />
@@ -36,16 +37,16 @@ everything in the project, and **Properties** below it shows the settings of wha
 | **Stock** | The material the job starts from. | Show or hide. |
 | **Origin** | The work zero used for export. | Show or hide. |
 | **Backdrop** | A reference image, if the project has one. | Show or hide, once an image is loaded. |
-| **Features** | Add, subtract, line, and model features, and their folders. | **Show all features**, **Hide all features**, **Add folder**. |
-| **Regions** | Region masks and their folders. | **Show all regions**, **Hide all regions**, **Add region folder**. |
-| **Construction** | Construction geometry and its folders. | **Show all construction geometry**, **Hide all construction geometry**, **Add construction folder**. |
-| **Tabs** | Tabs for edge routes. | **Show all tabs**, **Hide all tabs**, **Add tab**, **Select all tabs**. |
-| **Clamps** | Clamps the toolpaths must clear. | **Show all clamps**, **Hide all clamps**, **Add clamp**, **Select all clamps**. |
+| **Features** | Add, subtract, line, and model features, and their folders. | <AppIcon name="eye" /> **Show all features**, <AppIcon name="eye-off" /> **Hide all features**, <AppIcon name="folder" /> **Add folder**. |
+| **Regions** | Region masks and their folders. | <AppIcon name="eye" /> **Show all regions**, <AppIcon name="eye-off" /> **Hide all regions**, <AppIcon name="folder" /> **Add region folder**. |
+| **Construction** | Construction geometry and its folders. | <AppIcon name="eye" /> **Show all construction geometry**, <AppIcon name="eye-off" /> **Hide all construction geometry**, <AppIcon name="folder" /> **Add construction folder**. |
+| **Tabs** | Tabs for edge routes. | <AppIcon name="eye" /> **Show all tabs**, <AppIcon name="eye-off" /> **Hide all tabs**, **Add tab**, **Select all tabs**. |
+| **Clamps** | Clamps the toolpaths must clear. | <AppIcon name="eye" /> **Show all clamps**, <AppIcon name="eye-off" /> **Hide all clamps**, **Add clamp**, **Select all clamps**. |
 
-Each feature row has a role badge (click it to change the role), a show or hide button, and a grip
-for dragging the row (**Drag to reorder**). Badges also mark linked features (**Linked — N
-instances share this definition**), include and exclude regions, and construction geometry
-(**ref**).
+Each feature row has a role badge (click it to change the role), a <AppIcon name="eye" /> show or
+hide button, and a grip for dragging the row (**Drag to reorder**). Badges also mark linked features
+(**Linked — N instances share this definition**), include and exclude regions, and construction
+geometry (**ref**).
 
 ## Properties
 
@@ -82,8 +83,9 @@ outside the stock boundary.**).
 Folders organize the tree. Features, regions, and construction geometry each have their own
 folders, and a folder only holds its own kind.
 
-- Create a folder with **Add folder** (or **Add region folder**, **Add construction folder**) on the
-  section row, or choose **Add to folder** > **Create new…** in the context menu.
+- Create a folder with <AppIcon name="folder" /> **Add folder** (or **Add region folder**,
+  **Add construction folder**) on the section row, or choose **Add to folder** > **Create new…** in
+  the context menu.
 - Move a feature into a folder with **Add to folder**, the **Folder** property, or by dragging it.
 - **Select all features in folder** on a folder row selects its contents.
 
@@ -105,9 +107,9 @@ an item's visibility. Visibility is saved in the project, and it changes more th
 | Stock, grid, origin | Not drawn. |
 
 <Aside type="danger" title="Safety: hidden clamps are not avoided">
-	Hiding a clamp, including with **Hide all clamps** or the **Clamps** status bar toggle, removes it
-	from clearance checking. Toolpaths can then pass through it. Show every clamp before you
-	generate and export toolpaths, and check the clearances; see
+	Hiding a clamp, including with <AppIcon name="eye-off" /> **Hide all clamps** or the **Clamps**
+	status bar toggle, removes it from clearance checking. Toolpaths can then pass through it. Show
+	every clamp before you generate and export toolpaths, and check the clearances; see
 	[Working safely](/guide/start-here/safety/). This behaviour is tracked in
 	[app issue #802](https://github.com/PureCutCNC/purecutcnc/issues/802).
 </Aside>
@@ -120,8 +122,7 @@ align, and distribute leave it out.
 
 
 <Screenshot
-	src={contextMenu}
-	maxWidth={420}
+	src={contextMenu} maxWidth={271}
 	alt="Feature context menu open on Rect 1 in the project tree, listing operation, sketch, transform, folder, grouping, cut, use as stock, and delete actions"
 	caption="Actions that do not apply to the selection are dimmed."
 />

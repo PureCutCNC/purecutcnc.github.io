@@ -6,14 +6,18 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
+import Screenshot from '../../../../components/Screenshot.astro';
+import offsetToolpath from '../../../../assets/manual/operations/v-carve-offset/toolpath.png';
+import offsetResult from '../../../../assets/manual/operations/v-carve-offset/result.png';
 import { Aside } from '@astrojs/starlight/components';
 
 **V-carve offset** follows progressively narrower inset contours and lowers the V-bit at each
 pass. Use it for signage, engraving, and decorative closed geometry that benefits from a tapered
 groove.
 
-<VisualPending id="vcarve-offset-result" />
+<Screenshot src={offsetToolpath} alt="A V-carve offset toolpath, concentric passes working inwards from each letter outline" caption="The offset pass clears each letter from its outline inwards." />
+
+<Screenshot src={offsetResult} alt="Large lettering carved by a V-carve offset pass, with broad tapered walls and a flat floor where the letters are widest" caption="The offset pass clears the inside of each letter, leaving tapered walls." />
 
 ## Requirements
 

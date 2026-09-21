@@ -62,6 +62,15 @@ export const TERMINOLOGY = [
 const MEDIA_EXTENSIONS = /\.(png|jpe?g|webp|svg)$/i;
 const MEDIA_SOURCES = ['capture', 'legacy-guide', 'diagram'];
 const MEDIA_STATUSES = ['current', 'reshoot'];
+// The project a capture can be retaken from. This was free text, so nothing stopped a label
+// nobody had defined. "Blank imperial"/"Blank metric" name a New project template; "Empty
+// project" is the untouched project the app opens with. "site:<path>" is a page of this
+// site rather than the app, which has no project and no app commit behind it. See
+// MANUAL_BLUEPRINT.md.
+const MEDIA_FIXTURE =
+	/^(Empty project|Blank imperial|Blank metric|Example: .+|site\/fixtures\/[\w./-]+|app:[\w./-]+|site:\/[\w./-]*)$/;
+/** A capture of this site's own pages, which records no app commit. */
+const isSiteCapture = (fixture) => typeof fixture === 'string' && fixture.startsWith('site:');
 const VISUAL_KINDS = ['screenshot', 'diagram'];
 const VISUAL_STATUSES = ['proposed', 'planned', 'blocked', 'captured'];
 
@@ -242,9 +251,23 @@ function checkManifest(usedImages) {
 		if (!['dark', 'light'].includes(entry.theme)) fail(at, 'theme must be dark or light');
 		if (entry.locale !== 'en') fail(at, 'locale must be en');
 		if (entry.source === 'capture') {
-			if (!/^[0-9a-f]{40}$/.test(entry.appCommit ?? '')) fail(at, 'a capture needs appCommit (full SHA)');
+			if (typeof entry.fixture !== 'string' || !MEDIA_FIXTURE.test(entry.fixture)) {
+				fail(
+					at,
+					'fixture must be "Empty project", "Blank imperial", "Blank metric", "Example: <card name>", "site/fixtures/<file>", "app:<path>", or "site:<path>"',
+				);
+			}
 			if (!/^\d+x\d+@\d(\.\d+)?x$/.test(entry.viewport ?? '')) fail(at, 'a capture needs viewport like 1440x900@2x');
-			if (typeof entry.fixture !== 'string' || !entry.fixture) fail(at, 'a capture needs the fixture it was taken from');
+			if (isSiteCapture(entry.fixture)) {
+				// A page of this site has no app behind it, so an app commit would be noise.
+				if (entry.appCommit != null) fail(at, 'a site: capture must not record appCommit');
+			} else if (!/^[0-9a-f]{40}$/.test(entry.appCommit ?? '')) {
+				fail(at, 'a capture needs appCommit (full SHA)');
+			} else if (/^0{40}$/.test(entry.appCommit)) {
+				// All-zero is 40 hex characters, so it passed the shape check while naming no
+				// commit at all. npm run capture prints the real one.
+				fail(at, 'appCommit is a placeholder; use the SHA that npm run capture prints');
+			}
 		}
 		if (entry.source === 'legacy-guide' && entry.status !== 'reshoot') fail(at, 'legacy-guide images must be marked reshoot');
 		const blockedBy = entry.blockedBy ?? [];

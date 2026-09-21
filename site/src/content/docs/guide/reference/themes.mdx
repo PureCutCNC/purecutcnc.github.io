@@ -6,7 +6,6 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
 import { Aside } from '@astrojs/starlight/components';
 import Screenshot from '../../../../components/Screenshot.astro';
 import appearanceMenu from '../../../../assets/manual/reference/themes/appearance-menu.png';
@@ -30,9 +29,7 @@ Click **Appearance** to choose a mode.
 Custom themes you have made are listed under **Custom themes**, grouped into **Dark family** and
 **Light family**. **Manage themes…** opens the theme manager.
 
-<Screenshot src={appearanceMenu} alt="Appearance menu open from the top toolbar, listing Dark, Light, and System with Dark checked, and Manage themes… below" maxWidth={450} />
-
-<VisualPending id="themes-appearance-menu" />
+<Screenshot src={appearanceMenu} alt="Appearance menu open from the top toolbar, listing Dark, Light, and System with Dark checked, and Manage themes… below" maxWidth={368} />
 
 ## Theme manager
 
@@ -56,8 +53,6 @@ A custom theme's details show its **Family** (dark or light), the theme it is **
 how many colours it changes (**Changed colors**).
 
 <Screenshot src={themeManager} alt="Manage themes dialog with Dark and Light in the list, Dark selected and marked Active and Built-in, and the Duplicate to edit, Import theme, and Mode controls" />
-
-<VisualPending id="themes-manager" />
 
 ### Mode
 
@@ -88,9 +83,7 @@ Next to the colours, a preview shows **Panel & text**, **Controls**, **Messages*
 
 **Apply theme** saves the theme and makes it active. **Cancel** discards the changes.
 
-<Screenshot src={themeEditor} alt="Edit theme dialog for a copy of Dark: the Theme name field and Surfaces and Text colour rows on the left, and the Panel & text, Controls, Messages, and Sketch canvas previews on the right" />
-
-<VisualPending id="themes-editor" />
+<Screenshot src={themeEditor} alt="Edit theme dialog for a copy of Dark: the Theme name field and the Surfaces and Text colour rows on the left, and the Controls, Messages, and Sketch canvas previews with the readability panel below them on the right" />
 
 ## Readability checks
 

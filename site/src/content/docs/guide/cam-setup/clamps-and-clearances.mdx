@@ -6,7 +6,8 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
+import Screenshot from '../../../../components/Screenshot.astro';
+import clampAvoidance from '../../../../assets/manual/cam-setup/clamps-and-clearances/clamp-avoidance.png';
 import { Aside, Steps } from '@astrojs/starlight/components';
 
 Clearances establish safe travel heights and distances. Clamps mark physical workholding so the
@@ -20,7 +21,7 @@ app can highlight conflicts and keep generated cuts clear of the clamped area.
 ## Clearances
 
 
-<VisualPending id="clamps-avoidance-warning" />
+<Screenshot src={clampAvoidance} alt="An outside route detouring around a clamp placed over its contour, leaving a gap in the toolpath on that edge, with the operation's Toolpath warnings reporting that the toolpath was kept clear of the clamp and that material under it is left uncut" caption="The route is kept clear of the clamp rather than cutting through it, and the operation says so — the material under the clamp stays uncut." />
 <Steps>
 
 1. Select the **Project** node in the feature tree.

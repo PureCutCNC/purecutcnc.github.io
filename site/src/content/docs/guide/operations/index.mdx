@@ -6,14 +6,15 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
+import Screenshot from '../../../../components/Screenshot.astro';
+import choiceMap from '../../../../assets/manual/operations/index/operation-choice-map.svg';
 import { CardGrid, LinkCard } from '@astrojs/starlight/components';
 
 Choose an operation from the feature’s role and geometry, then confirm its compatible target,
 tool, pass, and strategy. Regions can restrict a compatible cut but are not machining targets on
 their own. A 3D finish requires exactly one model; a STEP model counts as a model.
 
-<VisualPending id="operations-choice-map" />
+<Screenshot src={choiceMap} alt="A three-column map from each machining goal to the geometry it needs you to select and the operation that does it, covering clearing, facing, contours, carving, engraving, holes and the 3D surface passes" caption="Start from the goal; the middle column is what the operation needs you to have selected." />
 
 ## Requirements
 

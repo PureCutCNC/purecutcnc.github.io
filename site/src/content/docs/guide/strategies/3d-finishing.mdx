@@ -6,14 +6,21 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
 import { Aside } from '@astrojs/starlight/components';
+import Screenshot from '../../../../components/Screenshot.astro';
+import patternParallel from '../../../../assets/manual/strategies/3d-finishing/pattern-parallel.png';
+import patternWaterline from '../../../../assets/manual/strategies/3d-finishing/pattern-waterline.png';
+import patternScallop from '../../../../assets/manual/strategies/3d-finishing/pattern-constant-scallop.png';
+import scallopHeight from '../../../../assets/manual/strategies/3d-finishing/scallop-height.svg';
+import slopeFilter from '../../../../assets/manual/strategies/3d-finishing/slope-filter.png';
 
 ## How it works
 
 3D surface finish offers three patterns. **Parallel** follows repeated scan lines, **Waterline**
 follows contour rings around the model, and **Constant scallop** varies the path spacing to hold a
 target cusp height on compatible ball-endmill work.
+
+<Screenshot src={patternParallel} alt="A 3D finish over a carved surface using Parallel: evenly spaced straight passes sweeping across the whole area" caption="Parallel, on the surface the Waterline and Constant scallop shots below use as well." />
 
 ## Where it applies
 
@@ -23,8 +30,6 @@ target cusp height on compatible ball-endmill work.
 
 ## Settings
 
-
-<VisualPending id="finishing-patterns" />
 | Setting | Description |
 | --- | --- |
 | **Pattern** | Chooses Parallel, Waterline, or Constant scallop. |
@@ -33,6 +38,8 @@ target cusp height on compatible ball-endmill work.
 
 ## Waterline
 
+<Screenshot src={patternWaterline} alt="The same finish using Waterline: contour rings round the carved shape, crowding close together where the surface is shallow" />
+
 Waterline can use **Adaptive refinement**. When it is enabled, **Adaptive spacing** and **Max
 rings / band** control the refinement of each contour band. Budget warnings mean the requested
 ring detail could not all be emitted; inspect the resulting coverage instead of treating the
@@ -40,22 +47,24 @@ setting as guaranteed.
 
 ## Constant scallop
 
+<Screenshot src={patternScallop} alt="The same finish using Constant scallop: rings whose spacing widens and narrows across the surface to hold one cusp height" />
+
 Constant scallop is a finish pattern for the operation. With a ball endmill, **Scallop height**
 sets the target cusp height and the panel shows the implied cusp information. It replaces the
 ordinary stepover ratio for that configuration.
 
 ## Scallop height
 
+<Screenshot src={scallopHeight} alt="A cross-section through three passes of a ball endmill: each pass cuts an arc of the tool's radius, and the ridge left where two arcs meet is the scallop height. Setting that height is what derives the spacing between passes." />
 
-<VisualPending id="finishing-scallop-height" />
 Use a smaller scallop height for a finer surface at the cost of more passes. Choose a value that
 matches the finish requirement and the tool geometry, then compare the toolpath density in the
 preview before committing to machining time.
 
 ## Slope filter
 
+<Screenshot src={slopeFilter} alt="The same finish with Filter by surface slope on and a 0 to 30 degree band set: the toolpath is reduced to the part of the surface inside that band, with the minimum and maximum slope fields visible in the properties panel beside it" />
 
-<VisualPending id="finishing-slope-filter" />
 **Filter by surface slope** limits finishing to the chosen minimum and maximum surface slope. Use
 separate operations when steep walls and shallow floors need different strategies or finishes.
 

@@ -6,14 +6,18 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
+import Screenshot from '../../../../components/Screenshot.astro';
+import medialToolpath from '../../../../assets/manual/operations/v-carve-medial/toolpath.png';
+import medialResult from '../../../../assets/manual/operations/v-carve-medial/result.png';
 import { Aside } from '@astrojs/starlight/components';
 
 **V-carve medial** computes the medial axis of a closed profile and varies the V-groove depth with
 its local half-width. It gives sharp points at corners and a groove that follows the actual center
 of the available shape.
 
-<VisualPending id="vcarve-medial-result" />
+<Screenshot src={medialToolpath} alt="A V-carve medial toolpath with the features hidden, a single pass tracing the centreline of each letter stroke" caption="The medial pass follows the skeleton of each stroke, cutting deeper where the stroke is wider." />
+
+<Screenshot src={medialResult} alt="Lettering carved into the stock by a V-carve medial pass, the groove following the centreline of each stroke and varying in width with it" caption="The medial pass follows the centreline of each stroke, cutting deeper where the stroke is wider." />
 
 ## Requirements
 

@@ -59,7 +59,7 @@ export const LEGACY_ROUTES = [
 			'op-3d-finish': '/guide/operations/3d-surface-finish/',
 			'op-3d-cleanup': '/guide/operations/3d-surface-cleanup/',
 			'offset-and-parallel': '/guide/strategies/clearing-patterns/',
-			'seeded-circle-clearing': '/guide/strategies/clearing-patterns/#seeded-circles',
+			'seeded-circle-clearing': '/guide/strategies/seeded-circles/',
 			trochoidal: '/guide/strategies/trochoidal-cutting/',
 			'entry-moves': '/guide/strategies/entry-and-exit/',
 			'corner-relief': '/guide/strategies/corners/#corner-relief',

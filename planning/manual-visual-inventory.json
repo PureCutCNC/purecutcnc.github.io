@@ -6,74 +6,302 @@
 		"locale": "en"
 	},
 	"pages": [
-		{ "page": "/guide/", "decision": "visuals" },
-		{ "page": "/quickstart/", "decision": "visuals" },
-		{ "page": "/guide/start-here/install-and-open/", "decision": "visuals" },
-		{ "page": "/guide/start-here/safety/", "decision": "not-needed", "reviewStatus": "proposed", "rationale": "The page is a short safety checklist; a product image could imply that the interface replaces machine-side verification." },
-		{ "page": "/guide/fundamentals/workspace/", "decision": "visuals" },
-		{ "page": "/guide/fundamentals/projects-and-files/", "decision": "visuals" },
-		{ "page": "/guide/fundamentals/features-and-roles/", "decision": "visuals" },
-		{ "page": "/guide/fundamentals/feature-tree/", "decision": "visuals" },
-		{ "page": "/guide/fundamentals/linked-features/", "decision": "visuals" },
-		{ "page": "/guide/fundamentals/stock-origin-units/", "decision": "visuals" },
-		{ "page": "/guide/fundamentals/regions/", "decision": "visuals" },
-		{ "page": "/guide/fundamentals/construction-geometry/", "decision": "visuals" },
-		{ "page": "/guide/fundamentals/tablet-and-touch/", "decision": "visuals" },
-		{ "page": "/guide/design/drawing-tools/", "decision": "visuals" },
-		{ "page": "/guide/design/parametric-shapes/", "decision": "visuals" },
-		{ "page": "/guide/design/text/", "decision": "visuals" },
-		{ "page": "/guide/design/selecting-and-transforming/", "decision": "visuals" },
-		{ "page": "/guide/design/arranging/", "decision": "visuals" },
-		{ "page": "/guide/design/shape-operations/", "decision": "visuals" },
-		{ "page": "/guide/design/sketch-editing/", "decision": "visuals" },
-		{ "page": "/guide/design/snapping-and-grid/", "decision": "visuals" },
-		{ "page": "/guide/design/dimensions-and-constraints/", "decision": "visuals" },
-		{ "page": "/guide/design/importing-2d/", "decision": "visuals" },
-		{ "page": "/guide/design/importing-3d-models/", "decision": "visuals" },
-		{ "page": "/guide/design/backdrop-images/", "decision": "visuals" },
-		{ "page": "/guide/cam-setup/tool-library/", "decision": "visuals" },
-		{ "page": "/guide/cam-setup/working-with-operations/", "decision": "visuals" },
-		{ "page": "/guide/cam-setup/cam-plan/", "decision": "visuals" },
-		{ "page": "/guide/cam-setup/machines/", "decision": "visuals" },
-		{ "page": "/guide/cam-setup/tabs/", "decision": "visuals" },
-		{ "page": "/guide/cam-setup/clamps-and-clearances/", "decision": "visuals" },
-		{ "page": "/guide/operations/", "decision": "visuals" },
-		{ "page": "/guide/operations/common-parameters/", "decision": "visuals" },
-		{ "page": "/guide/operations/pocket/", "decision": "visuals" },
-		{ "page": "/guide/operations/surface-clean/", "decision": "visuals" },
-		{ "page": "/guide/operations/edge-route-inside/", "decision": "visuals" },
-		{ "page": "/guide/operations/edge-route-outside/", "decision": "visuals" },
-		{ "page": "/guide/operations/v-carve-offset/", "decision": "visuals" },
-		{ "page": "/guide/operations/v-carve-medial/", "decision": "visuals" },
-		{ "page": "/guide/operations/engrave/", "decision": "visuals" },
-		{ "page": "/guide/operations/drill/", "decision": "visuals" },
-		{ "page": "/guide/operations/3d-surface-rough/", "decision": "visuals" },
-		{ "page": "/guide/operations/3d-surface-finish/", "decision": "visuals" },
-		{ "page": "/guide/operations/3d-surface-cleanup/", "decision": "visuals" },
-		{ "page": "/guide/strategies/clearing-patterns/", "decision": "visuals" },
-		{ "page": "/guide/strategies/trochoidal-cutting/", "decision": "visuals" },
-		{ "page": "/guide/strategies/entry-and-exit/", "decision": "visuals" },
-		{ "page": "/guide/strategies/corners/", "decision": "visuals" },
-		{ "page": "/guide/strategies/feed-reduction/", "decision": "visuals" },
-		{ "page": "/guide/strategies/rest-machining/", "decision": "visuals" },
-		{ "page": "/guide/strategies/3d-finishing/", "decision": "visuals" },
-		{ "page": "/guide/verify-export/toolpath-preview/", "decision": "visuals" },
-		{ "page": "/guide/verify-export/3d-view/", "decision": "visuals" },
-		{ "page": "/guide/verify-export/simulation/", "decision": "visuals" },
-		{ "page": "/guide/verify-export/gcode-export/", "decision": "visuals" },
-		{ "page": "/guide/verify-export/exported-motion/", "decision": "visuals" },
-		{ "page": "/guide/verify-export/setup-booklets/", "decision": "visuals" },
-		{ "page": "/guide/verify-export/model-export-and-print/", "decision": "visuals" },
-		{ "page": "/guide/reference/keyboard-shortcuts/", "decision": "not-needed", "reviewStatus": "proposed", "rationale": "The tables are searchable, accessible, and more useful than an image of key labels." },
-		{ "page": "/guide/reference/file-formats/", "decision": "not-needed", "reviewStatus": "proposed", "rationale": "The page is a compact compatibility table with no spatial workflow to illustrate." },
-		{ "page": "/guide/reference/machine-definitions/", "decision": "not-needed", "reviewStatus": "proposed", "rationale": "The field and validation tables are the authoritative reference; editor visuals belong on the Machines task page." },
-		{ "page": "/guide/reference/post-processor-converter/", "decision": "not-needed", "reviewStatus": "proposed", "rationale": "Copyable commands and report examples are more useful than a terminal screenshot." },
-		{ "page": "/guide/reference/themes/", "decision": "visuals" },
-		{ "page": "/guide/reference/languages/", "decision": "visuals" },
-		{ "page": "/guide/reference/warnings/", "decision": "not-needed", "reviewStatus": "proposed", "rationale": "The page is a message lookup; representative warning states are proposed on the task pages where they occur." },
-		{ "page": "/guide/reference/troubleshooting/", "decision": "visuals" },
-		{ "page": "/guide/reference/glossary/", "decision": "not-needed", "reviewStatus": "proposed", "rationale": "A searchable term list does not gain useful meaning from a decorative image." },
-		{ "page": "/guide/reference/privacy-and-data/", "decision": "not-needed", "reviewStatus": "proposed", "rationale": "The page explains storage and network boundaries; an interface image would not clarify those guarantees." }
+		{
+			"page": "/guide/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/quickstart/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/start-here/install-and-open/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/start-here/safety/",
+			"decision": "not-needed",
+			"reviewStatus": "proposed",
+			"rationale": "The page is a short safety checklist; a product image could imply that the interface replaces machine-side verification."
+		},
+		{
+			"page": "/guide/fundamentals/workspace/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/fundamentals/projects-and-files/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/fundamentals/features-and-roles/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/fundamentals/feature-tree/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/fundamentals/linked-features/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/fundamentals/stock-origin-units/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/fundamentals/regions/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/fundamentals/construction-geometry/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/fundamentals/tablet-and-touch/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/design/drawing-tools/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/design/parametric-shapes/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/design/text/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/design/selecting-and-transforming/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/design/arranging/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/design/shape-operations/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/design/sketch-editing/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/design/snapping-and-grid/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/design/dimensions-and-constraints/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/design/importing-2d/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/design/importing-3d-models/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/design/backdrop-images/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/cam-setup/tool-library/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/cam-setup/working-with-operations/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/cam-setup/cam-plan/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/cam-setup/machines/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/cam-setup/tabs/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/cam-setup/clamps-and-clearances/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/operations/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/operations/common-parameters/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/operations/pocket/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/operations/surface-clean/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/operations/edge-route-inside/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/operations/edge-route-outside/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/operations/v-carve-offset/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/operations/v-carve-medial/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/operations/engrave/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/operations/drill/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/operations/3d-surface-rough/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/operations/3d-surface-finish/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/operations/3d-surface-cleanup/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/strategies/clearing-patterns/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/strategies/seeded-circles/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/strategies/link-junctions/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/strategies/trochoidal-cutting/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/strategies/entry-and-exit/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/strategies/corners/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/strategies/feed-reduction/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/strategies/rest-machining/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/strategies/3d-finishing/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/verify-export/toolpath-preview/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/verify-export/3d-view/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/verify-export/simulation/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/verify-export/gcode-export/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/verify-export/exported-motion/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/verify-export/setup-booklets/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/verify-export/model-export-and-print/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/reference/keyboard-shortcuts/",
+			"decision": "not-needed",
+			"reviewStatus": "proposed",
+			"rationale": "The tables are searchable, accessible, and more useful than an image of key labels."
+		},
+		{
+			"page": "/guide/reference/file-formats/",
+			"decision": "not-needed",
+			"reviewStatus": "proposed",
+			"rationale": "The page is a compact compatibility table with no spatial workflow to illustrate."
+		},
+		{
+			"page": "/guide/reference/machine-definitions/",
+			"decision": "not-needed",
+			"reviewStatus": "proposed",
+			"rationale": "The field and validation tables are the authoritative reference; editor visuals belong on the Machines task page."
+		},
+		{
+			"page": "/guide/reference/post-processor-converter/",
+			"decision": "not-needed",
+			"reviewStatus": "proposed",
+			"rationale": "Copyable commands and report examples are more useful than a terminal screenshot."
+		},
+		{
+			"page": "/guide/reference/themes/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/reference/languages/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/reference/warnings/",
+			"decision": "not-needed",
+			"reviewStatus": "proposed",
+			"rationale": "The page is a message lookup; representative warning states are proposed on the task pages where they occur."
+		},
+		{
+			"page": "/guide/reference/troubleshooting/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/reference/glossary/",
+			"decision": "not-needed",
+			"reviewStatus": "proposed",
+			"rationale": "A searchable term list does not gain useful meaning from a decorative image."
+		},
+		{
+			"page": "/guide/reference/privacy-and-data/",
+			"decision": "not-needed",
+			"reviewStatus": "proposed",
+			"rationale": "The page explains storage and network boundaries; an interface image would not clarify those guarantees."
+		}
 	],
 	"visuals": [
 		{
@@ -425,6 +653,18 @@
 			"blockedBy": []
 		},
 		{
+			"id": "drawing-shape-drawer",
+			"page": "/guide/design/drawing-tools/",
+			"afterHeading": "Shape drawer",
+			"kind": "screenshot",
+			"purpose": "Locate the control the page sends the reader to for every shape, and show which shapes each of its two rows holds.",
+			"brief": "The tool rail with the shape drawer open: the basic shapes in its top row and the parametric shapes in its second.",
+			"asset": "design/drawing-tools/shape-drawer.png",
+			"alt": "Tool rail with the shape drawer open, showing rectangle, circle, ellipse, polygon, spline, composite, and text in the top row, and slot, regular polygon, gear, rounded rectangle, and chamfered rectangle in the second",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
 			"id": "drawing-creation-target",
 			"page": "/guide/design/drawing-tools/",
 			"afterHeading": "Creation target",
@@ -433,7 +673,19 @@
 			"brief": "The four creation-target buttons for features, lines, regions, and construction at the top of the tool rail.",
 			"asset": "design/drawing-tools/creation-target.png",
 			"alt": "Creation-target buttons for features, lines, regions, and construction geometry",
-			"status": "proposed",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "drawing-typed-dimensions",
+			"page": "/guide/design/drawing-tools/",
+			"afterHeading": "Typed dimensions",
+			"kind": "screenshot",
+			"purpose": "Show the typed-entry form every tool offers, and that the pending shape follows the numbers as they are typed.",
+			"brief": "The Rectangle workflow panel switched to Enter dimensions with Width and Height filled in, and the pending rectangle on the canvas matching them.",
+			"asset": "design/drawing-tools/typed-dimensions.png",
+			"alt": "Rectangle workflow panel in its Enter dimensions form with Width 2.5 and Height 1.5, and the pending rectangle on the canvas reading 2.5 by 1.5 to match",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -445,7 +697,7 @@
 			"brief": "A pending rectangle with width and height readouts and the Rectangle workflow panel.",
 			"asset": "design/drawing-tools/rectangle.png",
 			"alt": "Pending rectangle with width and height readouts and the Rectangle workflow panel",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -457,7 +709,7 @@
 			"brief": "A pending circle with its radius readout and the Circle workflow panel.",
 			"asset": "design/drawing-tools/circle.png",
 			"alt": "Pending circle with radius readout and the Circle workflow panel",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -465,11 +717,11 @@
 			"page": "/guide/design/drawing-tools/",
 			"afterHeading": "Ellipse",
 			"kind": "screenshot",
-			"purpose": "Show the two-radius interaction that differs from drawing a circle.",
-			"brief": "A pending centre-out ellipse with both radius readouts and the Ellipse workflow panel.",
+			"purpose": "Show the set-radii step, where a single click fixes both radii, unlike the circle's one radius.",
+			"brief": "A pending centre-out ellipse with its radius readout repeated in each quadrant and the Ellipse workflow panel.",
 			"asset": "design/drawing-tools/ellipse.png",
-			"alt": "Pending ellipse with two radius readouts and the Ellipse workflow panel",
-			"status": "proposed",
+			"alt": "Pending ellipse with its radius readout repeated in each quadrant and the Ellipse workflow panel",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -481,7 +733,7 @@
 			"brief": "A pending polygon with point and length feedback plus Finish, Dimensions, Undo, and Cancel.",
 			"asset": "design/drawing-tools/polygon.png",
 			"alt": "Pending polygon with its workflow panel showing Finish, Dimensions, Undo, and Cancel",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -493,7 +745,7 @@
 			"brief": "A pending spline curving through several points with its workflow panel visible.",
 			"asset": "design/drawing-tools/spline.png",
 			"alt": "Pending spline curving through several points with the Spline workflow panel",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -505,7 +757,7 @@
 			"brief": "A composite path in progress with line, arc, and spline segments and the mode controls visible.",
 			"asset": "design/drawing-tools/composite.png",
 			"alt": "Composite path in progress with line, arc, and spline segments and mode controls",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -517,7 +769,7 @@
 			"brief": "A pending slot with its width readout and the Slot workflow panel at the width step.",
 			"asset": "design/parametric-shapes/slot.png",
 			"alt": "Pending slot with width readout and the Slot workflow panel",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -529,8 +781,8 @@
 			"brief": "A pending eight-sided polygon and the workflow panel with Sides and Radius controls.",
 			"asset": "design/parametric-shapes/regular-polygon.png",
 			"alt": "Pending eight-sided regular polygon with Sides and Radius controls",
-			"status": "blocked",
-			"blockedBy": ["PureCutCNC/purecutcnc#800"]
+			"status": "captured",
+			"blockedBy": []
 		},
 		{
 			"id": "parametric-gear",
@@ -541,7 +793,7 @@
 			"brief": "A pending gear and the full Set gear parameters panel with representative values.",
 			"asset": "design/parametric-shapes/gear.png",
 			"alt": "Pending gear with tooth, depth, flank, pressure-angle, root, crest, and bore settings",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -553,7 +805,7 @@
 			"brief": "A pending rounded rectangle with the Corner radius control visible.",
 			"asset": "design/parametric-shapes/rounded-rectangle.png",
 			"alt": "Pending rounded rectangle with its Corner radius control",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -565,7 +817,7 @@
 			"brief": "A pending chamfered rectangle with the Chamfer control visible.",
 			"asset": "design/parametric-shapes/chamfered-rectangle.png",
 			"alt": "Pending chamfered rectangle with its Chamfer control",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -577,7 +829,7 @@
 			"brief": "The Add text dialog with representative outline text settings and Subtract selected.",
 			"asset": "design/text/add-text-dialog.png",
 			"alt": "Add text dialog with content, outline style, font, height, and Subtract role settings",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -589,7 +841,7 @@
 			"brief": "Text laid out along a curved guide with the Text layout panel open to its path, fit, offset, anchor, and orientation controls.",
 			"asset": "design/text/text-layout.png",
 			"alt": "Text arranged along a curved guide with the Text layout controls open",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -598,10 +850,10 @@
 			"afterHeading": "Expand text",
 			"kind": "screenshot",
 			"purpose": "Show the tree structure created when editable text becomes feature geometry.",
-			"brief": "Expanded text with one feature group per glyph in the tree and the original text retained.",
+			"brief": "Expanded outline text with one feature group per glyph in the tree, each holding an outer and an inner outline, and the original text retained.",
 			"asset": "design/text/expanded-glyphs.png",
-			"alt": "Expanded text represented as grouped glyph features while the original text remains in the tree",
-			"status": "proposed",
+			"alt": "Expanded outline text as grouped glyph features, each group holding an add feature for the outer outline and a subtract feature for the counter, while the original text remains in the tree",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -613,7 +865,7 @@
 			"brief": "Several stacked features with the overlap picker open and the corresponding tree items visible.",
 			"asset": "design/selecting-and-transforming/overlap-picker.png",
 			"alt": "Overlap picker listing stacked features at the clicked canvas position",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -625,19 +877,55 @@
 			"brief": "A rotate-with-copies or mirror operation in progress with the selected features and transform panel visible.",
 			"asset": "design/selecting-and-transforming/transform-panel.png",
 			"alt": "Feature transform in progress with copy and keep-original controls",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
-			"id": "arranging-feature-distribution",
+			"id": "arranging-distribute-grid",
 			"page": "/guide/design/arranging/",
-			"afterHeading": "Feature distribution",
+			"afterHeading": "Grid",
 			"kind": "screenshot",
-			"purpose": "Compare the spatial results of grid, radial, and path distribution.",
-			"brief": "A compact three-state comparison of one source feature distributed in a grid, radially, and along a guide path with the relevant panel visible.",
-			"asset": "design/arranging/feature-distribution.png",
-			"alt": "One feature distributed in grid, radial, and path arrangements",
-			"status": "proposed",
+			"purpose": "Show a grid distribution being set up, and the rows, columns and spacing that shape it.",
+			"brief": "A grid distribution in progress: two rows by three columns at 0.6 in spacing, with the Feature distribution panel.",
+			"asset": "design/arranging/distribute-grid.png",
+			"alt": "Feature distribution panel set to 2 rows, 3 columns and 0.6 inch spacing, with the source rectangle and five dashed preview copies laid out as that grid",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "arranging-distribute-radial",
+			"page": "/guide/design/arranging/",
+			"afterHeading": "Radial",
+			"kind": "screenshot",
+			"purpose": "Show a radial distribution being set up, and how sweep and instance count place the copies around a centre.",
+			"brief": "A radial distribution in progress: eight instances swept around a picked centre, with the Feature distribution panel.",
+			"asset": "design/arranging/distribute-radial.png",
+			"alt": "Feature distribution panel set to eight instances over a 360 degree sweep, with the copies previewed in a ring around the picked centre point",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "arranging-distribute-path",
+			"page": "/guide/design/arranging/",
+			"afterHeading": "Along path",
+			"kind": "screenshot",
+			"purpose": "Show an along-path distribution being set up, and how the copies follow a separate guide outline.",
+			"brief": "An along-path distribution in progress: six instances following a spline guide, with the Feature distribution panel.",
+			"asset": "design/arranging/distribute-path.png",
+			"alt": "Feature distribution panel with Spline 2 as the guide and six instances, and the copies previewed following the spline across the canvas",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "arranging-scale-taper",
+			"page": "/guide/design/arranging/",
+			"afterHeading": "Scale taper",
+			"kind": "screenshot",
+			"purpose": "Show what a scale taper does to a pattern, which the numbers alone do not convey. Shot as committed copies because previewed copies carry labels that cannot be hidden.",
+			"brief": "A radial distribution of twelve circles tapering from 100 percent at the original to 10 percent at the last copy.",
+			"asset": "design/arranging/scale-taper.png",
+			"alt": "Twelve circles in a ring, shrinking steadily from the green full-size original round to a tiny copy at ten percent",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -649,7 +937,7 @@
 			"brief": "An offset workflow in progress with source geometry, live preview, direction, and typed distance visible.",
 			"asset": "design/shape-operations/offset-preview.png",
 			"alt": "Offset workflow with source contour, live offset preview, direction, and distance",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -657,11 +945,11 @@
 			"page": "/guide/design/shape-operations/",
 			"afterHeading": "Cut",
 			"kind": "screenshot",
-			"purpose": "Show the two-stage cutter-then-target selection and its resulting split geometry.",
-			"brief": "The Cut workflow panel during target selection with open cutter geometry and the previewed split result.",
+			"purpose": "Show the two-stage cutter-then-target selection, and that an open path can be the cutter for a closed target.",
+			"brief": "The Cut panel at Select targets, with an open path locked as the cutter and the closed feature it crosses picked as the target.",
 			"asset": "design/shape-operations/cut-workflow.png",
-			"alt": "Cut workflow selecting targets after cutter geometry, with the split result previewed",
-			"status": "proposed",
+			"alt": "Cut workflow panel reading 1 target selected with Keep originals, an open path crossing a rectangle as the cutter, and the rectangle highlighted as the target",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -670,22 +958,34 @@
 			"afterHeading": "Edit a sketch",
 			"kind": "screenshot",
 			"purpose": "Show the node-level editing state and the controls that replace normal selection.",
-			"brief": "An active sketch edit session with nodes, segment dimensions, the edit panel, Finish, and Cancel visible.",
+			"brief": "An active sketch edit session with the profile's nodes shown, one segment selected with its length on the canvas, and the Edit sketch panel with its tool row, Finish, and Cancel.",
 			"asset": "design/sketch-editing/edit-session.png",
-			"alt": "Active sketch edit session with editable nodes, dimensions, and Finish and Cancel controls",
-			"status": "proposed",
+			"alt": "Sketch edit session with the rectangle's corner nodes shown, its top segment selected and labelled 1.375, and the Edit sketch panel showing Selected segment Length and Angle",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
-			"id": "sketch-edit-tools",
+			"id": "sketch-edit-fillet",
 			"page": "/guide/design/sketch-editing/",
 			"afterHeading": "Editing tools",
 			"kind": "screenshot",
-			"purpose": "Show representative fillet and trim previews in the shared editing interface.",
-			"brief": "A split comparison of a fillet preview and a trim selection with their workflow controls visible.",
-			"asset": "design/sketch-editing/editing-tools.png",
-			"alt": "Fillet preview and trim selection in sketch editing workflows",
-			"status": "proposed",
+			"purpose": "Show the fillet tool mid-command: a corner picked and the arc previewing as the radius follows the pointer.",
+			"brief": "Round corner / fillet in progress on a rectangle corner, with the live arc preview and the Radius entry.",
+			"asset": "design/sketch-editing/fillet.png",
+			"alt": "Sketch edit session with Round corner / fillet active, a rectangle corner picked, an R 0.25 arc previewing, and the Radius entry in the panel",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "sketch-edit-trim",
+			"page": "/guide/design/sketch-editing/",
+			"afterHeading": "Editing tools",
+			"kind": "screenshot",
+			"purpose": "Show the trim tool's two clicks, and that it is available only while editing an open path.",
+			"brief": "Trim to cutting edge in progress on a self-crossing open path, after the part to remove has been picked.",
+			"asset": "design/sketch-editing/trim.png",
+			"alt": "Sketch edit session on an open self-crossing path with Trim to cutting edge active and the step reading Click the cutting segment",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -693,11 +993,23 @@
 			"page": "/guide/design/snapping-and-grid/",
 			"afterHeading": "Snap modes",
 			"kind": "screenshot",
-			"purpose": "Show the available snap modes and the live label that confirms the active target.",
-			"brief": "The snap popover open while the pointer snaps to a visible intersection or midpoint label on the canvas.",
+			"purpose": "Show where the snap modes live, which are on by default, and the live label that names the snap before you click.",
+			"brief": "The toolbar snap buttons with the default modes on, and a live Midpoint label at the pointer on a feature's edge.",
 			"asset": "design/snapping-and-grid/snap-popover.png",
-			"alt": "Snap popover open with a live snap label on the canvas",
-			"status": "proposed",
+			"alt": "Toolbar snap buttons with snapping, grid, point, line, midpoint, and center on and intersection and perpendicular off, and a Midpoint label at the pointer on a rectangle's top edge",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "snapping-axis-lock",
+			"page": "/guide/design/snapping-and-grid/",
+			"afterHeading": "Axis lock",
+			"kind": "screenshot",
+			"purpose": "Show the axis lock holding a point on one axis while the pointer is somewhere else, and the chip that says which lock is on.",
+			"brief": "A segment being drawn with Lock X on: the point held on the horizontal through the start point while the pointer sits off it, and the Lock X chip on the canvas.",
+			"asset": "design/snapping-and-grid/axis-lock.png",
+			"alt": "A pending segment held horizontal by Lock X while the pointer sits above and right of it, with a red Lock X chip in the corner of the canvas",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -708,8 +1020,8 @@
 			"purpose": "Show the available annotation forms in realistic placement around a part.",
 			"brief": "A part with several dimension types, anchors, labels, and one selected annotation visible.",
 			"asset": "design/dimensions-and-constraints/dimensions-on-part.png",
-			"alt": "Part with multiple dimension annotation types and visible anchors",
-			"status": "proposed",
+			"alt": "Rectangle with horizontal and vertical dimensions and a circle with a radius dimension, with one dimension selected and its Edit dimension panel open",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -718,10 +1030,10 @@
 			"afterHeading": "Constraints",
 			"kind": "screenshot",
 			"purpose": "Connect constraint anchors and references with the fields used to define them.",
-			"brief": "A fixed-distance constraint between features with its anchor, reference, distance, and validity state visible.",
+			"brief": "A fixed-distance constraint being set between two features, with its anchor, reference point and distance visible.",
 			"asset": "design/dimensions-and-constraints/constraint-panel.png",
-			"alt": "Fixed-distance constraint with anchor, reference, distance, and validity controls",
-			"status": "proposed",
+			"alt": "Constraint workflow at Set distance, with a dashed line from the anchor point on one rectangle to the reference point on another and a Distance field",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -733,7 +1045,7 @@
 			"brief": "The 2D import dialog with a representative file selected, unit detection, destination units, and summary area visible.",
 			"asset": "design/importing-2d/import-dialog.png",
 			"alt": "2D import dialog with file, source units, project units, progress, and summary controls",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -745,7 +1057,7 @@
 			"brief": "An SVG import using Solid regions with the resulting Add and Subtract counts in the summary.",
 			"asset": "design/importing-2d/svg-summary.png",
 			"alt": "SVG import in Solid regions mode with Add and Subtract feature counts",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -757,7 +1069,7 @@
 			"brief": "The DXF layer picker with several layers, join tolerance, cross-layer joining, and detected units.",
 			"asset": "design/importing-2d/dxf-layers.png",
 			"alt": "DXF layer picker with layer selection, join tolerance, cross-layer joining, and units",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -769,7 +1081,7 @@
 			"brief": "The project import folder picker with nested folders and the include-stock option visible.",
 			"asset": "design/importing-2d/project-folders.png",
 			"alt": "Project import dialog with folder selection and include-stock option",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -781,7 +1093,7 @@
 			"brief": "A multi-body STL or OBJ import with axis controls, split-body result, and the resulting Model features visible.",
 			"asset": "design/importing-3d-models/multi-body-import.png",
 			"alt": "Multi-body mesh import with axis controls and separate Model features",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -793,7 +1105,7 @@
 			"brief": "The STEP import settings with declared units, surface tolerance, size information, and import limits visible.",
 			"asset": "design/importing-3d-models/step-settings.png",
 			"alt": "STEP import settings with units, surface tolerance, size information, and limits",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -805,7 +1117,7 @@
 			"brief": "An imported model in 3D view with the orientation section open to X, Y, Z, quarter-turn, lift, and reset controls.",
 			"asset": "design/importing-3d-models/model-orientation.png",
 			"alt": "Imported model with orientation, quarter-turn, lift, and reset controls",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -816,8 +1128,8 @@
 			"purpose": "Show the relationship between the reference image, traced features, and alignment controls.",
 			"brief": "A backdrop image behind traced geometry with opacity, size, angle, move, resize, and rotate controls visible.",
 			"asset": "design/backdrop-images/backdrop-alignment.png",
-			"alt": "Backdrop image aligned behind traced geometry with opacity and transform controls",
-			"status": "proposed",
+			"alt": "A dimmed reference drawing behind the sketch with a traced circle on one of its bolt holes, and the backdrop opacity, size, angle and transform controls",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -829,8 +1141,8 @@
 			"brief": "The Import tools from library dialog with search, type and unit filters, tool rows, and selection controls.",
 			"asset": "cam-setup/tool-library/import-dialog.png",
 			"alt": "Import tools dialog with search, type and unit filters and selectable tool rows",
-			"status": "blocked",
-			"blockedBy": ["PureCutCNC/purecutcnc#797"]
+			"status": "captured",
+			"blockedBy": []
 		},
 		{
 			"id": "tool-library-management",
@@ -838,10 +1150,10 @@
 			"afterHeading": "Managing",
 			"kind": "screenshot",
 			"purpose": "Show tool creation, duplication, deletion, and the in-use protection state.",
-			"brief": "The Tools list with Add, duplicate, and delete actions, including one tool that cannot be deleted because an operation uses it.",
+			"brief": "The Tools list with its Add, Import, duplicate and remove actions. A tool that an operation uses is not shown as undeletable: the app does not disable the control, so the prose has to carry that.",
 			"asset": "cam-setup/tool-library/tool-management.png",
 			"alt": "Tools list with add, duplicate, delete, and in-use protection states",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -850,10 +1162,10 @@
 			"afterHeading": "Adding",
 			"kind": "screenshot",
 			"purpose": "Show operation groups, Rough and Finish choices, compatibility, and unavailable targets together.",
-			"brief": "The Add operation menu with 2D and 3D groups, Rough, Finish, Both, an info card, and an unavailable-for-selection section.",
+			"brief": "The Add operation menu with one entry opened to its illustration, description and key points, and the other entries showing their Rough, Finish and Both buttons. The unavailable-for-selection section sits below the opened card, out of frame.",
 			"asset": "cam-setup/working-with-operations/add-menu.png",
 			"alt": "Add operation menu with 2D and 3D groups, pass choices, operation details, and unavailable targets",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -862,10 +1174,10 @@
 			"afterHeading": "List",
 			"kind": "screenshot",
 			"purpose": "Show operation order, enablement, visibility, and generation status in the list where they are managed.",
-			"brief": "An operations list with several tools and operations, drag handles, enabled and visible states, and up-to-date, generating, and paused indicators.",
+			"brief": "The operations list with enable dots and per-row show, duplicate and delete buttons, and the selected operation's parameters below. Generating and paused states are transient and are described in the prose instead.",
 			"asset": "cam-setup/working-with-operations/operation-list.png",
 			"alt": "Operations list showing order, enabled and visible states, tools, and generation status",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -874,10 +1186,10 @@
 			"afterHeading": "Generation",
 			"kind": "screenshot",
 			"purpose": "Show Stop, Resume, Retry, and compute-backend controls in the status context where they appear.",
-			"brief": "The toolpath generation settings menu open beside a paused or failed operation with recovery controls and compute backend visible.",
+			"brief": "The toolpath generation menu with the current state, the stop control, and the compute backend choice.",
 			"asset": "cam-setup/working-with-operations/generation-menu.png",
 			"alt": "Toolpath generation menu with stop, resume, retry, and compute-backend controls",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -889,7 +1201,7 @@
 			"brief": "The CAM Plan dialog with recommended operations, tools, editable parameters, include checkboxes, rest passes, shared tabs, and coverage review.",
 			"asset": "cam-setup/cam-plan/recommendations.png",
 			"alt": "CAM Plan dialog with editable operation recommendations, tools, inclusion choices, and coverage review",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -898,10 +1210,10 @@
 			"afterHeading": "Editor",
 			"kind": "screenshot",
 			"purpose": "Show where machine definitions are edited and validated.",
-			"brief": "The machine editor with General, Program, Tool change, Coolant, raw JSON, variables, and validation areas visible.",
+			"brief": "The machine editor for a duplicated definition, showing General and Program, with Advanced (raw JSON) and Variables reference collapsed. Tool change and Coolant continue below the fold.",
 			"asset": "cam-setup/machines/machine-editor.png",
 			"alt": "Machine editor with definition sections, raw JSON, variables, and validation feedback",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -910,10 +1222,10 @@
 			"afterHeading": "Add and adjust tabs",
 			"kind": "screenshot",
 			"purpose": "Compare smooth and rectangular tab crossings and show their canvas controls.",
-			"brief": "An outside route with smooth and rectangular tabs, tab handles, bulk-edit controls, and a representative tab warning.",
+			"brief": "Several tabs selected together on an outside route, with the bulk-edit fields and the shape note. Smooth and Rectangular differ in Z motion, which the Sketch view does not show.",
 			"asset": "cam-setup/tabs/tab-crossings.png",
 			"alt": "Outside route with smooth and rectangular tabs, tab handles, and a tab warning",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -922,10 +1234,10 @@
 			"afterHeading": "Clearances",
 			"kind": "screenshot",
 			"purpose": "Show how clamp clearances affect generated motion and leave material uncut.",
-			"brief": "A clamp beside a toolpath with collision highlighting, clearance motion, uncut material, and the corresponding operation warning.",
+			"brief": "An outside route detouring around a clamp placed on its contour, with the operation's toolpath warnings naming the clamp and the uncut material. The clamp is avoided rather than hit, so nothing is highlighted as a collision.",
 			"asset": "cam-setup/clamps-and-clearances/clamp-avoidance.png",
 			"alt": "Clamp near a toolpath with clearance motion, collision highlighting, uncut material, and a warning",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -937,7 +1249,7 @@
 			"brief": "A decision map from facing, clearing, profiling, engraving, drilling, and 3D goals to their compatible operation and target types.",
 			"asset": "operations/index/operation-choice-map.svg",
 			"alt": "Decision map from machining goals and target geometry to PureCutCNC operations",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -949,7 +1261,7 @@
 			"brief": "An expanded operation properties panel showing Identity, What it cuts, Tool, Depth, Speeds and feeds, Strategy, overrides, Entry and retract, Corners, Drilling, and Output groups.",
 			"asset": "operations/common-parameters/property-groups.png",
 			"alt": "Expanded operation properties panel showing all major parameter groups",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -961,7 +1273,19 @@
 			"brief": "A pocket with offset clearing rings and its containing feature visible.",
 			"asset": "operations/pocket/offset-toolpath.png",
 			"alt": "Pocket toolpath with offset clearing rings inside a closed profile",
-			"status": "proposed",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "pocket-result",
+			"page": "/guide/operations/pocket/",
+			"afterHeading": "$intro",
+			"kind": "screenshot",
+			"purpose": "Show what the operation leaves in the stock, next to the toolpath that produced it.",
+			"brief": "The simulated stock after a pocket operation, with the cleared cavities and their floors visible.",
+			"asset": "operations/pocket/result.png",
+			"alt": "The simulated stock after a pocket rough pass, with the pickup cavities and neck pocket cleared to a flat floor",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -973,7 +1297,7 @@
 			"brief": "A selected pocket operation with its targets highlighted on the canvas and in the feature tree.",
 			"asset": "operations/pocket/target-highlight.png",
 			"alt": "Selected pocket operation with target features highlighted on the canvas and in the tree",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -985,7 +1309,19 @@
 			"brief": "A Surface clean operation with visible cutting bands covering the top of an Add feature.",
 			"asset": "operations/surface-clean/toolpath-bands.png",
 			"alt": "Surface clean toolpath bands covering the top of an Add feature",
-			"status": "proposed",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "surface-clean-result",
+			"page": "/guide/operations/surface-clean/",
+			"afterHeading": "$intro",
+			"kind": "screenshot",
+			"purpose": "Show what the operation leaves in the stock, beside the toolpath that produced it.",
+			"brief": "The simulated stock after a surface clean, the material above the feature removed to a flat face.",
+			"asset": "operations/surface-clean/result.png",
+			"alt": "The simulated stock after a surface clean, the material above the plate removed to leave a flat face",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -997,7 +1333,19 @@
 			"brief": "An inside edge route around a closed profile with the contour and cutter diameter visible.",
 			"asset": "operations/edge-route-inside/inside-route.png",
 			"alt": "Inside edge-route toolpath following the inside of a closed profile",
-			"status": "proposed",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "edge-inside-result",
+			"page": "/guide/operations/edge-route-inside/",
+			"afterHeading": "$intro",
+			"kind": "screenshot",
+			"purpose": "Show what the operation leaves in the stock, beside the toolpath that produced it.",
+			"brief": "The simulated stock after an inside route, the profile cut open to depth.",
+			"asset": "operations/edge-route-inside/result.png",
+			"alt": "The simulated stock after an inside edge route, the teardrop profile cut open to full depth",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1009,7 +1357,19 @@
 			"brief": "An outside edge route around a part with several tabs and their crossings visible.",
 			"asset": "operations/edge-route-outside/outside-route.png",
 			"alt": "Outside edge-route toolpath around a part with holding tabs",
-			"status": "proposed",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "edge-outside-result",
+			"page": "/guide/operations/edge-route-outside/",
+			"afterHeading": "$intro",
+			"kind": "screenshot",
+			"purpose": "Show the part cut free of the stock, with the tabs still holding it.",
+			"brief": "The simulated stock after an outside edge route, with the part separated except at its tabs.",
+			"asset": "operations/edge-route-outside/result.png",
+			"alt": "The simulated stock after an outside edge route, the part cut free except where tabs still join it to the surrounding material",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1018,10 +1378,22 @@
 			"afterHeading": "$intro",
 			"kind": "screenshot",
 			"purpose": "Show the offset V-carve path and its changing depth inside a closed shape.",
-			"brief": "A V-carve offset operation on lettering or a tapered closed profile with the toolpath visible in 3D.",
-			"asset": "operations/v-carve-offset/toolpath.png",
+			"brief": "A V-carve offset shown on top of the pocket it runs in, so the carve reads as part of the machined part rather than floating on untouched stock.",
+			"asset": "operations/v-carve-offset/result.png",
 			"alt": "V-carve offset toolpath with changing depth inside a closed profile",
-			"status": "proposed",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "vcarve-offset-toolpath",
+			"page": "/guide/operations/v-carve-offset/",
+			"afterHeading": "$intro",
+			"kind": "screenshot",
+			"purpose": "Show the toolpath the operation generates, beside the result it produces.",
+			"brief": "The offset toolpath in the sketch view, clearing each letter from its outline inwards.",
+			"asset": "operations/v-carve-offset/toolpath.png",
+			"alt": "A V-carve offset toolpath in the sketch view, concentric passes working inwards from each letter outline",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1031,20 +1403,56 @@
 			"kind": "screenshot",
 			"purpose": "Show the centreline path and variable depth produced by medial carving.",
 			"brief": "A V-carve medial operation on a shape with varying width, shown with its centreline path and 3D result.",
-			"asset": "operations/v-carve-medial/toolpath.png",
+			"asset": "operations/v-carve-medial/result.png",
 			"alt": "V-carve medial centreline toolpath and variable-depth result",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
-			"id": "engrave-strategies",
+			"id": "vcarve-medial-toolpath",
+			"page": "/guide/operations/v-carve-medial/",
+			"afterHeading": "$intro",
+			"kind": "screenshot",
+			"purpose": "Show the toolpath the operation generates, beside the result it produces.",
+			"brief": "The medial toolpath in the sketch view, following the centreline of each stroke.",
+			"asset": "operations/v-carve-medial/toolpath.png",
+			"alt": "A V-carve medial toolpath in the sketch view, a single pass following the centreline of each letter stroke",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "engrave-direct",
 			"page": "/guide/operations/engrave/",
 			"afterHeading": "Strategies",
 			"kind": "screenshot",
 			"purpose": "Compare direct centreline engraving with trochoidal slot clearing.",
-			"brief": "The same open-line design engraved with Direct and Trochoidal strategies side by side.",
-			"asset": "operations/engrave/direct-and-trochoidal.png",
-			"alt": "Direct and trochoidal engraving toolpaths on the same open-line design",
+			"brief": "An engrave operation using the Direct strategy: the cutter follows the line once.",
+			"asset": "operations/engrave/direct.png",
+			"alt": "An engrave toolpath following each line of the design once, using the Direct strategy",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "engrave-trochoidal",
+			"page": "/guide/operations/engrave/",
+			"afterHeading": "Strategies",
+			"kind": "screenshot",
+			"purpose": "Compare direct centreline engraving with trochoidal slot clearing.",
+			"brief": "The same engrave operation using the Trochoidal strategy, so the difference in the path is visible beside the Direct one.",
+			"asset": "operations/engrave/trochoidal.png",
+			"alt": "The same engrave toolpath using the Trochoidal strategy, the cutter orbiting along the line instead of following it once",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "engrave-result",
+			"page": "/guide/operations/engrave/",
+			"afterHeading": "Strategies",
+			"kind": "screenshot",
+			"purpose": "Show what the operation leaves in the stock, beside the toolpath that produced it.",
+			"brief": "The simulated stock after engraving, the groove cut along the line.",
+			"asset": "operations/engrave/result.png",
+			"alt": "The simulated stock after engraving, a narrow groove following the curve",
 			"status": "proposed",
 			"blockedBy": []
 		},
@@ -1057,7 +1465,19 @@
 			"brief": "A drilling toolpath over several holes with numbered order or clearly visible connecting rapid moves.",
 			"asset": "operations/drill/hole-order.png",
 			"alt": "Drilling toolpath showing the order in which several holes are visited",
-			"status": "proposed",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "drill-result",
+			"page": "/guide/operations/drill/",
+			"afterHeading": "$intro",
+			"kind": "screenshot",
+			"purpose": "Show the finished holes, which the top-down toolpath cannot convey.",
+			"brief": "The simulated stock after a drilling operation, with the holes bored to depth.",
+			"asset": "operations/drill/result.png",
+			"alt": "The simulated stock after a drilling operation, with a row of holes bored through to depth",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1066,10 +1486,10 @@
 			"afterHeading": "Helical",
 			"kind": "diagram",
 			"purpose": "Explain how a smaller endmill follows a helix to create a larger bore.",
-			"brief": "A top and side view of a cutter following a descending helix inside the requested hole diameter.",
+			"brief": "A top view of the cutter orbit inside the requested hole diameter, plus a vertical cutaway of the continuous helical path winding from the surface to the bore floor.",
 			"asset": "operations/drill/helical-bore.svg",
-			"alt": "Top and side views of a cutter descending helically to create a larger bore",
-			"status": "proposed",
+			"alt": "Top view of a cutter orbiting inside a bore and vertical cutaway of its continuous helical path winding down to the bore floor",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1081,7 +1501,7 @@
 			"brief": "A countersink cross-section labeling V-bit angle, requested opening diameter, and cut depth.",
 			"asset": "operations/drill/countersink-geometry.svg",
 			"alt": "Countersink cross-section showing V-bit angle, opening diameter, and depth",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1093,7 +1513,19 @@
 			"brief": "A 3D rough operation with several Z levels and retained stock around the model visible.",
 			"asset": "operations/3d-surface-rough/rough-levels.png",
 			"alt": "3D surface rough toolpath with stepped Z levels around the model",
-			"status": "proposed",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "surface-rough-result",
+			"page": "/guide/operations/3d-surface-rough/",
+			"afterHeading": "$intro",
+			"kind": "screenshot",
+			"purpose": "Show what the operation leaves in the stock, beside the toolpath that produced it.",
+			"brief": "The simulated stock after roughing, the model shape stepped out in levels with stock still to remove.",
+			"asset": "operations/3d-surface-rough/result.png",
+			"alt": "The simulated stock after a 3D rough pass, the model emerging as a series of stepped levels",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1102,10 +1534,22 @@
 			"afterHeading": "Strategies",
 			"kind": "screenshot",
 			"purpose": "Compare the three finish patterns on the same model.",
-			"brief": "Parallel, Waterline, and Constant scallop finish toolpaths shown side by side on one model.",
+			"brief": "A single 3D finish operation over the model, showing the pass pattern following the surface. The three-way comparison of patterns belongs to strategies/3d-finishing.",
 			"asset": "operations/3d-surface-finish/finish-patterns.png",
 			"alt": "Parallel, waterline, and constant-scallop finish toolpaths on the same model",
-			"status": "proposed",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "surface-finish-result",
+			"page": "/guide/operations/3d-surface-finish/",
+			"afterHeading": "$intro",
+			"kind": "screenshot",
+			"purpose": "Show what the operation leaves in the stock, beside the toolpath that produced it.",
+			"brief": "The simulated stock after the finish pass, the surface smooth where roughing left steps.",
+			"asset": "operations/3d-surface-finish/result.png",
+			"alt": "The simulated stock after a 3D finish pass, the stepped levels replaced by a smooth surface",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1114,34 +1558,70 @@
 			"afterHeading": "$intro",
 			"kind": "screenshot",
 			"purpose": "Show the cleanup passes limited to retained walls and floors.",
-			"brief": "A 3D cleanup toolpath highlighting finish-only passes on retained step walls and floors.",
+			"brief": "A 3D cleanup toolpath over a model with steep flanks, showing the passes it adds where a finish leaves material. Needs geometry with steep and flat regions; a smooth relief gives cleanup nothing to find.",
 			"asset": "operations/3d-surface-cleanup/cleanup-passes.png",
 			"alt": "3D surface cleanup passes on retained step walls and floors",
 			"status": "proposed",
 			"blockedBy": []
 		},
 		{
-			"id": "clearing-offset-parallel",
-			"page": "/guide/strategies/clearing-patterns/",
-			"afterHeading": "How it works",
-			"kind": "diagram",
-			"purpose": "Compare how offset rings and parallel strokes cover the same pocket.",
-			"brief": "The same pocket filled by offset and parallel patterns with cut direction and linking indicated.",
-			"asset": "strategies/clearing-patterns/offset-vs-parallel.svg",
-			"alt": "Offset-ring and parallel-line clearing patterns covering the same pocket",
+			"id": "surface-cleanup-result",
+			"page": "/guide/operations/3d-surface-cleanup/",
+			"afterHeading": "$intro",
+			"kind": "screenshot",
+			"purpose": "Show what the operation leaves in the stock, beside the toolpath that produced it.",
+			"brief": "The simulated stock after cleanup, the steep regions cleared of what the finish left.",
+			"asset": "operations/3d-surface-cleanup/result.png",
+			"alt": "The simulated stock after a 3D cleanup pass, the steep flanks cleared of the scallops the finish left behind",
 			"status": "proposed",
 			"blockedBy": []
 		},
 		{
-			"id": "clearing-seeded-circles",
+			"id": "clearing-pattern-comparison",
 			"page": "/guide/strategies/clearing-patterns/",
-			"afterHeading": "Seeded circles",
+			"afterHeading": "How it works",
+			"kind": "diagram",
+			"purpose": "Compare how the four clearing patterns cover the same pocket.",
+			"brief": "The same pocket filled by offset, parallel, seeded-circle, and trochoidal patterns, with cut direction and linking indicated.",
+			"asset": "strategies/clearing-patterns/pattern-comparison.svg",
+			"alt": "Offset, parallel, seeded-circle, and trochoidal clearing patterns covering the same pocket",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "clearing-seeded-circles",
+			"page": "/guide/strategies/seeded-circles/",
+			"afterHeading": "How it works",
 			"kind": "screenshot",
 			"purpose": "Show how seeded circular regions grow and cover irregular pocket space.",
-			"brief": "A seeded-circle toolpath covering a pocket with several seed regions and their links visible.",
-			"asset": "strategies/clearing-patterns/seeded-circles.png",
-			"alt": "Seeded-circle clearing pattern covering an irregular pocket",
-			"status": "proposed",
+			"brief": "A seeded-circle toolpath covering a large rectangular pocket with several seed regions, concentric clearing rings, and rapid links visible.",
+			"asset": "strategies/seeded-circles/seeded-circles.png",
+			"alt": "Seeded-circle clearing rings growing from several seeds across a large rectangular pocket",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "link-junctions-straight",
+			"page": "/guide/strategies/link-junctions/",
+			"afterHeading": "How it works",
+			"kind": "screenshot",
+			"purpose": "Show the abrupt change of direction created by a straight clearing-ring junction.",
+			"brief": "A close toolpath view of concentric clearing rings joined directly by a straight connection.",
+			"asset": "strategies/link-junctions/straight-link.png",
+			"alt": "Straight connection between two concentric clearing rings",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "link-junctions-rounded",
+			"page": "/guide/strategies/link-junctions/",
+			"afterHeading": "How it works",
+			"kind": "screenshot",
+			"purpose": "Show the smooth transition created by a rounded tangent clearing-ring junction.",
+			"brief": "A close toolpath view of concentric clearing rings joined by a rounded tangent transition.",
+			"asset": "strategies/link-junctions/tangent-link.png",
+			"alt": "Rounded tangent connection between two concentric clearing rings",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1153,7 +1633,7 @@
 			"brief": "A sequence showing target and connected subtract shapes, their depths, and the folded pocket area that is actually cleared.",
 			"asset": "strategies/clearing-patterns/subtract-fold.svg",
 			"alt": "Connected subtract features combining by depth into the area cleared by a pocket",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1165,7 +1645,7 @@
 			"brief": "A trochoidal pocket with rings, advances, and ring-to-ring orbit links visible at useful scale.",
 			"asset": "strategies/trochoidal-cutting/pocket-rings.png",
 			"alt": "Trochoidal pocket toolpath with cutting rings, advances, and orbit links",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1177,7 +1657,7 @@
 			"brief": "A trochoidal edge route following a contour with the oscillating cutter path and endpoint behavior visible.",
 			"asset": "strategies/trochoidal-cutting/edge-route.png",
 			"alt": "Trochoidal edge-route toolpath oscillating along a contour",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1189,7 +1669,7 @@
 			"brief": "Four small path diagrams showing plunge, helical entry, ramp entry, and tangent-arc XY approach and exit.",
 			"asset": "strategies/entry-and-exit/entry-and-approach.svg",
 			"alt": "Plunge, helix, ramp, and tangent-arc XY entry paths",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1201,7 +1681,7 @@
 			"brief": "A comparison of rounded rings, tangent link corners, dogbone relief, and T-bone relief around representative corners.",
 			"asset": "strategies/corners/rounding-and-relief.svg",
 			"alt": "Rounded toolpath corners, tangent links, dogbone relief, and T-bone relief compared",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1210,34 +1690,70 @@
 			"afterHeading": "How it works",
 			"kind": "screenshot",
 			"purpose": "Show where the programmed feed is reduced and how the legend communicates the percentage.",
-			"brief": "A toolpath with slots-only and engagement-based reduced-feed segments visible through the feed-colour legend.",
+			"brief": "A pocket toolpath with reduced-feed segments around a circular island and tight corners, visible through the Feed colours legend.",
 			"asset": "strategies/feed-reduction/feed-reduction-legend.png",
-			"alt": "Toolpath coloured by feed percentage with reduced-feed segments and the feed-colour legend",
-			"status": "proposed",
+			"alt": "Toolpath coloured by feed percentage with reduced-feed segments around an island and the Feed colours legend",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
-			"id": "rest-machining-result",
+			"id": "rest-machining-large-tool",
 			"page": "/guide/strategies/rest-machining/",
 			"afterHeading": "How it works",
 			"kind": "screenshot",
-			"purpose": "Show the generated leftover region and the smaller-tool operation that uses it.",
-			"brief": "A source operation, generated rest region, and smaller-tool rest operation visible together in the tree and canvas.",
-			"asset": "strategies/rest-machining/rest-operation.png",
-			"alt": "Source operation, generated rest region, and smaller-tool rest operation",
-			"status": "proposed",
+			"purpose": "Establish the broad first pass made by the larger roughing tool.",
+			"brief": "Large-tool pocket roughing around a gear-shaped island, before the smaller tool follows the inaccessible areas.",
+			"asset": "strategies/rest-machining/large-tool-roughing.png",
+			"alt": "Large-tool pocket roughing passes around a gear-shaped island",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
-			"id": "finishing-patterns",
-			"page": "/guide/strategies/3d-finishing/",
-			"afterHeading": "Settings",
+			"id": "rest-machining-region-limited-follow-up",
+			"page": "/guide/strategies/rest-machining/",
+			"afterHeading": "How it works",
 			"kind": "screenshot",
-			"purpose": "Compare waterline, constant-scallop, and parallel paths in the strategy context.",
-			"brief": "Three finish paths over the same carved top: waterline, constant scallop, and parallel.",
-			"asset": "strategies/3d-finishing/finish-patterns.png",
-			"alt": "Waterline, constant-scallop, and parallel finish paths over the same 3D surface",
-			"status": "proposed",
+			"purpose": "Show that the smaller follow-up tool is limited to the material the large tool could not reach.",
+			"brief": "The original large-tool path dimmed behind highlighted smaller-tool passes and the Regions that constrain them around the gear-shaped island.",
+			"asset": "strategies/rest-machining/region-limited-follow-up.png",
+			"alt": "Smaller-tool follow-up passes highlighted only in the Regions the large tool could not reach",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "finishing-pattern-parallel",
+			"page": "/guide/strategies/3d-finishing/",
+			"afterHeading": "How it works",
+			"kind": "screenshot",
+			"purpose": "Show the parallel finish path so it can be compared with the other two patterns.",
+			"brief": "A 3D surface finish toolpath over the carved top with the Parallel pattern, framed the same way as the waterline and constant-scallop shots.",
+			"asset": "strategies/3d-finishing/pattern-parallel.png",
+			"alt": "Parallel 3D finish toolpath sweeping straight passes across a carved surface",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "finishing-pattern-waterline",
+			"page": "/guide/strategies/3d-finishing/",
+			"afterHeading": "Waterline",
+			"kind": "screenshot",
+			"purpose": "Show the waterline finish path so it can be compared with the other two patterns.",
+			"brief": "The same operation and framing with the Waterline pattern, so its contour rings read against the parallel passes above.",
+			"asset": "strategies/3d-finishing/pattern-waterline.png",
+			"alt": "Waterline 3D finish toolpath following contour rings around a carved surface",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "finishing-pattern-scallop",
+			"page": "/guide/strategies/3d-finishing/",
+			"afterHeading": "Constant scallop",
+			"kind": "screenshot",
+			"purpose": "Show the constant-scallop finish path so it can be compared with the other two patterns.",
+			"brief": "The same operation and framing with the Constant scallop pattern, whose spacing varies to hold the cusp height.",
+			"asset": "strategies/3d-finishing/pattern-constant-scallop.png",
+			"alt": "Constant-scallop 3D finish toolpath with spacing that varies across a carved surface",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1249,7 +1765,7 @@
 			"brief": "A cross-section through adjacent ball-endmill passes labeling tool radius, stepover, and scallop height.",
 			"asset": "strategies/3d-finishing/scallop-height.svg",
 			"alt": "Adjacent ball-endmill passes showing tool radius, stepover, and scallop height",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1261,7 +1777,7 @@
 			"brief": "A 3D finish path restricted to a visible slope band on a model, with the slope fields shown.",
 			"asset": "strategies/3d-finishing/slope-filter.png",
 			"alt": "3D finish toolpath restricted to a slope band on a model",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1273,7 +1789,7 @@
 			"brief": "The toolpath legend expanded with cutting, rapid, plunge, entry, and clamp-collision controls.",
 			"asset": "verify-export/toolpath-preview/toolpath-legend.png",
 			"alt": "Expanded toolpath legend with movement visibility and clamp-collision controls",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1285,7 +1801,7 @@
 			"brief": "A planar toolpath with the Z-level rail open, renderer control visible, and a representative operation warning nearby.",
 			"asset": "verify-export/toolpath-preview/level-renderer-warning.png",
 			"alt": "Toolpath preview with the Z-level rail, renderer control, and an operation warning",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1297,7 +1813,7 @@
 			"brief": "The 3D view with stock, modeled features, an imported model if useful, and a visible toolpath.",
 			"asset": "verify-export/3d-view/view-3d.png",
 			"alt": "3D view showing stock, modeled features, and a toolpath",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1309,7 +1825,7 @@
 			"brief": "The 3D camera menu open with standard view presets, fit, and reset choices.",
 			"asset": "verify-export/3d-view/camera-menu.png",
 			"alt": "3D camera menu with view presets, fit, and reset choices",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1321,7 +1837,7 @@
 			"brief": "A simulation in progress with the playback bar, speed, step, progress, stop and reset controls, and readouts visible.",
 			"asset": "verify-export/simulation/view-simulation-play.png",
 			"alt": "Simulation in progress with playback, speed, step, progress, stop, reset, and readout controls",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1333,7 +1849,7 @@
 			"brief": "The Export G-code dialog with a machine selected, operation checklist, output options, message area, and code preview.",
 			"asset": "verify-export/gcode-export/cam-export-dialog.png",
 			"alt": "Export G-code dialog with machine, operation checklist, options, messages, and code preview",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1345,19 +1861,19 @@
 			"brief": "The exported motion inspector open over a planar operation with original, optimized, and verified layers and counts visible.",
 			"asset": "verify-export/exported-motion/cam-debug-view-overlay.png",
 			"alt": "Exported motion inspector comparing motion layers, counts, and verification",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
-			"id": "setup-booklet-export",
+			"id": "setup-booklet-sample",
 			"page": "/guide/verify-export/setup-booklets/",
-			"afterHeading": "Export a setup booklet",
+			"afterHeading": "Sample booklet",
 			"kind": "screenshot",
-			"purpose": "Show the operation-specific booklet action and the operation it will summarize.",
-			"brief": "The CAM panel with one operation selected and its Export booklet PDF action visible.",
-			"asset": "verify-export/setup-booklets/cam-operation-booklet.png",
-			"alt": "Selected CAM operation with its Export booklet PDF action",
-			"status": "proposed",
+			"purpose": "Show the practical setup information contained in a finished operation booklet.",
+			"brief": "The first page of a Pocket Rough booklet, including its operation snapshot, overview, tool details, and operation settings.",
+			"asset": "verify-export/setup-booklets/pocket-rough-booklet.png",
+			"alt": "First page of a Pocket Rough operation booklet showing the operation snapshot, overview, tool details, and operation settings",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1369,7 +1885,7 @@
 			"brief": "The Export model dialog on STL settings with format, curve quality, and include imported meshes controls.",
 			"asset": "verify-export/model-export-and-print/sketch-export-stl.png",
 			"alt": "STL export settings for format, curve quality, and imported meshes",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1381,7 +1897,7 @@
 			"brief": "The Export design dialog on SVG settings with area, included content, and colour controls.",
 			"asset": "verify-export/model-export-and-print/sketch-export-svg.png",
 			"alt": "SVG export settings for design area, included content, and colour",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1393,7 +1909,7 @@
 			"brief": "The Print design dialog with paper, print area, scale, offsets, content toggles, and title block visible.",
 			"asset": "verify-export/model-export-and-print/sketch-print-dialog.png",
 			"alt": "Print design dialog with paper, area, scale, offsets, content, and title-block settings",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1405,7 +1921,7 @@
 			"brief": "The Appearance menu open with Dark, Light, System, and Manage themes visible.",
 			"asset": "reference/themes/appearance-menu.png",
 			"alt": "Appearance menu with Dark, Light, System, and Manage themes choices",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1417,7 +1933,7 @@
 			"brief": "The theme manager with built-in themes, an active badge, duplicate-to-edit, import, and mode controls.",
 			"asset": "reference/themes/theme-manager.png",
 			"alt": "Theme manager with built-in themes, active state, duplicate, import, and mode controls",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1429,7 +1945,7 @@
 			"brief": "The custom theme editor with colour rows, panel and canvas previews, and readability messages visible.",
 			"asset": "reference/themes/theme-editor.png",
 			"alt": "Custom theme editor with colour fields, interface previews, and readability feedback",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1441,7 +1957,7 @@
 			"brief": "The Language menu open with all built-in languages and Manage languages visible.",
 			"asset": "reference/languages/language-menu.png",
 			"alt": "Language menu with the built-in languages and Manage languages action",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1453,7 +1969,7 @@
 			"brief": "The language manager with built-in languages, active state, duplicate and edit, and import controls.",
 			"asset": "reference/languages/language-manager.png",
 			"alt": "Language manager with built-in languages, active state, duplicate and edit, and import controls",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1465,7 +1981,7 @@
 			"brief": "The language editor with name and tag, translated counter, search and filters, string rows, and one placeholder mismatch.",
 			"asset": "reference/languages/language-editor.png",
 			"alt": "Language editor with translation progress, filters, string rows, and placeholder validation",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1477,7 +1993,7 @@
 			"brief": "The 3D or Simulation view showing the WebGL unavailable message beside a still-usable Sketch workspace.",
 			"asset": "reference/troubleshooting/webgl-unavailable.png",
 			"alt": "WebGL unavailable message while the Sketch workspace remains usable",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		}
 	]

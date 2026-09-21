@@ -6,13 +6,17 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
+import Screenshot from '../../../../components/Screenshot.astro';
+import outsideRoute from '../../../../assets/manual/operations/edge-route-outside/outside-route.png';
+import outsideResult from '../../../../assets/manual/operations/edge-route-outside/result.png';
 import { Aside } from '@astrojs/starlight/components';
 
 **Edge route outside** follows the outside edge of a closed add or model profile, offset by the
 tool radius. It is the normal operation for separating a finished part from surrounding stock.
 
-<VisualPending id="edge-outside-route" />
+<Screenshot src={outsideRoute} alt="An outside edge route running around a part, with gaps in the toolpath where each tab crosses it" caption="The route runs outside the profile, and breaks where each tab holds the part." />
+
+<Screenshot src={outsideResult} alt="The simulated stock after an outside route, the part standing free in a cleared channel with tabs still joining it to the surrounding material" caption="The channel is cut all the way around; only the tabs still hold the part." />
 
 ## Requirements
 
