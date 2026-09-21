@@ -1,5 +1,6 @@
 ---
-// Layout for the non-manual pages (landing, downloads). Dark-only, like the current site.
+// Layout for the non-manual pages (landing, downloads). It shares the guide's
+// Dark / Light / Auto preference through the `starlight-theme` local-storage key.
 import '../styles/tokens.css';
 import '../styles/marketing.css';
 import { APP_URL, GITHUB_URL, PRIMARY_NAV, isCurrent } from '../data/site-links';
@@ -38,6 +39,14 @@ const pathname = Astro.url.pathname;
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={imageUrl} />
+		<script is:inline>
+			(() => {
+				const saved = localStorage.getItem('starlight-theme');
+				const preference = saved === 'light' || saved === 'dark' ? saved : 'auto';
+				document.documentElement.dataset.theme =
+					preference === 'auto' && matchMedia('(prefers-color-scheme: light)').matches ? 'light' : preference === 'auto' ? 'dark' : preference;
+			})();
+		</script>
 		<script is:inline data-goatcounter="https://purecutcnc.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 	</head>
 	<body>
@@ -60,11 +69,46 @@ const pathname = Astro.url.pathname;
 					</li>
 				</ul>
 			</nav>
+			<label class="theme-control">
+				<span class="sr-only">Select theme</span>
+				<select id="theme-select" aria-label="Select theme">
+					<option value="dark">Dark</option>
+					<option value="light">Light</option>
+					<option value="auto">Auto</option>
+				</select>
+			</label>
 			<a href={APP_URL} class="nav-cta desktop-web-link">Launch App →</a>
 		</header>
 		<main id="main">
 			<slot />
 		</main>
 		<SiteFooter />
+		<script is:inline>
+			(() => {
+				const storageKey = 'starlight-theme';
+				const select = document.querySelector('#theme-select');
+				const media = matchMedia('(prefers-color-scheme: light)');
+				const preference = () => {
+					const saved = localStorage.getItem(storageKey);
+					return saved === 'light' || saved === 'dark' ? saved : 'auto';
+				};
+				const apply = (theme) => {
+					document.documentElement.dataset.theme = theme === 'auto' ? (media.matches ? 'light' : 'dark') : theme;
+					if (select) select.value = theme;
+				};
+				apply(preference());
+				select?.addEventListener('change', () => {
+					const theme = select.value;
+					localStorage.setItem(storageKey, theme === 'auto' ? '' : theme);
+					apply(theme);
+				});
+				media.addEventListener('change', () => {
+					if (preference() === 'auto') apply('auto');
+				});
+				addEventListener('storage', (event) => {
+					if (event.key === storageKey) apply(preference());
+				});
+			})();
+		</script>
 	</body>
 </html>

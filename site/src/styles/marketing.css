@@ -25,6 +25,11 @@ body {
 	line-height: 1.6;
 	-webkit-font-smoothing: antialiased;
 }
+:root[data-theme='light'] body {
+	background:
+		radial-gradient(circle at top, rgba(0, 144, 192, 0.1), transparent 34%) no-repeat fixed,
+		linear-gradient(180deg, #f8fbfd 0%, #f1f5f8 32%, var(--pc-bg) 100%) no-repeat fixed;
+}
 
 a {
 	color: var(--pc-accent);
@@ -130,6 +135,25 @@ code {
 	background: var(--pc-accent-2);
 	color: #fff;
 	text-decoration: none;
+}
+.theme-control select {
+	min-height: 2rem;
+	padding: 0.25rem 0.45rem;
+	border: 1px solid var(--pc-border);
+	border-radius: var(--pc-radius);
+	background: var(--pc-bg-2);
+	color: var(--pc-text);
+	font: inherit;
+	font-size: 0.8rem;
+	line-height: 1;
+	cursor: pointer;
+}
+.theme-control select:hover {
+	border-color: var(--pc-accent-2);
+}
+:root[data-theme='light'] .nav-cta,
+:root[data-theme='light'] .skip-link {
+	color: #fff;
 }
 .github-icon {
 	display: inline-flex;
@@ -501,6 +525,11 @@ code {
 .view-spotlight-image {
 	border-right: 1px solid var(--pc-border);
 	background: #0a0a0c;
+}
+
+:root[data-theme='light'] .media-frame,
+:root[data-theme='light'] .view-spotlight-image {
+	background: var(--pc-bg-3);
 }
 .view-spotlight-copy {
 	display: flex;
