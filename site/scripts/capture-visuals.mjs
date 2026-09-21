@@ -236,8 +236,21 @@ async function addOperation(page, feature, entry, pass = 'Add') {
 				.filter(Boolean),
 		)
 	const before = new Set(await names())
-	await page.getByText(feature, { exact: true }).first().click()
-	await page.waitForTimeout(1200)
+	// Match the tree row by substring: the panel truncates longer names, so an exact
+	// text match misses intermittently and the menu then opens on no selection.
+	await page.evaluate((name) => {
+		const row = [...document.querySelectorAll('.tree-row--feature')].find((r) =>
+			r.textContent.includes(name),
+		)
+		if (!row) {
+			const seen = [...document.querySelectorAll('.tree-row--feature')]
+				.map((r) => r.textContent.trim())
+				.join(' | ')
+			throw new Error(`no feature row for "${name}"; the tree shows: ${seen}`)
+		}
+		row.click()
+	}, feature)
+	await page.waitForTimeout(1500)
 	await page.getByRole('button', { name: /^Add$/ }).first().click()
 	await page.waitForSelector('.cam-add-menu')
 	await page.waitForTimeout(800)
@@ -290,15 +303,43 @@ const clipCentreView = (page) =>
     toolpath level, so nothing has to be played; the scope is set to Selected so the cut
     shown belongs to this operation alone, and Detail is raised because the default
     resolution renders pocket walls as coarse steps. */
-async function simulateResult(page, opName, { detail = 1200, zoom = 0, at = [0.5, 0.5] } = {}) {
+async function simulateResult(
+	page,
+	opName,
+	{ detail = 1200, zoom = 0, at = [0.5, 0.5], through = null } = {},
+) {
+	// Some operations only make sense on top of what came before — a V-carve runs in a
+	// pocket that has already been cleared. Passing `through` shows those operations
+	// too and switches the simulation to the Visible scope, so the cut is cumulative.
+	if (through) {
+		await page.evaluate(() => {
+			const el = [...document.querySelectorAll('button')].find(
+				(b) => (b.getAttribute('aria-label') ?? '') === 'Hide all toolpaths',
+			)
+			el?.click()
+		})
+		await page.waitForTimeout(1200)
+		for (const name of through) {
+			await page.evaluate((n) => {
+				const el = [...document.querySelectorAll('button')].find(
+					(b) => (b.getAttribute('aria-label') ?? '') === `Show toolpath for ${n}`,
+				)
+				if (!el) throw new Error(`no operation named ${n}`)
+				el.click()
+			}, name)
+			await page.waitForTimeout(700)
+		}
+		await page.waitForTimeout(1500)
+	}
 	await page.getByText(opName, { exact: true }).first().click()
 	await page.waitForTimeout(1500)
 	await page.getByRole('tab', { name: /Simulation/i }).click()
 	await page.waitForTimeout(5000)
-	await page.evaluate(() => {
-		const el = [...document.querySelectorAll('button')].find((b) => b.textContent.trim() === 'Selected')
+	const scope = through ? 'Visible' : 'Selected'
+	await page.evaluate((want) => {
+		const el = [...document.querySelectorAll('button')].find((b) => b.textContent.trim() === want)
 		if (el && el.getAttribute('aria-pressed') !== 'true') el.click()
-	})
+	}, scope)
 	await page.waitForTimeout(1500)
 	await page.evaluate((value) => {
 		const slider = [...document.querySelectorAll('input[type=range]')].find(
@@ -1367,18 +1408,30 @@ const RECIPES = [
 	},
 	{
 		id: 'vcarve-medial-result',
-		asset: 'operations/v-carve-medial/toolpath.png',
+		asset: 'operations/v-carve-medial/result.png',
 		fixture: 'PureCutCNC',
 		viewport: { width: 1440, height: 900 },
-		steps: (page) => simulateResult(page, 'V-Carve medial', { zoom: 3, at: [0.5, 0.45] }),
+		// The carve runs in a pocket that has already been cleared, so the shot shows the
+		// operations before it as well.
+		steps: (page) =>
+			simulateResult(page, 'V-Carve medial', {
+				through: ['Pocket Rough', 'Pocket Finish', 'V-Carve medial'],
+				zoom: 6,
+				at: [0.5, 0.42],
+			}),
 		clip: clipCentreView,
 	},
 	{
 		id: 'vcarve-offset-result',
-		asset: 'operations/v-carve-offset/toolpath.png',
+		asset: 'operations/v-carve-offset/result.png',
 		fixture: 'PureCutCNC',
 		viewport: { width: 1440, height: 900 },
-		steps: (page) => simulateResult(page, 'V-Carve offset', { zoom: 3, at: [0.5, 0.5] }),
+		steps: (page) =>
+			simulateResult(page, 'V-Carve offset', {
+				through: ['Pocket Rough', 'Pocket Finish', 'V-Carve medial', 'V-Carve offset'],
+				zoom: 6,
+				at: [0.5, 0.58],
+			}),
 		clip: clipCentreView,
 	},	// These six run on the committed CAM fixture: the bundled examples carry no model
 	// and no open-line geometry, so engrave, edge route inside, surface clean and the
@@ -1463,20 +1516,118 @@ const RECIPES = [
 		},
 		clip: clipCanvas,
 	},
+	// The sketch-view toolpath for each operation whose page previously showed only the
+	// simulated result, and the simulated result for each that showed only a toolpath.
 	{
-		id: 'surface-cleanup-passes',
-		asset: 'operations/3d-surface-cleanup/cleanup-passes.png',
+		id: 'vcarve-medial-toolpath',
+		asset: 'operations/v-carve-medial/toolpath.png',
+		fixture: 'PureCutCNC',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			await onlyToolpath(page, 'V-Carve medial')
+			// The path is one thin line down each stroke, so it needs to be close enough
+			// that it reads against the letter it is carving. The lettering stays visible:
+			// without it the picture is a path with nothing to explain it.
+			await zoomTo(page, 0.42, 0.4, 7)
+		},
+		clip: clipCanvas,
+	},
+	{
+		id: 'vcarve-offset-toolpath',
+		asset: 'operations/v-carve-offset/toolpath.png',
+		fixture: 'PureCutCNC',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			await onlyToolpath(page, 'V-Carve offset')
+			await zoomTo(page, 0.5, 0.58, 4)
+		},
+		clip: clipCanvas,
+	},
+	{
+		id: 'edge-inside-result',
+		asset: 'operations/edge-route-inside/result.png',
+		fixture: 'site/fixtures/cam-demo.camj',
+		viewport: { width: 1440, height: 900 },
+		steps: (page) => simulateResult(page, 'Edge route inside Rough', { zoom: 3, at: [0.68, 0.5] }),
+		clip: clipCentreView,
+	},
+	{
+		id: 'engrave-result',
+		asset: 'operations/engrave/result.png',
 		fixture: 'site/fixtures/cam-demo.camj',
 		viewport: { width: 1440, height: 900 },
 		async steps(page) {
-			// Cleanup targets what a rough and a finish leave behind, so both come first.
-			await addOperation(page, 'cam-demo', '3D surface rough')
-			await addOperation(page, 'cam-demo', '3D surface finish')
-			const op = await addOperation(page, 'cam-demo', '3D surface cleanup')
+			// The fixture carries no engrave operation, so make one on a scroll curve.
+			const op = await addOperation(page, 'Scroll upper 2', 'Engrave')
+			// The groove is shallow, so it only reads close up; the curve sits in the upper
+			// left of the stock, which the simulation's default camera keeps upper left.
+			await simulateResult(page, op, { zoom: 3, at: [0.36, 0.42] })
+		},
+		clip: clipCentreView,
+	},
+	{
+		id: 'surface-clean-result',
+		asset: 'operations/surface-clean/result.png',
+		fixture: 'site/fixtures/cam-demo.camj',
+		viewport: { width: 1440, height: 900 },
+		steps: (page) => simulateResult(page, 'Surface clean Rough', { zoom: 1 }),
+		clip: clipCentreView,
+	},
+	{
+		id: 'surface-rough-result',
+		asset: 'operations/3d-surface-rough/result.png',
+		fixture: 'site/fixtures/cam-demo.camj',
+		viewport: { width: 1440, height: 900 },
+		steps: (page) => simulateResult(page, '3D surface rough', { zoom: 2, at: [0.45, 0.5] }),
+		clip: clipCentreView,
+	},
+	{
+		id: 'surface-finish-result',
+		asset: 'operations/3d-surface-finish/result.png',
+		fixture: 'site/fixtures/cam-demo.camj',
+		viewport: { width: 1440, height: 900 },
+		// After the rough, so the finish reads as the pass that smooths the steps away.
+		steps: (page) =>
+			simulateResult(page, '3D surface finish', {
+				through: ['3D surface rough', '3D surface finish'],
+				zoom: 2,
+				at: [0.45, 0.5],
+			}),
+		clip: clipCentreView,
+	},
+	{
+		id: 'surface-cleanup-passes',
+		asset: 'operations/3d-surface-cleanup/cleanup-passes.png',
+		// A smooth relief gives cleanup nothing to find, so this runs on a model with
+		// steep flanks and flat terraces, imported into an empty project.
+		fixture: 'site/fixtures/cam-terrain.obj',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			await addOperation(page, 'cam-terrain', '3D surface rough')
+			await addOperation(page, 'cam-terrain', '3D surface finish')
+			const op = await addOperation(page, 'cam-terrain', '3D surface cleanup')
 			await onlyToolpath(page, op)
-			await zoomTo(page, 0.34, 0.51, 2)
+			// Cleanup only touches the steep parts, so the point is where its passes fall
+			// on the model as a whole, not the detail of any one loop.
+			await zoomTo(page, 0.5, 0.5, 1)
 		},
 		clip: clipCanvas,
+	},
+	{
+		id: 'surface-cleanup-result',
+		asset: 'operations/3d-surface-cleanup/result.png',
+		fixture: 'site/fixtures/cam-terrain.obj',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			await addOperation(page, 'cam-terrain', '3D surface rough')
+			await addOperation(page, 'cam-terrain', '3D surface finish')
+			const op = await addOperation(page, 'cam-terrain', '3D surface cleanup')
+			await simulateResult(page, op, {
+				through: ['3D surface rough', '3D surface finish', op],
+				zoom: 2,
+			})
+		},
+		clip: clipCentreView,
 	},
 
 	// --- CAM setup ---
@@ -1976,6 +2127,18 @@ const RECIPES = [
 	},
 ]
 
+// Two recipes sharing an id, or writing the same asset, fight over one file and the
+// loser's work vanishes silently. Checked up front rather than discovered in an image.
+for (const [field, label] of [['id', 'id'], ['asset', 'asset']]) {
+	const seen = new Map()
+	for (const recipe of RECIPES) {
+		const key = recipe[field]
+		if (seen.has(key)) throw new Error(`two recipes share the ${label} "${key}"`)
+		seen.set(key, recipe)
+	}
+}
+
+
 function parseArgs(argv) {
 	const args = { only: null, list: false }
 	for (const arg of argv) {
@@ -2027,7 +2190,37 @@ async function capture(browser, recipe) {
 		const page = await context.newPage()
 		await page.goto(APP_URL, { waitUntil: 'networkidle' })
 
-		if (recipe.fixture?.startsWith('site/fixtures/')) {
+		if (/^site\/fixtures\/.+\.(obj|stl|step|stp|svg|dxf)$/i.test(recipe.fixture ?? '')) {
+			// A geometry file rather than a project: start from the empty project the app
+			// opens with, which is the same 4 x 3 x 0.75 in stock as Blank imperial, and
+			// import it. The recorded fixture then names the file the reader would use.
+			await page.getByRole('button', { name: /^close$/i }).first().click().catch(() => {})
+			await page.waitForTimeout(700)
+			await page.getByRole('button', { name: 'Import geometry' }).click()
+			await page.waitForSelector('.dialog--import')
+			await page.locator('input[type=file]').first().setInputFiles(join(repoRoot, recipe.fixture))
+			await page.waitForFunction(
+				() => /Format/.test(document.querySelector('.dialog--import')?.innerText ?? ''),
+				null,
+				{ timeout: 60000 },
+			)
+			await page.waitForTimeout(1200)
+			await page
+				.locator('.import-dialog__info-row', { hasText: 'Source units' })
+				.locator('select')
+				.selectOption('inch')
+				.catch(() => {})
+			await page.waitForTimeout(700)
+			await page.getByRole('button', { name: /^Import$/ }).click()
+			// A dense mesh takes longer than any fixed wait, and a recipe that starts
+			// before the feature exists selects nothing and fails somewhere confusing.
+			await page.waitForFunction(
+				() => document.querySelectorAll('.tree-row--feature').length > 0,
+				null,
+				{ timeout: 180000 },
+			)
+			await page.waitForTimeout(4000)
+		} else if (recipe.fixture?.startsWith('site/fixtures/')) {
 			// A project committed here rather than bundled with the app. Open project builds
 			// a transient file input, so it is driven through the file chooser event.
 			await page.getByRole('button', { name: /^close$/i }).first().click().catch(() => {})

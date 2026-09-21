@@ -6,7 +6,8 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
+import countersinkGeometry from '../../../../assets/manual/operations/drill/countersink-geometry.svg';
+import helicalBore from '../../../../assets/manual/operations/drill/helical-bore.svg';
 import Screenshot from '../../../../components/Screenshot.astro';
 import holeOrder from '../../../../assets/manual/operations/drill/hole-order.png';
 import drillResult from '../../../../assets/manual/operations/drill/result.png';
@@ -16,6 +17,8 @@ import { Aside } from '@astrojs/starlight/components';
 repeated hole patterns and can use canned cycles when the selected machine supports them.
 
 <Screenshot src={holeOrder} alt="Ten holes with rapid moves linking them in a zigzag, showing the order the operation drills them in" caption="The rapids between holes show the order they are drilled in." />
+
+<Screenshot src={drillResult} alt="The simulated stock after drilling, with the row of holes bored into the surface" caption="A drilling toolpath is vertical moves, so the Simulation view is where the holes become visible." />
 
 ## Requirements
 
@@ -38,15 +41,13 @@ Shared settings are documented in [Common operation parameters](/guide/operation
 
 ## Helical
 
-
-<VisualPending id="drill-helical-bore" />
+<Screenshot src={helicalBore} alt="Two views of helical boring: from above, a cutter smaller than the hole running round the bore circle; from the side, that circle descending as a helix to depth" caption="The cutter is smaller than the hole it bores, and works down a helix rather than plunging." />
 Helical boring uses a flat endmill to bore a hole wider than the cutter along a helix. The selected
 circle defines the bore diameter; it does not use the general entry-helix diameter setting.
 
 ## Countersink
 
-
-<VisualPending id="drill-countersink-geometry" />
+<Screenshot src={countersinkGeometry} alt="A cross-section through a countersink showing the V-bit in the cone it cut, with the diameter you set across the mouth, the bit’s 60 degree included angle at the tip, and the resulting depth marked as derived and read-only" caption="You set the diameter; the depth follows from it and the bit angle." />
 Countersink uses a V-bit. Set **Countersink diameter**; the app shows the derived, read-only
 **Countersink depth** from that diameter and the selected V-bit angle.
 
@@ -59,8 +60,6 @@ Countersink uses a V-bit. Set **Countersink diameter**; the app shows the derive
 </Aside>
 
 ## Verifying the result
-
-<Screenshot src={drillResult} alt="The simulated stock after drilling, with the row of holes bored into the surface" caption="A drilling toolpath is vertical moves, so the Simulation view is where the holes become visible." />
 
 Check every selected circle, the cycle parameters, the resulting depth, and any skipped-hole
 warning in the preview.

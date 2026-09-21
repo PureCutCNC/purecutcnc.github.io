@@ -1241,7 +1241,7 @@
 			"brief": "A decision map from facing, clearing, profiling, engraving, drilling, and 3D goals to their compatible operation and target types.",
 			"asset": "operations/index/operation-choice-map.svg",
 			"alt": "Decision map from machining goals and target geometry to PureCutCNC operations",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1271,7 +1271,7 @@
 		{
 			"id": "pocket-result",
 			"page": "/guide/operations/pocket/",
-			"afterHeading": "Verifying the result",
+			"afterHeading": "$intro",
 			"kind": "screenshot",
 			"purpose": "Show what the operation leaves in the stock, next to the toolpath that produced it.",
 			"brief": "The simulated stock after a pocket operation, with the cleared cavities and their floors visible.",
@@ -1305,6 +1305,18 @@
 			"blockedBy": []
 		},
 		{
+			"id": "surface-clean-result",
+			"page": "/guide/operations/surface-clean/",
+			"afterHeading": "$intro",
+			"kind": "screenshot",
+			"purpose": "Show what the operation leaves in the stock, beside the toolpath that produced it.",
+			"brief": "The simulated stock after a surface clean, the material above the feature removed to a flat face.",
+			"asset": "operations/surface-clean/result.png",
+			"alt": "The simulated stock after a surface clean, the material above the plate removed to leave a flat face",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
 			"id": "edge-inside-route",
 			"page": "/guide/operations/edge-route-inside/",
 			"afterHeading": "$intro",
@@ -1313,6 +1325,18 @@
 			"brief": "An inside edge route around a closed profile with the contour and cutter diameter visible.",
 			"asset": "operations/edge-route-inside/inside-route.png",
 			"alt": "Inside edge-route toolpath following the inside of a closed profile",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "edge-inside-result",
+			"page": "/guide/operations/edge-route-inside/",
+			"afterHeading": "$intro",
+			"kind": "screenshot",
+			"purpose": "Show what the operation leaves in the stock, beside the toolpath that produced it.",
+			"brief": "The simulated stock after an inside route, the profile cut open to depth.",
+			"asset": "operations/edge-route-inside/result.png",
+			"alt": "The simulated stock after an inside edge route, the teardrop profile cut open to full depth",
 			"status": "captured",
 			"blockedBy": []
 		},
@@ -1331,7 +1355,7 @@
 		{
 			"id": "edge-outside-result",
 			"page": "/guide/operations/edge-route-outside/",
-			"afterHeading": "Verifying the result",
+			"afterHeading": "$intro",
 			"kind": "screenshot",
 			"purpose": "Show the part cut free of the stock, with the tabs still holding it.",
 			"brief": "The simulated stock after an outside edge route, with the part separated except at its tabs.",
@@ -1346,9 +1370,21 @@
 			"afterHeading": "$intro",
 			"kind": "screenshot",
 			"purpose": "Show the offset V-carve path and its changing depth inside a closed shape.",
-			"brief": "A V-carve offset operation on lettering or a tapered closed profile with the toolpath visible in 3D.",
-			"asset": "operations/v-carve-offset/toolpath.png",
+			"brief": "A V-carve offset shown on top of the pocket it runs in, so the carve reads as part of the machined part rather than floating on untouched stock.",
+			"asset": "operations/v-carve-offset/result.png",
 			"alt": "V-carve offset toolpath with changing depth inside a closed profile",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "vcarve-offset-toolpath",
+			"page": "/guide/operations/v-carve-offset/",
+			"afterHeading": "$intro",
+			"kind": "screenshot",
+			"purpose": "Show the toolpath the operation generates, beside the result it produces.",
+			"brief": "The offset toolpath in the sketch view, clearing each letter from its outline inwards.",
+			"asset": "operations/v-carve-offset/toolpath.png",
+			"alt": "A V-carve offset toolpath in the sketch view, concentric passes working inwards from each letter outline",
 			"status": "captured",
 			"blockedBy": []
 		},
@@ -1359,8 +1395,20 @@
 			"kind": "screenshot",
 			"purpose": "Show the centreline path and variable depth produced by medial carving.",
 			"brief": "A V-carve medial operation on a shape with varying width, shown with its centreline path and 3D result.",
-			"asset": "operations/v-carve-medial/toolpath.png",
+			"asset": "operations/v-carve-medial/result.png",
 			"alt": "V-carve medial centreline toolpath and variable-depth result",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "vcarve-medial-toolpath",
+			"page": "/guide/operations/v-carve-medial/",
+			"afterHeading": "$intro",
+			"kind": "screenshot",
+			"purpose": "Show the toolpath the operation generates, beside the result it produces.",
+			"brief": "The medial toolpath in the sketch view, following the centreline of each stroke.",
+			"asset": "operations/v-carve-medial/toolpath.png",
+			"alt": "A V-carve medial toolpath in the sketch view, a single pass following the centreline of each letter stroke",
 			"status": "captured",
 			"blockedBy": []
 		},
@@ -1389,6 +1437,18 @@
 			"blockedBy": []
 		},
 		{
+			"id": "engrave-result",
+			"page": "/guide/operations/engrave/",
+			"afterHeading": "Strategies",
+			"kind": "screenshot",
+			"purpose": "Show what the operation leaves in the stock, beside the toolpath that produced it.",
+			"brief": "The simulated stock after engraving, the groove cut along the line.",
+			"asset": "operations/engrave/result.png",
+			"alt": "The simulated stock after engraving, a narrow groove following the curve",
+			"status": "proposed",
+			"blockedBy": []
+		},
+		{
 			"id": "drill-hole-order",
 			"page": "/guide/operations/drill/",
 			"afterHeading": "$intro",
@@ -1403,7 +1463,7 @@
 		{
 			"id": "drill-result",
 			"page": "/guide/operations/drill/",
-			"afterHeading": "Verifying the result",
+			"afterHeading": "$intro",
 			"kind": "screenshot",
 			"purpose": "Show the finished holes, which the top-down toolpath cannot convey.",
 			"brief": "The simulated stock after a drilling operation, with the holes bored to depth.",
@@ -1421,7 +1481,7 @@
 			"brief": "A top and side view of a cutter following a descending helix inside the requested hole diameter.",
 			"asset": "operations/drill/helical-bore.svg",
 			"alt": "Top and side views of a cutter descending helically to create a larger bore",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1433,7 +1493,7 @@
 			"brief": "A countersink cross-section labeling V-bit angle, requested opening diameter, and cut depth.",
 			"asset": "operations/drill/countersink-geometry.svg",
 			"alt": "Countersink cross-section showing V-bit angle, opening diameter, and depth",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1445,6 +1505,18 @@
 			"brief": "A 3D rough operation with several Z levels and retained stock around the model visible.",
 			"asset": "operations/3d-surface-rough/rough-levels.png",
 			"alt": "3D surface rough toolpath with stepped Z levels around the model",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "surface-rough-result",
+			"page": "/guide/operations/3d-surface-rough/",
+			"afterHeading": "$intro",
+			"kind": "screenshot",
+			"purpose": "Show what the operation leaves in the stock, beside the toolpath that produced it.",
+			"brief": "The simulated stock after roughing, the model shape stepped out in levels with stock still to remove.",
+			"asset": "operations/3d-surface-rough/result.png",
+			"alt": "The simulated stock after a 3D rough pass, the model emerging as a series of stepped levels",
 			"status": "captured",
 			"blockedBy": []
 		},
@@ -1461,14 +1533,38 @@
 			"blockedBy": []
 		},
 		{
+			"id": "surface-finish-result",
+			"page": "/guide/operations/3d-surface-finish/",
+			"afterHeading": "$intro",
+			"kind": "screenshot",
+			"purpose": "Show what the operation leaves in the stock, beside the toolpath that produced it.",
+			"brief": "The simulated stock after the finish pass, the surface smooth where roughing left steps.",
+			"asset": "operations/3d-surface-finish/result.png",
+			"alt": "The simulated stock after a 3D finish pass, the stepped levels replaced by a smooth surface",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
 			"id": "surface-cleanup-passes",
 			"page": "/guide/operations/3d-surface-cleanup/",
 			"afterHeading": "$intro",
 			"kind": "screenshot",
 			"purpose": "Show the cleanup passes limited to retained walls and floors.",
-			"brief": "A 3D cleanup toolpath highlighting finish-only passes on retained step walls and floors.",
+			"brief": "A 3D cleanup toolpath over a model with steep flanks, showing the passes it adds where a finish leaves material. Needs geometry with steep and flat regions; a smooth relief gives cleanup nothing to find.",
 			"asset": "operations/3d-surface-cleanup/cleanup-passes.png",
 			"alt": "3D surface cleanup passes on retained step walls and floors",
+			"status": "proposed",
+			"blockedBy": []
+		},
+		{
+			"id": "surface-cleanup-result",
+			"page": "/guide/operations/3d-surface-cleanup/",
+			"afterHeading": "$intro",
+			"kind": "screenshot",
+			"purpose": "Show what the operation leaves in the stock, beside the toolpath that produced it.",
+			"brief": "The simulated stock after cleanup, the steep regions cleared of what the finish left.",
+			"asset": "operations/3d-surface-cleanup/result.png",
+			"alt": "The simulated stock after a 3D cleanup pass, the steep flanks cleared of the scallops the finish left behind",
 			"status": "proposed",
 			"blockedBy": []
 		},

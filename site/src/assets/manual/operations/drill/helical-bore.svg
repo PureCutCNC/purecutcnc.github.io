@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 470" role="img" aria-labelledby="title description">
+	<title id="title">How helical boring cuts a hole wider than the cutter</title>
+	<desc id="description">Seen from above, a flat endmill smaller than the hole runs round the bore; seen from the side, that circle descends as a helix until it reaches depth.</desc>
+	<defs>
+		<marker id="hbTick" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+			<path d="M 0 0 L 10 5 L 0 10 z" fill="#00c8ff" />
+		</marker>
+		<marker id="hbArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+			<path d="M 0 0 L 10 5 L 0 10 z" fill="#ff7a5c" />
+		</marker>
+		<style>
+			.title { font: 700 25px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #e2e2e6; }
+			.step { font: 700 11px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; letter-spacing: 0.12em; fill: #00c8ff; }
+			.heading { font: 700 16px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #ffffff; }
+			.detail { font: 14px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #c6c6cf; }
+			.dim { font: 700 13px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #00c8ff; }
+			.dimline { stroke: #00c8ff; stroke-width: 1.5; }
+			.cut { stroke: #ff7a5c; stroke-width: 2.5; fill: none; }
+		</style>
+	</defs>
+
+	<rect width="860" height="470" rx="24" fill="#0c0f14" />
+	<rect x="1" y="1" width="858" height="468" rx="23" fill="none" stroke="#2a2a30" stroke-width="2" />
+	<text class="title" x="430" y="48" text-anchor="middle">A cutter smaller than the hole, spiralling down</text>
+
+	<!-- from above -->
+	<text class="step" x="60" y="96">FROM ABOVE</text>
+	<text class="heading" x="60" y="122">The circle it follows</text>
+	<line x1="112" y1="162" x2="328" y2="162" class="dimline" marker-start="url(#hbTick)" marker-end="url(#hbTick)" />
+	<text class="dim" x="220" y="154" text-anchor="middle">Bore diameter, from the circle you pick</text>
+	<circle cx="220" cy="286" r="108" fill="#12161d" stroke="#5c5c68" stroke-width="2" />
+	<circle cx="220" cy="286" r="78" class="cut" />
+	<path d="M 298 286 A 78 78 0 0 1 280 334" class="cut" marker-end="url(#hbArrow)" />
+	<circle cx="298" cy="286" r="30" fill="#00c8ff" fill-opacity="0.16" stroke="#00c8ff" stroke-width="2" />
+	<line x1="268" y1="286" x2="328" y2="286" class="dimline" marker-start="url(#hbTick)" marker-end="url(#hbTick)" />
+	<text class="dim" x="344" y="290">Cutter</text>
+
+	<!-- from the side -->
+	<text class="step" x="500" y="96">FROM THE SIDE</text>
+	<text class="heading" x="500" y="122">The helix it descends</text>
+	<rect x="500" y="178" width="260" height="216" rx="4" fill="#1a1f29" stroke="#5c5c68" stroke-width="2" />
+	<line x1="500" y1="178" x2="760" y2="178" stroke="#9a9aa8" stroke-width="2.5" />
+	<path d="M 546 196 C 598 222, 662 222, 714 196" class="cut" />
+	<path d="M 714 196 C 662 240, 598 240, 546 228" class="cut" stroke-opacity="0.85" />
+	<path d="M 546 228 C 598 272, 662 272, 714 228" class="cut" stroke-opacity="0.75" />
+	<path d="M 714 228 C 662 304, 598 304, 546 282" class="cut" stroke-opacity="0.65" />
+	<path d="M 546 282 C 598 326, 662 326, 714 282" class="cut" stroke-opacity="0.55" marker-end="url(#hbArrow)" />
+	<line x1="546" y1="196" x2="546" y2="340" stroke="#5c5c68" stroke-width="1.5" stroke-dasharray="5 4" />
+	<line x1="714" y1="196" x2="714" y2="340" stroke="#5c5c68" stroke-width="1.5" stroke-dasharray="5 4" />
+	<line x1="784" y1="178" x2="784" y2="310" class="dimline" marker-start="url(#hbTick)" marker-end="url(#hbTick)" />
+	<text class="dim" x="776" y="248" text-anchor="end">Depth</text>
+
+	<text class="detail" x="430" y="444" text-anchor="middle">The selected circle sets the bore, not the general entry-helix diameter.</text>
+</svg>

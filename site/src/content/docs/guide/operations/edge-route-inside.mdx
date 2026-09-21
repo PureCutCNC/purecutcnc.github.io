@@ -8,6 +8,7 @@ status: draft
 
 import Screenshot from '../../../../components/Screenshot.astro';
 import insideRoute from '../../../../assets/manual/operations/edge-route-inside/inside-route.png';
+import insideResult from '../../../../assets/manual/operations/edge-route-inside/result.png';
 import { Aside } from '@astrojs/starlight/components';
 
 **Edge route inside** follows the inside edge of a closed subtract profile, offset by the tool
@@ -15,6 +16,8 @@ radius. Use it for a precise internal contour or opening when a Pocket would rem
 material.
 
 <Screenshot src={insideRoute} alt="An inside edge route running around a teardrop-shaped pocket, the toolpath offset inside the profile by the cutter radius" caption="An inside route follows the profile from within, offset by the cutter radius." />
+
+<Screenshot src={insideResult} alt="The simulated stock after an inside edge route, the teardrop profile cut open through the plate with clean vertical walls" caption="The same operation in the Simulation view: the profile cut open to depth." />
 
 ## Requirements
 

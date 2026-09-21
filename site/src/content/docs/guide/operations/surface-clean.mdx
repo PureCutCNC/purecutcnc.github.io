@@ -8,6 +8,7 @@ status: draft
 
 import Screenshot from '../../../../components/Screenshot.astro';
 import cleanBands from '../../../../assets/manual/operations/surface-clean/toolpath-bands.png';
+import cleanResult from '../../../../assets/manual/operations/surface-clean/result.png';
 import { Aside } from '@astrojs/starlight/components';
 
 **Surface clean** machines the flat top of closed add or model features around taller add
@@ -15,6 +16,8 @@ features. Use it for pads, terraces, and stepped surfaces rather than as a subst
 outside contour cut.
 
 <Screenshot src={cleanBands} alt="A surface clean toolpath covering the top of an add feature in offset bands, stepping down through the material above it" caption="Surface clean removes the material above a feature’s top in bands, down to the height you set." />
+
+<Screenshot src={cleanResult} alt="The simulated stock after a surface clean, the material above the plate removed to a flat floor with the relief left standing" caption="Surface clean takes the stock down to the feature’s top, leaving a flat face." />
 
 ## Requirements
 

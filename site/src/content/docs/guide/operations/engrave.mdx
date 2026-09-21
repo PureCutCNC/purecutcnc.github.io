@@ -7,6 +7,7 @@ status: draft
 ---
 
 import Screenshot from '../../../../components/Screenshot.astro';
+import VisualPending from '../../../../components/VisualPending.astro';
 import engraveDirect from '../../../../assets/manual/operations/engrave/direct.png';
 import engraveTrochoidal from '../../../../assets/manual/operations/engrave/trochoidal.png';
 import { Aside } from '@astrojs/starlight/components';
@@ -38,9 +39,12 @@ Shared settings are documented in [Common operation parameters](/guide/operation
 <Screenshot src={engraveDirect} alt="An engrave toolpath following an open curve once, with direction arrows along it" caption="Direct engraving follows the line once, at the depth you set." />
 
 <Screenshot src={engraveTrochoidal} alt="The same curve engraved with the Trochoidal strategy, the cutter orbiting in a dense chain of loops along the line instead of following it once" caption="Trochoidal engraving orbits along the line, so the cutter is never fully buried in the cut." />
+
+<VisualPending id="engrave-result" />
 See [Trochoidal cutting](/guide/strategies/trochoidal-cutting/#slots) for the wider-slot strategy.
 
 ## Verifying the result
+
 
 <Aside type="caution" title="Check the actual top Z">
 	Inspect the preview where a path crosses or sits inside other features. Confirm the depth and

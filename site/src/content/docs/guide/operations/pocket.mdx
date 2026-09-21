@@ -11,14 +11,12 @@ import targetHighlight from '../../../../assets/manual/operations/pocket/target-
 import pocketResult from '../../../../assets/manual/operations/pocket/result.png';
 import { Aside } from '@astrojs/starlight/components';
 import Screenshot from '../../../../components/Screenshot.astro';
-import opPocket from '../../../../assets/manual/operations/pocket/offset-toolpath.png';
-import operationHighlight from '../../../../assets/manual/operations/pocket/target-highlight.png';
 
 **Pocket** clears the interior of a closed subtract feature. It supports rough and finish passes and four clearing patterns.
 
-<Screenshot src={opPocket} alt="Pocket clearing toolpath with offset passes inside a closed profile" maxWidth={374} />
-
 <Screenshot src={offsetToolpath} alt="Pickup and neck cavities on a guitar body, each filled with concentric offset rings that step inward from the cavity wall to its centre" caption="Offset clearing steps inward from the wall, one ring at a time, until the cavity is cleared." />
+
+<Screenshot src={pocketResult} alt="The simulated stock after the pocket pass, with each cavity cleared to a flat floor and square walls" caption="The same operation in the Simulation view: what it actually leaves in the stock." />
 
 ## Requirements
 
@@ -38,11 +36,6 @@ import operationHighlight from '../../../../assets/manual/operations/pocket/targ
 Select the operation in the operations list to edit its parameters in the right panel. Selecting
 an operation also **highlights its target features** on the canvas and in the feature tree, so you
 can see exactly which geometry it will cut before you adjust anything.
-
-<Screenshot
-	src={operationHighlight}
-	alt="Operations list with an operation selected and its target features highlighted on the canvas and in the feature tree"
-/>
 
 <Screenshot src={targetHighlight} alt="A pocket operation selected, with its target features outlined in red on the canvas and the matching row highlighted in the feature tree" caption="Selecting an operation highlights the features it cuts, on the canvas and in the tree." />
 
@@ -94,8 +87,6 @@ It also supports [entry and exit moves](/guide/strategies/entry-and-exit/),
 [rest machining](/guide/strategies/rest-machining/).
 
 ## Verifying the result
-
-<Screenshot src={pocketResult} alt="The simulated stock after the pocket pass, with each cavity cleared to a flat floor and square walls" caption="The same operation in the Simulation view: what it actually leaves in the stock." />
 
 <Aside type="caution" title="Check the floor and walls in simulation">
 	The pocket floor is the feature's Z bottom, and a finish pass only reaches final size when its

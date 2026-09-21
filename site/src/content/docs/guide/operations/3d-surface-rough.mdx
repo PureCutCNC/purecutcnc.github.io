@@ -8,12 +8,15 @@ status: draft
 
 import Screenshot from '../../../../components/Screenshot.astro';
 import roughLevels from '../../../../assets/manual/operations/3d-surface-rough/rough-levels.png';
+import roughResult from '../../../../assets/manual/operations/3d-surface-rough/result.png';
 import { Aside } from '@astrojs/starlight/components';
 
 **3D surface rough** removes bulk material from a model in horizontal levels. Use it before 3D
 surface finish when the model needs a controlled roughing pass rather than a 2.5D pocket.
 
 <Screenshot src={roughLevels} alt="A 3D rough toolpath over a relief model, cutting at several Z levels with stock still standing around the model" caption="Roughing works down in levels, leaving stock around the model for the finish pass to take." />
+
+<Screenshot src={roughResult} alt="The simulated stock after a 3D rough pass, the relief emerging as a series of stepped levels inside a cleared recess" caption="Roughing leaves the shape in steps. The finish pass takes those away." />
 
 ## Requirements
 

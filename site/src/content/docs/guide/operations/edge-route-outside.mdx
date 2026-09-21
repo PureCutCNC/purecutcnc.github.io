@@ -16,6 +16,8 @@ tool radius. It is the normal operation for separating a finished part from surr
 
 <Screenshot src={outsideRoute} alt="An outside edge route running around a part, with gaps in the toolpath where each tab crosses it" caption="The route runs outside the profile, and breaks where each tab holds the part." />
 
+<Screenshot src={outsideResult} alt="The simulated stock after an outside route, the part standing free in a cleared channel with tabs still joining it to the surrounding material" caption="The channel is cut all the way around; only the tabs still hold the part." />
+
 ## Requirements
 
 | Requirement | Value |
@@ -49,8 +51,6 @@ See [Trochoidal cutting](/guide/strategies/trochoidal-cutting/#edge-routes).
 </Aside>
 
 ## Verifying the result
-
-<Screenshot src={outsideResult} alt="The simulated stock after an outside route, the part standing free in a cleared channel with tabs still joining it to the surrounding material" caption="The channel is cut all the way around; only the tabs still hold the part." />
 
 Confirm the tool stays on the outside of the intended contour, preserves each tab, and does not
 conflict with clamps or the planned machining order.
