@@ -186,15 +186,15 @@ async function zoomTo(page, fx, fy, steps = 5) {
 
 /** Pick a value in one of the properties panel's custom dropdowns, found by the value it
     currently shows. These are not <select> elements, so selectOption does not reach them. */
-async function setUiSelect(page, current, value) {
-	await page.evaluate((cur) => {
-		const label = [...document.querySelectorAll('.panel-right .ui-select__label')].find(
+async function setUiSelect(page, current, value, scope = '.panel-right') {
+	await page.evaluate(([cur, sel]) => {
+		const label = [...document.querySelectorAll(`${sel} .ui-select__label`)].find(
 			(e) => e.textContent.trim() === cur,
 		)
 		const trigger = label?.closest('.ui-select')?.querySelector('.ui-select__trigger')
 		if (!trigger) throw new Error(`no dropdown currently showing "${cur}"`)
 		trigger.click()
-	}, current)
+	}, [current, scope])
 	await page.waitForTimeout(900)
 	// A synthetic click on the option does not commit the choice — the control listens
 	// for real pointer input — so this goes through Playwright. Labels carry qualifiers
@@ -215,11 +215,11 @@ async function setUiSelect(page, current, value) {
 	)
 	await page.waitForTimeout(2000)
 	const now = await page.evaluate(
-		(cur) =>
-			[...document.querySelectorAll('.panel-right .ui-select__label')].some(
+		([cur, sel]) =>
+			[...document.querySelectorAll(`${sel} .ui-select__label`)].some(
 				(e) => e.textContent.trim() === cur,
 			),
-		current,
+		[current, scope],
 	)
 	if (now) throw new Error(`the dropdown still shows "${current}"; the choice did not take`)
 }
@@ -543,6 +543,158 @@ async function pickShape(page, name) {
 	await page.waitForTimeout(450)
 	await page.getByRole('button', { name, exact: true }).click()
 	await page.waitForTimeout(500)
+}
+
+/** The centre view together with the simulation's transport bar, which floats a little
+    wider than the view and would otherwise be clipped at its left edge. */
+const clipCentreViewWithBar = (page) =>
+	page.evaluate(() => {
+		const view = document.querySelector('.centre-view--active').getBoundingClientRect()
+		const bar = document.querySelector('.simulation-playback-bar')?.getBoundingClientRect()
+		const left = Math.min(view.x, bar?.x ?? view.x)
+		const right = Math.max(view.right, bar?.right ?? view.right)
+		const bottom = Math.max(view.bottom, bar?.bottom ?? view.bottom)
+		return {
+			x: Math.round(Math.max(left, 0)),
+			y: Math.round(view.y),
+			width: Math.round(Math.min(right, window.innerWidth) - Math.max(left, 0)),
+			height: Math.round(Math.min(bottom, window.innerHeight) - view.y),
+		}
+	})
+
+/** The CAM panel from its top down through the properties section's header, which is
+    where the per-operation export actions live. */
+const clipCamThroughPropertiesHeader = (page) =>
+	page.evaluate(() => {
+		const panel = document.querySelector('.panel-right').getBoundingClientRect()
+		const header = document
+			.querySelector('.cam-section--properties .cam-section-header')
+			?.getBoundingClientRect()
+		const bottom = header ? header.bottom + 72 : panel.bottom
+		return {
+			x: Math.round(panel.x),
+			y: Math.round(panel.y),
+			width: Math.round(Math.min(panel.width, window.innerWidth - panel.x)),
+			height: Math.round(Math.min(bottom, window.innerHeight) - panel.y),
+		}
+	})
+
+/** Select an operation in the CAM panel, which is what puts its properties on screen. */
+async function selectOperation(page, name) {
+	// Scoped to the CAM panel: the feature tree lists the operations too, and clicking
+	// a name there leaves the properties panel on "Select an operation".
+	await page.locator('.panel-right').getByText(name, { exact: true }).first().click()
+	await page.waitForTimeout(1600)
+}
+
+/** Open the sketch viewport's toolpath legend. It remembers its state, so this only
+    clicks when it is actually closed — clicking regardless closes an open one. */
+async function expandLegend(page) {
+	const button = page.locator('.sketch-toolpath-vis .viewport-toolpath-vis__label')
+	if ((await button.getAttribute('aria-expanded')) !== 'true') {
+		await button.click()
+		await page.waitForTimeout(1500)
+	}
+}
+
+/** Isolate one planar Z level on the legend's level rail, counting from the deepest.
+    The rail only exists for planar toolpaths, and it starts on All. */
+async function setLevelRail(page, fromDeepest = 1) {
+	const value = await page.evaluate((n) => {
+		const input = document.querySelector('.toolpath-level-rail__input')
+		if (!input) throw new Error('no level rail; is the selected operation planar?')
+		const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set
+		setter.call(input, String(n))
+		input.dispatchEvent(new Event('input', { bubbles: true }))
+		input.dispatchEvent(new Event('change', { bubbles: true }))
+		return document.querySelector('.toolpath-level-rail__value')?.textContent?.trim()
+	}, fromDeepest)
+	await page.waitForTimeout(1500)
+	const shown = await page.evaluate(
+		() => document.querySelector('.toolpath-level-rail__value')?.textContent?.trim(),
+	)
+	if (!shown || shown === 'All') throw new Error(`the level rail still shows ${shown ?? 'nothing'}`)
+	return value
+}
+
+/** The top-left corner of the sketch viewport, where the legend and level rail sit. */
+const clipCanvasCorner = (width, height) => async (page) => {
+	const { x, y, w, h } = await canvasRect(page)
+	return { x, y, width: Math.min(width, w), height: Math.min(height, h) }
+}
+
+/** Name a machine on the project, which G-code export needs and no bundled example sets. */
+async function chooseMachine(page, name) {
+	await page.evaluate(() => document.querySelector('.tree-row--project')?.click())
+	await page.waitForTimeout(1500)
+	await setUiSelect(page, 'None', name, '.panel-left')
+}
+
+/** Open the CAM panel's Export G-code dialog and wait for it to prepare a program. */
+async function openExportDialog(page) {
+	await page.getByRole('button', { name: /^Export$/ }).first().click()
+	await page.waitForSelector('.dialog-body--gcode-export', { timeout: 60000 })
+	await page.waitForTimeout(4000)
+}
+
+/** The operations the CAM panel currently lists, by the name it puts in its own
+    show/hide labels — the only place the panel spells each one out in full. */
+const operationNames = (page) =>
+	page.evaluate(() =>
+		[...document.querySelectorAll('.panel-right button')]
+			.map((b) => (b.getAttribute('aria-label') ?? '').match(/^(?:Show|Hide) toolpath for (.+)$/)?.[1])
+			.filter(Boolean),
+	)
+
+/** One framing for the three finishing patterns, closer than the toolpath shot on the
+    3D surface finish page: what differs between them is the texture of the passes, not
+    the extent of the path. */
+const finishFraming = (page) => zoomTo(page, 0.3, 0.46, 4)
+
+/** Open one of the operation properties' collapsible groups. It reports its state
+    through aria-expanded, so a group that is already open is left alone. */
+async function openPropertiesGroup(page, title) {
+	await page.evaluate((want) => {
+		const header = [...document.querySelectorAll('.panel-right .disclosure-section__header')].find(
+			(b) => b.querySelector('.disclosure-section__title')?.textContent.trim().toLowerCase() === want,
+		)
+		if (!header) {
+			const seen = [...document.querySelectorAll('.panel-right .disclosure-section__title')]
+				.map((e) => e.textContent.trim())
+				.join(', ')
+			throw new Error(`no properties group "${want}"; the panel offers: ${seen}`)
+		}
+		if (header.getAttribute('aria-expanded') !== 'true') header.click()
+	}, title.toLowerCase())
+	await page.waitForTimeout(1500)
+}
+
+/** Turn one legend toggle on or off. Like the move types, it reports through
+    aria-pressed, so its class says nothing about whether it is on. */
+async function toggleLegendItem(page, name, on = true) {
+	await expandLegend(page)
+	await page.evaluate(
+		([label, want]) => {
+			const button = [...document.querySelectorAll('.sketch-toolpath-vis .viewport-toolpath-vis__item')].find(
+				(e) => e.textContent.trim() === label,
+			)
+			if (!button) throw new Error(`no legend item "${label}"`)
+			if ((button.getAttribute('aria-pressed') === 'true') !== want) button.click()
+		},
+		[name, on],
+	)
+	await page.waitForTimeout(2500)
+}
+
+/** The Appearance or Language menu, which both use the same popover. */
+async function openShellMenu(page, trigger, item) {
+	await page.locator(trigger).click()
+	await page.waitForSelector('.appearance-menu')
+	await page.waitForTimeout(700)
+	if (item) {
+		await page.getByRole('menuitem', { name: item }).click()
+		await page.waitForTimeout(1200)
+	}
 }
 
 const RECIPES = [
@@ -2125,6 +2277,382 @@ const RECIPES = [
 		},
 		clip: clipCanvas,
 	},
+	// --- Strategies ---
+	// The teardrop pocket in the CAM fixture is a real area rather than a thin border, so
+	// it is the one feature here that can actually show a clearing pattern.
+	{
+		id: 'trochoidal-clearing',
+		asset: 'strategies/trochoidal-cutting/pocket-rings.png',
+		fixture: 'site/fixtures/cam-demo.camj',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			const op = await addOperation(page, 'Teardrop pocket', 'Pocket', 'Rough')
+			await openPropertiesGroup(page, 'Strategy')
+			await setUiSelect(page, 'Offset', 'Trochoidal')
+			await onlyToolpath(page, op)
+			// Closer than the seeded-circle shot: the point here is the shape of one orbit
+			// and the link to the next, not the coverage of the whole pocket.
+			await zoomTo(page, 0.68, 0.5, 4)
+		},
+		clip: clipCanvas,
+	},
+	{
+		id: 'trochoidal-edge-route',
+		asset: 'strategies/trochoidal-cutting/edge-route.png',
+		fixture: 'site/fixtures/cam-demo.camj',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			await selectOperation(page, 'Edge route inside Rough')
+			await openPropertiesGroup(page, 'Strategy')
+			// An edge route's own Strategy control, which starts on Contour.
+			await setUiSelect(page, 'Contour', 'Trochoidal')
+			await onlyToolpath(page, 'Edge route inside Rough')
+			await zoomTo(page, 0.68, 0.5, 4)
+		},
+		clip: clipCanvas,
+	},
+	{
+		id: 'finishing-pattern-parallel',
+		asset: 'strategies/3d-finishing/pattern-parallel.png',
+		fixture: 'site/fixtures/cam-demo.camj',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			// Parallel is the operation's default, so nothing has to be changed for it.
+			await selectOperation(page, '3D surface finish')
+			await openPropertiesGroup(page, 'Strategy')
+			await onlyToolpath(page, '3D surface finish')
+			await finishFraming(page)
+		},
+		clip: clipCanvas,
+	},
+	{
+		id: 'finishing-pattern-waterline',
+		asset: 'strategies/3d-finishing/pattern-waterline.png',
+		fixture: 'site/fixtures/cam-demo.camj',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			await selectOperation(page, '3D surface finish')
+			await openPropertiesGroup(page, 'Strategy')
+			await setUiSelect(page, 'Parallel', 'Waterline')
+			await onlyToolpath(page, '3D surface finish')
+			await finishFraming(page)
+		},
+		clip: clipCanvas,
+	},
+	{
+		id: 'finishing-pattern-scallop',
+		asset: 'strategies/3d-finishing/pattern-constant-scallop.png',
+		fixture: 'site/fixtures/cam-demo.camj',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			await selectOperation(page, '3D surface finish')
+			await openPropertiesGroup(page, 'Strategy')
+			await setUiSelect(page, 'Parallel', 'Constant scallop')
+			await onlyToolpath(page, '3D surface finish')
+			await finishFraming(page)
+		},
+		clip: clipCanvas,
+	},
+	{
+		id: 'finishing-slope-filter',
+		asset: 'strategies/3d-finishing/slope-filter.png',
+		fixture: 'site/fixtures/cam-demo.camj',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			await selectOperation(page, '3D surface finish')
+			await openPropertiesGroup(page, 'Strategy')
+			// Matched by the label it sits in: the panel has several checkboxes and the
+			// last of them is Debug toolpath.
+			await page
+				.locator('.panel-right .properties-check', { hasText: 'Filter by surface slope' })
+				.locator('input[type=checkbox]')
+				.check()
+			await page.waitForTimeout(3000)
+			await page.waitForFunction(
+				() =>
+					[...document.querySelectorAll('button')].some((b) =>
+						/Toolpaths up to date/.test(b.getAttribute('aria-label') ?? ''),
+					),
+				null,
+				{ timeout: 300000 },
+			)
+			await page.waitForTimeout(2500)
+			await onlyToolpath(page, '3D surface finish')
+			await zoomTo(page, 0.34, 0.51, 1)
+		},
+		// The fields have to be in shot: a path with a band missing means nothing without
+		// the bounds that removed it.
+		clip: clipCanvasAndCam,
+	},
+
+	// --- Verify and export ---
+	// The toolpath preview, the 3D and simulation views, and the four export gates.
+	{
+		id: 'toolpath-preview-legend',
+		asset: 'verify-export/toolpath-preview/toolpath-legend.png',
+		fixture: 'site/fixtures/cam-demo.camj',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			// A planar operation, so the legend carries the level rail as well as the
+			// move-type buttons; the page calls both of them the legend.
+			await onlyToolpath(page, 'Edge route outside Rough')
+			await selectOperation(page, 'Edge route outside Rough')
+			await expandLegend(page)
+			// The outside route runs round the stock, so a step in puts toolpath under the
+			// legend rather than empty canvas.
+			await zoomTo(page, 0.3, 0.3, 1)
+		},
+		// The legend is a 36px strip, which on its own is a sliver. This takes the corner
+		// of the viewport it sits in, so a reader can find it rather than only read it.
+		clip: clipCanvasCorner(710, 320),
+	},
+	{
+		id: 'toolpath-preview-controls',
+		asset: 'verify-export/toolpath-preview/level-renderer-warning.png',
+		fixture: 'site/fixtures/cam-demo.camj',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			// Surface clean has no rail — its levels are not planar cut depths. The outside
+			// route has several, and it runs right round the stock, so the one level the
+			// rail leaves showing is large enough to read.
+			await onlyToolpath(page, 'Edge route outside Rough')
+			await selectOperation(page, 'Edge route outside Rough')
+			await expandLegend(page)
+			await setLevelRail(page, 1)
+		},
+		clip: clipCanvas,
+	},
+	{
+		id: 'view-3d-model-toolpath',
+		asset: 'verify-export/3d-view/view-3d.png',
+		fixture: 'site/fixtures/cam-demo.camj',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			// One operation's path, so the model underneath is still visible.
+			await onlyToolpath(page, 'Edge route outside Rough')
+			await page.getByRole('tab', { name: /3D view/i }).click()
+			await page.waitForTimeout(6000)
+		},
+		clip: clipCentreView,
+	},
+	{
+		id: 'view-3d-camera-menu',
+		asset: 'verify-export/3d-view/camera-menu.png',
+		fixture: 'site/fixtures/cam-demo.camj',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			await page.getByRole('tab', { name: /3D view/i }).click()
+			await page.waitForTimeout(6000)
+			await page.getByRole('button', { name: 'Camera view' }).first().click()
+			await page.waitForSelector('.view-preset-menu__panel')
+			await page.waitForTimeout(900)
+		},
+		clip: clipDialog('.view-preset-menu__panel', 40),
+	},
+	{
+		id: 'simulation-playback',
+		asset: 'verify-export/simulation/view-simulation-play.png',
+		fixture: 'site/fixtures/cam-demo.camj',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			// Mid-run is the only state that shows the readouts with something in them, so
+			// this plays the operation and captures while the tool is still cutting.
+			await simulateResult(page, 'Edge route outside Rough', { detail: 900, zoom: 1 })
+			// Tool playback is off until it is asked for; the transport bar only exists
+			// once it is on. The transport buttons are glyphs, so they are found by title.
+			await page.getByRole('button', { name: 'Play tool' }).click()
+			await page.waitForTimeout(2500)
+			await page.locator('[title="Play"]').first().click()
+			await page.waitForTimeout(5000)
+		},
+		// The playback bar floats a little wider than the view it belongs to.
+		clip: clipCentreViewWithBar,
+	},
+	{
+		id: 'gcode-export-dialog',
+		asset: 'verify-export/gcode-export/cam-export-dialog.png',
+		fixture: 'PureCutCNC',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			// Neither bundled example names a machine, and without one the dialog is all
+			// error and no preview — which is not what the page is teaching.
+			await chooseMachine(page, 'GRBL 1.1')
+			await openExportDialog(page)
+		},
+		clip: clipDialog('.dialog-backdrop .dialog', 44),
+	},
+	{
+		id: 'exported-motion-inspector',
+		asset: 'verify-export/exported-motion/cam-debug-view-overlay.png',
+		fixture: 'PureCutCNC',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			await chooseMachine(page, 'GRBL 1.1')
+			await openExportDialog(page)
+			// The inspector is offered for exactly one eligible planar operation.
+			await page.getByRole('button', { name: 'Deselect all' }).click()
+			await page.waitForTimeout(900)
+			await page.getByRole('checkbox', { name: /Pocket Rough/ }).first().check()
+			await page.waitForTimeout(3000)
+			await page.getByRole('button', { name: 'Inspect exported motion' }).click()
+			await page.waitForSelector('.dialog--motion-debug')
+			await page.waitForTimeout(3000)
+		},
+		clip: clipDialog('.dialog--motion-debug', 30),
+	},
+	{
+		id: 'model-export-stl',
+		asset: 'verify-export/model-export-and-print/sketch-export-stl.png',
+		fixture: 'PureCutCNC',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			await page.getByRole('button', { name: 'Export model' }).first().click()
+			await page.waitForSelector('.dialog-backdrop .dialog')
+			await page.waitForTimeout(2500)
+		},
+		clip: clipDialog('.dialog-backdrop .dialog', 44),
+	},
+	{
+		id: 'model-export-svg',
+		asset: 'verify-export/model-export-and-print/sketch-export-svg.png',
+		fixture: 'PureCutCNC',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			await page.getByRole('button', { name: 'Export model' }).first().click()
+			await page.waitForSelector('.dialog-backdrop .dialog')
+			await page.waitForTimeout(2500)
+			// The format dropdown is the dialog's first, and it listens for pointer input,
+			// so this goes through Playwright rather than a synthetic click.
+			await page.locator('.dialog-backdrop .dialog .ui-select__trigger').first().click()
+			await page.waitForTimeout(800)
+			await page.locator('.ui-select--open .ui-select__option', { hasText: 'SVG' }).first().click()
+			await page.waitForTimeout(2500)
+			const shown = await page.locator('.dialog-backdrop .dialog').innerText()
+			if (!/SVG/.test(shown.split('\n')[2] ?? '')) throw new Error('the format is still not SVG')
+		},
+		clip: clipDialog('.dialog-backdrop .dialog', 44),
+	},
+	{
+		id: 'model-print-dialog',
+		asset: 'verify-export/model-export-and-print/sketch-print-dialog.png',
+		fixture: 'PureCutCNC',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			await page.getByRole('button', { name: 'Print design' }).first().click()
+			await page.waitForSelector('.dialog--print-design')
+			await page.waitForTimeout(3000)
+		},
+		clip: clipDialog('.dialog--print-design', 40),
+	},
+
+	{
+		id: 'troubleshooting-webgl-unavailable',
+		asset: 'reference/troubleshooting/webgl-unavailable.png',
+		fixture: 'site/fixtures/cam-demo.camj',
+		viewport: { width: 1440, height: 900 },
+		// Refuse every WebGL context, which is what a machine without WebGL2 does. The 2D
+		// canvas has to keep working: the point of the shot is that the rest of the app does.
+		initScript: () => {
+			const real = HTMLCanvasElement.prototype.getContext
+			HTMLCanvasElement.prototype.getContext = function (type, ...rest) {
+				if (typeof type === 'string' && type.startsWith('webgl')) return null
+				return real.call(this, type, ...rest)
+			}
+		},
+		async steps(page) {
+			await page.getByRole('tab', { name: /3D view/i }).click()
+			await page.waitForTimeout(4000)
+			const shown = await page.locator('.viewport-webgl-overlay').first().innerText()
+			if (!/WebGL2/.test(shown)) throw new Error(`the overlay says: ${shown}`)
+		},
+		// The whole window: the message is only half the point, and the other half is the
+		// tree, properties and CAM panel still working beside it.
+		clip: undefined,
+	},
+
+	// --- Reference: themes and languages ---
+	// Appearance and Language are shell controls, so these run on the project the app
+	// opens with: the dialog is the subject and an empty workspace keeps it uncluttered.
+	{
+		id: 'themes-appearance-menu',
+		asset: 'reference/themes/appearance-menu.png',
+		viewport: { width: 1440, height: 900 },
+		steps: (page) => openShellMenu(page, '.appearance-control__trigger'),
+		// Enough margin to take in the whole toolbar the menu hangs from.
+		clip: clipDialog('.appearance-menu', 60),
+	},
+	{
+		id: 'themes-manager',
+		asset: 'reference/themes/theme-manager.png',
+		viewport: { width: 1440, height: 900 },
+		steps: (page) => openShellMenu(page, '.appearance-control__trigger', /Manage themes/),
+		clip: clipDialog('.dialog--theme-manager', 50),
+	},
+	{
+		id: 'themes-editor',
+		asset: 'reference/themes/theme-editor.png',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			await openShellMenu(page, '.appearance-control__trigger', /Manage themes/)
+			// Built-in themes are read-only, so the editor is only reachable through a copy.
+			await page.getByRole('button', { name: 'Duplicate to edit' }).click()
+			await page.waitForSelector('.dialog--theme-editor')
+			await page.waitForTimeout(1500)
+			await page.locator('.theme-editor-name__label').locator('..').locator('input').fill('Workshop dark')
+			await page.waitForTimeout(600)
+			// The previews column is 92px taller than the space it has; scrolling it to the
+			// end brings the readability panel into the frame, which is the part the page
+			// explains and the only part the colour rows cannot show on their own.
+			await page.locator('.theme-editor-side').evaluate((el) => { el.scrollTop = el.scrollHeight })
+			await page.waitForTimeout(500)
+		},
+		clip: clipDialog('.dialog--theme-editor', 24),
+	},
+	{
+		id: 'languages-menu',
+		asset: 'reference/languages/language-menu.png',
+		viewport: { width: 1440, height: 900 },
+		steps: (page) => openShellMenu(page, '.language-control__trigger'),
+		clip: clipDialog('.appearance-menu', 60),
+	},
+	{
+		id: 'languages-manager',
+		asset: 'reference/languages/language-manager.png',
+		viewport: { width: 1440, height: 900 },
+		steps: (page) => openShellMenu(page, '.language-control__trigger', /Manage languages/),
+		clip: clipDialog('.dialog--language-manager', 50),
+	},
+	{
+		id: 'languages-editor',
+		asset: 'reference/languages/language-editor.png',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			await openShellMenu(page, '.language-control__trigger', /Manage languages/)
+			// A copy of German rather than of English: duplicating another language starts
+			// from its translations, so the rows carry a base text and the counter a real
+			// number, which is what the page describes.
+			// The list rows are options in a listbox, not buttons.
+			await page.getByRole('option', { name: /^Deutsch/ }).click()
+			await page.waitForTimeout(900)
+			await page.getByRole('button', { name: 'Duplicate & edit' }).click()
+			await page.waitForSelector('.dialog--language-editor')
+			await page.waitForTimeout(1500)
+			const dialog = page.locator('.dialog--language-editor')
+			await dialog.locator('.language-editor-field__input').nth(0).fill('Deutsch (Werkstatt)')
+			await dialog.locator('.language-editor-field__input').nth(1).fill('de')
+			await page.waitForTimeout(500)
+			// Searching opens the matching section, and this one holds a string with a
+			// placeholder, so the parity check has something to catch.
+			await dialog.locator('.language-editor-search').fill('appearance.')
+			await page.waitForTimeout(1200)
+			const row = dialog.locator('.language-editor-row', { hasText: 'appearance.current' })
+			await row.locator('.language-editor-row__input').fill('Darstellung')
+			await page.waitForTimeout(1200)
+			const blocked = await dialog.innerText()
+			if (!/placeholder mismatch/i.test(blocked)) throw new Error('the placeholder mismatch never appeared')
+		},
+		clip: clipDialog('.dialog--language-editor', 24),
+	},
 ]
 
 // Two recipes sharing an id, or writing the same asset, fight over one file and the
@@ -2187,6 +2715,9 @@ async function capture(browser, recipe) {
 				for (const [key, value] of Object.entries(entries)) localStorage.setItem(key, value)
 			}, recipe.storage)
 		}
+		// A recipe that has to change what the browser itself offers the app — the one
+		// case so far is a machine with no WebGL2 — runs its own script before the page.
+		if (recipe.initScript) await context.addInitScript(recipe.initScript)
 		const page = await context.newPage()
 		await page.goto(APP_URL, { waitUntil: 'networkidle' })
 

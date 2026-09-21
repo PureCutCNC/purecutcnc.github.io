@@ -6,20 +6,18 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
 import Screenshot from '../../../../components/Screenshot.astro';
 import view3d from '../../../../assets/manual/verify-export/3d-view/view-3d.png';
+import cameraMenu from '../../../../assets/manual/verify-export/3d-view/camera-menu.png';
 
 Open the **3D** tab to examine the project as a solid. It is especially useful for checking depth, open features, imported models, and the relationship between the cutter path and the stock.
 
-<Screenshot maxWidth={361} src={view3d} alt="PureCutCNC 3D view showing stock, model, and toolpath" />
-
-<VisualPending id="view-3d-model-toolpath" />
+<Screenshot src={view3d} alt="The 3D view with the stock as a solid block, the carved relief and the teardrop pocket cut into it, and one edge-route toolpath running round the outside with its helical entry visible" />
 
 ## Navigation
 
+<Screenshot maxWidth={300} src={cameraMenu} alt="The camera menu open over the 3D view, listing Isometric, Top, Bottom, Front, Back, Right, and Left views under Standard views, and Fit to model and Reset view under Actions" />
 
-<VisualPending id="view-3d-camera-menu" />
 Drag to orbit, use the wheel or trackpad to zoom, and pan with the camera controls. Open the camera menu to choose a view preset, including isometric and orthographic directions such as top, front, and right. Use **Reset view** in that menu to return to the default isometric view; double-clicking the viewport does not reset the camera.
 
 ## Model

@@ -57,7 +57,7 @@ The settings shared with other operations are documented in
 | Finish Floor | (Finish pass only) Whether to machine the floor to final dimension. |
 | Feed Reduction | **Slots only** applies the configured Slot Feed percentage (60% by default) to full-width cutting stretches. **Engagement** chooses a bounded feed scale from the cutter's actual engagement on the emitted path. Both modes only reduce the programmed feed. |
 | Round Outside Corners | Rounds eligible outside contour corners on offset clearing rings for a smoother cut path. |
-| Round Link Corners | (Offset and Seeded circles) Replaces an eligible sharp ring-to-ring transition with a tangent arc-line-arc link where it fits. |
+| Round Link Junctions | (Offset and Seeded circles) Replaces an eligible sharp ring-to-ring transition with a tangent arc-line-arc link where it fits. |
 | Clean Wall Corners | Recovers material that rounded offset rings leave in reachable wall corners. |
 | Corner Relief | Cuts an extra relief at each inside corner so a square-cornered mating part will seat. |
 | Entry Strategy | Under **Entry & retract**: Plunge, Helix, or Ramp. |
@@ -77,12 +77,12 @@ Pocket offers four clearing patterns, chosen with **Pattern**:
 | Pattern | Documented in |
 | --- | --- |
 | **Offset** | [Clearing patterns](/guide/strategies/clearing-patterns/) |
-| **Seeded circles** | [Clearing patterns](/guide/strategies/clearing-patterns/#seeded-circles) |
+| **Seeded circles** | [Seeded-circle clearing](/guide/strategies/seeded-circles/) |
 | **Parallel** | [Clearing patterns](/guide/strategies/clearing-patterns/) |
 | **Trochoidal** | [Trochoidal cutting](/guide/strategies/trochoidal-cutting/#clearing) |
 
 It also supports [entry and exit moves](/guide/strategies/entry-and-exit/),
-[corner rounding and relief](/guide/strategies/corners/),
+[corner rounding and relief](/guide/strategies/corners/), [linking clearing passes](/guide/strategies/link-junctions/),
 [feed reduction](/guide/strategies/feed-reduction/), and
 [rest machining](/guide/strategies/rest-machining/).
 

@@ -134,6 +134,8 @@ order, as soon as their files exist. Owners are the Wave 2 workstreams from
 | Page | URL | Type | Owner |
 | --- | --- | --- | --- |
 | Clearing patterns | `/guide/strategies/clearing-patterns/` | strategy | W4 |
+| Seeded-circle clearing | `/guide/strategies/seeded-circles/` | strategy | W4 |
+| Linking clearing passes | `/guide/strategies/link-junctions/` | strategy | W4 |
 | Trochoidal cutting | `/guide/strategies/trochoidal-cutting/` | strategy | W4 |
 | Entry and exit moves | `/guide/strategies/entry-and-exit/` | strategy | W4 |
 | Corner rounding and relief | `/guide/strategies/corners/` | strategy | W4 |

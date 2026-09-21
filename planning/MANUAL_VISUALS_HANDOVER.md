@@ -14,7 +14,11 @@ Counts come from `npm run content`, which prints them.
 | Fundamentals, Start Here, Quick Start | Complete. |
 | CAM setup | 9 of 9. Complete. |
 | Machining operations | 25 of 28. Three left, all noted below. |
-| Strategies, Verify & export, Reference | Not started, about 33 visuals. This is the next batch. |
+| Strategies | 14 of 14. Complete. |
+| Verify & export | 11 of 11. Complete. |
+| Reference | 7 of 7. Complete. |
+
+`npm run content` reports 135 captured, 3 proposed, 1 legacy re-shoot.
 
 Inline app icons are done: 124 of them, across Design, the three Fundamentals
 pages the old `interface.html` spilled into, and the keyboard reference.
@@ -85,6 +89,29 @@ to run when that happens; the guard exists because it cost an hour.
 **Stay at 1440x900.** It is the blueprint standard, and at viewport heights near
 1080 canvas clicking breaks.
 
+**Scope operation selection to the CAM panel.** The feature tree lists the operations as
+well, and clicking a name there leaves the properties panel on "Select an operation to
+edit its parameters" — which reads like the click missed. `selectOperation` now scopes to
+`.panel-right`.
+
+**A generated rest operation is already selected.** `Create rest operation` selects the
+operation it made, so clicking it deselects it, and the properties panel empties. Do not
+select it again; read its controls straight away.
+
+**Read the defaults before writing `setUiSelect`.** The call fails with "no dropdown
+currently showing X", which reads like a broken selector but usually means the control
+already holds a different value. 3D surface finish starts on **Parallel**, not Waterline;
+an operation with no tool shows **No tool**, not None; an edge route's own Strategy starts
+on **Contour**.
+
+**Properties groups are `.disclosure-section__header` buttons** with `aria-expanded`.
+Clicking a group that is already open closes it, so check the attribute first —
+`openPropertiesGroup` does.
+
+**Some UI is not what its role suggests.** The theme and language manager lists are
+`role="option"` inside a listbox, so `getByRole('button', …)` never finds them and the
+failure is a 30-second timeout rather than an error.
+
 ## Making an image worth looking at
 
 **The subject matters more than the recipe.** The clearest example: the
@@ -126,10 +153,46 @@ which a top view draws as points — the holes only appear in simulation, and th
 rapids between them are what show the order. Transient states (generating,
 paused) have no still. Smooth versus Rectangular tabs differ only in Z motion.
 
+**Ask the fixture whether it can show the thing at all**, before tuning the framing. Three
+from this batch, each of which failed silently or nearly so:
+
+- The teardrop pocket in `cam-demo` is smooth enough that a 1/4" endmill clears all of it,
+  so **Create rest operation** answers "No unreachable pocket areas found for this tool"
+  and makes nothing. The guitar body's cavities have corners, and generate eighteen
+  regions.
+- A smooth pocket runs at one engagement nearly everywhere, so **Feed colours** paints the
+  whole path one colour and the picture says nothing. Corners are where the feed drops.
+- Surface clean has no **Toolpath level** rail at all — its levels are not planar cut
+  depths — so the rail shots have to run on an edge route.
+
+**No bundled fixture produces an operation warning.** Every operation in both examples and
+in `cam-demo` generates cleanly, so a shot that wants a warning beside it has to
+manufacture one, the way the clamp-collision recipe does. A brief that asks for "a
+representative warning" in passing is better corrected than faked.
+
+**A state the app only reaches on other hardware can still be captured.** The WebGL
+troubleshooting shot refuses every `webgl` context from an `initScript`, which is what a
+machine without WebGL2 does; the 2D canvas is left alone, so the rest of the app keeps
+working in shot. `initScript` on a recipe runs before the page loads.
+
 **Briefs over-specify.** Several ask for more than one 1440x900 frame holds, or
 for states that do not exist. Correct the brief to say where the rest of the
 content is. Do not fake the shot, and do not leave a brief describing an image
 nobody can take.
+
+Corrected in this batch, and worth knowing the shape of: the toolpath legend has no
+clamp-collision control (a collision is an overlay on the canvas, not a toggle); the
+levels shot carries no warning, for the reason above; the WebGL shot cannot show the
+Sketch workspace *beside* the failed 3D view, because they are two tabs, so it shows the
+same window with the panels still working; and the Export G-code dialog only draws its
+Errors and Warnings sections when it has something to say, so a healthy export has
+neither.
+
+**One asset cannot hold a three-way comparison.** `finishing-patterns` asked for
+waterline, constant scallop and parallel over one surface, which is three app states. It
+was split into three visuals, one under each of the headings that already explains its
+pattern, framed identically and closer than the toolpath shot on the 3D surface finish
+page — so they compare as the reader scrolls, and none of them duplicates that page.
 
 **Cap panel and dialog images.** A 400px-wide panel stretched into the 800px
 content column looks soft. Give every `<Screenshot>` narrower than the column a
@@ -158,24 +221,32 @@ is for screenshots of this site rather than the app; those record no `appCommit`
 and are hash-pinned in `site/config/legacy-assets.json`. All three have to move
 together or `verify-artifact` fails.
 
+## 2026-09-21 review follow-up — merged visual and copy set
+
+The requested strategy and verification review updates are now complete on
+`docs/design-visuals` and ready to merge into `site-revamp`:
+
+- Seeded-circle clearing and linking junctions are dedicated strategy pages, with the
+  corresponding navigation order and supplied comparison captures.
+- The drilling helical-bore and tangent entry/exit diagrams were corrected. Feed reduction
+  now explains the transition from Slot Feed to full feed.
+- Rest machining explains manual and automatic Regions for compatible 2.5D and 3D
+  follow-ups, and uses the supplied large-tool / Region-limited smaller-tool comparison.
+- Toolpath level filtering is documented as 2.5D-only and available in both Sketch and 3D
+  views. The exported motion inspector is clearly marked as an internal debug tool.
+- Exporting G-code now explains that mixed-tool selections require **Emit tool changes (M6)**;
+  otherwise operations must be exported one at a time.
+- Setup booklets now has a supplied Pocket Rough sample image plus a new-tab download at
+  `/samples/pocket-rough-booklet.pdf`.
+
+The user-supplied images and booklet sample have no capture recipes, so `npm run capture`
+does not overwrite them. The matching fixtures are bundled under `site/fixtures/` and every
+asset has current `media.json` provenance. Full `npm run ci` passed after the Rest-machining
+and booklet changes; focused `npm run content` passed after the final copy updates.
+
 ## Next
 
-**Strategies, Verify & export and Reference**, about 33 visuals. Nothing about them is
-known to be blocked. Read their briefs first: several are diagrams, which need no app at
-all, and `strategies/3d-finishing` wants the three-way pattern comparison that the
-operations page deliberately does not duplicate.
-
-**Fixtures you already have.** `site/fixtures/cam-demo.camj` carries a relief model, a
-plate inset to Z top 0.25, a teardrop pocket, two open scroll curves, four tools, and
-five operations — surface clean, 3D rough, 3D finish, edge route inside and outside.
-Prefer selecting those over creating new ones. `build-cam-fixture.mjs` rebuilds the
-geometry and tools but **not** the operations, so do not re-run it without asking.
-
-The number that mattered there: a surface clean needs several stepdowns of material above
-the feature, not just some. At Z top 0.62 (0.13 in, about one stepdown) it still reported
-no depth bands; 0.25 leaves 0.5 in and works.
-
-**Three left in operations:**
+**Three left in operations**, and nothing else is outstanding:
 
 - `engrave-result` — the groove is shallow and it needs the right camera in the
   simulation; two attempts missed the curve.
@@ -187,6 +258,24 @@ no depth bands; 0.25 leaves 0.5 in and works.
 **Also open:** `PureCutCNC/purecutcnc#821`, 3D surface rough leaving the top of a model
 uncut — `cam-3d-surface-toolpath.png` shows that behaviour and wants re-shooting once it
 is settled.
+
+**Found while shooting Verify & export, and not yet raised:** the exported motion
+inspector reports `arcDeviation` on the PureCutCNC example's Pocket Rough — four segments
+at Z=0.65 deviating by up to 2.1711 against a stated tolerance of 0.0004. Pocket Rough is
+the only operation in either bundled example the inspector accepts, so the page's shot is
+of that warning rather than of a clean verification. A deviation four orders of magnitude
+over tolerance looks like a real defect rather than a near miss; it is worth an app issue,
+and the image wants re-shooting if the numbers change.
+
+**Fixtures you already have.** `site/fixtures/cam-demo.camj` carries a relief model, a
+plate inset to Z top 0.25, a teardrop pocket, two open scroll curves, four tools, and
+five operations — surface clean, 3D rough, 3D finish, edge route inside and outside.
+Prefer selecting those over creating new ones. `build-cam-fixture.mjs` rebuilds the
+geometry and tools but **not** the operations, so do not re-run it without asking.
+
+The number that mattered there: a surface clean needs several stepdowns of material above
+the feature, not just some. At Z top 0.62 (0.13 in, about one stepdown) it still reported
+no depth bands; 0.25 leaves 0.5 in and works.
 
 ## Working agreements
 

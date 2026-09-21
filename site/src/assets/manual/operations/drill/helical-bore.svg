@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 470" role="img" aria-labelledby="title description">
 	<title id="title">How helical boring cuts a hole wider than the cutter</title>
-	<desc id="description">Seen from above, a flat endmill smaller than the hole runs round the bore; seen from the side, that circle descends as a helix until it reaches depth.</desc>
+	<desc id="description">Seen from above, a flat endmill smaller than the hole runs round the bore. The vertical cutaway shows the one continuous helical path, with each turn descending from the surface to the bore floor.</desc>
 	<defs>
 		<marker id="hbTick" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
 			<path d="M 0 0 L 10 5 L 0 10 z" fill="#00c8ff" />
@@ -36,19 +36,26 @@
 	<text class="dim" x="344" y="290">Cutter</text>
 
 	<!-- from the side -->
-	<text class="step" x="500" y="96">FROM THE SIDE</text>
-	<text class="heading" x="500" y="122">The helix it descends</text>
-	<rect x="500" y="178" width="260" height="216" rx="4" fill="#1a1f29" stroke="#5c5c68" stroke-width="2" />
-	<line x1="500" y1="178" x2="760" y2="178" stroke="#9a9aa8" stroke-width="2.5" />
-	<path d="M 546 196 C 598 222, 662 222, 714 196" class="cut" />
-	<path d="M 714 196 C 662 240, 598 240, 546 228" class="cut" stroke-opacity="0.85" />
-	<path d="M 546 228 C 598 272, 662 272, 714 228" class="cut" stroke-opacity="0.75" />
-	<path d="M 714 228 C 662 304, 598 304, 546 282" class="cut" stroke-opacity="0.65" />
-	<path d="M 546 282 C 598 326, 662 326, 714 282" class="cut" stroke-opacity="0.55" marker-end="url(#hbArrow)" />
-	<line x1="546" y1="196" x2="546" y2="340" stroke="#5c5c68" stroke-width="1.5" stroke-dasharray="5 4" />
-	<line x1="714" y1="196" x2="714" y2="340" stroke="#5c5c68" stroke-width="1.5" stroke-dasharray="5 4" />
-	<line x1="784" y1="178" x2="784" y2="310" class="dimline" marker-start="url(#hbTick)" marker-end="url(#hbTick)" />
-	<text class="dim" x="776" y="248" text-anchor="end">Depth</text>
+	<text class="step" x="500" y="96">VERTICAL CUTAWAY</text>
+	<text class="heading" x="500" y="122">The spiral from top to floor</text>
+	<!-- The bore is cut vertically; the path wraps around its inside wall as it descends. -->
+	<path d="M 500 178 H 760 V 394 H 500 Z M 546 178 H 714 V 342 H 546 Z" fill="#1a1f29" fill-rule="evenodd" stroke="#5c5c68" stroke-width="2" />
+	<line x1="500" y1="178" x2="546" y2="178" stroke="#9a9aa8" stroke-width="2.5" />
+	<line x1="714" y1="178" x2="760" y2="178" stroke="#9a9aa8" stroke-width="2.5" />
+	<line x1="546" y1="178" x2="546" y2="342" stroke="#9a9aa8" stroke-width="2.5" />
+	<line x1="714" y1="178" x2="714" y2="342" stroke="#9a9aa8" stroke-width="2.5" />
+	<line x1="546" y1="342" x2="714" y2="342" stroke="#9a9aa8" stroke-width="2.5" />
+	<line x1="630" y1="190" x2="630" y2="342" stroke="#5c5c68" stroke-width="1.5" stroke-dasharray="5 4" />
+	<!-- Solid arcs pass in front of the cut plane; dashed arcs continue behind it. Together they are one descending helix. -->
+	<path d="M 630 194 C 670 194, 692 199, 692 208" class="cut" stroke-dasharray="5 4" />
+	<path d="M 692 208 C 692 217, 670 222, 630 222 C 590 222, 568 227, 568 236" class="cut" />
+	<path d="M 568 236 C 568 245, 590 250, 630 250" class="cut" stroke-dasharray="5 4" />
+	<path d="M 630 250 C 670 250, 692 255, 692 264 C 692 273, 670 278, 630 278 C 590 278, 568 283, 568 292" class="cut" />
+	<path d="M 568 292 C 568 301, 590 306, 630 306" class="cut" stroke-dasharray="5 4" />
+	<path d="M 630 306 C 670 306, 692 311, 692 320 C 692 329, 670 334, 630 334" class="cut" marker-end="url(#hbArrow)" />
+	<text class="detail" x="630" y="370" text-anchor="middle">One continuous helical path</text>
+	<line x1="784" y1="178" x2="784" y2="342" class="dimline" marker-start="url(#hbTick)" marker-end="url(#hbTick)" />
+	<text class="dim" x="776" y="264" text-anchor="end">Depth</text>
 
 	<text class="detail" x="430" y="444" text-anchor="middle">The selected circle sets the bore, not the general entry-helix diameter.</text>
 </svg>

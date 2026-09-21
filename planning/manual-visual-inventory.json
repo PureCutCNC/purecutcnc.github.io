@@ -189,6 +189,14 @@
 			"decision": "visuals"
 		},
 		{
+			"page": "/guide/strategies/seeded-circles/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/strategies/link-junctions/",
+			"decision": "visuals"
+		},
+		{
 			"page": "/guide/strategies/trochoidal-cutting/",
 			"decision": "visuals"
 		},
@@ -1478,9 +1486,9 @@
 			"afterHeading": "Helical",
 			"kind": "diagram",
 			"purpose": "Explain how a smaller endmill follows a helix to create a larger bore.",
-			"brief": "A top and side view of a cutter following a descending helix inside the requested hole diameter.",
+			"brief": "A top view of the cutter orbit inside the requested hole diameter, plus a vertical cutaway of the continuous helical path winding from the surface to the bore floor.",
 			"asset": "operations/drill/helical-bore.svg",
-			"alt": "Top and side views of a cutter descending helically to create a larger bore",
+			"alt": "Top view of a cutter orbiting inside a bore and vertical cutaway of its continuous helical path winding down to the bore floor",
 			"status": "captured",
 			"blockedBy": []
 		},
@@ -1569,27 +1577,51 @@
 			"blockedBy": []
 		},
 		{
-			"id": "clearing-offset-parallel",
+			"id": "clearing-pattern-comparison",
 			"page": "/guide/strategies/clearing-patterns/",
 			"afterHeading": "How it works",
 			"kind": "diagram",
-			"purpose": "Compare how offset rings and parallel strokes cover the same pocket.",
-			"brief": "The same pocket filled by offset and parallel patterns with cut direction and linking indicated.",
-			"asset": "strategies/clearing-patterns/offset-vs-parallel.svg",
-			"alt": "Offset-ring and parallel-line clearing patterns covering the same pocket",
-			"status": "proposed",
+			"purpose": "Compare how the four clearing patterns cover the same pocket.",
+			"brief": "The same pocket filled by offset, parallel, seeded-circle, and trochoidal patterns, with cut direction and linking indicated.",
+			"asset": "strategies/clearing-patterns/pattern-comparison.svg",
+			"alt": "Offset, parallel, seeded-circle, and trochoidal clearing patterns covering the same pocket",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
 			"id": "clearing-seeded-circles",
-			"page": "/guide/strategies/clearing-patterns/",
-			"afterHeading": "Seeded circles",
+			"page": "/guide/strategies/seeded-circles/",
+			"afterHeading": "How it works",
 			"kind": "screenshot",
 			"purpose": "Show how seeded circular regions grow and cover irregular pocket space.",
-			"brief": "A seeded-circle toolpath covering a pocket with several seed regions and their links visible.",
-			"asset": "strategies/clearing-patterns/seeded-circles.png",
-			"alt": "Seeded-circle clearing pattern covering an irregular pocket",
-			"status": "proposed",
+			"brief": "A seeded-circle toolpath covering a large rectangular pocket with several seed regions, concentric clearing rings, and rapid links visible.",
+			"asset": "strategies/seeded-circles/seeded-circles.png",
+			"alt": "Seeded-circle clearing rings growing from several seeds across a large rectangular pocket",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "link-junctions-straight",
+			"page": "/guide/strategies/link-junctions/",
+			"afterHeading": "How it works",
+			"kind": "screenshot",
+			"purpose": "Show the abrupt change of direction created by a straight clearing-ring junction.",
+			"brief": "A close toolpath view of concentric clearing rings joined directly by a straight connection.",
+			"asset": "strategies/link-junctions/straight-link.png",
+			"alt": "Straight connection between two concentric clearing rings",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "link-junctions-rounded",
+			"page": "/guide/strategies/link-junctions/",
+			"afterHeading": "How it works",
+			"kind": "screenshot",
+			"purpose": "Show the smooth transition created by a rounded tangent clearing-ring junction.",
+			"brief": "A close toolpath view of concentric clearing rings joined by a rounded tangent transition.",
+			"asset": "strategies/link-junctions/tangent-link.png",
+			"alt": "Rounded tangent connection between two concentric clearing rings",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1601,7 +1633,7 @@
 			"brief": "A sequence showing target and connected subtract shapes, their depths, and the folded pocket area that is actually cleared.",
 			"asset": "strategies/clearing-patterns/subtract-fold.svg",
 			"alt": "Connected subtract features combining by depth into the area cleared by a pocket",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1613,7 +1645,7 @@
 			"brief": "A trochoidal pocket with rings, advances, and ring-to-ring orbit links visible at useful scale.",
 			"asset": "strategies/trochoidal-cutting/pocket-rings.png",
 			"alt": "Trochoidal pocket toolpath with cutting rings, advances, and orbit links",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1625,7 +1657,7 @@
 			"brief": "A trochoidal edge route following a contour with the oscillating cutter path and endpoint behavior visible.",
 			"asset": "strategies/trochoidal-cutting/edge-route.png",
 			"alt": "Trochoidal edge-route toolpath oscillating along a contour",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1637,7 +1669,7 @@
 			"brief": "Four small path diagrams showing plunge, helical entry, ramp entry, and tangent-arc XY approach and exit.",
 			"asset": "strategies/entry-and-exit/entry-and-approach.svg",
 			"alt": "Plunge, helix, ramp, and tangent-arc XY entry paths",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1649,7 +1681,7 @@
 			"brief": "A comparison of rounded rings, tangent link corners, dogbone relief, and T-bone relief around representative corners.",
 			"asset": "strategies/corners/rounding-and-relief.svg",
 			"alt": "Rounded toolpath corners, tangent links, dogbone relief, and T-bone relief compared",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1658,34 +1690,70 @@
 			"afterHeading": "How it works",
 			"kind": "screenshot",
 			"purpose": "Show where the programmed feed is reduced and how the legend communicates the percentage.",
-			"brief": "A toolpath with slots-only and engagement-based reduced-feed segments visible through the feed-colour legend.",
+			"brief": "A pocket toolpath with reduced-feed segments around a circular island and tight corners, visible through the Feed colours legend.",
 			"asset": "strategies/feed-reduction/feed-reduction-legend.png",
-			"alt": "Toolpath coloured by feed percentage with reduced-feed segments and the feed-colour legend",
-			"status": "proposed",
+			"alt": "Toolpath coloured by feed percentage with reduced-feed segments around an island and the Feed colours legend",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
-			"id": "rest-machining-result",
+			"id": "rest-machining-large-tool",
 			"page": "/guide/strategies/rest-machining/",
 			"afterHeading": "How it works",
 			"kind": "screenshot",
-			"purpose": "Show the generated leftover region and the smaller-tool operation that uses it.",
-			"brief": "A source operation, generated rest region, and smaller-tool rest operation visible together in the tree and canvas.",
-			"asset": "strategies/rest-machining/rest-operation.png",
-			"alt": "Source operation, generated rest region, and smaller-tool rest operation",
-			"status": "proposed",
+			"purpose": "Establish the broad first pass made by the larger roughing tool.",
+			"brief": "Large-tool pocket roughing around a gear-shaped island, before the smaller tool follows the inaccessible areas.",
+			"asset": "strategies/rest-machining/large-tool-roughing.png",
+			"alt": "Large-tool pocket roughing passes around a gear-shaped island",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
-			"id": "finishing-patterns",
-			"page": "/guide/strategies/3d-finishing/",
-			"afterHeading": "Settings",
+			"id": "rest-machining-region-limited-follow-up",
+			"page": "/guide/strategies/rest-machining/",
+			"afterHeading": "How it works",
 			"kind": "screenshot",
-			"purpose": "Compare waterline, constant-scallop, and parallel paths in the strategy context.",
-			"brief": "Three finish paths over the same carved top: waterline, constant scallop, and parallel.",
-			"asset": "strategies/3d-finishing/finish-patterns.png",
-			"alt": "Waterline, constant-scallop, and parallel finish paths over the same 3D surface",
-			"status": "proposed",
+			"purpose": "Show that the smaller follow-up tool is limited to the material the large tool could not reach.",
+			"brief": "The original large-tool path dimmed behind highlighted smaller-tool passes and the Regions that constrain them around the gear-shaped island.",
+			"asset": "strategies/rest-machining/region-limited-follow-up.png",
+			"alt": "Smaller-tool follow-up passes highlighted only in the Regions the large tool could not reach",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "finishing-pattern-parallel",
+			"page": "/guide/strategies/3d-finishing/",
+			"afterHeading": "How it works",
+			"kind": "screenshot",
+			"purpose": "Show the parallel finish path so it can be compared with the other two patterns.",
+			"brief": "A 3D surface finish toolpath over the carved top with the Parallel pattern, framed the same way as the waterline and constant-scallop shots.",
+			"asset": "strategies/3d-finishing/pattern-parallel.png",
+			"alt": "Parallel 3D finish toolpath sweeping straight passes across a carved surface",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "finishing-pattern-waterline",
+			"page": "/guide/strategies/3d-finishing/",
+			"afterHeading": "Waterline",
+			"kind": "screenshot",
+			"purpose": "Show the waterline finish path so it can be compared with the other two patterns.",
+			"brief": "The same operation and framing with the Waterline pattern, so its contour rings read against the parallel passes above.",
+			"asset": "strategies/3d-finishing/pattern-waterline.png",
+			"alt": "Waterline 3D finish toolpath following contour rings around a carved surface",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "finishing-pattern-scallop",
+			"page": "/guide/strategies/3d-finishing/",
+			"afterHeading": "Constant scallop",
+			"kind": "screenshot",
+			"purpose": "Show the constant-scallop finish path so it can be compared with the other two patterns.",
+			"brief": "The same operation and framing with the Constant scallop pattern, whose spacing varies to hold the cusp height.",
+			"asset": "strategies/3d-finishing/pattern-constant-scallop.png",
+			"alt": "Constant-scallop 3D finish toolpath with spacing that varies across a carved surface",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1697,7 +1765,7 @@
 			"brief": "A cross-section through adjacent ball-endmill passes labeling tool radius, stepover, and scallop height.",
 			"asset": "strategies/3d-finishing/scallop-height.svg",
 			"alt": "Adjacent ball-endmill passes showing tool radius, stepover, and scallop height",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1709,7 +1777,7 @@
 			"brief": "A 3D finish path restricted to a visible slope band on a model, with the slope fields shown.",
 			"asset": "strategies/3d-finishing/slope-filter.png",
 			"alt": "3D finish toolpath restricted to a slope band on a model",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1721,7 +1789,7 @@
 			"brief": "The toolpath legend expanded with cutting, rapid, plunge, entry, and clamp-collision controls.",
 			"asset": "verify-export/toolpath-preview/toolpath-legend.png",
 			"alt": "Expanded toolpath legend with movement visibility and clamp-collision controls",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1733,7 +1801,7 @@
 			"brief": "A planar toolpath with the Z-level rail open, renderer control visible, and a representative operation warning nearby.",
 			"asset": "verify-export/toolpath-preview/level-renderer-warning.png",
 			"alt": "Toolpath preview with the Z-level rail, renderer control, and an operation warning",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1745,7 +1813,7 @@
 			"brief": "The 3D view with stock, modeled features, an imported model if useful, and a visible toolpath.",
 			"asset": "verify-export/3d-view/view-3d.png",
 			"alt": "3D view showing stock, modeled features, and a toolpath",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1757,7 +1825,7 @@
 			"brief": "The 3D camera menu open with standard view presets, fit, and reset choices.",
 			"asset": "verify-export/3d-view/camera-menu.png",
 			"alt": "3D camera menu with view presets, fit, and reset choices",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1769,7 +1837,7 @@
 			"brief": "A simulation in progress with the playback bar, speed, step, progress, stop and reset controls, and readouts visible.",
 			"asset": "verify-export/simulation/view-simulation-play.png",
 			"alt": "Simulation in progress with playback, speed, step, progress, stop, reset, and readout controls",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1781,7 +1849,7 @@
 			"brief": "The Export G-code dialog with a machine selected, operation checklist, output options, message area, and code preview.",
 			"asset": "verify-export/gcode-export/cam-export-dialog.png",
 			"alt": "Export G-code dialog with machine, operation checklist, options, messages, and code preview",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1793,19 +1861,19 @@
 			"brief": "The exported motion inspector open over a planar operation with original, optimized, and verified layers and counts visible.",
 			"asset": "verify-export/exported-motion/cam-debug-view-overlay.png",
 			"alt": "Exported motion inspector comparing motion layers, counts, and verification",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
-			"id": "setup-booklet-export",
+			"id": "setup-booklet-sample",
 			"page": "/guide/verify-export/setup-booklets/",
-			"afterHeading": "Export a setup booklet",
+			"afterHeading": "Sample booklet",
 			"kind": "screenshot",
-			"purpose": "Show the operation-specific booklet action and the operation it will summarize.",
-			"brief": "The CAM panel with one operation selected and its Export booklet PDF action visible.",
-			"asset": "verify-export/setup-booklets/cam-operation-booklet.png",
-			"alt": "Selected CAM operation with its Export booklet PDF action",
-			"status": "proposed",
+			"purpose": "Show the practical setup information contained in a finished operation booklet.",
+			"brief": "The first page of a Pocket Rough booklet, including its operation snapshot, overview, tool details, and operation settings.",
+			"asset": "verify-export/setup-booklets/pocket-rough-booklet.png",
+			"alt": "First page of a Pocket Rough operation booklet showing the operation snapshot, overview, tool details, and operation settings",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1817,7 +1885,7 @@
 			"brief": "The Export model dialog on STL settings with format, curve quality, and include imported meshes controls.",
 			"asset": "verify-export/model-export-and-print/sketch-export-stl.png",
 			"alt": "STL export settings for format, curve quality, and imported meshes",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1829,7 +1897,7 @@
 			"brief": "The Export design dialog on SVG settings with area, included content, and colour controls.",
 			"asset": "verify-export/model-export-and-print/sketch-export-svg.png",
 			"alt": "SVG export settings for design area, included content, and colour",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1841,7 +1909,7 @@
 			"brief": "The Print design dialog with paper, print area, scale, offsets, content toggles, and title block visible.",
 			"asset": "verify-export/model-export-and-print/sketch-print-dialog.png",
 			"alt": "Print design dialog with paper, area, scale, offsets, content, and title-block settings",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1853,7 +1921,7 @@
 			"brief": "The Appearance menu open with Dark, Light, System, and Manage themes visible.",
 			"asset": "reference/themes/appearance-menu.png",
 			"alt": "Appearance menu with Dark, Light, System, and Manage themes choices",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1865,7 +1933,7 @@
 			"brief": "The theme manager with built-in themes, an active badge, duplicate-to-edit, import, and mode controls.",
 			"asset": "reference/themes/theme-manager.png",
 			"alt": "Theme manager with built-in themes, active state, duplicate, import, and mode controls",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1877,7 +1945,7 @@
 			"brief": "The custom theme editor with colour rows, panel and canvas previews, and readability messages visible.",
 			"asset": "reference/themes/theme-editor.png",
 			"alt": "Custom theme editor with colour fields, interface previews, and readability feedback",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1889,7 +1957,7 @@
 			"brief": "The Language menu open with all built-in languages and Manage languages visible.",
 			"asset": "reference/languages/language-menu.png",
 			"alt": "Language menu with the built-in languages and Manage languages action",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1901,7 +1969,7 @@
 			"brief": "The language manager with built-in languages, active state, duplicate and edit, and import controls.",
 			"asset": "reference/languages/language-manager.png",
 			"alt": "Language manager with built-in languages, active state, duplicate and edit, and import controls",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1913,7 +1981,7 @@
 			"brief": "The language editor with name and tag, translated counter, search and filters, string rows, and one placeholder mismatch.",
 			"asset": "reference/languages/language-editor.png",
 			"alt": "Language editor with translation progress, filters, string rows, and placeholder validation",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1925,7 +1993,7 @@
 			"brief": "The 3D or Simulation view showing the WebGL unavailable message beside a still-usable Sketch workspace.",
 			"asset": "reference/troubleshooting/webgl-unavailable.png",
 			"alt": "WebGL unavailable message while the Sketch workspace remains usable",
-			"status": "proposed",
+			"status": "captured",
 			"blockedBy": []
 		}
 	]

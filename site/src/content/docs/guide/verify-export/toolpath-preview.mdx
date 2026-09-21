@@ -6,9 +6,9 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
 import Screenshot from '../../../../components/Screenshot.astro';
 import toolpathLegend from '../../../../assets/manual/verify-export/toolpath-preview/toolpath-legend.png';
+import levelRail from '../../../../assets/manual/verify-export/toolpath-preview/level-renderer-warning.png';
 
 Use the toolpath preview in the Sketch and 3D views to check the moves PureCutCNC has generated. It is a visual aid: use it with [Simulation](/guide/verify-export/simulation/) and the operation warnings before you cut.
 
@@ -18,9 +18,7 @@ Use the toolpath preview in the Sketch and 3D views to check the moves PureCutCN
 
 Open the **Show** control in the viewport corner to choose which overlays are visible. You can independently show **Cuts**, **Lead-ins**, **Rapids**, **Plunges**, **Retractions**, and **Directions**. The same visibility choices are shared by the Sketch and 3D views. An amber overlay calls attention to a clamp collision.
 
-<Screenshot maxWidth={256} src={toolpathLegend} alt="Toolpath legend with movement visibility controls" />
-
-<VisualPending id="toolpath-preview-legend" />
+<Screenshot maxWidth={710} src={toolpathLegend} alt="The expanded legend across the top of the viewport: the 2D renderer control, the vertical Toolpath level rail set to All, and toggles for Cuts, Lead-ins, Rapids, Plunges, Retractions, Directions, and Feed colours" />
 
 ## Feed colours
 
@@ -30,9 +28,9 @@ Turn on **Feed colours** in the legend to colour cutting moves by their programm
 
 ## Levels
 
+For **2.5D operations**, use the vertical **Toolpath level** rail to isolate a cutting Z level. Choose **All** to restore every level. The same level filter is available in the [3D view](/guide/verify-export/3d-view/), so you can inspect that one pass from another angle. This filter changes only the preview, not the generated toolpath or exported G-code.
 
-<VisualPending id="toolpath-preview-controls" />
-For planar toolpaths, use the vertical **Toolpath level** rail to isolate a cutting Z level. Choose **All** to restore every level. This filter changes only the preview, not the generated toolpath or exported G-code.
+<Screenshot src={levelRail} alt="An outside edge route with the level rail moved off All to 0.125, so the preview draws that one cutting depth instead of every pass" caption="The rail reads from the top down; its value shows the Z it is holding." />
 
 ## Renderer
 

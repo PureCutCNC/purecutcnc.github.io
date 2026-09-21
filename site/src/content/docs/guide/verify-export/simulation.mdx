@@ -6,7 +6,6 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
 import { Aside, Steps } from '@astrojs/starlight/components';
 import Screenshot from '../../../../components/Screenshot.astro';
 import simulationPlay from '../../../../assets/manual/verify-export/simulation/view-simulation-play.png';
@@ -32,9 +31,7 @@ Simulation removes material from a virtual stock using generated toolpaths. It h
 
 </Steps>
 
-<Screenshot maxWidth={359} src={simulationPlay} alt="Simulation view with playback controls" />
-
-<VisualPending id="simulation-playback" />
+<Screenshot src={simulationPlay} alt="A simulation part-way through a run: material already removed from the stock, the cutter shown in place, and the transport bar below with pause and stop, the progress slider at 2%, speed and step controls, and the X, Y, Z and feed readouts" />
 
 ## Controls
 

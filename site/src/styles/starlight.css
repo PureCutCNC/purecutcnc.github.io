@@ -87,6 +87,20 @@
 	font-size: var(--sl-text-sm);
 	color: var(--sl-color-gray-3);
 }
+.sl-markdown-content .pc-figure-grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 1rem;
+	margin-block: 1.5rem;
+}
+.sl-markdown-content .pc-figure-grid figure.pc-figure {
+	margin: 0;
+}
+@media (max-width: 42rem) {
+	.sl-markdown-content .pc-figure-grid {
+		grid-template-columns: 1fr;
+	}
+}
 
 /* Unresolved screenshot and diagram proposals stay conspicuous during review. */
 .sl-markdown-content .visual-pending {

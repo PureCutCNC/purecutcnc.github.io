@@ -1,0 +1,55 @@
+---
+title: Linking clearing passes
+description: Shape eligible transitions between Offset or Seeded-circle clearing rings with tangent links.
+pageType: strategy
+availability: stable
+status: draft
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import Screenshot from '../../../../components/Screenshot.astro';
+import straightLink from '../../../../assets/manual/strategies/link-junctions/straight-link.png';
+import tangentLink from '../../../../assets/manual/strategies/link-junctions/tangent-link.png';
+
+## How it works
+
+<div class="pc-figure-grid" aria-label="Straight and rounded clearing-ring junctions">
+	<Screenshot src={straightLink} alt="Offset clearing rings joined by a straight connection, creating an abrupt direction change where the path leaves the inner ring" caption="Straight junction" />
+	<Screenshot src={tangentLink} alt="Offset clearing rings joined by a rounded tangent connection, carrying the tool smoothly from the inner ring to the next ring" caption="Rounded junction" />
+</div>
+
+**Round link junctions** replaces an eligible sharp ring-to-ring transition with a tangent
+arc-line-arc link. It can avoid an abrupt change of direction while keeping the transition inside
+the cleared area. When there is not enough clearance or length for that shape, the generator keeps
+the ordinary straight link.
+
+## Where it applies
+
+| Operation | Where to find it |
+| --- | --- |
+| [Pocket](/guide/operations/pocket/) | **Corners** > **Round link junctions** |
+| [Surface clean](/guide/operations/surface-clean/) | **Corners** > **Round link junctions** |
+| [3D surface rough](/guide/operations/3d-surface-rough/) | **Corners** > **Round link junctions** |
+| [3D surface cleanup](/guide/operations/3d-surface-cleanup/) | **Corners** > **Round link junctions** (floor cleanup) |
+
+## Settings
+
+| Setting | Description |
+| --- | --- |
+| **Round link junctions** | Enables tangent links between compatible Offset or Seeded-circle clearing rings. |
+
+## Limitations
+
+<Aside type="caution" title="A rounded link is conditional">
+	The link must fit inside material already cleared by the adjacent rings. If it does not, the path
+	uses a straight link instead; inspect the preview before relying on a smoother transition.
+</Aside>
+
+Parallel and Trochoidal patterns do not offer this control. Trochoidal rings use their own orbited
+links where possible, while a separate clearing section still retracts and travels at safe Z.
+
+## Related pages
+
+- [Seeded-circle clearing](/guide/strategies/seeded-circles/): use this control on the offset rings that finish seeded areas.
+- [Clearing patterns](/guide/strategies/clearing-patterns/): choose Offset or Parallel coverage first.
+- [Corner rounding and relief](/guide/strategies/corners/): manage path corners and intentional inside-corner relief.

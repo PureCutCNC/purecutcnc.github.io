@@ -6,13 +6,14 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
 import { Aside } from '@astrojs/starlight/components';
+import Screenshot from '../../../../components/Screenshot.astro';
+import entryAndApproach from '../../../../assets/manual/strategies/entry-and-exit/entry-and-approach.svg';
 
 ## How it works
 
+<Screenshot src={entryAndApproach} alt="Seen from the side: plunge drops straight to depth, helix circles down at the ramp angle over its helix diameter, and ramp slopes down and back along the path. Seen from above: the XY approach curves the cut onto the wall on a tangent arc and off it again, where without it the cut simply starts on the wall." />
 
-<VisualPending id="entry-and-xy-approach" />
 The **Entry strategy** controls how the tool reaches cutting depth: **Plunge**, **Helix**, or
 **Ramp**. A helix or ramp uses its angle setting; a helix also has a diameter setting. When a
 strategy cannot fit the geometry, the app reports the fallback in its warnings.

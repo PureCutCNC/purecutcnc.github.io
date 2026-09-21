@@ -1,23 +1,24 @@
 ---
 title: Clearing patterns
-description: Choose offset, seeded-circle, or parallel passes to cover a 2.5D clearing area.
+description: Choose offset or parallel passes to cover a 2.5D clearing area.
 pageType: strategy
 availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
 import { Aside } from '@astrojs/starlight/components';
 import Screenshot from '../../../../components/Screenshot.astro';
-import seededCircles from '../../../../assets/manual/strategies/clearing-patterns/seeded-circles.png';
+import patternComparison from '../../../../assets/manual/strategies/clearing-patterns/pattern-comparison.svg';
+import subtractFold from '../../../../assets/manual/strategies/clearing-patterns/subtract-fold.svg';
 
 ## How it works
 
+<Screenshot src={patternComparison} alt="One pocket covered four ways: offset rings following the wall inwards; parallel passes sweeping across and turning at the boundary; circles grown from two seed points with wall-following passes clearing the rest; and a dense coil of trochoidal orbits following the wall with a second run up the middle. The links between passes are drawn dashed." />
 
-<VisualPending id="clearing-offset-parallel" />
 **Offset** follows successive inset contours. **Parallel** sweeps straight raster passes at the
-selected angle. **Seeded circles** starts from circles placed in the area, then joins the remaining
-coverage. Choose the pattern based on the desired finish, path shape, and the feature geometry.
+selected angle. For circular seeds, see [Seeded-circle clearing](/guide/strategies/seeded-circles/).
+For load-managed orbiting paths, see [Trochoidal cutting](/guide/strategies/trochoidal-cutting/#clearing).
+Choose the pattern based on the desired finish, path shape, and the feature geometry.
 
 ## Where it applies
 
@@ -32,27 +33,17 @@ coverage. Choose the pattern based on the desired finish, path shape, and the fe
 
 | Setting | Description |
 | --- | --- |
-| **Pattern** | Selects Offset, Seeded circles, or Parallel where the operation offers them. |
+| **Pattern** | Selects the clearing pattern. This page explains Offset and Parallel; Seeded circles and Trochoidal have dedicated guidance. |
 | **Angle** | Sets the direction of Parallel passes. |
 | **Stepover Ratio** | Sets the lateral gap between applicable passes as a fraction of the tool diameter. |
 
 Offset paths simplify compatible polylines into arcs and circles, which can make the generated
 G-code smaller and motion smoother.
 
-## Seeded circles
-
-<Screenshot src={seededCircles} alt="Seeded-circle clearing pattern covering a pocket" maxWidth={560} />
-
-<VisualPending id="clearing-seeded-circles" />
-
-Seeded circles begin from circular seed positions and then clear the remaining material. They are
-useful when circular motion suits the geometry, but you should inspect the final links and islands
-in the toolpath preview before machining.
-
 ## Overlapping subtracts
 
+<Screenshot src={subtractFold} alt="A pocket target, a deeper subtract feature that touches it, and the combined area that is cleared — with a section showing the floor stepping down to the subtract's own depth where the two meet" />
 
-<VisualPending id="clearing-overlapping-subtracts" />
 Non-target subtract features that meet a target can extend the resolved cut region at their own
 depth. Long connected chains can reach the resolver's chain limit and report a warning. Inspect
 the resolved bands and warnings when nearby pockets overlap; split the geometry or targets if the
@@ -68,4 +59,6 @@ result is not the region you intended to clear.
 ## Related pages
 
 - [Trochoidal cutting](/guide/strategies/trochoidal-cutting/): a load-managed alternative for supported roughing operations.
+- [Seeded-circle clearing](/guide/strategies/seeded-circles/): clear from fitted circular regions before offset rings finish the area.
+- [Linking clearing passes](/guide/strategies/link-junctions/): shape compatible transitions between Offset or Seeded-circle rings.
 - [Corners](/guide/strategies/corners/): rounding and relief controls for compatible contour paths.

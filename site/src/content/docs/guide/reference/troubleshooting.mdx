@@ -6,7 +6,8 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
+import Screenshot from '../../../../components/Screenshot.astro';
+import webglUnavailable from '../../../../assets/manual/reference/troubleshooting/webgl-unavailable.png';
 
 ## Import and project files
 
@@ -32,8 +33,6 @@ import VisualPending from '../../../../components/VisualPending.astro';
 
 ## Graphics and simulation
 
-
-<VisualPending id="troubleshooting-webgl-unavailable" />
 ### The 3D or Sim view reports that WebGL is unavailable
 
 <span id="webgl"></span>
@@ -41,6 +40,8 @@ import VisualPending from '../../../../components/VisualPending.astro';
 **Cause:** WebGL2 is unavailable or its graphics context was lost.
 
 **Fix:** The 2D workspace remains usable. Try closing competing graphics-heavy apps, updating graphics drivers or the browser, and reopening the view. If it persists, use the Sketch toolpath preview and report the environment details with the warning.
+
+<Screenshot src={webglUnavailable} alt="The 3D tab showing “3D view isn’t available — this view requires WebGL2, which your browser or graphics driver did not provide”, with the project tree, properties, and CAM panel still working around it" caption="Only the 3D and Sim views stop. Everything else, including the Sketch toolpath preview, keeps working." />
 
 ### A 3D mesh is too dense to work with
 

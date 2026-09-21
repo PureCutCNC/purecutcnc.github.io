@@ -6,7 +6,6 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
 import { Aside, Steps } from '@astrojs/starlight/components';
 import Screenshot from '../../../../components/Screenshot.astro';
 import exportDialog from '../../../../assets/manual/verify-export/gcode-export/cam-export-dialog.png';
@@ -35,9 +34,7 @@ G-code export prepares a controller program from the selected operation checklis
 
 </Steps>
 
-<Screenshot maxWidth={406} src={exportDialog} alt="Export G-code dialog with machine, operation checklist, options, and preview" />
-
-<VisualPending id="gcode-export-dialog" />
+<Screenshot src={exportDialog} alt="The Export G-code dialog with GRBL 1.1 as the machine: the origin and units, the six operations all checked, the tool-change and coolant options, and the first thirty lines of the program beside them" />
 
 <Aside type="danger" title="Safety: verify the program before cutting">
 
@@ -48,6 +45,8 @@ Exported G-code can move a real machine. Confirm the machine, origin, tool, work
 ## Selection
 
 The checklist is the source of truth for this export. By default, it selects operations that are enabled, have a tool assigned, and have a visible toolpath. A hidden but otherwise eligible operation can still be checked manually; an operation that is off or has no tool is not eligible and displays its reason.
+
+When **Emit tool changes (M6)** is not selected, PureCutCNC refuses an export that includes selected operations using different tools. Export those operations one at a time, or enable tool changes only when the machine and controller are set up to handle them safely.
 
 ## Messages
 

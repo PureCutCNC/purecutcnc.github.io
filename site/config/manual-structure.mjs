@@ -80,7 +80,9 @@ export const PAGES = [
 	page('/guide/operations/3d-surface-cleanup/', 'operations', '3D surface cleanup', 'operation', 'W4'),
 
 	page('/guide/strategies/clearing-patterns/', 'strategies', 'Clearing patterns', 'strategy', 'W4'),
+	page('/guide/strategies/seeded-circles/', 'strategies', 'Seeded-circle clearing', 'strategy', 'W4'),
 	page('/guide/strategies/trochoidal-cutting/', 'strategies', 'Trochoidal cutting', 'strategy', 'W4'),
+	page('/guide/strategies/link-junctions/', 'strategies', 'Linking clearing passes', 'strategy', 'W4'),
 	page('/guide/strategies/entry-and-exit/', 'strategies', 'Entry and exit moves', 'strategy', 'W4'),
 	page('/guide/strategies/corners/', 'strategies', 'Corner rounding and relief', 'strategy', 'W4'),
 	page('/guide/strategies/feed-reduction/', 'strategies', 'Feed reduction', 'strategy', 'W4'),
