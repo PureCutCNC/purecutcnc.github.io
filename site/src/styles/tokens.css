@@ -19,3 +19,21 @@
 	--pc-grid-line: linear-gradient(var(--pc-border) 1px, transparent 1px),
 		linear-gradient(90deg, var(--pc-border) 1px, transparent 1px);
 }
+
+:root[data-theme='light'] {
+	--pc-bg: #f6f8fa;
+	--pc-bg-2: #ffffff;
+	--pc-bg-3: #eef1f5;
+	--pc-bg-nav: rgba(246, 248, 250, 0.88);
+	--pc-border: #c9ced6;
+	--pc-text: #1e222a;
+	--pc-muted: #5b6170;
+	--pc-accent: #0078a0;
+	--pc-accent-2: #006a8c;
+	--pc-green: #008f5b;
+	--pc-yellow: #a86e00;
+	--pc-coffee: #a75c18;
+	--pc-glow: radial-gradient(circle at top, rgba(0, 144, 192, 0.12), transparent 34rem);
+	--pc-grid-line: linear-gradient(rgba(91, 97, 112, 0.16) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(91, 97, 112, 0.16) 1px, transparent 1px);
+}
