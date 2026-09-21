@@ -13,8 +13,8 @@ Counts come from `npm run content`, which prints them.
 | Design | 40 of 40. Complete. |
 | Fundamentals, Start Here, Quick Start | Complete. |
 | CAM setup | 9 of 9. Complete. |
-| Machining operations | 10 of 20. In progress. |
-| Strategies, Verify & export, Reference | Not started (about 30 visuals). |
+| Machining operations | 25 of 28. Three left, all noted below. |
+| Strategies, Verify & export, Reference | Not started, about 33 visuals. This is the next batch. |
 
 Inline app icons are done: 124 of them, across Design, the three Fundamentals
 pages the old `interface.html` spilled into, and the keyboard reference.
@@ -73,6 +73,15 @@ it with `page.waitForEvent('filechooser')`.
 
 **Enter commits and closes panels.** Fill fields; do not press Enter.
 
+**Names in the feature tree are truncated.** Selecting a feature by exact text works
+until the name is long enough to be cut off, and then it misses intermittently — the Add
+menu opens on no selection and complains about the operation instead. Match the tree row
+by substring.
+
+**Two recipes must not share an id or an asset.** They fight over one file, the loser's
+work vanishes, and the symptom is an image of the wrong project. The script now refuses
+to run when that happens; the guard exists because it cost an hour.
+
 **Stay at 1440x900.** It is the blueprint standard, and at viewport heights near
 1080 canvas clicking breaks.
 
@@ -94,6 +103,23 @@ computes, the Simulation view shows what it leaves. Operation pages carry both.
 last toolpath level so nothing has to be played, scope goes to **Selected** so
 the cut belongs to one operation, and Detail must be raised to about 1200,
 because the default renders pocket walls as coarse steps.
+
+**Put the pair together.** A toolpath at the top of the page and its result under
+"Verifying the result" are forty lines apart, and the page reads as having one image.
+Both go under the intro, toolpath first.
+
+**Some operations only make sense on top of what came before.** A V-carve runs inside a
+pocket that has already been cleared; simulated on its own it floats on untouched stock.
+Pass `through` to simulateResult with the operations that precede it, and it switches the
+simulation to its Visible scope.
+
+**Check what the page already imports.** Several assets were also imported under an older
+name left from the legacy guide, so overwriting the file made the same picture render
+twice. Worth grepping for duplicate imports of one asset after any batch.
+
+**Match the asset path in the inventory exactly.** The inventory is the source of truth;
+a recipe that writes a differently named file fails validation rather than silently
+diverging.
 
 **Some things cannot be photographed.** A drilling toolpath is vertical moves,
 which a top view draws as points — the holes only appear in simulation, and the
@@ -134,28 +160,33 @@ together or `verify-artifact` fails.
 
 ## Next
 
-**Build the fixture project** (`site/fixtures/`, agreed with the user). It should
-carry, in one project: a relief model for the three 3D-surface operation pages
-and `strategies/3d-finishing`; an **open-line** design for engrave, because
-engraving a closed outline gives a thin rectangle that teaches nothing; a shaped
-closed profile for edge route inside; and an add feature with a top face for
-surface clean. One project, about seven visuals. Author the model rather than
-downloading one, so the repository carries no third-party licence — see the
-existing `site/fixtures/` files for the pattern.
+**Strategies, Verify & export and Reference**, about 33 visuals. Nothing about them is
+known to be blocked. Read their briefs first: several are diagrams, which need no app at
+all, and `strategies/3d-finishing` wants the three-way pattern comparison that the
+operations page deliberately does not duplicate.
 
-Then the three operations diagrams (authored SVG, no app needed), then strategies,
-verify & export, and reference.
+**Fixtures you already have.** `site/fixtures/cam-demo.camj` carries a relief model, a
+plate inset to Z top 0.25, a teardrop pocket, two open scroll curves, four tools, and
+five operations — surface clean, 3D rough, 3D finish, edge route inside and outside.
+Prefer selecting those over creating new ones. `build-cam-fixture.mjs` rebuilds the
+geometry and tools but **not** the operations, so do not re-run it without asking.
 
-**Open with the user:**
+The number that mattered there: a surface clean needs several stepdowns of material above
+the feature, not just some. At Z top 0.62 (0.13 in, about one stepdown) it still reported
+no depth bands; 0.25 leaves 0.5 in and works.
 
-- `drill-result` is weak. The camera stays nearly edge-on in simulation, so the
-  holes read as small marks. It needs an orbit to a flatter angle.
-- `operations/3d-surface-finish` should show a single finish operation; the
-  three-way pattern comparison belongs to `strategies/3d-finishing`. Agreed, not
-  yet done.
-- `PureCutCNC/purecutcnc#821`: 3D surface rough leaves the top of the model
-  uncut. `cam-3d-surface-toolpath.png` shows that behaviour and wants re-shooting
-  once it is settled.
+**Three left in operations:**
+
+- `engrave-result` — the groove is shallow and it needs the right camera in the
+  simulation; two attempts missed the curve.
+- `surface-cleanup-passes` and `surface-cleanup-result` — the owner is producing these.
+  Cleanup only acts on flat and vertical surfaces, so a smooth relief gives it nothing;
+  `site/fixtures/cam-terrain.obj` was an attempt at suitable geometry and was not good
+  enough.
+
+**Also open:** `PureCutCNC/purecutcnc#821`, 3D surface rough leaving the top of a model
+uncut — `cam-3d-surface-toolpath.png` shows that behaviour and wants re-shooting once it
+is settled.
 
 ## Working agreements
 
