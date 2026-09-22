@@ -1704,20 +1704,6 @@ const RECIPES = [
 		clip: clipCentreView,
 	},
 	{
-		id: 'engrave-result',
-		asset: 'operations/engrave/result.png',
-		fixture: 'site/fixtures/cam-demo.camj',
-		viewport: { width: 1440, height: 900 },
-		async steps(page) {
-			// The fixture carries no engrave operation, so make one on a scroll curve.
-			const op = await addOperation(page, 'Scroll upper 2', 'Engrave')
-			// The groove is shallow, so it only reads close up; the curve sits in the upper
-			// left of the stock, which the simulation's default camera keeps upper left.
-			await simulateResult(page, op, { zoom: 3, at: [0.36, 0.42] })
-		},
-		clip: clipCentreView,
-	},
-	{
 		id: 'surface-clean-result',
 		asset: 'operations/surface-clean/result.png',
 		fixture: 'site/fixtures/cam-demo.camj',
@@ -1747,41 +1733,6 @@ const RECIPES = [
 			}),
 		clip: clipCentreView,
 	},
-	{
-		id: 'surface-cleanup-passes',
-		asset: 'operations/3d-surface-cleanup/cleanup-passes.png',
-		// A smooth relief gives cleanup nothing to find, so this runs on a model with
-		// steep flanks and flat terraces, imported into an empty project.
-		fixture: 'site/fixtures/cam-terrain.obj',
-		viewport: { width: 1440, height: 900 },
-		async steps(page) {
-			await addOperation(page, 'cam-terrain', '3D surface rough')
-			await addOperation(page, 'cam-terrain', '3D surface finish')
-			const op = await addOperation(page, 'cam-terrain', '3D surface cleanup')
-			await onlyToolpath(page, op)
-			// Cleanup only touches the steep parts, so the point is where its passes fall
-			// on the model as a whole, not the detail of any one loop.
-			await zoomTo(page, 0.5, 0.5, 1)
-		},
-		clip: clipCanvas,
-	},
-	{
-		id: 'surface-cleanup-result',
-		asset: 'operations/3d-surface-cleanup/result.png',
-		fixture: 'site/fixtures/cam-terrain.obj',
-		viewport: { width: 1440, height: 900 },
-		async steps(page) {
-			await addOperation(page, 'cam-terrain', '3D surface rough')
-			await addOperation(page, 'cam-terrain', '3D surface finish')
-			const op = await addOperation(page, 'cam-terrain', '3D surface cleanup')
-			await simulateResult(page, op, {
-				through: ['3D surface rough', '3D surface finish', op],
-				zoom: 2,
-			})
-		},
-		clip: clipCentreView,
-	},
-
 	// --- CAM setup ---
 	// Every shot here runs on a bundled example: the CAM panel needs tools, operations
 	// and generated toolpaths, and the examples already carry them.

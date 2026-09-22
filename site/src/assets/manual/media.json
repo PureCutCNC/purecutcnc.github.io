@@ -361,6 +361,28 @@
 		"status": "current",
 		"blockedBy": []
 	},
+	"operations/3d-surface-cleanup/cleanup-passes.png": {
+		"shows": "3D Surface Cleanup toolpaths covering the retained walls and floors of a stepped model",
+		"source": "capture",
+		"appCommit": "ec9b3c781bdf1d71e469faff58a4dff049a41713",
+		"fixture": "site/fixtures/cam-terrain.obj",
+		"viewport": "1998x1366@1x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"operations/3d-surface-cleanup/result.png": {
+		"shows": "The stepped model after 3D Surface Cleanup, with its floor and walls visibly machined",
+		"source": "capture",
+		"appCommit": "ec9b3c781bdf1d71e469faff58a4dff049a41713",
+		"fixture": "site/fixtures/cam-terrain.obj",
+		"viewport": "1878x1342@1x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
 	"strategies/link-junctions/straight-link.png": {
 		"shows": "Offset clearing rings connected by a straight junction that changes direction abruptly",
 		"source": "capture",
@@ -1170,6 +1192,17 @@
 		"appCommit": "b4ffabbdf900d42027545907d23e3cd7bf9b6aa3",
 		"fixture": "site/fixtures/cam-demo.camj",
 		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"operations/engrave/result.png": {
+		"shows": "The simulated stock after engraving, with shallow grooves visibly following the curved paths",
+		"source": "capture",
+		"appCommit": "ec9b3c781bdf1d71e469faff58a4dff049a41713",
+		"fixture": "site/fixtures/cam-demo.camj",
+		"viewport": "1940x1318@1x",
 		"theme": "dark",
 		"locale": "en",
 		"status": "current",

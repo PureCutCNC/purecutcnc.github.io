@@ -1450,10 +1450,10 @@
 			"afterHeading": "Strategies",
 			"kind": "screenshot",
 			"purpose": "Show what the operation leaves in the stock, beside the toolpath that produced it.",
-			"brief": "The simulated stock after engraving, the groove cut along the line.",
+			"brief": "The simulated stock after engraving, with the shallow grooves visibly following the curved paths.",
 			"asset": "operations/engrave/result.png",
-			"alt": "The simulated stock after engraving, a narrow groove following the curve",
-			"status": "proposed",
+			"alt": "The simulated stock after engraving, showing narrow grooves following the curved paths",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1558,10 +1558,10 @@
 			"afterHeading": "$intro",
 			"kind": "screenshot",
 			"purpose": "Show the cleanup passes limited to retained walls and floors.",
-			"brief": "A 3D cleanup toolpath over a model with steep flanks, showing the passes it adds where a finish leaves material. Needs geometry with steep and flat regions; a smooth relief gives cleanup nothing to find.",
+			"brief": "A 3D cleanup toolpath over a stepped model, with coral passes visibly covering the retained walls and floors.",
 			"asset": "operations/3d-surface-cleanup/cleanup-passes.png",
-			"alt": "3D surface cleanup passes on retained step walls and floors",
-			"status": "proposed",
+			"alt": "3D Surface Cleanup toolpaths covering the retained walls and floors of a stepped model",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -1570,10 +1570,10 @@
 			"afterHeading": "$intro",
 			"kind": "screenshot",
 			"purpose": "Show what the operation leaves in the stock, beside the toolpath that produced it.",
-			"brief": "The simulated stock after cleanup, the steep regions cleared of what the finish left.",
+			"brief": "The resulting 3D view of the stepped model, showing its cleaned floor and walls.",
 			"asset": "operations/3d-surface-cleanup/result.png",
-			"alt": "The simulated stock after a 3D cleanup pass, the steep flanks cleared of the scallops the finish left behind",
-			"status": "proposed",
+			"alt": "The stepped model after 3D Surface Cleanup, with its floor and walls visibly machined",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
