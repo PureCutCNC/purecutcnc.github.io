@@ -929,6 +929,42 @@
 			"blockedBy": []
 		},
 		{
+			"id": "arranging-nest-before",
+			"page": "/guide/design/arranging/",
+			"afterHeading": "Nest on stock",
+			"kind": "screenshot",
+			"purpose": "Show the alphabet project before nesting so the change in placement is visible.",
+			"brief": "The 26-letter test project before Nest on stock, with its outlines and stock visible.",
+			"asset": "design/arranging/alphabet-before-nesting.png",
+			"alt": "Letters A through Z in three rows across a 48 by 24 inch stock before nesting, with clamps around the edges",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "arranging-nest-on-stock",
+			"page": "/guide/design/arranging/",
+			"afterHeading": "Nest on stock",
+			"kind": "screenshot",
+			"purpose": "Show the gap, rotation, margin, and result controls for the alphabet nest.",
+			"brief": "The alphabet test project with All parts set to four and the Parts list collapsed, showing tool-derived gap, rotation, margins and the all-104-fit report.",
+			"asset": "design/arranging/nest-on-stock.png",
+			"alt": "Nest on stock panel with All parts set to four, a quarter-inch gap, quarter-turn rotation, zero margins, and a report that all 104 letters fit",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "arranging-nest-result",
+			"page": "/guide/design/arranging/",
+			"afterHeading": "Nest on stock",
+			"kind": "screenshot",
+			"purpose": "Show the alphabet parts placed on one stock after accepting a nest.",
+			"brief": "The alphabet test project after Accept nest, with four of each letter packed on one stock and free space remaining at the right.",
+			"asset": "design/arranging/nest-result.png",
+			"alt": "Four instances of each letter A through Z packed on one 48 by 24 inch stock after accepting the nest, with edge clamps visible",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
 			"id": "arranging-scale-taper",
 			"page": "/guide/design/arranging/",
 			"afterHeading": "Scale taper",

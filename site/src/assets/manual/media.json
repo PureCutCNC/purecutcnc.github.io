@@ -834,6 +834,39 @@
 		"status": "current",
 		"blockedBy": []
 	},
+	"design/arranging/alphabet-before-nesting.png": {
+		"shows": "Letters A through Z in three rows on 48 by 24 inch stock with edge clamps before nesting",
+		"source": "capture",
+		"appCommit": "7843773f443748a426b59ad929c152c92ac0cb43",
+		"fixture": "site/fixtures/nest-alphabet.camj",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"design/arranging/nest-on-stock.png": {
+		"shows": "Nest on stock panel for four of each of 26 letters, with 0.25 inch tool-derived gap, quarter-turn rotation, zero margins, and all 104 parts fitting",
+		"source": "capture",
+		"appCommit": "7843773f443748a426b59ad929c152c92ac0cb43",
+		"fixture": "site/fixtures/nest-alphabet.camj",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"design/arranging/nest-result.png": {
+		"shows": "Four instances of each alphabet letter packed on one 48 by 24 inch stock after Accept nest, with edge clamps and free space at the right",
+		"source": "capture",
+		"appCommit": "7843773f443748a426b59ad929c152c92ac0cb43",
+		"fixture": "site/fixtures/nest-alphabet.camj",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
 	"design/arranging/distribute-grid.png": {
 		"shows": "The Feature distribution panel set to 2 rows, 3 columns and 0.6 in spacing, with the source rectangle and five dashed preview copies laid out as that grid on the canvas",
 		"source": "capture",

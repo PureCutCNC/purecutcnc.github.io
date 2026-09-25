@@ -42,7 +42,19 @@ app can highlight conflicts and keep generated cuts clear of the clamped area.
 	warning as a required setup decision and inspect the resulting toolpath before machining.
 </Aside>
 
+## Nesting around clamps
+
+[Nest on stock](/guide/design/arranging/#nest-on-stock) treats recorded clamps and their
+**Clamp clear XY** distance as placement obstacles. It also leaves the chosen stock margins plus
+cutter clearance at each edge. Set the stock, clamp positions, and XY clearance to match the
+physical setup before nesting; a layout based on incorrect measurements cannot protect the cut.
+
+After accepting a nest, inspect the generated toolpaths and warnings. Clamp avoidance during
+toolpath generation can still leave material uncut or skip drilling beneath a clamp. Confirm the
+real workholding and part support, then simulate and dry-run the intended operations.
+
 ## Related pages
 
 - [Tabs](/guide/cam-setup/tabs/): retain a routed part after cutting.
+- [Nest on stock](/guide/design/arranging/#nest-on-stock): arrange parts around the stock and clamps.
 - [Working safely](/guide/start-here/safety/): dry-run and machine setup guidance.

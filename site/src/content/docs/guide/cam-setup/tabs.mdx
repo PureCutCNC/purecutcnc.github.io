@@ -60,6 +60,17 @@ receive up to four tabs per letter.
 Bulk edit changes matching tabs together. Use manual placement when automatic placement would put a
 tab near a clamp, a corner, or a feature that needs a clean edge.
 
+### After nesting
+
+Configure the Edge Route Inside or Edge Route Outside operations for all source parts before
+[nesting](/guide/design/arranging/#nest-on-stock). Nesting adds copied instances to operations
+that target those source features, but it does not move existing tabs with a part, and copied
+parts receive no tabs. **Accept the nest first**, then remove any tabs left at old positions and
+use **Auto place tabs** from the Edge Route Inside or Edge Route Outside operations that cut the
+nested contours. You can also place tabs manually. Automatic placement adds tabs rather than
+replacing them, so clear old tabs first to avoid overlap. Inspect every nested part's tab
+positions and the regenerated toolpaths before export.
+
 <Aside type="caution" title="Tabs intentionally block the final depth">
 	A tab prevents the route from cutting fully through at that location. The app warns when a tab
 	blocks the final depth or is outside the cut; correct the warning instead of assuming the part
