@@ -13,6 +13,7 @@ import Screenshot from '../../../../components/Screenshot.astro';
 import addTextDialog from '../../../../assets/manual/design/text/add-text-dialog.png';
 import textLayout from '../../../../assets/manual/design/text/text-layout.png';
 import expandedGlyphs from '../../../../assets/manual/design/text/expanded-glyphs.png';
+import counterRoute from '../../../../assets/manual/design/text/counter-route.png';
 
 Text in PureCutCNC is a single feature that stays editable: you can change the words, the style,
 and the font at any time without drawing it again. You can move, copy, resize, rotate, and mirror it
@@ -172,8 +173,17 @@ Choose operations by style:
 | Outline, **Subtract** | **V-carve offset** or **V-carve medial** | A V-bit carves the letters, with sharp inside corners. |
 | Outline, **Subtract** | **Pocket** | The letters are cleared to a flat floor. |
 | Outline, **Subtract** | **Edge route inside** | The cutter follows the inside of each letter's outline. |
+| Outline, **Add**, with counters | **Pocket** or **Edge route inside** | Cuts only the enclosed counters of letters such as O, B, and D. |
+| Outline, **Subtract**, with islands | **Edge route outside** | Routes around the enclosed islands inside the letters. |
 | Outline, **Line** | **V-carve offset** or **V-carve medial** | Carved letters without subtracting them from the model. |
 | Outline, **Add** | Operations that clear around raised features | Raised letters. See [Choosing an operation](/guide/operations/). |
+
+You can target these counters and islands directly from the CAM **Add** menu, **Use current
+selection**, or the feature context menu. You do not need to expand the text first. An Add text
+feature with no counter, such as L, has no subtract shape for Pocket or Edge route inside, so those
+operations refuse it. Expand text only when you need to edit the individual letter geometry.
+
+<Screenshot src={counterRoute} alt="An Add outline O with an inside edge-route toolpath tracing only the enclosed counter" caption="The inside route cuts the counter of this editable Add text feature without expanding it into separate features." />
 
 To use the **Line** role, change the text's **Operation** to **Line** in its properties. V-carving
 accepts closed line features as well as closed subtract features.

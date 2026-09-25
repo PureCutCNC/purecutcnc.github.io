@@ -857,6 +857,18 @@
 			"blockedBy": []
 		},
 		{
+			"id": "text-counter-route",
+			"page": "/guide/design/text/",
+			"afterHeading": "Machining text",
+			"kind": "screenshot",
+			"purpose": "Show that an Add text feature can be routed through its enclosed subtract counter without expanding the text.",
+			"brief": "Editable Add outline O with an Edge route inside Finish toolpath only around its central counter.",
+			"asset": "design/text/counter-route.png",
+			"alt": "Add outline O with an inside edge-route toolpath tracing only its enclosed counter",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
 			"id": "selection-overlap-picker",
 			"page": "/guide/design/selecting-and-transforming/",
 			"afterHeading": "Select features",
@@ -1225,6 +1237,30 @@
 			"brief": "Several tabs selected together on an outside route, with the bulk-edit fields and the shape note. Smooth and Rectangular differ in Z motion, which the Sketch view does not show.",
 			"asset": "cam-setup/tabs/tab-crossings.png",
 			"alt": "Outside route with smooth and rectangular tabs, tab handles, and a tab warning",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "tabs-text-outside",
+			"page": "/guide/cam-setup/tabs/",
+			"afterHeading": "Auto place tabs",
+			"kind": "screenshot",
+			"purpose": "Show that an outside route receives tabs on each glyph outline rather than around the text frame.",
+			"brief": "Add outline Xo with an outside route and dashed tab crossings distributed on the X and o separately.",
+			"asset": "cam-setup/tabs/text-outside-tabs.png",
+			"alt": "Outside route around X and o with dashed tab crossings on both glyph outlines",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "tabs-text-inside",
+			"page": "/guide/cam-setup/tabs/",
+			"afterHeading": "Auto place tabs",
+			"kind": "screenshot",
+			"purpose": "Show that an inside route on Add text receives tabs on the cut counter.",
+			"brief": "Add outline O with an inside route and two dashed tab crossings over its counter.",
+			"asset": "cam-setup/tabs/text-inside-tabs.png",
+			"alt": "Inside route through Add outline O with two dashed tab crossings on its counter",
 			"status": "captured",
 			"blockedBy": []
 		},

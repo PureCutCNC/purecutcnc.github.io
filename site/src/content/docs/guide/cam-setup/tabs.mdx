@@ -8,6 +8,8 @@ status: draft
 
 import Screenshot from '../../../../components/Screenshot.astro';
 import tabCrossings from '../../../../assets/manual/cam-setup/tabs/tab-crossings.png';
+import textOutsideTabs from '../../../../assets/manual/cam-setup/tabs/text-outside-tabs.png';
+import textInsideTabs from '../../../../assets/manual/cam-setup/tabs/text-inside-tabs.png';
 import { Aside, Steps } from '@astrojs/starlight/components';
 
 Tabs leave small bridges of material so an edge-routed part stays attached to its stock until you
@@ -45,6 +47,15 @@ the tabs appear on the contour straight away, and you can then move or resize th
 it a second time leaves the two sets overlapping. The operation then reports a warning naming the
 pairs, for example **Tabs "Rect 1 Tab" and "Rect 1 Tab 5" overlap in a way that may produce
 ambiguous output.** Delete one set before placing another.
+
+For outline text, automatic placement follows the letter shapes the edge route actually cuts,
+not the rectangle around the text feature. An outside route places tabs on each cut glyph
+outline; an inside route on Add text places them on the enclosed counters. A long run of text can
+receive up to four tabs per letter.
+
+<Screenshot src={textOutsideTabs} alt="An outside edge route around X and o with dashed tab positions on both glyph outlines" caption="Each cut glyph gets its own tabs on an outside route." />
+
+<Screenshot src={textInsideTabs} alt="An inside edge route through the counter of Add outline O with two dashed tab positions across that counter" caption="On Add text, an inside route places tabs on the counter it cuts." />
 
 Bulk edit changes matching tabs together. Use manual placement when automatic placement would put a
 tab near a clamp, a corner, or a feature that needs a clean edge.
