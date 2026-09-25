@@ -1778,8 +1778,8 @@ const RECIPES = [
 		clip: clipCentreView,
 	},
 	// --- CAM setup ---
-	// Every shot here runs on a bundled example: the CAM panel needs tools, operations
-	// and generated toolpaths, and the examples already carry them.
+	// Most shots here run on a bundled example, which supplies tools, operations,
+	// and generated paths. CAM Plan starts with a fresh rectangle to show its picker.
 	{
 		id: 'operations-add-menu',
 		asset: 'cam-setup/working-with-operations/add-menu.png',
@@ -1821,13 +1821,18 @@ const RECIPES = [
 	{
 		id: 'cam-plan-recommendations',
 		asset: 'cam-setup/cam-plan/recommendations.png',
-		fixture: 'PureCutCNC',
 		viewport: { width: 1440, height: 900 },
 		async steps(page) {
+			await page.getByRole('button', { name: 'Add feature rectangle' }).first().click()
+			await page.waitForTimeout(450)
+			await clickUntil(page, 0.23, 0.23)
+			await clickUntil(page, 0.73, 0.73)
+			await page.keyboard.press('Escape')
 			await page.getByRole('button', { name: /^Plan$/ }).first().click()
 			await page.waitForSelector('.dialog--cam-plan')
 			// The plan is computed after the dialog opens.
-			await page.waitForTimeout(3500)
+			await page.getByText('fits the operation 0.250 inch cutter limit', { exact: false }).waitFor()
+			await page.waitForTimeout(800)
 		},
 		clip: clipDialog('.dialog--cam-plan', 0),
 	},

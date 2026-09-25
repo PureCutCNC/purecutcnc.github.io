@@ -1210,9 +1210,9 @@
 			"afterHeading": "Create a CAM Plan",
 			"kind": "screenshot",
 			"purpose": "Show that the plan is an editable recommendation rather than silent automation.",
-			"brief": "The CAM Plan dialog with recommended operations, tools, editable parameters, include checkboxes, rest passes, shared tabs, and coverage review.",
+			"brief": "From an empty project, draw an Add rectangle and open CAM Plan. Show rough and finish outside-route recommendations, shared tabs, the chosen 1/4-inch endmill, and the 0.250-inch cutter-limit explanation.",
 			"asset": "cam-setup/cam-plan/recommendations.png",
-			"alt": "CAM Plan dialog with editable operation recommendations, tools, inclusion choices, and coverage review",
+			"alt": "CAM Plan recommends rough and finish outside routes for a rectangle, with shared tabs and a quarter-inch endmill that fits its cutter limit",
 			"status": "captured",
 			"blockedBy": []
 		},

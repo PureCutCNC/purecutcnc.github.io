@@ -1066,10 +1066,10 @@
 		"blockedBy": []
 	},
 	"cam-setup/cam-plan/recommendations.png": {
-		"shows": "The CAM Plan dialog proposing two pocket operations, with the reason, chosen tool and main parameters for the selected one, and the counts of operations, tools and existing operations across the top",
+		"shows": "The CAM Plan dialog proposing rough and finish outside routes for a new rectangle, with shared tabs, a 1/4-inch endmill, the 0.250-inch cutter-limit explanation, and editable parameters",
 		"source": "capture",
-		"appCommit": "b4ffabbdf900d42027545907d23e3cd7bf9b6aa3",
-		"fixture": "Example: PureCutCNC",
+		"appCommit": "65a557931aa94464115909874d4624fe8dae3189",
+		"fixture": "Empty project",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
 		"locale": "en",
