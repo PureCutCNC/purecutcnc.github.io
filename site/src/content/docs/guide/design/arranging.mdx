@@ -1,6 +1,6 @@
 ---
 title: Aligning and distributing
-description: Align and space selected features, and create grid, radial, and along-a-path patterns of copies.
+description: Align and space features, create patterns of copies, and nest parts on the stock.
 pageType: task
 availability: stable
 status: draft
@@ -12,11 +12,15 @@ import distributeGrid from '../../../../assets/manual/design/arranging/distribut
 import distributeRadial from '../../../../assets/manual/design/arranging/distribute-radial.png';
 import distributePath from '../../../../assets/manual/design/arranging/distribute-path.png';
 import scaleTaper from '../../../../assets/manual/design/arranging/scale-taper.png';
+import alphabetBefore from '../../../../assets/manual/design/arranging/alphabet-before-nesting.png';
+import nestPanel from '../../../../assets/manual/design/arranging/nest-on-stock.png';
+import nestResult from '../../../../assets/manual/design/arranging/nest-result.png';
 import { Aside, Steps } from '@astrojs/starlight/components';
 
 The <AppIcon name="align" /> **Align selected features** and <AppIcon name="distribute" /> **Distribute selected features** menus in the tool rail line up
 and space existing features. The distribute menu also creates patterns of new copies with
-**Feature distribution**, and holds **Text layout** (see [Text](/guide/design/text/#text-layout)).
+**Feature distribution**, nests parts on the stock, and holds **Text layout** (see
+[Text](/guide/design/text/#text-layout)).
 
 ## Before you start
 
@@ -126,6 +130,89 @@ original keeps its size.
 	the cutter.
 </Aside>
 
+## Nest on stock
+
+**Nest on stock** arranges one or more part types on the current stock. It places as many requested
+parts as fit on **one sheet** and reports any that did not fit; it does not create another sheet.
+A grouped folder is one part, or you can select a closed outer outline. Features inside an outline
+travel with that part, so holes and pockets keep their positions relative to it.
+
+<Screenshot src={alphabetBefore} alt="Letters A through Z in three rows across a 48 by 24 inch stock before nesting, with clamps around the edges" caption="The alphabet test project before nesting: each letter is a separate part." />
+
+<Steps>
+
+1. Set the stock size and place the real
+   [clamps](/guide/cam-setup/clamps-and-clearances/#nesting-around-clamps). Create and configure
+   operations for **all source parts** before nesting, including Edge Route Inside or Outside
+   operations for the contours you intend to cut. Assign the tools and check the toolpaths.
+
+2. Select the part outlines or grouped parts. Open **Distribute selected features** and choose
+   **Nest on stock**. The tablet tool rail has the same command.
+
+3. Set the Nest panel controls below, then click **Nest**. Read the placed and unplaced counts.
+   Use **Nest again** to try another layout or **Keep improving** to search further; **Stop**
+   ends that search.
+
+4. Inspect the placed parts, the **Nest N** folder, the updated operation targets, and regenerated
+   toolpaths. Choose **Accept nest** only after checking the layout and machining plan.
+
+5. After accepting, add tabs to the nested contours from their
+   [Edge Route Inside](/guide/operations/edge-route-inside/) or
+   [Edge Route Outside](/guide/operations/edge-route-outside/) operations, then check the
+   toolpaths and simulation again.
+
+</Steps>
+
+### Nest panel controls
+
+- **Parts / Quantity:** Set the number of instances wanted for each selected part. With several
+  parts, **All parts** sets the same quantity for every part; expand **Parts** to override a
+  particular part. For example, 4 of each of 26 letters requests 104 placements on one sheet.
+- **Gap:** The minimum distance between cut parts. The panel starts at the minimum required by
+  the assigned outside-route tools and will not accept a smaller value. Increase it for more
+  clearance; if no outside-route tool sets a minimum, enter the gap yourself.
+- **Rotation:** Choose whether parts may stay at their original angle, turn by 180° for grain
+  direction, turn in quarter turns, or use 45°, 30°, or 15° steps. More allowed angles can help
+  parts fit, but check grain and appearance before cutting.
+- **Margins:** Leave an uncut strip at each stock edge. Set one value for all sides, or enter
+  separate **Top**, **Bottom**, **Left**, and **Right** values. Nesting also accounts for the
+  cutter clearance and recorded clamp clearance.
+- **Keep originals in place:** Leave the selected originals where they are and place new copies.
+  When off, a placed original may move into the nest and the remaining instances are copies.
+
+The quantities are requests: the result reports how many fit and names any that did not. Nesting
+adds copied feature instances to operations that target their source features, so configuring
+those operations first saves you from targeting each new copy by hand. Check the updated targets
+and regenerated toolpaths before accepting.
+
+<Screenshot src={nestPanel} alt="Nest on stock panel with All parts set to four, a quarter-inch gap, quarter-turn rotation, zero margins, and a report that all 104 letters fit" caption="Four of each letter: all 104 requested parts fit, with a 0.25 inch tool-derived gap." />
+
+<Screenshot src={nestResult} alt="Four instances of each letter A through Z packed on one 48 by 24 inch stock after accepting the nest, with edge clamps visible" caption="The accepted nest places all 104 letters on one sheet, leaving free stock at the right." />
+
+Nesting keeps the chosen margins plus cutter clearance from the stock edges and avoids recorded
+clamps with their XY clearance. It also avoids other parts already on the stock. A small part may
+fit in a larger part's through-cut hole only when no other operation machines inside that hole.
+**Nest again**, **Keep improving**, and **Discard nest** act on the nest in the panel that made it.
+After **Accept nest**, the copies remain as ordinary features in their **Nest N** folder in the
+project tree. Select that folder's copies to delete them together, or select an individual copy
+to delete it alone. Deleting copies does **not** automatically return any originals that the nest
+moved to their earlier positions; that restore command is not available in this version. Use
+**Undo** while that history is still available in the open project to take back the whole nest,
+or reposition the originals yourself. Selecting a nested copy later starts a new nest. Saving
+keeps the copied features and folder, but does not save the nest's settings or the originals'
+earlier positions.
+
+The command refuses a part with a locked feature, an imported model, a constraint tied to
+geometry outside the part, or no closed outline. Fix the selection or the constraint before
+running it again.
+
+<Aside type="caution" title="Check workholding and every cut">
+	Tabs stay at their original positions when parts move, and new copies receive no tabs. Remove
+	any misplaced tabs, then [place tabs on the nested contours](/guide/cam-setup/tabs/#after-nesting)
+	and inspect the regenerated toolpaths and simulation. Check the real clamps, uncut margins,
+	part support, and any unplaced parts before export.
+</Aside>
+
 ## Related pages
 
 - [Selecting and transforming](/guide/design/selecting-and-transforming/): single copies, rotated
@@ -134,3 +221,6 @@ original keeps its size.
 - [Text](/guide/design/text/#text-layout): the **Text layout** entry in the same menu.
 - [Construction geometry](/guide/fundamentals/construction-geometry/): guides and centres for
   patterns.
+- [Clamps and clearances](/guide/cam-setup/clamps-and-clearances/): stock-edge and workholding
+  clearances for a nest.
+- [Tabs](/guide/cam-setup/tabs/#after-nesting): replace tabs after nesting.

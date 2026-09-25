@@ -554,6 +554,23 @@ async function distribute(page, mode) {
 	await page.waitForTimeout(1500)
 }
 
+/** Place the alphabet fixture's 26 letter parts and leave the result panel open. */
+async function runAlphabetNest(page) {
+	for (const [index, letter] of [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'].entries()) {
+		await page.locator('.tree-row--feature').filter({ hasText: 'Letter ' + letter }).first().click(
+			index === 0 ? {} : { modifiers: ['ControlOrMeta'] },
+		)
+	}
+	await page.getByRole('button', { name: 'Distribute selected features', exact: true }).first().click()
+	await page.getByRole('menu').getByRole('button', { name: 'Nest on stock', exact: true }).click()
+	const panel = page.locator('.canvas-workflow-panel--nest')
+	await panel.getByRole('button', { name: 'Parts (26)', exact: true }).waitFor()
+	await panel.getByLabel('All parts').fill('4')
+	await panel.getByRole('button', { name: 'Nest', exact: true }).click()
+	await panel.getByRole('status').filter({ hasText: /parts fit|did not/ }).waitFor({ timeout: 60_000 })
+	return panel
+}
+
 /** Draw one rectangle, select it, and open its sketch edit session. */
 async function editRectangle(page) {
 	await page.getByRole('button', { name: 'Add feature rectangle' }).first().click()
@@ -1022,6 +1039,43 @@ const RECIPES = [
 		clip: clipCanvas,
 	},
 
+	{
+		id: 'arranging-nest-before',
+		asset: 'design/arranging/alphabet-before-nesting.png',
+		fixture: 'site/fixtures/nest-alphabet.camj',
+		viewport: { width: 1440, height: 900 },
+		collapseLegend: true,
+		async steps(page) {
+			await page.waitForTimeout(700)
+		},
+		clip: clipCanvas,
+	},
+	{
+		id: 'arranging-nest-on-stock',
+		asset: 'design/arranging/nest-on-stock.png',
+		fixture: 'site/fixtures/nest-alphabet.camj',
+		viewport: { width: 1440, height: 900 },
+		collapseLegend: true,
+		async steps(page) {
+			const panel = await runAlphabetNest(page)
+			await panel.getByRole('button', { name: 'Parts (26)', exact: true }).click()
+			await page.waitForTimeout(700)
+		},
+		clip: clipDialog('.canvas-workflow-panel--nest', 16),
+	},
+	{
+		id: 'arranging-nest-result',
+		asset: 'design/arranging/nest-result.png',
+		fixture: 'site/fixtures/nest-alphabet.camj',
+		viewport: { width: 1440, height: 900 },
+		collapseLegend: true,
+		async steps(page) {
+			const panel = await runAlphabetNest(page)
+			await panel.getByRole('button', { name: 'Accept nest', exact: true }).click({ noWaitAfter: true })
+			await page.waitForTimeout(1200)
+		},
+		clip: clipCanvas,
+	},
 	{
 		id: 'arranging-scale-taper',
 		asset: 'design/arranging/scale-taper.png',

@@ -1,0 +1,2253 @@
+{
+  "version": "3.1",
+  "meta": {
+    "name": "nest-alphabet",
+    "created": "2026-09-24T01:31:36.570Z",
+    "modified": "2026-09-25T20:23:17.208Z",
+    "units": "inch",
+    "showFeatureInfo": false,
+    "showDimensions": true,
+    "copyMode": "reference",
+    "maxTravelZ": 2,
+    "operationClearanceZ": 0.2,
+    "clampClearanceXY": 0.08,
+    "clampClearanceZ": 0.2,
+    "machineDefinitions": [],
+    "selectedMachineId": null
+  },
+  "grid": {
+    "extent": 60,
+    "majorSpacing": 1,
+    "minorSpacing": 0.25,
+    "snapEnabled": true,
+    "snapIncrement": 0.125,
+    "visible": true
+  },
+  "stock": {
+    "profile": {
+      "start": {
+        "x": 0,
+        "y": 0
+      },
+      "segments": [
+        {
+          "type": "line",
+          "to": {
+            "x": 48,
+            "y": 0
+          }
+        },
+        {
+          "type": "line",
+          "to": {
+            "x": 48,
+            "y": 24
+          }
+        },
+        {
+          "type": "line",
+          "to": {
+            "x": 0,
+            "y": 24
+          }
+        },
+        {
+          "type": "line",
+          "to": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      ],
+      "closed": true
+    },
+    "thickness": 0.75,
+    "material": "plywood",
+    "color": "#b9a83c",
+    "visible": true,
+    "origin": {
+      "x": 0,
+      "y": 0
+    }
+  },
+  "origin": {
+    "name": "Origin",
+    "x": 0,
+    "y": 24,
+    "z": 0.75,
+    "visible": true
+  },
+  "backdrop": null,
+  "dimensions": {},
+  "annotations": [],
+  "modelAssets": {},
+  "featureDefinitions": {
+    "f-0002": {
+      "id": "f-0002",
+      "kind": "text",
+      "profile": {
+        "start": {
+          "x": 1,
+          "y": 4
+        },
+        "segments": [
+          {
+            "type": "line",
+            "to": {
+              "x": 3.898,
+              "y": 4
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 3.898,
+              "y": 7.039
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 1,
+              "y": 7.039
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 1,
+              "y": 4
+            }
+          }
+        ],
+        "closed": true
+      },
+      "dimensions": [],
+      "text": {
+        "text": "A",
+        "style": "outline",
+        "fontId": "helvetiker_bold",
+        "size": 3
+      },
+      "stl": null,
+      "operation": "add"
+    },
+    "f-0004": {
+      "id": "f-0004",
+      "kind": "text",
+      "profile": {
+        "start": {
+          "x": 5.6,
+          "y": 4
+        },
+        "segments": [
+          {
+            "type": "line",
+            "to": {
+              "x": 8.105,
+              "y": 4
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 8.105,
+              "y": 7.039
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 5.6,
+              "y": 7.039
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 5.6,
+              "y": 4
+            }
+          }
+        ],
+        "closed": true
+      },
+      "dimensions": [],
+      "text": {
+        "text": "B",
+        "style": "outline",
+        "fontId": "helvetiker_bold",
+        "size": 3
+      },
+      "stl": null,
+      "operation": "add"
+    },
+    "f-0006": {
+      "id": "f-0006",
+      "kind": "text",
+      "profile": {
+        "start": {
+          "x": 10.2,
+          "y": 4
+        },
+        "segments": [
+          {
+            "type": "line",
+            "to": {
+              "x": 13.11,
+              "y": 4
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 13.11,
+              "y": 7.207
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 10.2,
+              "y": 7.207
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 10.2,
+              "y": 4
+            }
+          }
+        ],
+        "closed": true
+      },
+      "dimensions": [],
+      "text": {
+        "text": "C",
+        "style": "outline",
+        "fontId": "helvetiker_bold",
+        "size": 3
+      },
+      "stl": null,
+      "operation": "add"
+    },
+    "f-0008": {
+      "id": "f-0008",
+      "kind": "text",
+      "profile": {
+        "start": {
+          "x": 14.799999999999999,
+          "y": 4
+        },
+        "segments": [
+          {
+            "type": "line",
+            "to": {
+              "x": 17.392,
+              "y": 4
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 17.392,
+              "y": 7.039
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 14.799999999999999,
+              "y": 7.039
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 14.799999999999999,
+              "y": 4
+            }
+          }
+        ],
+        "closed": true
+      },
+      "dimensions": [],
+      "text": {
+        "text": "D",
+        "style": "outline",
+        "fontId": "helvetiker_bold",
+        "size": 3
+      },
+      "stl": null,
+      "operation": "add"
+    },
+    "f-0010": {
+      "id": "f-0010",
+      "kind": "text",
+      "profile": {
+        "start": {
+          "x": 19.4,
+          "y": 4
+        },
+        "segments": [
+          {
+            "type": "line",
+            "to": {
+              "x": 21.683,
+              "y": 4
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 21.683,
+              "y": 7.039
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 19.4,
+              "y": 7.039
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 19.4,
+              "y": 4
+            }
+          }
+        ],
+        "closed": true
+      },
+      "dimensions": [],
+      "text": {
+        "text": "E",
+        "style": "outline",
+        "fontId": "helvetiker_bold",
+        "size": 3
+      },
+      "stl": null,
+      "operation": "add"
+    },
+    "f-0012": {
+      "id": "f-0012",
+      "kind": "text",
+      "profile": {
+        "start": {
+          "x": 24,
+          "y": 4
+        },
+        "segments": [
+          {
+            "type": "line",
+            "to": {
+              "x": 26.118,
+              "y": 4
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 26.118,
+              "y": 7.039
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 24,
+              "y": 7.039
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 24,
+              "y": 4
+            }
+          }
+        ],
+        "closed": true
+      },
+      "dimensions": [],
+      "text": {
+        "text": "F",
+        "style": "outline",
+        "fontId": "helvetiker_bold",
+        "size": 3
+      },
+      "stl": null,
+      "operation": "add"
+    },
+    "f-0014": {
+      "id": "f-0014",
+      "kind": "text",
+      "profile": {
+        "start": {
+          "x": 28.599999999999998,
+          "y": 4
+        },
+        "segments": [
+          {
+            "type": "line",
+            "to": {
+              "x": 31.512999999999998,
+              "y": 4
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 31.512999999999998,
+              "y": 7.207
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 28.599999999999998,
+              "y": 7.207
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 28.599999999999998,
+              "y": 4
+            }
+          }
+        ],
+        "closed": true
+      },
+      "dimensions": [],
+      "text": {
+        "text": "G",
+        "style": "outline",
+        "fontId": "helvetiker_bold",
+        "size": 3
+      },
+      "stl": null,
+      "operation": "add"
+    },
+    "f-0016": {
+      "id": "f-0016",
+      "kind": "text",
+      "profile": {
+        "start": {
+          "x": 33.199999999999996,
+          "y": 4
+        },
+        "segments": [
+          {
+            "type": "line",
+            "to": {
+              "x": 35.714,
+              "y": 4
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 35.714,
+              "y": 7.039
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 33.199999999999996,
+              "y": 7.039
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 33.199999999999996,
+              "y": 4
+            }
+          }
+        ],
+        "closed": true
+      },
+      "dimensions": [],
+      "text": {
+        "text": "H",
+        "style": "outline",
+        "fontId": "helvetiker_bold",
+        "size": 3
+      },
+      "stl": null,
+      "operation": "add"
+    },
+    "f-0018": {
+      "id": "f-0018",
+      "kind": "text",
+      "profile": {
+        "start": {
+          "x": 37.8,
+          "y": 4
+        },
+        "segments": [
+          {
+            "type": "line",
+            "to": {
+              "x": 38.424,
+              "y": 4
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 38.424,
+              "y": 7.039
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 37.8,
+              "y": 7.039
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 37.8,
+              "y": 4
+            }
+          }
+        ],
+        "closed": true
+      },
+      "dimensions": [],
+      "text": {
+        "text": "I",
+        "style": "outline",
+        "fontId": "helvetiker_bold",
+        "size": 3
+      },
+      "stl": null,
+      "operation": "add"
+    },
+    "f-0020": {
+      "id": "f-0020",
+      "kind": "text",
+      "profile": {
+        "start": {
+          "x": 42.4,
+          "y": 4
+        },
+        "segments": [
+          {
+            "type": "line",
+            "to": {
+              "x": 44.347,
+              "y": 4
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 44.347,
+              "y": 7.1259999999999994
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 42.4,
+              "y": 7.1259999999999994
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 42.4,
+              "y": 4
+            }
+          }
+        ],
+        "closed": true
+      },
+      "dimensions": [],
+      "text": {
+        "text": "J",
+        "style": "outline",
+        "fontId": "helvetiker_bold",
+        "size": 3
+      },
+      "stl": null,
+      "operation": "add"
+    },
+    "f-0022": {
+      "id": "f-0022",
+      "kind": "text",
+      "profile": {
+        "start": {
+          "x": 1,
+          "y": 10.5
+        },
+        "segments": [
+          {
+            "type": "line",
+            "to": {
+              "x": 3.7,
+              "y": 10.5
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 3.7,
+              "y": 13.539
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 1,
+              "y": 13.539
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 1,
+              "y": 10.5
+            }
+          }
+        ],
+        "closed": true
+      },
+      "dimensions": [],
+      "text": {
+        "text": "K",
+        "style": "outline",
+        "fontId": "helvetiker_bold",
+        "size": 3
+      },
+      "stl": null,
+      "operation": "add"
+    },
+    "f-0024": {
+      "id": "f-0024",
+      "kind": "text",
+      "profile": {
+        "start": {
+          "x": 5.6,
+          "y": 10.5
+        },
+        "segments": [
+          {
+            "type": "line",
+            "to": {
+              "x": 7.712,
+              "y": 10.5
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 7.712,
+              "y": 13.539
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 5.6,
+              "y": 13.539
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 5.6,
+              "y": 10.5
+            }
+          }
+        ],
+        "closed": true
+      },
+      "dimensions": [],
+      "text": {
+        "text": "L",
+        "style": "outline",
+        "fontId": "helvetiker_bold",
+        "size": 3
+      },
+      "stl": null,
+      "operation": "add"
+    },
+    "f-0026": {
+      "id": "f-0026",
+      "kind": "text",
+      "profile": {
+        "start": {
+          "x": 10.2,
+          "y": 10.5
+        },
+        "segments": [
+          {
+            "type": "line",
+            "to": {
+              "x": 13.257,
+              "y": 10.5
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 13.257,
+              "y": 13.539
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 10.2,
+              "y": 13.539
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 10.2,
+              "y": 10.5
+            }
+          }
+        ],
+        "closed": true
+      },
+      "dimensions": [],
+      "text": {
+        "text": "M",
+        "style": "outline",
+        "fontId": "helvetiker_bold",
+        "size": 3
+      },
+      "stl": null,
+      "operation": "add"
+    },
+    "f-0028": {
+      "id": "f-0028",
+      "kind": "text",
+      "profile": {
+        "start": {
+          "x": 14.799999999999999,
+          "y": 10.5
+        },
+        "segments": [
+          {
+            "type": "line",
+            "to": {
+              "x": 17.299,
+              "y": 10.5
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 17.299,
+              "y": 13.539
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 14.799999999999999,
+              "y": 13.539
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 14.799999999999999,
+              "y": 10.5
+            }
+          }
+        ],
+        "closed": true
+      },
+      "dimensions": [],
+      "text": {
+        "text": "N",
+        "style": "outline",
+        "fontId": "helvetiker_bold",
+        "size": 3
+      },
+      "stl": null,
+      "operation": "add"
+    },
+    "f-0030": {
+      "id": "f-0030",
+      "kind": "text",
+      "profile": {
+        "start": {
+          "x": 19.4,
+          "y": 10.5
+        },
+        "segments": [
+          {
+            "type": "line",
+            "to": {
+              "x": 22.381999999999998,
+              "y": 10.5
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 22.381999999999998,
+              "y": 13.707
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 19.4,
+              "y": 13.707
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 19.4,
+              "y": 10.5
+            }
+          }
+        ],
+        "closed": true
+      },
+      "dimensions": [],
+      "text": {
+        "text": "O",
+        "style": "outline",
+        "fontId": "helvetiker_bold",
+        "size": 3
+      },
+      "stl": null,
+      "operation": "add"
+    },
+    "f-0032": {
+      "id": "f-0032",
+      "kind": "text",
+      "profile": {
+        "start": {
+          "x": 24,
+          "y": 10.5
+        },
+        "segments": [
+          {
+            "type": "line",
+            "to": {
+              "x": 26.313,
+              "y": 10.5
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 26.313,
+              "y": 13.539
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 24,
+              "y": 13.539
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 24,
+              "y": 10.5
+            }
+          }
+        ],
+        "closed": true
+      },
+      "dimensions": [],
+      "text": {
+        "text": "P",
+        "style": "outline",
+        "fontId": "helvetiker_bold",
+        "size": 3
+      },
+      "stl": null,
+      "operation": "add"
+    },
+    "f-0034": {
+      "id": "f-0034",
+      "kind": "text",
+      "profile": {
+        "start": {
+          "x": 28.599999999999998,
+          "y": 10.5
+        },
+        "segments": [
+          {
+            "type": "line",
+            "to": {
+              "x": 31.584999999999997,
+              "y": 10.5
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 31.584999999999997,
+              "y": 13.83
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 28.599999999999998,
+              "y": 13.83
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 28.599999999999998,
+              "y": 10.5
+            }
+          }
+        ],
+        "closed": true
+      },
+      "dimensions": [],
+      "text": {
+        "text": "Q",
+        "style": "outline",
+        "fontId": "helvetiker_bold",
+        "size": 3
+      },
+      "stl": null,
+      "operation": "add"
+    },
+    "f-0036": {
+      "id": "f-0036",
+      "kind": "text",
+      "profile": {
+        "start": {
+          "x": 33.199999999999996,
+          "y": 10.5
+        },
+        "segments": [
+          {
+            "type": "line",
+            "to": {
+              "x": 35.708,
+              "y": 10.5
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 35.708,
+              "y": 13.539
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 33.199999999999996,
+              "y": 13.539
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 33.199999999999996,
+              "y": 10.5
+            }
+          }
+        ],
+        "closed": true
+      },
+      "dimensions": [],
+      "text": {
+        "text": "R",
+        "style": "outline",
+        "fontId": "helvetiker_bold",
+        "size": 3
+      },
+      "stl": null,
+      "operation": "add"
+    },
+    "f-0038": {
+      "id": "f-0038",
+      "kind": "text",
+      "profile": {
+        "start": {
+          "x": 37.8,
+          "y": 10.5
+        },
+        "segments": [
+          {
+            "type": "line",
+            "to": {
+              "x": 40.278,
+              "y": 10.5
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 40.278,
+              "y": 13.707
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 37.8,
+              "y": 13.707
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 37.8,
+              "y": 10.5
+            }
+          }
+        ],
+        "closed": true
+      },
+      "dimensions": [],
+      "text": {
+        "text": "S",
+        "style": "outline",
+        "fontId": "helvetiker_bold",
+        "size": 3
+      },
+      "stl": null,
+      "operation": "add"
+    },
+    "f-0040": {
+      "id": "f-0040",
+      "kind": "text",
+      "profile": {
+        "start": {
+          "x": 42.4,
+          "y": 10.5
+        },
+        "segments": [
+          {
+            "type": "line",
+            "to": {
+              "x": 44.827,
+              "y": 10.5
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 44.827,
+              "y": 13.539
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 42.4,
+              "y": 13.539
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 42.4,
+              "y": 10.5
+            }
+          }
+        ],
+        "closed": true
+      },
+      "dimensions": [],
+      "text": {
+        "text": "T",
+        "style": "outline",
+        "fontId": "helvetiker_bold",
+        "size": 3
+      },
+      "stl": null,
+      "operation": "add"
+    },
+    "f-0042": {
+      "id": "f-0042",
+      "kind": "text",
+      "profile": {
+        "start": {
+          "x": 1,
+          "y": 17
+        },
+        "segments": [
+          {
+            "type": "line",
+            "to": {
+              "x": 3.439,
+              "y": 17
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 3.439,
+              "y": 20.126
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 1,
+              "y": 20.126
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 1,
+              "y": 17
+            }
+          }
+        ],
+        "closed": true
+      },
+      "dimensions": [],
+      "text": {
+        "text": "U",
+        "style": "outline",
+        "fontId": "helvetiker_bold",
+        "size": 3
+      },
+      "stl": null,
+      "operation": "add"
+    },
+    "f-0044": {
+      "id": "f-0044",
+      "kind": "text",
+      "profile": {
+        "start": {
+          "x": 5.6,
+          "y": 17
+        },
+        "segments": [
+          {
+            "type": "line",
+            "to": {
+              "x": 8.285,
+              "y": 17
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 8.285,
+              "y": 20.039
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 5.6,
+              "y": 20.039
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 5.6,
+              "y": 17
+            }
+          }
+        ],
+        "closed": true
+      },
+      "dimensions": [],
+      "text": {
+        "text": "V",
+        "style": "outline",
+        "fontId": "helvetiker_bold",
+        "size": 3
+      },
+      "stl": null,
+      "operation": "add"
+    },
+    "f-0046": {
+      "id": "f-0046",
+      "kind": "text",
+      "profile": {
+        "start": {
+          "x": 10.2,
+          "y": 17
+        },
+        "segments": [
+          {
+            "type": "line",
+            "to": {
+              "x": 14.073,
+              "y": 17
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 14.073,
+              "y": 20.039
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 10.2,
+              "y": 20.039
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 10.2,
+              "y": 17
+            }
+          }
+        ],
+        "closed": true
+      },
+      "dimensions": [],
+      "text": {
+        "text": "W",
+        "style": "outline",
+        "fontId": "helvetiker_bold",
+        "size": 3
+      },
+      "stl": null,
+      "operation": "add"
+    },
+    "f-0048": {
+      "id": "f-0048",
+      "kind": "text",
+      "profile": {
+        "start": {
+          "x": 14.799999999999999,
+          "y": 17
+        },
+        "segments": [
+          {
+            "type": "line",
+            "to": {
+              "x": 17.482,
+              "y": 17
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 17.482,
+              "y": 20.039
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 14.799999999999999,
+              "y": 20.039
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 14.799999999999999,
+              "y": 17
+            }
+          }
+        ],
+        "closed": true
+      },
+      "dimensions": [],
+      "text": {
+        "text": "X",
+        "style": "outline",
+        "fontId": "helvetiker_bold",
+        "size": 3
+      },
+      "stl": null,
+      "operation": "add"
+    },
+    "f-0050": {
+      "id": "f-0050",
+      "kind": "text",
+      "profile": {
+        "start": {
+          "x": 19.4,
+          "y": 17
+        },
+        "segments": [
+          {
+            "type": "line",
+            "to": {
+              "x": 21.907999999999998,
+              "y": 17
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 21.907999999999998,
+              "y": 20.039
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 19.4,
+              "y": 20.039
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 19.4,
+              "y": 17
+            }
+          }
+        ],
+        "closed": true
+      },
+      "dimensions": [],
+      "text": {
+        "text": "Y",
+        "style": "outline",
+        "fontId": "helvetiker_bold",
+        "size": 3
+      },
+      "stl": null,
+      "operation": "add"
+    },
+    "f-0052": {
+      "id": "f-0052",
+      "kind": "text",
+      "profile": {
+        "start": {
+          "x": 24,
+          "y": 17
+        },
+        "segments": [
+          {
+            "type": "line",
+            "to": {
+              "x": 26.412,
+              "y": 17
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 26.412,
+              "y": 20.039
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 24,
+              "y": 20.039
+            }
+          },
+          {
+            "type": "line",
+            "to": {
+              "x": 24,
+              "y": 17
+            }
+          }
+        ],
+        "closed": true
+      },
+      "dimensions": [],
+      "text": {
+        "text": "Z",
+        "style": "outline",
+        "fontId": "helvetiker_bold",
+        "size": 3
+      },
+      "stl": null,
+      "operation": "add"
+    }
+  },
+  "features": [
+    {
+      "id": "f0001",
+      "name": "Letter A",
+      "definitionId": "f-0002",
+      "transform": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 0,
+        "f": 0
+      },
+      "textLayout": null,
+      "constraints": [],
+      "z_top": 0.75,
+      "z_bottom": 0,
+      "folderId": null,
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "f0003",
+      "name": "Letter B",
+      "definitionId": "f-0004",
+      "transform": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 0,
+        "f": 0
+      },
+      "textLayout": null,
+      "constraints": [],
+      "z_top": 0.75,
+      "z_bottom": 0,
+      "folderId": null,
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "f0005",
+      "name": "Letter C",
+      "definitionId": "f-0006",
+      "transform": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 0,
+        "f": 0
+      },
+      "textLayout": null,
+      "constraints": [],
+      "z_top": 0.75,
+      "z_bottom": 0,
+      "folderId": null,
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "f0007",
+      "name": "Letter D",
+      "definitionId": "f-0008",
+      "transform": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 0,
+        "f": 0
+      },
+      "textLayout": null,
+      "constraints": [],
+      "z_top": 0.75,
+      "z_bottom": 0,
+      "folderId": null,
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "f0009",
+      "name": "Letter E",
+      "definitionId": "f-0010",
+      "transform": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 0,
+        "f": 0
+      },
+      "textLayout": null,
+      "constraints": [],
+      "z_top": 0.75,
+      "z_bottom": 0,
+      "folderId": null,
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "f0011",
+      "name": "Letter F",
+      "definitionId": "f-0012",
+      "transform": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 0,
+        "f": 0
+      },
+      "textLayout": null,
+      "constraints": [],
+      "z_top": 0.75,
+      "z_bottom": 0,
+      "folderId": null,
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "f0013",
+      "name": "Letter G",
+      "definitionId": "f-0014",
+      "transform": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 0,
+        "f": 0
+      },
+      "textLayout": null,
+      "constraints": [],
+      "z_top": 0.75,
+      "z_bottom": 0,
+      "folderId": null,
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "f0015",
+      "name": "Letter H",
+      "definitionId": "f-0016",
+      "transform": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 0,
+        "f": 0
+      },
+      "textLayout": null,
+      "constraints": [],
+      "z_top": 0.75,
+      "z_bottom": 0,
+      "folderId": null,
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "f0017",
+      "name": "Letter I",
+      "definitionId": "f-0018",
+      "transform": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 0,
+        "f": 0
+      },
+      "textLayout": null,
+      "constraints": [],
+      "z_top": 0.75,
+      "z_bottom": 0,
+      "folderId": null,
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "f0019",
+      "name": "Letter J",
+      "definitionId": "f-0020",
+      "transform": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 0,
+        "f": 0
+      },
+      "textLayout": null,
+      "constraints": [],
+      "z_top": 0.75,
+      "z_bottom": 0,
+      "folderId": null,
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "f0021",
+      "name": "Letter K",
+      "definitionId": "f-0022",
+      "transform": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 0,
+        "f": 0
+      },
+      "textLayout": null,
+      "constraints": [],
+      "z_top": 0.75,
+      "z_bottom": 0,
+      "folderId": null,
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "f0023",
+      "name": "Letter L",
+      "definitionId": "f-0024",
+      "transform": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 0,
+        "f": 0
+      },
+      "textLayout": null,
+      "constraints": [],
+      "z_top": 0.75,
+      "z_bottom": 0,
+      "folderId": null,
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "f0025",
+      "name": "Letter M",
+      "definitionId": "f-0026",
+      "transform": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 0,
+        "f": 0
+      },
+      "textLayout": null,
+      "constraints": [],
+      "z_top": 0.75,
+      "z_bottom": 0,
+      "folderId": null,
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "f0027",
+      "name": "Letter N",
+      "definitionId": "f-0028",
+      "transform": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 0,
+        "f": 0
+      },
+      "textLayout": null,
+      "constraints": [],
+      "z_top": 0.75,
+      "z_bottom": 0,
+      "folderId": null,
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "f0029",
+      "name": "Letter O",
+      "definitionId": "f-0030",
+      "transform": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 0,
+        "f": 0
+      },
+      "textLayout": null,
+      "constraints": [],
+      "z_top": 0.75,
+      "z_bottom": 0,
+      "folderId": null,
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "f0031",
+      "name": "Letter P",
+      "definitionId": "f-0032",
+      "transform": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 0,
+        "f": 0
+      },
+      "textLayout": null,
+      "constraints": [],
+      "z_top": 0.75,
+      "z_bottom": 0,
+      "folderId": null,
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "f0033",
+      "name": "Letter Q",
+      "definitionId": "f-0034",
+      "transform": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 0,
+        "f": 0
+      },
+      "textLayout": null,
+      "constraints": [],
+      "z_top": 0.75,
+      "z_bottom": 0,
+      "folderId": null,
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "f0035",
+      "name": "Letter R",
+      "definitionId": "f-0036",
+      "transform": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 0,
+        "f": 0
+      },
+      "textLayout": null,
+      "constraints": [],
+      "z_top": 0.75,
+      "z_bottom": 0,
+      "folderId": null,
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "f0037",
+      "name": "Letter S",
+      "definitionId": "f-0038",
+      "transform": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 0,
+        "f": 0
+      },
+      "textLayout": null,
+      "constraints": [],
+      "z_top": 0.75,
+      "z_bottom": 0,
+      "folderId": null,
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "f0039",
+      "name": "Letter T",
+      "definitionId": "f-0040",
+      "transform": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 0,
+        "f": 0
+      },
+      "textLayout": null,
+      "constraints": [],
+      "z_top": 0.75,
+      "z_bottom": 0,
+      "folderId": null,
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "f0041",
+      "name": "Letter U",
+      "definitionId": "f-0042",
+      "transform": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 0,
+        "f": 0
+      },
+      "textLayout": null,
+      "constraints": [],
+      "z_top": 0.75,
+      "z_bottom": 0,
+      "folderId": null,
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "f0043",
+      "name": "Letter V",
+      "definitionId": "f-0044",
+      "transform": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 0,
+        "f": 0
+      },
+      "textLayout": null,
+      "constraints": [],
+      "z_top": 0.75,
+      "z_bottom": 0,
+      "folderId": null,
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "f0045",
+      "name": "Letter W",
+      "definitionId": "f-0046",
+      "transform": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 0,
+        "f": 0
+      },
+      "textLayout": null,
+      "constraints": [],
+      "z_top": 0.75,
+      "z_bottom": 0,
+      "folderId": null,
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "f0047",
+      "name": "Letter X",
+      "definitionId": "f-0048",
+      "transform": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 0,
+        "f": 0
+      },
+      "textLayout": null,
+      "constraints": [],
+      "z_top": 0.75,
+      "z_bottom": 0,
+      "folderId": null,
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "f0049",
+      "name": "Letter Y",
+      "definitionId": "f-0050",
+      "transform": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 0,
+        "f": 0
+      },
+      "textLayout": null,
+      "constraints": [],
+      "z_top": 0.75,
+      "z_bottom": 0,
+      "folderId": null,
+      "visible": true,
+      "locked": false
+    },
+    {
+      "id": "f0051",
+      "name": "Letter Z",
+      "definitionId": "f-0052",
+      "transform": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 0,
+        "f": 0
+      },
+      "textLayout": null,
+      "constraints": [],
+      "z_top": 0.75,
+      "z_bottom": 0,
+      "folderId": null,
+      "visible": true,
+      "locked": false
+    }
+  ],
+  "featureFolders": [],
+  "featureTree": [
+    {
+      "type": "feature",
+      "featureId": "f0001"
+    },
+    {
+      "type": "feature",
+      "featureId": "f0003"
+    },
+    {
+      "type": "feature",
+      "featureId": "f0005"
+    },
+    {
+      "type": "feature",
+      "featureId": "f0007"
+    },
+    {
+      "type": "feature",
+      "featureId": "f0009"
+    },
+    {
+      "type": "feature",
+      "featureId": "f0011"
+    },
+    {
+      "type": "feature",
+      "featureId": "f0013"
+    },
+    {
+      "type": "feature",
+      "featureId": "f0015"
+    },
+    {
+      "type": "feature",
+      "featureId": "f0017"
+    },
+    {
+      "type": "feature",
+      "featureId": "f0019"
+    },
+    {
+      "type": "feature",
+      "featureId": "f0021"
+    },
+    {
+      "type": "feature",
+      "featureId": "f0023"
+    },
+    {
+      "type": "feature",
+      "featureId": "f0025"
+    },
+    {
+      "type": "feature",
+      "featureId": "f0027"
+    },
+    {
+      "type": "feature",
+      "featureId": "f0029"
+    },
+    {
+      "type": "feature",
+      "featureId": "f0031"
+    },
+    {
+      "type": "feature",
+      "featureId": "f0033"
+    },
+    {
+      "type": "feature",
+      "featureId": "f0035"
+    },
+    {
+      "type": "feature",
+      "featureId": "f0037"
+    },
+    {
+      "type": "feature",
+      "featureId": "f0039"
+    },
+    {
+      "type": "feature",
+      "featureId": "f0041"
+    },
+    {
+      "type": "feature",
+      "featureId": "f0043"
+    },
+    {
+      "type": "feature",
+      "featureId": "f0045"
+    },
+    {
+      "type": "feature",
+      "featureId": "f0047"
+    },
+    {
+      "type": "feature",
+      "featureId": "f0049"
+    },
+    {
+      "type": "feature",
+      "featureId": "f0051"
+    }
+  ],
+  "global_constraints": [],
+  "tools": [
+    {
+      "id": "tool-quarter",
+      "name": "1/4\" end mill",
+      "units": "inch",
+      "type": "flat_endmill",
+      "diameter": 0.25,
+      "vBitAngle": null,
+      "flutes": 2,
+      "material": "carbide",
+      "defaultRpm": 18000,
+      "defaultFeed": 30,
+      "defaultPlungeFeed": 12,
+      "defaultStepdown": 0.1,
+      "defaultStepover": 0.4,
+      "maxCutDepth": 0
+    }
+  ],
+  "operations": [
+    {
+      "id": "op-cutout",
+      "name": "Cut out letters",
+      "description": "",
+      "kind": "edge_route_outside",
+      "pass": "finish",
+      "enabled": true,
+      "showToolpath": true,
+      "debugToolpath": false,
+      "target": {
+        "source": "features",
+        "featureIds": [
+          "f0001",
+          "f0003",
+          "f0005",
+          "f0007",
+          "f0009",
+          "f0011",
+          "f0013",
+          "f0015",
+          "f0017",
+          "f0019",
+          "f0021",
+          "f0023",
+          "f0025",
+          "f0027",
+          "f0029",
+          "f0031",
+          "f0033",
+          "f0035",
+          "f0037",
+          "f0039",
+          "f0041",
+          "f0043",
+          "f0045",
+          "f0047",
+          "f0049",
+          "f0051"
+        ]
+      },
+      "toolRef": "tool-quarter",
+      "stepdown": 0.1,
+      "stepover": 0.4,
+      "feed": 30,
+      "plungeFeed": 12,
+      "rpm": 18000,
+      "pocketPattern": "offset",
+      "pocketAngle": 0,
+      "edgeStrategy": "contour",
+      "entryStrategy": "plunge",
+      "entryRampAngle": 5,
+      "pocketSlotFeedPercent": 60,
+      "pocketFeedReduction": "slots_only",
+      "roundOutsideCorners": true,
+      "roundLinkCorners": true,
+      "cornerRelief": "none",
+      "stockToLeaveRadial": 0,
+      "stockToLeaveAxial": 0,
+      "finishWalls": true,
+      "finishFloor": true,
+      "carveDepth": 0.03937007874015748,
+      "maxCarveDepth": 0.03937007874015748,
+      "cutDirection": "conventional",
+      "machiningOrder": "feature_first",
+      "finishScallopHeight": 0,
+      "waterlineAdaptiveRefinement": true,
+      "waterlineMicroStepover": 0.1,
+      "waterlineRefinementThreshold": 0,
+      "waterlineMaxRingsPerBand": 0,
+      "waterlineTipStepdown": 0,
+      "arcFittingEnabled": true
+    },
+    {
+      "id": "op0053",
+      "name": "Edge route inside Rough",
+      "description": "",
+      "kind": "edge_route_inside",
+      "pass": "rough",
+      "enabled": true,
+      "showToolpath": true,
+      "debugToolpath": false,
+      "target": {
+        "source": "features",
+        "featureIds": [
+          "f0001",
+          "f0003",
+          "f0007",
+          "f0031",
+          "f0033",
+          "f0035",
+          "f0029"
+        ]
+      },
+      "toolRef": "tool-quarter",
+      "stepdown": 0.1,
+      "stepover": 0.4,
+      "feed": 30,
+      "plungeFeed": 12,
+      "rpm": 18000,
+      "pocketPattern": "offset",
+      "pocketAngle": 0,
+      "edgeStrategy": "contour",
+      "entryStrategy": "helix",
+      "entryRampAngle": 5,
+      "pocketSlotFeedPercent": 60,
+      "pocketFeedReduction": "slots_only",
+      "roundOutsideCorners": true,
+      "roundLinkCorners": true,
+      "cornerRelief": "none",
+      "stockToLeaveRadial": 0,
+      "stockToLeaveAxial": 0,
+      "finishWalls": true,
+      "finishFloor": true,
+      "carveDepth": 0.03937007874015748,
+      "maxCarveDepth": 0.03937007874015748,
+      "cutDirection": "conventional",
+      "machiningOrder": "feature_first",
+      "finishScallopHeight": 0,
+      "waterlineAdaptiveRefinement": true,
+      "waterlineMicroStepover": 0.1,
+      "waterlineRefinementThreshold": 0,
+      "waterlineMaxRingsPerBand": 0,
+      "waterlineTipStepdown": 0,
+      "arcFittingEnabled": true
+    }
+  ],
+  "tabs": [],
+  "clamps": [
+    {
+      "id": "cl0054",
+      "name": "Clamp 1",
+      "type": "step_clamp",
+      "x": 46.750041293782495,
+      "y": 11.000002580861405,
+      "w": 2.5,
+      "h": 1,
+      "height": 0.31496062992125984,
+      "visible": true
+    },
+    {
+      "id": "cl0056",
+      "name": "Clamp 3",
+      "type": "step_clamp",
+      "x": 5,
+      "y": -1,
+      "w": 1,
+      "h": 2.25,
+      "height": 0.31496062992125984,
+      "visible": true
+    },
+    {
+      "id": "cl0866",
+      "name": "Clamp 1 Copy",
+      "type": "step_clamp",
+      "x": -1.2500009490016837,
+      "y": 10.999999999713538,
+      "w": 2.5,
+      "h": 1,
+      "height": 0.31496062992125984,
+      "visible": true
+    },
+    {
+      "id": "cl0868",
+      "name": "Clamp 3 Copy",
+      "type": "step_clamp",
+      "x": 5.000000152340471,
+      "y": 22.75,
+      "w": 0.9999998476595291,
+      "h": 2.2499710553104677,
+      "height": 0.31496062992125984,
+      "visible": true
+    },
+    {
+      "id": "cl0869",
+      "name": "Clamp 3 Copy Copy",
+      "type": "step_clamp",
+      "x": 23.0000001523172,
+      "y": 22.750028944689777,
+      "w": 0.9999998476595291,
+      "h": 2.2499710553104677,
+      "height": 0.31496062992125984,
+      "visible": true
+    },
+    {
+      "id": "cl0870",
+      "name": "Clamp 3 Copy Copy 2",
+      "type": "step_clamp",
+      "x": 41.00000015229393,
+      "y": 22.750057889379555,
+      "w": 0.9999998476595291,
+      "h": 2.2499710553104677,
+      "height": 0.31496062992125984,
+      "visible": true
+    },
+    {
+      "id": "cl0871",
+      "name": "Clamp 3 Copy 2",
+      "type": "step_clamp",
+      "x": 23,
+      "y": -1,
+      "w": 1,
+      "h": 2.25,
+      "height": 0.31496062992125984,
+      "visible": true
+    },
+    {
+      "id": "cl0872",
+      "name": "Clamp 3 Copy 3",
+      "type": "step_clamp",
+      "x": 41,
+      "y": -1,
+      "w": 1,
+      "h": 2.25,
+      "height": 0.31496062992125984,
+      "visible": true
+    }
+  ],
+  "ai_history": []
+}
