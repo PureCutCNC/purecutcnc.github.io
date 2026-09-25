@@ -448,6 +448,17 @@ const clipCanvas = async (page) => {
 	return { x, y, width: w, height: h }
 }
 
+/** Keep the cut glyphs and tab crossings large enough to read on the manual page. */
+const clipTextContours = async (page) => {
+	const { x, y, w, h } = await canvasRect(page)
+	return {
+		x: x + Math.round(w * 0.14),
+		y: y + Math.round(h * 0.24),
+		width: Math.round(w * 0.72),
+		height: Math.round(h * 0.57),
+	}
+}
+
 /** Points are fractions of the canvas, so a recipe survives a canvas that changes size. */
 async function moveTo(page, fx, fy) {
 	const { x, y, w, h } = await canvasRect(page)
@@ -479,7 +490,7 @@ async function clickUntil(page, fx, fy, tries = 4) {
 }
 
 /** Place a text feature. The canvas drops taps, so keep trying until it lands. */
-async function placeText(page, { words, height, fx, fy, outline = false }) {
+async function placeText(page, { words, height, fx, fy, outline = false, operation = 'Subtract' }) {
 	await pickShape(page, 'Add feature text')
 	await page.waitForTimeout(1300)
 	const dialog = page.locator('.dialog--import')
@@ -491,11 +502,22 @@ async function placeText(page, { words, height, fx, fy, outline = false }) {
 		await page.getByText('Outline', { exact: true }).first().click()
 		await page.waitForTimeout(900)
 	}
+	if (operation !== 'Subtract') {
+		await dialog.getByRole('button', { name: 'Subtract' }).click()
+		await page.getByText(operation, { exact: true }).last().click()
+	}
 	if (height) await dialog.locator('input[type=number]').first().fill(String(height))
 	await page.waitForTimeout(400)
 	await page.getByRole('button', { name: 'Place text' }).click()
 	await page.waitForTimeout(900)
-	const placed = () => page.evaluate((w) => (document.querySelector('.panel-content')?.innerText ?? '').includes(w), words)
+	const placed = () =>
+		page.evaluate(
+			(w) =>
+				[...document.querySelectorAll('.tree-row--feature')].some((row) =>
+					row.innerText.split('\n').some((part) => part.trim() === w),
+				),
+			words,
+		)
 	for (let i = 0; i < 5 && !(await placed()); i++) {
 		await clickTo(page, fx, fy)
 		await page.waitForTimeout(1400)
@@ -503,6 +525,16 @@ async function placeText(page, { words, height, fx, fy, outline = false }) {
 	if (!(await placed())) throw new Error(`text "${words}" never placed`)
 	await page.keyboard.press('Escape')
 	await page.waitForTimeout(700)
+}
+
+/** Target the resolved shapes of editable outline text without expanding it. */
+async function createTextRoute(page, { words, kind, fx = 0.25 }) {
+	await page.locator('[title="Hide feature labels"]').first().click()
+	await placeText(page, { words, height: 1.2, fx, fy: 0.35, outline: true, operation: 'Add' })
+	await page.locator('.tree-row--feature').filter({ hasText: words }).first().click()
+	await page.getByRole('button', { name: /^Add$/ }).first().click()
+	await page.locator('.cam-operation-item', { hasText: kind }).getByRole('button', { name: 'Finish' }).click()
+	await page.waitForTimeout(3000)
 }
 
 /** Open the toolbar's Add dimension menu and choose one of its six types. */
@@ -1145,6 +1177,18 @@ const RECIPES = [
 			await page.waitForTimeout(3000)
 		},
 		clip: clipWorkspaceLeft,
+	},
+	{
+		id: 'text-counter-route',
+		asset: 'design/text/counter-route.png',
+		viewport: { width: 1440, height: 900 },
+		collapseLegend: true,
+		async steps(page) {
+			await createTextRoute(page, { words: 'O', kind: 'Edge in', fx: 0.27 })
+			await clickTo(page, 0.84, 0.84)
+			await page.waitForTimeout(1200)
+		},
+		clip: clipTextContours,
 	},
 
 	// --- Design: dimensions and constraints ------------------------------------
@@ -1879,6 +1923,32 @@ const RECIPES = [
 			await page.waitForTimeout(2000)
 		},
 		clip: clipWorkspaceLeft,
+	},
+	{
+		id: 'tabs-text-outside',
+		asset: 'cam-setup/tabs/text-outside-tabs.png',
+		viewport: { width: 1440, height: 900 },
+		collapseLegend: true,
+		async steps(page) {
+			await createTextRoute(page, { words: 'Xo', kind: 'Edge out' })
+			await page.getByRole('button', { name: 'Auto place tabs' }).first().click()
+			await page.waitForFunction(() => document.querySelectorAll('.tree-row--tab').length === 8)
+			await page.waitForTimeout(1600)
+		},
+		clip: clipTextContours,
+	},
+	{
+		id: 'tabs-text-inside',
+		asset: 'cam-setup/tabs/text-inside-tabs.png',
+		viewport: { width: 1440, height: 900 },
+		collapseLegend: true,
+		async steps(page) {
+			await createTextRoute(page, { words: 'O', kind: 'Edge in', fx: 0.27 })
+			await page.getByRole('button', { name: 'Auto place tabs' }).first().click()
+			await page.waitForFunction(() => document.querySelectorAll('.tree-row--tab').length === 2)
+			await page.waitForTimeout(1600)
+		},
+		clip: clipTextContours,
 	},
 	{
 		id: 'operations-generation-menu',

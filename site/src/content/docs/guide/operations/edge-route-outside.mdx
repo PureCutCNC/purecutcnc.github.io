@@ -12,7 +12,8 @@ import outsideResult from '../../../../assets/manual/operations/edge-route-outsi
 import { Aside } from '@astrojs/starlight/components';
 
 **Edge route outside** follows the outside edge of a closed add or model profile, offset by the
-tool radius. It is the normal operation for separating a finished part from surrounding stock.
+tool radius. It can also route around the add islands enclosed by a Subtract outline text feature.
+It is the normal operation for separating a finished part from surrounding stock.
 
 <Screenshot src={outsideRoute} alt="An outside edge route running around a part, with gaps in the toolpath where each tab crosses it" caption="The route runs outside the profile, and breaks where each tab holds the part." />
 
@@ -22,7 +23,7 @@ tool radius. It is the normal operation for separating a finished part from surr
 
 | Requirement | Value |
 | --- | --- |
-| Target features | Closed add or model features; regions are supported by contour routing only |
+| Target features | Closed add or model features, or Subtract outline text with enclosed add islands; regions are supported by contour routing only |
 | Tool | Flat or ball endmill |
 | Passes | Rough or Finish |
 
@@ -43,6 +44,9 @@ Rough passes can use **Contour** or **Trochoidal** routing; finish passes always
 See [Trochoidal cutting](/guide/strategies/trochoidal-cutting/#edge-routes).
 
 ## Limitations
+
+For Subtract text, the route follows only the enclosed add islands, not the outer letter outlines.
+See [Machining text](/guide/design/text/#machining-text) before selecting the target.
 
 <Aside type="danger" title="Safety: outside routing can release the part">
 	Use tabs and secure workholding before an outside route reaches the final depth. If combined

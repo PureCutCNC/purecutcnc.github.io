@@ -922,6 +922,17 @@
 		"status": "current",
 		"blockedBy": []
 	},
+	"design/text/counter-route.png": {
+		"shows": "An Add outline O with an inside edge-route Finish toolpath tracing only its enclosed counter; the editable text remains one feature",
+		"source": "capture",
+		"appCommit": "65a557931aa94464115909874d4624fe8dae3189",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
 	"design/backdrop-images/backdrop-alignment.png": {
 		"shows": "A reference drawing loaded as a backdrop and dimmed to 35 percent, with a traced circle sitting concentric on one of its bolt holes, beside the backdrop properties showing Visible, Opacity, Width 3.6, Height 2.4, Angle 90 and the Replace image, Move, Resize, Rotate and Delete buttons",
 		"source": "capture",
@@ -1081,6 +1092,28 @@
 		"source": "capture",
 		"appCommit": "b4ffabbdf900d42027545907d23e3cd7bf9b6aa3",
 		"fixture": "Example: PureCutCNC",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"cam-setup/tabs/text-outside-tabs.png": {
+		"shows": "An Add outline Xo with an outside edge-route Finish toolpath and eight automatic tabs distributed across both cut glyph outlines",
+		"source": "capture",
+		"appCommit": "65a557931aa94464115909874d4624fe8dae3189",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"cam-setup/tabs/text-inside-tabs.png": {
+		"shows": "An Add outline O with an inside edge-route Finish toolpath and two automatic tabs crossing only its counter",
+		"source": "capture",
+		"appCommit": "65a557931aa94464115909874d4624fe8dae3189",
+		"fixture": "Empty project",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
 		"locale": "en",

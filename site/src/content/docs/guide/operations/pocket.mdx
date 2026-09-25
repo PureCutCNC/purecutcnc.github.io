@@ -12,7 +12,9 @@ import pocketResult from '../../../../assets/manual/operations/pocket/result.png
 import { Aside } from '@astrojs/starlight/components';
 import Screenshot from '../../../../components/Screenshot.astro';
 
-**Pocket** clears the interior of a closed subtract feature. It supports rough and finish passes and four clearing patterns.
+**Pocket** clears the interior of a closed subtract feature. It can also clear the enclosed
+counters of an Add outline text feature without expanding the text first. It supports rough and
+finish passes and four clearing patterns.
 
 <Screenshot src={offsetToolpath} alt="Pickup and neck cavities on a guitar body, each filled with concentric offset rings that step inward from the cavity wall to its centre" caption="Offset clearing steps inward from the wall, one ring at a time, until the cavity is cleared." />
 
@@ -22,13 +24,15 @@ import Screenshot from '../../../../components/Screenshot.astro';
 
 | Requirement | Value |
 | --- | --- |
-| Target features | Subtract features |
+| Target features | Subtract features, or Add outline text with subtract counters |
 | Profile | Closed |
 | Tool | Flat or ball endmill |
 
 <Aside>
 	Add features are material (the part); subtract features remove material (pockets, holes). A
-	Pocket needs subtract features — use Surface Clean to face the top of an add feature.
+	Pocket needs subtract geometry. Add outline text qualifies only when a letter contains a
+	subtract counter, such as the centre of O; a letter such as L has none. Use Surface Clean to face
+	the top of a regular add feature. See [Machining text](/guide/design/text/#machining-text).
 </Aside>
 
 ## Parameters
