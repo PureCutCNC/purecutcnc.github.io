@@ -22,7 +22,7 @@ Use CAM Plan to make a starting set of operations from the features already in y
 ## Create a CAM Plan
 
 
-<Screenshot src={planRecommendations} alt="The CAM Plan dialog with two recommended pocket operations listed and checked on the left, and on the right the reason the operation was chosen, the tool it picked and why, and its main parameters" caption="The plan explains each operation it proposes, and every part of it can be edited or switched off before you create it." />
+<Screenshot src={planRecommendations} alt="CAM Plan recommending rough and finish outside edge routes for a rectangle, with shared tabs and a quarter-inch endmill selected because it fits the operation cutter limit" caption="The selected route explains why CAM Plan chose the operation and its 1/4-inch tool. Review or change the proposal before creating operations." />
 <Steps>
 
 1. Open the **CAM** panel and select **Plan**. The **CAM Plan** dialog opens with a summary of proposed operations, tools, existing operations, and features that need review.
@@ -30,6 +30,10 @@ Use CAM Plan to make a starting set of operations from the features already in y
 2. Read each item in **Recommended plan**. CAM Plan can suggest rough and finish passes for pockets and edge routes, drilling for matching circular subtracts, surface operations for supported imported models, and shared tabs for matching separating edge cuts. Existing operations stay unchanged.
 
 3. Select a proposed operation to inspect its reason, tool choice, target, and main parameters. Change values where the proposal does not match your material, cutter, machine, or intended result.
+
+   For pockets, edge routes, follow-line cuts, and 3D roughing and finishing, automatic tool choices aim to stay within **1/4 in (6.35 mm)** and may use a smaller cutter based on the target’s size. A 6 mm cutter fits under this ceiling in a metric project. Outside edge routes use up to 15% of the target’s shorter side; the other listed operations use up to 20%. CAM Plan also checks tool type and cutting depth. A tool already in the project is preferred when suitable; otherwise CAM Plan can propose one from the bundled library. The tool explanation shows the limit used for that proposal.
+
+   This is a recommendation, not a safe-cut guarantee. CAM Plan filters out tools that exceed its calculated size limit and may leave a feature for explicit review if none qualifies. Operations created directly through **Add** or a feature’s **Create operation** menu can instead fall back to the smallest compatible available tool, even if it is larger than 1/4 in. Drilling follows the hole size; V-carving and surface cleaning do not use this diameter ceiling. Always check the actual tool and whether it can enter the target before creating or machining the operation.
 
 4. Clear an operation's inclusion checkbox to leave it out. If the plan lists a feature under **Needs explicit review**, either enable an operation that covers it or confirm that no created operation will cover that feature.
 

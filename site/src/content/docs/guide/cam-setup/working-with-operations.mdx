@@ -40,6 +40,8 @@ An operation connects selected features, a tool, and cutting settings to a toolp
 
 </Steps>
 
+When **Add** or a feature’s **Create operation** menu picks a tool for a new pocket, edge route, follow-line cut, or 3D roughing or finishing operation, it aims for a cutter no wider than **1/4 in (6.35 mm)** and may choose a smaller one for a narrow target. It checks project tools before the bundled library. If none fits that size limit, it can choose the smallest compatible tool available, which may be wider than the limit. Inspect the selected tool, reach, and target before generating a toolpath. [CAM Plan](/guide/cam-setup/cam-plan/#create-a-cam-plan) shows the reasoning for its proposed tool choices.
+
 ## Context menu
 
 Use a feature’s context menu to create a compatible operation, or to add that feature to and remove it from an existing operation. The menu offers **Create operation**, **Add to operation**, and **Remove from operation** only when the selected feature is compatible.
