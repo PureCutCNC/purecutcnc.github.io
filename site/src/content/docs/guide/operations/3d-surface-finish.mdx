@@ -1,60 +1,142 @@
 ---
 title: 3D surface finish
-description: Finish one 3D model with parallel, waterline, or constant-scallop toolpaths.
+description: Choose Parallel, Waterline, or Constant scallop to finish a 3D model, then check the resulting surface.
 pageType: operation
 availability: stable
 status: draft
 ---
 
 import Screenshot from '../../../../components/Screenshot.astro';
-import finishPattern from '../../../../assets/manual/operations/3d-surface-finish/finish-patterns.png';
-import finishResult from '../../../../assets/manual/operations/3d-surface-finish/result.png';
 import { Aside } from '@astrojs/starlight/components';
+import patternParallel from '../../../../assets/manual/operations/3d-surface-finish/pattern-parallel.png';
+import patternWaterline from '../../../../assets/manual/operations/3d-surface-finish/pattern-waterline.png';
+import patternScallop from '../../../../assets/manual/operations/3d-surface-finish/finish-patterns.png';
+import finishResult from '../../../../assets/manual/operations/3d-surface-finish/result.png';
+import scallopHeight from '../../../../assets/manual/operations/3d-surface-finish/scallop-height.svg';
+import slopeFilter from '../../../../assets/manual/operations/3d-surface-finish/slope-filter.png';
 
-**3D surface finish** machines the final surface of one model. Choose it after roughing when the
-finish, cusp height, and slope coverage matter more than bulk removal rate.
+**3D surface finish** follows the final shape of one imported model. Use it after a roughing pass
+has removed most of the stock. The **Pattern** changes how the cutter covers the surface; it does
+not change the model or make a roughing operation into a finish pass.
 
 ## Requirements
 
 | Requirement | Value |
 | --- | --- |
-| Target features | Exactly one 3D model feature |
-| Tool | Flat or ball endmill; scallop-height control requires a ball endmill |
-| Passes | Finish only |
+| Target features | Exactly one 3D model feature; Regions can limit the area |
+| Tool | Flat or ball endmill; **Scallop height** needs a ball endmill |
+| Passes | Finish only; rough first when there is substantial stock to remove |
 
 ## Parameters
 
 Shared settings are documented in [Common operation parameters](/guide/operations/common-parameters/).
+The controls most useful when choosing a finish are:
 
-| Parameter | Description |
+| Parameter | What it changes |
 | --- | --- |
 | **Pattern** | Chooses Parallel, Waterline, or Constant scallop. |
-| **Slope filter** | Limits the operation to the selected surface-slope range. |
-| **Scallop height** | Sets the target cusp height for ball-endmill finishing. |
-| **Stepdown** | Controls applicable vertical refinement settings. |
+| **Scallop height** | With a ball endmill, sets a target cusp height and derives pass spacing. See [Scallop height](#scallop-height). |
+| **Stepover ratio** | Sets spacing for Parallel or Constant scallop when no scallop height is configured. Waterline uses its own refinement controls. |
+| **Filter by surface slope** | Limits the operation to a band of surface slopes. See [Slope filter](#slope-filter). |
+| **Stepdown** | Sets the base contour-level spacing for Waterline when **Scallop height** is zero. Waterline can add refined rings between those levels. |
 
 ## Strategies
 
-<Screenshot src={finishPattern} alt="Constant-scallop 3D finish paths following the Busto head, face, neck, and base" caption="Constant-scallop passes follow the Busto surface. Other finish patterns are compared in 3D finishing controls." />
+Start with the shape you need to finish, then compare the preview and simulation. These patterns
+are alternatives within the same operation; for a model with very different shallow and steep
+areas, use separate finish operations with suitable patterns and [slope ranges](#slope-filter).
 
-<Screenshot src={finishResult} alt="Simulated Busto stock after finishing, with smoother facial and neck detail" caption="After roughing and finishing, the face and neck are smoother than in the rough simulation." />
+| Pattern | How the cutter travels | A useful first choice when… | Check especially… |
+| --- | --- | --- | --- |
+| **Parallel** | Sweeps across the model in evenly spaced XY scan lines, rising and falling with its surface. | The area is broad, fairly shallow, or has one useful sweep direction. | Steep sides and fine details; equal XY spacing does not give an equal cusp everywhere. |
+| **Waterline** | Follows contour rings at successive heights, with optional extra rings between them. | Upright walls, steep sculpted sides, and outlines need attention. | Broad flat or shallow areas, which may need another pattern; refinement warnings. |
+| **Constant scallop** | Follows contours spaced across the 3D cutter surface rather than a fixed XY or Z interval. | Slopes change across a sculpted form and you want a more even cusp target. | Very dense paths, generation time, and small areas that the selected tool cannot reach. |
 
-Read [3D finishing controls](/guide/strategies/3d-finishing/) for each pattern, waterline
-refinement, scallop height, the slope filter, and protection behaviour.
+### Parallel
+
+<Screenshot src={patternParallel} alt="Parallel finishing paths sweeping across the Busto model in repeated scan lines" caption="Parallel crosses the Busto model in one direction while the cutter height follows its surface." />
+
+Parallel lays scan lines across the model at the **Angle** you choose. The cutter follows the
+surface height along each line. **Stepover ratio**, or **Scallop height** with a ball endmill,
+controls the distance between lines. Try it on broad tops, gentle curves, and surfaces where a
+single sweep direction gives straightforward coverage. Change the angle if the lines run poorly
+across a feature, then inspect the preview again. A steep wall can receive fewer useful contacts
+than a shallow top at the same XY spacing.
+
+### Waterline
+
+<Screenshot src={patternWaterline} alt="Waterline finishing paths wrapping around the Busto model at successive heights" caption="Waterline follows the model's contours at successive heights instead of sweeping across it." />
+
+Waterline makes contour rings around the model at successive Z heights. **Stepdown** supplies its
+base level spacing when **Scallop height** is zero. **Adaptive refinement** can insert more rings where the gap between levels
+needs coverage; **Adaptive spacing** controls the requested distance, and **Max rings / band**
+limits the work within a band. This is a useful choice for steep walls and prominent vertical
+features. On a broad, nearly horizontal top, compare it with Parallel or Constant scallop rather
+than assuming the rings have finished the whole area.
+
+Adaptive refinement has a coverage budget. If the app warns that refinement was coarsened or
+truncated, inspect the remaining bands in preview and simulation. Region-limited Waterline does
+not add the adaptive rings, so pay particular attention to its coverage.
+
+### Constant scallop
+
+<Screenshot src={patternScallop} alt="Constant-scallop 3D finish paths following the Busto head, face, neck, and base" caption="Constant scallop varies the contour spacing over the sculpted Busto surface." />
+
+Constant scallop builds contours at successive distances across the cutter's 3D contact surface,
+then follows the model height along each contour. With a ball endmill, **Scallop height** sets the
+target ridge left between neighbouring passes. Unlike Parallel's fixed XY spacing or Waterline's
+Z levels, the spacing changes across the form. Try it on organic shapes where slope varies, such
+as the Busto face and neck. A finer target means more, closer paths; inspect the toolpath density
+and generation warnings before committing to the machining time.
+
+## Scallop height
+
+<Screenshot src={scallopHeight} alt="Adjacent ball-endmill passes showing tool radius, stepover, and the scallop height left between them" />
+
+The scallop is the small ridge between adjacent passes of a ball endmill. A smaller **Scallop
+height** asks for a finer surface and normally creates more passes. With Parallel and Constant
+scallop, the app converts that height into pass spacing. With Waterline, it derives the base
+vertical spacing using the selected minimum slope, or a 30° assumption when no slope filter is
+set. If the field is zero, the applicable stepover or stepdown controls take over. Treat the value
+as a target: tool shape, reachable geometry, protection, and path limits still affect the result.
+
+## Slope filter
+
+<Screenshot src={slopeFilter} alt="3D finish paths restricted to a slope band on the Busto model, with the slope range controls visible" caption="With a 0–30° filter, the orange paths cover the shallower parts of the bust and leave steeper surfaces for another pass." />
+
+**Filter by surface slope** keeps only surfaces within the minimum and maximum angle, measured
+from horizontal: 0° is flat and 90° is vertical. One practical approach is a shallow-surface
+Parallel pass and a separate steep-surface Waterline pass. Use the preview to check their boundary
+and any uncut band. Turning the filter on initially selects 0–30°; edit the bounds for the area
+you intend to finish. The filter deliberately leaves the rest of the model to another operation.
+
+## Protection
+
+3D surface finishing respects the model cross-section and retained 2.5D material. Regions, clamps,
+tabs, and nearby features can split or suppress a pass. If a path stops unexpectedly, inspect the
+operation warnings and the protected geometry before widening the area or changing the pattern.
 
 ## Limitations
 
-Only one model can be the target. Parallel and constant-scallop passes do not use the 2.5D
-clearing-pattern controls, while waterline uses adaptive ring settings instead of a stepover ratio.
+Only one 3D model can be the target of a finish operation. Waterline's adaptive rings are subject
+to a coverage budget and are not generated for a region-limited target. A smaller cusp target or
+spacing can produce a dense path without making unreachable geometry machinable.
 
 ## Verifying the result
 
-<Aside type="danger" title="Safety: inspect slope-limited coverage">
-	A slope filter deliberately leaves portions of a model uncut. Inspect the 3D preview and
-	simulation for missed bands, protected areas, and the final surface before exporting G-code.
+<Screenshot src={finishResult} alt="Simulated Busto stock after finishing, with smoother facial and neck detail" caption="The finish pass follows the rough pass, smoothing the Busto face and neck." />
+
+Compare the preview with the final simulation. Look for uncovered shallow tops, steep walls,
+protected bands, and any place the chosen tool cannot reach. If one pattern leaves an area,
+consider a second finish operation with a different pattern or slope range, then verify the
+combined result before exporting G-code.
+
+<Aside type="danger" title="Safety: inspect the complete finish">
+	Confirm the model target, tool, workholding, clearances, operation warnings, and final simulation.
+	A slope filter intentionally leaves material outside its range.
 </Aside>
 
 ## Related pages
 
-- [3D surface rough](/guide/operations/3d-surface-rough/): prepare a model for finishing.
-- [3D surface cleanup](/guide/operations/3d-surface-cleanup/): clean eligible walls and floors at retained levels.
+- [3D surface rough](/guide/operations/3d-surface-rough/): remove bulk material first.
+- [3D surface cleanup](/guide/operations/3d-surface-cleanup/): clean eligible retained walls and floors.

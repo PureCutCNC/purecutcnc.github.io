@@ -1528,44 +1528,33 @@
 		"status": "current",
 		"blockedBy": []
 	},
-	"strategies/3d-finishing/pattern-parallel.png": {
-		"shows": "A 3D finish using the Parallel pattern over the carved top",
+	"operations/3d-surface-finish/pattern-parallel.png": {
+		"shows": "Parallel 3D finish scan lines sweeping across the Busto head, face, neck, and base",
 		"source": "capture",
-		"appCommit": "f11fd8c9fbceb0a6077001249c72c0cca4fc0ca4",
-		"fixture": "site/fixtures/cam-demo.camj",
+		"appCommit": "7843773f443748a426b59ad929c152c92ac0cb43",
+		"fixture": "site/fixtures/busto-w-ops-2.camj",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
 		"locale": "en",
 		"status": "current",
 		"blockedBy": []
 	},
-	"strategies/3d-finishing/pattern-waterline.png": {
-		"shows": "The same finish using Waterline, whose rings crowd where the surface is shallow",
+	"operations/3d-surface-finish/pattern-waterline.png": {
+		"shows": "Waterline 3D finish contour rings wrapping around the same Busto model",
 		"source": "capture",
-		"appCommit": "f11fd8c9fbceb0a6077001249c72c0cca4fc0ca4",
-		"fixture": "site/fixtures/cam-demo.camj",
+		"appCommit": "7843773f443748a426b59ad929c152c92ac0cb43",
+		"fixture": "site/fixtures/busto-w-ops-2.camj",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
 		"locale": "en",
 		"status": "current",
 		"blockedBy": []
 	},
-	"strategies/3d-finishing/pattern-constant-scallop.png": {
-		"shows": "The same finish using Constant scallop, whose spacing varies to hold the cusp height",
+	"operations/3d-surface-finish/slope-filter.png": {
+		"shows": "Constant-scallop Busto finish limited to a 0–30 degree slope band with the filter controls visible",
 		"source": "capture",
-		"appCommit": "f11fd8c9fbceb0a6077001249c72c0cca4fc0ca4",
-		"fixture": "site/fixtures/cam-demo.camj",
-		"viewport": "1440x900@2x",
-		"theme": "dark",
-		"locale": "en",
-		"status": "current",
-		"blockedBy": []
-	},
-	"strategies/3d-finishing/slope-filter.png": {
-		"shows": "A 3D finish restricted to a slope band, with the minimum and maximum slope fields beside it",
-		"source": "capture",
-		"appCommit": "f11fd8c9fbceb0a6077001249c72c0cca4fc0ca4",
-		"fixture": "site/fixtures/cam-demo.camj",
+		"appCommit": "7843773f443748a426b59ad929c152c92ac0cb43",
+		"fixture": "site/fixtures/busto-w-ops-2.camj",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
 		"locale": "en",
@@ -1616,7 +1605,7 @@
 		"status": "current",
 		"blockedBy": []
 	},
-	"strategies/3d-finishing/scallop-height.svg": {
+	"operations/3d-surface-finish/scallop-height.svg": {
 		"shows": "A cross-section through three ball-endmill passes: the ridge left between them is the scallop height",
 		"source": "diagram",
 		"appCommit": null,

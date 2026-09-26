@@ -87,7 +87,6 @@ export const PAGES = [
 	page('/guide/strategies/corners/', 'strategies', 'Corner rounding and relief', 'strategy', 'W4'),
 	page('/guide/strategies/feed-reduction/', 'strategies', 'Feed reduction', 'strategy', 'W4'),
 	page('/guide/strategies/rest-machining/', 'strategies', 'Rest machining', 'strategy', 'W4'),
-	page('/guide/strategies/3d-finishing/', 'strategies', '3D finishing controls', 'strategy', 'W4'),
 
 	page('/guide/verify-export/toolpath-preview/', 'verify-export', 'Toolpath preview', 'reference', 'W5'),
 	page('/guide/verify-export/3d-view/', 'verify-export', '3D view', 'reference', 'W5'),

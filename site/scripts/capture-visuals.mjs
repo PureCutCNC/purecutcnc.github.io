@@ -381,16 +381,29 @@ async function orbitSimulationTowardTop(page) {
 
 /** Show only the named move types in the viewport legend. The legend reports its state
     through aria-pressed; there is no "off" class, so testing the class name silently
-    leaves every toggle alone. */
+    leaves every toggle alone. Each toggle builds the next state from the last render,
+    so the clicks have to wait for one another: clicked in one synchronous loop, only the
+    last of them survives. */
 async function showMoveTypes(page, keep) {
-	await page.evaluate((wanted) => {
-		for (const b of document.querySelectorAll('.viewport-toolpath-vis__item')) {
-			const name = b.textContent.trim()
-			if (name === 'GPU' || name === 'Feed colours') continue
-			const on = b.getAttribute('aria-pressed') === 'true'
-			if (wanted.includes(name) !== on) b.click()
-		}
-	}, keep)
+	const items = page.locator('.viewport-toolpath-vis__item')
+	const count = await items.count()
+	for (let i = 0; i < count; i += 1) {
+		const item = items.nth(i)
+		const name = (await item.textContent()).trim()
+		if (name === 'GPU' || name === 'Feed colours') continue
+		const on = (await item.getAttribute('aria-pressed')) === 'true'
+		if (keep.includes(name) === on) continue
+		await item.click()
+		await page.waitForFunction(
+			([index, wanted]) =>
+				document.querySelectorAll('.viewport-toolpath-vis__item')[index]?.getAttribute('aria-pressed') ===
+				String(wanted),
+			[i, !on],
+		)
+	}
+	// The legend narrows as items turn off, which leaves the pointer hovering whichever
+	// item slid under it. Park it in the window corner, outside every crop.
+	await page.mouse.move(1, 1)
 	await page.waitForTimeout(2000)
 }
 
@@ -706,11 +719,6 @@ const operationNames = (page) =>
 			.map((b) => (b.getAttribute('aria-label') ?? '').match(/^(?:Show|Hide) toolpath for (.+)$/)?.[1])
 			.filter(Boolean),
 	)
-
-/** One framing for the three finishing patterns, closer than the toolpath shot on the
-    3D surface finish page: what differs between them is the texture of the passes, not
-    the extent of the path. */
-const finishFraming = (page) => zoomTo(page, 0.3, 0.46, 4)
 
 /** Open one of the operation properties' collapsible groups. It reports its state
     through aria-expanded, so a group that is already open is left alone. */
@@ -2413,61 +2421,47 @@ const RECIPES = [
 	},
 	{
 		id: 'finishing-pattern-parallel',
-		asset: 'strategies/3d-finishing/pattern-parallel.png',
-		fixture: 'site/fixtures/cam-demo.camj',
+		asset: 'operations/3d-surface-finish/pattern-parallel.png',
+		fixture: 'site/fixtures/busto-w-ops-2.camj',
 		viewport: { width: 1440, height: 900 },
+		collapseLegend: true,
 		async steps(page) {
-			// Parallel is the operation's default, so nothing has to be changed for it.
 			await selectOperation(page, '3D surface finish')
 			await openPropertiesGroup(page, 'Strategy')
+			await setUiSelect(page, 'Constant scallop', 'Parallel')
 			await onlyToolpath(page, '3D surface finish')
-			await finishFraming(page)
+			await showMoveTypes(page, ['Cuts'])
 		},
 		clip: clipCanvas,
 	},
 	{
 		id: 'finishing-pattern-waterline',
-		asset: 'strategies/3d-finishing/pattern-waterline.png',
-		fixture: 'site/fixtures/cam-demo.camj',
+		asset: 'operations/3d-surface-finish/pattern-waterline.png',
+		fixture: 'site/fixtures/busto-w-ops-2.camj',
 		viewport: { width: 1440, height: 900 },
+		collapseLegend: true,
 		async steps(page) {
 			await selectOperation(page, '3D surface finish')
 			await openPropertiesGroup(page, 'Strategy')
-			await setUiSelect(page, 'Parallel', 'Waterline')
+			await setUiSelect(page, 'Constant scallop', 'Waterline')
 			await onlyToolpath(page, '3D surface finish')
-			await finishFraming(page)
-		},
-		clip: clipCanvas,
-	},
-	{
-		id: 'finishing-pattern-scallop',
-		asset: 'strategies/3d-finishing/pattern-constant-scallop.png',
-		fixture: 'site/fixtures/cam-demo.camj',
-		viewport: { width: 1440, height: 900 },
-		async steps(page) {
-			await selectOperation(page, '3D surface finish')
-			await openPropertiesGroup(page, 'Strategy')
-			await setUiSelect(page, 'Parallel', 'Constant scallop')
-			await onlyToolpath(page, '3D surface finish')
-			await finishFraming(page)
+			await showMoveTypes(page, ['Cuts'])
 		},
 		clip: clipCanvas,
 	},
 	{
 		id: 'finishing-slope-filter',
-		asset: 'strategies/3d-finishing/slope-filter.png',
-		fixture: 'site/fixtures/cam-demo.camj',
+		asset: 'operations/3d-surface-finish/slope-filter.png',
+		fixture: 'site/fixtures/busto-w-ops-2.camj',
 		viewport: { width: 1440, height: 900 },
+		collapseLegend: true,
 		async steps(page) {
 			await selectOperation(page, '3D surface finish')
 			await openPropertiesGroup(page, 'Strategy')
-			// Matched by the label it sits in: the panel has several checkboxes and the
-			// last of them is Debug toolpath.
 			await page
 				.locator('.panel-right .properties-check', { hasText: 'Filter by surface slope' })
 				.locator('input[type=checkbox]')
 				.check()
-			await page.waitForTimeout(3000)
 			await page.waitForFunction(
 				() =>
 					[...document.querySelectorAll('button')].some((b) =>
@@ -2476,12 +2470,10 @@ const RECIPES = [
 				null,
 				{ timeout: 300000 },
 			)
-			await page.waitForTimeout(2500)
 			await onlyToolpath(page, '3D surface finish')
-			await zoomTo(page, 0.34, 0.51, 1)
+			await showMoveTypes(page, ['Cuts'])
 		},
-		// The fields have to be in shot: a path with a band missing means nothing without
-		// the bounds that removed it.
+		// Keep the min/max controls beside the limited path so the omission is explained.
 		clip: clipCanvasAndCam,
 	},
 

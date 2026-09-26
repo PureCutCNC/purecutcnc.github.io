@@ -141,7 +141,6 @@ order, as soon as their files exist. Owners are the Wave 2 workstreams from
 | Corner rounding and relief | `/guide/strategies/corners/` | strategy | W4 |
 | Feed reduction | `/guide/strategies/feed-reduction/` | strategy | W4 |
 | Rest machining | `/guide/strategies/rest-machining/` | strategy | W4 |
-| 3D finishing controls | `/guide/strategies/3d-finishing/` | strategy | W4 |
 
 #### Verify and Export (`verify-export`)
 
@@ -227,7 +226,7 @@ lists the operations offering it. Both lists come from the app, not from memory:
 | Clearing patterns: **Offset**, **Seeded circles**, **Parallel** | Pocket, Surface clean, 3D surface rough, 3D surface cleanup (`OPERATION_PATTERN_SUPPORT`) | Clearing patterns |
 | **Trochoidal** clearing | Pocket, Surface clean, 3D surface rough | Trochoidal cutting |
 | **Trochoidal** edge routing and **Trochoidal (slot)** engraving | Edge route inside and outside; Engrave | Trochoidal cutting |
-| Finishing patterns: **Parallel**, **Waterline**, **Constant scallop** | 3D surface finish | 3D finishing controls |
+| Finishing patterns: **Parallel**, **Waterline**, **Constant scallop** | 3D surface finish | 3D surface finish (sections) |
 | Entry, XY approach and exit | Per `operationFields.ts` | Entry and exit moves |
 | Round corners, corner relief | Per `operationFields.ts` | Corner rounding and relief |
 | **Feed reduction** | Per `operationFields.ts` | Feed reduction |
