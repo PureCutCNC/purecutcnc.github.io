@@ -367,6 +367,18 @@ async function simulateResult(
 	}
 }
 
+/** Raise the simulation camera so a relief inside stock is visible above its front wall. */
+async function orbitSimulationTowardTop(page) {
+	const view = await page.locator('.centre-view--active').boundingBox()
+	const x = view.x + view.width * 0.5
+	const y = view.y + view.height * 0.45
+	await page.mouse.move(x, y)
+	await page.mouse.down()
+	await page.mouse.move(x, y + 220, { steps: 20 })
+	await page.mouse.up()
+	await page.waitForTimeout(1800)
+}
+
 /** Show only the named move types in the viewport legend. The legend reports its state
     through aria-pressed; there is no "off" class, so testing the class name silently
     leaves every toggle alone. */
@@ -1745,24 +1757,26 @@ const RECIPES = [
 	{
 		id: 'surface-rough-levels',
 		asset: 'operations/3d-surface-rough/rough-levels.png',
-		fixture: 'site/fixtures/cam-demo.camj',
+		fixture: 'site/fixtures/busto-w-ops-2.camj',
 		viewport: { width: 1440, height: 900 },
+		collapseLegend: true,
 		async steps(page) {
 			const op = '3D surface rough'
 			await onlyToolpath(page, op)
-			await zoomTo(page, 0.34, 0.51, 2)
+			await showMoveTypes(page, ['Cuts'])
 		},
 		clip: clipCanvas,
 	},
 	{
 		id: 'surface-finish-patterns',
 		asset: 'operations/3d-surface-finish/finish-patterns.png',
-		fixture: 'site/fixtures/cam-demo.camj',
+		fixture: 'site/fixtures/busto-w-ops-2.camj',
 		viewport: { width: 1440, height: 900 },
+		collapseLegend: true,
 		async steps(page) {
 			const op = '3D surface finish'
 			await onlyToolpath(page, op)
-			await zoomTo(page, 0.34, 0.51, 2)
+			await showMoveTypes(page, ['Cuts'])
 		},
 		clip: clipCanvas,
 	},
@@ -1812,23 +1826,29 @@ const RECIPES = [
 	{
 		id: 'surface-rough-result',
 		asset: 'operations/3d-surface-rough/result.png',
-		fixture: 'site/fixtures/cam-demo.camj',
+		fixture: 'site/fixtures/busto-w-ops-2.camj',
 		viewport: { width: 1440, height: 900 },
-		steps: (page) => simulateResult(page, '3D surface rough', { zoom: 2, at: [0.45, 0.5] }),
+		async steps(page) {
+			await simulateResult(page, '3D surface rough', { detail: 700, zoom: 1, at: [0.5, 0.5] })
+			await orbitSimulationTowardTop(page)
+		},
 		clip: clipCentreView,
 	},
 	{
 		id: 'surface-finish-result',
 		asset: 'operations/3d-surface-finish/result.png',
-		fixture: 'site/fixtures/cam-demo.camj',
+		fixture: 'site/fixtures/busto-w-ops-2.camj',
 		viewport: { width: 1440, height: 900 },
 		// After the rough, so the finish reads as the pass that smooths the steps away.
-		steps: (page) =>
-			simulateResult(page, '3D surface finish', {
+		async steps(page) {
+			await simulateResult(page, '3D surface finish', {
 				through: ['3D surface rough', '3D surface finish'],
-				zoom: 2,
-				at: [0.45, 0.5],
-			}),
+				detail: 700,
+				zoom: 1,
+				at: [0.5, 0.5],
+			})
+			await orbitSimulationTowardTop(page)
+		},
 		clip: clipCentreView,
 	},
 	// --- CAM setup ---
