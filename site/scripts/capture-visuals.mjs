@@ -852,6 +852,23 @@ const RECIPES = [
 		clip: clipWorkspaceLeft,
 	},
 	{
+		id: 'projects-new-project',
+		asset: 'fundamentals/projects-and-files/new-project-dialog.png',
+		viewport: { width: 1440, height: 1000 },
+		async steps(page) {
+			await page.getByRole('button', { name: 'New project' }).first().click()
+			const dialog = page.locator('.dialog--new-project')
+			await dialog.waitFor()
+			// Blank imperial matches the tutorial's 4 x 3 x 0.75 in stock. Its Stock row is
+			// three editable fields, which is what the page needs to show.
+			await dialog.getByRole('button', { name: /^Blank imperial/ }).click()
+			await dialog.locator('#new-project-stock-width').waitFor()
+			await page.mouse.move(1, 1)
+			await page.waitForTimeout(600)
+		},
+		clip: clipDialog('.dialog--new-project', 8),
+	},
+	{
 		id: 'units-conversion',
 		asset: 'fundamentals/stock-origin-units/unit-conversion.png',
 		fixture: 'PureCutCNC',

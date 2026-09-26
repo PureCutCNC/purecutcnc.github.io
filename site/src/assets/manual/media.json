@@ -231,11 +231,11 @@
 		"blockedBy": []
 	},
 	"quickstart/new-project.png": {
-		"shows": "New project dialog with the Blank imperial template selected and a preview listing inch units, a 4 × 3 × 0.75 stock, and no machine",
+		"shows": "New project dialog with the Blank imperial template selected and a preview listing inch units, stock Width 4, Height 3, and Thickness 0.75, and no machine",
 		"source": "capture",
-		"appCommit": "2dc197eebe9c11272ad0bc24194d4a7c6de19055",
+		"appCommit": "65d57cc77c42ef0e836647ce813759d67d52c6db",
 		"fixture": "Blank imperial",
-		"viewport": "1440x900@2x",
+		"viewport": "1440x1000@2x",
 		"theme": "dark",
 		"locale": "en",
 		"status": "current",
@@ -572,11 +572,11 @@
 		"blockedBy": []
 	},
 	"fundamentals/projects-and-files/new-project-dialog.png": {
-		"shows": "New project dialog with Project name, Template chooser (Blank metric, Blank imperial, Current project, Template file), Template preview listing Units, Stock, Features, Tools, Operations, and Machine, and Or open an example with three bundled projects",
+		"shows": "New project dialog with Project name, Template chooser (Blank metric, Blank imperial, Current project, Template file), Template preview with editable Width, Height, and Thickness stock fields for the blank template plus Units, Features, Tools, Operations, and Machine, and Or open an example with three bundled projects",
 		"source": "capture",
-		"appCommit": "2dc197eebe9c11272ad0bc24194d4a7c6de19055",
+		"appCommit": "65d57cc77c42ef0e836647ce813759d67d52c6db",
 		"fixture": "Blank imperial",
-		"viewport": "1440x900@2x",
+		"viewport": "1440x1000@2x",
 		"theme": "dark",
 		"locale": "en",
 		"status": "current",
@@ -1300,7 +1300,7 @@
 	"operations/3d-surface-finish/finish-patterns.png": {
 		"shows": "The Busto project constant-scallop 3D surface finish paths following the head, face, neck, and base",
 		"source": "capture",
-		"appCommit": "7843773f443748a426b59ad929c152c92ac0cb43",
+		"appCommit": "65d57cc77c42ef0e836647ce813759d67d52c6db",
 		"fixture": "site/fixtures/busto-w-ops-2.camj",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
@@ -1388,7 +1388,7 @@
 	"operations/3d-surface-finish/result.png": {
 		"shows": "Simulated stock after the Busto project rough and finish passes, showing the smoothed face and neck",
 		"source": "capture",
-		"appCommit": "7843773f443748a426b59ad929c152c92ac0cb43",
+		"appCommit": "65d57cc77c42ef0e836647ce813759d67d52c6db",
 		"fixture": "site/fixtures/busto-w-ops-2.camj",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
@@ -1531,7 +1531,7 @@
 	"operations/3d-surface-finish/pattern-parallel.png": {
 		"shows": "Parallel 3D finish scan lines sweeping across the Busto head, face, neck, and base",
 		"source": "capture",
-		"appCommit": "7843773f443748a426b59ad929c152c92ac0cb43",
+		"appCommit": "65d57cc77c42ef0e836647ce813759d67d52c6db",
 		"fixture": "site/fixtures/busto-w-ops-2.camj",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
@@ -1542,7 +1542,7 @@
 	"operations/3d-surface-finish/pattern-waterline.png": {
 		"shows": "Waterline 3D finish contour rings wrapping around the same Busto model",
 		"source": "capture",
-		"appCommit": "7843773f443748a426b59ad929c152c92ac0cb43",
+		"appCommit": "65d57cc77c42ef0e836647ce813759d67d52c6db",
 		"fixture": "site/fixtures/busto-w-ops-2.camj",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
@@ -1553,7 +1553,7 @@
 	"operations/3d-surface-finish/slope-filter.png": {
 		"shows": "Constant-scallop Busto finish limited to a 0–30 degree slope band with the filter controls visible",
 		"source": "capture",
-		"appCommit": "7843773f443748a426b59ad929c152c92ac0cb43",
+		"appCommit": "65d57cc77c42ef0e836647ce813759d67d52c6db",
 		"fixture": "site/fixtures/busto-w-ops-2.camj",
 		"viewport": "1440x900@2x",
 		"theme": "dark",

@@ -23,8 +23,8 @@ the operations, the selected machine, and the tabs and clamps. It is saved as a 
 
 <Screenshot maxWidth={728}
 	src={newProjectDialog}
-	alt="New project dialog showing the Project name field, Template chooser with Blank metric, Blank imperial, Current project, and Template file, the Template preview listing Units, Stock, Features, Tools, Operations, and Machine, and the Or open an example row"
-	caption="The New project dialog, with Blank imperial selected and its preview on the right."
+	alt="New project dialog with Blank imperial selected, showing editable stock Width 4, Height 3, and Thickness 0.75 in the Template preview, the other template choices, and the Or open an example row"
+	caption="The New project dialog with Blank imperial selected. A blank template's stock size can be edited in the preview."
 />
 <Steps>
 
@@ -34,13 +34,15 @@ the operations, the selected machine, and the tabs and clamps. It is saved as a 
 
    | Template | Starts with |
    | --- | --- |
-   | **Blank metric** | An empty project in millimetres, with a 100 × 80 × 20 mm stock. |
-   | **Blank imperial** | An empty project in inches, with a 4 × 3 × 0.75 in stock. |
+   | **Blank metric** | An empty project in millimetres. The stock defaults to 100 × 80 × 20 mm. |
+   | **Blank imperial** | An empty project in inches. The stock defaults to 4 × 3 × 0.75 in. |
    | **Current project** | The open project's setup (units, stock, origin, grid, tools, and machine) without its features, operations, tabs, or clamps. |
    | **Template file** | The same setup, taken from a `.camj` file you load. |
 
 3. Check the **Template preview**. It lists the **Units**, **Stock**, **Features**, **Tools**,
-   **Operations**, and **Machine** the new project starts with.
+   **Operations**, and **Machine** the new project starts with. For a blank template, enter the
+   stock **Width**, **Height**, and **Thickness** in the template's units. Each must be greater
+   than zero. The other templates take the stock from the project or file they copy.
 
 4. Click **Create project**.
 

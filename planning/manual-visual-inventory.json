@@ -498,9 +498,9 @@
 			"afterHeading": "Create a new project",
 			"kind": "screenshot",
 			"purpose": "Show the available project templates and the information in their preview.",
-			"brief": "New project dialog with the Project name field, the Template chooser listing Blank metric, Blank imperial, Current project, and Template file, the Template preview listing Units, Stock, Features, Tools, Operations, and Machine, the Or open an example row, and the Cancel and Create project buttons.",
+			"brief": "New project dialog with the Project name field, the Template chooser listing Blank metric, Blank imperial, Current project, and Template file, the Template preview for Blank imperial with editable Width, Height, and Thickness stock fields and the Units, Features, Tools, Operations, and Machine rows, the Or open an example row, and the Cancel and Create project buttons.",
 			"asset": "fundamentals/projects-and-files/new-project-dialog.png",
-			"alt": "New project dialog showing the Project name field, Template chooser with Blank metric, Blank imperial, Current project, and Template file, the Template preview listing Units, Stock, Features, Tools, Operations, and Machine, and the Or open an example row",
+			"alt": "New project dialog with Blank imperial selected, showing editable stock Width 4, Height 3, and Thickness 0.75 in the Template preview, the other template choices, and the Or open an example row",
 			"status": "captured",
 			"blockedBy": []
 		},
