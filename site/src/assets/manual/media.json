@@ -232,13 +232,14 @@
 	},
 	"quickstart/new-project.png": {
 		"shows": "New project dialog with the Blank imperial template selected and a preview listing inch units, a 4 × 3 × 0.75 stock, and no machine",
-		"source": "legacy-guide",
-		"appCommit": null,
-		"fixture": null,
-		"viewport": null,
+		"source": "capture",
+		"appCommit": "2dc197eebe9c11272ad0bc24194d4a7c6de19055",
+		"fixture": "Blank imperial",
+		"viewport": "1440x900@2x",
 		"theme": "dark",
 		"locale": "en",
-		"status": "reshoot"
+		"status": "current",
+		"blockedBy": []
 	},
 	"quickstart/new-rect.png": {
 		"shows": "Pending 3 × 2 rectangle inside the 4 × 3 inch stock, with the Rectangle workflow panel offering Dimensions",
@@ -1286,10 +1287,10 @@
 		"blockedBy": []
 	},
 	"operations/3d-surface-rough/rough-levels.png": {
-		"shows": "The fixture's 3D surface rough operation over the relief, cutting at several Z levels with stock retained around the model",
+		"shows": "The Busto project 3D surface rough cutting paths at successive horizontal levels around the bust",
 		"source": "capture",
-		"appCommit": "b4ffabbdf900d42027545907d23e3cd7bf9b6aa3",
-		"fixture": "site/fixtures/cam-demo.camj",
+		"appCommit": "7843773f443748a426b59ad929c152c92ac0cb43",
+		"fixture": "site/fixtures/busto-w-ops-2.camj",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
 		"locale": "en",
@@ -1297,10 +1298,10 @@
 		"blockedBy": []
 	},
 	"operations/3d-surface-finish/finish-patterns.png": {
-		"shows": "The fixture's 3D surface finish operation, close parallel passes following the whole surface of the relief",
+		"shows": "The Busto project constant-scallop 3D surface finish paths following the head, face, neck, and base",
 		"source": "capture",
-		"appCommit": "b4ffabbdf900d42027545907d23e3cd7bf9b6aa3",
-		"fixture": "site/fixtures/cam-demo.camj",
+		"appCommit": "7843773f443748a426b59ad929c152c92ac0cb43",
+		"fixture": "site/fixtures/busto-w-ops-2.camj",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
 		"locale": "en",
@@ -1374,10 +1375,10 @@
 		"blockedBy": []
 	},
 	"operations/3d-surface-rough/result.png": {
-		"shows": "The simulated stock after the fixture's 3D rough pass, the relief emerging as stepped levels in a cleared recess",
+		"shows": "Simulated stock after the Busto project 3D surface rough pass, with the bust emerging in stepped levels",
 		"source": "capture",
-		"appCommit": "f11fd8c9fbceb0a6077001249c72c0cca4fc0ca4",
-		"fixture": "site/fixtures/cam-demo.camj",
+		"appCommit": "7843773f443748a426b59ad929c152c92ac0cb43",
+		"fixture": "site/fixtures/busto-w-ops-2.camj",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
 		"locale": "en",
@@ -1385,10 +1386,10 @@
 		"blockedBy": []
 	},
 	"operations/3d-surface-finish/result.png": {
-		"shows": "The simulated stock after the fixture's 3D finish pass run on top of the rough, the stepped levels replaced by a smooth surface",
+		"shows": "Simulated stock after the Busto project rough and finish passes, showing the smoothed face and neck",
 		"source": "capture",
-		"appCommit": "f11fd8c9fbceb0a6077001249c72c0cca4fc0ca4",
-		"fixture": "site/fixtures/cam-demo.camj",
+		"appCommit": "7843773f443748a426b59ad929c152c92ac0cb43",
+		"fixture": "site/fixtures/busto-w-ops-2.camj",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
 		"locale": "en",
