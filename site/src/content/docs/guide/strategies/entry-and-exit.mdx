@@ -29,6 +29,18 @@ strategy cannot fit the geometry, the app reports the fallback in its warnings.
 | [Outside edge route](/guide/operations/edge-route-outside/) | **Entry & retract** |
 | [Trochoidal cutting](/guide/strategies/trochoidal-cutting/) | Supported entry controls where the operation offers them |
 
+## Opening older projects
+
+When you open a project saved before file format 3.2, PureCutCNC resets a stored **Entry
+strategy** to **Plunge** on inside and outside edge routes that are not trochoidal. In v0.4,
+those routes plunged even if the file recorded another strategy. The load warning counts the
+routes reset, and the original file stays unchanged until you save it. Trochoidal edge routes
+are not reset; newly created rough edge routes still start with **Helix**.
+
+Check the entry on each affected route and inspect its first cutting move before generating or
+exporting the program. See [File formats](/guide/reference/file-formats/#project-format-compatibility)
+for the format warning shown by older builds.
+
 ## Settings
 
 | Setting | Description |

@@ -17,6 +17,18 @@ status: draft
 | **STL**, **OBJ**, and **STEP/STP** | 3D model import. STL is also available for 3D export. |
 | **PNG** and **JPEG** | Backdrop images for sketch reference. |
 
+## Project format compatibility
+
+PureCutCNC saves project files in format 3.2. Opening an older supported project can migrate it
+in memory and show a load warning; the file on disk is unchanged until you save it. For projects
+saved before format 3.2, a warning counts any inside or outside edge routes whose stored entry
+was reset to **Plunge** to match how v0.4 cut them. Check those routes before machining; see
+[Entry and exit moves](/guide/strategies/entry-and-exit/#opening-older-projects).
+
+An older PureCutCNC build warns that a format 3.2 project was created with a newer version. It
+may open the file, but it may not understand every feature correctly. Keep a copy before opening
+or saving a newer-format project in an older build.
+
 ## Output formats
 
 | Format | Use |

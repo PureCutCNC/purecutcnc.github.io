@@ -1551,9 +1551,9 @@
 		"blockedBy": []
 	},
 	"operations/3d-surface-finish/slope-filter.png": {
-		"shows": "Constant-scallop Busto finish limited to a 0–30 degree slope band with the filter controls visible",
+		"shows": "Constant-scallop Busto finish limited to a 0–30 degree slope band with the filter controls and scallop ridge-height reference icon visible",
 		"source": "capture",
-		"appCommit": "65d57cc77c42ef0e836647ce813759d67d52c6db",
+		"appCommit": "e7dda136bd1324479d4cb3e44e22c015c1618985",
 		"fixture": "site/fixtures/busto-w-ops-2.camj",
 		"viewport": "1440x900@2x",
 		"theme": "dark",

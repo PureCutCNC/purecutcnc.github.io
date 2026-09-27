@@ -1832,7 +1832,7 @@
 			"purpose": "Show which parts of a surface remain eligible after minimum and maximum slope limits.",
 			"brief": "The Busto Constant scallop finish with a 0–30° slope band, shown beside the enabled filter and minimum/maximum fields.",
 			"asset": "operations/3d-surface-finish/slope-filter.png",
-			"alt": "Busto 3D finish paths limited to a 0–30 degree slope band with the controls visible",
+			"alt": "Busto 3D finish paths limited to a 0–30 degree slope band with the controls and ridge-height reference icon visible",
 			"status": "captured",
 			"blockedBy": []
 		},

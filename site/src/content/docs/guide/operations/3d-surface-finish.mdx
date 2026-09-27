@@ -35,10 +35,11 @@ The controls most useful when choosing a finish are:
 | Parameter | What it changes |
 | --- | --- |
 | **Pattern** | Chooses Parallel, Waterline, or Constant scallop. |
-| **Scallop height** | With a ball endmill, sets a target cusp height and derives pass spacing. See [Scallop height](#scallop-height). |
-| **Stepover ratio** | Sets spacing for Parallel or Constant scallop when no scallop height is configured. Waterline uses its own refinement controls. |
+| **Scallop height** | With a ball endmill, sets a target cusp height and derives pass spacing. It takes priority over spacing overrides. See [Scallop height](#scallop-height). |
+| **Stepover ratio** | Sets pass spacing as a fraction of tool diameter when no scallop height is configured. With a ball endmill, Parallel shows it only when **Scallop height** is 0; Waterline uses its own refinement controls. |
 | **Filter by surface slope** | Limits the operation to a band of surface slopes. See [Slope filter](#slope-filter). |
-| **Stepdown** | Sets the base contour-level spacing for Waterline when **Scallop height** is zero. Waterline can add refined rings between those levels. |
+| **Stepdown** | Always sets Parallel's Z level spacing. For Waterline, it appears and sets base level spacing only when **Scallop height** is 0. |
+| **Adaptive spacing** | With Waterline adaptive refinement, sets spacing between refined rings when **Scallop height** is 0. |
 
 ## Strategies
 
@@ -61,18 +62,22 @@ surface height along each line. **Stepover ratio**, or **Scallop height** with a
 controls the distance between lines. Try it on broad tops, gentle curves, and surfaces where a
 single sweep direction gives straightforward coverage. Change the angle if the lines run poorly
 across a feature, then inspect the preview again. A steep wall can receive fewer useful contacts
-than a shallow top at the same XY spacing.
+than a shallow top at the same XY spacing. **Stepdown** still sets the Z distance between levels,
+whether or not a scallop height is set.
 
 ### Waterline
 
 <Screenshot src={patternWaterline} alt="Waterline finishing paths wrapping around the Busto model at successive heights" caption="Waterline follows the model's contours at successive heights instead of sweeping across it." />
 
-Waterline makes contour rings around the model at successive Z heights. **Stepdown** supplies its
-base level spacing when **Scallop height** is zero. **Adaptive refinement** can insert more rings where the gap between levels
-needs coverage; **Adaptive spacing** controls the requested distance, and **Max rings / band**
-limits the work within a band. This is a useful choice for steep walls and prominent vertical
-features. On a broad, nearly horizontal top, compare it with Parallel or Constant scallop rather
-than assuming the rings have finished the whole area.
+Waterline makes contour rings around the model at successive Z heights. With a ball endmill and
+a nonzero **Scallop height**, the height sets both pass spacing and the base Z step, so
+**Stepdown** and **Adaptive spacing** are hidden. Set the height to 0 to use those saved overrides:
+**Stepdown** then spaces the base levels, while **Adaptive refinement** can insert rings between
+them. **Adaptive spacing** sets the requested distance between refined rings; if it is 0, the
+app uses **Stepover ratio** × tool diameter instead. **Max rings / band** remains available to
+limit refinement work. This is a useful choice for steep walls and prominent vertical features.
+On a broad, nearly horizontal top, compare it with Parallel or Constant scallop rather than
+assuming the rings have finished the whole area.
 
 Adaptive refinement has a coverage budget. If the app warns that refinement was coarsened or
 truncated, inspect the remaining bands in preview and simulation. Region-limited Waterline does
@@ -95,14 +100,28 @@ and generation warnings before committing to the machining time.
 
 The scallop is the small ridge between adjacent passes of a ball endmill. A smaller **Scallop
 height** asks for a finer surface and normally creates more passes. With Parallel and Constant
-scallop, the app converts that height into pass spacing. With Waterline, it derives the base
-vertical spacing using the selected minimum slope, or a 30° assumption when no slope filter is
-set. If the field is zero, the applicable stepover or stepdown controls take over. Treat the value
-as a target: tool shape, reachable geometry, protection, and path limits still affect the result.
+scallop, the app converts that height into pass spacing. With Waterline, it also derives the base
+vertical step: scallop-based pass spacing × the sine of the slope filter's minimum angle, or 30°
+when no slope filter is set. Treat the value as a target: tool shape, reachable geometry,
+protection, and path limits still affect the result.
+
+For a new ball-endmill finish, the default height comes from the tool's default stepover. It is
+stored rounded to four decimal places in inches or three in millimetres, with extra places for
+at least two significant digits when needed. For example, a calculated 0.0008051866 in default
+is stored as 0.00081 in. The field shows the stored value exactly, including when switching
+between Parallel and Waterline; simply visiting the field does not change that value.
+
+For Parallel or Waterline, enter **0** to use the **Advanced overrides** instead of a scallop
+target. Parallel then spaces XY passes by **Stepover ratio** × tool diameter and always uses
+**Stepdown** for its Z levels. Waterline uses **Stepdown** for base levels and **Adaptive spacing**
+for refined rings. The **Implied cusp** notes beside available overrides show the ridge those
+settings would leave with a ball endmill. Setting a nonzero height again hides the overrides it
+replaces but keeps their saved values. Constant scallop requires a nonzero height with a ball
+endmill; flat endmills do not offer this field.
 
 ## Slope filter
 
-<Screenshot src={slopeFilter} alt="3D finish paths restricted to a slope band on the Busto model, with the slope range controls visible" caption="With a 0–30° filter, the orange paths cover the shallower parts of the bust and leave steeper surfaces for another pass." />
+<Screenshot src={slopeFilter} alt="3D finish paths restricted to a slope band on the Busto model, with the slope controls and ridge-height reference icon visible" caption="With a 0–30° filter, the orange paths cover the shallower parts of the bust and leave steeper surfaces for another pass." />
 
 **Filter by surface slope** keeps only surfaces within the minimum and maximum angle, measured
 from horizontal: 0° is flat and 90° is vertical. One practical approach is a shallow-surface
