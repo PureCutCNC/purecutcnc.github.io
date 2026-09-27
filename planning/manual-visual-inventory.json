@@ -21,7 +21,7 @@
 		{
 			"page": "/guide/start-here/safety/",
 			"decision": "not-needed",
-			"reviewStatus": "proposed",
+			"reviewStatus": "approved",
 			"rationale": "The page is a short safety checklist; a product image could imply that the interface replaces machine-side verification."
 		},
 		{
@@ -247,25 +247,25 @@
 		{
 			"page": "/guide/reference/keyboard-shortcuts/",
 			"decision": "not-needed",
-			"reviewStatus": "proposed",
+			"reviewStatus": "approved",
 			"rationale": "The tables are searchable, accessible, and more useful than an image of key labels."
 		},
 		{
 			"page": "/guide/reference/file-formats/",
 			"decision": "not-needed",
-			"reviewStatus": "proposed",
+			"reviewStatus": "approved",
 			"rationale": "The page is a compact compatibility table with no spatial workflow to illustrate."
 		},
 		{
 			"page": "/guide/reference/machine-definitions/",
 			"decision": "not-needed",
-			"reviewStatus": "proposed",
+			"reviewStatus": "approved",
 			"rationale": "The field and validation tables are the authoritative reference; editor visuals belong on the Machines task page."
 		},
 		{
 			"page": "/guide/reference/post-processor-converter/",
 			"decision": "not-needed",
-			"reviewStatus": "proposed",
+			"reviewStatus": "approved",
 			"rationale": "Copyable commands and report examples are more useful than a terminal screenshot."
 		},
 		{
@@ -279,7 +279,7 @@
 		{
 			"page": "/guide/reference/warnings/",
 			"decision": "not-needed",
-			"reviewStatus": "proposed",
+			"reviewStatus": "approved",
 			"rationale": "The page is a message lookup; representative warning states are proposed on the task pages where they occur."
 		},
 		{
@@ -289,13 +289,13 @@
 		{
 			"page": "/guide/reference/glossary/",
 			"decision": "not-needed",
-			"reviewStatus": "proposed",
+			"reviewStatus": "approved",
 			"rationale": "A searchable term list does not gain useful meaning from a decorative image."
 		},
 		{
 			"page": "/guide/reference/privacy-and-data/",
 			"decision": "not-needed",
-			"reviewStatus": "proposed",
+			"reviewStatus": "approved",
 			"rationale": "The page explains storage and network boundaries; an interface image would not clarify those guarantees."
 		}
 	],
