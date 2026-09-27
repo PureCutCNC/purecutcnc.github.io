@@ -21,6 +21,10 @@ import webglUnavailable from '../../../../assets/manual/reference/troubleshootin
 
 **Fix:** Confirm the format and units, then use the matching import workflow. See [Importing SVG, DXF, and projects](/guide/design/importing-2d/) or [Importing 3D models](/guide/design/importing-3d-models/).
 
+For STEP, a file over 64 MB cannot be imported. If tessellation exceeds the triangle limit or
+the importer runs out of memory, increase **Surface tolerance** or simplify the source model;
+see the [STEP limits and messages](/guide/design/importing-3d-models/#step).
+
 ## Generation and export
 
 ### Generation is paused, fails, or produces an error
@@ -28,6 +32,14 @@ import webglUnavailable from '../../../../assets/manual/reference/troubleshootin
 **Cause:** An operation can be invalid, missing a tool, blocked by its geometry, or superseded after an edit.
 
 **Fix:** Read the operation message, correct the named setting, and generate again. Inspect the toolpath and simulation before export.
+
+### A clamp or tab warning appears
+
+**Cause:** Clamp avoidance can leave material uncut or skip drilling beneath a clamp; tabs can
+block final depth, lie outside a route, or overlap after repeated placement.
+
+**Fix:** Match the recorded clamps and clearances to the real setup, then inspect what was left
+uncut. Move or replace invalid tabs and regenerate. See [Clamps and clearances](/guide/cam-setup/clamps-and-clearances/) and [Tabs](/guide/cam-setup/tabs/).
 
 ### Export is unavailable
 

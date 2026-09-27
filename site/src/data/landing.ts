@@ -69,12 +69,12 @@ export const FEATURES: Card[] = [
 	{
 		icon: "📥",
 		title: "SVG, DXF & 3D Import",
-		html: "Import 2D source geometry from SVG or DXF with Auto, Paths, and Solid-regions modes and nesting-aware Add/Subtract classification, or bring in 3D models from STL and OBJ files. Multi-body meshes split into one feature per body automatically. A model that came in lying on its side can be re-oriented in place — per-axis rotation, quarter-turn buttons, and a lift control — instead of being deleted and re-imported. Imported geometry can be transformed and machined like hand-drawn features."
+		html: "Import 2D source geometry from SVG or DXF with Auto, Paths, and Solid-regions modes and nesting-aware Add/Subtract classification, or bring in 3D models from STL, OBJ, and STEP files. Multi-body meshes split into one feature per body automatically. A model that came in lying on its side can be re-oriented in place — per-axis rotation, quarter-turn buttons, and a lift control — instead of being deleted and re-imported. Imported geometry can be transformed and machined like hand-drawn features."
 	},
 	{
 		icon: "⚙️",
 		title: "2.5D + 3D CAM",
-		html: "Pocket, edge route inside/outside with optional rounded outside corners and corner relief, drill with V-bit countersinking, V-Carve offset, V-Carve medial, surface clean, and engrave for 2.5D parts — plus 3D Surface rough, finish (parallel or waterline), and cleanup for imported models. Rough and finish passes, helix and ramp entries, trochoidal roughing and slotting, helical boring, rest machining, region masks resolved into the operation before generation, tabs, clamps, and per-tool feeds and speeds throughout."
+		html: "Pocket, edge route inside/outside with optional rounded outside corners and corner relief, drill with V-bit countersinking, V-Carve offset, V-Carve medial, surface clean, and engrave for 2.5D parts — plus 3D Surface rough, finish (parallel, waterline, or constant scallop), and cleanup for imported models. Rough and finish passes, helix and ramp entries, trochoidal roughing and slotting, helical boring, region-limited rest machining, tabs, clamps, and per-tool feeds and speeds throughout."
 	},
 	{
 		icon: "🧊",
@@ -99,17 +99,17 @@ export const FEATURES: Card[] = [
 	{
 		icon: "🗿",
 		title: "3D Surface Operations",
-		html: "Import an STL or OBJ model and generate 3D rough, finish (parallel or waterline), and targeted cleanup toolpaths directly from it. Roughing shares Offset, Seeded circle, and Parallel clearing with 2.5D pockets; overhang protection, region clipping, surrounding-feature avoidance, gouge protection, and adaptive waterline refinement keep every pass within its declared cutting domain."
+		html: "Import an STL, OBJ, or STEP model and generate 3D rough, finish (parallel, waterline, or constant scallop), and targeted cleanup toolpaths directly from it. Roughing shares Offset, Seeded circle, and Parallel clearing with 2.5D pockets; overhang protection, region clipping, surrounding-feature avoidance, gouge protection, and adaptive waterline refinement keep every pass within its declared cutting domain."
 	},
 	{
 		icon: "🔁",
 		title: "Rest Machining",
-		html: "Edge route operations automatically generate rest regions so you can follow up with a smaller tool and clean up what the first pass left behind."
+		html: "Follow a roughing pass with a smaller tool and use regions to limit the follow-up operation to material the larger cutter could not reach. Create regions manually or from a pocket operation; the approach works with supported 2.5D and 3D operations."
 	},
 	{
 		icon: "🛠️",
 		title: "Tool Library",
-		html: "Define your endmills, ball mills, V-bits, and drills once. Assign tools to operations and override feeds and speeds per operation as needed. Or start from the bundled library of 26 standard metric and imperial sizes — search it, filter by type and unit, and import several at a time from a dedicated dialog."
+		html: "Define your endmills, ball mills, V-bits, and drills once. Assign tools to operations and override feeds and speeds per operation as needed. Or start from the bundled library of 34 standard metric and imperial tools — search it, filter by type and unit, and import several at a time from a dedicated dialog."
 	},
 	{
 		icon: "🔗",
@@ -119,7 +119,7 @@ export const FEATURES: Card[] = [
 	{
 		icon: "⚙️",
 		title: "Parametric Gears",
-		html: "Generate involute spur gears from a dedicated creation workflow — set module, tooth count, and pressure angle, and the result is an editable feature you can machine like any other profile."
+		html: "Generate spur gears from a dedicated creation workflow — set the outside radius, tooth count, and tooth profile, then adjust the available flank and root settings. The result is an editable feature you can machine like any other profile."
 	},
 	{
 		icon: "📐",
@@ -164,7 +164,7 @@ export const FEATURES: Card[] = [
 	{
 		icon: "📉",
 		title: "Toolpath Optimizer & Arc Fitting",
-		html: "An always-on linear-move optimizer collapses redundant collinear moves on every export. Turn on export-stage arc fitting per operation to replace approximated circles with true G2/G3 arcs where the machine supports it, then open the Exported motion inspector to overlay the generated, optimized, and exported paths — with move counts and a tolerance check — before you cut."
+		html: "An always-on linear-move optimizer collapses redundant collinear moves on every export. Turn on export-stage arc fitting per operation to replace approximated circles with true G2/G3 arcs where the machine supports them. Inspect the G-code preview and verify the resulting program for your controller before cutting."
 	}
 ];
 
@@ -189,17 +189,18 @@ export const OPERATIONS: string[] = [
 	"3D Surface Rough",
 	"3D Surface Finish — Parallel",
 	"3D Surface Finish — Waterline",
+	"3D Surface Finish — Constant Scallop",
 	"3D Surface Cleanup"
 ];
 
 export const WORKFLOW: { title: string; html: string }[] = [
 	{
 		title: "Define Stock",
-		html: "Set your stock dimensions, material, and profile boundary. Any shape — rectangular plate or irregular casting."
+		html: "Set your stock dimensions and origin. Use a rectangle or a sketch feature as the stock outline."
 	},
 	{
 		title: "Draw or Import",
-		html: "Draw geometry directly on canvas, import SVG, DXF, STL or OBJ, pull in folders from another .camj project, or trace from a backdrop image. 2D imports become editable sketch features; 3D meshes become Model features for 3D operations."
+		html: "Draw geometry directly on canvas, import SVG, DXF, STL, OBJ, or STEP, pull in folders from another .camj project, or trace from a backdrop image. 2D imports become editable sketch features; 3D imports become Model features for 3D operations."
 	},
 	{
 		title: "Organize Features",

@@ -207,9 +207,8 @@ redirects.
    label-in-name check; the build warns that the optional `i18n` collection is empty, that
    `/404` is rendered by the dedicated route, and about a module-level directive in MDX
    bundles. None affect the output.
-7. **Theme.** Marketing pages stay dark, as today. The manual follows the system theme with
-   branded light and dark palettes. Whether the marketing pages should follow the theme too
-   is a design decision for later.
+7. **Theme.** Marketing and manual pages now share the Dark / Light / Auto preference,
+   stored as `starlight-theme`. Both were checked in the built preview on 2026-09-27.
 
 ## Verification results (2026-09-16, app commit `0b33a41`, generated content from `7c7dbb0`)
 
@@ -268,6 +267,13 @@ authority for page structure and authoring. What the platform provides:
 
 ## Cutover runbook
 
+Pre-cutover review on 2026-09-27: all 69 manual pages are reviewed; all 153 capability rows are
+accurate; `npm run ci`, `npm run content:cutover`, and `npm run verify:cutover` pass after merging
+the latest `main` app-preview build into the integration work. The built landing, Downloads, and
+guide pages were inspected in light and dark themes, including the mobile marketing navigation.
+This does **not** complete the release-dependent gates below. The live Pages source stays on the
+root branch build until the coordinated 0.5.0 rollout.
+
 Preconditions:
 
 1. #21 and #22 are approved and the Wave 2 content is merged into `site-revamp`.
@@ -324,7 +330,6 @@ Rollback depends on the root files still existing, which is why their removal wa
 
 ## Open questions
 
-- Whether the marketing pages should follow the light theme.
 - The repository grows with every automated `app-rc/` commit (57 MB packed today). Publishing
   the web app builds as workflow artifacts instead of commits would stop that, but it is an
   app-repository change and out of scope here.
