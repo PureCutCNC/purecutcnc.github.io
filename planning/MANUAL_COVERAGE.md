@@ -1,13 +1,24 @@
 ---
-status: proposed
-authoritative-for: which app capabilities the user manual must cover, how well the current guide covers them, and how Wave 2 content work is divided
-last-verified: 2026-09-16
+status: current
+authoritative-for: which app capabilities the replacement manual must cover, their current coverage, and Wave 2 ownership
+last-verified: 2026-09-27
 ---
 
 # Manual Coverage Inventory
 
 Outcome of #21, part of #23 and #24. It is the evidence base for the information architecture
 (#22) and for the Wave 2 content issues.
+
+## Current replacement-manual status
+
+The `coverage` column in `manual-coverage.csv` now rates the **replacement manual in `site/`**.
+After the 2026-09-27 reviewed-page reconciliation, all **153 capabilities are accurate**:
+105 release-critical rows and 48 reference rows. All 69 planned destination pages are reviewed.
+The reviewed page frontmatter records app commit `7ad27b1e384074a35797a4747a85218067a565df`;
+row-level `evidence` retains the source paths and earlier commit-specific checks used during drafting.
+`legacy_guide` and `legacy-guide-inventory.csv` remain a historical mapping of the old root
+guide; an empty `legacy_guide` does not imply missing coverage in the replacement manual. The
+tables and findings below describe the original 2026-09-16 baseline audit, not today's site.
 
 ## What was audited
 
@@ -30,7 +41,7 @@ App behaviour was read from the pinned source, not from the guide. The evidence 
 
 | File | One row per | Use it to |
 | --- | --- | --- |
-| [`manual-coverage.csv`](manual-coverage.csv) | user-facing capability (149) | find what the manual must say, where the evidence is, and which page and workstream own it |
+| [`manual-coverage.csv`](manual-coverage.csv) | user-facing capability (153) | find what the manual must say, where the evidence is, and which page and workstream own it |
 | [`legacy-guide-inventory.csv`](legacy-guide-inventory.csv) | section of the current guide (153) | see how good each existing section is, and where its content and its old `#anchor` go |
 
 GitHub renders both as searchable tables. For filtered views, run the checker from `site/`:
@@ -51,8 +62,8 @@ node scripts/check-coverage.mjs --sections --where disposition=rewrite
 | `id` | Stable key, `area.name`. Never reuse or rename one; add a new row instead. |
 | `area` | Proposed manual section: `start-here`, `fundamentals`, `design`, `cam-setup`, `operations`, `strategies`, `verify-export`, `reference`. |
 | `capability`, `ui_surface` | What the user can do, and where in the app. |
-| `legacy_guide` | Current guide sections (`page#anchor`, `;`-separated) that cover it. Empty only when `coverage` is `missing`. |
-| `coverage` | `accurate`: matches the app. `incomplete`: correct but missing parts. `stale`: says something the app no longer does. `missing`: not covered at all. |
+| `legacy_guide` | Historical root-guide sections (`page#anchor`, `;`-separated) that cover it. May be empty even when the replacement manual is accurate. |
+| `coverage` | Replacement-manual status: `accurate` matches the app; `incomplete` is correct but missing parts; `stale` says something the app no longer does; `missing` is not covered. |
 | `gaps` | What is wrong or absent. Required unless `accurate`. |
 | `priority` | `release-critical`: the next release's manual must cover it. `reference`: deep or occasional material that can follow. |
 | `since_v040` | `new` (added after v0.4.0), `changed` (behaviour or UI changed after v0.4.0), or `no`. |
@@ -78,16 +89,19 @@ node scripts/check-coverage.mjs --sections --where disposition=rewrite
 
 ### What the checker enforces
 
-- Headers, enumerations, unique ids, required text, and the `missing` ⇔ empty `legacy_guide` rule.
+- Headers, enumerations, unique ids, required text, and a gap explanation for each non-accurate row.
 - Every `legacy_guide` reference exists in the inventory. Every inventory section is cited by at least one capability, and its `capabilities` column matches those citations exactly.
 - While `guide/` and `quickstart.html` exist, the inventory lists exactly the sections their HTML contains.
 - **Disjoint ownership.** Every destination is a page in the page tree (`site/config/manual-structure.mjs`, defined by #22), each page there has exactly one owning workstream, and every row's `workstream` must match its page. Every planned page has at least one capability row.
 
 ### Keeping it current
 
-When a Wave 2 page merges, update its rows in the same pull request: set `coverage` to `accurate`, clear `gaps`, and point `evidence` at the commit you checked if it differs from `0b33a41`. Add rows for capabilities that ship later. Never delete a row just because its page is done. When the old guide is removed after the cutover, the inventory becomes a historical record and the HTML comparison switches off.
+When a replacement page changes, check its capabilities against the app, update the affected
+rows' `coverage` and `gaps`, and keep evidence current. Add rows for capabilities that ship later.
+Never delete a row just because its page is done. When the old guide is removed after the cutover,
+the legacy inventory remains historical and the HTML comparison switches off.
 
-## Summary
+## Original baseline summary (2026-09-16)
 
 | Area | Accurate | Incomplete | Stale | Missing | Total |
 | --- | ---: | ---: | ---: | ---: | ---: |

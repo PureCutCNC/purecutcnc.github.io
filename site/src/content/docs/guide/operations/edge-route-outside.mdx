@@ -45,6 +45,9 @@ Shared settings are documented in [Common operation parameters](/guide/operation
 ## Strategies
 
 Rough passes can use **Contour** or **Trochoidal** routing; finish passes always use a contour.
+For multiple selected targets, the operation attempts one combined outer contour. Targets with
+different effective depth spans cannot use that combined route; separate them by depth or align
+their top and bottom levels rather than trusting separate contours through an internal overlap.
 See [Trochoidal cutting](/guide/strategies/trochoidal-cutting/#edge-routes).
 
 ## Limitations

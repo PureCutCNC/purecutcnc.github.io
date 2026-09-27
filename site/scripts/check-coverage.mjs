@@ -152,9 +152,6 @@ for (const row of coverage) {
 		if (!row[field]) fail(`${label}: ${field} is empty`);
 	}
 	const legacy = list(row.legacy_guide);
-	if ((row.coverage === 'missing') !== (legacy.length === 0)) {
-		fail(`${label}: coverage "missing" must go with an empty legacy_guide, and only then`);
-	}
 	if (row.coverage !== 'accurate' && !row.gaps) fail(`${label}: describe the gaps for a ${row.coverage} capability`);
 	for (const key of legacy) {
 		if (!sectionKeys.has(key)) fail(`${label}: legacy_guide ${key} is not in legacy-guide-inventory.csv`);
