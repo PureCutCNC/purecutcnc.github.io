@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 640" role="img" aria-labelledby="title description">
+	<title id="title">Corner rounding compared with corner relief</title>
+	<desc id="description">Rounding smooths the path the cutter takes and leaves the finished part unchanged; corner relief cuts extra material out of an inside corner so a square mating part can seat. Dogbone opens the corner along its diagonal, T-bone opens it along one wall.</desc>
+	<defs>
+		<marker id="crArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+			<path d="M 0 0 L 10 5 L 0 10 z" fill="#ff7a5c" />
+		</marker>
+		<style>
+			.title { font: 700 25px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #e2e2e6; }
+			.step { font: 700 11px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; letter-spacing: 0.12em; fill: #00c8ff; }
+			.heading { font: 700 16px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #ffffff; }
+			.detail { font: 14px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #c6c6cf; }
+			.key { font: 13px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #9a9aa8; }
+			.cut { stroke: #ff7a5c; stroke-width: 2.5; fill: none; }
+			.ghost { stroke: #ff7a5c; stroke-width: 1.6; fill: none; stroke-dasharray: 5 4; stroke-opacity: 0.45; }
+			.wall { stroke: #9a9aa8; stroke-width: 2.5; fill: none; }
+			.tool { fill: #00c8ff; fill-opacity: 0.13; stroke: #00c8ff; stroke-width: 1.8; }
+			.toolGhost { fill: none; stroke: #00c8ff; stroke-width: 1.4; stroke-dasharray: 4 4; stroke-opacity: 0.6; }
+			.left { fill: #b59a3f; fill-opacity: 0.35; stroke: #b59a3f; stroke-width: 1.6; }
+		</style>
+	</defs>
+
+	<rect width="860" height="640" rx="24" fill="#0c0f14" />
+	<rect x="1" y="1" width="858" height="638" rx="23" fill="none" stroke="#2a2a30" stroke-width="2" />
+	<text class="title" x="430" y="46" text-anchor="middle">Rounding changes the path. Relief changes the part.</text>
+
+	<text class="step" x="40" y="86">ROUNDING · THE FINISHED PART IS THE SAME</text>
+
+	<!-- Rounded outside corners -->
+	<g transform="translate(40, 98)">
+		<text class="heading" x="0" y="16">Round outside corners</text>
+		<rect x="0" y="30" width="380" height="150" rx="4" fill="#12161d" stroke="#2a2a30" stroke-width="2" />
+		<path d="M 70 168 L 70 78 L 300 78 L 300 168" class="wall" />
+		<path d="M 46 168 L 46 78 Q 46 54 70 54 L 300 54 Q 324 54 324 78 L 324 168" class="cut" marker-end="url(#crArrow)" />
+		<path d="M 46 78 L 46 54 L 70 54" class="ghost" />
+		<path d="M 300 54 L 324 54 L 324 78" class="ghost" />
+		<text class="key" x="190" y="130" text-anchor="middle">Part</text>
+		<text class="key" x="190" y="202" text-anchor="middle">The path turns on an arc; the wall it cuts is unchanged.</text>
+	</g>
+
+	<!-- Tangent links -->
+	<g transform="translate(450, 98)">
+		<text class="heading" x="0" y="16">Round link corners</text>
+		<rect x="0" y="30" width="370" height="150" rx="4" fill="#12161d" stroke="#2a2a30" stroke-width="2" />
+		<path d="M 46 60 L 324 60 L 324 108 L 46 108 L 46 156 L 324 156" class="ghost" />
+		<path d="M 46 60 L 300 60 Q 324 60 324 84 Q 324 108 300 108 L 70 108 Q 46 108 46 132 Q 46 156 70 156 L 324 156" class="cut" marker-end="url(#crArrow)" />
+		<text class="key" x="185" y="202" text-anchor="middle">Where one ring steps to the next, the turn is tangent.</text>
+	</g>
+
+	<text class="step" x="40" y="336">RELIEF · MATERIAL IS DELIBERATELY REMOVED</text>
+
+	<!-- None -->
+	<g transform="translate(40, 348)">
+		<text class="heading" x="0" y="16">No relief</text>
+		<rect x="0" y="30" width="245" height="176" rx="4" fill="#12161d" stroke="#2a2a30" stroke-width="2" />
+		<path d="M 26 36 L 70 36 L 70 160 L 222 160 L 222 200 L 26 200 Z" fill="#1a1f29" />
+		<path d="M 70 36 L 70 160 L 222 160" class="wall" />
+		<circle cx="104" cy="126" r="34" class="tool" />
+		<path d="M 70 160 L 70 126 A 34 34 0 0 0 104 160 Z" class="left" />
+		<path d="M 104 64 L 104 126 L 216 126" class="cut" marker-end="url(#crArrow)" />
+		<text class="key" x="122" y="228" text-anchor="middle">The cutter radius stays in the corner.</text>
+	</g>
+
+	<!-- Dogbone -->
+	<g transform="translate(310, 348)">
+		<text class="heading" x="0" y="16">Dogbone</text>
+		<rect x="0" y="30" width="245" height="176" rx="4" fill="#12161d" stroke="#2a2a30" stroke-width="2" />
+		<path d="M 26 36 L 70 36 L 70 160 L 222 160 L 222 200 L 26 200 Z" fill="#1a1f29" />
+		<path d="M 70 36 L 70 160 L 222 160" class="wall" />
+		<circle cx="94" cy="136" r="34" class="tool" />
+		<circle cx="104" cy="126" r="34" class="toolGhost" />
+		<path d="M 104 64 L 104 126 L 94 136 L 104 126 L 216 126" class="cut" marker-end="url(#crArrow)" />
+		<text class="key" x="122" y="228" text-anchor="middle">The cutter dips down the corner's diagonal.</text>
+	</g>
+
+	<!-- T-bone -->
+	<g transform="translate(580, 348)">
+		<text class="heading" x="0" y="16">T-bone</text>
+		<rect x="0" y="30" width="245" height="176" rx="4" fill="#12161d" stroke="#2a2a30" stroke-width="2" />
+		<path d="M 26 36 L 70 36 L 70 160 L 222 160 L 222 200 L 26 200 Z" fill="#1a1f29" />
+		<path d="M 70 36 L 70 160 L 222 160" class="wall" />
+		<circle cx="70" cy="126" r="34" class="tool" />
+		<circle cx="104" cy="126" r="34" class="toolGhost" />
+		<path d="M 104 64 L 104 126 L 70 126 L 104 126 L 216 126" class="cut" marker-end="url(#crArrow)" />
+		<text class="key" x="122" y="228" text-anchor="middle">The cutter runs into one of the two walls.</text>
+	</g>
+
+	<text class="detail" x="430" y="614" text-anchor="middle">Relief is intentional overcutting, so a square mating part can seat. Rounding is not.</text>
+</svg>

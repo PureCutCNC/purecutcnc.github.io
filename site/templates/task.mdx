@@ -1,0 +1,37 @@
+---
+# Template for a task page: how to do one thing, in steps.
+# Copy to src/content/docs/guide/<section>/<page>.mdx.
+title: Sentence-case task title
+description: One sentence on what the reader will get done.
+pageType: task
+availability: stable
+status: draft
+---
+
+import { Aside, Steps } from '@astrojs/starlight/components';
+
+{/* Lead: the goal and when you need it. Mention prerequisites here or in a short
+"Before you start" section. */}
+
+## Before you start
+
+- What must already exist, such as a project with at least one tool.
+
+## Do the task
+
+{/* Name this section after the task, for example "Import an SVG file". Use Steps for
+numbered procedures; one action per step, with UI labels in bold. */}
+
+<Steps>
+
+1. Open **Menu** > **Item**.
+
+2. Set **Label** to the value you need.
+
+3. Click **Button**.
+
+</Steps>
+
+## Related pages
+
+- [Page title](/guide/section/page/): why the reader would go there.

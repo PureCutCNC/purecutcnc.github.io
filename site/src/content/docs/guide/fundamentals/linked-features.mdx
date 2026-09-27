@@ -1,0 +1,91 @@
+---
+title: Linked features
+description: Understand linked copies that share one shape, what each copy keeps for itself, and how to make a copy independent.
+pageType: concept
+availability: stable
+status: reviewed
+reviewed:
+  appCommit: 2dc197eebe9c11272ad0bc24194d4a7c6de19055
+  date: 2026-09-19
+  by: frankp
+---
+
+import Screenshot from '../../../../components/Screenshot.astro';
+import definitionAndInstances from '../../../../assets/manual/fundamentals/linked-features/definition-and-instances.svg';
+import { Aside, Steps } from '@astrojs/starlight/components';
+
+Copies of a feature in PureCutCNC are linked: they share one shape, so changing the shape of one
+copy changes all of them. This keeps repeated details, such as a row of identical holes, identical
+as the design changes. When one copy needs to be different, make it unique.
+
+## Definitions and instances
+
+
+<Screenshot
+	src={definitionAndInstances}
+	alt="Diagram of one definition linked to three instances named Rect 1, Rect 2, and Rect 3, and below it the same set after Make unique, where Rect 3 has its own definition and Rect 1 and Rect 2 stay linked"
+	caption="The definition holds the shape; each instance holds its own placement and settings."
+/>
+Each feature is an instance of a definition. The definition is the shared part; the instance is one
+placed copy of it.
+
+| Shared by all linked copies (**Shape**) | Kept by each copy (**Instance**) |
+| --- | --- |
+| The profile: its points, segments, and curves | Position, rotation, and scale |
+| The role (**Operation**) and a region's **Mask mode** | **Name** |
+| Text content, style, and font | **Z top** and **Z bottom** |
+| An imported model's mesh and **3D orientation** | **Folder**, **Visible**, and **Locked** |
+|  | A text feature's layout on a circle or path |
+
+The properties panel follows the same split. When a feature has linked copies, the **Shape**
+section is titled **Shape (shared with N instances)**, and the feature's row in the tree shows a
+link badge (**Linked — N instances share this definition**).
+
+So moving, rotating, or resizing one copy leaves the others where they are, but editing its points
+in a sketch-editing session, filleting a corner, or changing its role changes every copy.
+
+## Copy mode
+
+These actions create linked copies:
+
+- the **Copy** tool, including copies made by rotate and mirror with **Keep originals**;
+- pasting copied or cut features;
+- **Feature distribution** (grid, radial, and along-a-path copies).
+
+There is no setting in the app to make these copies independent instead, and no "duplicate
+independent" command. Projects store a copy mode, which is set to linked copies in new projects,
+and the app gives no way to change it. See
+[app issue #801](https://github.com/PureCutCNC/purecutcnc/issues/801).
+
+<Aside type="caution" title="Copies change together until you make them unique">
+	Editing the shape of one copy changes every linked copy, and every operation that machines
+	them. If one location needs a different shape, make that copy unique first.
+</Aside>
+
+## Make one instance independent
+
+<Steps>
+
+1. Select the copy that needs its own shape.
+
+2. Choose **Make unique**, either in the context menu or in the **Shape** section of its
+   properties.
+
+3. Edit it. The other copies keep the original shape.
+
+</Steps>
+
+To find every copy that shares a shape, right-click one and choose **Select linked instances**.
+
+An imported model's orientation is part of its shared shape: rotating one copy with
+**3D orientation** rotates all of them. Make the copy unique first to orient it on its own.
+
+## Related pages
+
+- [Feature tree and properties](/guide/fundamentals/feature-tree/): the **Shape** and
+  **Instance** sections and the link badge.
+- [Selecting and transforming](/guide/design/selecting-and-transforming/): copying, pasting, and
+  the transforms that change one instance.
+- [Aligning and distributing](/guide/design/arranging/#feature-distribution): patterns of
+  linked copies.
+- [Editing sketches](/guide/design/sketch-editing/): edits that change every linked copy.

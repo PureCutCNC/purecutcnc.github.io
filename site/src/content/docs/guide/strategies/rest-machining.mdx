@@ -1,0 +1,61 @@
+---
+title: Rest machining
+description: Limit a smaller-tool 2.5D or 3D follow-up operation to the material a larger roughing tool could not reach.
+pageType: strategy
+availability: stable
+status: reviewed
+reviewed:
+  appCommit: 7ad27b1e384074a35797a4747a85218067a565df
+  date: 2026-09-27
+  by: frankp
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import Screenshot from '../../../../components/Screenshot.astro';
+import largeToolRoughing from '../../../../assets/manual/strategies/rest-machining/large-tool-roughing.png';
+import regionLimitedFollowUp from '../../../../assets/manual/strategies/rest-machining/region-limited-follow-up.png';
+
+## How it works
+
+<div class="pc-figure-grid" aria-label="Large-tool roughing followed by a smaller-tool region-limited rest operation">
+	<Screenshot src={largeToolRoughing} alt="Large-tool pocket roughing passes around a gear-shaped island" caption="Large-tool roughing" />
+	<Screenshot src={regionLimitedFollowUp} alt="Smaller-tool follow-up passes highlighted only in the Regions the large tool could not reach" caption="Smaller-tool follow-up, limited by Regions" />
+</div>
+
+Rest machining is a workflow: rough the pocket with a larger tool first, then make a second rough
+operation with a smaller tool. Apply **Regions** to that second operation so it cuts only the areas
+the larger tool could not reach, instead of cutting the whole pocket again.
+
+You can draw those Regions yourself when you know exactly which areas need the smaller tool. For a
+compatible Pocket or edge-route source operation, **Create rest operation** can derive the leftover
+areas automatically. It creates rest-region features and a related follow-up operation; choose the
+smaller tool and review it before generating the path.
+
+## Where it applies
+
+| Workflow | Where to find it |
+| --- | --- |
+| Automatic rest regions from [Pocket](/guide/operations/pocket/) | **What it cuts** > **Rest machining** |
+| Automatic rest regions from [inside](/guide/operations/edge-route-inside/) or [outside](/guide/operations/edge-route-outside/) edge route | **What it cuts** > **Rest machining** |
+| Manually created Regions | Limit a compatible 2.5D or 3D follow-up operation in **What it cuts** |
+
+## Settings
+
+The generated rest operation inherits compatible settings and targets, includes the new rest
+regions, and starts without a selected tool. Select the smaller tool and review all inherited depth
+and feed settings before generating it. The same region-limited approach works for compatible 2.5D
+and 3D operations: the region defines *where* the follow-up cuts; the selected operation and tool
+define *how* it cuts there.
+
+## Limitations
+
+<Aside type="caution" title="Trochoidal edge routes cannot create a rest operation">
+	A trochoidal edge route has no area leftover that the rest-region generator can derive. A
+	trochoidal pocket is supported because its channel width provides that information.
+</Aside>
+
+## Related pages
+
+- [Regions](/guide/fundamentals/regions/): create the manual limit for a smaller-tool 2.5D or 3D follow-up.
+- [Tool library](/guide/cam-setup/tool-library/): add the smaller follow-up tool.
+- [Working with operations](/guide/cam-setup/working-with-operations/): review the generated operation in the list.

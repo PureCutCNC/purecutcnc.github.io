@@ -1,0 +1,70 @@
+---
+title: PureCutCNC User Guide
+description: How to design parts, set up machining operations, verify toolpaths, and export G-code with PureCutCNC.
+pageType: overview
+availability: stable
+status: reviewed
+reviewed:
+  appCommit: 2dc197eebe9c11272ad0bc24194d4a7c6de19055
+  date: 2026-09-18
+  by: frankp
+---
+
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+import Screenshot from '../../../components/Screenshot.astro';
+import workflowOverview from '../../../assets/manual/guide-overview/workflow-overview.svg';
+
+PureCutCNC is a 2.5D and 3D CAD/CAM program for CNC routers. You draw or import a part, assign
+machining operations to it, check the toolpaths in 3D and in simulation, and export G-code for
+your machine. It runs in a desktop or tablet browser and as a desktop app for macOS, Windows, and
+Linux. It needs no account, and your projects stay on your own computer.
+
+This guide describes the current app. Pages and sections marked **Preview Build** cover features
+that are not in a stable release yet.
+
+## Start here
+
+<CardGrid>
+	<LinkCard title="Install and open PureCutCNC" description="Choose the web app or a desktop build, and open a first project." href="/guide/start-here/install-and-open/" />
+	<LinkCard title="Quick Start" description="Go from a blank project to exported G-code in about ten minutes." href="/quickstart/" />
+	<LinkCard title="Working safely" description="What the preview cannot tell you, and what to check before cutting." href="/guide/start-here/safety/" />
+</CardGrid>
+
+## Find your way
+
+| If you are | Start with | Then read |
+| --- | --- | --- |
+| New to PureCutCNC | [Install and open](/guide/start-here/install-and-open/) and the [Quick Start](/quickstart/) | [Working safely](/guide/start-here/safety/), then the Fundamentals pages in order, starting with [The workspace](/guide/fundamentals/workspace/) |
+| Looking up a tool, operation, setting, or shortcut | Search, or the section in the sidebar | The operation, strategy, or reference page, and its settings table |
+| Coming from another CAM program | The [Glossary](/guide/reference/glossary/) | [Features, roles, and depth](/guide/fundamentals/features-and-roles/), [Choosing an operation](/guide/operations/), and [Advanced strategies](/guide/strategies/clearing-patterns/) |
+| Fixing a problem with an import, toolpath, simulation, or an export | [Troubleshooting](/guide/reference/troubleshooting/) | [Warnings and messages](/guide/reference/warnings/) to interpret the type of message shown |
+| Getting ready to cut | [Working safely](/guide/start-here/safety/) | [Simulation](/guide/verify-export/simulation/) and [Exporting G-code](/guide/verify-export/gcode-export/) |
+
+## Workflow
+
+
+<Screenshot src={workflowOverview} alt="PureCutCNC workflow from project setup and design through CAM, verification, export, and machine-side checks" />
+A typical job goes through these steps. You can return to any of them at any time: toolpaths are
+generated again whenever the design or the machining settings change.
+
+1. **Set up the project.** Create or open a project, then check its stock, origin, and units.
+2. **Design the part.** Draw features or import SVG, DXF, STL, OBJ, or STEP files, and give each
+   feature its role and its Z top and Z bottom.
+3. **Plan the machining.** Add tools, then add operations to the features they should cut, or let
+   CAM Plan propose a set of operations for you to review.
+4. **Set up the cut.** Choose each operation's settings and strategies, and add tabs and clamps.
+5. **Verify.** Check the toolpaths in the 3D view and the simulation, and resolve any warnings.
+6. **Export.** Choose the machine, check which operations are exported, save the G-code, and check
+   it on the machine before cutting.
+
+## Guide sections
+
+<CardGrid>
+	<LinkCard title="Fundamentals" description="The workspace, projects, features and their roles, stock, origin, units, and regions." href="/guide/fundamentals/workspace/" />
+	<LinkCard title="Design" description="Drawing, editing, snapping, dimensions and constraints, text, and importing." href="/guide/design/drawing-tools/" />
+	<LinkCard title="CAM Setup" description="Tools, operations, CAM Plan, machines, tabs, and clamps." href="/guide/cam-setup/tool-library/" />
+	<LinkCard title="Machining Operations" description="One page per operation, with its requirements and settings." href="/guide/operations/" />
+	<LinkCard title="Advanced Strategies" description="Clearing patterns, trochoidal cutting, entries, corners, feed reduction, rest machining, and 3D finishing." href="/guide/strategies/clearing-patterns/" />
+	<LinkCard title="Verify and Export" description="Toolpath preview, 3D view, simulation, G-code export, and setup booklets." href="/guide/verify-export/toolpath-preview/" />
+	<LinkCard title="Reference and Troubleshooting" description="Shortcuts, file formats, machine definitions, themes, languages, warnings, and fixes." href="/guide/reference/keyboard-shortcuts/" />
+</CardGrid>

@@ -1,0 +1,64 @@
+---
+title: Clamps and clearances
+description: Define the project clearances and clamp locations that generated motion must avoid.
+pageType: task
+availability: stable
+status: reviewed
+reviewed:
+  appCommit: 7ad27b1e384074a35797a4747a85218067a565df
+  date: 2026-09-27
+  by: frankp
+---
+
+import Screenshot from '../../../../components/Screenshot.astro';
+import clampAvoidance from '../../../../assets/manual/cam-setup/clamps-and-clearances/clamp-avoidance.png';
+import { Aside, Steps } from '@astrojs/starlight/components';
+
+Clearances establish safe travel heights and distances. Clamps mark physical workholding so the
+app can highlight conflicts and keep generated cuts clear of the clamped area.
+
+## Before you start
+
+- Measure the real stock, workholding, cutter stick-out, and machine travel.
+- Set the project origin and stock correctly before entering clearance values.
+
+## Clearances
+
+
+<Screenshot src={clampAvoidance} alt="An outside route detouring around a clamp placed over its contour, leaving a gap in the toolpath on that edge, with the operation's Toolpath warnings reporting that the toolpath was kept clear of the clamp and that material under it is left uncut" caption="The route is kept clear of the clamp rather than cutting through it, and the operation says so — the material under the clamp stays uncut." />
+<Steps>
+
+1. Select the **Project** node in the feature tree.
+
+2. Set **Safe Z** for travel above the workholding, and **Op clear Z** for operation-level moves.
+
+3. Set **Clamp clear XY** and **Clamp clear Z** to the physical clearance your setup requires.
+
+4. Add clamps on the **Clamps** node and place them where the real clamps sit.
+
+5. Regenerate, inspect warnings, and simulate every enabled operation.
+
+</Steps>
+
+<Aside type="danger" title="Safety: clamps can leave material uncut">
+	Clamp avoidance is not limited to rapid moves. Generation keeps cutting motion clear of clamps,
+	which can leave material behind; drilling beneath a clamp can be skipped. Treat each clamp
+	warning as a required setup decision and inspect the resulting toolpath before machining.
+</Aside>
+
+## Nesting around clamps
+
+[Nest on stock](/guide/design/arranging/#nest-on-stock) treats recorded clamps and their
+**Clamp clear XY** distance as placement obstacles. It also leaves the chosen stock margins plus
+cutter clearance at each edge. Set the stock, clamp positions, and XY clearance to match the
+physical setup before nesting; a layout based on incorrect measurements cannot protect the cut.
+
+After accepting a nest, inspect the generated toolpaths and warnings. Clamp avoidance during
+toolpath generation can still leave material uncut or skip drilling beneath a clamp. Confirm the
+real workholding and part support, then simulate and dry-run the intended operations.
+
+## Related pages
+
+- [Tabs](/guide/cam-setup/tabs/): retain a routed part after cutting.
+- [Nest on stock](/guide/design/arranging/#nest-on-stock): arrange parts around the stock and clamps.
+- [Working safely](/guide/start-here/safety/): dry-run and machine setup guidance.

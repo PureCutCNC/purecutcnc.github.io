@@ -1,0 +1,230 @@
+---
+title: Aligning and distributing
+description: Align and space features, create patterns of copies, and nest parts on the stock.
+pageType: task
+availability: stable
+status: reviewed
+reviewed:
+  appCommit: 7ad27b1e384074a35797a4747a85218067a565df
+  date: 2026-09-27
+  by: frankp
+---
+
+import Screenshot from '../../../../components/Screenshot.astro';
+import AppIcon from '../../../../components/AppIcon.astro';
+import distributeGrid from '../../../../assets/manual/design/arranging/distribute-grid.png';
+import distributeRadial from '../../../../assets/manual/design/arranging/distribute-radial.png';
+import distributePath from '../../../../assets/manual/design/arranging/distribute-path.png';
+import scaleTaper from '../../../../assets/manual/design/arranging/scale-taper.png';
+import alphabetBefore from '../../../../assets/manual/design/arranging/alphabet-before-nesting.png';
+import nestPanel from '../../../../assets/manual/design/arranging/nest-on-stock.png';
+import nestResult from '../../../../assets/manual/design/arranging/nest-result.png';
+import { Aside, Steps } from '@astrojs/starlight/components';
+
+The <AppIcon name="align" /> **Align selected features** and <AppIcon name="distribute" /> **Distribute selected features** menus in the tool rail line up
+and space existing features. The distribute menu also creates patterns of new copies with
+**Feature distribution**, nests parts on the stock, and holds **Text layout** (see
+[Text](/guide/design/text/#text-layout)).
+
+## Before you start
+
+- Select the features to arrange. Locked features are left out of aligning and distributing, and a
+  selection that includes a locked feature cannot be used for feature distribution.
+- **Distribute selected features** appears in the tool rail once features are selected, and
+  **Align selected features** once two or more are.
+
+## Align
+
+Select two or more unlocked features, open **Align selected features**, and choose:
+
+| Command | Moves each feature so that |
+| --- | --- |
+| <AppIcon name="align-left" /> **Align left** | its left edge is on the leftmost edge of the selection. |
+| <AppIcon name="align-center-horizontal" /> **Align center horizontally** | its centre is on the horizontal centre of the selection. |
+| <AppIcon name="align-right" /> **Align right** | its right edge is on the rightmost edge of the selection. |
+| <AppIcon name="align-top" /> **Align top** | its top edge is on the topmost edge of the selection. |
+| <AppIcon name="align-center-vertical" /> **Align center vertically** | its centre is on the vertical centre of the selection. |
+| <AppIcon name="align-bottom" /> **Align bottom** | its bottom edge is on the lowest edge of the selection. |
+
+Edges are the features' bounding boxes. The reference is the box around the whole selection, so the
+outermost feature does not move.
+
+## Distribute evenly
+
+Select three or more unlocked features, open **Distribute selected features**, and choose:
+
+| Command | Result |
+| --- | --- |
+| <AppIcon name="distribute-horizontal-gaps" /> **Distribute horizontally (equal gaps)** | Equal space between the features, left to right. |
+| <AppIcon name="distribute-horizontal-centers" /> **Distribute horizontally (equal centers)** | Equal distance between the features' centres, left to right. |
+| <AppIcon name="distribute-vertical-gaps" /> **Distribute vertically (equal gaps)** | Equal space between the features, top to bottom. |
+| <AppIcon name="distribute-vertical-centers" /> **Distribute vertically (equal centers)** | Equal distance between the centres, top to bottom. |
+
+The first and last feature stay where they are; the ones between them move.
+
+## Feature distribution
+
+
+**Feature distribution** makes a pattern of copies of the selected features in one step: a grid, a
+circle, or a row along a path. The copies are ordinary linked copies, not a pattern that updates
+later, and the whole distribution is one undo step. The selected features and any guide are not
+changed. Imported models cannot be distributed.
+
+<Steps>
+
+1. Select the features to copy.
+
+2. Open **Distribute selected features** and choose **Grid**, **Radial**, or **Along path**.
+
+3. Set the pattern in the **Feature distribution** panel (see below). The canvas previews the
+   copies, and the panel reports anything that stops the pattern.
+
+4. Click **Create copies**.
+
+</Steps>
+
+### Grid
+
+| Setting | Description |
+| --- | --- |
+| **Rows**, **Columns** | The grid size, counting the original, which is the top-left cell. At least two cells. Default 1 row and 2 columns. |
+| **X spacing**, **Y spacing** | The distance between neighbouring cells, to the right and downwards in the Sketch view. Default 2 in or 20 mm. |
+
+<Screenshot src={distributeGrid} alt="Feature distribution panel set to 2 rows, 3 columns and 0.6 inch spacing, with the source rectangle and five dashed preview copies laid out as that grid" caption="The canvas previews the copies as you set the pattern." />
+
+### Radial
+
+| Setting | Description |
+| --- | --- |
+| **Center** | Click **Pick center**, then click the centre on the sketch. Required, and it cannot be the centre of the selection itself. |
+| **Instances (incl. original)** | The number of positions, counting the original. Default 4. |
+| **Sweep** | The angle the pattern covers, in degrees. Default 360. |
+| **Orientation** | **Follow direction** turns each copy with the circle (the default); **Fixed** keeps the original's rotation. |
+
+The radius and start angle come from where the selection sits relative to the centre. A full 360°
+sweep spaces the instances evenly around the circle; a smaller sweep puts the first and last
+instances at its ends.
+
+<Screenshot src={distributeRadial} alt="Feature distribution panel set to eight instances over a 360 degree sweep, with the copies previewed in a ring around the picked centre point" caption="Radial, with eight instances swept a full 360 degrees." />
+
+### Along path
+
+| Setting | Description |
+| --- | --- |
+| **Guide** | Click **Pick guide**, then click a separate outline on the sketch: a line, arc, spline, composite path, or closed shape. |
+| **Instances (incl. original)** | The number of positions along the guide. Default 4. |
+| **Start offset**, **End offset** | How much of the guide to leave unused at each end. |
+| **Orientation** | **Follow direction** turns each copy with the guide (the default); **Fixed** keeps the original's rotation. |
+
+Copies are placed at equal distances along the guide. Construction geometry works well as a guide.
+
+<Screenshot src={distributePath} alt="Feature distribution panel with Spline 2 as the guide and six instances, and the copies previewed following the spline across the canvas" caption="Along path, with six instances following a spline guide." />
+
+### Scale taper
+
+All three types have **Start scale %** and **End scale %**. With values other than 100, the copies
+grow or shrink evenly from the first copy (at the start value) to the last (at the end value). The
+original keeps its size.
+
+<Screenshot src={scaleTaper} alt="Twelve circles in a ring, shrinking steadily from the green full-size original round to a tiny copy at ten percent" caption="A radial distribution of twelve circles tapering from 100% to 10%." />
+
+<Aside type="caution" title="Scaled copies change the machining">
+	A scale taper changes the size of each copy, and so the size of what gets cut. Check that the
+	smallest copy can still be cut with your tool, for example that its narrowest gap is wider than
+	the cutter.
+</Aside>
+
+## Nest on stock
+
+**Nest on stock** arranges one or more part types on the current stock. It places as many requested
+parts as fit on **one sheet** and reports any that did not fit; it does not create another sheet.
+A grouped folder is one part, or you can select a closed outer outline. Features inside an outline
+travel with that part, so holes and pockets keep their positions relative to it.
+
+<Screenshot src={alphabetBefore} alt="Letters A through Z in three rows across a 48 by 24 inch stock before nesting, with clamps around the edges" caption="The alphabet test project before nesting: each letter is a separate part." />
+
+<Steps>
+
+1. Set the stock size and place the real
+   [clamps](/guide/cam-setup/clamps-and-clearances/#nesting-around-clamps). Create and configure
+   operations for **all source parts** before nesting, including Edge Route Inside or Outside
+   operations for the contours you intend to cut. Assign the tools and check the toolpaths.
+
+2. Select the part outlines or grouped parts. Open **Distribute selected features** and choose
+   **Nest on stock**. The tablet tool rail has the same command.
+
+3. Set the Nest panel controls below, then click **Nest**. Read the placed and unplaced counts.
+   Use **Nest again** to try another layout or **Keep improving** to search further; **Stop**
+   ends that search.
+
+4. Inspect the placed parts, the **Nest N** folder, the updated operation targets, and regenerated
+   toolpaths. Choose **Accept nest** only after checking the layout and machining plan.
+
+5. After accepting, add tabs to the nested contours from their
+   [Edge Route Inside](/guide/operations/edge-route-inside/) or
+   [Edge Route Outside](/guide/operations/edge-route-outside/) operations, then check the
+   toolpaths and simulation again.
+
+</Steps>
+
+### Nest panel controls
+
+- **Parts / Quantity:** Set the number of instances wanted for each selected part. With several
+  parts, **All parts** sets the same quantity for every part; expand **Parts** to override a
+  particular part. For example, 4 of each of 26 letters requests 104 placements on one sheet.
+- **Gap:** The minimum distance between cut parts. The panel starts at the minimum required by
+  the assigned outside-route tools and will not accept a smaller value. Increase it for more
+  clearance; if no outside-route tool sets a minimum, enter the gap yourself.
+- **Rotation:** Choose whether parts may stay at their original angle, turn by 180° for grain
+  direction, turn in quarter turns, or use 45°, 30°, or 15° steps. More allowed angles can help
+  parts fit, but check grain and appearance before cutting.
+- **Margins:** Leave an uncut strip at each stock edge. Set one value for all sides, or enter
+  separate **Top**, **Bottom**, **Left**, and **Right** values. Nesting also accounts for the
+  cutter clearance and recorded clamp clearance.
+- **Keep originals in place:** Leave the selected originals where they are and place new copies.
+  When off, a placed original may move into the nest and the remaining instances are copies.
+
+The quantities are requests: the result reports how many fit and names any that did not. Nesting
+adds copied feature instances to operations that target their source features, so configuring
+those operations first saves you from targeting each new copy by hand. Check the updated targets
+and regenerated toolpaths before accepting.
+
+<Screenshot src={nestPanel} alt="Nest on stock panel with All parts set to four, a quarter-inch gap, quarter-turn rotation, zero margins, and a report that all 104 letters fit" caption="Four of each letter: all 104 requested parts fit, with a 0.25 inch tool-derived gap." />
+
+<Screenshot src={nestResult} alt="Four instances of each letter A through Z packed on one 48 by 24 inch stock after accepting the nest, with edge clamps visible" caption="The accepted nest places all 104 letters on one sheet, leaving free stock at the right." />
+
+Nesting keeps the chosen margins plus cutter clearance from the stock edges and avoids recorded
+clamps with their XY clearance. It also avoids other parts already on the stock. A small part may
+fit in a larger part's through-cut hole only when no other operation machines inside that hole.
+**Nest again**, **Keep improving**, and **Discard nest** act on the nest in the panel that made it.
+After **Accept nest**, the copies remain as ordinary features in their **Nest N** folder in the
+project tree. Select that folder's copies to delete them together, or select an individual copy
+to delete it alone. Deleting copies does **not** automatically return any originals that the nest
+moved to their earlier positions; that restore command is not available in this version. Use
+**Undo** while that history is still available in the open project to take back the whole nest,
+or reposition the originals yourself. Selecting a nested copy later starts a new nest. Saving
+keeps the copied features and folder, but does not save the nest's settings or the originals'
+earlier positions.
+
+The command refuses a part with a locked feature, an imported model, a constraint tied to
+geometry outside the part, or no closed outline. Fix the selection or the constraint before
+running it again.
+
+<Aside type="caution" title="Check workholding and every cut">
+	Tabs stay at their original positions when parts move, and new copies receive no tabs. Remove
+	any misplaced tabs, then [place tabs on the nested contours](/guide/cam-setup/tabs/#after-nesting)
+	and inspect the regenerated toolpaths and simulation. Check the real clamps, uncut margins,
+	part support, and any unplaced parts before export.
+</Aside>
+
+## Related pages
+
+- [Selecting and transforming](/guide/design/selecting-and-transforming/): single copies, rotated
+  copies, and mirrored copies.
+- [Linked features](/guide/fundamentals/linked-features/): what the copies share.
+- [Text](/guide/design/text/#text-layout): the **Text layout** entry in the same menu.
+- [Construction geometry](/guide/fundamentals/construction-geometry/): guides and centres for
+  patterns.
+- [Clamps and clearances](/guide/cam-setup/clamps-and-clearances/): stock-edge and workholding
+  clearances for a nest.
+- [Tabs](/guide/cam-setup/tabs/#after-nesting): replace tabs after nesting.

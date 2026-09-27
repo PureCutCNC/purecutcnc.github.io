@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 470" role="img" aria-labelledby="title description">
+	<title id="title">How countersink depth is derived</title>
+	<desc id="description">A cross-section through a countersink: the V-bit's included angle and the countersink diameter you set determine the depth, which the app derives and shows read-only.</desc>
+	<defs>
+		<marker id="csTick" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+			<path d="M 0 0 L 10 5 L 0 10 z" fill="#00c8ff" />
+		</marker>
+		<style>
+			.title { font: 700 25px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #e2e2e6; }
+			.detail { font: 14px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #c6c6cf; }
+			.dim { font: 700 13px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #00c8ff; }
+			.set { font: 700 11px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; letter-spacing: 0.12em; fill: #00c8ff; }
+			.derived { font: 700 11px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; letter-spacing: 0.12em; fill: #b59a3f; }
+			.dimline { stroke: #00c8ff; stroke-width: 1.5; }
+		</style>
+	</defs>
+
+	<rect width="860" height="470" rx="24" fill="#0c0f14" />
+	<rect x="1" y="1" width="858" height="468" rx="23" fill="none" stroke="#2a2a30" stroke-width="2" />
+	<text class="title" x="430" y="48" text-anchor="middle">Countersink depth comes from the angle and the diameter</text>
+
+	<!-- the V-bit, above the stock -->
+	<text class="set" x="325" y="92" text-anchor="middle">YOU SET THE DIAMETER</text>
+	<path d="M 255 108 L 395 108 L 395 170 L 325 250 L 255 170 Z"
+		fill="#00c8ff" fill-opacity="0.14" stroke="#00c8ff" stroke-width="2" />
+	<line x1="325" y1="108" x2="325" y2="330" stroke="#00c8ff" stroke-width="1" stroke-dasharray="5 4" />
+
+	<!-- stock with the cone removed -->
+	<path d="M 90 210 L 195 210 L 325 330 L 455 210 L 560 210 L 560 400 L 90 400 Z"
+		fill="#1a1f29" stroke="#5c5c68" stroke-width="2" />
+	<line x1="90" y1="210" x2="195" y2="210" stroke="#9a9aa8" stroke-width="2.5" />
+	<line x1="455" y1="210" x2="560" y2="210" stroke="#9a9aa8" stroke-width="2.5" />
+
+	<!-- diameter across the mouth of the cone -->
+	<line x1="195" y1="200" x2="455" y2="200" class="dimline" marker-start="url(#csTick)" marker-end="url(#csTick)" />
+	<text class="dim" x="325" y="192" text-anchor="middle">Countersink diameter</text>
+
+	<!-- included angle at the tip -->
+	<path d="M 289 294 A 46 46 0 0 1 361 294" fill="none" class="dimline" />
+	<text class="dim" x="325" y="288" text-anchor="middle">60°</text>
+	<text class="set" x="325" y="356" text-anchor="middle">V-BIT ANGLE</text>
+
+	<!-- depth down the axis -->
+	<line x1="620" y1="210" x2="620" y2="330" class="dimline" marker-start="url(#csTick)" marker-end="url(#csTick)" />
+	<line x1="560" y1="210" x2="626" y2="210" stroke="#00c8ff" stroke-width="1" stroke-dasharray="4 4" />
+	<line x1="325" y1="330" x2="626" y2="330" stroke="#00c8ff" stroke-width="1" stroke-dasharray="4 4" />
+	<text class="dim" x="640" y="264">Countersink depth</text>
+	<text class="derived" x="640" y="284">DERIVED, READ-ONLY</text>
+
+	<text class="detail" x="430" y="444" text-anchor="middle">A wider diameter, or a narrower bit, cuts deeper. The app works the depth out; you cannot set it directly.</text>
+</svg>

@@ -1,0 +1,27 @@
+---
+# Template for a troubleshooting page: symptoms, causes, and fixes.
+# Copy to src/content/docs/guide/reference/<page>.mdx.
+title: Troubleshooting
+description: One sentence on the problems this page helps with.
+pageType: troubleshooting
+availability: stable
+status: draft
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+{/* Group problems by where the reader notices them. Each problem is an H3 named after the
+symptom as the reader would describe it, followed by the cause and the fix. Quote app
+warnings exactly, in bold. */}
+
+## Area where the problem shows
+
+### Symptom as the reader sees it
+
+**Cause:** why it happens.
+
+**Fix:** what to change, with a link to the page that explains it.
+
+## Related pages
+
+- [Warnings and messages](/guide/reference/warnings/): every warning the app shows.

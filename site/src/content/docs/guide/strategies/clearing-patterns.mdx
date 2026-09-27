@@ -1,0 +1,68 @@
+---
+title: Clearing patterns
+description: Choose offset or parallel passes to cover a 2.5D clearing area.
+pageType: strategy
+availability: stable
+status: reviewed
+reviewed:
+  appCommit: 7ad27b1e384074a35797a4747a85218067a565df
+  date: 2026-09-27
+  by: frankp
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import Screenshot from '../../../../components/Screenshot.astro';
+import patternComparison from '../../../../assets/manual/strategies/clearing-patterns/pattern-comparison.svg';
+import subtractFold from '../../../../assets/manual/strategies/clearing-patterns/subtract-fold.svg';
+
+## How it works
+
+<Screenshot src={patternComparison} alt="One pocket covered four ways: offset rings following the wall inwards; parallel passes sweeping across and turning at the boundary; circles grown from two seed points with wall-following passes clearing the rest; and a dense coil of trochoidal orbits following the wall with a second run up the middle. The links between passes are drawn dashed." />
+
+**Offset** follows successive inset contours. **Parallel** sweeps straight raster passes at the
+selected angle. For circular seeds, see [Seeded-circle clearing](/guide/strategies/seeded-circles/).
+For load-managed orbiting paths, see [Trochoidal cutting](/guide/strategies/trochoidal-cutting/#clearing).
+Choose the pattern based on the desired finish, path shape, and the feature geometry.
+
+## Where it applies
+
+| Operation | Where to find it |
+| --- | --- |
+| [Pocket](/guide/operations/pocket/) | **Strategy** > **Pattern** |
+| [Surface clean](/guide/operations/surface-clean/) | **Strategy** > **Pattern** |
+| [3D surface rough](/guide/operations/3d-surface-rough/) | **Strategy** > **Pattern** |
+| [3D surface cleanup](/guide/operations/3d-surface-cleanup/) | **Strategy** > **Pattern** (floor cleanup) |
+
+## Settings
+
+| Setting | Description |
+| --- | --- |
+| **Pattern** | Selects the clearing pattern. This page explains Offset and Parallel; Seeded circles and Trochoidal have dedicated guidance. |
+| **Angle** | Sets the direction of Parallel passes. |
+| **Stepover Ratio** | Sets the lateral gap between applicable passes as a fraction of the tool diameter. |
+
+Offset paths simplify compatible polylines into arcs and circles, which can make the generated
+G-code smaller and motion smoother.
+
+## Overlapping subtracts
+
+<Screenshot src={subtractFold} alt="A pocket target, a deeper subtract feature that touches it, and the combined area that is cleared — with a section showing the floor stepping down to the subtract's own depth where the two meet" />
+
+Non-target subtract features that meet a target can extend the resolved cut region at their own
+depth. Long connected chains can reach the resolver's chain limit and report a warning. Inspect
+the resolved bands and warnings when nearby pockets overlap; split the geometry or targets if the
+result is not the region you intended to clear.
+
+## Limitations
+
+<Aside type="caution" title="A pattern is not available on every operation">
+	3D surface finish uses Parallel, Waterline, and Constant scallop instead. Cleanup does not
+	offer Trochoidal, Waterline, or Constant scallop.
+</Aside>
+
+## Related pages
+
+- [Trochoidal cutting](/guide/strategies/trochoidal-cutting/): a load-managed alternative for supported roughing operations.
+- [Seeded-circle clearing](/guide/strategies/seeded-circles/): clear from fitted circular regions before offset rings finish the area.
+- [Linking clearing passes](/guide/strategies/link-junctions/): shape compatible transitions between Offset or Seeded-circle rings.
+- [Corners](/guide/strategies/corners/): rounding and relief controls for compatible contour paths.

@@ -1,0 +1,59 @@
+---
+title: Feed reduction
+description: Reduce programmed feed for full-width slots or vary it with measured cutter engagement.
+pageType: strategy
+availability: stable
+status: reviewed
+reviewed:
+  appCommit: 7ad27b1e384074a35797a4747a85218067a565df
+  date: 2026-09-27
+  by: frankp
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import Screenshot from '../../../../components/Screenshot.astro';
+import feedLegend from '../../../../assets/manual/strategies/feed-reduction/feed-reduction-legend.png';
+
+## How it works
+
+<Screenshot src={feedLegend} alt="A pocket toolpath coloured by feed percentage, with the Feed colours key across the top running from 100% in coral down to 60% in pale yellow. Reduced-feed segments are visible around the circular island and tight corners." />
+
+Feed reduction lowers the programmed cutting feed when engagement is more demanding. **Slots only**
+uses the configured **Slot Feed** percentage for full-width cutting stretches. **Engagement**
+measures cutter engagement along the emitted path and chooses a feed percentage for each stretch.
+
+### From slot speed to full feed
+
+With **Slots only**, a full-width slot uses **Slot Feed** and other cuts retain the programmed
+feed. With **Engagement**, lightly engaged stretches run at the full programmed feed (100%). As
+engagement increases, PureCutCNC selects progressively lower feed-colour steps, down to the
+configured **Slot Feed** for full-width cutting. The generated feed never rises above the
+programmed feed, and a full-width slot is never allowed to run faster than **Slot Feed**.
+
+## Where it applies
+
+| Operation | Where to find it |
+| --- | --- |
+| [Pocket](/guide/operations/pocket/) | **Speeds & feeds** |
+| [Surface clean](/guide/operations/surface-clean/) | **Speeds & feeds** |
+| [3D surface rough](/guide/operations/3d-surface-rough/) | **Speeds & feeds** |
+| Compatible edge-route roughing | **Speeds & feeds** |
+
+## Settings
+
+| Setting | Description |
+| --- | --- |
+| **Feed reduction** | Selects Off, Slots only, or Engagement where the operation supports it. |
+| **Slot Feed** | The lowest percentage used for a full-width slot; the default is 60%. Engagement can choose intermediate percentages between this value and full programmed feed. |
+
+## Limitations
+
+<Aside type="caution" title="Reduction does not choose a safe base feed">
+	These controls only reduce the programmed feed. Set the material, tool, spindle speed, and base
+	feed correctly first, then inspect the feed-colour legend and simulation before machining.
+</Aside>
+
+## Related pages
+
+- [Trochoidal cutting](/guide/strategies/trochoidal-cutting/): control engagement by changing the toolpath.
+- [Common operation parameters](/guide/operations/common-parameters/): shared feed and spindle settings.

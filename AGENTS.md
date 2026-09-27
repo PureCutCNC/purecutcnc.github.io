@@ -2,7 +2,12 @@
 
 This repo is the **public website for PureCut CNC**, served as a static site at
 `https://purecutcnc.github.io` via GitHub Pages (the `main` branch is the live
-site). It is plain HTML/CSS/JS — there is **no build step**.
+site). The live site is plain HTML/CSS/JS at the repository root — there is **no
+build step** for it.
+
+A generated replacement (Astro + Starlight, with the new user manual) is being
+built in `site/`. It is **not deployed yet**: GitHub Pages still publishes the
+root files. See `site/README.md` and `planning/SITE_PLATFORM.md`.
 
 Read this before editing. Most update mistakes come from not knowing which files
 are hand-maintained and which are written by automation.
@@ -35,12 +40,17 @@ are hand-maintained and which are written by automation.
 | `downloads/snapshot/*.json` | **CI (auto)** | Written by the app repo's RC deploy on main-branch pushes. |
 | `app/` | **CI (auto)** | The **deployed stable web app** build (`deploy.yml` copies `dist/` here). Includes its own `app/icons.svg`, `app/favicon.svg`. Do **not** touch. |
 | `app-rc/` | **CI (auto)** | The **deployed preview build** (`deploy-rc.yml`). Do **not** touch. |
+| `site/` | **You (manual)** | Source of the new generated site. Not live until the cutover. |
+| `.github/workflows/site.yml` | **You (manual)** | Builds and verifies `site/`; deployment is off until the cutover. |
+| `planning/` | **You (manual)** | Decision records and runbooks for the site and manual work. |
+| `.nojekyll` | **You (manual)** | Stops the Pages branch build from running Jekyll (which dropped `_`-prefixed app files). |
 
 The automation lives in the **app repo** (`PureCutCNC/purecutcnc`) under
 `.github/workflows/deploy*.yml`; those jobs check out this repo and push commits
 here as `github-actions[bot]` (e.g. `deploy: update app from release vX`,
-`downloads: update … stable metadata for vX`). There are **no workflows in this
-repo**.
+`downloads: update … stable metadata for vX`). This repo's only workflow,
+`site.yml`, builds and verifies `site/` on every push to `main` (including those
+automated commits) or `site-revamp`, and on pull requests.
 
 ## How the moving parts work
 
@@ -98,6 +108,64 @@ Verify the symbol count matches and spot-check that referenced ids resolve.
   `<script src="icons-loader.js"></script>` + `<use href="icons.svg#id">`.
 - If a page needs an icon that isn't in `guide/icons.svg` yet, sync the sprite from
   the app repo first (don't hand-add a single symbol — keep the copy whole).
+
+## Working on the new site (`site/`)
+
+- The revamp lives on the `site-revamp` integration branch. Branch from it and
+  open revamp PRs against it, not `main`; it reaches `main` in one merge before
+  the cutover (see `planning/SITE_PLATFORM.md`).
+- Setup and commands are in `site/README.md`: `npm ci --prefix site`, then
+  `npm run ci` inside `site/`.
+- Before writing a User Guide page, read `planning/MANUAL_BLUEPRINT.md`. Every
+  page is already listed, with its title, type, and owning workstream, in
+  `site/config/manual-structure.mjs`; start from `site/templates/<type>.mdx` and
+  run `npm run content`. Don't add pages or sections outside that file.
+- When a page replaces a legacy `guide/*.html` page, update its entry in
+  `site/config/legacy-routes.mjs` in the same PR.
+- `planning/manual-coverage.csv` lists every capability the manual must cover
+  and which page and workstream own it. Update its rows when your page lands
+  (see `planning/MANUAL_COVERAGE.md`); `npm run coverage` checks it.
+- The new site copies `app/`, `app-rc/`, and `downloads/` from the root at build
+  time and reads icons from `app-rc/icons.svg`, so it needs no hand-synced copies.
+- The old `images/` and `guide/screenshots/` URLs are kept as frozen copies in
+  `site/public/`. After merging `main` into `site-revamp`, run
+  `npm run legacy:sync` in `site/` if those images changed.
+- Until the cutover, fixes that must go live now still belong in the root files.
+
+### Tracking issues
+
+Every manual workstream has a GitHub issue that owns it: #29 W1 Foundations,
+#30 W2 Design and import, #31 W3 CAM setup and 2.5D operations, #32 W4 3D
+operations and strategies, #33 W5 Verify, export and reference, under the #28
+Wave 2 tracker and the #24 initiative. Visual coverage is #47.
+
+- **Read your issue before starting.** It holds the page list, the acceptance
+  criteria, and the contracts with other workstreams — shared files, anchors
+  another workstream links to, and who owns which redirect entry.
+- **Don't trust its status.** Issue checklists go stale; the checks do not. Get
+  the real state from `npm run content`, `npm run coverage`, and
+  `node scripts/check-coverage.mjs --where workstream=W3`. Where an issue and
+  the checks disagree, the checks are right.
+- **Comment on the issue when work lands**, with what is now true and what is
+  left. This is the step that keeps being skipped: in Wave 2 all five
+  workstreams merged their pages and none updated its issue, so the next
+  session had to re-derive the state from the repo.
+- **Merging the prose is not finishing.** A workstream is done when its pages
+  are `status: reviewed`, its `manual-coverage.csv` rows are `accurate`, and
+  its visuals are captured — that is, when `npm run content:cutover` and
+  `npm run verify:cutover` pass for its pages. `npm run ci` passes long before
+  that, so it cannot tell you a workstream is complete.
+- **File app defects in `PureCutCNC/purecutcnc`**, not here, and list the issue
+  in `blockedBy` for any screenshot it affects.
+
+### Screenshots
+
+`npm run capture` (`site/scripts/capture-visuals.mjs`) replays each screenshot
+from a recipe — fixture project, viewport, panel sizes, interaction, crop — so a
+re-shoot after an app change is one command instead of a remembered sequence.
+Add a recipe per visual rather than capturing by hand; `--only id,id` re-runs a
+subset. Recipes are validated against `planning/manual-visual-inventory.json`
+and abort on drift.
 
 ## Local preview & verification
 

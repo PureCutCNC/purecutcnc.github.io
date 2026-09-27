@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 740" role="img" aria-labelledby="title description">
+	<title id="title">PureCutCNC workflow</title>
+	<desc id="description">Six steps from project setup through design, machining setup, verification, export, and machine-side checks.</desc>
+	<defs>
+		<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+			<path d="M 0 0 L 10 5 L 0 10 z" fill="#00c8ff" />
+		</marker>
+		<filter id="shadow" x="-10%" y="-15%" width="120%" height="130%">
+			<feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#000000" flood-opacity="0.28" />
+		</filter>
+		<style>
+			.title { font: 700 27px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #e2e2e6; }
+			.step { font: 700 13px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; letter-spacing: 0.12em; fill: #00c8ff; }
+			.heading { font: 700 25px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #ffffff; }
+			.detail { font: 17px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #c6c6cf; }
+			.number { font: 700 18px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #081019; text-anchor: middle; dominant-baseline: central; }
+			.footer { font: 15px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #9a9aa8; }
+		</style>
+	</defs>
+
+	<rect width="800" height="740" rx="24" fill="#0c0f14" />
+	<rect x="1" y="1" width="798" height="738" rx="23" fill="none" stroke="#2a2a30" stroke-width="2" />
+	<text class="title" x="400" y="42" text-anchor="middle">From a project idea to machine-ready G-code</text>
+
+	<!-- Flow connectors sit behind the cards. -->
+	<g fill="none" stroke="#00c8ff" stroke-width="4" stroke-linecap="round" marker-end="url(#arrow)">
+		<path d="M340 155 H450" />
+		<path d="M620 235 V277" />
+		<path d="M460 365 H350" />
+		<path d="M180 445 V487" />
+		<path d="M340 575 H450" />
+	</g>
+
+	<g filter="url(#shadow)">
+		<rect x="20" y="75" width="320" height="160" rx="18" fill="#1a1a1e" stroke="#3b3b44" stroke-width="2" />
+		<circle cx="58" cy="113" r="22" fill="#00c8ff" />
+		<text class="number" x="58" y="113">1</text>
+		<text class="step" x="94" y="110">PROJECT</text>
+		<text class="heading" x="44" y="158">Set up the project</text>
+		<text class="detail" x="44" y="192">Create or open a project</text>
+		<text class="detail" x="44" y="216">Check stock • origin • units</text>
+	</g>
+
+	<g filter="url(#shadow)">
+		<rect x="460" y="75" width="320" height="160" rx="18" fill="#1a1a1e" stroke="#3b3b44" stroke-width="2" />
+		<circle cx="498" cy="113" r="22" fill="#00c8ff" />
+		<text class="number" x="498" y="113">2</text>
+		<text class="step" x="534" y="110">DESIGN</text>
+		<text class="heading" x="484" y="158">Design the part</text>
+		<text class="detail" x="484" y="192">Draw or import geometry</text>
+		<text class="detail" x="484" y="216">Set feature roles and Z limits</text>
+	</g>
+
+	<g filter="url(#shadow)">
+		<rect x="460" y="285" width="320" height="160" rx="18" fill="#1a1a1e" stroke="#3b3b44" stroke-width="2" />
+		<circle cx="498" cy="323" r="22" fill="#00c8ff" />
+		<text class="number" x="498" y="323">3</text>
+		<text class="step" x="534" y="320">CAM</text>
+		<text class="heading" x="484" y="368">Plan the machining</text>
+		<text class="detail" x="484" y="402">Choose tools and operations</text>
+		<text class="detail" x="484" y="426">Review CAM Plan proposals</text>
+	</g>
+
+	<g filter="url(#shadow)">
+		<rect x="20" y="285" width="320" height="160" rx="18" fill="#1a1a1e" stroke="#3b3b44" stroke-width="2" />
+		<circle cx="58" cy="323" r="22" fill="#00e090" />
+		<text class="number" x="58" y="323">4</text>
+		<text class="step" x="94" y="320" fill="#00e090">SETUP</text>
+		<text class="heading" x="44" y="368">Set up the cut</text>
+		<text class="detail" x="44" y="402">Set passes and strategies</text>
+		<text class="detail" x="44" y="426">Add tabs and clamps</text>
+	</g>
+
+	<g filter="url(#shadow)">
+		<rect x="20" y="495" width="320" height="160" rx="18" fill="#1a1a1e" stroke="#3b3b44" stroke-width="2" />
+		<circle cx="58" cy="533" r="22" fill="#00e090" />
+		<text class="number" x="58" y="533">5</text>
+		<text class="step" x="94" y="530" fill="#00e090">VERIFY</text>
+		<text class="heading" x="44" y="578">Verify the result</text>
+		<text class="detail" x="44" y="612">Inspect 3D view and simulation</text>
+		<text class="detail" x="44" y="636">Resolve warnings</text>
+	</g>
+
+	<g filter="url(#shadow)">
+		<rect x="460" y="495" width="320" height="160" rx="18" fill="#1a1a1e" stroke="#3b3b44" stroke-width="2" />
+		<circle cx="498" cy="533" r="22" fill="#f0c040" />
+		<text class="number" x="498" y="533">6</text>
+		<text class="step" x="534" y="530" fill="#f0c040">EXPORT</text>
+		<text class="heading" x="484" y="578">Export safely</text>
+		<text class="detail" x="484" y="612">Choose machine and operations</text>
+		<text class="detail" x="484" y="636">Check G-code before cutting</text>
+	</g>
+
+	<text class="footer" x="400" y="704" text-anchor="middle">The preview supports verification; it does not replace machine-side checks.</text>
+</svg>

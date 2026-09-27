@@ -1,0 +1,114 @@
+---
+// Layout for the non-manual pages (landing, downloads). It shares the guide's
+// Dark / Light / Auto preference through the `starlight-theme` local-storage key.
+import '../styles/tokens.css';
+import '../styles/marketing.css';
+import { APP_URL, GITHUB_URL, PRIMARY_NAV, isCurrent } from '../data/site-links';
+import GitHubMark from '../components/GitHubMark.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+interface Props {
+	title: string;
+	description: string;
+	/** Social preview image, relative to the site root. */
+	image?: string;
+}
+
+const { title, description, image = '/images/sketch-full-page.png' } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const imageUrl = new URL(image, Astro.site);
+const pathname = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonical} />
+		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={imageUrl} />
+		<meta property="og:site_name" content="PureCutCNC" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={imageUrl} />
+		<script is:inline>
+			(() => {
+				const saved = localStorage.getItem('starlight-theme');
+				const preference = saved === 'light' || saved === 'dark' ? saved : 'auto';
+				document.documentElement.dataset.theme =
+					preference === 'auto' && matchMedia('(prefers-color-scheme: light)').matches ? 'light' : preference === 'auto' ? 'dark' : preference;
+			})();
+		</script>
+		<script is:inline data-goatcounter="https://purecutcnc.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+	</head>
+	<body>
+		<a class="skip-link" href="#main">Skip to content</a>
+		<header class="site-header">
+			<a href="/" class="nav-logo" translate="no">Pure<span>Cut</span>CNC</a>
+			<nav aria-label="Site">
+				<ul class="nav-links">
+					{
+						PRIMARY_NAV.map((link) => (
+							<li>
+								<a href={link.href} aria-current={isCurrent(link, pathname) ? 'page' : undefined}>
+									{link.label}
+								</a>
+							</li>
+						))
+					}
+					<li>
+						<a href={GITHUB_URL} class="github-icon"><GitHubMark /> GitHub</a>
+					</li>
+				</ul>
+			</nav>
+			<label class="theme-control">
+				<span class="sr-only">Select theme</span>
+				<select id="theme-select" aria-label="Select theme">
+					<option value="dark">Dark</option>
+					<option value="light">Light</option>
+					<option value="auto">Auto</option>
+				</select>
+			</label>
+			<a href={APP_URL} class="nav-cta desktop-web-link">Launch App →</a>
+		</header>
+		<main id="main">
+			<slot />
+		</main>
+		<SiteFooter />
+		<script is:inline>
+			(() => {
+				const storageKey = 'starlight-theme';
+				const select = document.querySelector('#theme-select');
+				const media = matchMedia('(prefers-color-scheme: light)');
+				const preference = () => {
+					const saved = localStorage.getItem(storageKey);
+					return saved === 'light' || saved === 'dark' ? saved : 'auto';
+				};
+				const apply = (theme) => {
+					document.documentElement.dataset.theme = theme === 'auto' ? (media.matches ? 'light' : 'dark') : theme;
+					if (select) select.value = theme;
+				};
+				apply(preference());
+				select?.addEventListener('change', () => {
+					const theme = select.value;
+					localStorage.setItem(storageKey, theme === 'auto' ? '' : theme);
+					apply(theme);
+				});
+				media.addEventListener('change', () => {
+					if (preference() === 'auto') apply('auto');
+				});
+				addEventListener('storage', (event) => {
+					if (event.key === storageKey) apply(preference());
+				});
+			})();
+		</script>
+	</body>
+</html>

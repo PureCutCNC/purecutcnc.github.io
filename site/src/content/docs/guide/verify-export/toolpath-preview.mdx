@@ -1,0 +1,50 @@
+---
+title: Toolpath preview
+description: Read the toolpath overlays, feed colours, Z levels, and renderer controls before you simulate or export.
+pageType: reference
+availability: stable
+status: reviewed
+reviewed:
+  appCommit: 7ad27b1e384074a35797a4747a85218067a565df
+  date: 2026-09-27
+  by: frankp
+---
+
+import Screenshot from '../../../../components/Screenshot.astro';
+import toolpathLegend from '../../../../assets/manual/verify-export/toolpath-preview/toolpath-legend.png';
+import levelRail from '../../../../assets/manual/verify-export/toolpath-preview/level-renderer-warning.png';
+
+Use the toolpath preview in the Sketch and 3D views to check the moves PureCutCNC has generated. It is a visual aid: use it with [Simulation](/guide/verify-export/simulation/) and the operation warnings before you cut.
+
+## Toolpath legend
+
+<span id="legend"></span>
+
+Open the **Show** control in the viewport corner to choose which overlays are visible. You can independently show **Cuts**, **Lead-ins**, **Rapids**, **Plunges**, **Retractions**, and **Directions**. The same visibility choices are shared by the Sketch and 3D views. An amber overlay calls attention to a clamp collision.
+
+<Screenshot maxWidth={710} src={toolpathLegend} alt="The expanded legend across the top of the viewport: the 2D renderer control, the vertical Toolpath level rail set to All, and toggles for Cuts, Lead-ins, Rapids, Plunges, Retractions, Directions, and Feed colours" />
+
+## Feed colours
+
+Turn on **Feed colours** in the legend to colour cutting moves by their programmed feed percentage. The **Feed percentage** key explains the colour scale. It is a quick way to find feed reductions; it does not prove that a feed is safe for your material, cutter, or machine.
+
+<span id="collapse"></span>
+
+## Levels
+
+For **2.5D operations**, use the vertical **Toolpath level** rail to isolate a cutting Z level. Choose **All** to restore every level. The same level filter is available in the [3D view](/guide/verify-export/3d-view/), so you can inspect that one pass from another angle. This filter changes only the preview, not the generated toolpath or exported G-code.
+
+<Screenshot src={levelRail} alt="An outside edge route with the level rail moved off All to 0.125, so the preview draws that one cutting depth instead of every pass" caption="The rail reads from the top down; its value shows the Z it is holding." />
+
+## Renderer
+
+The **2D renderer** control switches between **Canvas** and **GPU** rendering. If panning or zooming a dense preview is slow, the app can offer **Enable GPU**. If GPU rendering cannot start, it reports **GPU unavailable; using Canvas.** and leaves the Canvas preview available; use **Retry GPU** after the underlying issue is resolved.
+
+## Warnings
+
+Read warnings in the operation properties and in the export dialog before relying on a preview. A warning identifies something to inspect; it does not necessarily prevent export. Errors are shown separately and can disable export until the underlying problem is corrected. See [Warnings and messages](/guide/reference/warnings/) when that reference page is available.
+
+## Related pages
+
+- [3D view](/guide/verify-export/3d-view/): inspect the stock, model, and toolpaths in three dimensions.
+- [Simulation](/guide/verify-export/simulation/): replay material removal before making a part.

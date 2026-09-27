@@ -1,0 +1,133 @@
+---
+// Starlight override: Starlight's header plus the site-wide navigation and the
+// "Launch App" call to action, so the manual reads as part of the same site.
+import Search from '@astrojs/starlight/components/Search.astro';
+import SocialIcons from '@astrojs/starlight/components/SocialIcons.astro';
+import ThemeSelect from '@astrojs/starlight/components/ThemeSelect.astro';
+import SiteTitle from './SiteTitle.astro';
+import { APP_URL, PRIMARY_NAV, isCurrent } from '../../data/site-links';
+
+const pathname = Astro.url.pathname;
+// Home and the external changelog drop out first when the header gets tight.
+const secondary = new Set(['/', PRIMARY_NAV.at(-1)?.href]);
+---
+
+<div class="header">
+	<div class="title-wrapper sl-flex">
+		<SiteTitle />
+	</div>
+	<div class="sl-flex print:hidden">
+		<Search />
+	</div>
+	<div class="sl-hidden md:sl-flex print:hidden right-group">
+		<nav aria-label="Site">
+			<ul class="site-nav">
+				{
+					PRIMARY_NAV.map((link) => (
+						<li class:list={{ secondary: secondary.has(link.href) }}>
+							<a href={link.href} aria-current={isCurrent(link, pathname) ? 'page' : undefined}>
+								{link.label}
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</nav>
+		<a class="launch" href={APP_URL}>Launch App →</a>
+		<div class="sl-flex social-icons">
+			<SocialIcons />
+		</div>
+		<ThemeSelect />
+	</div>
+</div>
+
+<style>
+	.header {
+		display: flex;
+		gap: var(--sl-nav-gap);
+		justify-content: space-between;
+		align-items: center;
+		height: 100%;
+	}
+
+	.title-wrapper {
+		overflow: clip;
+		padding: 0.25rem;
+		margin: -0.25rem;
+		min-width: 0;
+	}
+
+	.right-group,
+	.social-icons {
+		gap: 1rem;
+		align-items: center;
+	}
+
+	.site-nav {
+		display: flex;
+		gap: 1.25rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	.site-nav a {
+		color: var(--sl-color-gray-3);
+		font-size: var(--sl-text-sm);
+		text-decoration: none;
+		white-space: nowrap;
+	}
+	.site-nav a:hover,
+	.site-nav a[aria-current='page'] {
+		color: var(--sl-color-white);
+	}
+	.site-nav .secondary {
+		display: none;
+	}
+
+	.launch {
+		padding: 0.35rem 0.85rem;
+		border-radius: var(--pc-radius);
+		background: var(--sl-color-accent-high);
+		color: var(--sl-color-black);
+		font-size: var(--sl-text-xs);
+		font-weight: 600;
+		text-decoration: none;
+		white-space: nowrap;
+	}
+	:global(:root[data-theme='light']) .launch {
+		background: var(--sl-color-accent);
+		color: #fff;
+	}
+	.launch:hover {
+		background: var(--pc-accent-2);
+		color: #fff;
+	}
+
+	.social-icons::after {
+		content: '';
+		height: 2rem;
+		border-inline-end: 1px solid var(--sl-color-gray-5);
+	}
+
+	@media (min-width: 72rem) {
+		.site-nav .secondary {
+			display: list-item;
+		}
+	}
+
+	/* Same column maths as Starlight's header, so search stays aligned with content. */
+	@media (min-width: 50rem) {
+		:global(:root[data-has-sidebar]) {
+			--__sidebar-pad: calc(2 * var(--sl-nav-pad-x));
+		}
+		:global(:root:not([data-has-toc])) {
+			--__toc-width: 0rem;
+		}
+		.header {
+			--__sidebar-width: max(0rem, var(--sl-content-inline-start, 0rem) - var(--sl-nav-pad-x));
+			display: grid;
+			grid-template-columns: minmax(calc(var(--__sidebar-width) - var(--sl-nav-gap)), auto) minmax(0, 1fr) auto;
+			align-content: center;
+		}
+	}
+</style>

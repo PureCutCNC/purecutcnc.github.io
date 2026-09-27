@@ -1,0 +1,88 @@
+---
+title: Tabs
+description: Hold an edge-routed part in its stock with rectangular or smooth tabs, then inspect the resulting cut.
+pageType: task
+availability: stable
+status: reviewed
+reviewed:
+  appCommit: 7ad27b1e384074a35797a4747a85218067a565df
+  date: 2026-09-27
+  by: frankp
+---
+
+import Screenshot from '../../../../components/Screenshot.astro';
+import tabCrossings from '../../../../assets/manual/cam-setup/tabs/tab-crossings.png';
+import textOutsideTabs from '../../../../assets/manual/cam-setup/tabs/text-outside-tabs.png';
+import textInsideTabs from '../../../../assets/manual/cam-setup/tabs/text-inside-tabs.png';
+import { Aside, Steps } from '@astrojs/starlight/components';
+
+Tabs leave small bridges of material so an edge-routed part stays attached to its stock until you
+remove it safely after machining.
+
+## Before you start
+
+- Create an **Edge route inside** or **Edge route outside** operation for the intended contour.
+- Decide how the stock will remain supported after the final contour is cut.
+
+## Add and adjust tabs
+
+
+<Screenshot src={tabCrossings} alt="Four tabs selected together on an outside route, drawn as dashed squares where the toolpath crosses them, with the properties panel showing one set of width, height, Z top, Z bottom and shape fields for all four" caption="Selecting several tabs edits them together; the shape note explains the trade-off between Smooth and Rectangular." />
+<Steps>
+
+1. Place the tabs: either select the **Tabs** node and add them on the contour yourself, or open
+   the edge-route operation and use **Auto place tabs** (see below).
+
+2. Choose a rectangular or smooth tab shape and set its dimensions.
+
+3. Select the edge-route operation and confirm that its **Tabs** setting uses the intended tab set.
+
+4. Inspect the toolpath and simulation before exporting.
+
+</Steps>
+
+### Auto place tabs
+
+An edge-route operation can space a set of tabs around its own contour for you. Select the
+operation, and in its properties click **Auto place tabs** in the **Tabs** row. There is no dialog:
+the tabs appear on the contour straight away, and you can then move or resize them like any others.
+
+**Auto place tabs** adds to the tabs already on that contour rather than replacing them, so running
+it a second time leaves the two sets overlapping. The operation then reports a warning naming the
+pairs, for example **Tabs "Rect 1 Tab" and "Rect 1 Tab 5" overlap in a way that may produce
+ambiguous output.** Delete one set before placing another.
+
+For outline text, automatic placement follows the letter shapes the edge route actually cuts,
+not the rectangle around the text feature. An outside route places tabs on each cut glyph
+outline; an inside route on Add text places them on the enclosed counters. A long run of text can
+receive up to four tabs per letter.
+
+<Screenshot src={textOutsideTabs} alt="An outside edge route around X and o with dashed tab positions on both glyph outlines" caption="Each cut glyph gets its own tabs on an outside route." />
+
+<Screenshot src={textInsideTabs} alt="An inside edge route through the counter of Add outline O with two dashed tab positions across that counter" caption="On Add text, an inside route places tabs on the counter it cuts." />
+
+Bulk edit changes matching tabs together. Use manual placement when automatic placement would put a
+tab near a clamp, a corner, or a feature that needs a clean edge.
+
+### After nesting
+
+Configure the Edge Route Inside or Edge Route Outside operations for all source parts before
+[nesting](/guide/design/arranging/#nest-on-stock). Nesting adds copied instances to operations
+that target those source features, but it does not move existing tabs with a part, and copied
+parts receive no tabs. **Accept the nest first**, then remove any tabs left at old positions and
+use **Auto place tabs** from the Edge Route Inside or Edge Route Outside operations that cut the
+nested contours. You can also place tabs manually. Automatic placement adds tabs rather than
+replacing them, so clear old tabs first to avoid overlap. Inspect every nested part's tab
+positions and the regenerated toolpaths before export.
+
+<Aside type="caution" title="Tabs intentionally block the final depth">
+	A tab prevents the route from cutting fully through at that location. The app warns when a tab
+	blocks the final depth or is outside the cut; correct the warning instead of assuming the part
+	will remain held safely. A smooth tab can fall back to a rectangular shape for a trochoidal edge
+	route.
+</Aside>
+
+## Related pages
+
+- [Edge route outside](/guide/operations/edge-route-outside/): cut a part free while keeping tabs.
+- [Clamps and clearances](/guide/cam-setup/clamps-and-clearances/): keep tabs and contours clear of workholding.

@@ -1,0 +1,64 @@
+---
+title: Construction geometry
+description: Draw reference lines and shapes to position a design, knowing they are never machined or added to the model.
+pageType: concept
+availability: stable
+status: reviewed
+reviewed:
+  appCommit: 2dc197eebe9c11272ad0bc24194d4a7c6de19055
+  date: 2026-09-19
+  by: frankp
+---
+
+import Screenshot from '../../../../components/Screenshot.astro';
+import constructionGeometry from '../../../../assets/manual/fundamentals/construction-geometry/construction-geometry.png';
+
+Construction geometry is reference geometry for drawing: centrelines, symmetry axes, bolt circles,
+and layout guides. You can snap to it, mirror against it, and dimension to it, but it never
+becomes part of the part.
+
+## Main idea
+
+
+<Screenshot
+	src={constructionGeometry}
+	alt="Project tree with a Construction section containing a centre line marked REF, and the canvas showing that line drawn dashed across a green add feature and blue subtract features"
+	caption="Construction geometry is drawn dashed, carries a ref badge, and is never machined."
+/>
+- **Create** construction geometry with the **Create construction geometry** target in the tool
+  rail. Any shape can be construction geometry, open or closed. New items are named
+  **Construction** with a number.
+- **Convert** an existing feature by changing its **Operation** to **Construction** in its
+  properties, or in the role menu on its tree row.
+- **Find** it in the **Construction** section of the feature tree, marked with a **ref** badge. It
+  has its own folders and can only be grouped with other construction geometry.
+
+Construction geometry:
+
+- adds no material to the 3D model and has no Z range (**Not machined**);
+- cannot be an operation target: the Add menu says **Construction geometry is never machined —
+  deselect construction features first**;
+- is not simulated and is left out of exported models;
+- is drawn as dashed reference lines on the canvas and in printed designs.
+
+## Typical uses
+
+- Draw a centreline or symmetry axis first, then mirror the finished features across it.
+- Draw a circle as a bolt circle, then snap hole centres to it or use it as the guide for
+  **Feature distribution** along a path.
+- Trace the outline of an imported drawing as a reference while you draw the real features
+  separately.
+- Dimension from construction geometry to the features that depend on it.
+
+To tidy the view once the design is done, hide construction geometry with **Hide all construction
+geometry** on its tree row, or with the **Construction** toggle in the status bar. Hiding it
+changes nothing in the model or the toolpaths.
+
+## Related pages
+
+- [Features, roles, and depth](/guide/fundamentals/features-and-roles/): construction among the
+  other roles.
+- [Drawing tools](/guide/design/drawing-tools/#creation-target): the creation targets.
+- [Snapping and the grid](/guide/design/snapping-and-grid/): snapping to reference geometry.
+- [Aligning and distributing](/guide/design/arranging/#feature-distribution): copies along a
+  guide.

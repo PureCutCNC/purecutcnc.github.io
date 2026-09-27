@@ -1,0 +1,72 @@
+---
+title: Edge route inside
+description: Route the inside edge of closed subtract profiles with a contour or trochoidal rough pass.
+pageType: operation
+availability: stable
+status: reviewed
+reviewed:
+  appCommit: 7ad27b1e384074a35797a4747a85218067a565df
+  date: 2026-09-27
+  by: frankp
+---
+
+import Screenshot from '../../../../components/Screenshot.astro';
+import insideRoute from '../../../../assets/manual/operations/edge-route-inside/inside-route.png';
+import insideResult from '../../../../assets/manual/operations/edge-route-inside/result.png';
+import { Aside } from '@astrojs/starlight/components';
+
+**Edge route inside** follows the inside edge of a closed subtract profile, offset by the tool
+radius. It can also follow the subtract counters inside an Add outline text feature without
+expanding the text. Use it for a precise internal contour or opening when a Pocket would remove
+unnecessary material.
+
+<Screenshot src={insideRoute} alt="An inside edge route running around a teardrop-shaped pocket, the toolpath offset inside the profile by the cutter radius" caption="An inside route follows the profile from within, offset by the cutter radius." />
+
+<Screenshot src={insideResult} alt="The simulated stock after an inside edge route, the teardrop profile cut open through the plate with clean vertical walls" caption="The same operation in the Simulation view: the profile cut open to depth." />
+
+## Requirements
+
+| Requirement | Value |
+| --- | --- |
+| Target features | Closed subtract features, or Add outline text with enclosed subtract counters; regions are supported by contour routing only |
+| Tool | Flat or ball endmill |
+| Passes | Rough or Finish |
+
+## Parameters
+
+Shared settings are documented in [Common operation parameters](/guide/operations/common-parameters/).
+
+| Parameter | Description |
+| --- | --- |
+| **Strategy** | Uses a contour, or a Trochoidal rough pass that leaves stock for contour finishing. |
+| **Stock to leave radial** | Reserves wall material for the finish contour. |
+| **Tabs** | Associates a tab set where the contour needs to retain material. |
+| **Rest machining** | Creates a follow-up operation for material the current tool cannot reach. |
+| **XY approach & exit** | Is available only when its entry and target conditions are compatible. |
+
+## Strategies
+
+Rough passes can use **Contour** or **Trochoidal** routing. Finish passes always use a contour.
+XY approach and exit needs a ramped entry on a contour route; it is unavailable for a
+trochoidal rough edge route or when a region filters the target.
+See [Trochoidal cutting](/guide/strategies/trochoidal-cutting/#edge-routes) and
+[Entry and exit moves](/guide/strategies/entry-and-exit/).
+
+## Limitations
+
+An Add text feature without counters, such as L, has no inside subtract contour to route and is
+refused. See [Machining text](/guide/design/text/#machining-text) for the text-specific target rule.
+
+<Aside type="caution" title="Check entry and tabs together">
+	Trochoidal roughing uses Helix or Plunge entry. Tabs require a compatible Helix entry, so review
+	the warnings and the simulated final contour before running the program.
+</Aside>
+
+## Verifying the result
+
+Inspect the offset side, entry, tab bridges, and any remaining wall stock in the toolpath preview.
+
+## Related pages
+
+- [Edge route outside](/guide/operations/edge-route-outside/): route an external add or model contour.
+- [Tabs](/guide/cam-setup/tabs/): hold a routed part in the stock.

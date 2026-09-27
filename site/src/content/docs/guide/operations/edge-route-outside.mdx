@@ -1,0 +1,72 @@
+---
+title: Edge route outside
+description: Route the outside edge of closed add or model profiles with a contour or trochoidal rough pass.
+pageType: operation
+availability: stable
+status: reviewed
+reviewed:
+  appCommit: 7ad27b1e384074a35797a4747a85218067a565df
+  date: 2026-09-27
+  by: frankp
+---
+
+import Screenshot from '../../../../components/Screenshot.astro';
+import outsideRoute from '../../../../assets/manual/operations/edge-route-outside/outside-route.png';
+import outsideResult from '../../../../assets/manual/operations/edge-route-outside/result.png';
+import { Aside } from '@astrojs/starlight/components';
+
+**Edge route outside** follows the outside edge of a closed add or model profile, offset by the
+tool radius. It can also route around the add islands enclosed by a Subtract outline text feature.
+It is the normal operation for separating a finished part from surrounding stock.
+
+<Screenshot src={outsideRoute} alt="An outside edge route running around a part, with gaps in the toolpath where each tab crosses it" caption="The route runs outside the profile, and breaks where each tab holds the part." />
+
+<Screenshot src={outsideResult} alt="The simulated stock after an outside route, the part standing free in a cleared channel with tabs still joining it to the surrounding material" caption="The channel is cut all the way around; only the tabs still hold the part." />
+
+## Requirements
+
+| Requirement | Value |
+| --- | --- |
+| Target features | Closed add or model features, or Subtract outline text with enclosed add islands; regions are supported by contour routing only |
+| Tool | Flat or ball endmill |
+| Passes | Rough or Finish |
+
+## Parameters
+
+Shared settings are documented in [Common operation parameters](/guide/operations/common-parameters/).
+
+| Parameter | Description |
+| --- | --- |
+| **Strategy** | Uses a contour, or a Trochoidal rough pass that leaves stock for contour finishing. |
+| **Tabs** | Associates the tab set that retains the part during the final cut. |
+| **Stock to leave radial** | Reserves material for the finish contour. |
+| **Rest machining** | Creates a follow-up operation for material the selected tool cannot reach. |
+
+## Strategies
+
+Rough passes can use **Contour** or **Trochoidal** routing; finish passes always use a contour.
+For multiple selected targets, the operation attempts one combined outer contour. Targets with
+different effective depth spans cannot use that combined route; separate them by depth or align
+their top and bottom levels rather than trusting separate contours through an internal overlap.
+See [Trochoidal cutting](/guide/strategies/trochoidal-cutting/#edge-routes).
+
+## Limitations
+
+For Subtract text, the route follows only the enclosed add islands, not the outer letter outlines.
+See [Machining text](/guide/design/text/#machining-text) before selecting the target.
+
+<Aside type="danger" title="Safety: outside routing can release the part">
+	Use tabs and secure workholding before an outside route reaches the final depth. If combined
+	contours or mixed feature depths cause a warning, resolve it in the design or operation before
+	exporting; do not assume the part will remain supported.
+</Aside>
+
+## Verifying the result
+
+Confirm the tool stays on the outside of the intended contour, preserves each tab, and does not
+conflict with clamps or the planned machining order.
+
+## Related pages
+
+- [Tabs](/guide/cam-setup/tabs/): create and inspect retaining bridges.
+- [Clamps and clearances](/guide/cam-setup/clamps-and-clearances/): check the workholding setup.

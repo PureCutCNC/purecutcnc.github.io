@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 576" role="img" aria-labelledby="title description">
+	<title id="title">Choosing an operation</title>
+	<desc id="description">Each machining goal, the geometry it needs you to select, and the operation that does it: clearing and facing, inside and outside contours, carving and engraving, holes, and the three-dimensional surface passes.</desc>
+	<defs>
+		<style>
+			.title { font: 700 25px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #e2e2e6; }
+			.col { font: 700 12px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; letter-spacing: 0.12em; fill: #00c8ff; }
+			.goal { font: 700 15px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #ffffff; }
+			.target { font: 14px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #c6c6cf; }
+			.op { font: 700 14px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #00c8ff; }
+			.detail { font: 14px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #9a9aa8; }
+		</style>
+	</defs>
+	<rect width="860" height="576" rx="24" fill="#0c0f14" />
+	<rect x="1" y="1" width="858" height="574" rx="23" fill="none" stroke="#2a2a30" stroke-width="2" />
+	<text class="title" x="430" y="52" text-anchor="middle">Start from the goal, check what it needs you to select</text>
+	<text class="col" x="40" y="104">YOUR GOAL</text>
+	<text class="col" x="330" y="104">WHAT YOU SELECT</text>
+	<text class="col" x="596" y="104">OPERATION</text>
+	<line x1="40" y1="116" x2="820" y2="116" stroke="#2a2a30" stroke-width="2" />
+	<text class="goal" x="40" y="158">Clear an internal area</text>
+	<text class="target" x="330" y="158">Closed subtract</text>
+	<text class="op" x="596" y="158">Pocket</text>
+	<line x1="40" y1="174" x2="820" y2="174" stroke="#1a1f29" stroke-width="1" />
+	<text class="goal" x="40" y="204">Face a top surface</text>
+	<text class="target" x="330" y="204">Closed add, or a model</text>
+	<text class="op" x="596" y="204">Surface clean</text>
+	<line x1="40" y1="220" x2="820" y2="220" stroke="#1a1f29" stroke-width="1" />
+	<text class="goal" x="40" y="250">Cut an internal contour</text>
+	<text class="target" x="330" y="250">Closed subtract</text>
+	<text class="op" x="596" y="250">Edge route inside</text>
+	<line x1="40" y1="266" x2="820" y2="266" stroke="#1a1f29" stroke-width="1" />
+	<text class="goal" x="40" y="296">Cut an outside contour</text>
+	<text class="target" x="330" y="296">Closed add, or a model</text>
+	<text class="op" x="596" y="296">Edge route outside</text>
+	<line x1="40" y1="312" x2="820" y2="312" stroke="#1a1f29" stroke-width="1" />
+	<text class="goal" x="40" y="342">Carve closed artwork</text>
+	<text class="target" x="330" y="342">V-carve-compatible closed</text>
+	<text class="op" x="596" y="342">V-carve offset  ·  V-carve medial</text>
+	<line x1="40" y1="358" x2="820" y2="358" stroke="#1a1f29" stroke-width="1" />
+	<text class="goal" x="40" y="388">Follow a line</text>
+	<text class="target" x="330" y="388">Any machinable feature</text>
+	<text class="op" x="596" y="388">Engrave</text>
+	<line x1="40" y1="404" x2="820" y2="404" stroke="#1a1f29" stroke-width="1" />
+	<text class="goal" x="40" y="434">Bore holes</text>
+	<text class="target" x="330" y="434">Circles</text>
+	<text class="op" x="596" y="434">Drill</text>
+	<line x1="40" y1="450" x2="820" y2="450" stroke="#1a1f29" stroke-width="1" />
+	<text class="goal" x="40" y="480">Machine a 3D shape</text>
+	<text class="target" x="330" y="480">Exactly one model</text>
+	<text class="op" x="596" y="480">3D surface rough  ·  finish  ·  cleanup</text>
+	<text class="detail" x="430" y="542" text-anchor="middle">Regions can narrow where a cut is allowed, but they are never the target themselves.</text>
+</svg>

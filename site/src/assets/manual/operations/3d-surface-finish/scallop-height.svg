@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 400" role="img" aria-labelledby="title description">
+	<title id="title">What scallop height measures</title>
+	<desc id="description">A cross-section through three passes of a ball endmill: each pass cuts an arc of the tool's radius, and the ridge left where two arcs meet is the scallop height. With Constant scallop you set that ridge and the app derives the spacing; a smaller ridge means more passes.</desc>
+	<defs>
+		<marker id="scTick" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+			<path d="M 0 0 L 10 5 L 0 10 z" fill="#00c8ff" />
+		</marker>
+		<marker id="scTickAmber" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+			<path d="M 0 0 L 10 5 L 0 10 z" fill="#b59a3f" />
+		</marker>
+		<style>
+			.title { font: 700 25px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #e2e2e6; }
+			.detail { font: 14px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #c6c6cf; }
+			.dim { font: 700 13px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #00c8ff; }
+			.amber { font: 700 13px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #b59a3f; }
+			.tag { font: 700 11px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; letter-spacing: 0.12em; fill: #00c8ff; }
+			.tagAmber { font: 700 11px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; letter-spacing: 0.12em; fill: #b59a3f; }
+			.key { font: 13px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #9a9aa8; }
+			.dimline { stroke: #00c8ff; stroke-width: 1.5; }
+			.amberline { stroke: #b59a3f; stroke-width: 1.5; }
+		</style>
+	</defs>
+
+	<rect width="860" height="400" rx="24" fill="#0c0f14" />
+	<rect x="1" y="1" width="858" height="398" rx="23" fill="none" stroke="#2a2a30" stroke-width="2" />
+	<text class="title" x="430" y="46" text-anchor="middle">The ridge between two passes is the scallop</text>
+
+	<!-- material, with the scalloped floor the three passes leave -->
+	<path d="M 190 206.06
+		A 70 70 0 0 0 310 206.06
+		A 70 70 0 0 0 430 206.06
+		A 70 70 0 0 0 550 206.06
+		L 550 300 L 190 300 Z"
+		fill="#1a1f29" stroke="#9a9aa8" stroke-width="2.5" />
+	<line x1="550" y1="206.06" x2="620" y2="206.06" stroke="#9a9aa8" stroke-width="2" stroke-dasharray="5 5" />
+
+	<!-- the tool, at the middle pass -->
+	<path d="M 300 70 L 300 170 A 70 70 0 0 0 440 170 L 440 70 Z"
+		fill="#00c8ff" fill-opacity="0.14" stroke="#00c8ff" stroke-width="2" />
+	<!-- the same tool, one pass either side -->
+	<g fill="none" stroke="#00c8ff" stroke-width="1.6" stroke-dasharray="6 5" stroke-opacity="0.75">
+		<path d="M 180 170 A 70 70 0 0 0 320 170" />
+		<path d="M 420 170 A 70 70 0 0 0 560 170" />
+	</g>
+	<g fill="#00c8ff">
+		<circle cx="250" cy="170" r="3.5" />
+		<circle cx="370" cy="170" r="3.5" />
+		<circle cx="490" cy="170" r="3.5" />
+	</g>
+
+	<!-- stepover, centre to centre -->
+	<line x1="250" y1="112" x2="370" y2="112" class="amberline" marker-start="url(#scTickAmber)" marker-end="url(#scTickAmber)" />
+	<line x1="250" y1="108" x2="250" y2="170" stroke="#b59a3f" stroke-width="1" stroke-dasharray="4 4" />
+	<line x1="370" y1="108" x2="370" y2="170" stroke="#b59a3f" stroke-width="1" stroke-dasharray="4 4" />
+	<text class="amber" x="310" y="102" text-anchor="middle">Spacing</text>
+	<text class="tagAmber" x="310" y="86" text-anchor="middle">DERIVED</text>
+
+	<!-- tool radius -->
+	<line x1="452" y1="170" x2="528" y2="170" stroke="#00c8ff" stroke-width="1" stroke-dasharray="4 4" />
+	<line x1="490" y1="170" x2="490" y2="240" class="dimline" marker-start="url(#scTick)" marker-end="url(#scTick)" />
+	<line x1="490" y1="240" x2="640" y2="240" stroke="#00c8ff" stroke-width="1" stroke-dasharray="4 4" />
+	<text class="dim" x="648" y="212">Ball radius</text>
+	<text class="key" x="648" y="232">of the endmill</text>
+
+	<!-- the ridge itself -->
+	<line x1="310" y1="206.06" x2="310" y2="240" class="dimline" marker-start="url(#scTick)" marker-end="url(#scTick)" />
+	<line x1="150" y1="206.06" x2="314" y2="206.06" stroke="#00c8ff" stroke-width="1" stroke-dasharray="4 4" />
+	<line x1="150" y1="240" x2="314" y2="240" stroke="#00c8ff" stroke-width="1" stroke-dasharray="4 4" />
+	<text class="dim" x="142" y="219" text-anchor="end">Scallop height</text>
+	<text class="tag" x="142" y="237" text-anchor="end">YOU SET</text>
+
+	<text class="key" x="430" y="290" text-anchor="middle">Material left below the passes</text>
+
+	<text class="detail" x="430" y="356" text-anchor="middle">A smaller scallop, or a larger ball radius, closes the spacing and adds passes.</text>
+</svg>

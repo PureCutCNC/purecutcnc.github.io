@@ -1,0 +1,115 @@
+---
+title: Tool library
+description: Import, define, duplicate, and delete the cutting tools that PureCutCNC machining operations use.
+pageType: reference
+availability: stable
+status: reviewed
+reviewed:
+  appCommit: 7ad27b1e384074a35797a4747a85218067a565df
+  date: 2026-09-27
+  by: frankp
+---
+
+import toolManagement from '../../../../assets/manual/cam-setup/tool-library/tool-management.png';
+import { Aside } from '@astrojs/starlight/components';
+import Screenshot from '../../../../components/Screenshot.astro';
+import toolLibraryImport from '../../../../assets/manual/cam-setup/tool-library/import-dialog.png';
+
+## Tools overview
+
+The **Tools** tab in the CAM panel manages the project's tool library. Tools are stored
+per-project in the `.camj` file. Each operation references a tool from this library.
+
+You need at least one tool defined before you can assign it to an operation. The quickest way to
+get started is to import a tool from the bundled library.
+
+## Managing
+
+
+<Screenshot src={toolManagement} maxWidth={400} alt="The Tools tab listing a 1/8 inch endmill, a 1/4 inch endmill and a 60 degree V-bit, each row carrying its own duplicate and remove buttons, above the Add tool and Import from library actions" caption="Every tool row carries its own duplicate and remove buttons." />
+Use the tools list to add, duplicate, and remove the project’s cutters. Select a tool to edit its properties in the panel beside the list.
+
+### Adding tools
+
+### Import from library
+
+Click **Import from library…** in the Tools tab. The **Import tools from library** dialog
+opens over the app, so you browse the library in a full-width space instead of the narrow
+side panel.
+
+The bundled library ships 34 tools:
+
+- **Imperial**: flat endmills from 1/16″ to 3/4″, ball endmills from 1/16″ to 1/2″, V-bits of
+  30°, 60°, 90°, and 120°, and an 82° countersink.
+- **Metric**: flat endmills from 1 mm to 12 mm, ball endmills from 1 mm to 8 mm, and V-bits of
+  30°, 60°, 90°, and 120°.
+
+Finding what you want:
+
+- **Search** by name or diameter. The field is focused as soon as the dialog opens.
+- **Type filter**: **All types**, **Flat endmill**, **Ball endmill**, **V-bit**, or **Drill**.
+- **Units filter**: **All units**, **mm**, or **in**.
+- Each row shows flute count and the tool's usable depth, and is badged **In project** or **New**
+  so you can see at a glance what you already have.
+
+Selection is multi-pick and survives filter changes: search for one thing, tick it, clear the
+filters, search for another, and both stay selected. The action button counts what you picked —
+**Import 4 tools** — and imports them in one go. Tools already in the project can't be imported twice.
+
+<Screenshot
+	src={toolLibraryImport}
+	maxWidth={760}
+	alt="The Import tools from library dialog: a search field, an All types filter and an inch unit filter above a checkbox list of endmills and ball endmills with their diameter, usable depth, flutes and material, each badged New except the 1/8 inch endmill which reads In project, and a footer reading 0 tools selected"
+/>
+
+<Aside type="tip" title="Already imported the old eight?">
+	The original bundled entries are unchanged, so tools you imported from earlier versions still
+	read as **In project** rather than appearing as duplicates. The feeds, speeds, stepdown, and
+	usable depth on the new sizes are interpolated from those same entries.
+</Aside>
+
+### Add a tool manually
+
+Click **Add tool** to create a new tool with default values. Edit the tool properties in the right
+panel. This is useful when your specific tool is not in the bundled library.
+
+### Duplicate a tool
+
+Click the duplicate icon (⧉) next to a tool in the list to create a copy. Useful for creating
+variants of an existing tool with different feeds and speeds.
+
+## Properties
+
+Select a tool in the list to edit its properties in the right panel.
+
+| Property | Description |
+| --- | --- |
+| **Name** | A descriptive name for the tool, shown in operation dropdowns. |
+| **Type** | **Flat endmill**, **Ball endmill**, **V-bit**, or **Drill**. V-carve operations only accept V-bits. |
+| **Units** | The unit system for this tool's dimensions (**Millimeters** or **Inches**). Tools can be used in projects with a different unit; values are converted automatically. |
+| **Diameter** | The cutting diameter of the tool. |
+| **V angle** | The included angle of a V-bit in degrees (V-bits only). |
+| **Flutes** | Number of cutting flutes. Used for chip load calculations. |
+| **Material** | **Carbide** or **HSS**. Informational only. |
+| **Default RPM** | Spindle speed used as the default when this tool is assigned to an operation. |
+| **Default feed** | Cutting feed rate used as the default when assigned to an operation. |
+| **Plunge feed** | Plunge (Z-axis) feed rate used as the default. |
+| **Stepdown** | Default depth per pass. |
+| **Max cut depth** | Maximum total cutting depth. Set to 0 for no limit. Used by V-carve operations to limit carve depth. |
+| **Stepover ratio** | Default stepover as a fraction of the tool diameter (0.01–1.0). For example, 0.4 = 40% of diameter. |
+
+<Aside type="tip">
+	Default values from the tool are applied automatically when you assign the tool to an operation.
+	You can override any value per-operation without changing the tool definition.
+</Aside>
+
+### Deleting tools
+
+Click the ✕ button next to a tool to delete it. Tools that are currently assigned to one or more
+operations cannot be deleted — the delete button is disabled and shows a tooltip explaining why.
+Remove the tool from all operations first, then delete it.
+
+## Related pages
+
+- [Quick Start](/quickstart/) imports a tool as part of a first project.
+- [Pocket](/guide/operations/pocket/) shows how a tool's defaults carry into an operation.

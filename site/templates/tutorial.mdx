@@ -1,0 +1,29 @@
+---
+# Template for a tutorial: a guided project from start to a visible result.
+# Copy to src/content/docs/<page>.mdx or src/content/docs/guide/<section>/<page>.mdx.
+title: Tutorial title
+description: One sentence on what the reader builds.
+pageType: tutorial
+availability: stable
+status: draft
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+{/* Lead: what the reader will make, how long it takes, and what they need. Explain only
+what the steps need; link to fundamentals pages for the rest. */}
+
+{/* One section per step, named with an imperative verb ("Create a new project"). Section
+headings become anchors that other pages link to, so do not rename them casually. */}
+
+## First step
+
+## Second step
+
+<Aside type="danger" title="Safety: Short statement">
+	Only for risks to people or machines. Other warnings use a caution aside.
+</Aside>
+
+## Next steps
+
+- [Page title](/guide/section/page/): what to learn next.

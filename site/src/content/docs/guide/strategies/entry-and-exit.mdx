@@ -1,0 +1,73 @@
+---
+title: Entry and exit moves
+description: Choose a plunge, helix, or ramp entry and configure eligible tangent XY approach and exit moves.
+pageType: strategy
+availability: stable
+status: reviewed
+reviewed:
+  appCommit: 7ad27b1e384074a35797a4747a85218067a565df
+  date: 2026-09-27
+  by: frankp
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import Screenshot from '../../../../components/Screenshot.astro';
+import entryAndApproach from '../../../../assets/manual/strategies/entry-and-exit/entry-and-approach.svg';
+
+## How it works
+
+<Screenshot src={entryAndApproach} alt="Seen from the side: plunge drops straight to depth, helix circles down at the ramp angle over its helix diameter, and ramp slopes down and back along the path. Seen from above: the XY approach curves the cut onto the wall on a tangent arc and off it again, where without it the cut simply starts on the wall." />
+
+The **Entry strategy** controls how the tool reaches cutting depth: **Plunge**, **Helix**, or
+**Ramp**. A helix or ramp uses its angle setting; a helix also has a diameter setting. When a
+strategy cannot fit the geometry, the app reports the fallback in its warnings.
+
+## Where it applies
+
+| Operation | Where to find it |
+| --- | --- |
+| [Pocket](/guide/operations/pocket/) | **Entry & retract** |
+| [Surface clean](/guide/operations/surface-clean/) | **Entry & retract** |
+| [3D surface rough](/guide/operations/3d-surface-rough/) | **Entry & retract** |
+| [Inside edge route](/guide/operations/edge-route-inside/) | **Entry & retract** |
+| [Outside edge route](/guide/operations/edge-route-outside/) | **Entry & retract** |
+| [Trochoidal cutting](/guide/strategies/trochoidal-cutting/) | Supported entry controls where the operation offers them |
+
+## Opening older projects
+
+When you open a project saved before file format 3.2, PureCutCNC resets a stored **Entry
+strategy** to **Plunge** on inside and outside edge routes that are not trochoidal. In v0.4,
+those routes plunged even if the file recorded another strategy. The load warning counts the
+routes reset, and the original file stays unchanged until you save it. Trochoidal edge routes
+are not reset; newly created rough edge routes still start with **Helix**.
+
+Check the entry on each affected route and inspect its first cutting move before generating or
+exporting the program. See [File formats](/guide/reference/file-formats/#project-format-compatibility)
+for the format warning shown by older builds.
+
+## Settings
+
+| Setting | Description |
+| --- | --- |
+| **Entry strategy** | Chooses Plunge, Helix, or Ramp. |
+| **Ramp angle** | Sets the descent angle for a ramp or helix. |
+| **Helix diameter** | Sets the helix size for a helical entry. |
+
+## XY approach
+
+**XY approach & exit** can add a direct or tangent-arc lead-in and lead-out on compatible wall
+cuts. It is offered for eligible Pocket, Surface clean, 3D surface rough, and edge-route work.
+Edge routes need a ramped entry; trochoidal rough edge routes do not offer this control. A region
+mask can also make the lead unavailable.
+
+## Limitations
+
+<Aside type="caution" title="Use the reported fallback">
+	The tool cannot always fit a helix, ramp, or tangent lead in the selected geometry. Read the
+	warning and inspect the first cutting move; do not assume the requested entry was generated.
+</Aside>
+
+## Related pages
+
+- [Trochoidal cutting](/guide/strategies/trochoidal-cutting/): trochoidal entries and edge-route limits.
+- [Working safely](/guide/start-here/safety/): verify entry, retract, and clearance motion before machining.

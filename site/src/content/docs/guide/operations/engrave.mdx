@@ -1,0 +1,64 @@
+---
+title: Engrave
+description: Follow open or closed sketch paths directly, or cut a wider trochoidal slot along them.
+pageType: operation
+availability: stable
+status: reviewed
+reviewed:
+  appCommit: 7ad27b1e384074a35797a4747a85218067a565df
+  date: 2026-09-27
+  by: frankp
+---
+
+import Screenshot from '../../../../components/Screenshot.astro';
+import engraveDirect from '../../../../assets/manual/operations/engrave/direct.png';
+import engraveTrochoidal from '../../../../assets/manual/operations/engrave/trochoidal.png';
+import engraveResult from '../../../../assets/manual/operations/engrave/result.png';
+import { Aside } from '@astrojs/starlight/components';
+
+**Engrave** follows an open or closed sketch path at a fixed carve depth. Choose Direct for text,
+marks, and decorative lines; choose Trochoidal to cut a wider functional slot.
+
+## Requirements
+
+| Requirement | Value |
+| --- | --- |
+| Target features | Open or closed machinable paths; optional closed regions filter the cut |
+| Tool | Compatible cutting tool |
+| Passes | Single pass |
+
+The path is the machining target. A closed region can filter where it is engraved, but the
+region itself is not an engraving target.
+
+## Parameters
+
+Shared settings are documented in [Common operation parameters](/guide/operations/common-parameters/).
+
+| Parameter | Description |
+| --- | --- |
+| **Carve depth** | Sets the fixed depth of the path. Stepdown applies when this exceeds a safe per-pass depth. |
+| **Strategy** | Chooses Direct centerline cutting or Trochoidal slot cutting. |
+| **Trochoidal cut width** and **Trochoidal advance** | Control the channel and orbit spacing for a trochoidal slot. |
+
+## Strategies
+
+
+<Screenshot src={engraveDirect} alt="An engrave toolpath following an open curve once, with direction arrows along it" caption="Direct engraving follows the line once, at the depth you set." />
+
+<Screenshot src={engraveTrochoidal} alt="The same curve engraved with the Trochoidal strategy, the cutter orbiting in a dense chain of loops along the line instead of following it once" caption="Trochoidal engraving orbits along the line, so the cutter is never fully buried in the cut." />
+
+<Screenshot src={engraveResult} alt="The simulated stock after engraving, showing narrow grooves following the curved paths" caption="The finished stock shows the engraved grooves at the chosen carve depth." />
+See [Trochoidal cutting](/guide/strategies/trochoidal-cutting/#slots) for the wider-slot strategy.
+
+## Verifying the result
+
+
+<Aside type="caution" title="Check the actual top Z">
+	Inspect the preview where a path crosses or sits inside other features. Confirm the depth and
+	clearance are appropriate for the enclosing surface before machining.
+</Aside>
+
+## Related pages
+
+- [V-carve offset](/guide/operations/v-carve-offset/): carve closed geometry with a V-bit.
+- [Common operation parameters](/guide/operations/common-parameters/): shared feeds and entry settings.

@@ -1,0 +1,33 @@
+---
+// Inline copy of an icon from the app's own sprite, so the manual shows exactly what
+// the toolbar shows. The sprite is read at build time from the preview web app that
+// automation deploys into app-rc/, which removes the old hand-synced guide/icons.svg.
+// An unknown icon name fails the build.
+import sprite from '../../../app-rc/icons.svg?raw';
+
+interface Props {
+	name: string;
+	/** Accessible name. Omit when adjacent text already names the control. */
+	label?: string;
+}
+
+const { name, label } = Astro.props;
+
+const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const match = sprite.match(
+	new RegExp(`<symbol id="${escaped}" viewBox="([^"]+)">([\\s\\S]*?)</symbol>`)
+);
+if (!match) {
+	throw new Error(`App icon "${name}" is not in app-rc/icons.svg (used on ${Astro.url.pathname}).`);
+}
+const [, viewBox, body] = match;
+---
+
+<svg
+	class="pc-app-icon"
+	viewBox={viewBox}
+	role={label ? 'img' : undefined}
+	aria-label={label}
+	aria-hidden={label ? undefined : 'true'}
+	set:html={body}
+/>

@@ -1,0 +1,49 @@
+---
+title: Setup booklets
+description: Export a PDF setup booklet for the operation currently selected in the CAM panel.
+pageType: task
+availability: stable
+status: reviewed
+reviewed:
+  appCommit: 7ad27b1e384074a35797a4747a85218067a565df
+  date: 2026-09-27
+  by: frankp
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import Screenshot from '../../../../components/Screenshot.astro';
+import pocketRoughBooklet from '../../../../assets/manual/verify-export/setup-booklets/pocket-rough-booklet.png';
+
+A setup booklet is a PDF summary for one selected operation. It keeps the operation, tool, settings, and its captured preview together for use at the machine.
+
+## Before you start
+
+- Select the operation in the CAM panel and make sure it has a valid toolpath.
+- Treat the booklet as setup documentation, not as controller output. You still need to verify the exported G-code and physical setup.
+
+## Export a setup booklet
+
+<Steps>
+
+1. Select one operation in the CAM panel.
+
+2. Use the CAM panel header action **Export booklet (PDF)**.
+
+3. Wait for the operation toolpath and snapshot to be captured, then choose where to save the PDF.
+
+</Steps>
+
+## Contents
+
+The PDF is built from one captured revision. It includes the selected operation’s setup information, tool, parameter rows, toolpath summary, and preview image. The output uses the current interface language where localized text is available.
+
+## Sample booklet
+
+Download the <a href="/samples/pocket-rough-booklet.pdf" target="_blank" rel="noopener">Pocket Rough sample booklet (PDF)</a>. It shows the finished first page of a booklet, including the operation snapshot, tool details, and operation settings.
+
+<Screenshot maxWidth={687} src={pocketRoughBooklet} alt="First page of a Pocket Rough operation booklet showing the operation snapshot, overview, tool details, and operation settings" caption="Pocket Rough sample booklet" />
+
+## Related pages
+
+- [Working with operations](/guide/cam-setup/working-with-operations/): select and inspect an operation in the CAM panel.
+- [Exporting G-code](/guide/verify-export/gcode-export/): produce the program that a controller runs.

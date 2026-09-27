@@ -1,0 +1,66 @@
+---
+title: 3D surface rough
+description: Remove material from a 3D model in step levels before a surface-finishing operation.
+pageType: operation
+availability: stable
+status: reviewed
+reviewed:
+  appCommit: 7ad27b1e384074a35797a4747a85218067a565df
+  date: 2026-09-27
+  by: frankp
+---
+
+import Screenshot from '../../../../components/Screenshot.astro';
+import roughLevels from '../../../../assets/manual/operations/3d-surface-rough/rough-levels.png';
+import roughResult from '../../../../assets/manual/operations/3d-surface-rough/result.png';
+import { Aside } from '@astrojs/starlight/components';
+
+**3D surface rough** removes bulk material from a model in horizontal levels. Use it before 3D
+surface finish when the model needs a controlled roughing pass rather than a 2.5D pocket.
+
+<Screenshot src={roughLevels} alt="3D surface rough cutting paths around the Busto head, neck, and base" caption="On the Busto model, roughing clears material at successive levels while leaving stock for the finish pass." />
+
+<Screenshot src={roughResult} alt="Simulated Busto stock after roughing, with stepped levels around the head and face" caption="The rough simulation shows the bust emerging in steps, before the surface finish pass." />
+
+## Requirements
+
+| Requirement | Value |
+| --- | --- |
+| Target features | 3D model features; regions can limit the cut |
+| Tool | Flat or ball endmill |
+| Passes | Rough only |
+
+## Parameters
+
+Shared settings are documented in [Common operation parameters](/guide/operations/common-parameters/).
+
+| Parameter | Description |
+| --- | --- |
+| **Pattern** | Chooses Offset, Seeded circles, Parallel, or Trochoidal coverage at each level. |
+| **Stepdown** | Sets the vertical distance between roughing levels. |
+| **Stock to leave radial** and **Stock to leave axial** | Leave wall or floor material for surface finishing. |
+| **Finish walls** and **Finish floor** | Control the optional finishing work on eligible surfaces. |
+
+## Strategies
+
+The roughing patterns are described in [Clearing patterns](/guide/strategies/clearing-patterns/),
+[Seeded-circle clearing](/guide/strategies/seeded-circles/), and
+[Trochoidal cutting](/guide/strategies/trochoidal-cutting/#clearing). It also supports
+[entry and exit moves](/guide/strategies/entry-and-exit/) and [feed reduction](/guide/strategies/feed-reduction/).
+
+## Limitations
+
+The operation protects the model cross-section and retained 2.5D material instead of simply
+cutting every horizontal band. Nearby features, regions, clamps, and tabs can therefore split or
+omit a pass. Review the warnings and the preview rather than assuming each level is continuous.
+
+## Verifying the result
+
+<Aside type="caution" title="Leave enough material for the finish pass">
+	Inspect the stepped result in simulation and confirm that the tool reaches the intended areas
+	without gouging protected geometry. A roughing pass is not a final surface finish.
+</Aside>
+
+## Related pages
+
+- [3D surface finish](/guide/operations/3d-surface-finish/): finish the model after roughing.
