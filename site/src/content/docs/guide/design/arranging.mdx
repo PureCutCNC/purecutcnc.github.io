@@ -5,9 +5,9 @@ pageType: task
 availability: stable
 status: reviewed
 reviewed:
-  appCommit: 7ad27b1e384074a35797a4747a85218067a565df
-  date: 2026-09-27
-  by: frankp
+  appCommit: 3db1a1375014eb337bdf2490547cac46f3174880
+  date: 2026-09-28
+  by: codex
 ---
 
 import Screenshot from '../../../../components/Screenshot.astro';
@@ -196,6 +196,12 @@ and regenerated toolpaths before accepting.
 Nesting keeps the chosen margins plus cutter clearance from the stock edges and avoids recorded
 clamps with their XY clearance. It also avoids other parts already on the stock. A small part may
 fit in a larger part's through-cut hole only when no other operation machines inside that hole.
+This includes an enclosed opening in outline text, such as the counter of an A. An
+[outside edge route](/guide/operations/edge-route-outside/) can cut the smaller part while
+keeping clear of the surrounding part's material, provided the cutter fits. Inspect each
+route and its entry after nesting; a warning that part of an outline is left uncut means the
+layout has not produced a complete separating cut there.
+
 **Nest again**, **Keep improving**, and **Discard nest** act on the nest in the panel that made it.
 After **Accept nest**, the copies remain as ordinary features in their **Nest N** folder in the
 project tree. Select that folder's copies to delete them together, or select an individual copy

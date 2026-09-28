@@ -78,7 +78,8 @@
 		},
 		{
 			"page": "/guide/design/arranging/",
-			"decision": "visuals"
+			"decision": "visuals",
+			"rationale": "Keep the existing arrangement and nesting captures. The nested-hole routing clarification and partial-outline warning are explained in prose; these captures do not claim to show those cases."
 		},
 		{
 			"page": "/guide/design/shape-operations/",
@@ -118,7 +119,8 @@
 		},
 		{
 			"page": "/guide/cam-setup/cam-plan/",
-			"decision": "visuals"
+			"decision": "visuals",
+			"rationale": "Keep the outside-route recommendation capture; it does not show drilling. Explain the helical bore limit and blind/through alternatives in prose without changing the capture's provenance."
 		},
 		{
 			"page": "/guide/cam-setup/machines/",
@@ -126,7 +128,8 @@
 		},
 		{
 			"page": "/guide/cam-setup/tabs/",
-			"decision": "visuals"
+			"decision": "visuals",
+			"rationale": "Keep the tab-property and text-contour captures. They illustrate placement, not duplicate-overlap or operation-scoped warnings; those rules are described in text."
 		},
 		{
 			"page": "/guide/cam-setup/clamps-and-clearances/",
@@ -154,7 +157,8 @@
 		},
 		{
 			"page": "/guide/operations/edge-route-outside/",
-			"decision": "visuals"
+			"decision": "visuals",
+			"rationale": "Keep the existing outside-route and simulation examples. They show a complete route with tabs, not a route clipped by neighbours; the nested-hole and partial-route limits are explained separately in prose."
 		},
 		{
 			"page": "/guide/operations/v-carve-offset/",
@@ -202,7 +206,8 @@
 		},
 		{
 			"page": "/guide/strategies/entry-and-exit/",
-			"decision": "visuals"
+			"decision": "visuals",
+			"rationale": "Keep the entry and tangent-approach diagram. The diagram explains move shapes, while prose explains clearance for entries among neighbouring parts."
 		},
 		{
 			"page": "/guide/strategies/corners/",
@@ -280,7 +285,7 @@
 			"page": "/guide/reference/warnings/",
 			"decision": "not-needed",
 			"reviewStatus": "approved",
-			"rationale": "The page is a message lookup; representative warning states are proposed on the task pages where they occur."
+			"rationale": "The page is a message lookup. Exact outside-route and tab messages, their causes, and corrective checks are clearer in text than a capture of one named part or tab."
 		},
 		{
 			"page": "/guide/reference/troubleshooting/",
