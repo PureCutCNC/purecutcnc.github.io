@@ -5,9 +5,9 @@ pageType: strategy
 availability: stable
 status: reviewed
 reviewed:
-  appCommit: 7ad27b1e384074a35797a4747a85218067a565df
-  date: 2026-09-27
-  by: frankp
+  appCommit: 3db1a1375014eb337bdf2490547cac46f3174880
+  date: 2026-09-28
+  by: codex
 ---
 
 import { Aside } from '@astrojs/starlight/components';
@@ -21,6 +21,12 @@ import entryAndApproach from '../../../../assets/manual/strategies/entry-and-exi
 The **Entry strategy** controls how the tool reaches cutting depth: **Plunge**, **Helix**, or
 **Ramp**. A helix or ramp uses its angle setting; a helix also has a diameter setting. When a
 strategy cannot fit the geometry, the app reports the fallback in its warnings.
+
+For an outside edge route, entry clearance is checked against the surrounding parts' actual
+material, including holes and letter counters. A part enclosed by a ring of other parts can
+still use a helix or ramp when there is enough room for that entry. An enclosed position alone
+does not require a plunge; inspect the generated entry and any fallback warning, especially
+after [nesting](/guide/design/arranging/#nest-on-stock).
 
 ## Where it applies
 
