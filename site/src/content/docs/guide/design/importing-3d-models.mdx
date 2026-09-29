@@ -15,7 +15,6 @@ import multiBody from '../../../../assets/manual/design/importing-3d-models/mult
 import stepSettings from '../../../../assets/manual/design/importing-3d-models/step-settings.png';
 import modelOrientation from '../../../../assets/manual/design/importing-3d-models/model-orientation.png';
 import { Aside, Steps } from '@astrojs/starlight/components';
-import Availability from '../../../../components/Availability.astro';
 
 An imported 3D model becomes a feature with the **Model** role. The 3D surface operations machine
 it, the 3D view shows its mesh, and the Sketch view shows its outline seen from above. 2D files are
@@ -76,8 +75,6 @@ bodies is imported as a single feature instead, with a warning.
 
 <Screenshot maxWidth={560} src={stepSettings} alt="The STEP import settings: Format STEP, Source units Millimeter with the note Units declared in the file mm, Project units Inch, Axis orientation Original Z-up, and a Surface tolerance of 0.0005 inch" caption="A STEP file states its own units, and Surface tolerance controls how finely its surfaces are converted." />
 <span id="step"></span>
-
-<Availability kind="preview" />
 
 STEP files (`.step`, `.stp`) are solid models rather than meshes. PureCutCNC converts each solid in
 the file into a body, using the **Surface tolerance** above.
