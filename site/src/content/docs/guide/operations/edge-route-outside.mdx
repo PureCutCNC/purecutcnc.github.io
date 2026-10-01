@@ -61,6 +61,16 @@ keep the cutter out at every depth below their top. A wall that can only be reac
 under a neighbouring part is left uncut and reported as blocked by parts. Check the remaining
 wall and the machining order instead of assuming the route reaches every edge.
 
+The route keeps the cutter clear of neighbouring parts' retained material. A part inside
+another part's hole or a letter counter can be routed when there is enough cutter clearance;
+the opening is not treated as solid material. A nearby sharp corner does not by itself stop
+the route if the cutter fits past it.
+
+If neighbouring material blocks part of the contour, the toolpath reports **Outside route
+around … was kept clear of neighbouring parts — part of its outline is left uncut.**
+The part may remain attached there. Adjust the layout or tool, regenerate, and inspect the
+remaining outline; a partial route is not a complete separating cut.
+
 <Aside type="danger" title="Safety: outside routing can release the part">
 	Use tabs and secure workholding before an outside route reaches the final depth. Resolve blocked-part
 	warnings in the design or machining order before exporting, and inspect support at each
@@ -70,7 +80,9 @@ wall and the machining order instead of assuming the route reaches every edge.
 ## Verifying the result
 
 Confirm the tool stays on the outside of the intended contour, preserves each tab, and does not
-conflict with clamps or the planned machining order.
+conflict with clamps or the planned machining order. For a [nested layout](/guide/design/arranging/#nest-on-stock),
+inspect each part's route and entry, including parts placed inside holes. Check warnings for
+uncut outline sections before assuming a part will separate.
 
 ## Related pages
 

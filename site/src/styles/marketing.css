@@ -636,8 +636,11 @@ code {
 .panel {
 	border: 1px solid var(--pc-border);
 	border-radius: calc(var(--pc-radius) + 4px);
-	background: linear-gradient(180deg, rgba(20, 20, 22, 0.96), rgba(14, 14, 16, 0.96));
+	background: var(--pc-bg-2);
 	box-shadow: 0 32px 80px rgba(0, 0, 0, 0.35);
+}
+:root[data-theme='light'] .panel {
+	box-shadow: 0 32px 80px rgba(0, 0, 0, 0.08);
 }
 .panel-head {
 	padding: 1.25rem 1.4rem 1rem;
@@ -681,7 +684,7 @@ code {
 	border-bottom: 0;
 }
 .matrix-head > * {
-	background: rgba(9, 12, 16, 0.84);
+	background: var(--pc-bg-3);
 	color: var(--pc-muted);
 	font-size: 0.78rem;
 	font-weight: 700;

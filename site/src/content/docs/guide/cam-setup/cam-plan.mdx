@@ -2,12 +2,12 @@
 title: CAM Plan
 description: Review suggested operations, tools, rest passes, and shared tabs before adding them to a project.
 pageType: task
-availability: preview
+availability: stable
 status: reviewed
 reviewed:
-  appCommit: 7ad27b1e384074a35797a4747a85218067a565df
-  date: 2026-09-27
-  by: frankp
+  appCommit: 3db1a1375014eb337bdf2490547cac46f3174880
+  date: 2026-09-28
+  by: codex
 ---
 
 import Screenshot from '../../../../components/Screenshot.astro';
@@ -37,7 +37,9 @@ Use CAM Plan to make a starting set of operations from the features already in y
 
    For pockets, edge routes, follow-line cuts, and 3D roughing and finishing, automatic tool choices aim to stay within **1/4 in (6.35 mm)** and may use a smaller cutter based on the target’s size. A 6 mm cutter fits under this ceiling in a metric project. Outside edge routes use up to 15% of the target’s shorter side; the other listed operations use up to 20%. CAM Plan also checks tool type and cutting depth. A tool already in the project is preferred when suitable; otherwise CAM Plan can propose one from the bundled library. The tool explanation shows the limit used for that proposal.
 
-   This is a recommendation, not a safe-cut guarantee. CAM Plan filters out tools that exceed its calculated size limit and may leave a feature for explicit review if none qualifies. Operations created directly through **Add** or a feature’s **Create operation** menu can instead fall back to the smallest compatible available tool, even if it is larger than 1/4 in. Drilling follows the hole size; V-carving and surface cleaning do not use this diameter ceiling. Always check the actual tool and whether it can enter the target before creating or machining the operation.
+   For circular subtracts, a matching drill follows the hole size. If no matching drill is available, CAM Plan can recommend helical drilling with a flat endmill no larger than **1/4 in (6.35 mm)**, provided the cutter can orbit inside the hole and the hole diameter is no more than twice the cutter diameter. A larger circle is recommended as a [Pocket](/guide/operations/pocket/) when blind, or an [Edge route inside](/guide/operations/edge-route-inside/) when it reaches the stock bottom, subject to a suitable tool being available.
+
+   This is a recommendation, not a safe-cut guarantee. CAM Plan filters out tools that exceed its calculated size limit and may leave a feature for explicit review if none qualifies. Operations created directly through **Add** or a feature’s **Create operation** menu can instead fall back to the smallest compatible available tool, even if it is larger than 1/4 in. V-carving and surface cleaning do not use this diameter ceiling. Always check the actual tool and whether it can enter the target before creating or machining the operation.
 
 4. Clear an operation's inclusion checkbox to leave it out. If the plan lists a feature under **Needs explicit review**, either enable an operation that covers it or confirm that no created operation will cover that feature.
 

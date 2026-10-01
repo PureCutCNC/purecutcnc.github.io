@@ -5,9 +5,9 @@ pageType: task
 availability: stable
 status: reviewed
 reviewed:
-  appCommit: 7ad27b1e384074a35797a4747a85218067a565df
-  date: 2026-09-27
-  by: frankp
+  appCommit: 3db1a1375014eb337bdf2490547cac46f3174880
+  date: 2026-09-28
+  by: codex
 ---
 
 import Screenshot from '../../../../components/Screenshot.astro';
@@ -48,9 +48,11 @@ operation, and in its properties click **Auto place tabs** in the **Tabs** row. 
 the tabs appear on the contour straight away, and you can then move or resize them like any others.
 
 **Auto place tabs** adds to the tabs already on that contour rather than replacing them, so running
-it a second time leaves the two sets overlapping. The operation then reports a warning naming the
-pairs, for example **Tabs "Rect 1 Tab" and "Rect 1 Tab 5" overlap in a way that may produce
-ambiguous output.** Delete one set before placing another.
+it a second time leaves the two sets overlapping. Overlapping rectangular tabs with matching
+**Z top** and **Z bottom** cut as one combined bridge and do not produce an ambiguous-overlap
+warning. Overlaps involving smooth tabs or different Z ranges can produce that warning. Remove
+unwanted duplicates before placing another set, and inspect the resulting bridges even when
+there is no warning.
 
 For outline text, automatic placement follows the letter shapes the edge route actually cuts,
 not the rectangle around the text feature. An outside route places tabs on each cut glyph
@@ -74,6 +76,17 @@ use **Auto place tabs** from the Edge Route Inside or Edge Route Outside operati
 nested contours. You can also place tabs manually. Automatic placement adds tabs rather than
 replacing them, so clear old tabs first to avoid overlap. Inspect every nested part's tab
 positions and the regenerated toolpaths before export.
+
+### Tab warnings
+
+An inside or outside edge route checks tabs on the walls it targets, and any tabs its cutting
+path crosses. An inside route through a letter counter does not report unrelated tabs on the
+letter's outside contour.
+
+**Tab "…" does not intersect the selected operation toolpath.** means a tab on a wall targeted
+by that operation is not crossed by its generated route. Check the tab position, selected
+contours, and any region or neighbouring part that might have limited the cut. See
+[Warnings and messages](/guide/reference/warnings/#tab-messages) for overlap warnings.
 
 <Aside type="caution" title="Tabs intentionally block the final depth">
 	A tab prevents the route from cutting fully through at that location. The app warns when a tab
