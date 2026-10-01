@@ -5,8 +5,8 @@ pageType: task
 availability: stable
 status: reviewed
 reviewed:
-  appCommit: 3db1a1375014eb337bdf2490547cac46f3174880
-  date: 2026-09-28
+  appCommit: a783b389bf60b73f05dc773f5449faf67a76ce4a
+  date: 2026-10-01
   by: codex
 ---
 
@@ -178,9 +178,12 @@ travel with that part, so holes and pockets keep their positions relative to it.
 - **Rotation:** Choose whether parts may stay at their original angle, turn by 180° for grain
   direction, turn in quarter turns, or use 45°, 30°, or 15° steps. More allowed angles can help
   parts fit, but check grain and appearance before cutting.
-- **Margins:** Leave an uncut strip at each stock edge. Set one value for all sides, or enter
-  separate **Top**, **Bottom**, **Left**, and **Right** values. Nesting also accounts for the
-  cutter clearance and recorded clamp clearance.
+- **Margins:** Leave an uncut strip at the stock edge. Plain rectangular stock offers one
+  value for all sides or separate **Top**, **Bottom**, **Left**, and **Right** values. Custom
+  stock, including rotated or rounded rectangles, shows only one **Margins** field. That
+  margin is measured inward from the real outline all the way around, rather than from its
+  bounding box. If a reopened nest has different saved side margins, custom stock shows and
+  uses the largest. Nesting also accounts for cutter clearance and recorded clamp clearance.
 - **Keep originals in place:** Leave the selected originals where they are and place new copies.
   When off, a placed original may move into the nest and the remaining instances are copies.
 
