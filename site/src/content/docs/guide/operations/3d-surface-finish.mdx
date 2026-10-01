@@ -5,8 +5,8 @@ pageType: operation
 availability: stable
 status: reviewed
 reviewed:
-  appCommit: 15973625079d9bebf4991bd1fa10eb1d33b21770
-  date: 2026-09-30
+  appCommit: 6c54f1dd636ab13ef5bd0757b99914d81cfe926a
+  date: 2026-10-01
   by: Codex
 ---
 
@@ -143,13 +143,6 @@ neighbour's surface. Regions, clamps, tabs, and nearby features can split or sup
 operation warnings and the protected geometry before widening the area or changing the pattern.
 
 ## Limitations
-
-Selecting several models does not remove finishing limitations at abrupt height changes.
-Parallel can clip a steep cavity edge where a straight move joins samples at different heights;
-use the slope filter to restrict it to gentle slopes and verify a separate Waterline or cleanup
-pass for the steep areas. Waterline also has a reported self-gouging case that remains under
-investigation ([app issue #938](https://github.com/PureCutCNC/purecutcnc/issues/938)); inspect
-the target surface in simulation before cutting.
 
 Waterline's adaptive rings are subject to a coverage budget and are not generated for a
 region-limited target. A smaller cusp target or spacing can produce a dense path without making unreachable geometry machinable.
