@@ -1314,7 +1314,7 @@
 			"afterHeading": "$intro",
 			"kind": "diagram",
 			"purpose": "Help readers choose an operation from the machining goal and target geometry.",
-			"brief": "A decision map from facing, clearing, profiling, engraving, drilling, and 3D goals to their compatible operation and target types.",
+			"brief": "A decision map from facing, clearing, profiling, engraving, drilling, and 3D goals to their compatible operation and target types; 3D surface passes accept one or more models.",
 			"asset": "operations/index/operation-choice-map.svg",
 			"alt": "Decision map from machining goals and target geometry to PureCutCNC operations",
 			"status": "captured",

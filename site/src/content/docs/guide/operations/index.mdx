@@ -5,9 +5,9 @@ pageType: overview
 availability: stable
 status: reviewed
 reviewed:
-  appCommit: 7ad27b1e384074a35797a4747a85218067a565df
-  date: 2026-09-27
-  by: frankp
+  appCommit: 15973625079d9bebf4991bd1fa10eb1d33b21770
+  date: 2026-09-30
+  by: Codex
 ---
 
 import Screenshot from '../../../../components/Screenshot.astro';
@@ -16,7 +16,7 @@ import { CardGrid, LinkCard } from '@astrojs/starlight/components';
 
 Choose an operation from the feature’s role and geometry, then confirm its compatible target,
 tool, pass, and strategy. Regions can restrict a compatible cut but are not machining targets on
-their own. A 3D finish requires exactly one model; a STEP model counts as a model.
+their own. 3D surface operations accept one or more imported models; a STEP model counts as a model.
 
 <Screenshot src={choiceMap} alt="A three-column map from each machining goal to the geometry it needs you to select and the operation that does it, covering clearing, facing, contours, carving, engraving, holes and the 3D surface passes" caption="Start from the goal; the middle column is what the operation needs you to have selected." />
 

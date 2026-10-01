@@ -47,7 +47,7 @@
 	<text class="op" x="596" y="434">Drill</text>
 	<line x1="40" y1="450" x2="820" y2="450" stroke="#1a1f29" stroke-width="1" />
 	<text class="goal" x="40" y="480">Machine a 3D shape</text>
-	<text class="target" x="330" y="480">Exactly one model</text>
+	<text class="target" x="330" y="480">One or more models</text>
 	<text class="op" x="596" y="480">3D surface rough  ·  finish  ·  cleanup</text>
 	<text class="detail" x="430" y="542" text-anchor="middle">Regions can narrow where a cut is allowed, but they are never the target themselves.</text>
 </svg>
