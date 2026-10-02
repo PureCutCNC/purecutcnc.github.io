@@ -5,9 +5,9 @@ pageType: operation
 availability: stable
 status: reviewed
 reviewed:
-  appCommit: 7ad27b1e384074a35797a4747a85218067a565df
-  date: 2026-09-27
-  by: frankp
+  appCommit: 15973625079d9bebf4991bd1fa10eb1d33b21770
+  date: 2026-09-30
+  by: Codex
 ---
 
 import Screenshot from '../../../../components/Screenshot.astro';
@@ -17,7 +17,7 @@ import cleanupResult from '../../../../assets/manual/operations/3d-surface-clean
 
 **3D surface cleanup** clears eligible walls and floors at the deepest retained Z of each step.
 Use it to clean residual step geometry; it is not a general-purpose replacement for 3D surface
-finish.
+finish. Select one or more imported models; several targets are cleaned up together.
 
 <Screenshot src={cleanupPasses} alt="3D Surface Cleanup toolpaths covering the retained walls and floors of a stepped model" caption="Cleanup toolpaths on the retained walls and floors" />
 
@@ -28,7 +28,7 @@ finish.
 
 | Requirement | Value |
 | --- | --- |
-| Target features | 3D model features; regions can limit the cut |
+| Target features | One or more 3D model features; regions can limit the cut |
 | Tool | Flat or ball endmill |
 | Passes | Finish only |
 
@@ -51,6 +51,10 @@ Cleanup does not offer Trochoidal, Waterline, or Constant scallop patterns.
 
 ## Limitations
 
+Neighbouring models that are not targeted remain protected from their top down, including
+levels below their bottom. Cleanup can therefore leave material beside or beneath a neighbour;
+inspect the remaining walls and floors before changing the target or machining order.
+
 <Aside type="caution" title="Cleanup may have nothing to cut">
 	Cleanup follows retained step depths and only emits the enabled wall or floor work. If stock to
 	leave, a region, or protection removes that work, the result can be intentionally sparse.
@@ -63,5 +67,5 @@ remaining surface in 3D before exporting.
 
 ## Related pages
 
-- [3D surface finish](/guide/operations/3d-surface-finish/): final finish over one model.
+- [3D surface finish](/guide/operations/3d-surface-finish/): final finish over one or more models.
 - [Clearing patterns](/guide/strategies/clearing-patterns/): understand cleanup floor coverage.

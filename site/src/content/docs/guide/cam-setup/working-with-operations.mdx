@@ -5,9 +5,9 @@ pageType: task
 availability: stable
 status: reviewed
 reviewed:
-  appCommit: 7ad27b1e384074a35797a4747a85218067a565df
-  date: 2026-09-27
-  by: frankp
+  appCommit: 15973625079d9bebf4991bd1fa10eb1d33b21770
+  date: 2026-09-30
+  by: Codex
 ---
 
 import Screenshot from '../../../../components/Screenshot.astro';
@@ -57,8 +57,8 @@ You can also select an operation and use **Use current selection** in **What it 
 If an option is unavailable, check the feature’s role, whether its profile is closed, and the operation’s requirements. A region can limit where an operation cuts, but it is not itself a shape to machine; see [Regions](/guide/fundamentals/regions/).
 
 The hint beside an unavailable target explains the failed requirement. Construction geometry
-cannot be a machining target. Drill needs machinable circles; 3D rough needs a model, while 3D
-finish and cleanup need exactly one model. Pocket and inside edge route need subtract geometry;
+cannot be a machining target. Drill needs machinable circles; 3D rough, finish, and cleanup
+need one or more imported models. Pocket and inside edge route need subtract geometry;
 surface clean and outside edge route need add or model geometry. Closed-profile operations also
 reject open shapes, and a region used as a filter must be closed. Correct the selection or choose
 an operation that accepts it before using **Use current selection**.

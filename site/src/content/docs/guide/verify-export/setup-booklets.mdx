@@ -5,9 +5,9 @@ pageType: task
 availability: stable
 status: reviewed
 reviewed:
-  appCommit: 7ad27b1e384074a35797a4747a85218067a565df
-  date: 2026-09-27
-  by: frankp
+  appCommit: 60ddda9cbefef65966299ec0b452393395d8e277
+  date: 2026-09-30
+  by: Codex
 ---
 
 import { Steps } from '@astrojs/starlight/components';
@@ -27,15 +27,27 @@ A setup booklet is a PDF summary for one selected operation. It keeps the operat
 
 1. Select one operation in the CAM panel.
 
-2. Use the CAM panel header action **Export booklet (PDF)**.
+2. Use **Export booklet (PDF)** in the selected operation's action row in the CAM panel.
 
 3. Wait for the operation toolpath and snapshot to be captured, then choose where to save the PDF.
 
 </Steps>
 
+While exporting, the booklet button shows a spinner and is disabled. Its tooltip and the status
+line above the operation's properties show the current stage:
+
+- **Booklet: preparing the toolpath...**
+- **Booklet: drawing the overview picture...**
+- **Booklet: building the PDF...**
+- **Booklet: choose where to save the PDF...**
+
+Wait for the save step to finish or cancel before starting another export.
+
 ## Contents
 
-The PDF is built from one captured revision. It includes the selected operation’s setup information, tool, parameter rows, toolpath summary, and preview image. The output uses the current interface language where localized text is available.
+The PDF is built from one captured revision. It includes the selected operation’s setup information, tool, parameter rows, toolpath summary, and preview image. Dense toolpaths in the overview picture are simplified in the same way as the canvas preview.
+The booklet's move counts, times, and bounds still come from the full toolpath. The output uses
+the current interface language where localized text is available.
 
 ## Sample booklet
 
