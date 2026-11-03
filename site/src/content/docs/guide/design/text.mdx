@@ -3,13 +3,10 @@ title: Text
 description: Add editable single-line text, choose a style and font, lay it on a circle or along a path, and pick operations to machine it.
 pageType: task
 availability: stable
-status: reviewed
-reviewed:
-  appCommit: 7ad27b1e384074a35797a4747a85218067a565df
-  date: 2026-09-27
-  by: frankp
+status: draft
 ---
 
+import Availability from '../../../../components/Availability.astro';
 import AppIcon from '../../../../components/AppIcon.astro';
 import { Aside, Steps } from '@astrojs/starlight/components';
 import Screenshot from '../../../../components/Screenshot.astro';
@@ -71,14 +68,12 @@ The **Font** list shows only the fonts of the selected style.
 
 ## Editing text
 
-Select a text feature to edit it in the properties panel:
+<Availability kind="preview" />
 
-- **Text**: the words.
-- **Style**: **Skeleton** or **Outline**. Changing the style resets the font to that style's
-  default.
-- **Font**: a font of the current style.
-- **Operation**, under **Shape**, and **Z top** and **Z bottom**, under **Instance**, as for any
-  feature.
+Select a text feature and choose **Edit text…** in its properties or context menu. The text
+dialog reopens with the saved words, font style, font, and height. Change them and click **Apply**.
+The role and Z range remain in the feature properties. Linked copies share the text definition;
+use **Make unique** before changing just one copy.
 
 To change the size of text, use the resize tool (see
 [Selecting and transforming](/guide/design/selecting-and-transforming/#transforms)). Text cannot be
@@ -134,8 +129,9 @@ For both:
 | **Fit** | **Keep text size** keeps the height and lets the span follow. **Fill the span** scales the whole text to fill the span, and the panel shows the resulting height (**Cuts at … tall**). |
 | **Orientation** | **Fixed** keeps every letter upright. **Follow the curve** turns each letter to follow the baseline. |
 
-**Apply** is unavailable until a centre or guide is picked. If the text is longer than the span, the
-panel warns you; widen the span or set **Fit** to **Fill the span**.
+For a new circular or path layout, **Apply** needs a centre or guide. An existing layout
+reopens with its saved baseline. If the text is longer than the span, the panel warns you;
+widen the span or set **Fit** to **Fill the span**.
 
 To straighten text again, open **Text layout**, choose **Horizontal**, and click **Apply**. The
 layout belongs to that one text feature: if the text is a linked copy, the other copies stay as they
@@ -145,6 +141,16 @@ are. See [Linked features](/guide/fundamentals/linked-features/).
 	**Fill the span** changes the size of the letters. Check the height shown in the panel against
 	your cutter before machining, especially for V-carved or engraved text.
 </Aside>
+
+### Remembered path source
+
+<Availability kind="preview" />
+
+Text on a path stores a copy of the guide and remembers which feature supplied it. Moving or
+editing the guide does not reflow the text automatically. Use **Refresh path** in the text's
+properties to copy the edited source again. Inspect the refreshed result. Deleting the
+source leaves the stored path usable. Picking the same source again keeps the offsets within
+its current length.
 
 ## Expand text
 
@@ -180,8 +186,8 @@ Choose operations by style:
 | Outline, **Line** | **V-carve offset** or **V-carve medial** | Carved letters without subtracting them from the model. |
 | Outline, **Add** | Operations that clear around raised features | Raised letters. See [Choosing an operation](/guide/operations/). |
 
-You can target these counters and islands directly from the CAM **Add** menu, **Use current
-selection**, or the feature context menu. You do not need to expand the text first. An Add text
+You can target these counters and islands directly from the Add menu or the feature's
+**Create operation** and **Add to operation** context actions. You do not need to expand the text first. An Add text
 feature with no counter, such as L, has no subtract shape for Pocket or Edge route inside, so those
 operations refuse it. Expand text only when you need to edit the individual letter geometry.
 

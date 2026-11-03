@@ -109,6 +109,20 @@ piercing is blocked by a missing positive cut feed or plunge feed, including a v
 rounds to zero in output. Cuts with no safe-height move also block that export; regenerate.
 See [Plasma programs](/guide/verify-export/gcode-export/#plasma-programs).
 
+## Feature effect and machine templates
+
+<Availability kind="preview" />
+
+**No effect on the final shape: later features cover it.** on a feature row means the app
+proved that later opposite-role features cover its whole outline and Z span. Check feature
+order, depth, and visibility; changing them can clear the warning. It does not remove the
+feature or its operation targets. See [No-effect warning](/guide/fundamentals/feature-tree/#no-effect-warning).
+
+**The selected machine "…" cannot be exported: its own templates break a machine-template rule.
+Correct the machine before exporting.** blocks export. The saved machine stays in the project.
+Read each offending template, line, text, and rule in the manager or editor, then repair the
+project copy. See [Template rules](/guide/reference/machine-definitions/#template-rules).
+
 ## Related pages
 
 - [Toolpath preview](/guide/verify-export/toolpath-preview/): inspect warnings alongside generated paths.

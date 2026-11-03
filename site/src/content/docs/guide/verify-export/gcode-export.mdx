@@ -44,6 +44,10 @@ Exported G-code can move a real machine. Confirm the machine, origin, tool, work
 
 </Aside>
 
+On desktop, every G-code export asks for a save destination, including repeat exports and each
+per-setup program. Creating or opening another project clears the previous export destination.
+Cancelling the destination picker leaves **Export G-code** open.
+
 ## Selection
 
 The checklist is the source of truth for this export. By default, it selects operations that are enabled, have a tool assigned, and have a visible toolpath. A hidden but otherwise eligible operation can still be checked manually; an operation that is off or has no tool is not eligible and displays its reason.
@@ -152,6 +156,15 @@ written; requesting them reports a warning. Check the control's units, C6/C7/C9 
 numbers, speeds, and safe moves before running the file.
 
 <VisualPending id="m4-shopbot-export" />
+
+## Restart after a tool change
+
+<Availability kind="preview" />
+
+When **Emit tool changes (M6)** is selected, each emitted tool change is followed by a restart
+block. It restores absolute distance, feed per minute, and the XY plane (`G90 G94 G17`), then
+states the units. Before the next cut, it rapids to safe Z, places X/Y at the next start, and
+makes the normal approach. Check these moves as well as the tool-change template in the preview.
 
 ## Related pages
 

@@ -14,7 +14,7 @@ import operationList from '../../../../assets/manual/cam-setup/working-with-oper
 import generationMenu from '../../../../assets/manual/cam-setup/working-with-operations/generation-menu.png';
 import { Aside, Steps } from '@astrojs/starlight/components';
 
-An operation connects selected features, a tool, and cutting settings to a toolpath. Use the **CAM** panel to add operations, then review their targets and settings before you generate or export anything.
+An operation connects selected features, a tool, and cutting settings to a toolpath. Use the operations panel to add operations, then review their targets and settings before you generate or export anything.
 
 ## Before you start
 
@@ -28,7 +28,7 @@ An operation connects selected features, a tool, and cutting settings to a toolp
 <Screenshot src={addMenu} maxWidth={400} alt="The Add operation menu with Pocket opened to show its illustration, description and key points, and V-carve offset, V-carve medial and Edge in listed below with their Rough, Finish and Both buttons" caption="Opening an entry shows what the operation does and what it needs before you add it." />
 <Steps>
 
-1. Open the **CAM** panel, select **Operations**, then use the Add button for the face in view.
+1. Open the operations panel, then use the Add button for the face in view.
 
 2. Review the compatible choices in the 2D or 3D group. The menu can offer **Rough**, **Finish**, or **Both** when an operation supports separate passes; it also identifies choices unavailable for the current selection.
 
@@ -44,27 +44,32 @@ An operation connects selected features, a tool, and cutting settings to a toolp
 
 When the Add button or a feature’s **Create operation** menu picks a tool for a new pocket, edge route, follow-line cut, or 3D roughing or finishing operation, it aims for a cutter no wider than **1/4 in (6.35 mm)** and may choose a smaller one for a narrow target. It checks project tools before the bundled library. If none fits that size limit, it can choose the smallest compatible tool available, which may be wider than the limit. Inspect the selected tool, reach, and target before generating a toolpath. [CAM Plan](/guide/cam-setup/cam-plan/#create-a-cam-plan) shows the reasoning for its proposed tool choices.
 
+## Operation identity
+
+<Availability kind="preview" />
+
+**Kind** is plain text identifying the operation. An empty **Description** shows **+ Add note**;
+click it to write a note.
+
 ## Context menu
 
 Use a feature’s context menu to create a compatible operation, or to add that feature to and remove it from an existing operation. The menu offers **Create operation**, **Add to operation**, and **Remove from operation** only when the selected feature is compatible.
 
 ## Targets
 
-You can also select an operation and use **Use current selection** in **What it cuts** to replace its target. A stock target is used only by operations that offer it; a region in a valid feature target limits where the operation may cut rather than becoming a cut itself.
+<Availability kind="preview" />
 
-If an option is unavailable, check the feature’s role, whether its profile is closed, and the operation’s requirements. A region can limit where an operation cuts, but it is not itself a shape to machine; see [Regions](/guide/fundamentals/regions/).
+**Cuts** in **What it cuts** lists the operation's targets. Hover a row to highlight its feature
+on the canvas. Click its × to remove it; the last machining target cannot be removed. Folder
+members are grouped under collapsible folder headings. Region rows are marked **filter**,
+and a stock target is shown as **Stock**.
 
-The hint beside an unavailable target explains the failed requirement. Construction geometry
-cannot be a machining target. Drill needs machinable circles; 3D rough, finish, and cleanup
-need one or more imported models. Pocket and inside edge route need subtract geometry;
-surface clean and outside edge route need add or model geometry. Closed-profile operations also
-reject open shapes, and a region used as a filter must be closed. Correct the selection or choose
-an operation that accepts it before using **Use current selection**.
+Use a feature's **Add to operation** or **Remove from operation** context action to change the
+list. A region limits where an operation may cut rather than becoming a cut itself.
 
-Outline text can qualify through the shapes of its letters: an Add text feature with counters can
-target Pocket or Edge route inside, and a Subtract text feature with islands can target Edge route
-outside. **Use current selection**, the Add menu, and the feature context menu accept these targets
-without expanding the text. See [Machining text](/guide/design/text/#machining-text).
+If a target is unavailable, check its role, closed profile, and the operation's requirements.
+Construction geometry cannot be a machining target. Outline text can supply counters and islands
+without expansion; see [Machining text](/guide/design/text/#machining-text).
 
 ## List
 
@@ -78,9 +83,22 @@ An operation list is not just an organization tool: it controls the order in whi
 
 ## Generation
 
+<Availability kind="preview" />
 
-<Screenshot src={generationMenu} maxWidth={348} alt="The toolpath generation menu reading Toolpaths up to date above a Stop button, and a Compute section offering Main thread, currently selected, or Background thread (experimental)" caption="The generation menu reports the current state and chooses which thread generates toolpaths." />
-Toolpaths generate when an enabled operation is visible. A row reports whether its toolpath is up to date, generating, paused, or failed. Use the generation controls to stop, resume, or retry a calculation, and use the generation settings to choose the main-thread backend or the experimental background-thread backend.
+<Screenshot src={generationMenu} maxWidth={348} alt="The toolpath generation menu reading Toolpaths up to date above a Stop button, and a Compute section offering Main thread, currently selected, or Background thread (experimental)" caption="The generation menu reports calculation status. In the Preview Build, its Display section also controls the Sketch toolpath renderer." />
+
+Toolpaths generate when an enabled operation is visible. The generation gear menu shows
+**Toolpaths up to date**, **Generating (…)**, **Generation paused**, or **Generation failed**.
+Use **Stop** to pause generation, **Resume** to continue, or **Retry** after a failure.
+
+Generation runs on a background thread. If it cannot start, the menu reports **Background thread
+unavailable; using the main thread.** Generation continues, but **Stop** cannot interrupt an
+operation already running on the main thread. There is no thread-choice control.
+
+Under **Display**, **2D renderer** offers **GPU** and **Canvas** for the Sketch toolpath overlay.
+GPU is the default; a saved renderer choice is kept. If GPU rendering cannot start, the gear is
+flagged and the menu shows **GPU unavailable; using Canvas.** Use **Retry GPU** to try again.
+The **Feature colors** legend starts collapsed and keeps a saved choice.
 
 <Aside type="danger" title="Safety: inspect every generated toolpath">
 A visible toolpath is not proof that the machine can run it safely. Before machining, check the target, tool, depths, entry and retract moves, clearances, tabs, and workholding; then inspect the result in [Toolpath preview](/guide/verify-export/toolpath-preview/) and follow the dry-run guidance in [Working safely](/guide/start-here/safety/).
@@ -94,6 +112,9 @@ In a two-sided job, the operations toolbar keeps **Add to Top** or **Add to Bott
 show/hide-all eye, and the generation gear on one row. Add follows the face in view.
 Setup cards group the operations: **Bottom 1 P02** means one Bottom operation
 in program 02, and an empty card reads **No operations**. Each card has its own setup gear.
+A setup header shows a generating spinner while any of its operations is generating, even
+when the card is collapsed. Paused generation shows a pause icon instead. The badge disappears
+when generation finishes.
 
 Use **Move…** beside **Setup** in an operation's properties to move it to an existing setup.
 Review the targets the move removes before confirming **Move operation**. See [Setups and faces](/guide/fundamentals/setups-and-faces/) for
