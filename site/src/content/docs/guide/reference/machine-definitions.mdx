@@ -8,7 +8,7 @@ status: draft
 
 import Availability from '../../../../components/Availability.astro';
 
-Machine definitions determine the file extension, coordinate rules, program text, motion syntax, and machine capabilities used by G-code export. Duplicate a built-in definition or import JSON in **Manage machines** before editing a custom one.
+Machine definitions determine the file extension, coordinate rules, program text, motion syntax, and machine capabilities used by machine output. Duplicate a built-in definition or import JSON in **Manage machines** before editing a custom one.
 
 ## Built-in machines
 
@@ -58,6 +58,46 @@ An unsafe turn is refused when no active tool-length compensation or machine-coo
 can establish clearance. Check these values against the actual controller and homing setup.
 See [Machines](/guide/cam-setup/machines/#rotary-axis) and
 [Rotary export](/guide/rotary/rotary-operations/#rotary-export).
+
+## Plasma definition
+
+<Availability kind="experimental" />
+
+`machineKind` is `"router"` or `"plasma"`; absence retains router behaviour. A `plasma` block
+requires plasma kind and the G-code output dialect. The built-ins are
+**QtPlasmaC (experimental)** (`.ngc`) and **Grbl plasma (OpenBuilds CONTROL) (experimental)**
+(`.gcode`). Their blocks describe these fields:
+
+| Field | Meaning |
+| --- | --- |
+| `plasma.torchOnCommand`, `plasma.torchOffCommand` | Required torch commands. |
+| `plasma.thcOnCommand`, `plasma.thcOffCommand` | Optional torch height control commands. Blank optional commands are absent. |
+| `plasma.pierceMode` | `"controller"` or `"gcode"`; determines which other fields are required. |
+| `plasma.materialSelectCommand` | Controller mode: required material selection, using `{materialNumber}` from the torch. |
+| `plasma.materialWaitCommand` | Controller mode: required wait after selecting material. |
+| `plasma.materialFeedCommand` | Controller mode: required material-feed command, emitted after the wait. |
+| `plasma.touchOff.probeCommand` | G-code mode: required probe command, `G38.2` in the built-in. |
+| `plasma.touchOff.probeDepth` | Positive distance below Z zero in mm; built-in 30. |
+| `plasma.touchOff.probeFeed` | Positive probe feed in mm/min; built-in 100. |
+| `plasma.touchOff.setZeroCommand` | Required Z-zero command; built-in `G10 L20 P0`. |
+| `plasma.touchOff.switchOffset` | Nonnegative mm offset; absent means zero. Emitted as negative Z when setting zero. |
+
+Controller mode requires the material sequence and forbids `touchOff`. G-code mode requires
+`touchOff` and forbids the material sequence. Torch dimensions and feeds belong to the tool;
+QtPlasmaC's actual cutting settings belong to the controller's material table. See
+[Plasma machines](/guide/cam-setup/machines/#plasma-machines) and
+[Plasma programs](/guide/verify-export/gcode-export/#plasma-programs).
+
+## ShopBot output dialect
+
+<Availability kind="preview" />
+
+**ShopBot (SBP)** uses `.sbp` and `outputDialect: "opensbp"`. An absent `outputDialect` uses
+G-code. The dialect has no editor control; a duplicate of ShopBot keeps it. PureCutCNC writes
+the entire part file, so G-code commands and templates do not control its output. The editor
+shows **Name**, **File extension**, and an explanatory note; axis mapping, number format, and
+arc support are in **Advanced (raw JSON)**. See
+[ShopBot part files](/guide/verify-export/gcode-export/#shopbot-part-files) for output commands.
 
 ## Related pages
 

@@ -101,6 +101,24 @@ setup properties, registration, and cross-face targets.
 
 <VisualPending id="m2-cam-setups" />
 
+## Plasma operation choices
+
+<Availability kind="experimental" />
+
+In a **Plasma** project, the Add menu offers **Plasma through-cut** and omits milling rows.
+In other project types, it lists that operation as unavailable with **Needs a plasma project.
+The type is chosen when the project is created.** The machine choice does not enable it.
+Retained operations of the other family stay editable with **not for this project type** and
+a count of cuts left out of export. See [Plasma through-cut](/guide/operations/plasma-through-cut/).
+
+## ShopBot operation export
+
+<Availability kind="preview" />
+
+With **ShopBot (SBP)** selected, the per-operation export button's tooltip is
+**Export ShopBot part file for this operation**. It opens the ShopBot export dialog for that
+operation. Review its checklist and preview before **Export .sbp**.
+
 ## Related pages
 
 - [CAM Plan](/guide/cam-setup/cam-plan/): start from an editable set of suggested operations and tools.
