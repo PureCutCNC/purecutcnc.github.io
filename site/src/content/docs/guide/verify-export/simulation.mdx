@@ -82,6 +82,19 @@ in Top and Bottom simulation; the lower half is fixed, so a cut below the equato
 shown in that half. Simulation still cannot prove grip, support, or controller behaviour.
 See [Rotary operations](/guide/rotary/rotary-operations/#verifying-the-result).
 
+## Simulating plasma
+
+<Availability kind="experimental" />
+
+In a Top setup, **Plasma through-cut** removes a slot one kerf wide through the full sheet,
+including leads and pierce holes. **Play tool** shows the torch as a plain cylinder.
+Check the inside-before-outside order, skipped contours, and the material left between parts.
+Simulation does not model heat, taper, actual pierce craters, THC, or loose pieces tipping on
+slats. It does not validate the exported probe sequence. Follow [Working safely](/guide/start-here/safety/#plasma-cutting) before proving the program
+at the machine.
+
+<VisualPending id="m4-plasma-simulation" />
+
 ## Related pages
 
 - [Toolpath preview](/guide/verify-export/toolpath-preview/): inspect individual motion types and feeds.
