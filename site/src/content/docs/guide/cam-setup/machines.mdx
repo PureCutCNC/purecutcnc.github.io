@@ -3,12 +3,11 @@ title: Machines
 description: Select the machine that writes your G-code and manage the built-in and personal machine definitions.
 pageType: task
 availability: stable
-status: reviewed
-reviewed:
-  appCommit: 7ad27b1e384074a35797a4747a85218067a565df
-  date: 2026-09-27
-  by: frankp
+status: draft
 ---
+
+import VisualPending from '../../../../components/VisualPending.astro';
+import Availability from '../../../../components/Availability.astro';
 
 import Screenshot from '../../../../components/Screenshot.astro';
 import machineEditor from '../../../../assets/manual/cam-setup/machines/machine-editor.png';
@@ -70,6 +69,20 @@ when you understand the controller requirements for every changed field.
 	work coordinate system, tool-change behavior, coolant commands, clearances, and first moves;
 	then dry-run it on the real controller.
 </Aside>
+
+## Rotary axis
+
+<Availability kind="preview" />
+
+For a router machine that writes G-code, the editor offers **Rotary axis**: **None** (default),
+**Bar along X**, or **Bar along Y**. Match the stock's **Axis**. **Driven by** offers **Its own
+axis (A)** or the other horizontal motor: **The Y motor** for X stock, **The X motor** for Y stock.
+The **Program word: A** note changes to the borrowed letter; **Reverse direction** starts off.
+The **Manage machines** preview includes a **Rotary axis** row summarising this choice.
+See [Rotary machining](/guide/rotary/overview/#machine-rotary-axis) and
+[Rotary definition](/guide/reference/machine-definitions/#rotary-definition).
+
+<VisualPending id="m3-machine-axis" />
 
 ## Related pages
 

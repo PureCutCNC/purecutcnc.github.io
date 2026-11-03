@@ -3,12 +3,10 @@ title: Regions
 description: Use region masks to limit where an operation cuts, and understand how include and exclude regions combine.
 pageType: concept
 availability: stable
-status: reviewed
-reviewed:
-  appCommit: 2dc197eebe9c11272ad0bc24194d4a7c6de19055
-  date: 2026-09-19
-  by: frankp
+status: draft
 ---
+
+import Availability from '../../../../components/Availability.astro';
 
 import Screenshot from '../../../../components/Screenshot.astro';
 import includeExclude from '../../../../assets/manual/fundamentals/regions/include-exclude.svg';
@@ -91,6 +89,16 @@ While a region is applied, some options are replaced:
   while a region mask is applied to this operation, so the ordinary entry and retract were used.**
 - Check the operation's warnings after adding a region, and look at the toolpath: a masked result
   is not simply the unmasked toolpath with parts removed.
+
+## Regions on a rotary bar
+
+<Availability kind="preview" />
+
+On **Around**, a region limits both the length along the bar and the range of angles for
+**Rotary rough** and **Rotary finish**, with either pass direction. Add it with **Use current
+selection** or **Add to operation**; adding only a region keeps the chosen models. Include and
+exclude order matters, and the finish's earlier-rough warning checks region coverage too.
+See [Rotary operations](/guide/rotary/rotary-operations/#pass-direction-and-regions).
 
 ## Related pages
 

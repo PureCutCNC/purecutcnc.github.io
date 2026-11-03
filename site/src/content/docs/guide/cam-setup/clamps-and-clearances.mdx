@@ -3,12 +3,10 @@ title: Clamps and clearances
 description: Define the project clearances and clamp locations that generated motion must avoid.
 pageType: task
 availability: stable
-status: reviewed
-reviewed:
-  appCommit: 7ad27b1e384074a35797a4747a85218067a565df
-  date: 2026-09-27
-  by: frankp
+status: draft
 ---
+
+import Availability from '../../../../components/Availability.astro';
 
 import Screenshot from '../../../../components/Screenshot.astro';
 import clampAvoidance from '../../../../assets/manual/cam-setup/clamps-and-clearances/clamp-avoidance.png';
@@ -56,6 +54,16 @@ physical setup before nesting; a layout based on incorrect measurements cannot p
 After accepting a nest, inspect the generated toolpaths and warnings. Clamp avoidance during
 toolpath generation can still leave material uncut or skip drilling beneath a clamp. Confirm the
 real workholding and part support, then simulate and dry-run the intended operations.
+
+## Chuck and tailstock
+
+<Availability kind="preview" />
+
+On a rotary bar, a clamp's **Type** offers **Chuck** and **Tailstock** as well as **Clamp**.
+Round workholding stays centred on the bar and uses **Diameter** instead of an ordinary Z range.
+The chuck also has **Chuck size**, grip limits, and **Jaws**. Enter the real equipment and keep
+both ends supported as needed; operation end supports leave additional bar uncut.
+See [Rotary machining](/guide/rotary/overview/#chuck-and-tailstock).
 
 ## Related pages
 

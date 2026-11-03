@@ -58,7 +58,7 @@ roles, shapes, and depths.
 Some roles are only possible for some shapes:
 
 - An open path can only be **Line** or **Construction**.
-- The first solid feature in the project cannot be **Subtract**. To make it a subtract feature,
+- On block stock, the first solid feature in the project cannot be **Subtract**. To make it a subtract feature,
   first put an add feature before it, or change it to a non-solid role.
 
 Regions and construction geometry have their own sections in the feature tree, and their folders
@@ -106,7 +106,7 @@ on thick stock. Some roles work differently:
 PureCutCNC builds the 3D model by applying visible add and subtract features in feature-tree
 order, from the top of the tree down:
 
-- The first solid feature must be an add feature. It is the starting material. If the first
+- On block stock, the first solid feature must be an add feature. It is the starting material. If the first
   2.5D feature is not an add feature, the feature tree shows **First 2.5D feature must be Add**
   and the 3D model does not build until you fix it.
 - Each later add feature joins material to the result; each later subtract feature removes
@@ -125,6 +125,16 @@ A feature belongs to the face you draw it on. A blind pocket on Top is not a Bot
 target just because its outline overlaps another feature in plan. A through subtract can be cut
 from either face. On Bottom, **Z top** and **Z bottom** are shown with the stock flipped face up;
 **Stock Z span** records the unchanged range in the stock. See [Setups and faces](/guide/fundamentals/setups-and-faces/).
+
+## Roles on a rotary bar
+
+<Availability kind="preview" />
+
+In a rotary project with bar stock, the bar supplies the material on Top, Bottom, and Around.
+A shape drawn on its own starts as **Subtract**, one inside a cut as **Add**, and one inside
+that island as **Subtract** again. The first-solid add rule above describes block work.
+Check the role across a sheet seam, where nesting is not inferred between opposite edges.
+See [Rotary machining](/guide/rotary/overview/#the-bar-is-the-material).
 
 ## Related pages
 
