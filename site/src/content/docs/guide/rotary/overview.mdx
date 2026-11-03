@@ -1,0 +1,147 @@
+---
+title: Rotary machining
+description: Set up a bar in a rotary axis and understand Around, the unrolled sheet, and Top and Bottom machining.
+pageType: concept
+availability: preview
+status: draft
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import VisualPending from '../../../../components/VisualPending.astro';
+
+Rotary work turns a bar under a milling cutter. You can draw on its unrolled surface or machine
+a model inside it. This is wrapped 4th-axis milling, not lathe turning: the cutter is in the
+spindle and the rotary axis positions the stock.
+
+## Main idea
+
+Choose **Rotary** under **Project type** when you create the project. The type is read-only
+afterwards. See [Project type](/guide/fundamentals/projects-and-files/#project-type).
+A rotary project can use **Top**, **Bottom**, and **Around** on the same bar. It does not provide
+a general simultaneous 5-axis workflow.
+
+<VisualPending id="m3-new-project" />
+
+## Bar stock
+
+Select **Stock** in the tree and check these fields:
+
+| Field | What to enter |
+| --- | --- |
+| **Shape** | **Round bar** or **Square blank**. You can switch between them within a rotary project. |
+| **Diameter** | The round bar's measured diameter. |
+| **Side** | The square blank's measured side, across its flats. |
+| **Length** | The full length along the bar, including material held at the ends. |
+| **Axis** | **X** or **Y**, matching the direction the bar lies on the machine. |
+
+The initial origin is at the chuck end, on the centreline in plan and on top of the bar.
+Check it against your touch-off plan. The bar's centreline is halfway up its diameter or side;
+Z 0 in the project is at the bottom of its bounding box.
+
+## Chuck and tailstock
+
+Bar stock has a **Chuck** clamp. Use a clamp's **Type** to choose **Clamp**, **Chuck**, or
+**Tailstock**. Chuck and tailstock keep-outs stay centred on the bar; their **Diameter** replaces
+the ordinary clamp Z range. Enter the real workholding dimensions and position.
+
+The chuck adds **Chuck size**, **Minimum grip diameter**, **Maximum grip diameter**, and
+**Jaws**. The listed sizes are **3"**, **4"**, **5"**, **6"**, **8"**, **10"**, and **12"**.
+They are equipment presets, not a guarantee of your chuck's capacity. The starter is the
+4-inch size when it fits; otherwise the app chooses a fitting listed size. Check the limits
+against your actual chuck and jaw set, then edit them if needed. A size or capacity you choose
+stays your equipment choice when the bar changes.
+
+**Jaws** offers **3**, **4**, or **6**. Round stock starts with 3 jaws; square stock starts with 4.
+For a square blank, 4 jaws compare the grip range with the side across flats; 3 or 6 compare it
+with the circle through the corners. An unknown capacity reads **Capacity unknown. Enter limits
+or pick a size.** A bar outside the chuck's range shows **Bar is outside the chuck’s clamping
+range.** If the bar fits none of the listed ranges, do not treat the default body as a valid grip.
+
+<VisualPending id="m3-stock-chuck" />
+
+<Aside type="danger" title="Safety: keep the bar held and supported">
+A loose bar or a cutter striking the chuck or tailstock can damage the machine and throw material.
+Check the real grip, end support, rotating corner clearance, and cutter reach. Leave enough
+material to support the part throughout the job; see [Working safely](/guide/start-here/safety/).
+</Aside>
+
+## Machine rotary axis
+
+In the machine editor, set **Rotary axis** to **Bar along X** or **Bar along Y** to match
+**Stock** > **Axis**. **None** is the default. Under **Driven by**, choose **Its own axis (A)**,
+or **The Y motor** for a bar along X / **The X motor** for a bar along Y. A borrowed motor
+cannot also provide linear travel during that program.
+
+The **Program word: A** note shows the output letter; it changes to the borrowed motor's
+letter when applicable. **Reverse direction** reverses the rotary sign. Confirm the direction
+on your controller before cutting. You can design on Around before choosing a suitable machine,
+but export checks the machine. See [Machines](/guide/cam-setup/machines/#rotary-axis).
+
+## Around and the unrolled sheet
+
+Open the current-face menu beside the workspace tabs and choose **Around**. The Sketch view
+lays out the bar surface flat: length along the bar by one circumference around it. A line marks
+each full turn. The solid zero line, A = 0, is in the middle, on the bar's centreline in plan.
+The origin marker sits on that line. Negative A is below the zero line in the unrolled view.
+The sheet's opposite edges meet at the back of the bar, labelled −180° and +180°.
+
+A distance of one circumference around the sheet becomes one full rotation. Geometry can run
+past one turn. Canned features and toolpaths are displayed folded into the sheet; this display
+does not split the cut into separate features. Named model bands show where models sit along
+the bar. See [Rotary features](/guide/rotary/rotary-features/#drawing-on-around).
+
+<VisualPending id="m3-around-sheet" />
+
+## Top and Bottom on a bar
+
+Top and Bottom machine the bar as material too. A pocket does not need a base add feature.
+Bottom flips about the bar's own axis. Top programs use A = 0°; Bottom programs use A = 180°.
+With a rotary machine, the program retracts to the machine safe Z before the opening turn.
+A machine without a rotary axis records the angle as an operator comment instead.
+See [Setups and faces](/guide/fundamentals/setups-and-faces/) and
+[Rotary export](/guide/rotary/rotary-operations/#rotary-export).
+
+## The bar is the material
+
+On Top, Bottom, and Around, a shape drawn on its own starts as **Subtract**: a cut into the bar.
+Inside a cut, it starts as **Add**: an island left standing. Inside that island, it is
+**Subtract** again. Check the role after drawing, especially across the sheet seam: nesting
+across opposite seam edges is not inferred. You can change **Operation** in the shape properties.
+
+## What Around does not offer
+
+Around is a surface wrapped about the bar, rather than another flat side:
+
+- Tabs are not used there. Keep the part attached through uncut bar and end supports.
+- **Show other side**, flat-face authoring-face changes, and flat-face cross-face targets do not
+  apply to the sheet. Use the face where the feature was drawn; rotary models have their own targets.
+- The flat **3D surface rough**, **3D surface finish**, and **3D surface cleanup** operations have
+  no wrapped form. Use **Rotary rough** and **Rotary finish** for models inside a bar.
+- Printing and 2D design export use flat faces. Switch to Top or Bottom for those outputs.
+
+{/* placeholder: purecutcnc#1131 */}
+<Aside type="caution" title="This behaviour is changing before 0.6.0 ships">
+Sheet work on Around over a turned section of a square blank is being revised in
+[application issue #1131](https://github.com/PureCutCNC/purecutcnc/issues/1131).
+Do not plan square-bar pockets or engraving from this draft. The settled workflow here is to
+create a Turn or Polygon model and machine it with rotary rough and finish operations.
+</Aside>
+
+## Zero A before each job
+
+Rotary programs end at their last angle after the normal retract. There is no closing A0 unwind.
+Before each job, put the bar's intended zero line up and establish the rotary work zero again.
+When a motor is borrowed, use the corresponding controller axis and output letter.
+
+<Aside type="danger" title="Safety: check the rotary zero before starting">
+A wrong rotary zero puts every wrapped cut at the wrong angle. Confirm the bar orientation,
+rotary zero, XYZ touch-off, direction, and first turn before running the program. Follow
+[Working safely](/guide/start-here/safety/).
+</Aside>
+
+## Related pages
+
+- [Rotary features](/guide/rotary/rotary-features/): create a Turn, Polygon, Thread, or Flutes.
+- [Rotary operations](/guide/rotary/rotary-operations/): choose cuts, inspect warnings, and export.
+- [Machines](/guide/cam-setup/machines/): configure the physical rotary drive.
+- [Clamps and clearances](/guide/cam-setup/clamps-and-clearances/): record workholding and clearance.

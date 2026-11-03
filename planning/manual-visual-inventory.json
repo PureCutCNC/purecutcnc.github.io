@@ -322,6 +322,18 @@
 			"decision": "not-needed",
 			"reviewStatus": "approved",
 			"rationale": "The page explains storage and network boundaries; an interface image would not clarify those guarantees."
+		},
+		{
+			"page": "/guide/rotary/overview/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/rotary/rotary-features/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/rotary/rotary-operations/",
+			"decision": "visuals"
 		}
 	],
 	"visuals": [
@@ -2194,6 +2206,131 @@
 			"brief": "A Bottom operation booklet showing its setup name, program number, orientation and registration. Use the same two-sided fixture as the setup-properties visual.",
 			"asset": "verify-export/setup-booklets/setup-program-registration.png",
 			"alt": "A Bottom operation booklet showing its setup name, program number, orientation and registration. Use the same two-sided fixture as the setup-properties visual.",
+			"status": "proposed",
+			"blockedBy": []
+		},
+		{
+			"id": "m3-new-project",
+			"page": "/guide/rotary/overview/",
+			"afterHeading": "Main idea",
+			"kind": "screenshot",
+			"purpose": "Identify the project choice and bar dimensions before creation.",
+			"brief": "New project with Rotary selected, blank metric template, Shape Round bar, Diameter, Length and Axis visible.",
+			"asset": "rotary/overview/new-project-rotary.png",
+			"alt": "New project with Rotary selected and bar shape, diameter, length and axis fields",
+			"status": "proposed",
+			"blockedBy": []
+		},
+		{
+			"id": "m3-stock-chuck",
+			"page": "/guide/rotary/overview/",
+			"afterHeading": "Chuck and tailstock",
+			"kind": "screenshot",
+			"purpose": "Connect bar size to real workholding capacity.",
+			"brief": "Bar Stock properties and Chuck properties as a paired capture: Shape, Diameter/Side, Length, Axis; Chuck size, grip limits and Jaws. Use a separate square state if needed.",
+			"asset": "rotary/overview/stock-chuck.png",
+			"alt": "Bar stock and chuck properties with size, grip limits and jaws",
+			"status": "proposed",
+			"blockedBy": []
+		},
+		{
+			"id": "m3-around-sheet",
+			"page": "/guide/rotary/overview/",
+			"afterHeading": "Around and the unrolled sheet",
+			"kind": "screenshot",
+			"purpose": "Explain the zero line and where the seam joins.",
+			"brief": "Around sheet on a round bar with solid A0 line in the middle, origin marker, negative A below, ±180° seam labels, one canned feature and a named model band.",
+			"asset": "rotary/overview/around-sheet.png",
+			"alt": "Around sheet with middle zero line, origin, seam labels, a feature and a model band",
+			"status": "proposed",
+			"blockedBy": []
+		},
+		{
+			"id": "m3-creation-group",
+			"page": "/guide/rotary/rotary-features/",
+			"afterHeading": "Create a rotary feature",
+			"kind": "screenshot",
+			"purpose": "Find the four rotary commands and read a disabled reason.",
+			"brief": "Creation drawer open with Thread, Flutes, Turn and Polygon / hex. Pair round and square states to show Not available on a square bar yet. Recheck #1131 before capture.",
+			"asset": "rotary/rotary-features/creation-group.png",
+			"alt": "Creation drawer rotary group with Thread, Flutes, Turn and Polygon / hex",
+			"status": "blocked",
+			"blockedBy": [
+				"PureCutCNC/purecutcnc#1131"
+			]
+		},
+		{
+			"id": "m3-turn-panel",
+			"page": "/guide/rotary/rotary-features/",
+			"afterHeading": "Turn a diameter",
+			"kind": "screenshot",
+			"purpose": "Explain the picked profile and copied dimensions.",
+			"brief": "Turn a diameter canvas side panel, not a modal: start, length, diameter, Profile: pick a shape and Refresh. Include the Top outline used as the copied half profile.",
+			"asset": "rotary/rotary-features/turn-panel.png",
+			"alt": "Turn a diameter side panel with a picked Top profile and Refresh",
+			"status": "proposed",
+			"blockedBy": []
+		},
+		{
+			"id": "m3-thread-panel",
+			"page": "/guide/rotary/rotary-features/",
+			"afterHeading": "Cut a thread",
+			"kind": "screenshot",
+			"purpose": "Show thread fields, its Turn surface and approximation notice.",
+			"brief": "Cut a thread canvas side panel in metric units with pitch, starts, depth and direction, on-Turn diameter note and the radial V-bit approximation notice; no Tool field.",
+			"asset": "rotary/rotary-features/thread-panel.png",
+			"alt": "Cut a thread side panel with pitch, starts, depth, direction and approximation notice",
+			"status": "proposed",
+			"blockedBy": []
+		},
+		{
+			"id": "m3-rough-properties",
+			"page": "/guide/rotary/rotary-operations/",
+			"afterHeading": "Parameters",
+			"kind": "screenshot",
+			"purpose": "Relate targets, pass direction and supports to the cut.",
+			"brief": "Rotary rough properties with Cuts model and region chips, tool, Stepdown, Stock to leave radial, Chuck-end support, Tail-end support and Passes reference picture. Capture fields without promising final linking behaviour.",
+			"asset": "rotary/rotary-operations/rough-properties.png",
+			"alt": "Rotary rough properties with Cuts, tool, stepdown, allowance, supports and Passes",
+			"status": "proposed",
+			"blockedBy": []
+		},
+		{
+			"id": "m3-finish-simulation",
+			"page": "/guide/rotary/rotary-operations/",
+			"afterHeading": "Verifying the result",
+			"kind": "screenshot",
+			"purpose": "Inspect removal after rough and finish while retaining bar support.",
+			"brief": "After #1117 and #1103 settle, show Rotary finish simulation through its earlier rough on a square blank, with a machined centre band, square retained ends, chuck and tailstock. Review playback links before accepting the still.",
+			"asset": "rotary/rotary-operations/finish-simulation.png",
+			"alt": "Rotary finish simulation with a machined centre band and square retained ends",
+			"status": "blocked",
+			"blockedBy": [
+				"PureCutCNC/purecutcnc#1117",
+				"PureCutCNC/purecutcnc#1103"
+			]
+		},
+		{
+			"id": "m3-bar-3d",
+			"page": "/guide/verify-export/3d-view/",
+			"afterHeading": "Bar stock in 3D",
+			"kind": "screenshot",
+			"purpose": "Inspect actual bar material and workholding in three dimensions.",
+			"brief": "Bar in the 3D view with one Around cut, a target model and wrapped path; side/end framing with chuck and tailstock visible. Pair a square blank with retained square ends if one view cannot show both.",
+			"asset": "verify-export/3d-view/bar-3d.png",
+			"alt": "Bar in the 3D view with workholding, wrapped paths and retained ends",
+			"status": "proposed",
+			"blockedBy": []
+		},
+		{
+			"id": "m3-machine-axis",
+			"page": "/guide/cam-setup/machines/",
+			"afterHeading": "Rotary axis",
+			"kind": "screenshot",
+			"purpose": "Map bar orientation and motor choice to the program word.",
+			"brief": "Machine editor Rotary axis group with Bar along X, Driven by The Y motor, program word note and Reverse direction. Include Manage machines Rotary axis summary as a second panel if needed.",
+			"asset": "cam-setup/machines/rotary-axis.png",
+			"alt": "Machine editor Rotary axis group with a borrowed motor and program word",
 			"status": "proposed",
 			"blockedBy": []
 		}

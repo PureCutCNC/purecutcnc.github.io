@@ -3,12 +3,10 @@ title: Working safely
 description: Understand the operator checks that remain necessary after PureCutCNC generates a toolpath.
 pageType: concept
 availability: stable
-status: reviewed
-reviewed:
-  appCommit: 2dc197eebe9c11272ad0bc24194d4a7c6de19055
-  date: 2026-09-18
-  by: frankp
+status: draft
 ---
+
+import Availability from '../../../../components/Availability.astro';
 
 import { Aside } from '@astrojs/starlight/components';
 
@@ -65,6 +63,16 @@ tool to contact material. Stay ready to stop the machine while proving a new or 
 	Simulation cannot see a loose clamp, the wrong tool in the spindle, a controller setting, or an
 	incorrect physical zero. Resolve uncertainty at the machine before cutting.
 </Aside>
+
+## Rotary workholding and zero
+
+<Availability kind="preview" />
+
+Check the real chuck grip and tailstock position, including clearance for a square blank's
+rotating corners. Keep the bar supported through every rough and finish pass; leave enough
+uncut material at the ends. Put the intended zero line up and establish the rotary work zero
+before each job: the program ends at its last angle and does not unwind to A0.
+See [Rotary machining](/guide/rotary/overview/) before planning the cut.
 
 ## Related pages
 
