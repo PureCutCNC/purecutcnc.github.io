@@ -7,6 +7,8 @@ status: draft
 ---
 
 import { Aside } from '@astrojs/starlight/components';
+import Screenshot from '../../../../components/Screenshot.astro';
+import newProjectRotary from '../../../../assets/manual/rotary/overview/new-project-rotary.png';
 import VisualPending from '../../../../components/VisualPending.astro';
 
 Rotary work turns a bar under a milling cutter. You can draw on its unrolled surface or machine
@@ -20,7 +22,7 @@ afterwards. See [Project type](/guide/fundamentals/projects-and-files/#project-t
 A rotary project can use **Top**, **Bottom**, and **Around** on the same bar. It does not provide
 a general simultaneous 5-axis workflow.
 
-<VisualPending id="m3-new-project" />
+<Screenshot src={newProjectRotary} maxWidth={736} alt="New project dialog with Rotary selected and Blank metric chosen, the Template preview showing Shape Round bar, Diameter 30, Length 120, and Axis X" caption="Choosing Rotary turns the stock fields into bar fields: shape, diameter or side, length, and axis." />
 
 ## Bar stock
 

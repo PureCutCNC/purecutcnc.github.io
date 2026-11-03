@@ -623,7 +623,8 @@ async function openSketchEdit(page) {
 async function pickShape(page, name) {
 	await page.getByRole('button', { name: 'Choose feature shape' }).click()
 	await page.waitForTimeout(450)
-	await page.getByRole('button', { name, exact: true }).click()
+	// Scoped to the drawer: the rail repeats the armed shape (e.g. rectangle) as its own button.
+	await page.locator('.toolbar-creation-picker__drawer').getByRole('button', { name, exact: true }).click()
 	await page.waitForTimeout(500)
 }
 

@@ -2178,8 +2178,8 @@
 			"purpose": "Help readers choose the type before checking template stock.",
 			"brief": "New project dialog showing Project type tiles Milling / routing, Plasma and Rotary, with a blank template selected and Template as a 2×2 grid. Keep the stock preview visible.",
 			"asset": "fundamentals/projects-and-files/project-type-tiles.png",
-			"alt": "New project dialog showing Project type tiles Milling / routing, Plasma and Rotary, with a blank template selected and Template as a 2×2 grid. Keep the stock preview visible.",
-			"status": "proposed",
+			"alt": "New project dialog with Project type tiles Milling / routing (selected), Plasma, and Rotary above Project name, Blank imperial selected in the 2×2 Template grid, and the Template preview with stock Width 4, Height 3, and Thickness 0.75",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -2226,8 +2226,8 @@
 			"purpose": "Identify the project choice and bar dimensions before creation.",
 			"brief": "New project with Rotary selected, blank metric template, Shape Round bar, Diameter, Length and Axis visible.",
 			"asset": "rotary/overview/new-project-rotary.png",
-			"alt": "New project with Rotary selected and bar shape, diameter, length and axis fields",
-			"status": "proposed",
+			"alt": "New project dialog with Rotary selected and Blank metric chosen, the Template preview showing Shape Round bar, Diameter 30, Length 120, and Axis X",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
