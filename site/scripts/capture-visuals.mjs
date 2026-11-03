@@ -607,7 +607,15 @@ async function editRectangle(page) {
 	await page.waitForTimeout(600)
 	await clickTo(page, 0.46, 0.49)
 	await page.waitForTimeout(800)
-	await page.getByRole('button', { name: 'Edit sketch' }).first().click()
+	await openSketchEdit(page)
+}
+
+/** Edit sketch on the selected feature. Since 0.6.0 a drawn feature's Edit sketch is in
+    its context menu (and Properties), not on the tree row (purecutcnc#1112). */
+async function openSketchEdit(page) {
+	await page.locator('.tree-row--selected').first().click({ button: 'right' })
+	await page.waitForTimeout(500)
+	await page.getByText('Edit sketch', { exact: true }).first().click()
 	await page.waitForTimeout(1300)
 }
 
@@ -906,7 +914,8 @@ const RECIPES = [
 		context: { hasTouch: true },
 		// Lock and Multi sit on top of the feature-colour legend at this viewport, so
 		// collapse the legend rather than photograph two controls overlapping.
-		steps: (page) => page.getByRole('button', { name: 'Collapse feature color legend' }).first().click(),
+		// 0.6.0 starts the legend collapsed already (purecutcnc#1105).
+		collapseLegend: true,
 		clip: null, // the whole layout is the subject
 	},
 
@@ -1502,8 +1511,7 @@ const RECIPES = [
 			await page.waitForTimeout(600)
 			await clickTo(page, 0.45, 0.48)
 			await page.waitForTimeout(900)
-			await page.getByRole('button', { name: 'Edit sketch' }).first().click()
-			await page.waitForTimeout(1300)
+			await openSketchEdit(page)
 			await page.getByRole('button', { name: 'Trim to cutting edge' }).first().click()
 			await page.waitForTimeout(800)
 			await clickTo(page, 0.58, 0.39)
@@ -2049,7 +2057,8 @@ const RECIPES = [
 		async steps(page) {
 			await createTextRoute(page, { words: 'O', kind: 'Edge in', fx: 0.27 })
 			await page.getByRole('button', { name: 'Auto place tabs' }).first().click()
-			await page.waitForFunction(() => document.querySelectorAll('.tree-row--tab').length === 2)
+			// 0.5.x placed two tabs on this counter; 0.6.0 places four. Wait for placement, not a count.
+			await page.waitForFunction(() => document.querySelectorAll('.tree-row--tab').length >= 2)
 			await page.waitForTimeout(1600)
 		},
 		clip: clipTextContours,
@@ -2890,8 +2899,12 @@ async function capture(browser, recipe) {
 
 		if (recipe.collapseLegend) {
 			// The feature-colour legend sits on the lower-right canvas, over the drawn shape.
-			await page.getByRole('button', { name: 'Collapse feature color legend' }).first().click()
-			await page.waitForTimeout(400)
+			// Since 0.6.0 the legend starts collapsed (purecutcnc#1105); only older builds need the click.
+			const collapse = page.getByRole('button', { name: 'Collapse feature color legend' }).first()
+			if (await collapse.isVisible().catch(() => false)) {
+				await collapse.click()
+				await page.waitForTimeout(400)
+			}
 		}
 
 		if (recipe.steps) await recipe.steps(page)

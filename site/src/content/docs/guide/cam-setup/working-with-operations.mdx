@@ -74,7 +74,7 @@ without expansion; see [Machining text](/guide/design/text/#machining-text).
 ## List
 
 
-<Screenshot src={operationList} maxWidth={400} alt="The Operations tab listing six operations, each with an enable dot and buttons to show its toolpath, duplicate it and delete it, with the selected operation’s identity fields in the properties below" caption="Selecting an operation opens its parameters in the properties below the list." />
+<Screenshot src={operationList} maxWidth={400} alt="The Operations tab with Add, Plan, Export, and Setup properties buttons, a show-all eye and the generation gear, listing six operations, each with an enable dot and buttons to show its toolpath, duplicate it and delete it, with the selected operation’s Name, + Add note, Kind, and Pass below" caption="Selecting an operation opens its parameters in the properties below the list." />
 Within each setup, the **Operations** list is the machining order. Drag a row to reorder it, use its controls to enable or disable it, and show or hide its toolpath. The show/hide-all eye changes every operation at once. Duplicate an operation when you need a related variation, or delete one that is no longer part of the plan. The expanded view also provides per-operation G-code and setup-booklet exports.
 
 <Aside type="caution" title="Order changes affect the job">
@@ -85,7 +85,7 @@ An operation list is not just an organization tool: it controls the order in whi
 
 <Availability kind="preview" />
 
-<Screenshot src={generationMenu} maxWidth={348} alt="The toolpath generation menu reading Toolpaths up to date above a Stop button, and a Compute section offering Main thread, currently selected, or Background thread (experimental)" caption="The generation menu reports calculation status. In the Preview Build, its Display section also controls the Sketch toolpath renderer." />
+<Screenshot src={generationMenu} maxWidth={341} alt="The toolpath generation menu reading Toolpaths up to date above a Stop button, and a Display section setting the 2D renderer to GPU or Canvas" caption="The generation menu reports calculation status. In the Preview Build, its Display section also controls the Sketch toolpath renderer." />
 
 Toolpaths generate when an enabled operation is visible. The generation gear menu shows
 **Toolpaths up to date**, **Generating (…)**, **Generation paused**, or **Generation failed**.
