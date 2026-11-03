@@ -3,13 +3,10 @@ title: Stock, origin, and units
 description: Set the stock size or shape, place the work zero that exported G-code uses, and change project units safely.
 pageType: task
 availability: stable
-status: reviewed
-reviewed:
-  appCommit: 2dc197eebe9c11272ad0bc24194d4a7c6de19055
-  date: 2026-09-19
-  by: frankp
+status: draft
 ---
 
+import Availability from '../../../../components/Availability.astro';
 import Screenshot from '../../../../components/Screenshot.astro';
 import stockProperties from '../../../../assets/manual/fundamentals/stock-origin-units/stock-properties.png';
 import originPlacement from '../../../../assets/manual/fundamentals/stock-origin-units/origin-placement.png';
@@ -21,7 +18,7 @@ the machine, and the units decide how every number in the project is read. Set a
 you add operations, and check them again before you export.
 
 In project coordinates, the bottom of the stock is at Z 0 and its top is at the stock thickness.
-**Z top** and **Z bottom** of every feature use these coordinates.
+On Top, feature **Z top** and **Z bottom** use these coordinates.
 
 ## Stock
 
@@ -126,6 +123,16 @@ Tools keep their own units: a 1/4″ endmill stays a 1/4″ endmill in a metric 
 	value by a factor of 25.4. Use it only to fix a project that was set up in the wrong units, and
 	check the stock, the origin, and the toolpaths afterwards.
 </Aside>
+
+## Stock shape and project type
+
+<Availability kind="preview" />
+
+The **Shape** field follows the project type: milling and plasma use **Block**, while rotary
+offers **Round bar** or **Square blank**. Choose the type when you create the project; it is
+read-only afterwards. The block and outline-stock instructions above describe flat work.
+For two-sided work, one origin placement is shared by the setups; touch off again after turning
+the stock. Bottom feature Z fields are read with Bottom face up. See [Setups and faces](/guide/fundamentals/setups-and-faces/).
 
 ## Related pages
 

@@ -3,13 +3,10 @@ title: Toolpath preview
 description: Read the toolpath overlays, feed colours, Z levels, and renderer controls before you simulate or export.
 pageType: reference
 availability: stable
-status: reviewed
-reviewed:
-  appCommit: 7ad27b1e384074a35797a4747a85218067a565df
-  date: 2026-09-27
-  by: frankp
+status: draft
 ---
 
+import Availability from '../../../../components/Availability.astro';
 import Screenshot from '../../../../components/Screenshot.astro';
 import toolpathLegend from '../../../../assets/manual/verify-export/toolpath-preview/toolpath-legend.png';
 import levelRail from '../../../../assets/manual/verify-export/toolpath-preview/level-renderer-warning.png';
@@ -43,6 +40,15 @@ The **2D renderer** control switches between **Canvas** and **GPU** rendering. I
 ## Warnings
 
 Read warnings in the operation properties and in the export dialog before relying on a preview. A warning identifies something to inspect; it does not necessarily prevent export. Errors are shown separately and can disable export until the underlying problem is corrected. See [Warnings and messages](/guide/reference/warnings/) when that reference page is available.
+
+## Previewing both setups
+
+<Availability kind="preview" />
+
+Visible Top and Bottom toolpaths are shown together in the stock. Paths from the other setup
+are faint beneath those of the active setup; a selected operation is drawn at full strength.
+Switch face to inspect the other side's work. The display does not combine the programs into
+one machining run. See [Setups and faces](/guide/fundamentals/setups-and-faces/).
 
 ## Related pages
 

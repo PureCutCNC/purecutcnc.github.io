@@ -3,13 +3,10 @@ title: The workspace
 description: The parts of the PureCutCNC window, the Sketch, 3D view, and Simulation tabs, and how to navigate them.
 pageType: concept
 availability: stable
-status: reviewed
-reviewed:
-  appCommit: 2dc197eebe9c11272ad0bc24194d4a7c6de19055
-  date: 2026-09-20
-  by: frankp
+status: draft
 ---
 
+import Availability from '../../../../components/Availability.astro';
 import Screenshot from '../../../../components/Screenshot.astro';
 import AppIcon from '../../../../components/AppIcon.astro';
 import workspaceLayout from '../../../../assets/manual/fundamentals/workspace/workspace-layout.png';
@@ -212,6 +209,15 @@ In the 3D view and the simulation:
 | Standard views | The <AppIcon name="view-iso" /> **Camera view** menu: <AppIcon name="view-top" /> **Top view**, <AppIcon name="view-bottom" /> **Bottom view**, <AppIcon name="view-front" /> **Front view**, <AppIcon name="view-back" /> **Back view**, <AppIcon name="view-right" /> **Right view**, <AppIcon name="view-left" /> **Left view**, <AppIcon name="view-iso" /> **Isometric view**, **Fit to model**, and **Reset view**. |
 
 Touch gestures are on [Tablet and touch](/guide/fundamentals/tablet-and-touch/).
+
+## Face control
+
+<Availability kind="preview" />
+
+The current-face control sits beside the view tabs. Open it to choose **Top** or **Bottom**,
+or use its eye-marked **Show other side** entry to show the opposite face as a ghost when
+available. On Bottom, the control can read **Bottom · flipped X**; there is no separate desktop
+face banner or flip chip. See [Setups and faces](/guide/fundamentals/setups-and-faces/) for the flip axis and which features you can edit.
 
 ## Related pages
 
