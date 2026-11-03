@@ -3,13 +3,11 @@ title: Construction geometry
 description: Draw reference lines and shapes to position a design, knowing they are never machined or added to the model.
 pageType: concept
 availability: stable
-status: reviewed
-reviewed:
-  appCommit: 2dc197eebe9c11272ad0bc24194d4a7c6de19055
-  date: 2026-09-19
-  by: frankp
+status: draft
 ---
 
+import VisualPending from '../../../../components/VisualPending.astro';
+import Availability from '../../../../components/Availability.astro';
 import Screenshot from '../../../../components/Screenshot.astro';
 import constructionGeometry from '../../../../assets/manual/fundamentals/construction-geometry/construction-geometry.png';
 
@@ -53,6 +51,18 @@ Construction geometry:
 To tidy the view once the design is done, hide construction geometry with **Hide all construction
 geometry** on its tree row, or with the **Construction** toggle in the status bar. Hiding it
 changes nothing in the model or the toolpaths.
+
+## References from the other face
+
+<Availability kind="preview" />
+
+Visible construction geometry on Top can guide your work on Bottom, and the reverse also
+works. Turn on **Show other side** for canvas snaps, path guides, and trim or extend reference
+picks. A named construction row in the tree can supply an armed path-guide picker even with
+the overlay off. The reference stays on its own face; it does not become an editable selection
+or a machining target. See [Setups and faces](/guide/fundamentals/setups-and-faces/) for the limits.
+
+<VisualPending id="m2-construction-reference" />
 
 ## Related pages
 

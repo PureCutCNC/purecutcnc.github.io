@@ -41,6 +41,7 @@ export const PAGES = [
 	page('/guide/fundamentals/feature-tree/', 'fundamentals', 'Feature tree and properties', 'reference', 'W1'),
 	page('/guide/fundamentals/linked-features/', 'fundamentals', 'Linked features', 'concept', 'W1'),
 	page('/guide/fundamentals/stock-origin-units/', 'fundamentals', 'Stock, origin, and units', 'task', 'W1'),
+	page('/guide/fundamentals/setups-and-faces/', 'fundamentals', 'Setups and faces', 'concept', 'W1'),
 	page('/guide/fundamentals/regions/', 'fundamentals', 'Regions', 'concept', 'W1'),
 	page('/guide/fundamentals/construction-geometry/', 'fundamentals', 'Construction geometry', 'concept', 'W1'),
 	page('/guide/fundamentals/tablet-and-touch/', 'fundamentals', 'Tablet and touch', 'reference', 'W1'),

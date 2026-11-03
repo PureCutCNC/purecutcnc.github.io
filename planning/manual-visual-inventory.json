@@ -26,19 +26,23 @@
 		},
 		{
 			"page": "/guide/fundamentals/workspace/",
-			"decision": "visuals"
+			"decision": "visuals",
+			"rationale": "M2 adds preview setup/face guidance. Existing captures remain for M6 re-shoot; new proposed visuals show changed controls where needed, with shared concepts illustrated on Setups and faces."
 		},
 		{
 			"page": "/guide/fundamentals/projects-and-files/",
-			"decision": "visuals"
+			"decision": "visuals",
+			"rationale": "M2 adds preview setup/face guidance. Existing captures remain for M6 re-shoot; new proposed visuals show changed controls where needed, with shared concepts illustrated on Setups and faces."
 		},
 		{
 			"page": "/guide/fundamentals/features-and-roles/",
-			"decision": "visuals"
+			"decision": "visuals",
+			"rationale": "M2 adds preview setup/face guidance. Existing captures remain for M6 re-shoot; new proposed visuals show changed controls where needed, with shared concepts illustrated on Setups and faces."
 		},
 		{
 			"page": "/guide/fundamentals/feature-tree/",
-			"decision": "visuals"
+			"decision": "visuals",
+			"rationale": "M2 adds preview setup/face guidance. Existing captures remain for M6 re-shoot; new proposed visuals show changed controls where needed, with shared concepts illustrated on Setups and faces."
 		},
 		{
 			"page": "/guide/fundamentals/linked-features/",
@@ -46,6 +50,11 @@
 		},
 		{
 			"page": "/guide/fundamentals/stock-origin-units/",
+			"decision": "visuals",
+			"rationale": "M2 adds preview setup/face guidance. Existing captures remain for M6 re-shoot; new proposed visuals show changed controls where needed, with shared concepts illustrated on Setups and faces."
+		},
+		{
+			"page": "/guide/fundamentals/setups-and-faces/",
 			"decision": "visuals"
 		},
 		{
@@ -54,11 +63,13 @@
 		},
 		{
 			"page": "/guide/fundamentals/construction-geometry/",
-			"decision": "visuals"
+			"decision": "visuals",
+			"rationale": "M2 adds preview setup/face guidance. Existing captures remain for M6 re-shoot; new proposed visuals show changed controls where needed, with shared concepts illustrated on Setups and faces."
 		},
 		{
 			"page": "/guide/fundamentals/tablet-and-touch/",
-			"decision": "visuals"
+			"decision": "visuals",
+			"rationale": "M2 adds preview setup/face guidance. Existing captures remain for M6 re-shoot; new proposed visuals show changed controls where needed, with shared concepts illustrated on Setups and faces."
 		},
 		{
 			"page": "/guide/design/drawing-tools/",
@@ -87,15 +98,18 @@
 		},
 		{
 			"page": "/guide/design/sketch-editing/",
-			"decision": "visuals"
+			"decision": "visuals",
+			"rationale": "M2 adds preview setup/face guidance. Existing captures remain for M6 re-shoot; new proposed visuals show changed controls where needed, with shared concepts illustrated on Setups and faces."
 		},
 		{
 			"page": "/guide/design/snapping-and-grid/",
-			"decision": "visuals"
+			"decision": "visuals",
+			"rationale": "M2 adds preview setup/face guidance. Existing captures remain for M6 re-shoot; new proposed visuals show changed controls where needed, with shared concepts illustrated on Setups and faces."
 		},
 		{
 			"page": "/guide/design/dimensions-and-constraints/",
-			"decision": "visuals"
+			"decision": "visuals",
+			"rationale": "M2 adds preview setup/face guidance. Existing captures remain for M6 re-shoot; new proposed visuals show changed controls where needed, with shared concepts illustrated on Setups and faces."
 		},
 		{
 			"page": "/guide/design/importing-2d/",
@@ -115,12 +129,13 @@
 		},
 		{
 			"page": "/guide/cam-setup/working-with-operations/",
-			"decision": "visuals"
+			"decision": "visuals",
+			"rationale": "M2 adds preview setup/face guidance. Existing captures remain for M6 re-shoot; new proposed visuals show changed controls where needed, with shared concepts illustrated on Setups and faces."
 		},
 		{
 			"page": "/guide/cam-setup/cam-plan/",
 			"decision": "visuals",
-			"rationale": "Keep the outside-route recommendation capture; it does not show drilling. Explain the helical bore limit and blind/through alternatives in prose without changing the capture's provenance."
+			"rationale": "Keep the outside-route recommendation capture; it does not show drilling. Explain the helical bore limit and blind/through alternatives in prose without changing the capture's provenance. M2 adds preview setup/face guidance. Existing captures remain for M6 re-shoot; new proposed visuals show changed controls where needed, with shared concepts illustrated on Setups and faces."
 		},
 		{
 			"page": "/guide/cam-setup/machines/",
@@ -223,19 +238,23 @@
 		},
 		{
 			"page": "/guide/verify-export/toolpath-preview/",
-			"decision": "visuals"
+			"decision": "visuals",
+			"rationale": "M2 adds preview setup/face guidance. Existing captures remain for M6 re-shoot; new proposed visuals show changed controls where needed, with shared concepts illustrated on Setups and faces."
 		},
 		{
 			"page": "/guide/verify-export/3d-view/",
-			"decision": "visuals"
+			"decision": "visuals",
+			"rationale": "M2 adds preview setup/face guidance. Existing captures remain for M6 re-shoot; new proposed visuals show changed controls where needed, with shared concepts illustrated on Setups and faces."
 		},
 		{
 			"page": "/guide/verify-export/simulation/",
-			"decision": "visuals"
+			"decision": "visuals",
+			"rationale": "M2 adds preview setup/face guidance. Existing captures remain for M6 re-shoot; new proposed visuals show changed controls where needed, with shared concepts illustrated on Setups and faces."
 		},
 		{
 			"page": "/guide/verify-export/gcode-export/",
-			"decision": "visuals"
+			"decision": "visuals",
+			"rationale": "M2 adds preview setup/face guidance. Existing captures remain for M6 re-shoot; new proposed visuals show changed controls where needed, with shared concepts illustrated on Setups and faces."
 		},
 		{
 			"page": "/guide/verify-export/exported-motion/",
@@ -243,7 +262,8 @@
 		},
 		{
 			"page": "/guide/verify-export/setup-booklets/",
-			"decision": "visuals"
+			"decision": "visuals",
+			"rationale": "M2 adds preview setup/face guidance. Existing captures remain for M6 re-shoot; new proposed visuals show changed controls where needed, with shared concepts illustrated on Setups and faces."
 		},
 		{
 			"page": "/guide/verify-export/model-export-and-print/",
@@ -2055,6 +2075,126 @@
 			"asset": "reference/troubleshooting/webgl-unavailable.png",
 			"alt": "WebGL unavailable message while the Sketch workspace remains usable",
 			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "m2-face-menu",
+			"page": "/guide/fundamentals/setups-and-faces/",
+			"afterHeading": "Choose a face",
+			"kind": "screenshot",
+			"purpose": "Show where face switching and the ghost overlay live.",
+			"brief": "Open the compact current-face menu on Bottom in a two-sided milling project. Include Top, Bottom, Show other side with its eye, and the Bottom · flipped X trigger.",
+			"asset": "fundamentals/setups-and-faces/face-menu.png",
+			"alt": "Open the compact current-face menu on Bottom in a two-sided milling project. Include Top, Bottom, Show other side with its eye, and the Bottom · flipped X trigger.",
+			"status": "proposed",
+			"blockedBy": []
+		},
+		{
+			"id": "m2-bottom-ghosts",
+			"page": "/guide/fundamentals/setups-and-faces/",
+			"afterHeading": "Features and the tree",
+			"kind": "screenshot",
+			"purpose": "Distinguish editable Bottom geometry from Top reference ghosts.",
+			"brief": "Bottom Sketch view of an asymmetric two-sided block with a Bottom blind pocket and dashed Top blind features. Show other side is on. Include a THRU hole as the selectable exception.",
+			"asset": "fundamentals/setups-and-faces/bottom-ghosts.png",
+			"alt": "Bottom Sketch view of an asymmetric two-sided block with a Bottom blind pocket and dashed Top blind features. Show other side is on. Include a THRU hole as the selectable exception.",
+			"status": "proposed",
+			"blockedBy": []
+		},
+		{
+			"id": "m2-setup-properties",
+			"page": "/guide/fundamentals/setups-and-faces/",
+			"afterHeading": "Setup properties and registration",
+			"kind": "screenshot",
+			"purpose": "Connect the flip axis and locating plan to the physical remount.",
+			"brief": "Bottom setup properties with Face up chip, Flip about and its sketch, shared touch-off note, one Registration reference, Operator notes and Delete setup… at bottom left.",
+			"asset": "fundamentals/setups-and-faces/setup-properties.png",
+			"alt": "Bottom setup properties with Face up chip, Flip about and its sketch, shared touch-off note, one Registration reference, Operator notes and Delete setup… at bottom left.",
+			"status": "proposed",
+			"blockedBy": []
+		},
+		{
+			"id": "m2-tree-faces",
+			"page": "/guide/fundamentals/feature-tree/",
+			"afterHeading": "Face sections",
+			"kind": "screenshot",
+			"purpose": "Show the clickable face headings without the retired ACTIVE/GHOST badges.",
+			"brief": "Project tree in a Top/Bottom job with Top face and Bottom face headings, active-face features and a THRU hole. Show the clickable headings without ACTIVE/GHOST badges.",
+			"asset": "fundamentals/feature-tree/face-sections.png",
+			"alt": "Project tree with Top face and Bottom face headings and a THRU hole",
+			"status": "proposed",
+			"blockedBy": []
+		},
+		{
+			"id": "m2-cam-setups",
+			"page": "/guide/cam-setup/working-with-operations/",
+			"afterHeading": "Operations by setup",
+			"kind": "screenshot",
+			"purpose": "Explain setup counts, program numbers and the toolbar in one panel.",
+			"brief": "CAM panel with Top and Bottom setup cards, Bottom 1 P02, a missing-registration warning, per-card gear and the Add to Bottom / Plan / Export toolbar row.",
+			"asset": "cam-setup/working-with-operations/setup-cards.png",
+			"alt": "CAM panel with Top and Bottom setup cards, Bottom 1 P02, a missing-registration warning, per-card gear and the Add to Bottom / Plan / Export toolbar row.",
+			"status": "proposed",
+			"blockedBy": []
+		},
+		{
+			"id": "m2-simulation-face",
+			"page": "/guide/verify-export/simulation/",
+			"afterHeading": "Simulating a setup",
+			"kind": "screenshot",
+			"purpose": "Show the current simulation setup and the fresh-stock limitation.",
+			"brief": "Bottom face active in the header, Simulation showing a Bottom cut on flipped stock, and the fresh-stock information button opened. There is no separate Setup picker in app c371097f.",
+			"asset": "verify-export/simulation/setup-simulation.png",
+			"alt": "Bottom face active in the header, Simulation showing a Bottom cut on flipped stock, and the fresh-stock information button opened. There is no separate Setup picker in app c371097f.",
+			"status": "proposed",
+			"blockedBy": []
+		},
+		{
+			"id": "m2-project-type",
+			"page": "/guide/fundamentals/projects-and-files/",
+			"afterHeading": "Project type",
+			"kind": "screenshot",
+			"purpose": "Help readers choose the type before checking template stock.",
+			"brief": "New project dialog showing Project type tiles Milling / routing, Plasma and Rotary, with a blank template selected and Template as a 2×2 grid. Keep the stock preview visible.",
+			"asset": "fundamentals/projects-and-files/project-type-tiles.png",
+			"alt": "New project dialog showing Project type tiles Milling / routing, Plasma and Rotary, with a blank template selected and Template as a 2×2 grid. Keep the stock preview visible.",
+			"status": "proposed",
+			"blockedBy": []
+		},
+		{
+			"id": "m2-construction-reference",
+			"page": "/guide/fundamentals/construction-geometry/",
+			"afterHeading": "References from the other face",
+			"kind": "screenshot",
+			"purpose": "Make a reference pick distinct from selecting the other-face feature.",
+			"brief": "Bottom drawing with Show other side on, a visible Top construction guide dashed, and an active workflow snapping to its point. Keep the tree visible so the guide authoring face is clear.",
+			"asset": "fundamentals/construction-geometry/cross-face-reference.png",
+			"alt": "Bottom drawing with Show other side on, a visible Top construction guide dashed, and an active workflow snapping to its point. Keep the tree visible so the guide authoring face is clear.",
+			"status": "proposed",
+			"blockedBy": []
+		},
+		{
+			"id": "m2-bottom-preview",
+			"page": "/guide/verify-export/3d-view/",
+			"afterHeading": "Looking at Bottom",
+			"kind": "screenshot",
+			"purpose": "Show why Bottom paths approach from underneath the part.",
+			"brief": "Bottom active with Isometric view from below. Include a visible Bottom path and a faint Top path at their correct positions on one stock.",
+			"asset": "verify-export/3d-view/bottom-isometric.png",
+			"alt": "Bottom active with Isometric view from below. Include a visible Bottom path and a faint Top path at their correct positions on one stock.",
+			"status": "proposed",
+			"blockedBy": []
+		},
+		{
+			"id": "m2-setup-booklet",
+			"page": "/guide/verify-export/setup-booklets/",
+			"afterHeading": "Setup and program identity",
+			"kind": "screenshot",
+			"purpose": "Show how paperwork identifies the program and locating plan.",
+			"brief": "A Bottom operation booklet showing its setup name, program number, orientation and registration. Use the same two-sided fixture as the setup-properties visual.",
+			"asset": "verify-export/setup-booklets/setup-program-registration.png",
+			"alt": "A Bottom operation booklet showing its setup name, program number, orientation and registration. Use the same two-sided fixture as the setup-properties visual.",
+			"status": "proposed",
 			"blockedBy": []
 		}
 	]
