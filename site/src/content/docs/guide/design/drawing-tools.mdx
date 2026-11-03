@@ -3,13 +3,10 @@ title: Drawing tools
 description: Draw rectangles, circles, ellipses, polygons, splines, and composite paths on the sketch canvas, with typed dimensions.
 pageType: task
 availability: stable
-status: reviewed
-reviewed:
-  appCommit: 7ad27b1e384074a35797a4747a85218067a565df
-  date: 2026-09-27
-  by: frankp
+status: draft
 ---
 
+import Availability from '../../../../components/Availability.astro';
 import { Aside, Steps } from '@astrojs/starlight/components';
 import Screenshot from '../../../../components/Screenshot.astro';
 import AppIcon from '../../../../components/AppIcon.astro';
@@ -144,6 +141,8 @@ follow the exact curve. The drill operation accepts only circle features.
 
 ## Ellipse
 
+<Availability kind="preview" />
+
 <Steps>
 
 1. Choose the <AppIcon name="ellipse" /> ellipse in the shape drawer.
@@ -155,7 +154,11 @@ follow the exact curve. The drill operation accepts only circle features.
 
 </Steps>
 
-Ellipses are stored as true curves, and toolpaths follow the curve.
+An ellipse is a canned shape with saved radii. Select it and choose **Edit ellipse…** to
+reopen its parameter panel. **Make unique** separates a linked copy while keeping its
+parameters. Use **Expand to features** before editing individual points; expansion adds independent
+ordinary profiles and keeps the original canned feature. Slots, regular polygons, rounded and chamfered rectangles, and
+gears work the same way; see [Editing a canned shape](/guide/design/parametric-shapes/#editing-a-canned-shape).
 
 <Screenshot src={ellipseTool} alt="A pending ellipse drawn from its centre with its radius readout repeated in each quadrant, and the Ellipse workflow panel asking for the radii or dimensions" />
 

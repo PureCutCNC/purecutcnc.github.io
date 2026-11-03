@@ -21,6 +21,15 @@ per-project in the `.camj` file. Each operation references a tool from this libr
 You need at least one tool defined before you can assign it to an operation. The quickest way to
 get started is to import a tool from the bundled library.
 
+## Automatic tool choice
+
+<Availability kind="preview" />
+
+Automatic tool selection for a new operation and CAM Plan considers only tools in the
+project's unit system, including tools imported from the bundled library. It never converts
+a tool in the other units to make an automatic choice. Existing operations keep their assigned tools;
+you can still assign a tool in either unit system by hand.
+
 ## Managing
 
 
