@@ -6,7 +6,7 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
+import projectTypeTiles from '../../../../assets/manual/fundamentals/projects-and-files/project-type-tiles.png';
 import Availability from '../../../../components/Availability.astro';
 import Screenshot from '../../../../components/Screenshot.astro';
 import AppIcon from '../../../../components/AppIcon.astro';
@@ -21,7 +21,7 @@ the operations, the selected machine, and the tabs and clamps. It is saved as a 
 
 <Screenshot maxWidth={728}
 	src={newProjectDialog}
-	alt="New project dialog with Blank imperial selected, showing editable stock Width 4, Height 3, and Thickness 0.75 in the Template preview, the other template choices, and the Or open an example row"
+	alt="New project dialog with the Project type tiles Milling / routing (selected), Plasma, and Rotary, Blank imperial selected in the 2×2 Template grid, editable stock Width 4, Height 3, and Thickness 0.75 in the Template preview, and the Or open an example row"
 	caption="The New project dialog with Blank imperial selected. A blank template's stock size can be edited in the preview."
 />
 <Steps>
@@ -118,7 +118,7 @@ Around and rotary operations are available. A mismatched machine prevents machin
 Plasma operations need a **Plasma** project. A **Rotary** project uses bar stock and offers
 **Around** for rotary work. See [Setups and faces](/guide/fundamentals/setups-and-faces/) for Top and Bottom work.
 
-<VisualPending id="m2-project-type" />
+<Screenshot src={projectTypeTiles} maxWidth={736} alt="New project dialog with Project type tiles Milling / routing (selected), Plasma, and Rotary above Project name, Blank imperial selected in the 2×2 Template grid, and the Template preview with stock Width 4, Height 3, and Thickness 0.75" caption="The Project type tiles come first; the stock fields below follow the type you choose." />
 
 ## Rotary projects
 

@@ -6,8 +6,11 @@ availability: experimental
 status: draft
 ---
 
+import Screenshot from '../../../../components/Screenshot.astro';
+import kerfPierces from '../../../../assets/manual/operations/plasma-through-cut/kerf-pierces.png';
+import pickStart from '../../../../assets/manual/operations/plasma-through-cut/pick-start.png';
+import operationProperties from '../../../../assets/manual/operations/plasma-through-cut/operation-properties.png';
 import { Aside } from '@astrojs/starlight/components';
-import VisualPending from '../../../../components/VisualPending.astro';
 
 **Plasma through-cut** cuts closed contours through the sheet in one pass at the torch's
 nominal cut height. Use it for part outlines and holes, with the kerf on the scrap side.
@@ -58,7 +61,7 @@ The path centre is offset by half the kerf width toward scrap, leaving the part-
 the kerf on your drawn contour. With standard consumables, outside contours run clockwise
 and holes counter-clockwise, viewed from above the sheet.
 
-<VisualPending id="m4-plasma-properties" />
+<Screenshot src={operationProperties} maxWidth={401} alt="Plasma through-cut properties: the experimental note, Kerf side Automatic, Reverse direction (opposite swirl consumables), Lead-in Arc 3 mm, Lead-out Line Automatic, Contour start, Cuts chips Rect 1, Circle 2 and Circle 3, the Powermax45 tool and Feed 5560" caption="A plasma through-cut picks its kerf side and lead styles automatically; lengths left empty use the defaults." />
 
 ## Pick a contour start
 
@@ -73,7 +76,7 @@ a named contour to clear just its override, or **Reset all starts** to clear eve
 Automatic starts prefer long straight segments. If a picked entry is unsafe, that contour is
 skipped with a warning; it is not silently moved to another start.
 
-<VisualPending id="m4-plasma-start" />
+<Screenshot src={pickStart} maxWidth={1179} alt="Pick start point active on a plate with two holes: a picked entry on the top edge with its separate pierce marker, the compact picker panel, and Use automatic start and Reset all starts in the properties" caption="A picked start moves the contour entry; the pierce marker sits apart from it." />
 
 ## Cut order
 
@@ -123,7 +126,7 @@ colour. Small rings mark the pierce locations and keep a fixed size on screen. *
 the contour band, **Lead-ins** toggles the lead band, and **Plunges** toggles the pierce markers.
 Check which side retains material, every lead, skipped contour, and travel between parts.
 
-<VisualPending id="m4-plasma-kerf" />
+<Screenshot src={kerfPierces} maxWidth={775} alt="Sketch view of a plasma plate with two holes: kerf bands along each outline, arc leads, pierce rings, rapids between parts, and the Cuts, Lead-ins, Rapids and Plunges switches" caption="The preview shows the kerf band, each lead and every pierce." />
 
 In **Sim**, the torch removes a full-depth slot one kerf wide, including leads and pierce holes.
 **Play tool** shows a plain cylinder following the cut. Inspect holes before the outside cut

@@ -7,7 +7,10 @@ status: draft
 ---
 
 import { Aside } from '@astrojs/starlight/components';
-import VisualPending from '../../../../components/VisualPending.astro';
+import Screenshot from '../../../../components/Screenshot.astro';
+import stockChuck from '../../../../assets/manual/rotary/overview/stock-chuck.png';
+import aroundSheet from '../../../../assets/manual/rotary/overview/around-sheet.png';
+import newProjectRotary from '../../../../assets/manual/rotary/overview/new-project-rotary.png';
 
 Rotary work turns a bar under a milling cutter. You can draw on its unrolled surface or machine
 a model inside it. This is wrapped 4th-axis milling, not lathe turning: the cutter is in the
@@ -20,7 +23,7 @@ afterwards. See [Project type](/guide/fundamentals/projects-and-files/#project-t
 A rotary project can use **Top**, **Bottom**, and **Around** on the same bar. It does not provide
 a general simultaneous 5-axis workflow.
 
-<VisualPending id="m3-new-project" />
+<Screenshot src={newProjectRotary} maxWidth={736} alt="New project dialog with Rotary selected and Blank metric chosen, the Template preview showing Shape Round bar, Diameter 30, Length 120, and Axis X" caption="Choosing Rotary turns the stock fields into bar fields: shape, diameter or side, length, and axis." />
 
 ## Bar stock
 
@@ -57,7 +60,7 @@ with the circle through the corners. An unknown capacity reads **Capacity unknow
 or pick a size.** A bar outside the chuck's range shows **Bar is outside the chuck’s clamping
 range.** If the bar fits none of the listed ranges, do not treat the default body as a valid grip.
 
-<VisualPending id="m3-stock-chuck" />
+<Screenshot src={stockChuck} maxWidth={638} alt="Stock properties for a round bar (Shape Round bar, Diameter 30, Length 120, Axis X) beside Chuck properties (Chuck size 4&quot;, Minimum grip diameter 3, Maximum grip diameter 93, Jaws 3) with the square-blank note" caption="Bar stock and chuck properties side by side." />
 
 <Aside type="danger" title="Safety: keep the bar held and supported">
 A loose bar or a cutter striking the chuck or tailstock can damage the machine and throw material.
@@ -90,7 +93,7 @@ past one turn. Canned features and toolpaths are displayed folded into the sheet
 does not split the cut into separate features. Named model bands show where models sit along
 the bar. See [Rotary features](/guide/rotary/rotary-features/#drawing-on-around).
 
-<VisualPending id="m3-around-sheet" />
+<Screenshot src={aroundSheet} maxWidth={864} alt="Around sheet of a 30 mm round bar: the chuck zone on the left, the origin on the A0 line, -180° and +180° seam labels, the Turn model band and a helical Thread drawn across it" caption="The Around sheet unrolls the bar: length runs left to right and A runs from -180° to +180°." />
 
 ## Top and Bottom on a bar
 

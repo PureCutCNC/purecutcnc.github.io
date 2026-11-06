@@ -105,7 +105,7 @@ const clipCamList = (lastRow) => (page) =>
 const clipCanvasAndCam = (page) =>
 	page.evaluate(() => {
 		const canvas = (
-			document.querySelector('.sketch-viewport__canvas') ?? document.querySelector('canvas')
+			document.querySelector('.sketch-canvas') ?? document.querySelector('canvas')
 		).getBoundingClientRect()
 		const cam = document.querySelector('.panel-right')?.getBoundingClientRect()
 		const right = cam ? Math.min(cam.right, window.innerWidth) : window.innerWidth
@@ -157,6 +157,22 @@ const clipCamPanel = (page) =>
 			height: Math.round(Math.min(r.bottom, window.innerHeight) - r.y),
 		}
 	})
+
+/** The right panel's Properties section, from its header down to the field row
+    whose label is `last`, so a tall viewport does not leave empty panel below. */
+const clipPropertiesTo = (last) => (page) =>
+	page.locator('.panel-right').evaluate((panel, want) => {
+		const leaf = (text) => [...panel.querySelectorAll('*')].find(
+			(e) => e.children.length === 0 && e.textContent.trim().toLowerCase() === text.toLowerCase() && e.getClientRects().length,
+		)
+		const head = leaf('Properties')
+		const label = leaf(want)
+		if (!head || !label) throw new Error(`no Properties header or "${want}" label`)
+		const p = panel.getBoundingClientRect()
+		const top = head.getBoundingClientRect().top - 16
+		const bottom = label.parentElement.getBoundingClientRect().bottom + 14
+		return { x: Math.round(p.x), y: Math.round(top), width: Math.round(Math.min(p.width, window.innerWidth - p.x)), height: Math.round(bottom - top) }
+	}, last)
 
 /** A file the app itself serves, so the fixture is the app's own copy at this commit. */
 async function appFile(name, url) {
@@ -427,20 +443,14 @@ async function onlyToolpath(page, opName) {
     took. Fields are matched by class: the labels in this panel are not tied to their
     inputs, so matching on label text silently writes to the wrong box. */
 async function setNumberField(page, selector, value) {
-	await page.evaluate(
-		([sel, v]) => {
-			const input = document.querySelector(sel)
-			if (!input) throw new Error(`no field at ${sel}`)
-			const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set
-			setter.call(input, v)
-			input.dispatchEvent(new Event('input', { bubbles: true }))
-			input.dispatchEvent(new Event('change', { bubbles: true }))
-			input.blur()
-		},
-		[selector, value],
-	)
+	// Type into the field and press Enter: these fields commit on Enter or blur,
+	// so setting the value from script without focus is silently dropped.
+	const input = page.locator(selector).first()
+	if (!(await input.count())) throw new Error(`no field at ${selector}`)
+	await input.fill(value)
+	await input.press('Enter')
 	await page.waitForTimeout(800)
-	const got = await page.evaluate((sel) => document.querySelector(sel)?.value, selector)
+	const got = await input.inputValue()
 	if (got !== value) throw new Error(`${selector} is ${got}, expected ${value}`)
 }
 
@@ -463,7 +473,7 @@ async function importFile(page, source) {
 /** The sketch canvas, where every Design capture happens. Its content is drawn, not DOM. */
 const canvasRect = (page) =>
 	page.evaluate(() => {
-		const c = document.querySelector('.sketch-viewport__canvas') ?? document.querySelector('canvas')
+		const c = document.querySelector('.sketch-canvas') ?? document.querySelector('canvas')
 		const r = c.getBoundingClientRect()
 		return { x: Math.round(r.x), y: Math.round(r.y), w: Math.round(r.width), h: Math.round(r.height) }
 	})
@@ -607,15 +617,27 @@ async function editRectangle(page) {
 	await page.waitForTimeout(600)
 	await clickTo(page, 0.46, 0.49)
 	await page.waitForTimeout(800)
-	await page.getByRole('button', { name: 'Edit sketch' }).first().click()
+	await openSketchEdit(page)
+}
+
+/** Edit sketch on the selected feature. Since 0.6.0 a drawn feature's Edit sketch is in
+    its context menu (and Properties), not on the tree row (purecutcnc#1112). */
+async function openSketchEdit(page) {
+	await page.locator('.tree-row--selected').first().click({ button: 'right' })
+	await page.waitForTimeout(500)
+	await page.getByText('Edit sketch', { exact: true }).first().click()
 	await page.waitForTimeout(1300)
 }
 
 /** Choose a shape from the tool rail's shape drawer. */
 async function pickShape(page, name) {
-	await page.getByRole('button', { name: 'Choose feature shape' }).click()
-	await page.waitForTimeout(450)
-	await page.getByRole('button', { name, exact: true }).click()
+	// A rotary Create leaves the drawer open and its opener hidden.
+	if (!(await page.locator('.toolbar-creation-picker__drawer').isVisible().catch(() => false))) {
+		await page.getByRole('button', { name: 'Choose feature shape' }).click()
+		await page.waitForTimeout(450)
+	}
+	// Scoped to the drawer: the rail repeats the armed shape (e.g. rectangle) as its own button.
+	await page.locator('.toolbar-creation-picker__drawer').getByRole('button', { name, exact: true }).click()
 	await page.waitForTimeout(500)
 }
 
@@ -766,7 +788,662 @@ async function openShellMenu(page, trigger, item) {
 	}
 }
 
+// --- 0.6.0 UI-authored projects ---------------------------------------------
+// No store injection: these helpers follow the same New project and drawing
+// controls as the manual. Each recipe gets a fresh browser context.
+async function blankProjectDialog(page, type = 'Milling / routing', template = 'Blank imperial') {
+	await page.getByRole('button', { name: 'New project', exact: true }).click()
+	const dialog = page.locator('.dialog--new-project')
+	await dialog.getByRole('button', { name: new RegExp(`^${template}`) }).click()
+	await dialog.getByRole('radio', { name: type, exact: true }).click()
+	return dialog
+}
+
+async function createBlankProject(page, type = 'Milling / routing', template = 'Blank imperial') {
+	const dialog = await blankProjectDialog(page, type, template)
+	if (type === 'Rotary') {
+		// Round bar is the default; set the dimensions explicitly, in metric units.
+		await dialog.getByLabel('Diameter', { exact: true }).fill('30')
+		await dialog.getByLabel('Length', { exact: true }).fill('120')
+	}
+	await dialog.getByRole('button', { name: 'Create project', exact: true }).click()
+	await dialog.waitFor({ state: 'hidden' })
+	await page.waitForTimeout(1200)
+}
+
+/** Points on an untouched rectangular stock view. Mirrors viewTransform.ts's
+    base fit (42 canvas pixels of padding), using the canvas backing dimensions
+    so this also works at the harness's 2x device scale. No zoom/pan before use. */
+async function stockPoint(page, x, y, width = 4, height = 3) {
+	return page.locator('.sketch-canvas').evaluate((canvas, values) => {
+		const [px, py, w, h] = values
+		const r = canvas.getBoundingClientRect()
+		const scale = Math.min((canvas.width - 84) / w, (canvas.height - 84) / h)
+		return {
+			x: r.x + ((canvas.width - w * scale) / 2 + px * scale) * r.width / canvas.width,
+			y: r.y + ((canvas.height - h * scale) / 2 + (h - py) * scale) * r.height / canvas.height,
+		}
+	}, [x, y, width, height])
+}
+
+async function clickStock(page, x, y, width = 4, height = 3) {
+	const p = await stockPoint(page, x, y, width, height)
+	const c = await canvasRect(page)
+	await clickUntil(page, (p.x - c.x) / c.w, (p.y - c.y) / c.h)
+}
+
+async function drawStockRectangle(page, x1, y1, x2, y2) {
+	await pickShape(page, 'Add feature rectangle')
+	await clickStock(page, x1, y1)
+	await clickStock(page, x2, y2)
+	await page.keyboard.press('Escape')
+	await page.waitForTimeout(600)
+}
+
+async function switchFace(page, face) {
+	await page.getByRole('button', { name: /^Current face:/ }).click()
+	await page.getByRole('menuitemradio', { name: face, exact: true }).click()
+	await page.waitForTimeout(1000)
+}
+
+async function showOtherSide(page) {
+	await page.getByRole('button', { name: /^Current face:/ }).click()
+	const eye = page.getByRole('menuitemcheckbox', { name: 'Show other side', exact: true })
+	if ((await eye.getAttribute('aria-checked')) !== 'true') await eye.click()
+	else await page.keyboard.press('Escape')
+}
+
+async function expandLeftProperties(page) {
+	for (const header of await page.locator('.panel-left .disclosure-section__header').all()) {
+		if ((await header.getAttribute('aria-expanded')) === 'false') await header.click()
+	}
+}
+
+/** Select a property by its visible field title without relying on a label/input
+    association (custom Select renders a button). Unlike setUiSelect this also
+    works before a project has any toolpaths to wait for. */
+async function chooseProperty(page, scope, title, option) {
+	const field = page.locator(scope).getByText(title, { exact: true }).locator('..')
+	await field.locator('.ui-select__trigger').click()
+	await page.locator('.ui-select--open .ui-select__option').filter({ hasText: option }).first().click()
+	await page.waitForTimeout(600)
+	if (!(await field.locator('.ui-select__label').innerText()).includes(option)) {
+		throw new Error(`${title} did not change to ${option}`)
+	}
+}
+
+/** Library rows are checkbox labels; qualify by their exact name child so a
+    1/4 inch endmill cannot accidentally pick the ball endmill beside it. */
+async function importLibraryTool(page, name) {
+	await page.getByRole('tab', { name: 'Tools', exact: true }).click()
+	await page.getByRole('button', { name: /Import from library/ }).click()
+	const dialog = page.locator('.dialog--tool-library')
+	await dialog.getByRole('searchbox').fill(name)
+	const row = dialog.locator('.tl-row').filter({ has: page.getByText(name, { exact: true }) })
+	await row.getByRole('checkbox').check()
+	await dialog.getByRole('button', { name: 'Import tool', exact: true }).click()
+	await dialog.waitFor({ state: 'hidden' })
+	await page.waitForTimeout(700)
+}
+
+/** The tutorial's exact part, shared by the context-menu, preview and export shots. */
+async function quickStartPart(page, { operation = false } = {}) {
+	await createBlankProject(page)
+	await pickShape(page, 'Add feature rectangle')
+	await clickStock(page, 0.5, 2.5)
+	const opposite = await stockPoint(page, 3.5, 0.5)
+	await page.mouse.move(opposite.x, opposite.y)
+	await page.keyboard.press('Tab')
+	const panel = page.locator('.canvas-workflow-panel--creation')
+	await panel.getByLabel('Width', { exact: true }).fill('3')
+	await panel.getByLabel('Height', { exact: true }).fill('2')
+	await panel.getByRole('button', { name: 'Confirm', exact: true }).click()
+	await page.keyboard.press('Escape')
+	await pickShape(page, 'Add feature circle')
+	await clickStock(page, 2, 1.5)
+	await page.keyboard.press('Tab')
+	await panel.getByLabel('Radius', { exact: true }).fill('0.75')
+	await panel.getByRole('button', { name: 'Confirm', exact: true }).click()
+	await page.keyboard.press('Escape')
+	await page.locator('.tree-row--feature').filter({ hasText: 'Circle' }).first().click()
+	await expandLeftProperties(page)
+	await setNumberField(page, '.panel-left .z-range-slider__field--bot', '0.5')
+	await importLibraryTool(page, '1/4" Endmill')
+	await page.getByRole('tab', { name: 'Operations', exact: true }).click()
+	if (operation) await addOperation(page, 'Circle', 'Pocket', 'Rough')
+}
+
+/** A two-sided block with an asymmetric Top blind pocket, a through hole, and
+    a Bottom blind pocket. The through circle keeps its default full stock span. */
+async function twoSidedPart(page, { operations = false } = {}) {
+	await createBlankProject(page)
+	await drawStockRectangle(page, 0.25, 2.75, 3.75, 0.25)
+	await drawStockRectangle(page, 0.5, 2.5, 1.5, 1.75)
+	await page.locator('.tree-row--feature').filter({ hasText: 'Rect 2' }).first().click()
+	await expandLeftProperties(page)
+	await setNumberField(page, '.panel-left .z-range-slider__field--bot', '0.5')
+	await pickShape(page, 'Add feature circle')
+	await clickStock(page, 3, 2.25)
+	await page.keyboard.press('Tab')
+	await page.locator('.canvas-workflow-panel--creation').getByLabel('Radius', { exact: true }).fill('0.2')
+	await page.locator('.canvas-workflow-panel--creation').getByRole('button', { name: 'Confirm', exact: true }).click()
+	await page.keyboard.press('Escape')
+	if (operations) {
+		await importLibraryTool(page, '1/4" Endmill')
+		await page.getByRole('tab', { name: 'Operations', exact: true }).click()
+		await addOperation(page, 'Rect 2', 'Pocket', 'Rough')
+	}
+	await switchFace(page, 'Bottom')
+	await drawStockRectangle(page, 1.75, 1.5, 2.75, 0.75)
+	await page.locator('.tree-row--feature').filter({ hasText: 'Rect 4' }).first().click()
+	await expandLeftProperties(page)
+	// Top's blind outlines are ghosts, so the first Bottom outline can infer Add.
+	// This fixture specifically wants a blind cavity on that face.
+	await chooseProperty(page, '.panel-left', 'Operation', 'Subtract')
+	await setNumberField(page, '.panel-left .z-range-slider__field--bot', '0.5')
+	if (operations) {
+		// Add's caption is now Add to Bottom; addOperation's old /^Add$/ opener
+		// intentionally stays unchanged for its existing single-setup recipes.
+		await page.getByRole('button', { name: 'Add to Bottom', exact: true }).click()
+		await page.locator('.cam-operation-item').filter({ hasText: /^Pocket/ }).getByRole('button', { name: 'Rough', exact: true }).click()
+		await page.getByRole('button', { name: /Toolpaths up to date/ }).waitFor({ timeout: 300000 })
+	}
+	await showOtherSide(page)
+}
+
+async function duplicateMachine(page, name) {
+	await page.locator('.tree-row--project').click()
+	await page.getByText(/Manage machines/).first().click()
+	const manager = page.locator('.dialog--machine-manager')
+	await manager.getByRole('button', { name: new RegExp(`^${name}`) }).first().click()
+	await manager.getByRole('button', { name: 'Duplicate to edit', exact: true }).click()
+	await page.locator('.dialog--machine-editor').waitFor()
+}
+
+/** A machine-editor select by its field title. The label wraps the select, so its
+    accessible name includes the option texts and an exact getByLabel never matches. */
+const editorSelect = (editor, title) =>
+	editor.locator('label.machine-editor-field').filter({
+		has: editor.page().locator('.machine-editor-label').getByText(title, { exact: true }),
+	}).locator('select')
+
+/** Crop one complete editor group after scrolling it into view. */
+const clipMachineGroup = (field) => async (page) => {
+	const group = page.locator('.dialog--machine-editor .dialog-section-group').filter({
+		has: page.getByText(field, { exact: true }),
+	})
+	await group.scrollIntoViewIfNeeded()
+	return group.evaluate((el) => {
+		const r = el.getBoundingClientRect()
+		const body = el.closest('.dialog-body').getBoundingClientRect()
+		const x = Math.max(0, Math.floor(r.left - 8))
+		const y = Math.max(Math.floor(body.top), Math.floor(r.top - 8))
+		const bottom = Math.min(r.bottom + 8, body.bottom, window.innerHeight)
+		if (r.top < body.top - 1 || r.bottom > body.bottom + 1) throw new Error('machine group does not fit; do not capture clipped fields')
+		return { x, y, width: Math.ceil(Math.min(r.right + 8, window.innerWidth) - x), height: Math.floor(bottom - y) }
+	})
+}
+
+async function rotaryTurn(page) {
+	await createBlankProject(page, 'Rotary', 'Blank metric')
+	await switchFace(page, 'Around')
+	await pickShape(page, 'Turn')
+	await page.getByLabel('Start from chuck end (mm)', { exact: true }).fill('20')
+	await page.getByLabel('Length (mm)', { exact: true }).fill('80')
+	await page.getByLabel('Diameter (mm)', { exact: true }).fill('24')
+	await page.locator('.rotary-solid-panel').getByRole('button', { name: 'Create', exact: true }).click()
+	await page.locator('.rotary-solid-panel').waitFor({ state: 'hidden' })
+	await page.locator('.tree-row--feature').filter({ hasText: 'Turn' }).first().waitFor()
+}
+
+async function threadOnTurn(page) {
+	await pickShape(page, 'Thread')
+	await page.getByLabel('Start from chuck end (mm)', { exact: true }).fill('30')
+	await page.getByLabel('Length (mm)', { exact: true }).fill('50')
+	await page.getByLabel('Pitch (mm)', { exact: true }).fill('3')
+	await page.getByLabel('Starts', { exact: true }).fill('1')
+	await page.getByLabel('Depth (mm)', { exact: true }).fill('1')
+	await page.locator('.rotary-panel__surface-note').filter({ hasText: /Ø24/ }).waitFor()
+}
+
+async function plasmaPart(page) {
+	const dialog = await blankProjectDialog(page, 'Plasma', 'Blank metric')
+	await dialog.getByLabel('Width', { exact: true }).fill('100')
+	await dialog.getByLabel('Height', { exact: true }).fill('75')
+	await dialog.getByLabel('Thickness', { exact: true }).fill('2')
+	await dialog.getByRole('button', { name: 'Create project', exact: true }).click()
+	await dialog.waitFor({ state: 'hidden' })
+	await page.waitForTimeout(1200)
+	await importLibraryTool(page, 'Powermax45 XP 45 A — 2 mm mild steel (example)')
+	await pickShape(page, 'Add feature rectangle')
+	await clickStock(page, 15, 60, 100, 75)
+	await clickStock(page, 85, 15, 100, 75)
+	await page.keyboard.press('Escape')
+	for (const x of [35, 65]) {
+		await pickShape(page, 'Add feature circle')
+		await clickStock(page, x, 37.5, 100, 75)
+		await page.keyboard.press('Tab')
+		const panel = page.locator('.canvas-workflow-panel--creation')
+		// Large enough that the default arc lead-in pierces with safe clearance (no warning).
+		await panel.getByLabel('Radius', { exact: true }).fill('12')
+		await panel.getByRole('button', { name: 'Confirm', exact: true }).click()
+		await page.keyboard.press('Escape')
+	}
+	await page.getByRole('tab', { name: 'Operations', exact: true }).click()
+	const rows = page.locator('.tree-row--feature')
+	await rows.nth(0).click()
+	for (let i = 1; i < 3; i++) await rows.nth(i).click({ modifiers: ['ControlOrMeta'] })
+	await page.getByRole('button', { name: 'Add', exact: true }).first().click()
+	await page.locator('.cam-operation-item').filter({ hasText: /^Plasma through-cut/ }).getByRole('button', { name: 'Add', exact: true }).click()
+	await page.getByRole('button', { name: /Toolpaths up to date/ }).waitFor({ timeout: 300000 })
+	await page.waitForTimeout(1500)
+}
+
 const RECIPES = [
+	// M6 additions. quickstart/new-project.png has no inventory id in this
+	// checkout; projects-new-project below already reproduces its dialog state.
+	{
+		id: 'quickstart-new-project',
+		asset: 'quickstart/empty-workspace.png',
+		viewport: { width: 1440, height: 900 },
+		steps: (page) => createBlankProject(page),
+		clip: null,
+	},
+	{
+		id: 'quickstart-add-pocket',
+		asset: 'quickstart/add-pocket-rough.png',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			await quickStartPart(page)
+			// Open on the canvas, as in the original, so the circle is behind the menu.
+			const point = await stockPoint(page, 2.3, 1.9)
+			await page.mouse.click(point.x, point.y, { button: 'right' })
+			await page.getByRole('button', { name: 'Create operation', exact: false }).hover()
+			await page.getByRole('button', { name: 'Create pocket', exact: true }).hover()
+		},
+		clip: clipCanvas,
+	},
+	{
+		id: 'quickstart-preview-sketch',
+		asset: 'quickstart/preview-sketch.png',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			await quickStartPart(page, { operation: true })
+			await expandLegend(page)
+		},
+		clip: clipCanvas,
+	},
+	{
+		id: 'quickstart-machine-export',
+		asset: 'quickstart/machine-and-export.png',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			await quickStartPart(page, { operation: true })
+			await chooseMachine(page, 'GRBL 1.1')
+			await openExportDialog(page)
+			await page.getByRole('checkbox', { name: /Emit tool changes/ }).check()
+			await page.waitForTimeout(1500)
+		},
+		clip: clipDialog('.dialog-backdrop .dialog', 8),
+	},
+	{
+		id: 'workspace-workflow-panel',
+		asset: 'fundamentals/workspace/workflow-panel.png',
+		viewport: { width: 1440, height: 900 },
+		collapseLegend: true,
+		async steps(page) {
+			await createBlankProject(page)
+			await pickShape(page, 'Add feature rectangle')
+			await clickStock(page, 0.5, 2.5)
+			const point = await stockPoint(page, 3, 1)
+			await page.mouse.move(point.x, point.y, { steps: 8 })
+		},
+		clip: clipCanvas,
+	},
+	{
+		id: 'workspace-sketch-overlays',
+		asset: 'fundamentals/workspace/sketch-overlays.png',
+		fixture: 'T Style guitar body',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			await page.getByRole('button', { name: 'Hide all toolpaths', exact: true }).click()
+			await page.getByRole('button', { name: 'Expand feature color legend', exact: true }).click()
+		},
+		clip: clipCanvas,
+	},
+	{
+		id: 'features-first-solid-warning',
+		asset: 'fundamentals/features-and-roles/first-solid-warning.png',
+		viewport: { width: 1440, height: 900 },
+		storage: SPLIT_TREE,
+		async steps(page) {
+			await createBlankProject(page)
+			await drawStockRectangle(page, 0.5, 2.5, 3.5, 0.5)
+			await drawStockRectangle(page, 1, 2, 3, 1)
+			const rows = page.locator('.tree-row--feature')
+			await rows.filter({ hasText: 'Rect 2' }).dragTo(rows.filter({ hasText: 'Rect 1' }), { targetPosition: { x: 60, y: 2 } })
+			await page.getByText(/First 2.5D feature must be/).waitFor()
+			await rows.filter({ hasText: 'Rect 2' }).click()
+			await expandLeftProperties(page)
+		},
+		clip: clipWorkspaceLeft,
+	},
+	{
+		id: 'm2-project-type',
+		asset: 'fundamentals/projects-and-files/project-type-tiles.png',
+		viewport: { width: 1440, height: 1000 },
+		steps: (page) => blankProjectDialog(page),
+		clip: clipDialog('.dialog--new-project', 8),
+	},
+	{
+		id: 'm2-face-menu',
+		asset: 'fundamentals/setups-and-faces/face-menu.png',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			await twoSidedPart(page)
+			await page.getByRole('button', { name: /^Current face: Bottom/ }).click()
+		},
+		// Menu plus trigger: the trigger sits 6px above the menu.
+		clip: (page) => page.evaluate(() => {
+			const menu = document.querySelector('.face-switch__menu').getBoundingClientRect()
+			const trigger = document.querySelector('.face-switch__trigger').getBoundingClientRect()
+			const x = Math.floor(Math.min(menu.left, trigger.left) - 8)
+			const y = Math.floor(trigger.top - 8)
+			return { x, y, width: Math.ceil(Math.max(menu.right, trigger.right) + 8 - x), height: Math.ceil(menu.bottom + 8 - y) }
+		}),
+	},
+	{
+		id: 'm2-bottom-ghosts',
+		asset: 'fundamentals/setups-and-faces/bottom-ghosts.png',
+		viewport: { width: 1440, height: 900 },
+		steps: (page) => twoSidedPart(page),
+		clip: clipCanvas,
+	},
+	{
+		id: 'm2-tree-faces',
+		asset: 'fundamentals/feature-tree/face-sections.png',
+		viewport: { width: 1440, height: 900 },
+		storage: WIDE_TREE,
+		steps: (page) => twoSidedPart(page),
+		clip: clipDialog('.panel-tree', 0),
+	},
+	{
+		id: 'm2-construction-reference',
+		asset: 'fundamentals/construction-geometry/cross-face-reference.png',
+		viewport: { width: 1440, height: 900 },
+		storage: SPLIT_TREE,
+		async steps(page) {
+			await twoSidedPart(page)
+			await switchFace(page, 'Top')
+			await page.getByRole('button', { name: 'Create construction geometry', exact: true }).click()
+			await page.getByRole('button', { name: 'Add construction rectangle', exact: true }).first().click()
+			await clickStock(page, 0.75, 1.25)
+			await clickStock(page, 1.25, 0.75)
+			await page.keyboard.press('Escape')
+			await switchFace(page, 'Bottom')
+			await showOtherSide(page)
+			await page.getByRole('button', { name: 'Create features', exact: true }).click()
+			await pickShape(page, 'Add feature rectangle')
+			await clickStock(page, 2.75, 2.5)
+			// Top (1.25, 0.75) appears at (1.25, 2.25) after the X flip.
+			// Leave this point hovered, not clicked, so the snap and workflow remain.
+			const point = await stockPoint(page, 1.25, 2.25)
+			await page.mouse.move(point.x + 30, point.y + 20)
+			await page.mouse.move(point.x, point.y, { steps: 8 })
+			await page.waitForTimeout(900)
+		},
+		clip: clipWorkspaceLeft,
+	},
+	{
+		id: 'm2-setup-properties',
+		asset: 'fundamentals/setups-and-faces/setup-properties.png',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			await twoSidedPart(page, { operations: true })
+			await page.getByRole('button', { name: 'Setup properties: Bottom', exact: true }).click()
+			const dialog = page.getByRole('dialog', { name: 'Setup properties: Bottom', exact: true })
+			// The default reference is a dowel on the first feature (Rect 1, the outline).
+			await dialog.getByRole('button', { name: 'Add reference', exact: true }).click()
+			await dialog.getByLabel('Operator notes', { exact: true }).fill('Flip about X. Locate on the same dowel and fence; touch off again before P02.')
+			await dialog.getByRole('button', { name: 'Save setup', exact: true }).click()
+			await page.getByRole('button', { name: 'Setup properties: Bottom', exact: true }).click()
+		},
+		clip: clipDialog('.dialog--setup', 8),
+	},
+	{
+		id: 'm2-cam-setups',
+		asset: 'cam-setup/working-with-operations/setup-cards.png',
+		viewport: { width: 1440, height: 900 },
+		storage: CAM_OPS,
+		steps: (page) => twoSidedPart(page, { operations: true }),
+		clip: clipCamThroughPropertiesHeader,
+	},
+	{
+		id: 'm3-new-project',
+		asset: 'rotary/overview/new-project-rotary.png',
+		viewport: { width: 1440, height: 1000 },
+		async steps(page) {
+			const dialog = await blankProjectDialog(page, 'Rotary', 'Blank metric')
+			await dialog.getByLabel('Diameter', { exact: true }).fill('30')
+			await dialog.getByLabel('Length', { exact: true }).fill('120')
+		},
+		clip: clipDialog('.dialog--new-project', 8),
+	},
+	{
+		id: 'm3-around-sheet',
+		asset: 'rotary/overview/around-sheet.png',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			await rotaryTurn(page)
+			await importLibraryTool(page, '12 mm 60° V-Bit')
+			await threadOnTurn(page)
+			await page.locator('.canvas-workflow-panel--rotary').getByRole('button', { name: 'Create', exact: true }).click()
+			await page.locator('.canvas-workflow-panel--rotary').waitFor({ state: 'hidden' })
+			await page.locator('.tree-row--feature').filter({ hasText: 'Thread' }).first().waitFor()
+			// The model band comes from the Turn's generated STL. The thread is
+			// the separate canned feature; paths would obscure the A0/seam lines.
+			// No operation exists yet, so there may be no toolpath toggle to press.
+			const hide = page.getByRole('button', { name: 'Hide all toolpaths', exact: true })
+			if (await hide.isVisible().catch(() => false)) await hide.click()
+			await clickTo(page, 0.95, 0.95)
+		},
+		clip: clipCanvas,
+	},
+	{
+		id: 'm3-rough-properties',
+		asset: 'rotary/rotary-operations/rough-properties.png',
+		// Tall enough for Cuts through Passes without scrolling the panel.
+		viewport: { width: 1440, height: 1500 },
+		storage: { ...CAM_OPS, 'panel-split:operations': '0.12' },
+		async steps(page) {
+			await rotaryTurn(page)
+			await importLibraryTool(page, '6 mm Endmill')
+			await page.getByRole('button', { name: 'Create regions', exact: true }).click()
+			await page.getByRole('button', { name: 'Add region rectangle', exact: true }).first().click()
+			await clickUntil(page, 0.30, 0.20)
+			await clickUntil(page, 0.70, 0.80)
+			await page.keyboard.press('Escape')
+			await page.getByRole('button', { name: 'Create features', exact: true }).click()
+			await page.getByRole('tab', { name: 'Operations', exact: true }).click()
+			await page.locator('.tree-row--feature').filter({ hasText: 'Turn' }).first().click()
+			await page.locator('.tree-row--region').first().click({ modifiers: ['ControlOrMeta'] })
+			await page.getByRole('button', { name: /^Add(?: to Around)?$/, exact: true }).first().click()
+			await page.locator('.cam-operation-item').filter({ hasText: /^Rotary rough/ }).getByRole('button', { name: 'Add', exact: true }).click()
+			await page.getByRole('button', { name: /Toolpaths up to date/ }).waitFor({ timeout: 300000 })
+			// Keep the target, tool, depth/supports and Passes in one panel.
+			for (const title of ['Identity', 'Speeds & feeds']) {
+				const header = page.locator('.panel-right .disclosure-section__header').filter({ hasText: title })
+				if (await header.count() && (await header.getAttribute('aria-expanded')) === 'true') await header.click()
+			}
+			await openPropertiesGroup(page, 'Strategy')
+			await page.locator('.cam-cuts__chip[data-cut-filter="true"]').waitFor()
+			await page.getByText('Chuck-end support', { exact: true }).waitFor()
+			await page.getByText('Tail-end support', { exact: true }).waitFor()
+			// Opening Strategy scrolls the panel; bring the Cuts chips back into view.
+			await page.evaluate(() => {
+				for (const el of document.querySelectorAll('.panel-right *')) if (el.scrollTop > 0) el.scrollTop = 0
+			})
+			await page.waitForTimeout(400)
+		},
+		clip: clipPropertiesTo('Stepover ratio'),
+	},
+	{
+		id: 'm3-turn-panel',
+		asset: 'rotary/rotary-features/turn-panel.png',
+		viewport: { width: 1440, height: 900 },
+		storage: SPLIT_TREE,
+		async steps(page) {
+			await createBlankProject(page, 'Rotary', 'Blank metric')
+			// The default chuck extends outside the stock and participates in
+			// Top's fit. Hide it and refit before using stockPoint coordinates.
+			await page.getByRole('button', { name: 'Hide all clamps', exact: true }).click()
+			await page.getByRole('button', { name: 'Zoom to model', exact: true }).click()
+			await page.waitForTimeout(600)
+			// Top is a 120 x 30 side view; the axis is y=15. A closed half
+			// profile above that axis makes a cylindrical ring, within the bar.
+			await pickShape(page, 'Add feature rectangle')
+			await clickStock(page, 30, 24, 120, 30)
+			await clickStock(page, 90, 17, 120, 30)
+			await page.keyboard.press('Escape')
+			await pickShape(page, 'Turn')
+			await chooseProperty(page, '.rotary-panel__profile', 'Profile: pick a shape', 'Rect 1')
+			await page.getByRole('button', { name: 'Refresh', exact: true }).waitFor()
+			await page.locator('.rotary-panel__profile-summary').waitFor()
+		},
+		clip: clipWorkspaceLeft,
+	},
+	{
+		id: 'm3-thread-panel',
+		asset: 'rotary/rotary-features/thread-panel.png',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			await rotaryTurn(page)
+			await threadOnTurn(page)
+		},
+		clip: clipDialog('.canvas-workflow-panel--rotary', 12),
+	},
+	{
+		id: 'm3-machine-axis',
+		asset: 'cam-setup/machines/rotary-axis.png',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			await createBlankProject(page, 'Rotary', 'Blank metric')
+			await duplicateMachine(page, 'GRBL 1.1')
+			const editor = page.locator('.dialog--machine-editor')
+			await editorSelect(editor, 'Rotary axis').selectOption({ label: 'Bar along X' })
+			await editorSelect(editor, 'Driven by').selectOption({ label: 'The Y motor' })
+		},
+		clip: clipMachineGroup('Rotary axis'),
+	},
+	{
+		id: 'm4-plasma-properties',
+		asset: 'operations/plasma-through-cut/operation-properties.png',
+		// Plasma settings, Cuts, Tool and Feed in one unscrolled panel.
+		viewport: { width: 1440, height: 2400 },
+		storage: { ...CAM_OPS, 'panel-split:operations': '0.12' },
+		steps: (page) => plasmaPart(page),
+		clip: clipPropertiesTo('Feed'),
+	},
+	{
+		id: 'm4-plasma-start',
+		asset: 'operations/plasma-through-cut/pick-start.png',
+		viewport: { width: 1440, height: 900 },
+		storage: { ...CAM_OPS, 'panel-split:operations': '0.12' },
+		async steps(page) {
+			await plasmaPart(page)
+			await page.getByRole('button', { name: 'Pick start point', exact: true }).click()
+			const point = await stockPoint(page, 50, 60, 100, 75)
+			await page.mouse.click(point.x, point.y)
+			await page.getByTestId('plasma-start-dot').waitFor()
+			await page.getByRole('button', { name: 'Use automatic start', exact: true }).waitFor()
+			// A successful pick closes its panel; arm again to show the compact picker.
+			await page.getByRole('button', { name: 'Pick start point', exact: true }).click()
+			await page.locator('.canvas-workflow-panel--plasma-start').waitFor()
+			await page.getByRole('button', { name: 'Reset all starts', exact: true }).scrollIntoViewIfNeeded()
+		},
+		clip: clipCanvasAndCam,
+	},
+	{
+		id: 'm4-torch-fields',
+		asset: 'cam-setup/tool-library/plasma-torch.png',
+		// Every torch field, down to the QtPlasmaC material number, without scrolling.
+		viewport: { width: 1440, height: 1500 },
+		storage: { ...CAM_TOOLS, 'panel-split:tools': '0.12' },
+		async steps(page) {
+			await createBlankProject(page, 'Plasma', 'Blank metric')
+			await importLibraryTool(page, 'Powermax45 XP 45 A — 2 mm mild steel (example)')
+		},
+		clip: clipPropertiesTo('QtPlasmaC material number (optional)'),
+	},
+	{
+		id: 'm4-plasma-machine',
+		asset: 'cam-setup/machines/plasma-pierce-mode.png',
+		// The plasma group (kind, pierce, THC, heights) is taller than a 900px editor.
+		viewport: { width: 1440, height: 1300 },
+		async steps(page) {
+			await createBlankProject(page, 'Plasma', 'Blank metric')
+			await duplicateMachine(page, 'Grbl plasma')
+			await editorSelect(page.locator('.dialog--machine-editor'), 'Pierce mode').selectOption({ label: 'G-code owns piercing (touch-off before each cut)' })
+		},
+		clip: clipMachineGroup('Machine kind'),
+	},
+	{
+		id: 'm4-shopbot-export',
+		asset: 'verify-export/gcode-export/shopbot-export.png',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			await quickStartPart(page, { operation: true })
+			await chooseMachine(page, 'ShopBot (SBP)')
+			await openExportDialog(page)
+			await page.getByRole('checkbox', { name: 'Emit tool changes (C9)', exact: true }).check()
+			await page.getByRole('button', { name: 'Export .sbp', exact: true }).waitFor()
+			await page.waitForTimeout(1500)
+		},
+		clip: clipDialog('.dialog-backdrop .dialog', 8),
+	},
+	{
+		id: 'm3-stock-chuck',
+		asset: 'rotary/overview/stock-chuck.png',
+		viewport: { width: 1440, height: 1300 },
+		storage: { 'panel-split:project-tree': '0.30', 'panel-split:left-center': '0.27' },
+		async steps(page) {
+			await createBlankProject(page, 'Rotary', 'Blank metric')
+			// The brief pairs Stock and Chuck properties. The app shows one at a
+			// time, so shoot each Properties panel and lay the two side by side.
+			const props = page.locator('.panel-left section.panel').last()
+			const background = await page.evaluate(() => getComputedStyle(document.body).backgroundColor)
+			const shots = []
+			for (const row of ['Stock', 'Chuck']) {
+				await page.locator('.panel-tree').getByText(row, { exact: true }).first().click()
+				await expandLeftProperties(page)
+				await page.waitForTimeout(600)
+				// Crop to the panel's content so the empty lower panel is left out.
+				const clip = await props.evaluate((el) => {
+					const r = el.getBoundingClientRect()
+					const last = [...el.querySelectorAll('*')].filter((e) => e.children.length === 0 && e.getClientRects().length)
+						.reduce((b, e) => Math.max(b, e.getBoundingClientRect().bottom), r.top)
+					return { x: r.x, y: r.y, width: r.width, height: Math.min(last + 20, r.bottom) - r.y }
+				})
+				shots.push({ width: Math.round(clip.width), png: (await page.screenshot({ clip })).toString('base64') })
+			}
+			await page.setContent(
+				`<body style="margin:0;background:${background}"><div id="pair" style="display:inline-flex;gap:16px;padding:16px;align-items:flex-start">` +
+					shots.map((s) => `<img style="width:${s.width}px" src="data:image/png;base64,${s.png}">`).join('') +
+					'</div></body>',
+			)
+			await page.waitForTimeout(300)
+		},
+		clip: clipDialog('#pair', 0),
+	},
+	{
+		id: 'm4-plasma-kerf',
+		asset: 'operations/plasma-through-cut/kerf-pierces.png',
+		viewport: { width: 1440, height: 900 },
+		storage: { ...CAM_OPS, 'panel-split:operations': '0.12' },
+		// Sketch half of the brief; the low-angle 3D view is a hand shot.
+		steps: (page) => plasmaPart(page),
+		clip: clipCanvas,
+	},
 	{
 		id: 'feature-tree-sections',
 		asset: 'fundamentals/feature-tree/tree-sections.png',
@@ -906,7 +1583,8 @@ const RECIPES = [
 		context: { hasTouch: true },
 		// Lock and Multi sit on top of the feature-colour legend at this viewport, so
 		// collapse the legend rather than photograph two controls overlapping.
-		steps: (page) => page.getByRole('button', { name: 'Collapse feature color legend' }).first().click(),
+		// 0.6.0 starts the legend collapsed already (purecutcnc#1105).
+		collapseLegend: true,
 		clip: null, // the whole layout is the subject
 	},
 
@@ -1502,8 +2180,7 @@ const RECIPES = [
 			await page.waitForTimeout(600)
 			await clickTo(page, 0.45, 0.48)
 			await page.waitForTimeout(900)
-			await page.getByRole('button', { name: 'Edit sketch' }).first().click()
-			await page.waitForTimeout(1300)
+			await openSketchEdit(page)
 			await page.getByRole('button', { name: 'Trim to cutting edge' }).first().click()
 			await page.waitForTimeout(800)
 			await clickTo(page, 0.58, 0.39)
@@ -1902,7 +2579,15 @@ const RECIPES = [
 			})
 			await page.waitForTimeout(1200)
 		},
-		clip: clipDialog('.cam-add-menu', 24),
+		clip: (page) => page.locator('.cam-add-menu').evaluate((el) => {
+			const r = el.getBoundingClientRect()
+			const status = document.querySelector('.app-statusbar')?.getBoundingClientRect()
+			const x = Math.max(0, Math.floor(r.left - 24))
+			const y = Math.max(0, Math.floor(r.top - 24))
+			// No bottom margin: 0.6.0's taller menu reaches the status bar.
+			const bottom = Math.floor(Math.min(r.bottom, status?.top ?? window.innerHeight))
+			return { x, y, width: Math.ceil(Math.min(r.right + 24, window.innerWidth) - x), height: bottom - y }
+		}),
 	},
 	{
 		id: 'operations-list-status',
@@ -2049,7 +2734,8 @@ const RECIPES = [
 		async steps(page) {
 			await createTextRoute(page, { words: 'O', kind: 'Edge in', fx: 0.27 })
 			await page.getByRole('button', { name: 'Auto place tabs' }).first().click()
-			await page.waitForFunction(() => document.querySelectorAll('.tree-row--tab').length === 2)
+			// 0.5.x placed two tabs on this counter; 0.6.0 places four. Wait for placement, not a count.
+			await page.waitForFunction(() => document.querySelectorAll('.tree-row--tab').length >= 2)
 			await page.waitForTimeout(1600)
 		},
 		clip: clipTextContours,
@@ -2325,7 +3011,7 @@ const RECIPES = [
 		// Toolbar through the canvas: the buttons and the label are the subject together.
 		clip: (page) =>
 			page.evaluate(() => {
-				const c = document.querySelector('.sketch-viewport__canvas') ?? document.querySelector('canvas')
+				const c = document.querySelector('.sketch-canvas') ?? document.querySelector('canvas')
 				const r = c.getBoundingClientRect()
 				return { x: Math.round(r.x), y: 0, width: Math.round(r.width), height: Math.round(r.y + r.height * 0.72) }
 			}),
@@ -2890,11 +3576,23 @@ async function capture(browser, recipe) {
 
 		if (recipe.collapseLegend) {
 			// The feature-colour legend sits on the lower-right canvas, over the drawn shape.
-			await page.getByRole('button', { name: 'Collapse feature color legend' }).first().click()
-			await page.waitForTimeout(400)
+			// Since 0.6.0 the legend starts collapsed (purecutcnc#1105); only older builds need the click.
+			const collapse = page.getByRole('button', { name: 'Collapse feature color legend' }).first()
+			if (await collapse.isVisible().catch(() => false)) {
+				await collapse.click()
+				await page.waitForTimeout(400)
+			}
 		}
 
-		if (recipe.steps) await recipe.steps(page)
+		try {
+			if (recipe.steps) await recipe.steps(page)
+		} catch (error) {
+			// CAPTURE_DEBUG=<dir> also saves the page as it was when a step failed.
+			if (process.env.CAPTURE_DEBUG && process.env.CAPTURE_DEBUG !== '1') {
+				await page.screenshot({ path: join(process.env.CAPTURE_DEBUG, `${recipe.id}-failed.png`) }).catch(() => {})
+			}
+			throw error
+		}
 		await page.waitForTimeout(800)
 
 		const target = join(assetRoot, recipe.asset)
@@ -2953,7 +3651,8 @@ try {
 			console.log('ok')
 		} catch (error) {
 			results.push({ recipe, ok: false, error })
-			console.log(`FAILED — ${error.message.split('\n')[0]}`)
+			// CAPTURE_DEBUG=1 prints Playwright's call log, which names the locator.
+			console.log(`FAILED — ${process.env.CAPTURE_DEBUG ? error.message : error.message.split('\n')[0]}`)
 		}
 	}
 } finally {

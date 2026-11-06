@@ -6,8 +6,11 @@ availability: preview
 status: draft
 ---
 
+import Screenshot from '../../../../components/Screenshot.astro';
+import setupProperties from '../../../../assets/manual/fundamentals/setups-and-faces/setup-properties.png';
+import bottomGhosts from '../../../../assets/manual/fundamentals/setups-and-faces/bottom-ghosts.png';
+import faceMenu from '../../../../assets/manual/fundamentals/setups-and-faces/face-menu.png';
 import { Aside } from '@astrojs/starlight/components';
-import VisualPending from '../../../../components/VisualPending.astro';
 
 A setup describes how the stock sits on the machine for a group of operations. Use Top and
 Bottom setups when you need to turn the same part over and machine its other side.
@@ -37,7 +40,7 @@ When there is an opposite side to show, the menu offers **Show other side** with
 Use it to show or hide the ghost overlay. Finish the current drawing or edit before switching
 face; an unfinished edit keeps the other face unavailable.
 
-<VisualPending id="m2-face-menu" />
+<Screenshot src={faceMenu} maxWidth={249} alt="Face menu open from the Bottom · flipped X trigger, listing Top and Bottom (checked) and a checked Show other side toggle" caption="The face menu switches the face you draw on and shows or hides the other side." />
 
 ## Features and the tree
 
@@ -57,7 +60,7 @@ through hole or a full-height solid. The confirmation lists features that stay b
 locked features and those that do not qualify. Linked copies keep sharing their shape across
 faces, so a later shape edit can affect copies on both sides.
 
-<VisualPending id="m2-bottom-ghosts" />
+<Screenshot src={bottomGhosts} maxWidth={864} alt="Bottom face in the Sketch view, flipped about X: the Top blind pocket as a dashed ghost, the through Circle 3 and the Bottom blind pocket Rect 4 (Z 0.75 → 0.5) drawn solid, and the note Top origin lands here after the flip" caption="On Bottom, Top blind features show as ghosts; through features and Bottom features are drawn solid." />
 
 ## Through cuts and cross-face targets
 
@@ -142,7 +145,7 @@ your locating plan; the app does not verify that the stock is registered correct
 Use **Save setup** to keep changes. **Delete setup…** sits at the bottom left. Its confirmation
 lists the operations that will also be deleted; the last setup cannot be deleted.
 
-<VisualPending id="m2-setup-properties" />
+<Screenshot src={setupProperties} maxWidth={676} alt="Setup properties: Bottom dialog with Face up Bottom, Flip about Stock X · front ↔ back and its A/B corner diagram, a Registration reference Dowel · Rect 1, and Operator notes" caption="Each flipped setup records how the stock turns, the locating references, and notes for the operator." />
 
 <Aside type="danger" title="Safety: locate the part again after the flip">
 A flip with the wrong axis, registration, or work zero can put the tool through the part or a
