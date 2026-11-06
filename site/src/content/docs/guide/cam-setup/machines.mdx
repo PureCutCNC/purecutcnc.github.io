@@ -80,6 +80,12 @@ For a router machine that writes G-code, the editor offers **Rotary axis**: **No
 **Bar along X**, or **Bar along Y**. Match the stock's **Axis**. **Driven by** offers **Its own
 axis (A)** or the other horizontal motor: **The Y motor** for X stock, **The X motor** for Y stock.
 The **Program word: A** note changes to the borrowed letter; **Reverse direction** starts off.
+
+**Zero A line (optional)** runs before every rotary operation. Use a line that only sets the
+rotary zero, without moving: `G92 A0`, or `G10 L20 P… A0` in the work coordinate system the
+program uses, with this machine's rotary letter. Leave it empty to have the program pause
+between rotary operations so you can zero A by hand. See
+[Rotary export](/guide/rotary/rotary-operations/#rotary-export).
 The **Manage machines** preview includes a **Rotary axis** row summarising this choice.
 See [Rotary machining](/guide/rotary/overview/#machine-rotary-axis) and
 [Rotary definition](/guide/reference/machine-definitions/#rotary-definition).

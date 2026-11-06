@@ -82,10 +82,12 @@ Turning cuts use inverse-time feed, normally `G93`, with a feed word on each mot
 normal feed mode returns with `G94`. The machine's rotary axis must match the bar, and a
 borrowed motor cannot also travel linearly. Regenerate before export, particularly after
 changing square stock. Top and Bottom bar programs turn to 0°/180° with a rotary machine or
-state the angle in an operator comment. Programs stay at their last angle after retracting:
-there is no closing A0 unwind, so establish rotary zero before each job.
-See [Rotary export](/guide/rotary/rotary-operations/#rotary-export) for refusal messages
-and square-blank corner clearance.
+state the angle in an operator comment. Every rotary operation ends at 0 up; with no **Zero A
+line** on the machine, the program stops with `M0` between rotary operations so you can zero A,
+and the export dialog shows a reminder. On an own-A machine, around-the-bar programs normally
+write no Y (or X) word, so touch off that axis on the bar's centreline. See
+[Rotary export](/guide/rotary/rotary-operations/#rotary-export) for zeroing A, the cross axis,
+gSender, refusal messages, and square-blank corner clearance.
 
 ## Plasma programs
 

@@ -2310,14 +2310,11 @@
 			"afterHeading": "Verifying the result",
 			"kind": "screenshot",
 			"purpose": "Inspect removal after rough and finish while retaining bar support.",
-			"brief": "After #1117 and #1103 settle, show Rotary finish simulation through its earlier rough on a square blank, with a machined centre band, square retained ends, chuck and tailstock. Review playback links before accepting the still.",
+			"brief": "Show Rotary finish simulation through its earlier rough on a square blank, with a machined centre band, square retained ends, chuck and tailstock. Review playback links before accepting the still.",
 			"asset": "rotary/rotary-operations/finish-simulation.png",
 			"alt": "Rotary finish simulation with a machined centre band and square retained ends",
-			"status": "blocked",
-			"blockedBy": [
-				"PureCutCNC/purecutcnc#1117",
-				"PureCutCNC/purecutcnc#1103"
-			]
+			"status": "proposed",
+			"blockedBy": []
 		},
 		{
 			"id": "m3-bar-3d",

@@ -132,9 +132,11 @@ create a Turn or Polygon model and machine it with rotary rough and finish opera
 
 ## Zero A before each job
 
-Rotary programs end at their last angle after the normal retract. There is no closing A0 unwind.
-Before each job, put the bar's intended zero line up and establish the rotary work zero again.
-When a motor is borrowed, use the corresponding controller axis and output letter.
+Every Around operation ends by turning A forward to the next whole turn, so the bar finishes at
+0 up. A Top or Bottom bar program does the same after its last operation. Before each job, put the bar's intended zero line up and zero A. Between two rotary
+operations the program either runs the machine's **Zero A line** or pauses for you to zero A by
+hand; see [Rotary export](/guide/rotary/rotary-operations/#rotary-export). When a motor is
+borrowed, use the corresponding controller axis and output letter.
 
 <Aside type="danger" title="Safety: check the rotary zero before starting">
 A wrong rotary zero puts every wrapped cut at the wrong angle. Confirm the bar orientation,
