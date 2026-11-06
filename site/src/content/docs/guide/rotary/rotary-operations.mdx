@@ -6,6 +6,8 @@ availability: preview
 status: draft
 ---
 
+import Screenshot from '../../../../components/Screenshot.astro';
+import roughProperties from '../../../../assets/manual/rotary/rotary-operations/rough-properties.png';
 import { Aside } from '@astrojs/starlight/components';
 import VisualPending from '../../../../components/VisualPending.astro';
 
@@ -47,7 +49,7 @@ Zero support is a field default, not a recommendation to machine the part free. 
 restricted to the model's length and the space clear of the end supports and workholding.
 The cutter's side must clear the retained ends; shoulders can retain a cutter-radius fillet.
 
-<VisualPending id="m3-rough-properties" />
+<Screenshot src={roughProperties} maxWidth={401} alt="Rotary rough properties: What it cuts with Setup Around and Cuts chips Turn and Region 1 (filter), Tool 4 mm Ball Endmill, Stepdown 0.4, Stock to leave radial 0, Chuck-end and Tail-end support 0, and Strategy Passes Along the bar with Stepover ratio 0.067" caption="Rotary rough cuts the Turn model inside the region, with supports left at the chuck and tail ends." />
 
 ## Pass direction and regions
 

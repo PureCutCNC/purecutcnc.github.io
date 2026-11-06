@@ -2106,8 +2106,8 @@
 			"purpose": "Show where face switching and the ghost overlay live.",
 			"brief": "Open the compact current-face menu on Bottom in a two-sided milling project. Include Top, Bottom, Show other side with its eye, and the Bottom · flipped X trigger.",
 			"asset": "fundamentals/setups-and-faces/face-menu.png",
-			"alt": "Open the compact current-face menu on Bottom in a two-sided milling project. Include Top, Bottom, Show other side with its eye, and the Bottom · flipped X trigger.",
-			"status": "proposed",
+			"alt": "Face menu open from the Bottom · flipped X trigger, listing Top and Bottom (checked) and a checked Show other side toggle",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -2118,8 +2118,8 @@
 			"purpose": "Distinguish editable Bottom geometry from Top reference ghosts.",
 			"brief": "Bottom Sketch view of an asymmetric two-sided block with a Bottom blind pocket and dashed Top blind features. Show other side is on. Include a THRU hole as the selectable exception.",
 			"asset": "fundamentals/setups-and-faces/bottom-ghosts.png",
-			"alt": "Bottom Sketch view of an asymmetric two-sided block with a Bottom blind pocket and dashed Top blind features. Show other side is on. Include a THRU hole as the selectable exception.",
-			"status": "proposed",
+			"alt": "Bottom face in the Sketch view, flipped about X: the Top blind pocket as a dashed ghost, the through Circle 3 and the Bottom blind pocket Rect 4 (Z 0.75 → 0.5) drawn solid, and the note Top origin lands here after the flip",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -2130,8 +2130,8 @@
 			"purpose": "Connect the flip axis and locating plan to the physical remount.",
 			"brief": "Bottom setup properties with Face up chip, Flip about and its sketch, shared touch-off note, one Registration reference, Operator notes and Delete setup… at bottom left.",
 			"asset": "fundamentals/setups-and-faces/setup-properties.png",
-			"alt": "Bottom setup properties with Face up chip, Flip about and its sketch, shared touch-off note, one Registration reference, Operator notes and Delete setup… at bottom left.",
-			"status": "proposed",
+			"alt": "Setup properties: Bottom dialog with Face up Bottom, Flip about Stock X · front ↔ back and its A/B corner diagram, a Registration reference Dowel · Rect 1, and Operator notes",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -2142,8 +2142,8 @@
 			"purpose": "Show the clickable face headings without the retired ACTIVE/GHOST badges.",
 			"brief": "Project tree in a Top/Bottom job with Top face and Bottom face headings, active-face features and a THRU hole. Show the clickable headings without ACTIVE/GHOST badges.",
 			"asset": "fundamentals/feature-tree/face-sections.png",
-			"alt": "Project tree with Top face and Bottom face headings and a THRU hole",
-			"status": "proposed",
+			"alt": "Project tree with Features split into Top face 3 (Rect 1, Rect 2, Circle 3 THRU) and the active Bottom face 1 (Rect 4)",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -2154,8 +2154,8 @@
 			"purpose": "Explain setup counts, program numbers and the toolbar in one panel.",
 			"brief": "CAM panel with Top and Bottom setup cards, Bottom 1 P02, a missing-registration warning, per-card gear and the Add to Bottom / Plan / Export toolbar row.",
 			"asset": "cam-setup/working-with-operations/setup-cards.png",
-			"alt": "CAM panel with Top and Bottom setup cards, Bottom 1 P02, a missing-registration warning, per-card gear and the Add to Bottom / Plan / Export toolbar row.",
-			"status": "proposed",
+			"alt": "Operations panel with Add to Bottom, a Top setup card (1 operation, P01) and the active Bottom card (1 operation, P02, with a warning marker) holding Pocket Rough 2",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -2190,8 +2190,8 @@
 			"purpose": "Make a reference pick distinct from selecting the other-face feature.",
 			"brief": "Bottom drawing with Show other side on, a visible Top construction guide dashed, and an active workflow snapping to its point. Keep the tree visible so the guide authoring face is clear.",
 			"asset": "fundamentals/construction-geometry/cross-face-reference.png",
-			"alt": "Bottom drawing with Show other side on, a visible Top construction guide dashed, and an active workflow snapping to its point. Keep the tree visible so the guide authoring face is clear.",
-			"status": "proposed",
+			"alt": "Drawing a rectangle on Bottom with its corner snapped to a Top construction rectangle, which shows as a dashed ghost after the X flip; the tree lists the construction item with REF and TOP badges",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -2238,8 +2238,8 @@
 			"purpose": "Connect bar size to real workholding capacity.",
 			"brief": "Bar Stock properties and Chuck properties as a paired capture: Shape, Diameter/Side, Length, Axis; Chuck size, grip limits and Jaws. Use a separate square state if needed.",
 			"asset": "rotary/overview/stock-chuck.png",
-			"alt": "Bar stock and chuck properties with size, grip limits and jaws",
-			"status": "proposed",
+			"alt": "Stock properties for a round bar (Shape Round bar, Diameter 30, Length 120, Axis X) beside Chuck properties (Chuck size 4\", Minimum grip diameter 3, Maximum grip diameter 93, Jaws 3) with the square-blank note",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -2250,8 +2250,8 @@
 			"purpose": "Explain the zero line and where the seam joins.",
 			"brief": "Around sheet on a round bar with solid A0 line in the middle, origin marker, negative A below, ±180° seam labels, one canned feature and a named model band.",
 			"asset": "rotary/overview/around-sheet.png",
-			"alt": "Around sheet with middle zero line, origin, seam labels, a feature and a model band",
-			"status": "proposed",
+			"alt": "Around sheet of a 30 mm round bar: the chuck zone on the left, the origin on the A0 line, -180° and +180° seam labels, the Turn model band and a helical Thread drawn across it",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -2276,8 +2276,8 @@
 			"purpose": "Explain the picked profile and copied dimensions.",
 			"brief": "Turn a diameter canvas side panel, not a modal: start, length, diameter, Profile: pick a shape and Refresh. Include the Top outline used as the copied half profile.",
 			"asset": "rotary/rotary-features/turn-panel.png",
-			"alt": "Turn a diameter side panel with a picked Top profile and Refresh",
-			"status": "proposed",
+			"alt": "Turn a diameter panel with Profile Rect 1 picked, the summary From Rect 1 · Ø18 mm · 60 long, the half-profile picture, and Start from chuck end 30, Length 60 and Diameter 18 mm",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -2288,8 +2288,8 @@
 			"purpose": "Show thread fields, its Turn surface and approximation notice.",
 			"brief": "Cut a thread canvas side panel in metric units with pitch, starts, depth and direction, on-Turn diameter note and the radial V-bit approximation notice; no Tool field.",
 			"asset": "rotary/rotary-features/thread-panel.png",
-			"alt": "Cut a thread side panel with pitch, starts, depth, direction and approximation notice",
-			"status": "proposed",
+			"alt": "Cut a thread panel on a Turn of Ø24 mm with Start from chuck end 30, Length 50, Pitch 3, Starts 1, Depth 1 mm, Direction Right-hand, and the V-bit thread note",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -2300,8 +2300,8 @@
 			"purpose": "Relate targets, pass direction and supports to the cut.",
 			"brief": "Rotary rough properties with Cuts model and region chips, tool, Stepdown, Stock to leave radial, Chuck-end support, Tail-end support and Passes reference picture. Capture fields without promising final linking behaviour.",
 			"asset": "rotary/rotary-operations/rough-properties.png",
-			"alt": "Rotary rough properties with Cuts, tool, stepdown, allowance, supports and Passes",
-			"status": "proposed",
+			"alt": "Rotary rough properties: What it cuts with Setup Around and Cuts chips Turn and Region 1 (filter), Tool 4 mm Ball Endmill, Stepdown 0.4, Stock to leave radial 0, Chuck-end and Tail-end support 0, and Strategy Passes Along the bar with Stepover ratio 0.067",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -2339,8 +2339,8 @@
 			"purpose": "Map bar orientation and motor choice to the program word.",
 			"brief": "Machine editor Rotary axis group with Bar along X, Driven by The Y motor, program word note and Reverse direction. Include Manage machines Rotary axis summary as a second panel if needed.",
 			"asset": "cam-setup/machines/rotary-axis.png",
-			"alt": "Machine editor Rotary axis group with a borrowed motor and program word",
-			"status": "proposed",
+			"alt": "Rotary axis group in the machine editor: Rotary axis Bar along X, Driven by The Y motor, Program word: Y, Reverse direction, and an empty Zero A line (optional) field",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -2351,8 +2351,8 @@
 			"purpose": "Find the plasma-specific fields and distinguish automatic lead values.",
 			"brief": "Plasma through-cut properties showing Cuts, a Plasma tool, Kerf side, Reverse direction (opposite swirl consumables), both lead styles and automatic lengths. Use closed outlines with holes in a Plasma Top project.",
 			"asset": "operations/plasma-through-cut/operation-properties.png",
-			"alt": "Plasma through-cut properties with kerf side, direction, lead styles and automatic lead lengths",
-			"status": "proposed",
+			"alt": "Plasma through-cut properties: the experimental note, Kerf side Automatic, Reverse direction (opposite swirl consumables), Lead-in Arc 3 mm, Lead-out Line Automatic, Contour start, Cuts chips Rect 1, Circle 2 and Circle 3, the Powermax45 tool and Feed 5560",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -2363,8 +2363,8 @@
 			"purpose": "Distinguish contour entry from the pierce and show per-contour overrides.",
 			"brief": "Pick start point active on a part with two holes, one picked contour entry and the separate pierce marker. Show the compact movable picker and Use automatic start / Reset all starts; capture a second state if they do not fit together.",
 			"asset": "operations/plasma-through-cut/pick-start.png",
-			"alt": "Picked contour entry and separate pierce marker beside the plasma start picker",
-			"status": "proposed",
+			"alt": "Pick start point active on a plate with two holes: a picked entry on the top edge with its separate pierce marker, the compact picker panel, and Use automatic start and Reset all starts in the properties",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -2375,8 +2375,8 @@
 			"purpose": "Check scrap side, lead clearance and pierces in Sketch and 3D.",
 			"brief": "Sketch view of a sheet with a closed part and holes: one-kerf translucent band under centre lines, leads and fixed-size pierce rings. Include Cuts, Lead-ins and Plunges switches. Pair with a low-angle 3D view so the flat sheet-top band is clear.",
 			"asset": "operations/plasma-through-cut/kerf-pierces.png",
-			"alt": "Part outline and holes with scrap-side kerf bands, leads and pierce rings in Sketch and 3D",
-			"status": "proposed",
+			"alt": "Sketch view of a plasma plate with two holes: kerf bands along each outline, arc leads, pierce rings, rapids between parts, and the Cuts, Lead-ins, Rapids and Plunges switches",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -2387,8 +2387,8 @@
 			"purpose": "Connect the piercing method to the probe fields and their fixed metric units.",
 			"brief": "Machine editor for a duplicate Grbl plasma machine with Machine kind Plasma, torch commands, Pierce mode G-code owns piercing (touch-off before each cut), probe command, depth, feed, zero command and switch offset. Frame the fields without the unrelated template sections.",
 			"asset": "cam-setup/machines/plasma-pierce-mode.png",
-			"alt": "Grbl plasma machine editor with G-code piercing, probe settings and switch offset",
-			"status": "proposed",
+			"alt": "Plasma settings in the machine editor: Machine kind Plasma, torch on and off commands, optional THC commands, Pierce mode G-code owns piercing (touch-off before each cut), and the probe and Set Z zero fields",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -2399,8 +2399,8 @@
 			"purpose": "Identify the torch settings and the material number that must be supplied locally.",
 			"brief": "Tools properties for the metric Powermax45 XP example in a Plasma project: Type Plasma, Units, Kerf width, Cut feed, Pierce height, Cut height, Pierce delay (s), Plunge feed and unset QtPlasmaC material number. Do not imply the example suits every table.",
 			"asset": "cam-setup/tool-library/plasma-torch.png",
-			"alt": "Metric example torch with kerf, cut feed, pierce and cut heights, delay, plunge feed and material number",
-			"status": "proposed",
+			"alt": "Plasma tool properties for the Powermax45 XP example: Type Plasma, Units Millimeters, Kerf width 1.4, Cut feed 5560, Plunge feed 300, Pierce height 3.8, Cut height 1.5, Pierce delay 0.2 s, and an empty QtPlasmaC material number",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -2411,8 +2411,8 @@
 			"purpose": "Identify the dialect-specific dialog, tool-change option and part-file preview.",
 			"brief": "Export ShopBot part file dialog for ShopBot (SBP), with a generated operation selected, Emit tool changes (C9), Export .sbp and Preview (first 30 lines) including the units guard and SA. Use a healthy milling fixture; do not manufacture warnings.",
 			"asset": "verify-export/gcode-export/shopbot-export.png",
-			"alt": "ShopBot export dialog with C9 tool changes, Export .sbp and a part-file preview",
-			"status": "proposed",
+			"alt": "Export ShopBot part file dialog: machine ShopBot (SBP), Inch units, Pocket Rough selected, Emit tool changes (C9) checked, and a preview of SBP lines with &Tool=1, C9, JZ, J2 and CG moves",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{

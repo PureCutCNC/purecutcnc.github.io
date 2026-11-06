@@ -105,7 +105,7 @@ const clipCamList = (lastRow) => (page) =>
 const clipCanvasAndCam = (page) =>
 	page.evaluate(() => {
 		const canvas = (
-			document.querySelector('.sketch-viewport__canvas') ?? document.querySelector('canvas')
+			document.querySelector('.sketch-canvas') ?? document.querySelector('canvas')
 		).getBoundingClientRect()
 		const cam = document.querySelector('.panel-right')?.getBoundingClientRect()
 		const right = cam ? Math.min(cam.right, window.innerWidth) : window.innerWidth
@@ -157,6 +157,22 @@ const clipCamPanel = (page) =>
 			height: Math.round(Math.min(r.bottom, window.innerHeight) - r.y),
 		}
 	})
+
+/** The right panel's Properties section, from its header down to the field row
+    whose label is `last`, so a tall viewport does not leave empty panel below. */
+const clipPropertiesTo = (last) => (page) =>
+	page.locator('.panel-right').evaluate((panel, want) => {
+		const leaf = (text) => [...panel.querySelectorAll('*')].find(
+			(e) => e.children.length === 0 && e.textContent.trim().toLowerCase() === text.toLowerCase() && e.getClientRects().length,
+		)
+		const head = leaf('Properties')
+		const label = leaf(want)
+		if (!head || !label) throw new Error(`no Properties header or "${want}" label`)
+		const p = panel.getBoundingClientRect()
+		const top = head.getBoundingClientRect().top - 16
+		const bottom = label.parentElement.getBoundingClientRect().bottom + 14
+		return { x: Math.round(p.x), y: Math.round(top), width: Math.round(Math.min(p.width, window.innerWidth - p.x)), height: Math.round(bottom - top) }
+	}, last)
 
 /** A file the app itself serves, so the fixture is the app's own copy at this commit. */
 async function appFile(name, url) {
@@ -427,20 +443,14 @@ async function onlyToolpath(page, opName) {
     took. Fields are matched by class: the labels in this panel are not tied to their
     inputs, so matching on label text silently writes to the wrong box. */
 async function setNumberField(page, selector, value) {
-	await page.evaluate(
-		([sel, v]) => {
-			const input = document.querySelector(sel)
-			if (!input) throw new Error(`no field at ${sel}`)
-			const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set
-			setter.call(input, v)
-			input.dispatchEvent(new Event('input', { bubbles: true }))
-			input.dispatchEvent(new Event('change', { bubbles: true }))
-			input.blur()
-		},
-		[selector, value],
-	)
+	// Type into the field and press Enter: these fields commit on Enter or blur,
+	// so setting the value from script without focus is silently dropped.
+	const input = page.locator(selector).first()
+	if (!(await input.count())) throw new Error(`no field at ${selector}`)
+	await input.fill(value)
+	await input.press('Enter')
 	await page.waitForTimeout(800)
-	const got = await page.evaluate((sel) => document.querySelector(sel)?.value, selector)
+	const got = await input.inputValue()
 	if (got !== value) throw new Error(`${selector} is ${got}, expected ${value}`)
 }
 
@@ -463,7 +473,7 @@ async function importFile(page, source) {
 /** The sketch canvas, where every Design capture happens. Its content is drawn, not DOM. */
 const canvasRect = (page) =>
 	page.evaluate(() => {
-		const c = document.querySelector('.sketch-viewport__canvas') ?? document.querySelector('canvas')
+		const c = document.querySelector('.sketch-canvas') ?? document.querySelector('canvas')
 		const r = c.getBoundingClientRect()
 		return { x: Math.round(r.x), y: Math.round(r.y), w: Math.round(r.width), h: Math.round(r.height) }
 	})
@@ -621,8 +631,11 @@ async function openSketchEdit(page) {
 
 /** Choose a shape from the tool rail's shape drawer. */
 async function pickShape(page, name) {
-	await page.getByRole('button', { name: 'Choose feature shape' }).click()
-	await page.waitForTimeout(450)
+	// A rotary Create leaves the drawer open and its opener hidden.
+	if (!(await page.locator('.toolbar-creation-picker__drawer').isVisible().catch(() => false))) {
+		await page.getByRole('button', { name: 'Choose feature shape' }).click()
+		await page.waitForTimeout(450)
+	}
 	// Scoped to the drawer: the rail repeats the armed shape (e.g. rectangle) as its own button.
 	await page.locator('.toolbar-creation-picker__drawer').getByRole('button', { name, exact: true }).click()
 	await page.waitForTimeout(500)
@@ -802,7 +815,7 @@ async function createBlankProject(page, type = 'Milling / routing', template = '
     base fit (42 canvas pixels of padding), using the canvas backing dimensions
     so this also works at the harness's 2x device scale. No zoom/pan before use. */
 async function stockPoint(page, x, y, width = 4, height = 3) {
-	return page.locator('.sketch-viewport__canvas').evaluate((canvas, values) => {
+	return page.locator('.sketch-canvas').evaluate((canvas, values) => {
 		const [px, py, w, h] = values
 		const r = canvas.getBoundingClientRect()
 		const scale = Math.min((canvas.width - 84) / w, (canvas.height - 84) / h)
@@ -894,7 +907,7 @@ async function quickStartPart(page, { operation = false } = {}) {
 	await page.keyboard.press('Escape')
 	await page.locator('.tree-row--feature').filter({ hasText: 'Circle' }).first().click()
 	await expandLeftProperties(page)
-	await setNumberField(page, '.panel-left .z-range-slider__field--bottom', '0.5')
+	await setNumberField(page, '.panel-left .z-range-slider__field--bot', '0.5')
 	await importLibraryTool(page, '1/4" Endmill')
 	await page.getByRole('tab', { name: 'Operations', exact: true }).click()
 	if (operation) await addOperation(page, 'Circle', 'Pocket', 'Rough')
@@ -908,7 +921,7 @@ async function twoSidedPart(page, { operations = false } = {}) {
 	await drawStockRectangle(page, 0.5, 2.5, 1.5, 1.75)
 	await page.locator('.tree-row--feature').filter({ hasText: 'Rect 2' }).first().click()
 	await expandLeftProperties(page)
-	await setNumberField(page, '.panel-left .z-range-slider__field--bottom', '0.5')
+	await setNumberField(page, '.panel-left .z-range-slider__field--bot', '0.5')
 	await pickShape(page, 'Add feature circle')
 	await clickStock(page, 3, 2.25)
 	await page.keyboard.press('Tab')
@@ -922,12 +935,12 @@ async function twoSidedPart(page, { operations = false } = {}) {
 	}
 	await switchFace(page, 'Bottom')
 	await drawStockRectangle(page, 1.75, 1.5, 2.75, 0.75)
-	await page.locator('.tree-row--feature').filter({ hasText: 'Rect 3' }).first().click()
+	await page.locator('.tree-row--feature').filter({ hasText: 'Rect 4' }).first().click()
 	await expandLeftProperties(page)
 	// Top's blind outlines are ghosts, so the first Bottom outline can infer Add.
 	// This fixture specifically wants a blind cavity on that face.
 	await chooseProperty(page, '.panel-left', 'Operation', 'Subtract')
-	await setNumberField(page, '.panel-left .z-range-slider__field--bottom', '0.5')
+	await setNumberField(page, '.panel-left .z-range-slider__field--bot', '0.5')
 	if (operations) {
 		// Add's caption is now Add to Bottom; addOperation's old /^Add$/ opener
 		// intentionally stays unchanged for its existing single-setup recipes.
@@ -947,10 +960,17 @@ async function duplicateMachine(page, name) {
 	await page.locator('.dialog--machine-editor').waitFor()
 }
 
+/** A machine-editor select by its field title. The label wraps the select, so its
+    accessible name includes the option texts and an exact getByLabel never matches. */
+const editorSelect = (editor, title) =>
+	editor.locator('label.machine-editor-field').filter({
+		has: editor.page().locator('.machine-editor-label').getByText(title, { exact: true }),
+	}).locator('select')
+
 /** Crop one complete editor group after scrolling it into view. */
 const clipMachineGroup = (field) => async (page) => {
 	const group = page.locator('.dialog--machine-editor .dialog-section-group').filter({
-		has: page.getByLabel(field, { exact: true }),
+		has: page.getByText(field, { exact: true }),
 	})
 	await group.scrollIntoViewIfNeeded()
 	return group.evaluate((el) => {
@@ -1004,7 +1024,8 @@ async function plasmaPart(page) {
 		await clickStock(page, x, 37.5, 100, 75)
 		await page.keyboard.press('Tab')
 		const panel = page.locator('.canvas-workflow-panel--creation')
-		await panel.getByLabel('Radius', { exact: true }).fill('7.5')
+		// Large enough that the default arc lead-in pierces with safe clearance (no warning).
+		await panel.getByLabel('Radius', { exact: true }).fill('12')
 		await panel.getByRole('button', { name: 'Confirm', exact: true }).click()
 		await page.keyboard.press('Escape')
 	}
@@ -1181,9 +1202,7 @@ const RECIPES = [
 			await twoSidedPart(page, { operations: true })
 			await page.getByRole('button', { name: 'Setup properties: Bottom', exact: true }).click()
 			const dialog = page.getByRole('dialog', { name: 'Setup properties: Bottom', exact: true })
-			await dialog.getByLabel('Reference target', { exact: true }).selectOption('point')
-			await dialog.getByLabel('X (inch)', { exact: true }).fill('0.5')
-			await dialog.getByLabel('Y (inch)', { exact: true }).fill('0.5')
+			// The default reference is a dowel on the first feature (Rect 1, the outline).
 			await dialog.getByRole('button', { name: 'Add reference', exact: true }).click()
 			await dialog.getByLabel('Operator notes', { exact: true }).fill('Flip about X. Locate on the same dowel and fence; touch off again before P02.')
 			await dialog.getByRole('button', { name: 'Save setup', exact: true }).click()
@@ -1223,7 +1242,9 @@ const RECIPES = [
 			await page.locator('.tree-row--feature').filter({ hasText: 'Thread' }).first().waitFor()
 			// The model band comes from the Turn's generated STL. The thread is
 			// the separate canned feature; paths would obscure the A0/seam lines.
-			await page.getByRole('button', { name: 'Hide all toolpaths', exact: true }).click()
+			// No operation exists yet, so there may be no toolpath toggle to press.
+			const hide = page.getByRole('button', { name: 'Hide all toolpaths', exact: true })
+			if (await hide.isVisible().catch(() => false)) await hide.click()
 			await clickTo(page, 0.95, 0.95)
 		},
 		clip: clipCanvas,
@@ -1231,7 +1252,8 @@ const RECIPES = [
 	{
 		id: 'm3-rough-properties',
 		asset: 'rotary/rotary-operations/rough-properties.png',
-		viewport: { width: 1440, height: 900 },
+		// Tall enough for Cuts through Passes without scrolling the panel.
+		viewport: { width: 1440, height: 1500 },
 		storage: { ...CAM_OPS, 'panel-split:operations': '0.12' },
 		async steps(page) {
 			await rotaryTurn(page)
@@ -1257,8 +1279,13 @@ const RECIPES = [
 			await page.locator('.cam-cuts__chip[data-cut-filter="true"]').waitFor()
 			await page.getByText('Chuck-end support', { exact: true }).waitFor()
 			await page.getByText('Tail-end support', { exact: true }).waitFor()
+			// Opening Strategy scrolls the panel; bring the Cuts chips back into view.
+			await page.evaluate(() => {
+				for (const el of document.querySelectorAll('.panel-right *')) if (el.scrollTop > 0) el.scrollTop = 0
+			})
+			await page.waitForTimeout(400)
 		},
-		clip: clipCamPanel,
+		clip: clipPropertiesTo('Stepover ratio'),
 	},
 	{
 		id: 'm3-turn-panel',
@@ -1303,18 +1330,19 @@ const RECIPES = [
 			await createBlankProject(page, 'Rotary', 'Blank metric')
 			await duplicateMachine(page, 'GRBL 1.1')
 			const editor = page.locator('.dialog--machine-editor')
-			await editor.getByLabel('Rotary axis', { exact: true }).selectOption({ label: 'Bar along X' })
-			await editor.getByLabel('Driven by', { exact: true }).selectOption({ label: 'The Y motor' })
+			await editorSelect(editor, 'Rotary axis').selectOption({ label: 'Bar along X' })
+			await editorSelect(editor, 'Driven by').selectOption({ label: 'The Y motor' })
 		},
 		clip: clipMachineGroup('Rotary axis'),
 	},
 	{
 		id: 'm4-plasma-properties',
 		asset: 'operations/plasma-through-cut/operation-properties.png',
-		viewport: { width: 1440, height: 900 },
+		// Plasma settings, Cuts, Tool and Feed in one unscrolled panel.
+		viewport: { width: 1440, height: 2400 },
 		storage: { ...CAM_OPS, 'panel-split:operations': '0.12' },
 		steps: (page) => plasmaPart(page),
-		clip: clipCamPanel,
+		clip: clipPropertiesTo('Feed'),
 	},
 	{
 		id: 'm4-plasma-start',
@@ -1338,22 +1366,24 @@ const RECIPES = [
 	{
 		id: 'm4-torch-fields',
 		asset: 'cam-setup/tool-library/plasma-torch.png',
-		viewport: { width: 1440, height: 900 },
+		// Every torch field, down to the QtPlasmaC material number, without scrolling.
+		viewport: { width: 1440, height: 1500 },
 		storage: { ...CAM_TOOLS, 'panel-split:tools': '0.12' },
 		async steps(page) {
 			await createBlankProject(page, 'Plasma', 'Blank metric')
 			await importLibraryTool(page, 'Powermax45 XP 45 A — 2 mm mild steel (example)')
 		},
-		clip: clipCamPanel,
+		clip: clipPropertiesTo('QtPlasmaC material number (optional)'),
 	},
 	{
 		id: 'm4-plasma-machine',
 		asset: 'cam-setup/machines/plasma-pierce-mode.png',
-		viewport: { width: 1440, height: 900 },
+		// The plasma group (kind, pierce, THC, heights) is taller than a 900px editor.
+		viewport: { width: 1440, height: 1300 },
 		async steps(page) {
 			await createBlankProject(page, 'Plasma', 'Blank metric')
 			await duplicateMachine(page, 'Grbl plasma')
-			await page.locator('.dialog--machine-editor').getByLabel('Pierce mode', { exact: true }).selectOption({ label: 'G-code owns piercing (touch-off before each cut)' })
+			await editorSelect(page.locator('.dialog--machine-editor'), 'Pierce mode').selectOption({ label: 'G-code owns piercing (touch-off before each cut)' })
 		},
 		clip: clipMachineGroup('Machine kind'),
 	},
@@ -1370,6 +1400,49 @@ const RECIPES = [
 			await page.waitForTimeout(1500)
 		},
 		clip: clipDialog('.dialog-backdrop .dialog', 8),
+	},
+	{
+		id: 'm3-stock-chuck',
+		asset: 'rotary/overview/stock-chuck.png',
+		viewport: { width: 1440, height: 1300 },
+		storage: { 'panel-split:project-tree': '0.30', 'panel-split:left-center': '0.27' },
+		async steps(page) {
+			await createBlankProject(page, 'Rotary', 'Blank metric')
+			// The brief pairs Stock and Chuck properties. The app shows one at a
+			// time, so shoot each Properties panel and lay the two side by side.
+			const props = page.locator('.panel-left section.panel').last()
+			const background = await page.evaluate(() => getComputedStyle(document.body).backgroundColor)
+			const shots = []
+			for (const row of ['Stock', 'Chuck']) {
+				await page.locator('.panel-tree').getByText(row, { exact: true }).first().click()
+				await expandLeftProperties(page)
+				await page.waitForTimeout(600)
+				// Crop to the panel's content so the empty lower panel is left out.
+				const clip = await props.evaluate((el) => {
+					const r = el.getBoundingClientRect()
+					const last = [...el.querySelectorAll('*')].filter((e) => e.children.length === 0 && e.getClientRects().length)
+						.reduce((b, e) => Math.max(b, e.getBoundingClientRect().bottom), r.top)
+					return { x: r.x, y: r.y, width: r.width, height: Math.min(last + 20, r.bottom) - r.y }
+				})
+				shots.push({ width: Math.round(clip.width), png: (await page.screenshot({ clip })).toString('base64') })
+			}
+			await page.setContent(
+				`<body style="margin:0;background:${background}"><div id="pair" style="display:inline-flex;gap:16px;padding:16px;align-items:flex-start">` +
+					shots.map((s) => `<img style="width:${s.width}px" src="data:image/png;base64,${s.png}">`).join('') +
+					'</div></body>',
+			)
+			await page.waitForTimeout(300)
+		},
+		clip: clipDialog('#pair', 0),
+	},
+	{
+		id: 'm4-plasma-kerf',
+		asset: 'operations/plasma-through-cut/kerf-pierces.png',
+		viewport: { width: 1440, height: 900 },
+		storage: { ...CAM_OPS, 'panel-split:operations': '0.12' },
+		// Sketch half of the brief; the low-angle 3D view is a hand shot.
+		steps: (page) => plasmaPart(page),
+		clip: clipCanvas,
 	},
 	{
 		id: 'feature-tree-sections',
@@ -2938,7 +3011,7 @@ const RECIPES = [
 		// Toolbar through the canvas: the buttons and the label are the subject together.
 		clip: (page) =>
 			page.evaluate(() => {
-				const c = document.querySelector('.sketch-viewport__canvas') ?? document.querySelector('canvas')
+				const c = document.querySelector('.sketch-canvas') ?? document.querySelector('canvas')
 				const r = c.getBoundingClientRect()
 				return { x: Math.round(r.x), y: 0, width: Math.round(r.width), height: Math.round(r.y + r.height * 0.72) }
 			}),
@@ -3511,7 +3584,15 @@ async function capture(browser, recipe) {
 			}
 		}
 
-		if (recipe.steps) await recipe.steps(page)
+		try {
+			if (recipe.steps) await recipe.steps(page)
+		} catch (error) {
+			// CAPTURE_DEBUG=<dir> also saves the page as it was when a step failed.
+			if (process.env.CAPTURE_DEBUG && process.env.CAPTURE_DEBUG !== '1') {
+				await page.screenshot({ path: join(process.env.CAPTURE_DEBUG, `${recipe.id}-failed.png`) }).catch(() => {})
+			}
+			throw error
+		}
 		await page.waitForTimeout(800)
 
 		const target = join(assetRoot, recipe.asset)
@@ -3570,7 +3651,8 @@ try {
 			console.log('ok')
 		} catch (error) {
 			results.push({ recipe, ok: false, error })
-			console.log(`FAILED — ${error.message.split('\n')[0]}`)
+			// CAPTURE_DEBUG=1 prints Playwright's call log, which names the locator.
+			console.log(`FAILED — ${process.env.CAPTURE_DEBUG ? error.message : error.message.split('\n')[0]}`)
 		}
 	}
 } finally {

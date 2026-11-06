@@ -6,9 +6,9 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
 import Availability from '../../../../components/Availability.astro';
 import Screenshot from '../../../../components/Screenshot.astro';
+import setupCards from '../../../../assets/manual/cam-setup/working-with-operations/setup-cards.png';
 import addMenu from '../../../../assets/manual/cam-setup/working-with-operations/add-menu.png';
 import operationList from '../../../../assets/manual/cam-setup/working-with-operations/operation-list.png';
 import generationMenu from '../../../../assets/manual/cam-setup/working-with-operations/generation-menu.png';
@@ -120,7 +120,7 @@ Use **Move…** beside **Setup** in an operation's properties to move it to an e
 Review the targets the move removes before confirming **Move operation**. See [Setups and faces](/guide/fundamentals/setups-and-faces/) for
 setup properties, registration, and cross-face targets.
 
-<VisualPending id="m2-cam-setups" />
+<Screenshot src={setupCards} maxWidth={401} alt="Operations panel with Add to Bottom, a Top setup card (1 operation, P01) and the active Bottom card (1 operation, P02, with a warning marker) holding Pocket Rough 2" caption="Operations are grouped by setup; each setup card has its own program number and settings." />
 
 ## Plasma operation choices
 
