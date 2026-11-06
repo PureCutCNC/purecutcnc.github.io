@@ -209,8 +209,8 @@ Top and Bottom bar programs use 0° and 180° respectively. A rotary machine mak
 turn after a machine-coordinate safe-Z retract; without a rotary axis the program states the
 angle in an operator comment. Around is its own setup program.
 
-Every operation that turns A ends at 0 up. After its final retract, A turns forward to the next
-whole turn, and the program says **A is at …, 0 up. Zero A before the next operation.** What
+Every Around operation ends at 0 up, and so does a Top or Bottom bar program after its last
+operation. After the final retract, A turns forward to the next whole turn, and the program says **A is at …, 0 up. Zero A before the next operation.** What
 happens before the next rotary operation depends on the machine's **Zero A line** (see
 [Machines](/guide/cam-setup/machines/#rotary-axis)):
 
