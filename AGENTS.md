@@ -169,17 +169,42 @@ and abort on drift.
 
 ## Local preview & verification
 
-From the repo root:
+The site is the Astro project in `site/` (`npm ci --prefix site` once). From
+`site/`:
 
 ```
-python3 -m http.server 8000
+npm run dev
 ```
 
-Then open `http://localhost:8000/`:
-- **index.html** — hero shows the right version; new/changed features described.
-- **downloads.html** — each Stable card shows the new version with working asset
-  links (served from JSON).
-- a **guide page** — icons render (spot-check the newest ones); no `icons.svg` 404
-  in the browser console.
+Then open `http://localhost:4321/` (Astro's default port). The dev server also
+serves `/app/`, `/app-rc/`, `/downloads/*.json`, and the legacy redirects.
+
+To check what CI publishes, build and serve the artifact instead:
+
+```
+npm run build
+npm run preview
+```
+
+`npm run ci` is the gate CI runs (`check`, `content`, `coverage`, `build`,
+`verify`); it must pass before a PR. Stop a background server with
+`npx astro dev stop` or `npx astro preview stop`.
+
+Look at:
+- **`/`** — the landing page; the hero shows the latest release version (read
+  from the GitHub API, so it is blank offline) and new or changed features are
+  described.
+- **`/downloads/`** — each Stable card shows the new version with working asset
+  links (read from `downloads/{channel}/{platform}.json`).
+- **`/quickstart/`** and the **User Guide** pages you changed (`/guide/…`) —
+  text, screenshots, and app icons render, the sidebar lists the page, and the
+  browser console is clean. Search only works in `npm run preview`, since the
+  index is built with the site. App icons come from
+  `app-rc/icons.svg`; a missing icon fails the build rather than 404ing.
+- a **legacy URL** you touched (an old `guide/*.html` page) redirects to its new
+  page.
+
+Until the cutover, the live site is still the root HTML on `main`. To check a
+root-file hotfix there, serve the repo root with `python3 -m http.server 8000`.
 
 Then: branch → stage → commit (no co-author, no attribution footer) → PR.
