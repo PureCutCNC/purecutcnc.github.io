@@ -10,6 +10,10 @@ import Screenshot from '../../../../components/Screenshot.astro';
 import roughProperties from '../../../../assets/manual/rotary/rotary-operations/rough-properties.png';
 import { Aside } from '@astrojs/starlight/components';
 import VisualPending from '../../../../components/VisualPending.astro';
+import passDirections from '../../../../assets/manual/rotary/rotary-operations/pass-directions.png';
+import helixRings from '../../../../assets/manual/rotary/rotary-operations/helix-rings.png';
+import otherModels from '../../../../assets/manual/rotary/rotary-operations/other-models.png';
+import exportZeroA from '../../../../assets/manual/rotary/rotary-operations/export-zero-a.png';
 
 **Rotary rough** removes material in radial layers around a model inside a bar.
 **Rotary finish** follows the model surface without clearing layers. Use rough before finish
@@ -67,7 +71,7 @@ alternate direction, including across the layer boundary. Rotary operations do n
 With **Around the bar**, the bar turns under the cutter at one position, then the path steps
 along the bar to cover the model.
 
-<VisualPending id="m8-pass-directions" />
+<Screenshot src={passDirections} maxWidth={1320} alt="Two 3D toolpath views of a Rotary finish on the same Turn: passes along the bar on the left, rings around the bar on the right" caption="Along the bar on the left, Around the bar on the right." />
 
 ### How A moves around the bar
 
@@ -91,7 +95,7 @@ A keeps counting up through an operation and is not wrapped at 360°, so expect 
 in the exported program. Check the path in **3D** and **Sim**: helix starts and ends, the seams
 between helix and rings, and each layer change.
 
-<VisualPending id="m8-helix-rings" />
+<Screenshot src={helixRings} maxWidth={775} alt="Around-the-bar Rotary finish toolpath on a Turn: a helix along the model with a full ring at each end" caption="Shown with a coarse stepover so the helix turns are easy to see." />
 
 ### Other models on the bar
 
@@ -110,7 +114,7 @@ only a region keeps the operation's model choice. Include and exclude order stil
 Links outside the allowed region must clear the material left there. See
 [Regions](/guide/fundamentals/regions/).
 
-<VisualPending id="m8-other-models" />
+<Screenshot src={otherModels} maxWidth={775} alt="Simulation of a bolt: Rotary rough on the Turn cuts the shank down while the hexagon beside it stays standing" caption="A rotary rough keeps clear of other models on the bar." />
 
 ## Square bar sheet work
 
@@ -239,7 +243,7 @@ happens before the next rotary operation depends on the machine's **Zero A line*
 
 Before each job, put the zero line up and zero A.
 
-<VisualPending id="m8-export-zero-a" />
+<Screenshot src={exportZeroA} maxWidth={816} alt="Export G-code dialog for grblHAL + rotary A with one Around program, the note that the A orientation follows the stock, and Start with A zeroed at 0 up" caption="Export reminds you to start with A zeroed at 0 up." />
 
 ### No cross axis on an own-A machine
 

@@ -2444,8 +2444,8 @@
 			"purpose": "Recognise the starts-above-surface warning and its one-step fix.",
 			"brief": "Around pocket at the bar surface over a smaller Turn: tree row with the warning marker and Properties showing Starts … above the surface of Turn 1 with the Start at turn surface button.",
 			"asset": "rotary/rotary-features/surface-start.png",
-			"alt": "Around pocket flagged as starting above the surface of Turn 1, with the Start at turn surface button in Properties",
-			"status": "proposed",
+			"alt": "Around text OAK over a Ø24 mm Turn, flagged with ⚠ in the tree, and Properties saying Starts 3 mm above the surface of Turn: the first pass cuts air, with the Start at turn surface button",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -2466,10 +2466,10 @@
 			"afterHeading": "Cut a polygon or hexagon",
 			"kind": "screenshot",
 			"purpose": "Recognise the polygon side panel and the cut it makes.",
-			"brief": "Cut a polygon side panel set to a hexagon (sides, across flats, start, length) beside the 3D view of the hex standing on a round bar.",
+			"brief": "Cut a polygon side panel set to a hexagon (sides, across flats, start, length) over the Around sheet.",
 			"asset": "rotary/rotary-features/polygon-panel.png",
-			"alt": "Cut a polygon side panel set to six sides beside a 3D view of the hexagon on the bar",
-			"status": "proposed",
+			"alt": "Cut a polygon panel on a 30 mm round bar with Start from chuck end 20, Length 40, Sides 6, Across flats 22, Rotation 0, and the note that flats are approximated on the around view",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -2478,10 +2478,10 @@
 			"afterHeading": "Cut flutes",
 			"kind": "screenshot",
 			"purpose": "Recognise the flutes side panel and the fluted result.",
-			"brief": "Cut flutes side panel (count, width, depth, length) beside the 3D view of the flutes on a Turn.",
+			"brief": "Cut flutes side panel (count, twist, direction, depth) on a Turn, over the Around sheet.",
 			"asset": "rotary/rotary-features/flutes-panel.png",
-			"alt": "Cut flutes side panel beside a 3D view of evenly spaced flutes along a Turn",
-			"status": "proposed",
+			"alt": "Cut flutes panel on a Ø24 mm Turn with Start from chuck end 30, Length 50, Flutes 6, Twist 0, Direction Right-hand and Depth 1.5 mm, beside the Around sheet",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -2490,10 +2490,10 @@
 			"afterHeading": "Edit and follow a Turn",
 			"kind": "screenshot",
 			"purpose": "See a stepped Turn profile and a feature that follows it.",
-			"brief": "Stepped Turn built from a picked profile shape, in 3D, with a Thread or Flutes feature following one of its diameters; tree shows the following feature under the Turn.",
+			"brief": "Turn with a Thread following it, in 3D, with the tree listing Thread below Turn.",
 			"asset": "rotary/rotary-features/turn-profile.png",
-			"alt": "Stepped Turn in 3D with a thread following one diameter, and the feature tree showing it under the Turn",
-			"status": "proposed",
+			"alt": "3D view of a Ø24 mm Turn inside a 30 mm bar with a Thread wound along it, and the feature tree listing Thread below Turn",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -2502,13 +2502,11 @@
 			"afterHeading": "Work on a Turn",
 			"kind": "screenshot",
 			"purpose": "See Around work planned at a Turn's radius.",
-			"brief": "Around text or pocket drawn over a smaller Turn, 3D view with its toolpath sitting on the Turn's surface; V-carve stroke ends stay square.",
+			"brief": "Around V-carved text drawn over a smaller Turn, lowered to the Turn surface, seen in 3D.",
 			"asset": "rotary/rotary-features/work-on-turn.png",
-			"alt": "Around V-carved text on a smaller Turn in 3D, with the toolpath following the Turn's surface",
-			"status": "blocked",
-			"blockedBy": [
-				"PureCutCNC/purecutcnc#1131"
-			]
+			"alt": "3D view of the word OAK V-carved into a Ø24 mm Turn on a 30 mm bar",
+			"status": "captured",
+			"blockedBy": []
 		},
 		{
 			"id": "m8-square-sheet",
@@ -2518,11 +2516,9 @@
 			"purpose": "See sheet work on a square bar and where it cuts.",
 			"brief": "Square bar with a Turn section: Around sheet with a pocket drawn on the turned band and its toolpath in 3D.",
 			"asset": "rotary/rotary-features/square-sheet.png",
-			"alt": "Square bar with a turned section, a pocket drawn on its Around sheet and the toolpath on the round band",
-			"status": "blocked",
-			"blockedBy": [
-				"PureCutCNC/purecutcnc#1131"
-			]
+			"alt": "3D view of a 40 mm square blank with a Ø36 mm turned section and a pocket toolpath on the round band",
+			"status": "captured",
+			"blockedBy": []
 		},
 		{
 			"id": "m8-pass-directions",
@@ -2532,8 +2528,8 @@
 			"purpose": "Compare Along the bar and Around the bar passes.",
 			"brief": "The same Turn model with Rotary finish set to Along the bar and to Around the bar, two 3D toolpath views side by side.",
 			"asset": "rotary/rotary-operations/pass-directions.png",
-			"alt": "Two 3D toolpath views of the same model: passes along the bar on the left, rings around it on the right",
-			"status": "proposed",
+			"alt": "Two 3D toolpath views of a Rotary finish on the same Turn: passes along the bar on the left, rings around the bar on the right",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -2542,13 +2538,11 @@
 			"afterHeading": "How A moves around the bar",
 			"kind": "screenshot",
 			"purpose": "See a helix stretch and the full rings at its ends.",
-			"brief": "Around-the-bar finish on a round bar, low-angle 3D view of the helix with the full ring at each end of the stretch.",
+			"brief": "Around-the-bar finish on a round bar with a coarse stepover, so the helix and the end rings read as lines.",
 			"asset": "rotary/rotary-operations/helix-rings.png",
-			"alt": "Around-the-bar finish toolpath in 3D: a helix along the model with a full ring at each end",
-			"status": "blocked",
-			"blockedBy": [
-				"PureCutCNC/purecutcnc#1155"
-			]
+			"alt": "Around-the-bar Rotary finish toolpath on a Turn: a helix along the model with a full ring at each end",
+			"status": "captured",
+			"blockedBy": []
 		},
 		{
 			"id": "m8-other-models",
@@ -2558,11 +2552,9 @@
 			"purpose": "See a rotary operation keep clear of another model.",
 			"brief": "Bolt: Turn rough and finish simulated with the Hex standing untouched, wall foot cleared, viewed from a low angle.",
 			"asset": "rotary/rotary-operations/other-models.png",
-			"alt": "Simulation of a bolt: the turned shank is cut while the hexagon head stays intact",
-			"status": "blocked",
-			"blockedBy": [
-				"PureCutCNC/purecutcnc#1155"
-			]
+			"alt": "Simulation of a bolt: Rotary rough on the Turn cuts the shank down while the hexagon beside it stays standing",
+			"status": "captured",
+			"blockedBy": []
 		},
 		{
 			"id": "m8-export-zero-a",
@@ -2570,10 +2562,10 @@
 			"afterHeading": "Rotary export",
 			"kind": "screenshot",
 			"purpose": "Recognise the zero-A reminder at export.",
-			"brief": "Export dialog for a rotary program showing Start with A zeroed at 0 up and the machine's rotary notes.",
+			"brief": "Export dialog for a rotary program showing the A orientation note and Start with A zeroed at 0 up.",
 			"asset": "rotary/rotary-operations/export-zero-a.png",
-			"alt": "Export dialog for a rotary program with the reminder to start with A zeroed at 0 up",
-			"status": "proposed",
+			"alt": "Export G-code dialog for grblHAL + rotary A with one Around program, the note that the A orientation follows the stock, and Start with A zeroed at 0 up",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -2584,8 +2576,8 @@
 			"purpose": "See a flat-face operation on a bar.",
 			"brief": "Top setup on a square bar with a pocket on the flat face, 3D view with the toolpath and the A-held bar.",
 			"asset": "rotary/overview/top-bottom.png",
-			"alt": "Pocket toolpath on the top face of a square bar in a Top setup",
-			"status": "proposed",
+			"alt": "3D view of a Top pocket toolpath on a 40 mm square blank",
+			"status": "captured",
 			"blockedBy": []
 		}
 	]

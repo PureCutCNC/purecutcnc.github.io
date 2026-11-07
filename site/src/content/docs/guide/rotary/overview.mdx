@@ -8,10 +8,10 @@ status: draft
 
 import { Aside } from '@astrojs/starlight/components';
 import Screenshot from '../../../../components/Screenshot.astro';
-import VisualPending from '../../../../components/VisualPending.astro';
 import stockChuck from '../../../../assets/manual/rotary/overview/stock-chuck.png';
 import aroundSheet from '../../../../assets/manual/rotary/overview/around-sheet.png';
 import newProjectRotary from '../../../../assets/manual/rotary/overview/new-project-rotary.png';
+import topBottom from '../../../../assets/manual/rotary/overview/top-bottom.png';
 
 Rotary work turns a bar under a milling cutter. You can draw on its unrolled surface or machine
 a model inside it. This is wrapped 4th-axis milling, not lathe turning: the cutter is in the
@@ -109,7 +109,7 @@ A machine without a rotary axis records the angle as an operator comment instead
 See [Setups and faces](/guide/fundamentals/setups-and-faces/) and
 [Rotary export](/guide/rotary/rotary-operations/#rotary-export).
 
-<VisualPending id="m8-top-bottom" />
+<Screenshot src={topBottom} maxWidth={775} alt="3D view of a Top pocket toolpath on a 40 mm square blank" caption="Top and Bottom machine a flat face of the bar." />
 
 ## The bar is the material
 

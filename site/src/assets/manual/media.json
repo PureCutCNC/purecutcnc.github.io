@@ -46,7 +46,7 @@
 	"design/drawing-tools/creation-target.png": {
 		"shows": "The four creation-target buttons at the top of the tool rail, for features, lines, regions, and construction geometry, with Create features selected",
 		"source": "capture",
-		"appCommit": "c371097f097f1c01b1ed4271f170e560b4601bf5",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "Empty project",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
@@ -189,9 +189,9 @@
 	"quickstart/add-pocket-rough.png": {
 		"shows": "Right-click context menu on the subtract circle with Create operation expanded and Create pocket highlighted",
 		"source": "capture",
-		"appCommit": "2dc197eebe9c11272ad0bc24194d4a7c6de19055",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "Blank imperial",
-		"viewport": "1440x900@2x",
+		"viewport": "1800x1000@2x",
 		"theme": "dark",
 		"locale": "en",
 		"status": "current",
@@ -200,9 +200,9 @@
 	"quickstart/import-tool.png": {
 		"shows": "Import tools from library dialog with search, type and unit filters, the 1/4 inch Endmill row selected, and Import tool ready",
 		"source": "capture",
-		"appCommit": "2dc197eebe9c11272ad0bc24194d4a7c6de19055",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "Blank imperial",
-		"viewport": "1440x900@2x",
+		"viewport": "1440x1000@2x",
 		"theme": "dark",
 		"locale": "en",
 		"status": "current",
@@ -211,7 +211,7 @@
 	"quickstart/new-circle.png": {
 		"shows": "Pending 0.75 inch radius circle centered inside the 3 × 2 inch rectangle, with the Circle workflow panel offering Dimensions",
 		"source": "capture",
-		"appCommit": "2dc197eebe9c11272ad0bc24194d4a7c6de19055",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "Blank imperial",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
@@ -222,7 +222,7 @@
 	"quickstart/empty-workspace.png": {
 		"shows": "Empty PureCutCNC workspace in Sketch view, with the project tree on the left, the 4 × 3 × 0.75 inch stock outline and origin marker on the canvas, and the Operations and Properties panels on the right",
 		"source": "capture",
-		"appCommit": "c371097f097f1c01b1ed4271f170e560b4601bf5",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "Empty project",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
@@ -233,7 +233,7 @@
 	"quickstart/new-project.png": {
 		"shows": "New project dialog with the Blank imperial template selected and a preview listing inch units, stock Width 4, Height 3, and Thickness 0.75, and no machine",
 		"source": "capture",
-		"appCommit": "65d57cc77c42ef0e836647ce813759d67d52c6db",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "Blank imperial",
 		"viewport": "1440x1000@2x",
 		"theme": "dark",
@@ -244,7 +244,7 @@
 	"quickstart/new-rect.png": {
 		"shows": "Pending 3 × 2 rectangle inside the 4 × 3 inch stock, with the Rectangle workflow panel offering Dimensions",
 		"source": "capture",
-		"appCommit": "2dc197eebe9c11272ad0bc24194d4a7c6de19055",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "Blank imperial",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
@@ -255,7 +255,7 @@
 	"quickstart/preview-3dview.png": {
 		"shows": "3D view of the 4 by 3 inch stock with the circular pocket toolpath drawn as concentric red rings over the stock surface and the Z slider on the left",
 		"source": "capture",
-		"appCommit": "2dc197eebe9c11272ad0bc24194d4a7c6de19055",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "Blank imperial",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
@@ -264,9 +264,9 @@
 		"blockedBy": []
 	},
 	"quickstart/preview-simulation.png": {
-		"shows": "Simulation view of the 4 by 3 inch stock with the circular pocket partially cut, in Selected mode with the Detail slider at 680 and Play tool ready",
+		"shows": "Simulation view of the 4 by 3 inch stock with the circular pocket cut, in Visible mode with the Detail slider at 1200",
 		"source": "capture",
-		"appCommit": "2dc197eebe9c11272ad0bc24194d4a7c6de19055",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "Blank imperial",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
@@ -277,7 +277,7 @@
 	"quickstart/preview-sketch.png": {
 		"shows": "Sketch view with the move-type legend at the top, offset pocket toolpath rings drawn as Cuts inside the circle, and the surrounding rectangle outline",
 		"source": "capture",
-		"appCommit": "2dc197eebe9c11272ad0bc24194d4a7c6de19055",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "Blank imperial",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
@@ -288,7 +288,7 @@
 	"reference/languages/language-editor.png": {
 		"shows": "Edit language on a copy of German, filtered to the appearance strings, with one translation failing the placeholder check",
 		"source": "capture",
-		"appCommit": "c371097f097f1c01b1ed4271f170e560b4601bf5",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "Empty project",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
@@ -420,7 +420,7 @@
 	"verify-export/3d-view/view-3d.png": {
 		"shows": "The 3D view with the stock, the modelled features, and one operation's toolpath over them",
 		"source": "capture",
-		"appCommit": "f11fd8c9fbceb0a6077001249c72c0cca4fc0ca4",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "site/fixtures/cam-demo.camj",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
@@ -431,7 +431,7 @@
 	"verify-export/simulation/view-simulation-play.png": {
 		"shows": "A simulation running: the transport bar, speed, step, progress, and the position and feed readouts",
 		"source": "capture",
-		"appCommit": "f11fd8c9fbceb0a6077001249c72c0cca4fc0ca4",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "site/fixtures/cam-demo.camj",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
@@ -442,7 +442,7 @@
 	"verify-export/gcode-export/cam-export-dialog.png": {
 		"shows": "Export G-code with a machine chosen: origin, units, the operation checklist, the output options, and the first lines of the program",
 		"source": "capture",
-		"appCommit": "c371097f097f1c01b1ed4271f170e560b4601bf5",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "Example: PureCutCNC",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
@@ -486,7 +486,7 @@
 	"verify-export/model-export-and-print/sketch-print-dialog.png": {
 		"shows": "Print design: paper and orientation, print area, scale and offsets, the content toggles, and the page preview",
 		"source": "capture",
-		"appCommit": "c371097f097f1c01b1ed4271f170e560b4601bf5",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "Example: PureCutCNC",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
@@ -497,7 +497,7 @@
 	"quickstart/machine-and-export.png": {
 		"shows": "Export G-code dialog with GRBL 1.1 selected, Pocket Rough checked, Emit tool changes on, and a preview of the first 30 lines of generated G-code",
 		"source": "capture",
-		"appCommit": "2dc197eebe9c11272ad0bc24194d4a7c6de19055",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "Blank imperial",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
@@ -530,8 +530,8 @@
 	"fundamentals/workspace/workspace-layout.png": {
 		"shows": "Full PureCutCNC workspace with numbered callouts (1 top toolbar, 2 tool rail, 3 project panel, 4 centre area, 5 CAM panel, 6 status bar)",
 		"source": "capture",
-		"appCommit": "2dc197eebe9c11272ad0bc24194d4a7c6de19055",
-		"fixture": "Blank imperial",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
+		"fixture": "Example: T Style guitar body",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
 		"locale": "en",
@@ -563,7 +563,7 @@
 	"fundamentals/workspace/workflow-panel.png": {
 		"shows": "Sketch view with a Rectangle workflow panel, its Dimensions (Tab) button and Cancel action, and a pending rectangle on the canvas with live dimension readouts",
 		"source": "capture",
-		"appCommit": "2dc197eebe9c11272ad0bc24194d4a7c6de19055",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "Blank imperial",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
@@ -596,9 +596,9 @@
 	"fundamentals/features-and-roles/first-solid-warning.png": {
 		"shows": "Project tree with the First 2.5D feature must be Add warning, the subtract feature Rect 2 listed above the add feature Rect 1, and the Properties panel showing Rect 2's Subtract operation with Z top 0.75 and Z bottom 0",
 		"source": "capture",
-		"appCommit": "2dc197eebe9c11272ad0bc24194d4a7c6de19055",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "Blank imperial",
-		"viewport": "1440x900@2x",
+		"viewport": "1440x1150@2x",
 		"theme": "dark",
 		"locale": "en",
 		"status": "current",
@@ -706,7 +706,7 @@
 	"fundamentals/tablet-and-touch/tablet-workspace.png": {
 		"shows": "The tablet layout at an iPad-class landscape viewport: the command bar with Open project panel, the view tabs, snapping and measuring buttons and Open operations panel, the tool rail down the left, and the Lock and Multi buttons over the canvas",
 		"source": "capture",
-		"appCommit": "c371097f097f1c01b1ed4271f170e560b4601bf5",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "Example: PureCutCNC",
 		"viewport": "1180x820@2x",
 		"theme": "dark",
@@ -717,7 +717,7 @@
 	"design/drawing-tools/shape-drawer.png": {
 		"shows": "The tool rail with the shape drawer open, its top row holding rectangle, circle, ellipse, polygon, spline, composite, and text, its second row slot, regular polygon, gear, rounded rectangle, and chamfered rectangle, and a greyed-out third row of rotary shapes, with rectangle the armed shape",
 		"source": "capture",
-		"appCommit": "c371097f097f1c01b1ed4271f170e560b4601bf5",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "Empty project",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
@@ -739,7 +739,7 @@
 	"design/snapping-and-grid/snap-popover.png": {
 		"shows": "The toolbar snap group with snapping, grid, point, line, midpoint, and center enabled and intersection and perpendicular off, and a Midpoint label beside the pointer on the top edge of a drawn rectangle",
 		"source": "capture",
-		"appCommit": "c371097f097f1c01b1ed4271f170e560b4601bf5",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "Empty project",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
@@ -948,7 +948,7 @@
 	"design/text/expanded-glyphs.png": {
 		"shows": "The feature tree after Expand text to features on outline text: the original PRO retained, a group per glyph beneath it, and each group holding an add feature for the outer outline and a subtract feature for the counter, beside the PRO letterforms on the canvas",
 		"source": "capture",
-		"appCommit": "c371097f097f1c01b1ed4271f170e560b4601bf5",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "Empty project",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
@@ -1025,7 +1025,7 @@
 	"design/importing-3d-models/multi-body-import.png": {
 		"shows": "The workspace after importing a three-body OBJ: the feature tree holds a group of three model features and the 3D view shows the block, cylinder and wedge inside the stock",
 		"source": "capture",
-		"appCommit": "e86464007feb96c3be6580bae974a89bef49baa7",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "site/fixtures/three-bodies.obj",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
@@ -1047,7 +1047,7 @@
 	"design/importing-3d-models/model-orientation.png": {
 		"shows": "The 3D orientation properties of an imported model: Rotate X/Y/Z with -90 and +90 buttons, Lift 0.9707, 'Model height: 1.2103 in', and Reset to import orientation, beside the model floating above the stock in the 3D view",
 		"source": "capture",
-		"appCommit": "e86464007feb96c3be6580bae974a89bef49baa7",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "site/fixtures/rapid.obj",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
@@ -1102,7 +1102,7 @@
 	"cam-setup/cam-plan/recommendations.png": {
 		"shows": "The CAM Plan dialog proposing rough and finish outside routes for a new rectangle, with shared tabs, a 1/4-inch endmill, the 0.250-inch cutter-limit explanation, and editable parameters",
 		"source": "capture",
-		"appCommit": "c371097f097f1c01b1ed4271f170e560b4601bf5",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "Empty project",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
@@ -1157,7 +1157,7 @@
 	"cam-setup/clamps-and-clearances/clamp-avoidance.png": {
 		"shows": "An outside route detouring around a clamp placed over its contour and raised to Z top 1 so it stands on the 0.75 inch stock rather than sitting inside it, with TOOLPATH WARNINGS reading 'Toolpath was kept clear of clamp “Clamp 3” — material under it and inside its clearance is left uncut' and a fallback-entry warning",
 		"source": "capture",
-		"appCommit": "c371097f097f1c01b1ed4271f170e560b4601bf5",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "Example: PureCutCNC",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
@@ -1179,7 +1179,7 @@
 	"operations/pocket/result.png": {
 		"shows": "The Simulation view after the pocket pass, cavities cleared to a flat floor, Selected scope, Detail 1200",
 		"source": "capture",
-		"appCommit": "b4ffabbdf900d42027545907d23e3cd7bf9b6aa3",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "Example: T Style guitar body",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
@@ -1201,7 +1201,7 @@
 	"operations/edge-route-outside/result.png": {
 		"shows": "The Simulation view after an outside route, the part free in its channel with tabs still holding it",
 		"source": "capture",
-		"appCommit": "b4ffabbdf900d42027545907d23e3cd7bf9b6aa3",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "Example: PureCutCNC",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
@@ -1223,7 +1223,7 @@
 	"operations/drill/result.png": {
 		"shows": "The Simulation view after drilling, the holes bored into the stock",
 		"source": "capture",
-		"appCommit": "b4ffabbdf900d42027545907d23e3cd7bf9b6aa3",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "Example: T Style guitar body",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
@@ -1322,7 +1322,7 @@
 	"operations/v-carve-medial/result.png": {
 		"shows": "The simulated result of a V-carve medial pass, shown on top of the pocket operations that run before it so the carve sits in cleared stock",
 		"source": "capture",
-		"appCommit": "f11fd8c9fbceb0a6077001249c72c0cca4fc0ca4",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "Example: PureCutCNC",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
@@ -1344,7 +1344,7 @@
 	"operations/v-carve-offset/result.png": {
 		"shows": "The simulated result of a V-carve offset pass on top of the pocket and medial operations before it, the lettering carved into cleared stock",
 		"source": "capture",
-		"appCommit": "f11fd8c9fbceb0a6077001249c72c0cca4fc0ca4",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "Example: PureCutCNC",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
@@ -1355,7 +1355,7 @@
 	"operations/edge-route-inside/result.png": {
 		"shows": "The simulated stock after the fixture's inside route, the teardrop profile cut open through the plate",
 		"source": "capture",
-		"appCommit": "f11fd8c9fbceb0a6077001249c72c0cca4fc0ca4",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "site/fixtures/cam-demo.camj",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
@@ -1366,7 +1366,7 @@
 	"operations/surface-clean/result.png": {
 		"shows": "The simulated stock after the fixture's surface clean, the material above the plate removed to a flat floor",
 		"source": "capture",
-		"appCommit": "f11fd8c9fbceb0a6077001249c72c0cca4fc0ca4",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "site/fixtures/cam-demo.camj",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
@@ -1377,7 +1377,7 @@
 	"operations/3d-surface-rough/result.png": {
 		"shows": "Simulated stock after the Busto project 3D surface rough pass, with the bust emerging in stepped levels",
 		"source": "capture",
-		"appCommit": "7843773f443748a426b59ad929c152c92ac0cb43",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "site/fixtures/busto-w-ops-2.camj",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
@@ -1388,7 +1388,7 @@
 	"operations/3d-surface-finish/result.png": {
 		"shows": "Simulated stock after the Busto project rough and finish passes, showing the smoothed face and neck",
 		"source": "capture",
-		"appCommit": "65d57cc77c42ef0e836647ce813759d67d52c6db",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "site/fixtures/busto-w-ops-2.camj",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
@@ -1432,7 +1432,7 @@
 	"reference/troubleshooting/webgl-unavailable.png": {
 		"shows": "The 3D view reporting that WebGL2 is unavailable while the tree, properties, and CAM panel keep working",
 		"source": "capture",
-		"appCommit": "c371097f097f1c01b1ed4271f170e560b4601bf5",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "site/fixtures/cam-demo.camj",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
@@ -1751,7 +1751,7 @@
 	"rotary/rotary-operations/rough-properties.png": {
 		"shows": "Rotary rough properties: What it cuts with Setup Around and Cuts chips Turn and Region 1 (filter), Tool 4 mm Ball Endmill, Stepdown 0.4, Stock to leave radial 0, Chuck-end and Tail-end support 0, and Strategy Passes Along the bar with Stepover ratio 0.067",
 		"source": "capture",
-		"appCommit": "649e52d517c7f391013c4405d4a1aa6d50a2ac8e",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "Empty project",
 		"viewport": "1440x1500@2x",
 		"theme": "dark",
@@ -1762,7 +1762,7 @@
 	"cam-setup/machines/rotary-axis.png": {
 		"shows": "Rotary axis group in the machine editor: Rotary axis Bar along X, Driven by The Y motor, Program word: Y, Reverse direction, and an empty Zero A line (optional) field",
 		"source": "capture",
-		"appCommit": "649e52d517c7f391013c4405d4a1aa6d50a2ac8e",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "Empty project",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
@@ -1773,7 +1773,7 @@
 	"operations/plasma-through-cut/operation-properties.png": {
 		"shows": "Plasma through-cut properties: the experimental note, Kerf side Automatic, Reverse direction (opposite swirl consumables), Lead-in Arc 3 mm, Lead-out Line Automatic, Contour start, Cuts chips Rect 1, Circle 2 and Circle 3, the Powermax45 tool and Feed 5560",
 		"source": "capture",
-		"appCommit": "649e52d517c7f391013c4405d4a1aa6d50a2ac8e",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "Empty project",
 		"viewport": "1440x2400@2x",
 		"theme": "dark",
@@ -1784,7 +1784,7 @@
 	"operations/plasma-through-cut/pick-start.png": {
 		"shows": "Pick start point active on a plate with two holes: a picked entry on the top edge with its separate pierce marker, the compact picker panel, and Use automatic start and Reset all starts in the properties",
 		"source": "capture",
-		"appCommit": "649e52d517c7f391013c4405d4a1aa6d50a2ac8e",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "Empty project",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
@@ -1829,6 +1829,127 @@
 		"shows": "Export ShopBot part file dialog: machine ShopBot (SBP), Inch units, Pocket Rough selected, Emit tool changes (C9) checked, and a preview of SBP lines with &Tool=1, C9, JZ, J2 and CG moves",
 		"source": "capture",
 		"appCommit": "649e52d517c7f391013c4405d4a1aa6d50a2ac8e",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"rotary/overview/top-bottom.png": {
+		"shows": "3D view of a Top pocket toolpath on a 40 mm square blank",
+		"source": "capture",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"rotary/rotary-features/flutes-panel.png": {
+		"shows": "Cut flutes panel on a Ø24 mm Turn with Start from chuck end 30, Length 50, Flutes 6, Twist 0, Direction Right-hand and Depth 1.5 mm, beside the Around sheet",
+		"source": "capture",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"rotary/rotary-features/polygon-panel.png": {
+		"shows": "Cut a polygon panel on a 30 mm round bar with Start from chuck end 20, Length 40, Sides 6, Across flats 22, Rotation 0, and the note that flats are approximated on the around view",
+		"source": "capture",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"rotary/rotary-features/square-sheet.png": {
+		"shows": "3D view of a 40 mm square blank with a Ø36 mm turned section and a pocket toolpath on the round band",
+		"source": "capture",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"rotary/rotary-features/surface-start.png": {
+		"shows": "Around text OAK over a Ø24 mm Turn, flagged with ⚠ in the tree, and Properties saying Starts 3 mm above the surface of Turn: the first pass cuts air, with the Start at turn surface button",
+		"source": "capture",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"rotary/rotary-features/turn-profile.png": {
+		"shows": "3D view of a Ø24 mm Turn inside a 30 mm bar with a Thread wound along it, and the feature tree listing Thread below Turn",
+		"source": "capture",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"rotary/rotary-features/work-on-turn.png": {
+		"shows": "3D view of the word OAK V-carved into a Ø24 mm Turn on a 30 mm bar",
+		"source": "capture",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"rotary/rotary-operations/export-zero-a.png": {
+		"shows": "Export G-code dialog for grblHAL + rotary A with one Around program, the note that the A orientation follows the stock, and Start with A zeroed at 0 up",
+		"source": "capture",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
+		"fixture": "Empty project",
+		"viewport": "1440x1000@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"rotary/rotary-operations/helix-rings.png": {
+		"shows": "Around-the-bar Rotary finish toolpath on a Turn: a helix along the model with a full ring at each end",
+		"source": "capture",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"rotary/rotary-operations/other-models.png": {
+		"shows": "Simulation of a bolt: Rotary rough on the Turn cuts the shank down while the hexagon beside it stays standing",
+		"source": "capture",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"rotary/rotary-operations/pass-directions.png": {
+		"shows": "Two 3D toolpath views of a Rotary finish on the same Turn: passes along the bar on the left, rings around the bar on the right",
+		"source": "capture",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "Empty project",
 		"viewport": "1440x900@2x",
 		"theme": "dark",

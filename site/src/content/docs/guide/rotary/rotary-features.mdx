@@ -11,6 +11,12 @@ import threadPanel from '../../../../assets/manual/rotary/rotary-features/thread
 import turnPanel from '../../../../assets/manual/rotary/rotary-features/turn-panel.png';
 import { Aside, Steps } from '@astrojs/starlight/components';
 import VisualPending from '../../../../components/VisualPending.astro';
+import surfaceStart from '../../../../assets/manual/rotary/rotary-features/surface-start.png';
+import polygonPanel from '../../../../assets/manual/rotary/rotary-features/polygon-panel.png';
+import flutesPanel from '../../../../assets/manual/rotary/rotary-features/flutes-panel.png';
+import turnProfile from '../../../../assets/manual/rotary/rotary-features/turn-profile.png';
+import workOnTurn from '../../../../assets/manual/rotary/rotary-features/work-on-turn.png';
+import squareSheet from '../../../../assets/manual/rotary/rotary-features/square-sheet.png';
 
 Use the creation drawer's rotary group to describe a turned diameter, flats, a thread, or flutes.
 These are editable canned features: their parameters stay with the shape. Creating one does not
@@ -90,7 +96,7 @@ profile is kept.
 The panel notes **Flats are approximated on the around view.** Inspect the model and generated
 motion in 3D before choosing the cutter and stepover.
 
-<VisualPending id="m8-polygon-panel" />
+<Screenshot src={polygonPanel} maxWidth={1089} alt="Cut a polygon panel on a 30 mm round bar with Start from chuck end 20, Length 40, Sides 6, Across flats 22, Rotation 0, and the note that flats are approximated on the around view" caption="Polygon / hex creates one generated model; six sides make a hexagon." />
 
 ## Cut a thread
 
@@ -135,7 +141,7 @@ Choose the cutter on the machining operation, not in this panel. CAM Plan propos
 **Engrave** with a V-bit for Flutes as well as Thread; review whether that cutter makes the
 flute shape you want.
 
-<VisualPending id="m8-flutes-panel" />
+<Screenshot src={flutesPanel} maxWidth={1089} alt="Cut flutes panel on a Ø24 mm Turn with Start from chuck end 30, Length 50, Flutes 6, Twist 0, Direction Right-hand and Depth 1.5 mm, beside the Around sheet" caption="The panel names the Turn diameter the flutes follow." />
 
 ## Edit and follow a Turn
 
@@ -156,7 +162,7 @@ A pattern crossing a Turn end, a diameter step, a taper, or another model can ha
 Turn diameter to follow. The panel warns and measures depth from the bar surface instead.
 Read that notice and inspect the resulting cut before adding or regenerating operations.
 
-<VisualPending id="m8-turn-profile" />
+<Screenshot src={turnProfile} maxWidth={1089} alt="3D view of a Ø24 mm Turn inside a 30 mm bar with a Thread wound along it, and the feature tree listing Thread below Turn" caption="A Thread below its Turn in the tree follows the Turn's surface." />
 
 ## Drawing on Around
 
@@ -182,7 +188,7 @@ keeps square stroke ends, and pocket walls sit one cutter radius in. Where the a
 its depths do not change. Drilling, and work that is not all on one Turn diameter, keep the
 bar's sheet. In the 3D view, a pocket whose top sits on the Turn's surface shows open.
 
-<VisualPending id="m8-work-on-turn" />
+<Screenshot src={workOnTurn} maxWidth={775} alt="3D view of the word OAK V-carved into a Ø24 mm Turn on a 30 mm bar" caption="Work on a Turn is planned at the Turn's radius, so the letters keep their shape on the smaller surface." />
 
 ### Starting at the Turn's surface
 
@@ -194,7 +200,7 @@ bottom by that amount, in one undo step. A shape that crosses a Turn's end or a 
 change gets a note that there is no single surface to start from, and no button. Thread and
 Flutes are left out: they follow their Turn by themselves.
 
-<VisualPending id="m8-surface-start" />
+<Screenshot src={surfaceStart} maxWidth={1089} alt="Around text OAK over a Ø24 mm Turn, flagged with ⚠ in the tree, and Properties saying Starts 3 mm above the surface of Turn: the first pass cuts air, with the Start at turn surface button" caption="Text drawn at the bar surface over a smaller Turn starts in air until you lower it." />
 
 ## Sheet work on a square bar
 
@@ -222,7 +228,7 @@ targets that sit under different Turns into one operation per Turn.
 Between passes the program travels above the square's corners. See
 [Square bar sheet work](/guide/rotary/rotary-operations/#square-bar-sheet-work).
 
-<VisualPending id="m8-square-sheet" />
+<Screenshot src={squareSheet} maxWidth={775} alt="3D view of a 40 mm square blank with a Ø36 mm turned section and a pocket toolpath on the round band" caption="On a square blank, sheet work is cut only over a section a Turn has made round." />
 
 ## Related pages
 
