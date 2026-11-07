@@ -166,10 +166,16 @@ Read that notice and inspect the resulting cut before adding or regenerating ope
 
 ## Drawing on Around
 
-On a round bar's **Around** sheet, use the ordinary drawing tools, text, or imported 2D artwork.
-Their depth is measured into the bar; a cut must stop short of its centreline. A newly drawn
-Around shape starts at one sixteenth of the diameter deep, rounded to 0.5 mm or 1/64 in and
-capped at one quarter of the diameter. Check its Z fields before machining.
+On a round bar's **Around** sheet, use the ordinary drawing tools, text, canned flat shapes, or
+imported 2D artwork. Each one is projected onto the bar and cut into its surface. Their depth is
+measured into the bar from the bar's own surface; a cut must stop short of its centreline. A
+newly drawn Around shape starts at the bar surface and one sixteenth of the diameter deep,
+rounded to 0.5 mm or 1/64 in and capped at one quarter of the diameter. Check its Z fields
+before machining.
+
+Unlike Thread and Flutes, which drop onto the Turn they lie on, these features do not move to a
+Turn's smaller surface by themselves. Lower a feature drawn over a Turn to that surface (see
+[Starting at the Turn's surface](#starting-at-the-turns-surface)) and check its Z bottom.
 
 The sheet edges are the same seam, labelled −180° and +180°. Canned outlines and toolpaths
 that cross an edge are displayed wrapped back into the sheet. A many-turn thread therefore

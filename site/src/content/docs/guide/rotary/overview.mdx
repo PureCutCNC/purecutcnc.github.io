@@ -92,6 +92,22 @@ but export checks the machine. See [Machines](/guide/cam-setup/machines/#rotary-
 
 ## Around and the unrolled sheet
 
+**Around** wraps the bar in a flat drawing sheet. Every 2D feature you put on it (rectangles,
+circles, polylines, text, canned flat shapes, imported SVG or DXF artwork) is projected onto
+the round bar, or onto a section a Turn has made round, and cut into that surface.
+
+Where a feature sits in depth depends on its kind:
+
+- **Thread** and **Flutes** drop onto the surface they lie on by themselves: the bar, or a Turn
+  above them in the feature tree. Their depth is measured below that surface and follows the
+  Turn when it changes.
+- **Turn** and **Polygon / hex** are models; their diameter or across-flats sets their size.
+- Every other 2D feature is placed by its **Z top** and **Z bottom**, measured on the bar's own
+  surface. On the plain bar that is right as drawn. Over a smaller Turn you must lower it to the
+  Turn's surface yourself, or its first pass cuts air: **Start at turn surface** in Properties
+  does this in one step. See
+  [Starting at the Turn's surface](/guide/rotary/rotary-features/#starting-at-the-turns-surface).
+
 Open the current-face menu beside the workspace tabs and choose **Around**. The Sketch view
 lays out the bar surface flat: length along the bar by one circumference around it. A line marks
 each full turn. The solid zero line, A = 0, is in the middle, on the bar's centreline in plan.
