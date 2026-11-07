@@ -1040,8 +1040,18 @@ async function plasmaPart(page) {
 }
 
 const RECIPES = [
-	// M6 additions. quickstart/new-project.png has no inventory id in this
-	// checkout; projects-new-project below already reproduces its dialog state.
+	// M6 additions.
+	{
+		id: 'quickstart-new-project-dialog',
+		asset: 'quickstart/new-project.png',
+		viewport: { width: 1440, height: 1000 },
+		async steps(page) {
+			await blankProjectDialog(page)
+			await page.mouse.move(1, 1)
+			await page.waitForTimeout(600)
+		},
+		clip: clipDialog('.dialog--new-project', 8),
+	},
 	{
 		id: 'quickstart-new-project',
 		asset: 'quickstart/empty-workspace.png',

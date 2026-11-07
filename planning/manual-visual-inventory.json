@@ -359,6 +359,18 @@
 			"blockedBy": []
 		},
 		{
+			"id": "quickstart-new-project-dialog",
+			"page": "/quickstart/",
+			"afterHeading": "Create a new project",
+			"kind": "screenshot",
+			"purpose": "Show the project type and template the tutorial starts from.",
+			"brief": "New project dialog with Project type Milling / routing and the Blank imperial template selected; preview lists inch units, stock Width 4, Height 3, Thickness 0.75, and no machine.",
+			"asset": "quickstart/new-project.png",
+			"alt": "New project dialog with Milling / routing and the Blank imperial template selected, previewing a 4 × 3 × 0.75 inch stock and no machine",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
 			"id": "quickstart-new-project",
 			"page": "/quickstart/",
 			"afterHeading": "Create a new project",
@@ -2445,6 +2457,134 @@
 			"brief": "Manage machines list with built-in machines including the six rotary ones: router and plasma icons, rotary icons, group headings and the Router / Plasma / Rotary legend.",
 			"asset": "cam-setup/machines/machine-list.png",
 			"alt": "Manage machines list with router, plasma and rotary icons beside each machine and the Router, Plasma, Rotary legend",
+			"status": "proposed",
+			"blockedBy": []
+		},
+		{
+			"id": "m8-polygon-panel",
+			"page": "/guide/rotary/rotary-features/",
+			"afterHeading": "Cut a polygon or hexagon",
+			"kind": "screenshot",
+			"purpose": "Recognise the polygon side panel and the cut it makes.",
+			"brief": "Cut a polygon side panel set to a hexagon (sides, across flats, start, length) beside the 3D view of the hex standing on a round bar.",
+			"asset": "rotary/rotary-features/polygon-panel.png",
+			"alt": "Cut a polygon side panel set to six sides beside a 3D view of the hexagon on the bar",
+			"status": "proposed",
+			"blockedBy": []
+		},
+		{
+			"id": "m8-flutes-panel",
+			"page": "/guide/rotary/rotary-features/",
+			"afterHeading": "Cut flutes",
+			"kind": "screenshot",
+			"purpose": "Recognise the flutes side panel and the fluted result.",
+			"brief": "Cut flutes side panel (count, width, depth, length) beside the 3D view of the flutes on a Turn.",
+			"asset": "rotary/rotary-features/flutes-panel.png",
+			"alt": "Cut flutes side panel beside a 3D view of evenly spaced flutes along a Turn",
+			"status": "proposed",
+			"blockedBy": []
+		},
+		{
+			"id": "m8-turn-profile",
+			"page": "/guide/rotary/rotary-features/",
+			"afterHeading": "Edit and follow a Turn",
+			"kind": "screenshot",
+			"purpose": "See a stepped Turn profile and a feature that follows it.",
+			"brief": "Stepped Turn built from a picked profile shape, in 3D, with a Thread or Flutes feature following one of its diameters; tree shows the following feature under the Turn.",
+			"asset": "rotary/rotary-features/turn-profile.png",
+			"alt": "Stepped Turn in 3D with a thread following one diameter, and the feature tree showing it under the Turn",
+			"status": "proposed",
+			"blockedBy": []
+		},
+		{
+			"id": "m8-work-on-turn",
+			"page": "/guide/rotary/rotary-features/",
+			"afterHeading": "Work on a Turn",
+			"kind": "screenshot",
+			"purpose": "See Around work planned at a Turn's radius.",
+			"brief": "Around text or pocket drawn over a smaller Turn, 3D view with its toolpath sitting on the Turn's surface; V-carve stroke ends stay square.",
+			"asset": "rotary/rotary-features/work-on-turn.png",
+			"alt": "Around V-carved text on a smaller Turn in 3D, with the toolpath following the Turn's surface",
+			"status": "blocked",
+			"blockedBy": [
+				"PureCutCNC/purecutcnc#1131"
+			]
+		},
+		{
+			"id": "m8-square-sheet",
+			"page": "/guide/rotary/rotary-features/",
+			"afterHeading": "Sheet work on a square bar",
+			"kind": "screenshot",
+			"purpose": "See sheet work on a square bar and where it cuts.",
+			"brief": "Square bar with a Turn section: Around sheet with a pocket drawn on the turned band and its toolpath in 3D.",
+			"asset": "rotary/rotary-features/square-sheet.png",
+			"alt": "Square bar with a turned section, a pocket drawn on its Around sheet and the toolpath on the round band",
+			"status": "blocked",
+			"blockedBy": [
+				"PureCutCNC/purecutcnc#1131"
+			]
+		},
+		{
+			"id": "m8-pass-directions",
+			"page": "/guide/rotary/rotary-operations/",
+			"afterHeading": "Pass direction and regions",
+			"kind": "screenshot",
+			"purpose": "Compare Along the bar and Around the bar passes.",
+			"brief": "The same Turn model with Rotary finish set to Along the bar and to Around the bar, two 3D toolpath views side by side.",
+			"asset": "rotary/rotary-operations/pass-directions.png",
+			"alt": "Two 3D toolpath views of the same model: passes along the bar on the left, rings around it on the right",
+			"status": "proposed",
+			"blockedBy": []
+		},
+		{
+			"id": "m8-helix-rings",
+			"page": "/guide/rotary/rotary-operations/",
+			"afterHeading": "How A moves around the bar",
+			"kind": "screenshot",
+			"purpose": "See a helix stretch and the full rings at its ends.",
+			"brief": "Around-the-bar finish on a round bar, low-angle 3D view of the helix with the full ring at each end of the stretch.",
+			"asset": "rotary/rotary-operations/helix-rings.png",
+			"alt": "Around-the-bar finish toolpath in 3D: a helix along the model with a full ring at each end",
+			"status": "blocked",
+			"blockedBy": [
+				"PureCutCNC/purecutcnc#1155"
+			]
+		},
+		{
+			"id": "m8-other-models",
+			"page": "/guide/rotary/rotary-operations/",
+			"afterHeading": "Other models on the bar",
+			"kind": "screenshot",
+			"purpose": "See a rotary operation keep clear of another model.",
+			"brief": "Bolt: Turn rough and finish simulated with the Hex standing untouched, wall foot cleared, viewed from a low angle.",
+			"asset": "rotary/rotary-operations/other-models.png",
+			"alt": "Simulation of a bolt: the turned shank is cut while the hexagon head stays intact",
+			"status": "blocked",
+			"blockedBy": [
+				"PureCutCNC/purecutcnc#1155"
+			]
+		},
+		{
+			"id": "m8-export-zero-a",
+			"page": "/guide/rotary/rotary-operations/",
+			"afterHeading": "Rotary export",
+			"kind": "screenshot",
+			"purpose": "Recognise the zero-A reminder at export.",
+			"brief": "Export dialog for a rotary program showing Start with A zeroed at 0 up and the machine's rotary notes.",
+			"asset": "rotary/rotary-operations/export-zero-a.png",
+			"alt": "Export dialog for a rotary program with the reminder to start with A zeroed at 0 up",
+			"status": "proposed",
+			"blockedBy": []
+		},
+		{
+			"id": "m8-top-bottom",
+			"page": "/guide/rotary/overview/",
+			"afterHeading": "Top and Bottom on a bar",
+			"kind": "screenshot",
+			"purpose": "See a flat-face operation on a bar.",
+			"brief": "Top setup on a square bar with a pocket on the flat face, 3D view with the toolpath and the A-held bar.",
+			"asset": "rotary/overview/top-bottom.png",
+			"alt": "Pocket toolpath on the top face of a square bar in a Top setup",
 			"status": "proposed",
 			"blockedBy": []
 		}
