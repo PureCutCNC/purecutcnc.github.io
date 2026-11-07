@@ -84,7 +84,9 @@ when you understand the controller requirements for every changed field.
 <Availability kind="preview" />
 
 For a router machine that writes G-code, the editor offers **Rotary axis**: **None** (default),
-**Bar along X**, or **Bar along Y**. Match the stock's **Axis**. **Driven by** offers **Its own
+**Bar along X**, or **Bar along Y**. Match the stock's **Axis**. The built-in rotary machines
+need no setting here: they take the orientation from the stock (see
+[Built-in rotary machines](#built-in-rotary-machines)). **Driven by** offers **Its own
 axis (A)** or the other horizontal motor: **The Y motor** for X stock, **The X motor** for Y stock.
 The **Program word: A** note changes to the borrowed letter; **Reverse direction** starts off.
 
@@ -118,8 +120,9 @@ Six built-in machines carry a rotary axis:
 A counts past 360° in every rotary program, so rollover and A soft limits must not stop it.
 These machines follow the project's bar: one machine serves a bar along X or along Y. The
 manager summary reads, for example, **Follows the bar (now along X), on its own axis (A)**, and
-the export dialog names the axis it turns about (and, for the borrowed motor, the motor). A
-duplicate of one gets a fixed **Bar along X** or **Bar along Y**.
+the export dialog names the axis it turns about (and, for the borrowed motor, the motor). A copy
+saved or duplicated from one gets the open project's axis as a fixed **Bar along X** or **Bar
+along Y**.
 
 The borrowed-motor GRBL machine and **GRBL 4-axis fork + rotary A** turn the rotary in mm only.
 In an inch rotary project the machine picker and the export dialog show the machine's name followed by

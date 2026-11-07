@@ -71,19 +71,24 @@ material to support the part throughout the job; see [Working safely](/guide/sta
 
 ## Machine rotary axis
 
-In the machine editor, set **Rotary axis** to **Bar along X** or **Bar along Y** to match
-**Stock** > **Axis**. **None** is the default. Under **Driven by**, choose **Its own axis (A)**,
-or **The Y motor** for a bar along X / **The X motor** for a bar along Y. A borrowed motor
-cannot also provide linear travel during that program.
+The built-in rotary machines, such as **grblHAL + rotary A** or **GRBL 1.1 + rotary (borrowed
+motor)**, take their rotary orientation from the stock: the rotary turns about **Stock** >
+**Axis**, so one machine serves a bar along X or along Y and there is nothing to set. The machine
+list shows **Follows the bar (now along X)**, and export says the A orientation follows the stock.
+Two of them need a project in mm. See
+[Built-in rotary machines](/guide/cam-setup/machines/#built-in-rotary-machines).
+
+A machine of your own has a fixed orientation. In the machine editor, set **Rotary axis** to
+**Bar along X** or **Bar along Y** to match **Stock** > **Axis**. **None** is the default. Under
+**Driven by**, choose **Its own axis (A)**, or **The Y motor** for a bar along X / **The X motor**
+for a bar along Y. A borrowed motor cannot also provide linear travel during that program. Saving
+or duplicating a built-in rotary machine gives the copy the open project's bar axis, fixed; change
+it in the editor if you later turn a bar along the other axis.
 
 The **Program word: A** note shows the output letter; it changes to the borrowed motor's
 letter when applicable. **Reverse direction** reverses the rotary sign. Confirm the direction
 on your controller before cutting. You can design on Around before choosing a suitable machine,
 but export checks the machine. See [Machines](/guide/cam-setup/machines/#rotary-axis).
-
-The built-in rotary machines, such as **grblHAL + rotary A** or **GRBL 1.1 + rotary (borrowed
-motor)**, follow the project's bar: one machine serves a bar along X or Y. Two of them need a
-project in mm. See [Built-in rotary machines](/guide/cam-setup/machines/#built-in-rotary-machines).
 
 ## Around and the unrolled sheet
 
