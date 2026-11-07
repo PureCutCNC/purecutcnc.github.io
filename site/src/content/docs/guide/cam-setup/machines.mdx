@@ -9,6 +9,7 @@ status: draft
 import Availability from '../../../../components/Availability.astro';
 
 import Screenshot from '../../../../components/Screenshot.astro';
+import VisualPending from '../../../../components/VisualPending.astro';
 import plasmaPierceMode from '../../../../assets/manual/cam-setup/machines/plasma-pierce-mode.png';
 import rotaryAxis from '../../../../assets/manual/cam-setup/machines/rotary-axis.png';
 import machineEditor from '../../../../assets/manual/cam-setup/machines/machine-editor.png';
@@ -43,6 +44,12 @@ copy of its selected definition, so a project remains reproducible when your per
 changes. Import a definition into the manager when it is not already available.
 
 ### My Machines
+
+The list shows each machine's kind as a small icon, router or plasma torch, and a rotary icon
+on machines with a rotary axis; the legend under the list reads **Router**, **Plasma**, and
+**Rotary**. The group headings separate the built-in machines from **My Machines**.
+
+<VisualPending id="m8-machine-list" />
 
 Personal definitions live in **My Machines**. Share a definition by exporting it from the manager
 and import it into another library; older projects keep their own selected project copy.
@@ -86,11 +93,38 @@ rotary zero, without moving: `G92 A0`, or `G10 L20 P… A0` in the work coordina
 program uses, with this machine's rotary letter. Leave it empty to have the program pause
 between rotary operations so you can zero A by hand. See
 [Rotary export](/guide/rotary/rotary-operations/#rotary-export).
+For an own axis, tick **Controller scales A with inch units: rotary programs are exported in mm
+only** when the controller turns A like a length under G20. A borrowed motor always reads the
+angle as a length, so the editor notes that its rotary programs are exported in mm only.
 The **Manage machines** preview includes a **Rotary axis** row summarising this choice.
 See [Rotary machining](/guide/rotary/overview/#machine-rotary-axis) and
 [Rotary definition](/guide/reference/machine-definitions/#rotary-definition).
 
 <Screenshot src={rotaryAxis} maxWidth={376} alt="Rotary axis group in the machine editor: Rotary axis Bar along X, Driven by The Y motor, Program word: Y, Reverse direction, and an empty Zero A line (optional) field" caption="A rotary that borrows the Y motor is programmed with Y words." />
+
+### Built-in rotary machines
+
+Six built-in machines carry a rotary axis:
+
+| Machine | Rotary | Setup notes from its description |
+| --- | --- | --- |
+| **GRBL 1.1 + rotary (borrowed motor)** | The Y motor for a bar along X, the X motor for a bar along Y | Set that axis's steps/mm as steps per degree; soft limits off (`$20=0`). mm only. |
+| **GRBL 4-axis fork + rotary A** | Own axis A | Grbl 1.1 fork boards with a fourth axis. Soft limits off (`$20=0`) or `$133` past any job; in gSender enable **Use A-axis for grbl**. mm only. |
+| **grblHAL + rotary A** | Own axis A | Put A in the rotary axes setting (`$376`); soft limits off (`$20=0`) or `$133` past any job. |
+| **Mach3 + rotary A** | Own axis A | Tick A as angular, turn Rot 360 rollover off, and turn A soft limits off. |
+| **UCCNC + rotary A** | Own axis A | UCCNC 1.2105 or later (G93). Turn the 360° rollover and A soft limits off. |
+| **LinuxCNC + rotary A** | Own axis A | Set `[AXIS_A]` limits wide and leave `WRAPPED_ROTARY` off. |
+
+A counts past 360° in every rotary program, so rollover and A soft limits must not stop it.
+These machines follow the project's bar: one machine serves a bar along X or along Y. The
+manager summary reads, for example, **Follows the bar (now along X), on its own axis (A)**, and
+the export dialog names the axis it turns about (and, for the borrowed motor, the motor). A
+duplicate of one gets a fixed **Bar along X** or **Bar along Y**.
+
+The borrowed-motor GRBL machine and **GRBL 4-axis fork + rotary A** turn the rotary in mm only.
+In an inch rotary project the machine picker and the export dialog show the machine's name followed by
+**turns the rotary in millimetres only. Change the project units to mm to export rotary
+operations.**, and its turning operations are not exported.
 
 ## Plasma machines
 

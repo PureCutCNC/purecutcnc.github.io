@@ -40,8 +40,10 @@ create a machining operation or ask for a tool.
 </Steps>
 
 The group stays visible when an entry cannot be used. The reason can be **Needs a bar in a
-rotary project**, **Only available on the around face**, or **Not available on a square bar yet**.
-Round-only Thread and Flutes are disabled on a square blank. Turn and Polygon remain available.
+rotary project**, **Only available on the around face**, or **Turn a section of the square bar
+round first**. On a square blank, Thread and Flutes need a section that a Turn has made round;
+see [Sheet work on a square bar](#sheet-work-on-a-square-bar). Turn and Polygon are always
+available.
 
 <VisualPending id="m3-creation-group" />
 
@@ -139,7 +141,9 @@ or **Cancel** to discard them. Parameters own the rotary feature's Z span; chang
 across flats, or depth in this panel rather than looking for an ordinary Z slider.
 
 A Thread or Flutes feature wholly over a single plain-diameter section of a Turn measures its
-depth below that Turn's surface. The panel names the Turn and diameter. Its surface height
+depth below that Turn's surface. Only Turns and models **above it in the feature tree** count:
+a Thread above its Turn in the tree measures from the bar surface, and on a plain shank it can
+cut nothing. Drag the Thread below the Turn to follow it. The panel names the Turn and diameter. Its surface height
 follows changes to that Turn. A pattern moved with its Turn keeps that relationship where
 it still lies over the same section; check its start and length after moving or resizing either.
 Your pitch and depth choices remain yours.
@@ -163,9 +167,43 @@ outlines remain displayed where you drew them.
 Named bands show the length occupied by models inside the bar. You can select a model band
 for rotary operations. It represents the model rather than a pocket drawn on the sheet.
 
-On square stock, region and construction drawing remain available for planning and reference.
-For the changing limits on square-bar sheet cuts, read the
-[square-bar placeholder](/guide/rotary/rotary-operations/#changes-before-release).
+### Starting at the Turn's surface
+
+Around depths are measured from the bar surface, also over a Turn. A pocket, island, line,
+text, or canned flat shape whose top is above the one Turn it lies on would cut air on its first
+pass. Its tree row shows ⚠, and Properties says, for example, **Starts 2.5 mm above the surface
+of Turn 1: the first pass cuts air.** Choose **Start at turn surface** to lower its Z top and Z
+bottom by that amount, in one undo step. A shape that crosses a Turn's end or a diameter
+change gets a note that there is no single surface to start from, and no button. Thread and
+Flutes are left out: they follow their Turn by themselves.
+
+<VisualPending id="m8-surface-start" />
+
+## Sheet work on a square bar
+
+On a square blank, Around sheet work (pockets, islands, lines, text, canned flat shapes, Thread
+and Flutes) is cut only over a section that a Turn **above it in the feature tree** has made
+round. Until any section is round, the drawing tools and the Add menu say **Turn a section of
+the square bar round first**. Region and construction drawing stay available.
+
+<Steps>
+
+1. Create a Turn whose diameter fits inside the square, at the length you want to work on.
+2. Draw the sheet work below that Turn in the feature tree, over its length.
+3. Add its operations on Around as you would on a round bar.
+
+</Steps>
+
+A section does not count when the Turn is wider than the square's inscribed circle, or when a
+Polygon or an imported model is above the feature instead: those leave flats. Work that is not
+over a turned section is kept, with a note such as **Kept, but it cannot be cut: turn this
+section round first.** Moving the Turn below it in the tree has the same effect. An operation
+is judged by its cutter's reach along the bar too, so a route whose path runs past the Turn's
+end is refused even when the feature is over the Turn. One operation cuts under one Turn: split
+targets that sit under different Turns into one operation per Turn.
+
+Between passes the program travels above the square's corners. See
+[Square bar sheet work](/guide/rotary/rotary-operations/#square-bar-sheet-work).
 
 ## Related pages
 

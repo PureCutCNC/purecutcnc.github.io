@@ -21,6 +21,11 @@ Machine definitions determine the file extension, coordinate rules, program text
 | **Mach3** | `.tap` |
 | **UCCNC** | `.txt` |
 
+Six more built-ins carry a rotary block and use their base controller's extension:
+**GRBL 1.1 + rotary (borrowed motor)**, **GRBL 4-axis fork + rotary A**, **grblHAL + rotary A**,
+**Mach3 + rotary A**, **UCCNC + rotary A**, and **LinuxCNC + rotary A**. See
+[Built-in rotary machines](/guide/cam-setup/machines/#built-in-rotary-machines).
+
 ## Definition groups
 
 | Group | Controls |
@@ -46,9 +51,10 @@ rotary axis. Configure it in the machine editor or its raw JSON:
 
 | Field | Meaning |
 | --- | --- |
-| `rotary.about` | Required `"x"` or `"y"`: the project axis the bar lies along. |
+| `rotary.about` | `"x"` or `"y"`: the project axis the bar lies along. The built-in rotary machines leave it out, which means the machine follows the project's bar. |
 | `rotary.drive` | Required `"own"` for output word A, or `"borrowed"` for the other horizontal motor's word. Linear travel on that motor is then unavailable. |
 | `rotary.reversed` | Reverses the rotary sign; defaults to `false`. |
+| `rotary.angleScalesWithUnits` | Optional; `true` when the controller converts its A word like a length under G20. Rotary programs are then exported in mm only, as they always are for a borrowed motor. Written only when true. |
 | `rotary.zeroA` | Optional line run before every rotary operation, for example `"G92 A0"`. It must only zero the rotary word (`G92 … A0`, or `G10 L20 P… A0` in a work coordinate system the program selects) and must not move. Missing or empty means the program pauses with `M0` between rotary operations. |
 | `rotary.inverseTimeFeed` | Commands `on` and `off`, defaulting to `"G93"` and `"G94"`. `null` means no inverse-time capability and refuses turning feed cuts. Set nonstandard commands in raw JSON. |
 | `motion.machineCoordinateCommand` | Prefix for a machine-coordinate rapid. If absent, G-code uses `G53` plus the rapid command; `null` declares no such move. Required for safe indexing when tool-length compensation cannot establish clearance. |
