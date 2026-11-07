@@ -45,8 +45,15 @@ For names, tools, feeds, and other shared fields, see
 | **Chuck-end support** | Length left uncut at the chuck end, initially 0. Chuck keep-outs still apply. |
 | **Tail-end support** | Length left uncut at the tail end, initially 0. Tailstock keep-outs still apply. |
 
-Zero support is a field default, not a recommendation to machine the part free. Cuts are
-restricted to the model's length and the space clear of the end supports and workholding.
+Zero support is a field default, not a recommendation to machine the part free.
+On a round bar, the tool runs to the edge of its target model at both ends, so a ball cutter
+leaves no ridge there, and it may cut into the plain bar beyond those ends. Other models on the
+bar, the end supports, the chuck and tailstock keep-outs, and the bar's outside still stop it. On
+a square blank, the tool stops one tool radius inside the model's ends.
+
+Where another model's wall rises next to the target, the cut stands off that wall's face by the
+stock to leave plus the tool radius. Rotary finish runs a full ring there before its helix, and
+each rough layer's first ring sits there too, so the foot of the wall is cleared cleanly.
 The cutter's side must clear the retained ends; shoulders can retain a cutter-radius fillet.
 
 <Screenshot src={roughProperties} maxWidth={401} alt="Rotary rough properties: What it cuts with Setup Around and Cuts chips Turn and Region 1 (filter), Tool 4 mm Ball Endmill, Stepdown 0.4, Stock to leave radial 0, Chuck-end and Tail-end support 0, and Strategy Passes Along the bar with Stepover ratio 0.067" caption="Rotary rough cuts the Turn model inside the region, with supports left at the chuck and tail ends." />
@@ -99,15 +106,18 @@ only a region keeps the operation's model choice. Include and exclude order stil
 Links outside the allowed region must clear the material left there. See
 [Regions](/guide/fundamentals/regions/).
 
-## Changes before release
+## Square bar sheet work
 
-{/* placeholder: purecutcnc#1131 */}
-<Aside type="caution" title="This behaviour is changing before 0.6.0 ships">
-Sheet cuts such as pockets and engraving over a turned section of a square blank are being
-revised in [application issue #1131](https://github.com/PureCutCNC/purecutcnc/issues/1131).
-This draft does not establish which turned sections will accept that work. Turn and Polygon
-models with rotary rough and finish are the supported square-blank workflow described here.
-</Aside>
+On a square blank, Around sheet operations (pockets, V-carve, edge routes, engraving, Thread and
+Flutes) cut only over a section a Turn above their targets in the tree has made round. See
+[Sheet work on a square bar](/guide/rotary/rotary-features/#sheet-work-on-a-square-bar). Any 2D
+cutter can be used, including a V-bit.
+
+Generation checks the path, not only the feature: every move below the corners, grown by the
+cutter radius, must stay over the round section. Otherwise the operation cuts nothing and warns
+**turn this section round first**, or, over a Polygon's flats, that sheet work needs a section a
+turn has made round. Every rapid that moves along the bar or turns it travels above the corners
+(the corner radius plus 1 mm). Export regenerates the path and refuses one that no longer matches.
 
 ## Limitations and warnings
 
@@ -154,9 +164,9 @@ operations. Each still needs an appropriate target and tool:
 | **Engrave** | Follow open or closed lines, including Thread and Flutes. |
 | **Drill** | Drill eligible circular features with expanded moves. |
 
-Rows disabled by the selection explain what target is missing. On square stock the sheet rows
-stay visible and disabled with **Not available on a square bar yet**; see #1131 above for the
-unfinished turned-section behaviour. Flat 3D surface operations are omitted because they have
+Rows disabled by the selection explain what target is missing. On square stock with no turned
+section, the sheet rows stay visible and disabled with **Turn a section of the square bar round
+first**; a selection partly over an unturned section says **Turn this section round first**. Flat 3D surface operations are omitted because they have
 no wrapped form. Tabs and flat-face cross-face targets do not apply to Around.
 
 ## CAM Plan on Around

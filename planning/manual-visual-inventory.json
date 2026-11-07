@@ -2260,7 +2260,7 @@
 			"afterHeading": "Create a rotary feature",
 			"kind": "screenshot",
 			"purpose": "Find the four rotary commands and read a disabled reason.",
-			"brief": "Creation drawer open with Thread, Flutes, Turn and Polygon / hex. Pair round and square states to show Not available on a square bar yet. Recheck #1131 before capture.",
+			"brief": "Creation drawer open with Thread, Flutes, Turn and Polygon / hex. Pair a round bar with a square bar that has no Turn, showing Turn a section of the square bar round first. Capture after purecutcnc#1131 (PR #1163) merges.",
 			"asset": "rotary/rotary-features/creation-group.png",
 			"alt": "Creation drawer rotary group with Thread, Flutes, Turn and Polygon / hex",
 			"status": "blocked",
@@ -2421,6 +2421,30 @@
 			"brief": "Top plasma simulation after cutting the same closed part and holes used for the kerf preview. Frame the through-slots, lead slots and pierce holes. Show Play tool with the plain-cylinder torch in a second state only if necessary; do not use a still to imply loose-part motion.",
 			"asset": "verify-export/simulation/plasma-result.png",
 			"alt": "Plasma simulation with full-depth slots around a part and its holes, including leads and pierces",
+			"status": "proposed",
+			"blockedBy": []
+		},
+		{
+			"id": "m8-surface-start",
+			"page": "/guide/rotary/rotary-features/",
+			"afterHeading": "Starting at the Turn's surface",
+			"kind": "screenshot",
+			"purpose": "Recognise the starts-above-surface warning and its one-step fix.",
+			"brief": "Around pocket at the bar surface over a smaller Turn: tree row with the warning marker and Properties showing Starts … above the surface of Turn 1 with the Start at turn surface button.",
+			"asset": "rotary/rotary-features/surface-start.png",
+			"alt": "Around pocket flagged as starting above the surface of Turn 1, with the Start at turn surface button in Properties",
+			"status": "proposed",
+			"blockedBy": []
+		},
+		{
+			"id": "m8-machine-list",
+			"page": "/guide/cam-setup/machines/",
+			"afterHeading": "My Machines",
+			"kind": "screenshot",
+			"purpose": "Read the machine kind and rotary icons in the manager list.",
+			"brief": "Manage machines list with built-in machines including the six rotary ones: router and plasma icons, rotary icons, group headings and the Router / Plasma / Rotary legend.",
+			"asset": "cam-setup/machines/machine-list.png",
+			"alt": "Manage machines list with router, plasma and rotary icons beside each machine and the Router, Plasma, Rotary legend",
 			"status": "proposed",
 			"blockedBy": []
 		}

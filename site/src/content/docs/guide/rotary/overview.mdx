@@ -80,6 +80,10 @@ letter when applicable. **Reverse direction** reverses the rotary sign. Confirm 
 on your controller before cutting. You can design on Around before choosing a suitable machine,
 but export checks the machine. See [Machines](/guide/cam-setup/machines/#rotary-axis).
 
+The built-in rotary machines, such as **grblHAL + rotary A** or **GRBL 1.1 + rotary (borrowed
+motor)**, follow the project's bar: one machine serves a bar along X or Y. Two of them need a
+project in mm. See [Built-in rotary machines](/guide/cam-setup/machines/#built-in-rotary-machines).
+
 ## Around and the unrolled sheet
 
 Open the current-face menu beside the workspace tabs and choose **Around**. The Sketch view
@@ -122,13 +126,9 @@ Around is a surface wrapped about the bar, rather than another flat side:
   no wrapped form. Use **Rotary rough** and **Rotary finish** for models inside a bar.
 - Printing and 2D design export use flat faces. Switch to Top or Bottom for those outputs.
 
-{/* placeholder: purecutcnc#1131 */}
-<Aside type="caution" title="This behaviour is changing before 0.6.0 ships">
-Sheet work on Around over a turned section of a square blank is being revised in
-[application issue #1131](https://github.com/PureCutCNC/purecutcnc/issues/1131).
-Do not plan square-bar pockets or engraving from this draft. The settled workflow here is to
-create a Turn or Polygon model and machine it with rotary rough and finish operations.
-</Aside>
+On a square blank, sheet work such as pockets, text, or Thread is cut only over a section a
+Turn above it in the feature tree has made round. Turn the section first, then draw on it. See
+[Sheet work on a square bar](/guide/rotary/rotary-features/#sheet-work-on-a-square-bar).
 
 ## Zero A before each job
 
