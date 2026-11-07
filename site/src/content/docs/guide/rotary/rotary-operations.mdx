@@ -46,11 +46,14 @@ For names, tools, feeds, and other shared fields, see
 | **Tail-end support** | Length left uncut at the tail end, initially 0. Tailstock keep-outs still apply. |
 
 Zero support is a field default, not a recommendation to machine the part free.
-{/* pending: purecutcnc#1155 slice rn-e */}
-The tool runs to the edge of its model at both ends and cuts into plain bar beyond it. Only
-other models on the bar, the end supports, the chuck and tailstock keep-outs, and the bar's
-outside stop it. Where another model's wall rises next to the target, the cut ends with a full
-ring at the foot of that wall.
+On a round bar, the tool runs to the edge of its target model at both ends, so a ball cutter
+leaves no ridge there, and it may cut into the plain bar beyond those ends. Other models on the
+bar, the end supports, the chuck and tailstock keep-outs, and the bar's outside still stop it. On
+a square blank, the tool stops one tool radius inside the model's ends.
+
+Where another model's wall rises next to the target, the cut stands off that wall's face by the
+stock to leave plus the tool radius. Rotary finish runs a full ring there before its helix, and
+each rough layer's first ring sits there too, so the foot of the wall is cleared cleanly.
 The cutter's side must clear the retained ends; shoulders can retain a cutter-radius fillet.
 
 <Screenshot src={roughProperties} maxWidth={401} alt="Rotary rough properties: What it cuts with Setup Around and Cuts chips Turn and Region 1 (filter), Tool 4 mm Ball Endmill, Stepdown 0.4, Stock to leave radial 0, Chuck-end and Tail-end support 0, and Strategy Passes Along the bar with Stepover ratio 0.067" caption="Rotary rough cuts the Turn model inside the region, with supports left at the chuck and tail ends." />
