@@ -17,6 +17,9 @@ import flutesPanel from '../../../../assets/manual/rotary/rotary-features/flutes
 import turnProfile from '../../../../assets/manual/rotary/rotary-features/turn-profile.png';
 import workOnTurn from '../../../../assets/manual/rotary/rotary-features/work-on-turn.png';
 import squareSheet from '../../../../assets/manual/rotary/rotary-features/square-sheet.png';
+import aroundDrawing from '../../../../assets/manual/rotary/rotary-features/around-drawing.png';
+import around3d from '../../../../assets/manual/rotary/rotary-features/around-3d.png';
+import aroundSimulation from '../../../../assets/manual/rotary/rotary-features/around-simulation.png';
 
 Use the creation drawer's rotary group to describe a turned diameter, flats, a thread, or flutes.
 These are editable canned features: their parameters stay with the shape. Creating one does not
@@ -167,15 +170,31 @@ Read that notice and inspect the resulting cut before adding or regenerating ope
 ## Drawing on Around
 
 On a round bar's **Around** sheet, use the ordinary drawing tools, text, canned flat shapes, or
-imported 2D artwork. Each one is projected onto the bar and cut into its surface. Their depth is
-measured into the bar from the bar's own surface; a cut must stop short of its centreline. A
-newly drawn Around shape starts at the bar surface and one sixteenth of the diameter deep,
-rounded to 0.5 mm or 1/64 in and capped at one quarter of the diameter. Check its Z fields
-before machining.
+imported SVG or DXF artwork. Each feature is projected onto the bar and cut into its surface, and
+the usual 2D operations (pocket, edge route, V-carve, engrave, drill) machine it there. On a
+square blank, the same work needs a turned section first; see
+[Sheet work on a square bar](#sheet-work-on-a-square-bar).
 
-Unlike Thread and Flutes, which drop onto the Turn they lie on, these features do not move to a
-Turn's smaller surface by themselves. Lower a feature drawn over a Turn to that surface (see
-[Starting at the Turn's surface](#starting-at-the-turns-surface)) and check its Z bottom.
+<Screenshot src={aroundDrawing} maxWidth={775} alt="Around sheet of a 30 mm round bar with a rectangle pocket, the word OAK as engraved text and CNC as outline text, each with its toolpath" caption="A pocket, engraved text and V-carved text drawn on the Around sheet." />
+
+Where a feature sits in depth depends on its kind:
+
+- **Thread** and **Flutes** drop onto the surface they lie on by themselves: the bar, or a Turn
+  above them in the feature tree. Their depth is measured below that surface and follows the
+  Turn when it changes.
+- **Turn** and **Polygon / hex** are models; their diameter or across flats sets their size.
+- Every other 2D feature is placed by its **Z top** and **Z bottom**, measured from the bar's
+  own surface, and must stop short of the centreline. A newly drawn shape starts at the bar
+  surface and one sixteenth of the diameter deep, rounded to 0.5 mm or 1/64 in and capped at
+  one quarter of the diameter. Text and imported artwork can arrive deeper, so check Z bottom.
+  Over a smaller Turn these features do not move to its surface by themselves: lower them (see
+  [Starting at the Turn's surface](#starting-at-the-turns-surface)), or the first pass cuts air.
+
+In 3D and Sim the same work is wrapped onto the bar:
+
+<Screenshot src={around3d} maxWidth={775} alt="3D view of a 30 mm bar with the pocket, engraving and V-carve toolpaths wrapped onto its surface" caption="The toolpaths follow the bar's surface." />
+
+<Screenshot src={aroundSimulation} maxWidth={775} alt="Simulation of a 30 mm bar with a rectangular pocket, the engraved word OAK and the V-carved word CNC cut into its surface" caption="The simulated result of the three operations." />
 
 The sheet edges are the same seam, labelled −180° and +180°. Canned outlines and toolpaths
 that cross an edge are displayed wrapped back into the sheet. A many-turn thread therefore

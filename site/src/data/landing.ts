@@ -57,6 +57,26 @@ export const STRATEGIES: Card[] = [
 
 export const FEATURES: Card[] = [
 	{
+		icon: "🪵",
+		title: "Rotary Machining",
+		html: "Turn and carve bar stock on a rotary axis. Draw pockets, text, V-carving, and imported artwork on the unrolled <em>Around</em> sheet and they wrap onto a round bar or a turned section of a square blank. Canned Turn, Polygon / hex, Thread, and Flutes features describe the shape; Rotary rough and finish cut it along or around the bar, keep clear of other models, the chuck, and the tailstock, and keep A turning forward. Six built-in rotary machines follow the bar's axis."
+	},
+	{
+		icon: "🔃",
+		title: "Top & Bottom Setups",
+		html: "Machine both faces of a part. Draw on Top or Bottom, see the other side as reference, and give each face its own setup and program; construction features can reference geometry across faces."
+	},
+	{
+		icon: "🔥",
+		title: "Plasma Cutting",
+		html: "Experimental. A Plasma project type for sheet cutting: through-cuts with kerf compensation, lead-ins and pierce points you can place, torch tools with cut and pierce settings, and plasma machine definitions."
+	},
+	{
+		icon: "🧭",
+		title: "Project Types",
+		html: "Start a project as Milling / routing, Plasma, or Rotary. The type sets up the stock, machine, setups, and the operations that make sense for it, and you can change it later in the project properties."
+	},
+	{
 		icon: "✏️",
 		title: "Sketch Geometry",
 		html: "Rectangles, circles, ellipses, polygons, splines, composite profiles, and text features — all editable directly on the canvas with snapping, measurements, and direct node editing."
@@ -84,12 +104,12 @@ export const FEATURES: Card[] = [
 	{
 		icon: "▶️",
 		title: "GPU Simulation",
-		html: "Replay toolpaths against stock in a fully GPU-rendered heightfield simulation. The cut state lives in a texture and is displaced in a vertex shader, with incremental per-frame updates — high-density grids (up to 1500 cells) stay interactive while you scrub. Dock or center the draggable playback bar to keep stacked XYZ coordinates and the live feed percentage where you need them."
+		html: "Replay toolpaths against stock in a fully GPU-rendered heightfield simulation, with smooth surface lighting on large stock and rotary bars. The cut state lives in a texture and is displaced in a vertex shader, with incremental per-frame updates — high-density grids (up to 1500 cells) stay interactive while you scrub. Dock or center the draggable playback bar to keep stacked XYZ coordinates and the live feed percentage where you need them."
 	},
 	{
 		icon: "💾",
 		title: "G-code Export",
-		html: "Export clean G-code for Grbl, GrblHAL, LinuxCNC, Mach3, and UCCNC. Post-processor support for custom machine configurations. Preview with syntax highlighting before you download — and arcs are validated against the controller's own arithmetic so a GRBL-family machine won't abort mid-job on an arc it can't accept."
+		html: "Export clean G-code for Grbl, GrblHAL, LinuxCNC, Mach3, and UCCNC, or native <code>.sbp</code> files for ShopBot. Rotary programs use inverse-time feed and A-axis motion. Post-processor support for custom machine configurations. Preview with syntax highlighting before you download — and arcs are validated against the controller's own arithmetic so a GRBL-family machine won't abort mid-job on an arc it can't accept."
 	},
 	{
 		icon: "🔤",
@@ -190,13 +210,16 @@ export const OPERATIONS: string[] = [
 	"3D Surface Finish — Parallel",
 	"3D Surface Finish — Waterline",
 	"3D Surface Finish — Constant Scallop",
-	"3D Surface Cleanup"
+	"3D Surface Cleanup",
+	"Rotary Rough",
+	"Rotary Finish",
+	"Plasma Through-Cut"
 ];
 
 export const WORKFLOW: { title: string; html: string }[] = [
 	{
 		title: "Define Stock",
-		html: "Set your stock dimensions and origin. Use a rectangle or a sketch feature as the stock outline."
+		html: "Set your stock dimensions and origin: a flat block or sheet, or a round or square bar for rotary work. Use a rectangle or a sketch feature as a flat stock outline."
 	},
 	{
 		title: "Draw or Import",
@@ -221,6 +244,7 @@ export const WORKFLOW: { title: string; html: string }[] = [
 ];
 
 export const IN_PROGRESS: string[] = [
+	"Indexed 4th-axis (3+1) machining",
 	"3D toolpath linking and adaptive waterline refinement",
 	"Expanded post-processor coverage",
 	"Deeper DXF entity coverage",

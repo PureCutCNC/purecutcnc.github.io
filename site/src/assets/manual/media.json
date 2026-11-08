@@ -541,7 +541,7 @@
 	"fundamentals/workspace/workspace-views.png": {
 		"shows": "Side-by-side Sketch, 3D view, and Simulation of the same project",
 		"source": "capture",
-		"appCommit": "2dc197eebe9c11272ad0bc24194d4a7c6de19055",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "Blank imperial",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
@@ -1948,6 +1948,50 @@
 	},
 	"rotary/rotary-operations/pass-directions.png": {
 		"shows": "Two 3D toolpath views of a Rotary finish on the same Turn: passes along the bar on the left, rings around the bar on the right",
+		"source": "capture",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"rotary/rotary-features/around-drawing.png": {
+		"shows": "Around sheet of a 30 mm round bar with a rectangle pocket, the word OAK as engraved text and CNC as outline text, each with its toolpath",
+		"source": "capture",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"rotary/rotary-features/around-3d.png": {
+		"shows": "3D view of a 30 mm bar with the pocket, engraving and V-carve toolpaths wrapped onto its surface",
+		"source": "capture",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"rotary/rotary-features/around-simulation.png": {
+		"shows": "Simulation of a 30 mm bar with a rectangular pocket, the engraved word OAK and the V-carved word CNC cut into its surface",
+		"source": "capture",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"rotary/overview/chuck-tailstock-3d.png": {
+		"shows": "3D view of a 30 mm round bar with a Turn, the chuck at the left end and the tailstock at the right end",
 		"source": "capture",
 		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "Empty project",

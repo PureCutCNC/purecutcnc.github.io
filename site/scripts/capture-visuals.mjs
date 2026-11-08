@@ -1110,6 +1110,34 @@ async function closeShapeDrawer(page) {
 	await page.waitForTimeout(300)
 }
 
+/** A plain 30 mm round bar with Around work: a pocket, engraved text and V-carved text. */
+async function aroundExamplePart(page) {
+	await createBlankProject(page, 'Rotary', 'Blank metric')
+	await page.getByRole('button', { name: 'Hide all clamps', exact: true }).click()
+	await importLibraryTool(page, '6 mm Endmill')
+	await importLibraryTool(page, '12 mm 60° V-Bit')
+	await page.getByRole('tab', { name: 'Operations', exact: true }).click()
+	await switchFace(page, 'Around')
+	await pickShape(page, 'Add feature rectangle')
+	await clickUntil(page, 0.38, 0.36)
+	await clickUntil(page, 0.5, 0.64)
+	await page.keyboard.press('Escape')
+	await placeText(page, { words: 'OAK', height: 12, fx: 0.56, fy: 0.42 })
+	await placeText(page, { words: 'CNC', height: 14, fx: 0.56, fy: 0.62, outline: true })
+	// Text starts through the whole bar; give it an ordinary carving depth.
+	for (const words of ['OAK', 'CNC']) {
+		await page.locator('.tree-row--feature').filter({ hasText: words }).first().click()
+		await expandLeftProperties(page)
+		await setNumberField(page, '.panel-left .z-range-slider__field--bot', '29')
+	}
+	const ops = []
+	ops.push(await addOperation(page, 'Rect', 'Pocket', 'Rough'))
+	ops.push(await addOperation(page, 'OAK', 'Engrave'))
+	// Medial: the offset V-carve's wrapped path is too heavy for a software-GL 3D view.
+	ops.push(await addOperation(page, 'CNC', 'V-carve medial'))
+	return ops
+}
+
 /** Lay several screenshots side by side on a blank page, for a paired figure. */
 async function pairShots(page, shots) {
 	const background = await page.evaluate(() => getComputedStyle(document.body).backgroundColor)
@@ -1232,6 +1260,30 @@ const RECIPES = [
 			await page.waitForTimeout(300)
 		},
 		clip: null,
+	},
+	{
+		id: 'workspace-views',
+		asset: 'fundamentals/workspace/workspace-views.png',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			// The tutorial part in Sketch, 3D view and Simulation, side by side.
+			await quickStartPart(page, { operation: true })
+			const [op] = await operationNames(page)
+			const shots = []
+			const shoot = async () => {
+				await page.mouse.move(1, 1)
+				await page.waitForTimeout(1500)
+				const clip = await clipCentreView(page)
+				shots.push({ width: Math.round(clip.width * 0.6), png: (await page.screenshot({ clip })).toString('base64') })
+			}
+			await shoot()
+			await show3D(page)
+			await shoot()
+			await simulateResult(page, op, { detail: 1200, through: [op] })
+			await shoot()
+			await pairShots(page, shots)
+		},
+		clip: clipDialog('#pair', 0),
 	},
 	{
 		id: 'quickstart-new-project-dialog',
@@ -1650,6 +1702,85 @@ const RECIPES = [
 			await page.waitForTimeout(300)
 		},
 		clip: clipDialog('#pair', 0),
+	},
+	{
+		id: 'm8-around-drawing',
+		asset: 'rotary/rotary-features/around-drawing.png',
+		viewport: { width: 1440, height: 900 },
+		storage: CAM_OPS,
+		async steps(page) {
+			await aroundExamplePart(page)
+			await page.keyboard.press('Escape')
+			await clickTo(page, 0.97, 0.97)
+			await page.mouse.move(1, 1)
+			await page.waitForTimeout(1500)
+		},
+		clip: clipCanvas,
+	},
+	{
+		id: 'm8-around-3d',
+		asset: 'rotary/rotary-features/around-3d.png',
+		viewport: { width: 1440, height: 900 },
+		storage: CAM_OPS,
+		async steps(page) {
+			await aroundExamplePart(page)
+			await show3D(page)
+			// The wrapped V-carve path takes a while to build in 3D.
+			await page.waitForTimeout(15000)
+			await zoomView(page, 2, 0.5, 0.5)
+		},
+		clip: clipCentreView,
+	},
+	{
+		id: 'm8-around-simulation',
+		asset: 'rotary/rotary-features/around-simulation.png',
+		viewport: { width: 1440, height: 900 },
+		storage: CAM_OPS,
+		async steps(page) {
+			await aroundExamplePart(page)
+			// All three operations, so Visible scope; no op needs selecting.
+			await page.getByRole('tab', { name: /Simulation/i }).click()
+			await page.waitForTimeout(8000)
+			await page.getByRole('button', { name: 'Visible', exact: true }).click()
+			await page.waitForTimeout(3000)
+			await page.evaluate(() => {
+				const slider = [...document.querySelectorAll('input[type=range]')].find((i) => Number(i.max) >= 1000 && Number(i.min) >= 100)
+				if (!slider) throw new Error('no detail slider')
+				const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set
+				setter.call(slider, '1600')
+				slider.dispatchEvent(new Event('input', { bubbles: true }))
+				slider.dispatchEvent(new Event('change', { bubbles: true }))
+			})
+			await page.waitForTimeout(5000)
+			await page.waitForFunction(() => !document.querySelector('.centre-view--active [role=progressbar], .centre-view--active .spinner, .centre-view--active [class*=spinner]'), null, { timeout: 300000 })
+			await page.waitForTimeout(3000)
+			await zoomView(page, 2, 0.5, 0.5)
+		},
+		clip: clipCentreViewWithBar,
+	},
+	{
+		id: 'm8-chuck-tailstock-3d',
+		asset: 'rotary/overview/chuck-tailstock-3d.png',
+		viewport: { width: 1440, height: 900 },
+		storage: SPLIT_TREE,
+		async steps(page) {
+			await rotaryTurn(page)
+			await switchFace(page, 'Top')
+			// A tailstock is a clamp of type Tailstock at the far end of the bar.
+			await page.getByRole('button', { name: 'Add clamp', exact: true }).first().click()
+			await page.waitForTimeout(800)
+			// Drawn like a rectangle, over the tail end of the bar.
+			await clickTo(page, 0.93, 0.45)
+			await clickTo(page, 0.99, 0.62)
+			await page.waitForTimeout(1000)
+			await page.keyboard.press('Escape')
+			// The new clamp is left selected, with its properties open.
+			await expandLeftProperties(page)
+			await chooseProperty(page, '.panel-left', 'Type', 'Tailstock')
+			await show3D(page)
+			await page.mouse.move(1, 1)
+		},
+		clip: clipCentreView,
 	},
 	{
 		id: 'm8-surface-start',

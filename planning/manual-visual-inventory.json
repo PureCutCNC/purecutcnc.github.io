@@ -2579,6 +2579,54 @@
 			"alt": "3D view of a Top pocket toolpath on a 40 mm square blank",
 			"status": "captured",
 			"blockedBy": []
+		},
+		{
+			"id": "m8-around-drawing",
+			"page": "/guide/rotary/rotary-features/",
+			"afterHeading": "Drawing on Around",
+			"kind": "screenshot",
+			"purpose": "See 2D work drawn on the Around sheet.",
+			"brief": "Around sheet of a plain 30 mm round bar with a pocket rectangle, engraved skeleton text and V-carved outline text, with their toolpaths.",
+			"asset": "rotary/rotary-features/around-drawing.png",
+			"alt": "Around sheet of a 30 mm round bar with a rectangle pocket, the word OAK as engraved text and CNC as outline text, each with its toolpath",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "m8-around-3d",
+			"page": "/guide/rotary/rotary-features/",
+			"afterHeading": "Drawing on Around",
+			"kind": "screenshot",
+			"purpose": "See Around work projected onto the bar.",
+			"brief": "3D view of the same pocket, engraved text and V-carve toolpaths wrapped around the bar.",
+			"asset": "rotary/rotary-features/around-3d.png",
+			"alt": "3D view of a 30 mm bar with the pocket, engraving and V-carve toolpaths wrapped onto its surface",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "m8-around-simulation",
+			"page": "/guide/rotary/rotary-features/",
+			"afterHeading": "Drawing on Around",
+			"kind": "screenshot",
+			"purpose": "See the cut result of Around work.",
+			"brief": "Simulation of the pocket, engraving and V-carve cut into the round bar.",
+			"asset": "rotary/rotary-features/around-simulation.png",
+			"alt": "Simulation of a 30 mm bar with a rectangular pocket, the engraved word OAK and the V-carved word CNC cut into its surface",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "m8-chuck-tailstock-3d",
+			"page": "/guide/rotary/overview/",
+			"afterHeading": "Chuck and tailstock",
+			"kind": "screenshot",
+			"purpose": "See the chuck and tailstock keep-outs around the bar.",
+			"brief": "3D view of a round bar with a Turn, held in the chuck at one end and a tailstock at the other.",
+			"asset": "rotary/overview/chuck-tailstock-3d.png",
+			"alt": "3D view of a 30 mm round bar with a Turn, the chuck at the left end and the tailstock at the right end",
+			"status": "captured",
+			"blockedBy": []
 		}
 	]
 }
