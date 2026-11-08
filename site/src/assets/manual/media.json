@@ -1485,7 +1485,7 @@
 		"blockedBy": []
 	},
 	"operations/index/operation-choice-map.svg": {
-		"shows": "A map from each machining goal to the geometry it needs selected and the operation that does it, including one-or-more-model targets for the three 3D surface passes",
+		"shows": "A map from each machining goal to the geometry it needs selected and the operation that does it, including one-or-more-model targets for the three 3D surface passes, rotary rough and finish on bar stock, and plasma through-cut on sheet",
 		"source": "diagram",
 		"appCommit": null,
 		"fixture": null,
