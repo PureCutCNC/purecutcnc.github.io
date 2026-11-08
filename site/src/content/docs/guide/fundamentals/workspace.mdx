@@ -13,6 +13,8 @@ import workspaceLayout from '../../../../assets/manual/fundamentals/workspace/wo
 import workspaceViews from '../../../../assets/manual/fundamentals/workspace/workspace-views.png';
 import sketchOverlays from '../../../../assets/manual/fundamentals/workspace/sketch-overlays.png';
 import workflowPanel from '../../../../assets/manual/fundamentals/workspace/workflow-panel.png';
+import faceControl from '../../../../assets/manual/fundamentals/workspace/face-control.png';
+import aroundView from '../../../../assets/manual/fundamentals/workspace/around-view.png';
 
 The PureCutCNC window keeps the design, the machining setup, and the checks in one workspace.
 This page names its parts and explains how to move around in it.
@@ -214,6 +216,13 @@ Touch gestures are on [Tablet and touch](/guide/fundamentals/tablet-and-touch/).
 
 <Availability kind="preview" />
 
+<Screenshot
+	src={faceControl}
+	maxWidth={872}
+	alt="The Bottom · flipped X face control at the right end of the Sketch, 3D view, and Simulation tab row, with its open menu listing Top, Bottom (checked), and a checked Show other side with its eye icon, over the canvas where the Top outline is ghosted in dashes and the note Top origin lands here after the flip marks the mirrored origin"
+	caption="The face control sits at the right end of the view tabs: it names the face the workspace is on, and its menu switches faces and turns the ghost of the other side on."
+/>
+
 The current-face control sits beside the view tabs. Open it to choose **Top** or **Bottom**,
 or use its eye-marked **Show other side** entry to show the opposite face as a ghost when
 available. On Bottom, the control can read **Bottom · flipped X**; there is no separate desktop
@@ -222,6 +231,13 @@ face banner or flip chip. See [Setups and faces](/guide/fundamentals/setups-and-
 ## Around view
 
 <Availability kind="preview" />
+
+<Screenshot
+	src={aroundView}
+	maxWidth={1151}
+	alt="The current-face menu open on a rotary project with Around checked under the Around trigger, over the unrolled sheet of a 30 mm round bar: a dashed -180° to +180° strip 120 mm long and 94.248 mm around, holding Rect 1 (Z 30 → 28) and the words OAK and CNC"
+	caption="On a rotary project on bar stock the same control offers Around, and the sheet behind the menu is the bar's surface unrolled."
+/>
 
 In a rotary project with bar stock, the current-face menu also offers **Around**. Its tooltip
 reads **The bar turns in the rotary. This view is its surface unrolled: along the bar, and around

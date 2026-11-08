@@ -689,6 +689,29 @@ const clipCentreViewWithFaceControl = (page) =>
 		}
 	})
 
+/** The centre area from the top of its tab row: the view tabs, the workspace face
+    control and its open menu, and `depth` pixels of the view below the row — or the
+    whole canvas when `depth` is 'canvas'. The open menu is portalled to the body and
+    left-aligned to the control, so it can reach past the centre panel into the CAM one:
+    the crop follows it there rather than cutting off its check marks. */
+const clipCentreTop = (depth) => (page) =>
+	page.evaluate((want) => {
+		const panel = document.querySelector('.centre-workspace').getBoundingClientRect()
+		const header = document.querySelector('.centre-workspace .panel-tabs-header').getBoundingClientRect()
+		const menu = document.querySelector('.face-switch__menu')?.getBoundingClientRect()
+		const canvas = document.querySelector('.sketch-canvas')?.getBoundingClientRect()
+		const wanted = want === 'canvas' ? (canvas?.bottom ?? header.bottom) : header.bottom + want
+		const y = Math.max(0, Math.floor(header.top - 4))
+		const bottom = Math.min(window.innerHeight, Math.max(wanted, menu ? menu.bottom + 8 : 0))
+		const right = Math.max(panel.right, menu ? menu.right + 8 : 0)
+		return {
+			x: Math.round(panel.x),
+			y,
+			width: Math.round(Math.min(right, window.innerWidth) - panel.x),
+			height: Math.ceil(bottom - y),
+		}
+	}, depth)
+
 /** The CAM panel from its top down through the properties section's header, which is
     where the per-operation export actions live. */
 const clipCamThroughPropertiesHeader = (page) =>
@@ -1409,6 +1432,56 @@ const RECIPES = [
 			await page.mouse.move(point.x, point.y, { steps: 8 })
 		},
 		clip: clipCanvas,
+	},
+	{
+		id: 'workspace-face-control',
+		asset: 'fundamentals/workspace/face-control.png',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			// Leaves the workspace on Bottom, flipped about X, with the Top features
+			// shown as ghosts behind the editable Bottom ones.
+			await twoSidedPart(page)
+			await page.getByRole('button', { name: /^Current face: Bottom/ }).click()
+			await page.waitForTimeout(900)
+		},
+		// The tab row and its open menu, plus a strip of canvas below where the ghosts sit.
+		clip: clipCentreTop(210),
+	},
+	{
+		id: 'workspace-around-view',
+		asset: 'fundamentals/workspace/around-view.png',
+		// The CAM panel is folded away for this shot: the open menu is portalled to the body
+		// and reaches past the centre panel, and a wider centre keeps the crop off it.
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			await aroundExamplePart(page)
+			await page.keyboard.press('Escape')
+			// The sheet itself is the subject, and the same paths are already shown plain on
+			// the rotary-features page: hide them so this shot is about choosing Around.
+			await page.evaluate(() => {
+				const el = [...document.querySelectorAll('button')].find(
+					(b) => (b.getAttribute('aria-label') ?? '') === 'Hide all toolpaths',
+				)
+				if (el) el.click()
+			})
+			await page.waitForTimeout(2000)
+			// Clear the selection so the selected operation does not outline a feature.
+			await clickTo(page, 0.97, 0.97)
+			await page.waitForTimeout(1200)
+			await page.getByRole('button', { name: 'Hide CAM panel', exact: true }).click()
+			await page.waitForTimeout(1200)
+			// The canvas keeps the old fit until it is asked to frame the project again, so
+			// without this the sheet sits off-centre and the crop clips a canvas overlay.
+			await page.getByRole('button', { name: 'Zoom to model', exact: true }).click()
+			await page.waitForTimeout(1500)
+			await page.getByRole('button', { name: /^Current face: Around/ }).click()
+			await page.waitForTimeout(700)
+			// The Around entry explains itself through a native title tooltip, which no
+			// screenshot can hold: hover the entry so the menu is shot from its real use.
+			await page.getByRole('menuitemradio', { name: 'Around', exact: true }).hover()
+			await page.waitForTimeout(1200)
+		},
+		clip: clipCentreTop('canvas'),
 	},
 	{
 		id: 'workspace-sketch-overlays',

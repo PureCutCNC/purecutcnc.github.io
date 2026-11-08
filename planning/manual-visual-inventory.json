@@ -551,6 +551,30 @@
 			"blockedBy": []
 		},
 		{
+			"id": "workspace-face-control",
+			"page": "/guide/fundamentals/workspace/",
+			"afterHeading": "Face control",
+			"kind": "screenshot",
+			"purpose": "Show where the current-face control lives and what its menu offers.",
+			"brief": "Top strip of the centre area in a two-sided milling project on Bottom with Show other side on: the Sketch, 3D view and Simulation tabs, the Bottom · flipped X trigger at the right end of that row, its open menu (Top, Bottom, and Show other side with its eye), and enough of the canvas below to show the ghosted Top features.",
+			"asset": "fundamentals/workspace/face-control.png",
+			"alt": "The Bottom · flipped X face control at the right end of the Sketch, 3D view, and Simulation tab row, with its open menu listing Top, Bottom (checked), and a checked Show other side with its eye icon, over the canvas where the Top outline is ghosted in dashes and the note Top origin lands here after the flip marks the mirrored origin",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "workspace-around-view",
+			"page": "/guide/fundamentals/workspace/",
+			"afterHeading": "Around view",
+			"kind": "screenshot",
+			"purpose": "Show where Around is chosen and what the unrolled view it opens holds.",
+			"brief": "Face menu open in a rotary project on Around, with the Around entry checked beneath the trigger, over the unrolled sheet of a 30 mm round bar and the pocket and text features drawn on it. Hovering the entry is the closest honest frame: its explanation is a native title tooltip, which no screenshot can hold.",
+			"asset": "fundamentals/workspace/around-view.png",
+			"alt": "The current-face menu open on a rotary project with Around checked under the Around trigger, over the unrolled sheet of a 30 mm round bar: a dashed -180° to +180° strip 120 mm long and 94.248 mm around, holding Rect 1 (Z 30 → 28) and the words OAK and CNC",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
 			"id": "projects-new-project",
 			"page": "/guide/fundamentals/projects-and-files/",
 			"afterHeading": "Create a new project",

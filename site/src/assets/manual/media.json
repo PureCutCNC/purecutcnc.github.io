@@ -615,6 +615,28 @@
 		"status": "current",
 		"blockedBy": []
 	},
+	"fundamentals/workspace/face-control.png": {
+		"shows": "The Bottom · flipped X face control at the right end of the Sketch, 3D view, and Simulation tab row, with its open menu listing Top, Bottom (checked), and a checked Show other side with its eye icon, over the canvas where the Top outline is ghosted in dashes and the note Top origin lands here after the flip marks the mirrored origin",
+		"source": "capture",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"fundamentals/workspace/around-view.png": {
+		"shows": "The current-face menu open on a rotary project with Around checked under the Around trigger, over the unrolled sheet of a 30 mm round bar: a dashed -180° to +180° strip 120 mm long and 94.248 mm around, holding Rect 1 (Z 30 → 28) and the words OAK and CNC",
+		"source": "capture",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
 	"fundamentals/projects-and-files/new-project-dialog.png": {
 		"shows": "New project dialog with Project type tiles (Milling / routing, Plasma, Rotary), Project name, a 2×2 Template grid (Blank metric, Blank imperial, Current project, Template file), Template preview with editable Width, Height, and Thickness stock fields plus Units, Features, Tools, Operations, and Machine, and Or open an example with three bundled projects",
 		"source": "capture",
