@@ -1783,6 +1783,25 @@ const RECIPES = [
 		clip: clipCentreView,
 	},
 	{
+		id: 'm8-machine-list',
+		asset: 'cam-setup/machines/machine-list.png',
+		// Tall enough for the whole built-in list and the legend without scrolling.
+		viewport: { width: 1440, height: 1500 },
+		async steps(page) {
+			await createBlankProject(page, 'Rotary', 'Blank metric')
+			await page.evaluate(() => document.querySelector('.tree-row--project')?.click())
+			await page.waitForTimeout(1200)
+			await page.getByText(/Manage machines/).first().click()
+			await page.locator('.dialog--machine-manager .machine-manager-legend').waitFor()
+			// A rotary machine selected, so the detail shows that it follows the bar.
+			await page.locator('.dialog--machine-manager').getByRole('button', { name: /^grblHAL \+ rotary A/ }).first().click()
+			await page.getByText(/Follows the bar \(now along X\)/).first().waitFor()
+			await page.mouse.move(1, 1)
+			await page.waitForTimeout(800)
+		},
+		clip: clipDialog('.dialog--machine-manager', 6),
+	},
+	{
 		id: 'm8-surface-start',
 		asset: 'rotary/rotary-features/surface-start.png',
 		viewport: { width: 1440, height: 900 },

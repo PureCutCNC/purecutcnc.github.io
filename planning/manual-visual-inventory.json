@@ -2454,10 +2454,10 @@
 			"afterHeading": "My Machines",
 			"kind": "screenshot",
 			"purpose": "Read the machine kind and rotary icons in the manager list.",
-			"brief": "Manage machines list with built-in machines including the six rotary ones: router and plasma icons, rotary icons, group headings and the Router / Plasma / Rotary legend.",
+			"brief": "Manage machines in a rotary project: built-in list with router, plasma and rotary icons, the legend, and grblHAL + rotary A selected showing Follows the bar.",
 			"asset": "cam-setup/machines/machine-list.png",
-			"alt": "Manage machines list with router, plasma and rotary icons beside each machine and the Router, Plasma, Rotary legend",
-			"status": "proposed",
+			"alt": "Manage machines dialog listing the built-in router, plasma and rotary machines with their kind and rotary icons and the Router, Plasma, Rotary legend, with grblHAL + rotary A selected and its rotary axis shown as Follows the bar (now along X), on its own axis (A)",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{

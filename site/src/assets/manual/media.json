@@ -2000,5 +2000,16 @@
 		"locale": "en",
 		"status": "current",
 		"blockedBy": []
+	},
+	"cam-setup/machines/machine-list.png": {
+		"shows": "Manage machines dialog listing the built-in router, plasma and rotary machines with their kind and rotary icons and the Router, Plasma, Rotary legend, with grblHAL + rotary A selected and its rotary axis shown as Follows the bar (now along X), on its own axis (A)",
+		"source": "capture",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
+		"fixture": "Empty project",
+		"viewport": "1440x1500@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
 	}
 }

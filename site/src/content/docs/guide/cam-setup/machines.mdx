@@ -9,11 +9,11 @@ status: draft
 import Availability from '../../../../components/Availability.astro';
 
 import Screenshot from '../../../../components/Screenshot.astro';
-import VisualPending from '../../../../components/VisualPending.astro';
 import plasmaPierceMode from '../../../../assets/manual/cam-setup/machines/plasma-pierce-mode.png';
 import rotaryAxis from '../../../../assets/manual/cam-setup/machines/rotary-axis.png';
 import machineEditor from '../../../../assets/manual/cam-setup/machines/machine-editor.png';
 import { Aside, Steps } from '@astrojs/starlight/components';
+import machineList from '../../../../assets/manual/cam-setup/machines/machine-list.png';
 
 Select a machine before exporting. Its output dialect determines whether you export G-code
 or a ShopBot part file. The definition also controls machine-specific capabilities, such as
@@ -49,7 +49,7 @@ The list shows each machine's kind as a small icon, router or plasma torch, and 
 on machines with a rotary axis; the legend under the list reads **Router**, **Plasma**, and
 **Rotary**. The group headings separate the built-in machines from **My Machines**.
 
-<VisualPending id="m8-machine-list" />
+<Screenshot src={machineList} maxWidth={488} alt="Manage machines dialog listing the built-in router, plasma and rotary machines with their kind and rotary icons and the Router, Plasma, Rotary legend, with grblHAL + rotary A selected and its rotary axis shown as Follows the bar (now along X), on its own axis (A)" caption="Rotary machines carry a second icon; a built-in rotary machine follows the bar's axis." />
 
 Personal definitions live in **My Machines**. Share a definition by exporting it from the manager
 and import it into another library; older projects keep their own selected project copy.
