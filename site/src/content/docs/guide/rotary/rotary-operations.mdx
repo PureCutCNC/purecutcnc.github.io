@@ -9,10 +9,10 @@ status: draft
 import Screenshot from '../../../../components/Screenshot.astro';
 import roughProperties from '../../../../assets/manual/rotary/rotary-operations/rough-properties.png';
 import { Aside } from '@astrojs/starlight/components';
-import VisualPending from '../../../../components/VisualPending.astro';
 import passDirections from '../../../../assets/manual/rotary/rotary-operations/pass-directions.png';
 import helixRings from '../../../../assets/manual/rotary/rotary-operations/helix-rings.png';
 import otherModels from '../../../../assets/manual/rotary/rotary-operations/other-models.png';
+import finishSimulation from '../../../../assets/manual/rotary/rotary-operations/finish-simulation.png';
 import exportZeroA from '../../../../assets/manual/rotary/rotary-operations/export-zero-a.png';
 
 **Rotary rough** removes material in radial layers around a model inside a bar.
@@ -271,7 +271,7 @@ Check the result after rough and after finish. For a square blank, inspect the r
 and retained ends throughout playback, not only the final round section. Top and Bottom round-bar
 simulation also starts round; its lower half is fixed, so cuts below the equator are not shown there.
 
-<VisualPending id="m3-finish-simulation" />
+<Screenshot src={finishSimulation} maxWidth={775} alt="Simulation after a Rotary rough and then a Rotary finish on a square blank: the middle of the bar turned to a round band between two square retained ends, with the chuck at the left and a tailstock clamp at the right" caption="Rough then finish leaves a turned band between the square ends the chuck and tailstock still hold." />
 
 Preview and simulation cannot confirm real grip, support, cutter dimensions, controller modes,
 rotary zero, or machine travel. Review the exported program and prove the setup at the machine;

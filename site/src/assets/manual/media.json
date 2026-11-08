@@ -374,11 +374,11 @@
 		"blockedBy": []
 	},
 	"operations/3d-surface-cleanup/result.png": {
-		"shows": "The stepped model after 3D Surface Cleanup, with its floor and walls visibly machined",
+		"shows": "The simulated stock after a 3D rough and 3D Surface Cleanup, with the stepped floors and walls machined flat",
 		"source": "capture",
-		"appCommit": "ec9b3c781bdf1d71e469faff58a4dff049a41713",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "site/fixtures/cam-terrain.obj",
-		"viewport": "1878x1342@1x",
+		"viewport": "1440x900@2x",
 		"theme": "dark",
 		"locale": "en",
 		"status": "current",
@@ -422,6 +422,50 @@
 		"source": "capture",
 		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "site/fixtures/cam-demo.camj",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"verify-export/3d-view/bottom-isometric.png": {
+		"shows": "The 3D view looking up at the stock from below with Bottom active: the Bottom setup's pocket path drawn bright red under the part, its plunges and retractions rising toward the camera, and the Top setup's pocket path faint at its own position on the same stock",
+		"source": "capture",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"verify-export/3d-view/bar-3d.png": {
+		"shows": "3D view of a 30 mm round bar held by the chuck at the left and a tailstock at the right, with its middle turned to a narrower band wrapped by the orange Rotary rough toolpath, and the word OAK cut into the plain bar beside the chuck",
+		"source": "capture",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"verify-export/simulation/plasma-result.png": {
+		"shows": "Isometric simulation view of a plasma plate after the through-cut: the part's rectangle and its two holes are kerf-wide slots cut through the sheet, each contour with its lead slot and a small pierce hole, and the plate's near edges show the full sheet thickness",
+		"source": "capture",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"verify-export/simulation/setup-simulation.png": {
+		"shows": "The Simulation tab with the workspace face control showing Bottom · flipped X, the Bottom setup's pocket cut into the face-up stock, and the simulation toolbar's information button opened with the note that Bottom is simulated on fresh stock and material removed by other setups is not shown",
+		"source": "capture",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
+		"fixture": "Empty project",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
 		"locale": "en",
@@ -1265,11 +1309,11 @@
 		"blockedBy": []
 	},
 	"operations/engrave/result.png": {
-		"shows": "The simulated stock after engraving, with shallow grooves visibly following the curved paths",
+		"shows": "The simulated stock after engraving, showing narrow grooves following the curved paths",
 		"source": "capture",
-		"appCommit": "ec9b3c781bdf1d71e469faff58a4dff049a41713",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "site/fixtures/cam-demo.camj",
-		"viewport": "1940x1318@1x",
+		"viewport": "1440x900@2x",
 		"theme": "dark",
 		"locale": "en",
 		"status": "current",
@@ -1957,6 +2001,17 @@
 		"status": "current",
 		"blockedBy": []
 	},
+	"rotary/rotary-operations/finish-simulation.png": {
+		"shows": "Simulation after a Rotary rough and then a Rotary finish on a square blank: the middle of the bar turned to a round band between two square retained ends, with the chuck at the left and a tailstock clamp at the right",
+		"source": "capture",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
 	"rotary/rotary-features/around-drawing.png": {
 		"shows": "Around sheet of a 30 mm round bar with a rectangle pocket, the word OAK as engraved text and CNC as outline text, each with its toolpath",
 		"source": "capture",
@@ -1981,6 +2036,17 @@
 	},
 	"rotary/rotary-features/around-simulation.png": {
 		"shows": "Simulation of a 30 mm bar with a rectangular pocket, the engraved word OAK and the V-carved word CNC cut into its surface",
+		"source": "capture",
+		"appCommit": "8d70149176e586be208476761976871db41fa83b",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"rotary/rotary-features/creation-group.png": {
+		"shows": "The creation drawer on a 30 mm round bar with every shape and Thread, Flutes, Turn and Polygon / hex enabled, beside the drawer on a square blank where the shapes and Thread are dimmed and the Thread tooltip reads Thread — Turn a section of the square bar round first",
 		"source": "capture",
 		"appCommit": "8d70149176e586be208476761976871db41fa83b",
 		"fixture": "Empty project",

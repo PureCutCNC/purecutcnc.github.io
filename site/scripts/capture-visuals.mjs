@@ -241,9 +241,11 @@ async function setUiSelect(page, current, value, scope = '.panel-right') {
 }
 
 /** Create an operation the way a reader would: select geometry, open Add, pick the
-    entry and its pass. Returns the new operation's name, which the app derives from the
-    kind and pass, so callers do not have to guess it. The bundled examples cover only
-    five of the eleven operation kinds; the rest have to be made. */
+    entry and its pass. `feature` is one tree row's text, or an array to target several
+    features in one operation, which the tree takes with Ctrl/Cmd-click. Returns the new
+    operation's name, which the app derives from the kind and pass, so callers do not
+    have to guess it. The bundled examples cover only five of the eleven operation
+    kinds; the rest have to be made. */
 async function addOperation(page, feature, entry, pass = 'Add') {
 	const names = () =>
 		page.evaluate(() =>
@@ -254,19 +256,31 @@ async function addOperation(page, feature, entry, pass = 'Add') {
 	const before = new Set(await names())
 	// Match the tree row by substring: the panel truncates longer names, so an exact
 	// text match misses intermittently and the menu then opens on no selection.
-	await page.evaluate((name) => {
-		const row = [...document.querySelectorAll('.tree-row--feature')].find((r) =>
-			r.textContent.includes(name),
-		)
-		if (!row) {
-			const seen = [...document.querySelectorAll('.tree-row--feature')]
-				.map((r) => r.textContent.trim())
-				.join(' | ')
-			throw new Error(`no feature row for "${name}"; the tree shows: ${seen}`)
+	for (const [index, name] of (Array.isArray(feature) ? feature : [feature]).entries()) {
+		if (index > 0) {
+			// A second target joins the selection instead of replacing it. The synthetic
+			// click the single-feature path uses cannot carry the modifier, so this one
+			// goes through Playwright.
+			const row = page.locator('.tree-row--feature').filter({ hasText: name }).first()
+			if (!(await row.count())) throw new Error(`no feature row for "${name}"`)
+			await row.click({ modifiers: ['ControlOrMeta'] })
+			await page.waitForTimeout(1500)
+			continue
 		}
-		row.click()
-	}, feature)
-	await page.waitForTimeout(1500)
+		await page.evaluate((name) => {
+			const row = [...document.querySelectorAll('.tree-row--feature')].find((r) =>
+				r.textContent.includes(name),
+			)
+			if (!row) {
+				const seen = [...document.querySelectorAll('.tree-row--feature')]
+					.map((r) => r.textContent.trim())
+					.join(' | ')
+				throw new Error(`no feature row for "${name}"; the tree shows: ${seen}`)
+			}
+			row.click()
+		}, name)
+		await page.waitForTimeout(1500)
+	}
 	// With more than one setup the button names its face: "Add to Around".
 	await page.getByRole('button', { name: /^Add(?: to \w+)?$/ }).first().click()
 	await page.waitForSelector('.cam-add-menu')
@@ -656,6 +670,22 @@ const clipCentreViewWithBar = (page) =>
 			y: Math.round(view.y),
 			width: Math.round(Math.min(right, window.innerWidth) - Math.max(left, 0)),
 			height: Math.round(Math.min(bottom, window.innerHeight) - view.y),
+		}
+	})
+
+/** The centre view together with the tab row above it, so the workspace's face
+    control stays in frame: a Bottom simulation only reads as one when the header says
+    which face it belongs to. */
+const clipCentreViewWithFaceControl = (page) =>
+	page.evaluate(() => {
+		const view = document.querySelector('.centre-view--active').getBoundingClientRect()
+		const face = document.querySelector('.face-switch__trigger')?.getBoundingClientRect()
+		const top = Math.max(0, Math.floor(Math.min(view.top, face ? face.top - 6 : view.top)))
+		return {
+			x: Math.round(view.x),
+			y: top,
+			width: Math.round(Math.min(view.right, window.innerWidth) - view.x),
+			height: Math.round(Math.min(view.bottom, window.innerHeight) - top),
 		}
 	})
 
@@ -1079,6 +1109,19 @@ async function zoomView(page, steps, fx = 0.5, fy = 0.5) {
 	await page.mouse.move(view.x + view.width * fx, view.y + view.height * fy)
 	for (let i = 0; i < steps; i++) {
 		await page.mouse.wheel(0, -240)
+		await page.waitForTimeout(240)
+	}
+	await page.mouse.move(1, 1)
+	await page.waitForTimeout(1500)
+}
+
+/** Zoom the centre view out about a point, given as fractions of the view. The
+    simulation frames the cut, and a fit that ignores the clamps leaves them clipped. */
+async function zoomOutView(page, steps, fx = 0.5, fy = 0.5) {
+	const view = await page.locator('.centre-view--active').boundingBox()
+	await page.mouse.move(view.x + view.width * fx, view.y + view.height * fy)
+	for (let i = 0; i < steps; i++) {
+		await page.mouse.wheel(0, 240)
 		await page.waitForTimeout(240)
 	}
 	await page.mouse.move(1, 1)
@@ -2014,6 +2057,137 @@ const RECIPES = [
 			await simulateResult(page, op, { detail: 1200, through: [op] })
 		},
 		clip: clipCentreViewWithBar,
+	},
+	{
+		id: 'm3-finish-simulation',
+		asset: 'rotary/rotary-operations/finish-simulation.png',
+		viewport: { width: 1440, height: 900 },
+		storage: CAM_OPS,
+		async steps(page) {
+			// A square blank turned over its middle: the machined round band sits
+			// between the square material the chuck and tailstock still hold.
+			const dialog = await blankProjectDialog(page, 'Rotary', 'Blank metric')
+			await chooseProperty(page, '.dialog--new-project', 'Shape', 'Square blank')
+			await dialog.getByLabel('Side', { exact: true }).fill('40')
+			await dialog.getByLabel('Length', { exact: true }).fill('120')
+			await dialog.getByRole('button', { name: 'Create project', exact: true }).click()
+			await dialog.waitFor({ state: 'hidden' })
+			await page.waitForTimeout(1200)
+			// A tailstock is a clamp of type Tailstock at the far end of the bar. The
+			// new project opens on Top, which is the face the clamp is drawn on.
+			await page.getByRole('button', { name: 'Add clamp', exact: true }).first().click()
+			await page.waitForTimeout(800)
+			await clickTo(page, 0.93, 0.45)
+			await clickTo(page, 0.99, 0.62)
+			await page.waitForTimeout(1000)
+			await page.keyboard.press('Escape')
+			await expandLeftProperties(page)
+			await chooseProperty(page, '.panel-left', 'Type', 'Tailstock')
+			await switchFace(page, 'Around')
+			await pickShape(page, 'Turn')
+			await rotaryField(page, 'Start from chuck end (mm)', 30)
+			await rotaryField(page, 'Length (mm)', 60)
+			await rotaryField(page, 'Diameter (mm)', 24)
+			await createRotary(page, 'Turn')
+			await closeShapeDrawer(page)
+			// Clamps stay visible: the shot is about what holds the square ends.
+			await importLibraryTool(page, '6 mm Ball Endmill')
+			const rough = await addRotaryOp(page, 'Turn', 'Rotary rough')
+			const finish = await addRotaryOp(page, 'Turn', 'Rotary finish')
+			// Visible scope: the new operation is already selected, and the helper's
+			// click on its name would clear that and leave Selected showing nothing.
+			await simulateResult(page, finish, { detail: 1200, through: [rough, finish] })
+			// The simulation frames the cut, which leaves the square ends and both
+			// clamps outside the view. Start from a known camera, swing round to look
+			// across the bar rather than down it, then pull back until both clamps fit.
+			await page.getByRole('button', { name: 'Camera view', exact: true }).click()
+			await page.getByRole('menuitemradio', { name: 'Isometric view', exact: true }).click()
+			await page.waitForTimeout(1500)
+			await orbitView(page, 44, 9)
+			await zoomOutView(page, 3, 0.5, 0.55)
+			await page.mouse.move(1, 1)
+			await page.waitForTimeout(2000)
+		},
+		clip: clipCentreViewWithBar,
+	},
+	{
+		id: 'm3-bar-3d',
+		asset: 'verify-export/3d-view/bar-3d.png',
+		viewport: { width: 1440, height: 900 },
+		storage: CAM_OPS,
+		async steps(page) {
+			// A 30 mm round bar held by the chuck and a tailstock, turned down to Ø24
+			// over its middle so plain bar stays visible at both ends.
+			await createBlankProject(page, 'Rotary', 'Blank metric')
+			// A tailstock is a clamp of type Tailstock at the far end of the bar. The
+			// new project opens on Top, which is the face the clamp is drawn on.
+			await page.getByRole('button', { name: 'Add clamp', exact: true }).first().click()
+			await page.waitForTimeout(800)
+			await clickTo(page, 0.93, 0.45)
+			await clickTo(page, 0.99, 0.62)
+			await page.waitForTimeout(1000)
+			await page.keyboard.press('Escape')
+			await expandLeftProperties(page)
+			await chooseProperty(page, '.panel-left', 'Type', 'Tailstock')
+			await switchFace(page, 'Around')
+			await pickShape(page, 'Turn')
+			await rotaryField(page, 'Start from chuck end (mm)', 60)
+			await rotaryField(page, 'Length (mm)', 40)
+			await rotaryField(page, 'Diameter (mm)', 24)
+			await createRotary(page, 'Turn')
+			// One Around cut on the plain bar between the chuck and the Turn. Text on
+			// Around starts through the whole bar, so give it a carving depth.
+			await placeText(page, { words: 'OAK', height: 11, fx: 0.42, fy: 0.42 })
+			await page.locator('.tree-row--feature').filter({ hasText: 'OAK' }).first().click()
+			await expandLeftProperties(page)
+			await setNumberField(page, '.panel-left .z-range-slider__field--bot', '28')
+			await importLibraryTool(page, '6 mm Endmill')
+			const rough = await addRotaryOp(page, 'Turn', 'Rotary rough')
+			// A stock rough is a dense helix that reads as a solid skin. Fewer radial
+			// layers and wider wraps leave the path legible as lines round the bar.
+			await setNumberField(page, '.panel-right label.properties-field:has-text("Stepdown") input', '1.5')
+			await openPropertiesGroup(page, 'Strategy')
+			await page.evaluate(() => {
+				const label = [...document.querySelectorAll('.panel-right *')].find((e) => e.children.length === 0 && e.textContent.trim() === 'Stepover ratio')
+				const input = label?.closest('label, .field, div')?.parentElement?.querySelector('input')
+				if (!input) throw new Error('no Stepover ratio input')
+				input.setAttribute('data-capture', 'stepover')
+			})
+			await page.locator('[data-capture=stepover]').fill('0.8')
+			await page.locator('[data-capture=stepover]').press('Enter')
+			await page.getByRole('button', { name: /Toolpaths up to date/ }).waitFor({ timeout: 300000 })
+			await page.waitForTimeout(1500)
+			await addOperation(page, 'OAK', 'Engrave')
+			await show3D(page)
+			await onlyToolpath(page, rough)
+			// A side view with a little elevation and azimuth, so the wrapped rough path
+			// reads round the bar and the Around cut shows on its top surface, with the
+			// whole bar between its clamps in frame. The chuck body is much wider than the
+			// bar, so pull the camera back until both workholders are wholly inside the
+			// viewport instead of letting the chuck run off the left edge.
+			await page.getByRole('button', { name: 'Camera view', exact: true }).click()
+			await page.getByRole('menuitemradio', { name: 'Front view', exact: true }).click()
+			await page.waitForTimeout(1500)
+			await orbitView(page, 0, -100)
+			await orbitView(page, 20, 0)
+			await zoomOutView(page, 1, 0.5, 0.5)
+			await page.mouse.move(1, 1)
+			await page.waitForTimeout(2000)
+		},
+		// The bar and its workholding are a wide band across the tall viewport; crop the
+		// empty grid above and below them instead of shrinking the figure on the page.
+		// Trim the left edge too: the workspace splitter shows there as a 1 px sliver.
+		clip: (page) =>
+			page.locator('.centre-view--active').evaluate((el) => {
+				const r = el.getBoundingClientRect()
+				const left = Math.round(r.x) + 2
+				return {
+					x: left,
+					y: Math.round(r.y + r.height * 0.223),
+					width: Math.round(r.right) - left,
+					height: Math.round(r.height * 0.513),
+				}
+			}),
 	},
 	{
 		id: 'm8-export-zero-a',
@@ -3172,6 +3346,42 @@ const RECIPES = [
 		},
 		clip: clipCentreView,
 	},
+	// --- M9: operation results for engrave and 3D surface cleanup ---------------
+	{
+		// The fixture carries no engrave operation, so make one across both scroll
+		// curves: the result is the pair of grooves, and nothing else in the stock
+		// competes with them.
+		id: 'engrave-result',
+		asset: 'operations/engrave/result.png',
+		fixture: 'site/fixtures/cam-demo.camj',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			const op = await addOperation(page, ['Scroll upper 2', 'Scroll lower 2'], 'Engrave')
+			// Visible scope with every other toolpath hidden: only this operation's cut
+			// is simulated, so the two shallow grooves are the whole result.
+			await simulateResult(page, op, { through: [op], zoom: 2, at: [0.5, 0.5] })
+		},
+		clip: clipCentreView,
+	},
+	{
+		// Cleanup only acts on the flat terraces and vertical walls a 3D rough leaves, so
+		// the model is roughed first and cleaned up; the simulation shows the two runs
+		// together, as the reader would see the finished stock.
+		id: 'surface-cleanup-result',
+		asset: 'operations/3d-surface-cleanup/result.png',
+		fixture: 'site/fixtures/cam-terrain.obj',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			const rough = await addOperation(page, 'cam-terrain', '3D surface rough')
+			const cleanup = await addOperation(page, 'cam-terrain', '3D surface cleanup')
+			// Keep the simulation's own fit framing: it is the only camera that holds the
+			// whole result, and a single zoom step in already runs the foreground terrace
+			// and the right side of the stock out of the frame. The simulation still
+			// opens tilted down on the stock, so the terraces read at this scale.
+			await simulateResult(page, cleanup, { through: [rough, cleanup] })
+		},
+		clip: clipCentreView,
+	},
 	// --- CAM setup ---
 	// Most shots here run on a bundled example, which supplies tools, operations,
 	// and generated paths. CAM Plan starts with a fresh rectangle to show its picker.
@@ -4066,6 +4276,168 @@ const RECIPES = [
 			if (!/placeholder mismatch/i.test(blocked)) throw new Error('the placeholder mismatch never appeared')
 		},
 		clip: clipDialog('.dialog--language-editor', 24),
+	},
+
+	// --- M9: the creation drawer's rotary group ---------------------------------
+	{
+		// Pair a 30 mm round bar, where all four rotary entries are live, with a square
+		// blank that has no Turn yet: its sheet work stays listed, disabled, and the
+		// hovered entry's tooltip is the reason (purecutcnc#1131).
+		id: 'm3-creation-group',
+		asset: 'rotary/rotary-features/creation-group.png',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			const openDrawer = async () => {
+				await page.getByRole('button', { name: 'Choose feature shape' }).click()
+				await page.waitForTimeout(600)
+				await page.mouse.move(1, 1)
+				await page.waitForTimeout(400)
+			}
+			// The rail column and the open drawer, with the reason tooltip that hangs
+			// outside it: the drawer alone would crop the reason away.
+			const groupClip = () =>
+				page.evaluate(() => {
+					const drawer = document.querySelector('.toolbar-creation-picker__drawer').getBoundingClientRect()
+					const rail = [...document.querySelectorAll('button')]
+						.map((b) => b.getBoundingClientRect())
+						.filter((r) => r.width > 0 && r.x < 60 && r.y > 40 && r.y < 500)
+					// Only an open tooltip has a box; the top bar's sit hidden at their trigger.
+					const tooltip = [...document.querySelectorAll('.toolbar-tooltip')]
+						.find((t) => t.getClientRects().length && getComputedStyle(t).visibility !== 'hidden')
+						?.getBoundingClientRect()
+					const top = Math.min(drawer.top, ...rail.map((r) => r.top))
+					const bottom = Math.max(drawer.bottom, ...rail.map((r) => r.bottom), tooltip?.bottom ?? 0)
+					const right = Math.max(drawer.right, tooltip?.right ?? 0)
+					const m = 10
+					return {
+						x: 0,
+						y: Math.round(top - m),
+						width: Math.round(right + m),
+						height: Math.round(bottom - top + m * 2),
+					}
+				})
+
+			// Right: a square blank with no Turn. Every row that would cut the Around
+			// sheet is refused, Thread and Flutes included, and says why on hover. The
+			// tooltip opens below the hovered row, so hovering a drawing entry would
+			// cover the drawer's second row; Thread is sheet work too, and it is the
+			// entry this paragraph of the page names.
+			const dialog = await blankProjectDialog(page, 'Rotary', 'Blank metric')
+			await chooseProperty(page, '.dialog--new-project', 'Shape', 'Square blank')
+			await dialog.getByRole('button', { name: 'Create project', exact: true }).click()
+			await dialog.waitFor({ state: 'hidden' })
+			await page.waitForTimeout(1200)
+			await switchFace(page, 'Around')
+			await openDrawer()
+			await page.locator('.toolbar-creation-picker__drawer').getByRole('button', { name: 'Thread', exact: true }).hover()
+			await page.waitForTimeout(900)
+			const clip = await groupClip()
+			const right = (await page.screenshot({ clip })).toString('base64')
+
+			// Left: the 30 mm round bar, where nothing is refused.
+			await createBlankProject(page, 'Rotary', 'Blank metric')
+			await switchFace(page, 'Around')
+			await openDrawer()
+			await page.waitForTimeout(900)
+			const left = (await page.screenshot({ clip })).toString('base64')
+
+			await pairShots(page, [
+				{ width: clip.width, png: left },
+				{ width: clip.width, png: right },
+			])
+		},
+		clip: clipDialog('#pair', 0),
+	},
+
+	// --- M9: a two-sided part's Bottom setup ------------------------------------
+	{
+		// The page explains that each setup is simulated on fresh stock, so the shot has
+		// to be a multi-setup project: the Bottom face on the header, the Bottom pocket
+		// cut into the flipped stock, and the toolbar's fresh-stock note opened.
+		id: 'm2-simulation-face',
+		asset: 'verify-export/simulation/setup-simulation.png',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			await twoSidedPart(page, { operations: true })
+			// Visible scope on this setup's one operation: a click on the operation's name
+			// in the feature tree selects the feature it belongs to, which leaves Selected
+			// scope with nothing to cut.
+			await simulateResult(page, 'Pocket Rough 2', { detail: 1200, through: ['Pocket Rough 2'] })
+			const info = page.locator('.simulation-setup-info__button')
+			await info.waitFor({ timeout: 60000 })
+			await info.click()
+			await page.locator('.simulation-setup-info__text').waitFor()
+			await page.mouse.move(1, 1)
+			await page.waitForTimeout(800)
+		},
+		clip: clipCentreViewWithFaceControl,
+	},
+	{
+		// Bottom active and the isometric preset: the preview looks up at the stock from
+		// below, the Bottom pocket's pass runs under it and the Top pass stays faint at
+		// its own place on the same stock (purecutcnc#947).
+		id: 'm2-bottom-preview',
+		asset: 'verify-export/3d-view/bottom-isometric.png',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			await twoSidedPart(page, { operations: true })
+			await show3D(page)
+			// Choose the preset explicitly rather than trusting the view's initial one:
+			// the camera menu applies Iso from the active face, which is Bottom here.
+			await page.getByRole('button', { name: 'Camera view' }).first().click()
+			await page.waitForSelector('.view-preset-menu__panel')
+			await page.getByRole('menuitemradio', { name: 'Isometric view', exact: true }).click()
+			await page.waitForTimeout(4000)
+			await page.mouse.move(1, 1)
+		},
+		clip: clipCentreView,
+	},
+
+	// --- M9: plasma simulation --------------------------------------------------
+	{
+		// A plasma through-cut leaves a kerf-wide slot through the whole sheet, leads
+		// and pierces included. Same part as the kerf preview, so the two shots are
+		// read side by side: the plate's rectangle and two holes become slots.
+		id: 'm4-plasma-simulation',
+		asset: 'verify-export/simulation/plasma-result.png',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			await plasmaPart(page)
+			const [op] = await operationNames(page)
+			// Visible scope: the operation is already selected, so the helper's click
+			// on its name would otherwise clear that and leave Selected showing nothing.
+			await simulateResult(page, op, { detail: 1200, through: [op] })
+			// The detail slider runs from 240 in steps of 40, so 1480 is its top step:
+			// the finer mesh draws the kerf walls and the fixed-size pierce holes without
+			// the coarse stair-stepping the default leaves on a thin slot.
+			await page.evaluate(() => {
+				const slider = [...document.querySelectorAll('input[type=range]')].find(
+					(i) => Number(i.max) >= 1000 && Number(i.min) >= 100,
+				)
+				if (!slider) throw new Error('no detail slider')
+				const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set
+				setter.call(slider, '1480')
+				slider.dispatchEvent(new Event('input', { bubbles: true }))
+				slider.dispatchEvent(new Event('change', { bubbles: true }))
+			})
+			// Re-meshing at 1480 takes a few seconds longer than the 1200 the helper waits.
+			await page.waitForTimeout(14000)
+			// A 3/4 view rather than a plan: the plate's front edges show the sheet's
+			// thickness, so the slots read as cut through, not as a band on the surface.
+			await page.getByRole('button', { name: 'Camera view', exact: true }).click()
+			await page.getByRole('menuitemradio', { name: 'Isometric view', exact: true }).click()
+			await page.waitForTimeout(1500)
+			// One wheel event (radius * e^(deltaY * 0.0015)) closes in without cutting
+			// off the part: the rectangle and both holes stay whole, and the leads and
+			// pierces are large enough to read.
+			const view = await page.locator('.centre-view--active').boundingBox()
+			await page.mouse.move(view.x + view.width * 0.5, view.y + view.height * 0.5)
+			await page.mouse.wheel(0, -320)
+			await page.waitForTimeout(1500)
+			await page.mouse.move(1, 1)
+			await page.waitForTimeout(1500)
+		},
+		clip: clipCentreView,
 	},
 ]
 

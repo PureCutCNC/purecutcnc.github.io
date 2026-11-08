@@ -1696,9 +1696,9 @@
 			"afterHeading": "$intro",
 			"kind": "screenshot",
 			"purpose": "Show what the operation leaves in the stock, beside the toolpath that produced it.",
-			"brief": "The resulting 3D view of the stepped model, showing its cleaned floor and walls.",
+			"brief": "The simulated stock after a 3D rough and cleanup, showing the stepped floors and walls machined flat.",
 			"asset": "operations/3d-surface-cleanup/result.png",
-			"alt": "The stepped model after 3D Surface Cleanup, with its floor and walls visibly machined",
+			"alt": "The simulated stock after a 3D rough and 3D Surface Cleanup, with the stepped floors and walls machined flat",
 			"status": "captured",
 			"blockedBy": []
 		},
@@ -2178,8 +2178,8 @@
 			"purpose": "Show the current simulation setup and the fresh-stock limitation.",
 			"brief": "Bottom face active in the header, Simulation showing a Bottom cut on flipped stock, and the fresh-stock information button opened. There is no separate Setup picker in app c371097f.",
 			"asset": "verify-export/simulation/setup-simulation.png",
-			"alt": "Bottom face active in the header, Simulation showing a Bottom cut on flipped stock, and the fresh-stock information button opened. There is no separate Setup picker in app c371097f.",
-			"status": "proposed",
+			"alt": "The Simulation tab with the workspace face control showing Bottom · flipped X, the Bottom setup's pocket cut into the face-up stock, and the simulation toolbar's information button opened with the note that Bottom is simulated on fresh stock and material removed by other setups is not shown",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -2214,8 +2214,8 @@
 			"purpose": "Show why Bottom paths approach from underneath the part.",
 			"brief": "Bottom active with Isometric view from below. Include a visible Bottom path and a faint Top path at their correct positions on one stock.",
 			"asset": "verify-export/3d-view/bottom-isometric.png",
-			"alt": "Bottom active with Isometric view from below. Include a visible Bottom path and a faint Top path at their correct positions on one stock.",
-			"status": "proposed",
+			"alt": "The 3D view looking up at the stock from below with Bottom active: the Bottom setup's pocket path drawn bright red under the part, its plunges and retractions rising toward the camera, and the Top setup's pocket path faint at its own position on the same stock",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -2272,13 +2272,11 @@
 			"afterHeading": "Create a rotary feature",
 			"kind": "screenshot",
 			"purpose": "Find the four rotary commands and read a disabled reason.",
-			"brief": "Creation drawer open with Thread, Flutes, Turn and Polygon / hex. Pair a round bar with a square bar that has no Turn, showing Turn a section of the square bar round first. Capture after purecutcnc#1131 (PR #1163) merges.",
+			"brief": "Creation drawer open with Thread, Flutes, Turn and Polygon / hex. Pair a 30 mm round bar, where all four are live, with a square blank that has no Turn: its sheet work stays listed, disabled, and the hovered Thread's tooltip reads Turn a section of the square bar round first.",
 			"asset": "rotary/rotary-features/creation-group.png",
-			"alt": "Creation drawer rotary group with Thread, Flutes, Turn and Polygon / hex",
-			"status": "blocked",
-			"blockedBy": [
-				"PureCutCNC/purecutcnc#1131"
-			]
+			"alt": "The creation drawer on a 30 mm round bar with every shape and Thread, Flutes, Turn and Polygon / hex enabled, beside the drawer on a square blank where the shapes and Thread are dimmed and the Thread tooltip reads Thread — Turn a section of the square bar round first",
+			"status": "captured",
+			"blockedBy": []
 		},
 		{
 			"id": "m3-turn-panel",
@@ -2324,8 +2322,8 @@
 			"purpose": "Inspect removal after rough and finish while retaining bar support.",
 			"brief": "Show Rotary finish simulation through its earlier rough on a square blank, with a machined centre band, square retained ends, chuck and tailstock. Review playback links before accepting the still.",
 			"asset": "rotary/rotary-operations/finish-simulation.png",
-			"alt": "Rotary finish simulation with a machined centre band and square retained ends",
-			"status": "proposed",
+			"alt": "Simulation after a Rotary rough and then a Rotary finish on a square blank: the middle of the bar turned to a round band between two square retained ends, with the chuck at the left and a tailstock clamp at the right",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -2334,10 +2332,10 @@
 			"afterHeading": "Bar stock in 3D",
 			"kind": "screenshot",
 			"purpose": "Inspect actual bar material and workholding in three dimensions.",
-			"brief": "Bar in the 3D view with one Around cut, a target model and wrapped path; side/end framing with chuck and tailstock visible. Pair a square blank with retained square ends if one view cannot show both.",
+			"brief": "Side view of a 30 mm round bar in the 3D view, held by the chuck and a tailstock, with a Turn to Ø24 over its middle and its Rotary rough toolpath shown wrapped around it, plus an engraved Around cut on the plain bar beside the chuck. One image; no square blank needed.",
 			"asset": "verify-export/3d-view/bar-3d.png",
-			"alt": "Bar in the 3D view with workholding, wrapped paths and retained ends",
-			"status": "proposed",
+			"alt": "3D view of a 30 mm round bar held by the chuck at the left and a tailstock at the right, with its middle turned to a narrower band wrapped by the orange Rotary rough toolpath, and the word OAK cut into the plain bar beside the chuck",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -2430,10 +2428,10 @@
 			"afterHeading": "Simulating plasma",
 			"kind": "screenshot",
 			"purpose": "Distinguish full-depth kerf removal from the Sketch and 3D band overlay.",
-			"brief": "Top plasma simulation after cutting the same closed part and holes used for the kerf preview. Frame the through-slots, lead slots and pierce holes. Show Play tool with the plain-cylinder torch in a second state only if necessary; do not use a still to imply loose-part motion.",
+			"brief": "Plasma simulation of the Top setup after cutting the same closed part and holes used for the kerf preview. A 3/4 view, so the sheet's thickness shows the slots are cut through: frame the through-slots, lead slots and pierce holes. Play tool stays off, so no torch is shown; do not use a still to imply loose-part motion.",
 			"asset": "verify-export/simulation/plasma-result.png",
-			"alt": "Plasma simulation with full-depth slots around a part and its holes, including leads and pierces",
-			"status": "proposed",
+			"alt": "Isometric simulation view of a plasma plate after the through-cut: the part's rectangle and its two holes are kerf-wide slots cut through the sheet, each contour with its lead slot and a small pierce hole, and the plate's near edges show the full sheet thickness",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
