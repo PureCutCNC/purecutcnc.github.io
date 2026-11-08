@@ -9,6 +9,7 @@ status: draft
 import Screenshot from '../../../../components/Screenshot.astro';
 import threadPanel from '../../../../assets/manual/rotary/rotary-features/thread-panel.png';
 import turnPanel from '../../../../assets/manual/rotary/rotary-features/turn-panel.png';
+import turnProfileSpline from '../../../../assets/manual/rotary/rotary-features/turn-profile-spline.png';
 import creationGroup from '../../../../assets/manual/rotary/rotary-features/creation-group.png';
 import { Aside, Steps } from '@astrojs/starlight/components';
 import surfaceStart from '../../../../assets/manual/rotary/rotary-features/surface-start.png';
@@ -77,12 +78,14 @@ one side of the centreline. Pick it in **Profile: pick a shape**. The outline is
 the bar axis. A closed outline away from the axis can describe a ring or groove. The profile
 sets start, length, and diameter; those fields are not separate overrides while it is picked.
 
+<Screenshot src={turnProfileSpline} maxWidth={1000} alt="Turn a diameter panel with Profile Composite 1 picked, the summary From Composite 1 · Ø24.148 mm · 81 long, the half-profile picture, and Start from chuck end 16, Length 81 and Diameter 24.148 mm, beside a closed candle-holder outline on a 30 mm round bar — a foot, slim waist and bulb, then a spline top edge that climbs steeply into a wide cup rim at the far end, above a straight bottom edge just above the axis" caption="A candle-holder half profile drawn on Top as one closed outline and picked as the Turn's profile: the panel reports the start, length and diameter it stands for." />
+
 The source must have one outline, must not cross the axis or reach outside the bar, and must
 not double back along it. A pick copies the outline. Later edits to the source do not silently
 change the Turn: reopen the Turn and use **Refresh**. If the source is deleted, the copied
 profile is kept.
 
-<Screenshot src={turnPanel} maxWidth={1089} alt="Turn a diameter panel with Profile Rect 1 picked, the summary From Rect 1 · Ø18 mm · 60 long, the half-profile picture, and Start from chuck end 30, Length 60 and Diameter 18 mm" caption="A Turn can take its start, length and diameter from a half profile drawn on Top." />
+<Screenshot src={turnPanel} maxWidth={1000} alt="Turn a diameter edit panel with Profile None — one plain diameter, Start from chuck end 20, Length 70 and Diameter 22, beside the dashed Ø22 section from 20 to 90 mm on a 30 mm round bar" caption="Leave Profile at None for a plain diameter: the start, length and diameter alone describe the section." />
 
 ## Cut a polygon or hexagon
 

@@ -133,6 +133,23 @@ const clipWorkspaceLeft = (page) =>
 		}
 	})
 
+/** A rotary panel dragged to the canvas's left margin, with the bar beside it.
+    Cropped to the panel's own height: the bar is centred in the canvas, so this
+    keeps the whole bar and drops the empty canvas above and below it. */
+const clipPanelAndBar = (page) =>
+	page.evaluate(() => {
+		const panel = document.querySelector('.canvas-workflow-panel--rotary').getBoundingClientRect()
+		const canvas = document.querySelector('.sketch-canvas').getBoundingClientRect()
+		const cam = document.querySelector('.panel-right')?.getBoundingClientRect()
+		const right = Math.min(canvas.right, cam?.x ?? window.innerWidth)
+		return {
+			x: Math.round(panel.x),
+			y: Math.round(panel.y),
+			width: Math.round(right - panel.x),
+			height: Math.round(panel.height),
+		}
+	})
+
 /** A modal plus a margin of the dimmed workspace behind it. */
 const clipDialog = (selector, margin = 60) => (page) =>
 	page.locator(selector).evaluate((el, m) => {
@@ -886,6 +903,14 @@ async function clickStock(page, x, y, width = 4, height = 3) {
 	await clickUntil(page, (p.x - c.x) / c.w, (p.y - c.y) / c.h)
 }
 
+/** One stock click that need not change the workflow panel's text, such as a
+    spline control point: clickStock's retry would place the same point twice. */
+async function clickStockOnce(page, x, y, width = 4, height = 3) {
+	const p = await stockPoint(page, x, y, width, height)
+	await page.mouse.click(p.x, p.y)
+	await page.waitForTimeout(500)
+}
+
 async function drawStockRectangle(page, x1, y1, x2, y2) {
 	await pickShape(page, 'Add feature rectangle')
 	await clickStock(page, x1, y1)
@@ -1174,6 +1199,94 @@ async function startAtTurnSurface(page) {
 async function closeShapeDrawer(page) {
 	await page.addStyleTag({ content: '.toolbar-creation-picker__drawer { display: none !important; }' })
 	await page.waitForTimeout(300)
+}
+
+/** Collapse the project panel with the « handle at the left of the view tabs, so the
+    canvas reaches the window's left edge. A rotary workflow panel's background is
+    translucent: parked over the tree its labels ("Construction", "Delete feature",
+    the feature count) show through it, over plain canvas only the grid does. */
+async function collapseProjectPanel(page) {
+	await page.locator('#panel-handle-left').click()
+	await page.waitForTimeout(900)
+	const width = await page.locator('.panel-left').evaluate((el) => el.getBoundingClientRect().width)
+	if (width > 0) throw new Error(`the project panel did not collapse: ${Math.round(width)}px wide`)
+}
+
+/** Drag a rotary panel by its handle to the canvas's left margin, centred on it,
+    the way a user gets it off the sketch. The drag is a real pointer drag on the
+    panel's own handle; nothing about the panel is hidden or restyled. */
+async function parkRotaryPanelOnCanvas(page) {
+	const target = await page.evaluate(() => {
+		const panel = document.querySelector('.canvas-workflow-panel--rotary').getBoundingClientRect()
+		const handle = document.querySelector('.canvas-workflow-panel__handle').getBoundingClientRect()
+		const canvas = document.querySelector('.sketch-canvas').getBoundingClientRect()
+		return {
+			grabX: handle.x + 40,
+			grabY: handle.y + handle.height / 2,
+			wantX: Math.round(canvas.x) + 12,
+			wantY: Math.round(canvas.y + canvas.height / 2 - panel.height / 2),
+			panelX: panel.x,
+			panelY: panel.y,
+		}
+	})
+	await page.mouse.move(target.grabX, target.grabY)
+	await page.mouse.down()
+	await page.mouse.move(
+		target.grabX + target.wantX - target.panelX,
+		target.grabY + target.wantY - target.panelY,
+		{ steps: 18 },
+	)
+	await page.mouse.up()
+	await page.waitForTimeout(700)
+	const landed = await page.locator('.canvas-workflow-panel--rotary').evaluate(
+		(el) => el.getBoundingClientRect().x,
+	)
+	if (Math.abs(landed - target.wantX) > 2) {
+		throw new Error(`the rotary panel did not park on the canvas margin: x=${Math.round(landed)}`)
+	}
+}
+
+/** Measured on this app build at a 2x device scale: one 120 px wheel notch out
+    scales the sketch view by 0.9128, so the drawn bar shrinks by that per notch. */
+const SKETCH_ZOOM_NOTCH = 0.9128
+
+/** Fit the bar, shrink it to `barWidth` CSS px and shift it right until its left
+    edge clears the parked rotary panel. The whole bar then sits on plain canvas
+    beside the panel, with the 120 mm and Ø30 mm labels, which are drawn just
+    outside it, still inside the canvas. */
+async function frameBarBesidePanel(page, barWidth = 490) {
+	await page.getByRole('button', { name: 'Zoom to model', exact: true }).click()
+	await page.waitForTimeout(700)
+	const box = await page.evaluate(() => {
+		const canvas = document.querySelector('.sketch-canvas').getBoundingClientRect()
+		const panel = document.querySelector('.canvas-workflow-panel--rotary').getBoundingClientRect()
+		return { x: canvas.x, y: canvas.y, w: canvas.width, h: canvas.height, panelRight: panel.right }
+	})
+	const fitWidth = box.w - 84
+	const notches = Math.max(0, Math.round(Math.log(barWidth / fitWidth) / Math.log(SKETCH_ZOOM_NOTCH)))
+	const canvasCentre = { x: box.x + box.w / 2, y: box.y + box.h / 2 }
+	// Zooming about the canvas centre keeps the bar where the fit put it: centred.
+	await page.mouse.move(canvasCentre.x, canvasCentre.y)
+	for (let i = 0; i < notches; i++) {
+		await page.mouse.wheel(0, 120)
+		await page.waitForTimeout(240)
+	}
+	await page.mouse.move(1, 1)
+	await page.waitForTimeout(900)
+	const zoomedWidth = fitWidth * SKETCH_ZOOM_NOTCH ** notches
+	const dx = box.panelRight + 24 - (canvasCentre.x - zoomedWidth / 2)
+	// Shift+drag on empty canvas below the panel pans the view; the drawing follows
+	// the pointer one CSS pixel for one.
+	const from = { x: canvasCentre.x, y: box.y + box.h - 40 }
+	await page.mouse.move(from.x, from.y)
+	await page.keyboard.down('Shift')
+	await page.mouse.down()
+	await page.mouse.move(from.x + dx, from.y, { steps: 20 })
+	await page.mouse.up()
+	await page.keyboard.up('Shift')
+	await page.waitForTimeout(900)
+	await page.mouse.move(1, 1)
+	await page.waitForTimeout(600)
 }
 
 /** A plain 30 mm round bar with Around work: a pocket, engraved text and V-carved text. */
@@ -1683,18 +1796,89 @@ const RECIPES = [
 			await page.getByRole('button', { name: 'Hide all clamps', exact: true }).click()
 			await page.getByRole('button', { name: 'Zoom to model', exact: true }).click()
 			await page.waitForTimeout(600)
-			// Top is a 120 x 30 side view; the axis is y=15. A closed half
-			// profile above that axis makes a cylindrical ring, within the bar.
-			await pickShape(page, 'Add feature rectangle')
-			await clickStock(page, 30, 24, 120, 30)
-			await clickStock(page, 90, 17, 120, 30)
-			await page.keyboard.press('Escape')
+			// A plain diameter: Profile stays at None, and the three fields alone
+			// make one Ø22 section from the chuck end.
 			await pickShape(page, 'Turn')
-			await chooseProperty(page, '.rotary-panel__profile', 'Profile: pick a shape', 'Rect 1')
-			await page.getByRole('button', { name: 'Refresh', exact: true }).waitFor()
-			await page.locator('.rotary-panel__profile-summary').waitFor()
+			await rotaryField(page, 'Start from chuck end (mm)', 20)
+			await rotaryField(page, 'Length (mm)', 70)
+			await rotaryField(page, 'Diameter (mm)', 22)
+			await closeShapeDrawer(page)
+			await createRotary(page, 'Turn')
+			// Creation has no live preview (the app needs a stored row to draw one),
+			// so reopen the Turn it just made: the edit panel is the same form and
+			// shows the section on the bar while its fields stay visible.
+			await page.locator('.tree-row--feature').filter({ hasText: 'Turn' }).first().click()
+			await page.waitForTimeout(500)
+			await expandLeftProperties(page)
+			await page.getByRole('button', { name: /^Edit turn/ }).click()
+			await page.locator('.canvas-workflow-panel--rotary').waitFor()
+			await page.waitForTimeout(1400)
+			// The panel's own background is translucent, so it has to sit on bare
+			// canvas: collapse the project tree, park the panel on the canvas's left
+			// margin, then shrink the view until the whole bar clears the panel.
+			await collapseProjectPanel(page)
+			await parkRotaryPanelOnCanvas(page)
+			await frameBarBesidePanel(page)
+			await page.waitForTimeout(1200)
 		},
-		clip: clipWorkspaceLeft,
+		clip: clipPanelAndBar,
+	},
+	{
+		id: 'm3-turn-profile-spline',
+		asset: 'rotary/rotary-features/turn-profile-spline.png',
+		viewport: { width: 1440, height: 900 },
+		storage: SPLIT_TREE,
+		async steps(page) {
+			await createBlankProject(page, 'Rotary', 'Blank metric')
+			await page.getByRole('button', { name: 'Hide all clamps', exact: true }).click()
+			await page.getByRole('button', { name: 'Zoom to model', exact: true }).click()
+			await page.waitForTimeout(600)
+			// A candle-holder half profile on Top, drawn as one closed outline: a
+			// spline top edge from the chuck end to the far end, then a straight
+			// bottom edge back along the axis (y = 15 on the 120 x 30 mm blank). The
+			// bottom edge sits just above the axis; switching to Line before the
+			// final drop keeps the spline from overshooting below it. Foot, waist and
+			// bulb are followed by a long low neck to x 82, and only then does the top
+			// edge climb: ~9.5 mm of height in ~7 mm of length, into a wide, gently
+			// domed rim held from x 89 to x 93 before the short outer wall drops at
+			// 97.2. The steep climb and the broad rim together make the far end read
+			// as a cup lip rather than a long slant or a spike.
+			await pickShape(page, 'Add feature composite')
+			await clickStockOnce(page, 16, 15.4, 120, 30)
+			await page.getByRole('button', { name: /^Spline \(S\)$/ }).click()
+			await page.waitForTimeout(400)
+			for (const [x, y] of [
+				[18, 20], [23, 24.5], [33, 24.5], [40, 16.5], [46, 16.5],
+				[53, 22.5], [61, 22.5], [67, 16.6], [74, 16.7],
+				[80, 16.7], [82.5, 17.2], [84.5, 19.6], [86.5, 24],
+				[88.5, 26.3], [91, 26.9], [93.5, 26.6],
+			]) {
+				await clickStockOnce(page, x, y, 120, 30)
+			}
+			// Line mode draws the drop to the far end and the closing click on the
+			// start point adds the bottom edge back along the axis.
+			await page.getByRole('button', { name: /^Line \(L\)$/ }).click()
+			await page.waitForTimeout(400)
+			await clickStockOnce(page, 97.2, 15.4, 120, 30)
+			await clickStockOnce(page, 16, 15.4, 120, 30)
+			await page.locator('.tree-row--feature').filter({ hasText: 'Composite' }).first().waitFor()
+			await page.waitForTimeout(900)
+			await page.keyboard.press('Escape')
+			await page.waitForTimeout(500)
+			// The drawn outline is the profile: copy it and let the panel report the
+			// start, length and diameter it stands for.
+			await pickShape(page, 'Turn')
+			await chooseProperty(page, '.rotary-panel__profile', 'Profile: pick a shape', 'Composite 1')
+			await page.locator('.rotary-panel__profile-summary').waitFor()
+			await closeShapeDrawer(page)
+			// The feature label would sit on the drawn outline; hide labels for the shot.
+			await page.getByRole('button', { name: 'Feature labels', exact: true }).click()
+			await collapseProjectPanel(page)
+			await parkRotaryPanelOnCanvas(page)
+			await frameBarBesidePanel(page)
+			await page.waitForTimeout(1400)
+		},
+		clip: clipPanelAndBar,
 	},
 	{
 		id: 'm3-thread-panel',

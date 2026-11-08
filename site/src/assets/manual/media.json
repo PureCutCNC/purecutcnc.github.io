@@ -1793,9 +1793,20 @@
 		"blockedBy": []
 	},
 	"rotary/rotary-features/turn-panel.png": {
-		"shows": "Turn a diameter panel with Profile Rect 1 picked, the summary From Rect 1 · Ø18 mm · 60 long, the half-profile picture, and Start from chuck end 30, Length 60 and Diameter 18 mm",
+		"shows": "Turn a diameter edit panel with Profile None — one plain diameter, Start from chuck end 20, Length 70 and Diameter 22, beside the dashed Ø22 section from 20 to 90 mm on a 30 mm round bar",
 		"source": "capture",
-		"appCommit": "649e52d517c7f391013c4405d4a1aa6d50a2ac8e",
+		"appCommit": "7b227fb32a9f2ec5ea3512b42d4e4f510089c3f4",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"rotary/rotary-features/turn-profile-spline.png": {
+		"shows": "Turn a diameter panel with Profile Composite 1 picked, the summary From Composite 1 · Ø24.148 mm · 81 long, the half-profile picture, and Start from chuck end 16, Length 81 and Diameter 24.148 mm, beside a closed candle-holder outline on a 30 mm round bar — a foot, slim waist and bulb, then a spline top edge that climbs steeply into a wide cup rim at the far end, above a straight bottom edge just above the axis",
+		"source": "capture",
+		"appCommit": "7b227fb32a9f2ec5ea3512b42d4e4f510089c3f4",
 		"fixture": "Empty project",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
