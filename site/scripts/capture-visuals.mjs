@@ -4382,6 +4382,76 @@ const RECIPES = [
 		clip: clipDialog('.dialog--motion-debug', 30),
 	},
 	{
+		id: 'm13-motion-wrapped',
+		asset: 'verify-export/exported-motion/cam-debug-view-wrapped.png',
+		viewport: { width: 1440, height: 900 },
+		async steps(page) {
+			// A hex milled on a round bar: the wrapped view is the only way to see
+			// the flats and the passes that follow them, since a rotary finish
+			// changes Z on every move and has no flat plan to compare.
+			// A 34 mm bar leaves the 25 mm hex standing clear inside it, so the
+			// wrapped path reads as a hex rather than hugging the bar surface.
+			const dialog = await blankProjectDialog(page, 'Rotary', 'Blank metric')
+			await dialog.getByLabel('Diameter', { exact: true }).fill('34')
+			await dialog.getByLabel('Length', { exact: true }).fill('120')
+			await dialog.getByRole('button', { name: 'Create project', exact: true }).click()
+			await dialog.waitFor({ state: 'hidden' })
+			await page.waitForTimeout(1200)
+			await switchFace(page, 'Around')
+			await pickShape(page, 'Polygon / hex')
+			await rotaryField(page, 'Start from chuck end (mm)', 25)
+			await rotaryField(page, 'Length (mm)', 45)
+			await rotaryField(page, 'Across flats (mm)', 25)
+			await createRotary(page, 'Hex')
+			// The shape drawer stays open over the tree until the last pickShape.
+			await closeShapeDrawer(page)
+			// The bar and its workholding are not the subject, and the dialog
+			// covers the workspace anyway.
+			await page.getByRole('button', { name: 'Hide all clamps', exact: true }).click()
+			// A ball endmill is the finish tool a reader would pick.
+			await importLibraryTool(page, '6 mm Ball Endmill')
+			const finish = await addRotaryOp(page, 'Hex', 'Rotary finish')
+			// A rotary-capable machine, so the program actually turns the bar and
+			// the wrapped view has an A range to report.
+			await chooseMachine(page, 'grblHAL + rotary A')
+			await openExportDialog(page)
+			// The inspector is offered for exactly one eligible operation.
+			await page.getByRole('button', { name: 'Deselect all' }).click()
+			await page.waitForTimeout(900)
+			await page.getByRole('checkbox', { name: new RegExp(finish) }).first().check()
+			await page.waitForTimeout(3000)
+			await page.getByRole('button', { name: 'Inspect exported motion' }).click()
+			await page.waitForSelector('.dialog--motion-debug')
+			// The wrapped scene is built once the exported program is parsed.
+			await page.waitForTimeout(5000)
+			// A rotary program opens on 3D wrapped by itself; assert that rather
+			// than leaving a quietly wrong 2D shot on the page.
+			const wrapped = await page.locator('.motion-debug__canvas-wrap').count()
+			if (!wrapped) throw new Error('the inspector did not open on the 3D wrapped view')
+			// Orbit: swing round to the bar's side (theta ~0) and drop the camera
+			// slightly below eye level, so a hex flat faces the viewer and the
+			// wrapped passes read as lines round the bar.
+			const view = await page.locator('.motion-debug__canvas-wrap').boundingBox()
+			const cx = view.x + view.width * 0.5
+			const cy = view.y + view.height * 0.5
+			await page.mouse.move(cx, cy)
+			await page.mouse.down()
+			await page.mouse.move(cx + 30, cy - 42, { steps: 20 })
+			await page.mouse.up()
+			// The view fits the whole bar, which leaves the 45 mm hex a small patch
+			// in the middle. Zoom on it so the facet flats and the passes that
+			// follow them read, keeping the bar's faint outline in frame.
+			await page.mouse.move(view.x + view.width * 0.38, view.y + view.height * 0.5)
+			for (let i = 0; i < 3; i++) {
+				await page.mouse.wheel(0, -240)
+				await page.waitForTimeout(300)
+			}
+			await page.mouse.move(1, 1)
+			await page.waitForTimeout(2500)
+		},
+		clip: clipDialog('.dialog--motion-debug', 30),
+	},
+	{
 		id: 'model-export-stl',
 		asset: 'verify-export/model-export-and-print/sketch-export-stl.png',
 		fixture: 'PureCutCNC',

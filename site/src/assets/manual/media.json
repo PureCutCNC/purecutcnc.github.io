@@ -505,6 +505,17 @@
 		"status": "current",
 		"blockedBy": []
 	},
+	"verify-export/exported-motion/cam-debug-view-wrapped.png": {
+		"shows": "Exported motion inspector on its 3D wrapped view, showing a Rotary finish on a 25 mm hex wrapped around a 34 mm round bar, with the A range readout and layer checkboxes",
+		"source": "capture",
+		"appCommit": "4f81ca4f9b14bb141c8a6a7b9c439e271797c823",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
 	"verify-export/setup-booklets/setup-program-registration.png": {
 		"shows": "First page of the Pocket Rough 2 operation booklet for a Bottom setup: the operation snapshot, the overview, and a Setup section with Setup 02 · Bottom, Stock Bottom face up, flipped about X, and Registration None declared, then the tool and operation settings",
 		"source": "capture",

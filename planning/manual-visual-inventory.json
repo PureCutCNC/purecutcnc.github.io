@@ -2003,6 +2003,18 @@
 			"blockedBy": []
 		},
 		{
+			"id": "m13-motion-wrapped",
+			"page": "/guide/verify-export/exported-motion/",
+			"afterHeading": "3D wrapped view (rotary)",
+			"kind": "screenshot",
+			"purpose": "Show a rotary program's exported motion wrapped around the bar, which is the view a flat plan cannot give.",
+			"brief": "The exported motion inspector on its 3D wrapped view for a Rotary finish on a Hex in a 34 mm round bar: the optimized and exported passes wrapped around the bar, the layer checkboxes, and the A range readout, orbited to a slightly low, side-on angle.",
+			"asset": "verify-export/exported-motion/cam-debug-view-wrapped.png",
+			"alt": "Exported motion inspector on its 3D wrapped view, showing a Rotary finish on a 25 mm hex wrapped around a 34 mm round bar, with the A range readout and layer checkboxes",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
 			"id": "setup-booklet-sample",
 			"page": "/guide/verify-export/setup-booklets/",
 			"afterHeading": "Sample booklet",
