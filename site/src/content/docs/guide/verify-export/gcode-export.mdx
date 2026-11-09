@@ -80,7 +80,7 @@ for the flip and registration checks before running the next program.
 
 Turning cuts use inverse-time feed, normally `G93`, with a feed word on each motion line;
 normal feed mode returns with `G94`. The machine's rotary axis must match the bar, and a
-borrowed motor cannot also travel linearly. Regenerate before export, particularly after
+borrowed motor cannot also travel linearly. Inspect the updated toolpaths before export, particularly after
 changing square stock. Top and Bottom bar programs turn to 0°/180° with a rotary machine or
 state the angle in an operator comment. Every rotary operation ends at 0 up; with no **Zero A
 line** on the machine, the program stops with `M0` between rotary operations so you can zero A,

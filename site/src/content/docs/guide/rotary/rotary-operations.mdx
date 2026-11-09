@@ -128,7 +128,7 @@ Generation checks the path, not only the feature: every move below the corners, 
 cutter radius, must stay over the round section. Otherwise the operation cuts nothing and warns
 **turn this section round first**, or, over a Polygon's flats, that sheet work needs a section a
 turn has made round. Every rapid that moves along the bar or turns it travels above the corners
-(the corner radius plus 1 mm). Export regenerates the path and refuses one that no longer matches.
+(the corner radius plus 1 mm).
 
 ## Limitations and warnings
 
@@ -194,10 +194,7 @@ starting point, not a check of your physical setup. See [CAM Plan](/guide/cam-se
 ## Rotary export
 
 Toolpaths update on their own when you change the stock, model, region, tool, origin, machine,
-or operation. Inspect the updated path before opening export. As a last check, export generates
-each square-bar path again and refuses one that does not match, with **its toolpath is out of
-date for this project. Regenerate it before exporting.** It is a safety check and should not
-appear in normal use.
+or operation. Inspect the updated path before opening export.
 
 Turning feed moves use inverse-time feed: normally `G93`, with an `F` on each motion line.
 That feed describes the time for the whole move, not ordinary distance per minute. The program

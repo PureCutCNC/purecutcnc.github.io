@@ -20,7 +20,7 @@ The **Export G-code** dialog separates **Errors** from **Warnings**. Errors incl
 
 ## What to do
 
-Check the named operation, tool, machine, and project settings first. Regenerate after an edit, inspect the toolpath and simulation, then reopen export if the preview is out of date. If the message concerns a custom machine, compare the definition with your controller documentation.
+Check the named operation, tool, machine, and project settings first. After an edit, inspect the updated toolpath and simulation, then reopen export if the preview is out of date. If the message concerns a custom machine, compare the definition with your controller documentation.
 
 | Message concerns | What it means | What to check |
 | --- | --- | --- |
@@ -41,7 +41,7 @@ resulting motion before cutting.
 **Outside route around … was kept clear of neighbouring parts — part of its outline is left
 uncut.** means the cutter could not follow the full outline without entering another part's
 material. Inspect the named part's route, increase clearance or choose a suitable smaller tool,
-then regenerate. The part can remain attached at the omitted section even if the rest of the
+then inspect the updated route. The part can remain attached at the omitted section even if the rest of the
 route reaches final depth. See [Edge route outside](/guide/operations/edge-route-outside/).
 
 ## Tab messages
@@ -69,7 +69,7 @@ Rotary warnings can identify a missing earlier rough, an unsupported cutter, a m
 the bar or below the centreline, insufficient room between supports, or a chuck outside its
 grip range. Export also checks the rotary axis, inverse-time feed, borrowed-motor travel,
 out-of-date square-bar paths, and corner clearance. Read the named model or operation, fix
-the cause, then regenerate and review. See
+the cause, then review the updated path. See
 [Rotary warnings](/guide/rotary/rotary-operations/#limitations-and-warnings) and
 [Rotary export refusals](/guide/rotary/rotary-operations/#rotary-export).
 
@@ -83,7 +83,7 @@ any skipped contour; a preview with some cuts is not a complete program.
 | Message, after the name | Action |
 | --- | --- |
 | **plasma through-cut supports top setups only. No toolpath generated.** | Use a Top setup. |
-| **this subtract is ordered before its enclosing part and is not a hole in that part. Move it after the part; this contour was skipped.** | Move the subtract after its enclosing add in feature order, then regenerate. |
+| **this subtract is ordered before its enclosing part and is not a hole in that part. Move it after the part; this contour was skipped.** | Move the subtract after its enclosing add in feature order. |
 | **this subtract has partial depth, but plasma through-cut cuts through the whole sheet.** | Check that a through-hole is intended. |
 | **the requested arc cannot pierce with safe edge clearance; a straight lead-in was used.** | Inspect the replacement lead. |
 | **invalid plasma parameters or targets. No toolpath generated.** | Check the torch, positive feed and lead-in, and closed targets. |
@@ -106,7 +106,7 @@ to export it.** Check the project type and machine as well as the operation chec
 
 QtPlasmaC export is blocked when a torch has no supported material number. G-code-owned
 piercing is blocked by a missing positive cut feed or plunge feed, including a value that
-rounds to zero in output. Cuts with no safe-height move also block that export; regenerate.
+rounds to zero in output. Cuts with no safe-height move also block that export.
 See [Plasma programs](/guide/verify-export/gcode-export/#plasma-programs).
 
 ## Feature effect and machine templates
