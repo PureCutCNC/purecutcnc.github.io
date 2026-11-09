@@ -561,11 +561,11 @@
 		"blockedBy": []
 	},
 	"start-here/install-and-open/desktop-update-channel.png": {
-		"shows": "macOS PureCutCNC menu open over a dark-theme workspace with Update Channel expanded and Stable currently selected alongside Snapshot",
+		"shows": "Desktop app on Linux with the PureCutCNC menu open (About PureCutCNC, Check for Updates…, Update Channel, Quit PureCutCNC) and Update Channel expanded to Stable (checked) and Snapshot, over the project tree",
 		"source": "capture",
-		"appCommit": "2dc197eebe9c11272ad0bc24194d4a7c6de19055",
+		"appCommit": "7b227fb32a9f2ec5ea3512b42d4e4f510089c3f4",
 		"fixture": "Empty project",
-		"viewport": "1440x900@2x",
+		"viewport": "517x520@1x",
 		"theme": "dark",
 		"locale": "en",
 		"status": "current",

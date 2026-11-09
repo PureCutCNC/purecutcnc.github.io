@@ -496,9 +496,9 @@
 			"afterHeading": "Desktop updates",
 			"kind": "screenshot",
 			"purpose": "Show where desktop users switch between Stable and Snapshot updates.",
-			"brief": "The macOS PureCutCNC menu open with Update Channel expanded to show Stable (currently selected) and Snapshot, over a dark-theme workspace with the project tree visible.",
+			"brief": "The desktop PureCutCNC menu open with Update Channel expanded to show Stable (currently selected) and Snapshot, over a dark-theme workspace with the project tree visible.",
 			"asset": "start-here/install-and-open/desktop-update-channel.png",
-			"alt": "macOS PureCutCNC menu open over a dark-theme workspace with Update Channel expanded and Stable currently selected alongside Snapshot",
+			"alt": "Desktop app on Linux with the PureCutCNC menu open (About PureCutCNC, Check for Updates…, Update Channel, Quit PureCutCNC) and Update Channel expanded to Stable (checked) and Snapshot, over the project tree",
 			"status": "captured",
 			"blockedBy": []
 		},
