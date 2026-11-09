@@ -1,6 +1,6 @@
 ---
 title: Exported motion inspector
-description: An internal development and debug view for comparing a single eligible planar operation’s generated, optimized, and exported motion.
+description: An internal development and debug view for comparing a single eligible operation’s generated, optimized, and exported motion, as a flat plan or wrapped around the bar.
 pageType: reference
 availability: stable
 status: draft
@@ -14,13 +14,30 @@ The exported motion inspector is an **internal development and debugging tool**.
 
 ## Opening
 
-Open **Export G-code**, select exactly one eligible planar operation, and choose **Inspect exported motion**. The button does not depend on the development-only **Debug toolpath** checkbox. It appears only after preparation succeeds for one operation whose motion can be represented as a flat plan trace; drilling, operations with no cuts, and continuously varying-Z motion are not eligible.
+Open **Export G-code**, select exactly one eligible operation, and choose **Inspect exported motion**. The button does not depend on the development-only **Debug toolpath** checkbox. It appears only after preparation succeeds for one operation: a planar operation whose motion can be drawn as a flat plan trace, or a rotary operation (rough, finish, turn, thread, or flutes), including one whose Z varies. Drilling, operations with no cuts, and planar motion whose Z varies continuously are not eligible.
 
 <Screenshot src={motionInspector} alt="The exported motion inspector for one pocket operation: the cutting-level selector and the Generated, Optimized, Exported G-code and non-cutting layer checkboxes, the raw and optimized move counts with the emitted linear, rapid and arc counts, the plotted path, and a warning listing arc deviations" caption="This operation reports arc deviations rather than a clean verification, which is the kind of difference the inspector exists to surface." />
 
 ## Layers
 
 Use the layer checkboxes to compare **Generated (raw)**, **Optimized**, and **Exported G-code** motion. You can also show **Non-cutting moves**, choose a **Cutting level**, and choose **All cutting levels**. Pan, zoom, select a zoom region, or use **Fit** to inspect a location.
+
+## 3D wrapped view (rotary)
+
+For a rotary program the inspector opens on **3D wrapped**, which wraps the exported moves around
+the bar. Drag to orbit. Rapids and feed moves are drawn in different colours, the bar outline is
+drawn faintly, and the readout shows the program's **A range** (**A range: no turn** when the
+program never turns the bar). Choose **2D plan** for the flat trace when the program has one. The
+layer checkboxes, **Cutting level**, and **Non-cutting moves** apply in 3D too.
+
+When cutting Z changes from move to move, the 2D plan is hidden and every cut is drawn; the
+level-by-level comparison does not apply.
+
+The view draws the tool tip path, so a ball endmill's passes over a flat look slightly bowed.
+That is expected, not an error.
+
+If the browser does not provide WebGL2, a message says the 3D view is unavailable. The 2D plan is
+still shown when the program has one.
 
 ## Counts
 
