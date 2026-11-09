@@ -141,7 +141,7 @@ and region coverage; do not clear the message by assuming that any earlier rough
 | Message or condition | What to check |
 | --- | --- |
 | **the stepdown is below 0.01 mm; increase it** | Increase rough stepdown. In an inch project, 0.01 mm is about 0.000394 in. |
-| **this would generate too many moves; increase the stepdown or stepover** | Use practical spacing and depth, then regenerate. |
+| **this would generate too many moves; increase the stepdown or stepover** | Use practical spacing and depth, then inspect the updated path. |
 | **no room to cut between the end supports and the chuck and tailstock. Shorten the supports or move the model.** | Check the actual support needed before changing the model position or support lengths. |
 | **rotary machining needs a ball nose or flat end mill.** | Assign a supported cutter. |
 | **the model reaches below the bar's centreline near … along the bar, at …°. The tool stops at the centreline there.** | Inspect the unreachable part; this is not a promise to machine the whole model. |
@@ -193,9 +193,11 @@ starting point, not a check of your physical setup. See [CAM Plan](/guide/cam-se
 
 ## Rotary export
 
-Regenerate after changing the stock, model, region, tool, origin, machine, or operation. Inspect
-the updated path before opening export. An out-of-date square-bar path is refused with
-**its toolpath is out of date for this project. Regenerate it before exporting.**
+Toolpaths update on their own when you change the stock, model, region, tool, origin, machine,
+or operation. Inspect the updated path before opening export. As a last check, export generates
+each square-bar path again and refuses one that does not match, with **its toolpath is out of
+date for this project. Regenerate it before exporting.** It is a safety check and should not
+appear in normal use.
 
 Turning feed moves use inverse-time feed: normally `G93`, with an `F` on each motion line.
 That feed describes the time for the whole move, not ordinary distance per minute. The program
@@ -219,7 +221,7 @@ refuse with these messages (preceded by the operation name where applicable):
 
 A square-blank refusal can say **it turns the square blank while the cutter is below the blank's
 corner envelope and the cut would take more than the operation's allowed depth, so the standing
-corners would sweep into the cutter.** Regenerate and resolve the clearance problem.
+corners would sweep into the cutter.** Resolve the clearance problem and inspect the updated path.
 
 The program may also refuse when **the bar cannot be turned safely because no tool-length
 compensation is active and this machine has no machine-coordinate move to its safe Z. Apply
