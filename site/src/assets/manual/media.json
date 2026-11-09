@@ -2013,11 +2013,22 @@
 		"blockedBy": []
 	},
 	"rotary/rotary-operations/export-zero-a.png": {
-		"shows": "Export G-code dialog for grblHAL + rotary A with one Around program, the note that the A orientation follows the stock, and Start with A zeroed at 0 up",
+		"shows": "Export G-code dialog for grblHAL + rotary A with one Around program, the note that the A orientation follows the stock, and Start with A zeroed at 0 up, with Inspect exported motion beside Export .nc",
 		"source": "capture",
-		"appCommit": "8d70149176e586be208476761976871db41fa83b",
+		"appCommit": "4f81ca4f9b14bb141c8a6a7b9c439e271797c823",
 		"fixture": "Empty project",
 		"viewport": "1440x1000@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
+	"rotary/rotary-operations/inspect-wrapped.png": {
+		"shows": "Exported motion inspector on its 3D wrapped view, showing a Rotary finish on a 25 mm hex wrapped around a 34 mm round bar, with the A range readout and layer checkboxes",
+		"source": "capture",
+		"appCommit": "4f81ca4f9b14bb141c8a6a7b9c439e271797c823",
+		"fixture": "Empty project",
+		"viewport": "1440x900@2x",
 		"theme": "dark",
 		"locale": "en",
 		"status": "current",

@@ -14,6 +14,7 @@ import helixRings from '../../../../assets/manual/rotary/rotary-operations/helix
 import otherModels from '../../../../assets/manual/rotary/rotary-operations/other-models.png';
 import finishSimulation from '../../../../assets/manual/rotary/rotary-operations/finish-simulation.png';
 import bustFinishSimulation from '../../../../assets/manual/rotary/rotary-operations/bust-finish-simulation.png';
+import motionWrapped from '../../../../assets/manual/rotary/rotary-operations/inspect-wrapped.png';
 import exportZeroA from '../../../../assets/manual/rotary/rotary-operations/export-zero-a.png';
 
 **Rotary rough** removes material in radial layers around a model inside a bar.
@@ -243,7 +244,14 @@ happens before the next rotary operation depends on the machine's **Zero A line*
 
 Before each job, put the zero line up and zero A.
 
-<Screenshot src={exportZeroA} maxWidth={816} alt="Export G-code dialog for grblHAL + rotary A with one Around program, the note that the A orientation follows the stock, and Start with A zeroed at 0 up" caption="Export reminds you to start with A zeroed at 0 up." />
+<Screenshot src={exportZeroA} maxWidth={816} alt="Export G-code dialog for grblHAL + rotary A with one Around program, the note that the A orientation follows the stock, and Start with A zeroed at 0 up, with Inspect exported motion beside Export .nc" caption="Export reminds you to start with A zeroed at 0 up." />
+
+With one rotary operation selected, **Inspect exported motion** opens the
+[Exported motion inspector](/guide/verify-export/exported-motion/#3d-wrapped-view-rotary) on its
+**3D wrapped** view: the exported moves drawn around the bar, with the program's **A range**.
+It is a development and debugging view; use simulation to check the cut.
+
+<Screenshot src={motionWrapped} maxWidth={1240} alt="Exported motion inspector on its 3D wrapped view, showing a Rotary finish on a 25 mm hex wrapped around a 34 mm round bar, with the A range readout and layer checkboxes" caption="The inspector draws a rotary program's exported moves wrapped around the bar." />
 
 ### No cross axis on an own-A machine
 

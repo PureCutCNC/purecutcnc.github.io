@@ -2622,7 +2622,19 @@
 			"purpose": "Recognise the zero-A reminder at export.",
 			"brief": "Export dialog for a rotary program showing the A orientation note and Start with A zeroed at 0 up.",
 			"asset": "rotary/rotary-operations/export-zero-a.png",
-			"alt": "Export G-code dialog for grblHAL + rotary A with one Around program, the note that the A orientation follows the stock, and Start with A zeroed at 0 up",
+			"alt": "Export G-code dialog for grblHAL + rotary A with one Around program, the note that the A orientation follows the stock, and Start with A zeroed at 0 up, with Inspect exported motion beside Export .nc",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "m13-rotary-inspect-wrapped",
+			"page": "/guide/rotary/rotary-operations/",
+			"afterHeading": "Rotary export",
+			"kind": "screenshot",
+			"purpose": "Show where Inspect exported motion leads for a rotary program.",
+			"brief": "Same shot as m13-motion-wrapped: the inspector's 3D wrapped view of a Rotary finish on a hex in a round bar.",
+			"asset": "rotary/rotary-operations/inspect-wrapped.png",
+			"alt": "Exported motion inspector on its 3D wrapped view, showing a Rotary finish on a 25 mm hex wrapped around a 34 mm round bar, with the A range readout and layer checkboxes",
 			"status": "captured",
 			"blockedBy": []
 		},
