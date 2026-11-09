@@ -2056,6 +2056,17 @@
 		"status": "current",
 		"blockedBy": []
 	},
+	"rotary/rotary-operations/bust-finish-simulation.png": {
+		"shows": "Simulation of the bust model after a Rotary rough and a Rotary finish in a square blank, seen from a low angle: the carved head between the square end held in the chuck at the left and the square end at the right",
+		"source": "capture",
+		"appCommit": "7b227fb32a9f2ec5ea3512b42d4e4f510089c3f4",
+		"fixture": "app:work/busto-rect-stock.camj",
+		"viewport": "1298x944@1x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
 	"rotary/rotary-features/around-drawing.png": {
 		"shows": "Around sheet of a 30 mm round bar with a rectangle pocket, the word OAK as engraved text and CNC as outline text, each with its toolpath",
 		"source": "capture",

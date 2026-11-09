@@ -2363,6 +2363,18 @@
 			"blockedBy": []
 		},
 		{
+			"id": "m8-bust-finish-simulation",
+			"page": "/guide/rotary/rotary-operations/",
+			"afterHeading": "Verifying the result",
+			"kind": "screenshot",
+			"purpose": "Show a model finish carved from a square blank, not only a turned band.",
+			"brief": "Simulation of the bust in a square blank after Rotary rough and Rotary finish, from a low side-on angle, with the chuck and both square ends in view.",
+			"asset": "rotary/rotary-operations/bust-finish-simulation.png",
+			"alt": "Simulation of the bust model after a Rotary rough and a Rotary finish in a square blank, seen from a low angle: the carved head between the square end held in the chuck at the left and the square end at the right",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
 			"id": "m3-bar-3d",
 			"page": "/guide/verify-export/3d-view/",
 			"afterHeading": "Bar stock in 3D",
