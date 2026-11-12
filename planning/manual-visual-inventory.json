@@ -2202,7 +2202,7 @@
 			"purpose": "Explain setup counts, program numbers and the toolbar in one panel.",
 			"brief": "CAM panel with Top and Bottom setup cards, Bottom 1 P02, a missing-registration warning, per-card gear and the Add to Bottom / Plan / Export toolbar row.",
 			"asset": "cam-setup/working-with-operations/setup-cards.png",
-			"alt": "Operations panel with Add to Bottom, a Top setup card (1 operation, P01) and the active Bottom card (1 operation, P02, with a warning marker) holding Pocket Rough 2",
+			"alt": "Operations panel with Add to Bottom, a Top setup card (1 operation, P01) and the active Bottom card (1 operation, P02, with a warning marker) holding Pocket Rough 2; each setup header has its own eye, gear and export buttons",
 			"status": "captured",
 			"blockedBy": []
 		},

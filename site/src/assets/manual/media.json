@@ -1782,9 +1782,9 @@
 		"blockedBy": []
 	},
 	"cam-setup/working-with-operations/setup-cards.png": {
-		"shows": "Operations panel with Add to Bottom, a Top setup card (1 operation, P01) and the active Bottom card (1 operation, P02, with a warning marker) holding Pocket Rough 2",
+		"shows": "Operations panel with Add to Bottom, a Top setup card (1 operation, P01) and the active Bottom card (1 operation, P02, with a warning marker) holding Pocket Rough 2; each setup header has its own eye, gear and export buttons",
 		"source": "capture",
-		"appCommit": "649e52d517c7f391013c4405d4a1aa6d50a2ac8e",
+		"appCommit": "b95431479b6a39c68006f12eafc87b2118a0c5ca",
 		"fixture": "Empty project",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
