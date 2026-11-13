@@ -1,0 +1,44 @@
+import{$ as e,A as t,G as n,_ as r,at as i,c as a,ct as o,et as s,g as c,h as l,k as u,p as d,st as f,z as p}from"./three-CwPSbm0H.js";import{a as m,c as h,d as g,f as _,h as v,i as y,l as b,m as x,n as S,o as C,p as w,r as T,s as E,t as D,u as O}from"./index-Bufd-d3N.js";var k=`
+  attribute vec4 endpoints;
+  uniform vec4 view;
+  uniform vec2 viewport;
+  uniform float lineWidth;
+  varying float along;
+  void main() {
+    vec2 startPx = endpoints.xy * view.xy + view.zw;
+    vec2 endPx = endpoints.zw * view.xy + view.zw;
+    vec2 delta = endPx - startPx;
+    float lengthPx = length(delta);
+    vec2 direction = delta / max(lengthPx, 0.000001);
+    vec2 point = mix(startPx, endPx, position.x);
+    point += vec2(-direction.y, direction.x) * position.y * lineWidth;
+    along = position.x * lengthPx;
+    gl_Position = vec4(point.x / viewport.x * 2.0 - 1.0, 1.0 - point.y / viewport.y * 2.0, 0.0, 1.0);
+  }
+`,A=`
+  uniform float dashed;
+  varying float along;
+  void main() {
+    if (dashed > 0.5 && mod(along, 7.0) >= 3.0) discard;
+    gl_FragColor = vec4(1.0);
+  }
+`,j=`
+  varying vec2 sampleUv;
+  void main() {
+    sampleUv = uv;
+    gl_Position = vec4(position.xy, 0.0, 1.0);
+  }
+`,M=`
+  uniform sampler2D coverage;
+  uniform vec3 stroke;
+  uniform float alpha;
+  varying vec2 sampleUv;
+  void main() {
+    // Colour is already display-referred sRGB, matching Canvas CSS colours.
+    gl_FragColor = vec4(stroke, texture2D(coverage, sampleUv).r * alpha);
+  }
+`,N=class{canvas=null;texture=null;material=null;geometry=null;scene=new e;toolpath=null;key=``;render(e,t,r,i,a,o,l,u,d,f,m=null){if(!i||!r.bounds||!u.directions||f&&!r.debugToolpath)return;this.canvas||(this.canvas=document.createElement(`canvas`),this.texture=new c(this.canvas),this.texture.colorSpace=``,this.texture.generateMipmaps=!1,this.material=new s({uniforms:{annotations:{value:this.texture}},vertexShader:j,fragmentShader:`
+          uniform sampler2D annotations;
+          varying vec2 sampleUv;
+          void main() { gl_FragColor = texture2D(annotations, sampleUv); }
+        `,transparent:!0,depthTest:!1,depthWrite:!1}),this.geometry=new n(2,2),this.scene.add(new p(this.geometry,this.material)));let h=JSON.stringify([a.scale,a.offsetX,a.offsetY,a.mirrorX,a.mirrorY,o,l,u,d,f,m]);if(this.toolpath!==r||this.key!==h){(this.canvas.width!==o||this.canvas.height!==l)&&(this.texture.dispose(),this.texture=new c(this.canvas),this.texture.colorSpace=``,this.texture.generateMipmaps=!1,this.material.uniforms.annotations.value=this.texture),this.canvas.width=o,this.canvas.height=l;let e=this.canvas.getContext(`2d`);if(!e)throw Error(`Toolpath annotation canvas is unavailable`);e.save(),y(e,a),T(e,r,a,!0,u,{deferArrows:f,selectedLevel:m}),e.restore(),this.texture.needsUpdate=!0,this.toolpath=r,this.key=h}e.render(this.scene,t)}retain(e){this.toolpath&&!e.has(this.toolpath)&&this.dispose()}dispose(){this.texture?.dispose(),this.material?.dispose(),this.geometry?.dispose(),this.scene.clear(),this.canvas&&(this.canvas.width=0,this.canvas.height=0),this.canvas=null,this.texture=null,this.material=null,this.geometry=null,this.toolpath=null,this.key=``}},P=2,F=class{canvas;renderer;camera=new l;mask=new o(1,1,{samples:4,depthBuffer:!1});view=new f;viewport=new i;maskMaterial=new s({uniforms:{view:{value:this.view},viewport:{value:this.viewport},lineWidth:{value:1},dashed:{value:0}},vertexShader:k,fragmentShader:A,blending:0,depthTest:!1,depthWrite:!1,side:2});compositeMaterial=new s({uniforms:{coverage:{value:this.mask.texture},stroke:{value:new r},alpha:{value:1}},vertexShader:j,fragmentShader:M,transparent:!0,depthTest:!1,depthWrite:!1});quadGeometry=new n(2,2);compositeScene=new e;cache=new Map;annotations=new N;lost=!1;disposed=!1;onLoss;onRestore;stats={preparations:0,preparationMs:0,submissions:0,firstToolpathSubmissionMs:0};constructor(e,t){this.canvas=e;let n=S(e,!1);if(!n)throw Error(`WebGL2 is unavailable; retaining Canvas toolpaths`);try{this.renderer=new a({canvas:e,context:n})}catch(e){throw n.getExtension(`WEBGL_lose_context`)?.loseContext(),e}this.renderer.autoClear=!1,this.renderer.setClearColor(0,0),this.mask.texture.colorSpace=``,this.compositeScene.add(new p(this.quadGeometry,this.compositeMaterial)),this.renderer.debug.onShaderError=()=>{throw Error(`GPU toolpath shader compilation failed`)},this.onLoss=n=>{n.preventDefault(),this.lost=!0,e.hidden=!0,t()},this.onRestore=()=>{this.lost=!1,t()},e.addEventListener(`webglcontextlost`,this.onLoss),e.addEventListener(`webglcontextrestored`,this.onRestore)}get available(){return!this.disposed&&!this.lost&&!this.renderer.getContext().isContextLost()}batch(n){let r={scene:new e,geometries:[]};for(let e=0;e<n.length;e+=65536){let i=Math.min(65536,n.length-e),a=new Float32Array(i*4);for(let t=0;t<i;t++){let r=n[e+t];a.set([r.from.x,r.from.y,r.to.x,r.to.y],t*4)}let o=new t;o.setAttribute(`position`,new d(new Float32Array([0,-.5,0,1,-.5,0,1,.5,0,0,.5,0]),3)),o.setIndex([0,1,2,0,2,3]),o.setAttribute(`endpoints`,new u(a,4)),o.instanceCount=i;let s=new p(o,this.maskMaterial);s.frustumCulled=!1,r.scene.add(s),r.geometries.push(o)}return r}prepare(e,t){let n=this.cache.get(e);if(n?.slotScale===t)return n;n&&this.release(n);let r=g(e),i=new Map;for(let e of r.cuts){let n=v(e.feedScale,t),r=i.get(n);r?r.push(e):i.set(n,[e])}let a={slotScale:t,layers:{cuts:this.batch(r.cuts),leadIns:this.batch(r.leadIns),rapids:this.batch(r.rapids),plunges:this.batch(r.plunges),retractions:this.batch(r.retractions)},feeds:new Map([...i].map(([e,t])=>[e,this.batch(t)])),collisions:this.batch((e.collidingMoveIndices??[]).map(t=>e.moves[t]).filter(Boolean)),levels:new Map};return this.cache.set(e,a),a}prepareLevel(e,t,n){let r=t.levels.get(n);if(r)return t.levels.delete(n),t.levels.set(n,r),r;let i=g(e),a={cuts:_(i.cuts,n),leadIns:_(i.leadIns,n),rapids:_(i.rapids,n),plunges:_(i.plunges,n),retractions:_(i.retractions,n)},o=new Map;for(let e of a.cuts){let n=v(e.feedScale,t.slotScale),r=o.get(n);r?r.push(e):o.set(n,[e])}let s={layers:{cuts:this.batch(a.cuts),leadIns:this.batch(a.leadIns),rapids:this.batch(a.rapids),plunges:this.batch(a.plunges),retractions:this.batch(a.retractions)},feeds:new Map([...o].map(([e,t])=>[e,this.batch(t)]))};if(t.levels.size>=P){let e=t.levels.entries().next().value;e&&(this.releaseLayers(e[1]),t.levels.delete(e[0]))}return t.levels.set(n,s),s}paint(e,t,n,r,i=!1){if(e.geometries.length===0)return;this.maskMaterial.uniforms.lineWidth.value=n,this.maskMaterial.uniforms.dashed.value=i?1:0,this.renderer.setRenderTarget(this.mask),this.renderer.clear(),this.renderer.render(e.scene,this.camera),this.renderer.setRenderTarget(null);let a=D(t);if(!a)throw Error(`Unsupported GPU toolpath theme colour: `+t);this.compositeMaterial.uniforms.stroke.value.setRGB(a.r/255,a.g/255,a.b/255),this.compositeMaterial.uniforms.alpha.value=r*a.a,this.renderer.render(this.compositeScene,this.camera)}render(e,t,n,r,i,a,o=!1){if(this.retain(e.map(e=>e.toolpath)),this.disposed||this.lost||this.renderer.getContext().isContextLost()||n<=0||r<=0)return!1;(this.viewport.x!==n||this.viewport.y!==r)&&(this.renderer.setSize(n,r,!1),this.mask.setSize(n,r));let s=m(t);this.view.set(s.scaleX,s.scaleY,s.offsetX,s.offsetY),this.viewport.set(n,r),this.renderer.setRenderTarget(null),this.renderer.clear();let c=E(a);for(let{toolpath:s,emphasized:l,selectedLevel:u=null,slotScale:d,muted:f=!1}of e){let e=this.prepare(s,d),p=l&&u!==null?this.prepareLevel(s,e,u):e,m=i.feedColours??(l&&w(s));for(let e of O(i)){if(!e.visible)continue;let t=c[e.key],n=b(t.lineWidth,l),r=h(l,f);if(e.key===`cuts`&&m)for(let[e,t]of p.feeds)this.paint(t,x(e,a),n,r);else this.paint(p.layers[e.key],t.stroke,n,r,t.dash.length>0)}this.paint(e.collisions,a.toolpathCollision,l?3:2.2,C(l,f)),this.annotations.render(this.renderer,this.camera,s,l,t,n,r,i,a,o,u)}return this.canvas.hidden=!1,!0}retain(e){let t=new Set(e);for(let[e,n]of this.cache)t.has(e)||(this.release(n),this.cache.delete(e));this.annotations.retain(t)}releaseLayers(e){for(let t of[...Object.values(e.layers),...e.feeds.values()]){for(let e of t.geometries)e.dispose();t.scene.clear()}}release(e){this.releaseLayers(e);for(let t of e.levels.values())this.releaseLayers(t);for(let t of e.collisions.geometries)t.dispose();e.collisions.scene.clear()}dispose(){if(!this.disposed){this.disposed=!0,this.canvas.removeEventListener(`webglcontextlost`,this.onLoss),this.canvas.removeEventListener(`webglcontextrestored`,this.onRestore);for(let e of this.cache.values())this.release(e);this.cache.clear(),this.annotations.dispose(),this.mask.dispose(),this.maskMaterial.dispose(),this.compositeMaterial.dispose(),this.quadGeometry.dispose(),this.renderer.dispose(),this.renderer.forceContextLoss()}}};export{F as GpuToolpathRenderer};
