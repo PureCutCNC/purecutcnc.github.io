@@ -2478,7 +2478,7 @@
 			"purpose": "Identify the dialect-specific dialog, tool-change option and part-file preview.",
 			"brief": "Export ShopBot part file dialog for ShopBot (SBP), with a generated operation selected, Emit tool changes (C9), Export .sbp and Preview (first 30 lines) including the units guard and SA. Use a healthy milling fixture; do not manufacture warnings.",
 			"asset": "verify-export/gcode-export/shopbot-export.png",
-			"alt": "Export ShopBot part file dialog: machine ShopBot (SBP), Inch units, Pocket Rough selected, Emit tool changes (C9) checked, and a preview of SBP lines with &Tool=1, C9, JZ, J2 and CG moves",
+			"alt": "Export ShopBot part file dialog: machine ShopBot (SBP), Inch units, Pocket Rough selected, Emit tool changes (C9) checked, the experimental note, and a preview of SBP lines with &Tool=1, C9, JZ, J2 and CG moves",
 			"status": "captured",
 			"blockedBy": []
 		},

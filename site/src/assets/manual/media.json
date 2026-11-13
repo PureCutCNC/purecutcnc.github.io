@@ -1925,9 +1925,9 @@
 		"blockedBy": []
 	},
 	"verify-export/gcode-export/shopbot-export.png": {
-		"shows": "Export ShopBot part file dialog: machine ShopBot (SBP), Inch units, Pocket Rough selected, Emit tool changes (C9) checked, and a preview of SBP lines with &Tool=1, C9, JZ, J2 and CG moves",
+		"shows": "Export ShopBot part file dialog: machine ShopBot (SBP), Inch units, Pocket Rough selected, Emit tool changes (C9) checked, the experimental note, and a preview of SBP lines with &Tool=1, C9, JZ, J2 and CG moves",
 		"source": "capture",
-		"appCommit": "649e52d517c7f391013c4405d4a1aa6d50a2ac8e",
+		"appCommit": "66c2f762d821aec1cff23a091a8a15864f70d042",
 		"fixture": "Empty project",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
