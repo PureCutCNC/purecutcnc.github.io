@@ -101,6 +101,32 @@ shows **Name**, **File extension**, and an explanatory note; axis mapping, numbe
 arc support are in **Advanced (raw JSON)**. See
 [ShopBot part files](/guide/verify-export/gcode-export/#shopbot-part-files) for output commands.
 
+## Template rules
+
+<Availability kind="preview" />
+
+G-code templates are checked by their purpose:
+
+| Template or field | Allowed content |
+| --- | --- |
+| Tool-change commands, program footer, program-end command | Arbitrary commands, including motion. Inspect them against the controller and workholding. |
+| Program header and work-coordinate selection | Start-of-program modal setup, comments, parameter assignments, and non-moving M codes. A bare `G0`/`G00` is allowed without axis words. `G91.1` is allowed; `G90.1`, `G91`, and axis words are refused. |
+| Operation header, spindle, coolant, and pause templates | Comments, parameter words, and commands that neither move an axis nor change a mode. |
+| Units templates | Only their `G20` or `G21` word. |
+| Canned-cycle command, retract mode, and cancel fields | Only the matching cycle command, `G98`/`G99`, or `G80`, respectively. |
+| Rapid, linear, arc, feed, and spindle command fields | The command syntax defined for that field, rather than arbitrary program lines. |
+
+Numeric placeholders must be values of permitted word letters. Another word may follow a
+placeholder: `T{toolNumber}M6` and `S{rpm}F{feed}` are accepted in a suitable template.
+A placeholder cannot become part of a G or M command number: `M{toolNumber}` is refused.
+User names and descriptions belong inside comments; the app sanitises that text.
+
+A project machine that violates a rule stays in the project with a load warning. The manager,
+editor, and export dialog list each offending template, line number, line text, and rule.
+Export writes nothing until it is fixed. The project copy is retained even when it is
+**Not in my machines**; **Save to my machines** explicitly adds it to the personal library.
+See [Machines](/guide/cam-setup/machines/#template-rules-and-retained-machines).
+
 ## Related pages
 
 - [Machines](/guide/cam-setup/machines/): choose, duplicate, import, and manage machines.

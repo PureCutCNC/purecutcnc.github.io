@@ -3,13 +3,10 @@ title: Common operation parameters
 description: Reference the shared operation settings that control targets, tools, depth, speeds, and output.
 pageType: reference
 availability: stable
-status: reviewed
-reviewed:
-  appCommit: 7ad27b1e384074a35797a4747a85218067a565df
-  date: 2026-09-27
-  by: frankp
+status: draft
 ---
 
+import Availability from '../../../../components/Availability.astro';
 import Screenshot from '../../../../components/Screenshot.astro';
 import propertyGroups from '../../../../assets/manual/operations/common-parameters/property-groups.png';
 import { Aside } from '@astrojs/starlight/components';
@@ -19,6 +16,11 @@ Operation properties are grouped by what they control. A group appears only when
 <Screenshot src={propertyGroups} alt="The expanded operation properties dialog for a pocket, with Identity, What it cuts, Tool, Depth, Speeds and feeds, Strategy, Entry and retract, Corners and Output shown as separate groups" caption="Expanding the properties shows every parameter group at once. Which groups appear depends on the operation." />
 
 ## Identity
+
+<Availability kind="preview" />
+
+**Kind** is shown as plain text. An empty **Description** shows **+ Add note**; click it to
+write a note.
 
 | Setting | Use |
 | --- | --- |
@@ -30,11 +32,14 @@ Operation properties are grouped by what they control. A group appears only when
 
 ## What it cuts
 
+<Availability kind="preview" />
+
 | Setting | Use |
 | --- | --- |
-| **Target** | Shows the feature or stock target for the operation. |
-| **Target source** | Distinguishes feature targets from a stock target. |
-| **Use current selection** | Replaces the target with a compatible current selection. |
+| **Cuts** | Lists feature targets, region filters, or **Stock**. Hover highlights the feature; × removes it unless it is the last machining target. Folder headings group their members. |
+
+Use **Add to operation** and **Remove from operation** from a feature's context menu to change
+the list. See [Targets](/guide/cam-setup/working-with-operations/#targets).
 
 Regions can also be part of a target as filters. They restrict the area a compatible operation may cut; see [Regions](/guide/fundamentals/regions/).
 

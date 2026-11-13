@@ -3,11 +3,7 @@ title: Engrave
 description: Follow open or closed sketch paths directly, or cut a wider trochoidal slot along them.
 pageType: operation
 availability: stable
-status: reviewed
-reviewed:
-  appCommit: 7ad27b1e384074a35797a4747a85218067a565df
-  date: 2026-09-27
-  by: frankp
+status: draft
 ---
 
 import Screenshot from '../../../../components/Screenshot.astro';
@@ -18,6 +14,9 @@ import { Aside } from '@astrojs/starlight/components';
 
 **Engrave** follows an open or closed sketch path at a fixed carve depth. Choose Direct for text,
 marks, and decorative lines; choose Trochoidal to cut a wider functional slot.
+
+With several targets, **Engrave** cuts the first target first, then always chooses the remaining
+target whose start is nearest the end of the previous one.
 
 ## Requirements
 

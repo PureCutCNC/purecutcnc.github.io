@@ -136,6 +136,18 @@ that island as **Subtract** again. The first-solid add rule above describes bloc
 Check the role across a sheet seam, where nesting is not inferred between opposite edges.
 See [Rotary machining](/guide/rotary/overview/#the-bar-is-the-material).
 
+## Features with no final effect
+
+<Availability kind="preview" />
+
+The tree marks a fully covered feature with ⚠ and **No effect on the final shape: later features
+cover it.** Later opposite-role features must cover its whole outline and Z span before the app
+makes this claim. Editing, hiding, or reordering those features can clear it. See
+[No-effect warning](/guide/fundamentals/feature-tree/#no-effect-warning) for its limits.
+
+The **Feature colors** legend starts collapsed. Expand it when you need the key; a saved
+expanded or collapsed choice is kept.
+
 ## Related pages
 
 - [Feature tree and properties](/guide/fundamentals/feature-tree/): where roles, Z ranges, and

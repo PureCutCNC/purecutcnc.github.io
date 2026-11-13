@@ -129,6 +129,26 @@ sections. **Advanced (raw JSON)** holds axis mapping, number format, and arc sup
 Duplicating this machine keeps its ShopBot output dialect. See
 [ShopBot part files](/guide/verify-export/gcode-export/#shopbot-part-files).
 
+## Template rules and retained machines
+
+<Availability kind="preview" />
+
+Only tool-change and end-of-program templates may contain arbitrary motion. The program header
+allows modal setup, including a bare `G0` or `G00` without axis words and `G91.1` for incremental
+arc centres. It refuses `G90.1`, `G91`, and axis words. Other templates are limited to their
+purpose; spindle, coolant, pause, and operation-header templates must not move an axis or
+change motion modes. See [Template rules](/guide/reference/machine-definitions/#template-rules)
+for placeholders and command fields.
+
+A saved project machine that breaks a rule is kept, with a warning on open. The manager and
+editor list each offending template, line number, line text, and rule. Export lists the same
+problems and stays blocked until the machine is corrected. Review and repair the project copy
+explicitly; do not assume that reopening the project repaired it.
+
+A project's custom machine is not automatically added to **My Machines** on open. When absent
+from that library, it shows **Not in my machines** with **Save to my machines**. Use that button
+to keep a personal library copy.
+
 ## Related pages
 
 - [Clamps and clearances](/guide/cam-setup/clamps-and-clearances/): the project clearances used by generated motion.

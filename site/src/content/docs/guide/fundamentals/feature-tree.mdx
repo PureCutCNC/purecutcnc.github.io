@@ -64,7 +64,7 @@ What the panel shows depends on the selection.
 | **Stock** (from a feature) | **Source feature**, **Thickness**, **Color**, **Visible**, **Edit sketch**, **Reset to rectangle**. |
 | **Origin** | **Name**, **Z**, **Visible**, **Place origin**, and the **Presets** **Top left**, **Center top**, and **Bottom left**. |
 | **Backdrop** | **Image** (**Load image** or **Replace image**), **Visible**, **Opacity**, **Width**, **Height**, **Angle**, and **Move**, **Resize**, **Rotate**, and **Delete**. |
-| A feature | **Shape**: **Operation** (the role), plus **Mask mode** for a region, the text settings for text, and **3D orientation** for a model. **Instance**: **Name**, **Z top** and **Z bottom**, **Folder**, **Visible**, **Locked**. Then **Edit sketch**, **Delete feature**, and any constraints. |
+| A feature | **Shape**: **Operation** (the role), plus **Mask mode** for a region, the text editor for text, and **3D orientation** for a model. **Instance**: **Name**, **Z top** and **Z bottom**, **Folder**, **Visible**, **Locked**. Then **Edit sketch**, **Delete feature**, and any constraints. |
 | Several features | The same fields, showing **Mixed values** where the features differ, plus **Group** or **Ungroup** and **Delete selected**. |
 | Tabs or clamps | Their size, position, and height, for one or several at a time. See [Tabs](/guide/cam-setup/tabs/) and [Clamps and clearances](/guide/cam-setup/clamps-and-clearances/). |
 
@@ -150,6 +150,30 @@ when they are reference-only. Through subtracts carry **THRU** and can be used f
 See [Setups and faces](/guide/fundamentals/setups-and-faces/) for the editing and targeting rules.
 
 <VisualPending id="m2-tree-faces" />
+
+## Canned shape properties
+
+<Availability kind="preview" />
+
+A canned shape shows its generated-parameter summary and an editing action, such as
+**Edit ellipse…** or **Edit Gear…**. **Make unique** separates a linked copy's definition;
+**Expand to features** adds independent ordinary profiles and keeps the canned original. See
+[Editing a canned shape](/guide/design/parametric-shapes/#editing-a-canned-shape).
+Text opens with **Edit text…**; see [Editing text](/guide/design/text/#editing-text).
+
+## No-effect warning
+
+<Availability kind="preview" />
+
+A feature row can show ⚠ with **No effect on the final shape: later features cover it.**
+The app shows it only when it can prove that later visible features of the opposite role
+cover the feature's outline and its whole Z span: for example, a later subtract removes an
+earlier add completely, or a later add fills a subtract back in.
+
+The warning is rechecked after geometry, depth, visibility, or order changes. It clears when
+that complete coverage no longer holds. A missing warning does not prove that a feature
+contributes material; uncertain cases are left unmarked. The warning does not delete the
+feature or remove its operation targets.
 
 ## Related pages
 
