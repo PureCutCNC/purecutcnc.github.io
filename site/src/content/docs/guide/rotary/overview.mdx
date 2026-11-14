@@ -8,9 +8,11 @@ status: draft
 
 import { Aside } from '@astrojs/starlight/components';
 import Screenshot from '../../../../components/Screenshot.astro';
+import chuckTailstock3d from '../../../../assets/manual/rotary/overview/chuck-tailstock-3d.png';
 import stockChuck from '../../../../assets/manual/rotary/overview/stock-chuck.png';
 import aroundSheet from '../../../../assets/manual/rotary/overview/around-sheet.png';
 import newProjectRotary from '../../../../assets/manual/rotary/overview/new-project-rotary.png';
+import topBottom from '../../../../assets/manual/rotary/overview/top-bottom.png';
 
 Rotary work turns a bar under a milling cutter. You can draw on its unrolled surface or machine
 a model inside it. This is wrapped 4th-axis milling, not lathe turning: the cutter is in the
@@ -60,6 +62,8 @@ with the circle through the corners. An unknown capacity reads **Capacity unknow
 or pick a size.** A bar outside the chuck's range shows **Bar is outside the chuck’s clamping
 range.** If the bar fits none of the listed ranges, do not treat the default body as a valid grip.
 
+<Screenshot src={chuckTailstock3d} maxWidth={812} alt="3D view of a 30 mm round bar with a Turn, the chuck at the left end and the tailstock at the right end" caption="The chuck and tailstock keep-outs are drawn around the bar in 3D." />
+
 <Screenshot src={stockChuck} maxWidth={638} alt="Stock properties for a round bar (Shape Round bar, Diameter 30, Length 120, Axis X) beside Chuck properties (Chuck size 4&quot;, Minimum grip diameter 3, Maximum grip diameter 93, Jaws 3) with the square-blank note" caption="Bar stock and chuck properties side by side." />
 
 <Aside type="danger" title="Safety: keep the bar held and supported">
@@ -70,10 +74,19 @@ material to support the part throughout the job; see [Working safely](/guide/sta
 
 ## Machine rotary axis
 
-In the machine editor, set **Rotary axis** to **Bar along X** or **Bar along Y** to match
-**Stock** > **Axis**. **None** is the default. Under **Driven by**, choose **Its own axis (A)**,
-or **The Y motor** for a bar along X / **The X motor** for a bar along Y. A borrowed motor
-cannot also provide linear travel during that program.
+The built-in rotary machines, such as **grblHAL + rotary A** or **GRBL 1.1 + rotary (borrowed
+motor)**, take their rotary orientation from the stock: the rotary turns about **Stock** >
+**Axis**, so one machine serves a bar along X or along Y and there is nothing to set. The machine
+list shows **Follows the bar (now along X)**, and export says the A orientation follows the stock.
+Two of them need a project in mm. See
+[Built-in rotary machines](/guide/cam-setup/machines/#built-in-rotary-machines).
+
+A machine of your own has a fixed orientation. In the machine editor, set **Rotary axis** to
+**Bar along X** or **Bar along Y** to match **Stock** > **Axis**. **None** is the default. Under
+**Driven by**, choose **Its own axis (A)**, or **The Y motor** for a bar along X / **The X motor**
+for a bar along Y. A borrowed motor cannot also provide linear travel during that program. Saving
+or duplicating a built-in rotary machine gives the copy the open project's bar axis, fixed; change
+it in the editor if you later turn a bar along the other axis.
 
 The **Program word: A** note shows the output letter; it changes to the borrowed motor's
 letter when applicable. **Reverse direction** reverses the rotary sign. Confirm the direction
@@ -82,16 +95,20 @@ but export checks the machine. See [Machines](/guide/cam-setup/machines/#rotary-
 
 ## Around and the unrolled sheet
 
+**Around** wraps the bar in a flat drawing sheet. 2D features drawn on it (pockets, lines, text,
+imported artwork) are projected onto the round bar, or a section a Turn has made round, and cut
+into its surface. The rotary canned features, Turn, Polygon / hex, Thread and Flutes, are also
+created here.
+
 Open the current-face menu beside the workspace tabs and choose **Around**. The Sketch view
 lays out the bar surface flat: length along the bar by one circumference around it. A line marks
 each full turn. The solid zero line, A = 0, is in the middle, on the bar's centreline in plan.
 The origin marker sits on that line. Negative A is below the zero line in the unrolled view.
-The sheet's opposite edges meet at the back of the bar, labelled −180° and +180°.
+The sheet's opposite edges meet at the back of the bar, labelled −180° and +180°. A distance of
+one circumference around the sheet becomes one full rotation.
 
-A distance of one circumference around the sheet becomes one full rotation. Geometry can run
-past one turn. Canned features and toolpaths are displayed folded into the sheet; this display
-does not split the cut into separate features. Named model bands show where models sit along
-the bar. See [Rotary features](/guide/rotary/rotary-features/#drawing-on-around).
+How features are placed in depth, how they show on the sheet, and examples of pockets, text and
+carving are in [Drawing on Around](/guide/rotary/rotary-features/#drawing-on-around).
 
 <Screenshot src={aroundSheet} maxWidth={864} alt="Around sheet of a 30 mm round bar: the chuck zone on the left, the origin on the A0 line, -180° and +180° seam labels, the Turn model band and a helical Thread drawn across it" caption="The Around sheet unrolls the bar: length runs left to right and A runs from -180° to +180°." />
 
@@ -103,6 +120,8 @@ With a rotary machine, the program retracts to the machine safe Z before the ope
 A machine without a rotary axis records the angle as an operator comment instead.
 See [Setups and faces](/guide/fundamentals/setups-and-faces/) and
 [Rotary export](/guide/rotary/rotary-operations/#rotary-export).
+
+<Screenshot src={topBottom} maxWidth={775} alt="3D view of a Top pocket toolpath on a 40 mm square blank" caption="Top and Bottom machine a flat face of the bar." />
 
 ## The bar is the material
 
@@ -122,13 +141,9 @@ Around is a surface wrapped about the bar, rather than another flat side:
   no wrapped form. Use **Rotary rough** and **Rotary finish** for models inside a bar.
 - Printing and 2D design export use flat faces. Switch to Top or Bottom for those outputs.
 
-{/* placeholder: purecutcnc#1131 */}
-<Aside type="caution" title="This behaviour is changing before 0.6.0 ships">
-Sheet work on Around over a turned section of a square blank is being revised in
-[application issue #1131](https://github.com/PureCutCNC/purecutcnc/issues/1131).
-Do not plan square-bar pockets or engraving from this draft. The settled workflow here is to
-create a Turn or Polygon model and machine it with rotary rough and finish operations.
-</Aside>
+On a square blank, sheet work such as pockets, text, or Thread is cut only over a section a
+Turn above it in the feature tree has made round. Turn the section first, then draw on it. See
+[Sheet work on a square bar](/guide/rotary/rotary-features/#sheet-work-on-a-square-bar).
 
 ## Zero A before each job
 

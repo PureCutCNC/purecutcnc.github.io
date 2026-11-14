@@ -9,7 +9,13 @@ status: draft
 import Screenshot from '../../../../components/Screenshot.astro';
 import roughProperties from '../../../../assets/manual/rotary/rotary-operations/rough-properties.png';
 import { Aside } from '@astrojs/starlight/components';
-import VisualPending from '../../../../components/VisualPending.astro';
+import passDirections from '../../../../assets/manual/rotary/rotary-operations/pass-directions.png';
+import helixRings from '../../../../assets/manual/rotary/rotary-operations/helix-rings.png';
+import otherModels from '../../../../assets/manual/rotary/rotary-operations/other-models.png';
+import finishSimulation from '../../../../assets/manual/rotary/rotary-operations/finish-simulation.png';
+import bustFinishSimulation from '../../../../assets/manual/rotary/rotary-operations/bust-finish-simulation.png';
+import motionWrapped from '../../../../assets/manual/rotary/rotary-operations/inspect-wrapped.png';
+import exportZeroA from '../../../../assets/manual/rotary/rotary-operations/export-zero-a.png';
 
 **Rotary rough** removes material in radial layers around a model inside a bar.
 **Rotary finish** follows the model surface without clearing layers. Use rough before finish
@@ -45,8 +51,15 @@ For names, tools, feeds, and other shared fields, see
 | **Chuck-end support** | Length left uncut at the chuck end, initially 0. Chuck keep-outs still apply. |
 | **Tail-end support** | Length left uncut at the tail end, initially 0. Tailstock keep-outs still apply. |
 
-Zero support is a field default, not a recommendation to machine the part free. Cuts are
-restricted to the model's length and the space clear of the end supports and workholding.
+Zero support is a field default, not a recommendation to machine the part free.
+On a round bar, the tool runs to the edge of its target model at both ends, so a ball cutter
+leaves no ridge there, and it may cut into the plain bar beyond those ends. Other models on the
+bar, the end supports, the chuck and tailstock keep-outs, and the bar's outside still stop it. On
+a square blank, the tool stops one tool radius inside the model's ends.
+
+Where another model's wall rises next to the target, the cut stands off that wall's face by the
+stock to leave plus the tool radius. Rotary finish runs a full ring there before its helix, and
+each rough layer's first ring sits there too, so the foot of the wall is cleared cleanly.
 The cutter's side must clear the retained ends; shoulders can retain a cutter-radius fillet.
 
 <Screenshot src={roughProperties} maxWidth={401} alt="Rotary rough properties: What it cuts with Setup Around and Cuts chips Turn and Region 1 (filter), Tool 4 mm Ball Endmill, Stepdown 0.4, Stock to leave radial 0, Chuck-end and Tail-end support 0, and Strategy Passes Along the bar with Stepover ratio 0.067" caption="Rotary rough cuts the Turn model inside the region, with supports left at the chuck and tail ends." />
@@ -59,6 +72,8 @@ alternate direction, including across the layer boundary. Rotary operations do n
 
 With **Around the bar**, the bar turns under the cutter at one position, then the path steps
 along the bar to cover the model.
+
+<Screenshot src={passDirections} maxWidth={1320} alt="Two 3D toolpath views of a Rotary finish on the same Turn: passes along the bar on the left, rings around the bar on the right" caption="Along the bar on the left, Around the bar on the right." />
 
 ### How A moves around the bar
 
@@ -82,6 +97,8 @@ A keeps counting up through an operation and is not wrapped at 360°, so expect 
 in the exported program. Check the path in **3D** and **Sim**: helix starts and ends, the seams
 between helix and rings, and each layer change.
 
+<Screenshot src={helixRings} maxWidth={775} alt="Around-the-bar Rotary finish toolpath on a Turn: a helix along the model with a full ring at each end" caption="Shown with a coarse stepover so the helix turns are easy to see." />
+
 ### Other models on the bar
 
 A rotary rough or finish never cuts into another model on the same bar: imported models,
@@ -99,15 +116,20 @@ only a region keeps the operation's model choice. Include and exclude order stil
 Links outside the allowed region must clear the material left there. See
 [Regions](/guide/fundamentals/regions/).
 
-## Changes before release
+<Screenshot src={otherModels} maxWidth={775} alt="Simulation of a bolt: Rotary rough on the Turn cuts the shank down while the hexagon beside it stays standing" caption="A rotary rough keeps clear of other models on the bar." />
 
-{/* placeholder: purecutcnc#1131 */}
-<Aside type="caution" title="This behaviour is changing before 0.6.0 ships">
-Sheet cuts such as pockets and engraving over a turned section of a square blank are being
-revised in [application issue #1131](https://github.com/PureCutCNC/purecutcnc/issues/1131).
-This draft does not establish which turned sections will accept that work. Turn and Polygon
-models with rotary rough and finish are the supported square-blank workflow described here.
-</Aside>
+## Square bar sheet work
+
+On a square blank, Around sheet operations (pockets, V-carve, edge routes, engraving, Thread and
+Flutes) cut only over a section a Turn above their targets in the tree has made round. See
+[Sheet work on a square bar](/guide/rotary/rotary-features/#sheet-work-on-a-square-bar). Any 2D
+cutter can be used, including a V-bit.
+
+Generation checks the path, not only the feature: every move below the corners, grown by the
+cutter radius, must stay over the round section. Otherwise the operation cuts nothing and warns
+**turn this section round first**, or, over a Polygon's flats, that sheet work needs a section a
+turn has made round. Every rapid that moves along the bar or turns it travels above the corners
+(the corner radius plus 1 mm).
 
 ## Limitations and warnings
 
@@ -120,7 +142,7 @@ and region coverage; do not clear the message by assuming that any earlier rough
 | Message or condition | What to check |
 | --- | --- |
 | **the stepdown is below 0.01 mm; increase it** | Increase rough stepdown. In an inch project, 0.01 mm is about 0.000394 in. |
-| **this would generate too many moves; increase the stepdown or stepover** | Use practical spacing and depth, then regenerate. |
+| **this would generate too many moves; increase the stepdown or stepover** | Use practical spacing and depth, then inspect the updated path. |
 | **no room to cut between the end supports and the chuck and tailstock. Shorten the supports or move the model.** | Check the actual support needed before changing the model position or support lengths. |
 | **rotary machining needs a ball nose or flat end mill.** | Assign a supported cutter. |
 | **the model reaches below the bar's centreline near … along the bar, at …°. The tool stops at the centreline there.** | Inspect the unreachable part; this is not a promise to machine the whole model. |
@@ -154,9 +176,9 @@ operations. Each still needs an appropriate target and tool:
 | **Engrave** | Follow open or closed lines, including Thread and Flutes. |
 | **Drill** | Drill eligible circular features with expanded moves. |
 
-Rows disabled by the selection explain what target is missing. On square stock the sheet rows
-stay visible and disabled with **Not available on a square bar yet**; see #1131 above for the
-unfinished turned-section behaviour. Flat 3D surface operations are omitted because they have
+Rows disabled by the selection explain what target is missing. On square stock with no turned
+section, the sheet rows stay visible and disabled with **Turn a section of the square bar round
+first**; a selection partly over an unturned section says **Turn this section round first**. Flat 3D surface operations are omitted because they have
 no wrapped form. Tabs and flat-face cross-face targets do not apply to Around.
 
 ## CAM Plan on Around
@@ -172,9 +194,8 @@ starting point, not a check of your physical setup. See [CAM Plan](/guide/cam-se
 
 ## Rotary export
 
-Regenerate after changing the stock, model, region, tool, origin, machine, or operation. Inspect
-the updated path before opening export. An out-of-date square-bar path is refused with
-**its toolpath is out of date for this project. Regenerate it before exporting.**
+Toolpaths update on their own when you change the stock, model, region, tool, origin, machine,
+or operation. Inspect the updated path before opening export.
 
 Turning feed moves use inverse-time feed: normally `G93`, with an `F` on each motion line.
 That feed describes the time for the whole move, not ordinary distance per minute. The program
@@ -198,7 +219,7 @@ refuse with these messages (preceded by the operation name where applicable):
 
 A square-blank refusal can say **it turns the square blank while the cutter is below the blank's
 corner envelope and the cut would take more than the operation's allowed depth, so the standing
-corners would sweep into the cutter.** Regenerate and resolve the clearance problem.
+corners would sweep into the cutter.** Resolve the clearance problem and inspect the updated path.
 
 The program may also refuse when **the bar cannot be turned safely because no tool-length
 compensation is active and this machine has no machine-coordinate move to its safe Z. Apply
@@ -222,6 +243,15 @@ happens before the next rotary operation depends on the machine's **Zero A line*
   operations for you to zero A.**
 
 Before each job, put the zero line up and zero A.
+
+<Screenshot src={exportZeroA} maxWidth={816} alt="Export G-code dialog for grblHAL + rotary A with one Around program, the note that the A orientation follows the stock, and Start with A zeroed at 0 up, with Inspect exported motion beside Export .nc" caption="Export reminds you to start with A zeroed at 0 up." />
+
+With one rotary operation selected, **Inspect exported motion** opens the
+[Exported motion inspector](/guide/verify-export/exported-motion/#3d-wrapped-view-rotary) on its
+**3D wrapped** view: the exported moves drawn around the bar, with the program's **A range**.
+It is a development and debugging view; use simulation to check the cut.
+
+<Screenshot src={motionWrapped} maxWidth={1240} alt="Exported motion inspector on its 3D wrapped view, showing a Rotary finish on a 25 mm hex wrapped around a 34 mm round bar, with the A range readout and layer checkboxes" caption="The inspector draws a rotary program's exported moves wrapped around the bar." />
 
 ### No cross axis on an own-A machine
 
@@ -249,7 +279,9 @@ Check the result after rough and after finish. For a square blank, inspect the r
 and retained ends throughout playback, not only the final round section. Top and Bottom round-bar
 simulation also starts round; its lower half is fixed, so cuts below the equator are not shown there.
 
-<VisualPending id="m3-finish-simulation" />
+<Screenshot src={finishSimulation} maxWidth={775} alt="Simulation after a Rotary rough and then a Rotary finish on a square blank: the middle of the bar turned to a round band between two square retained ends, with the chuck at the left and a tailstock clamp at the right" caption="Rough then finish leaves a turned band between the square ends the chuck and tailstock still hold." />
+
+<Screenshot src={bustFinishSimulation} maxWidth={865} alt="Simulation of the bust model after a Rotary rough and a Rotary finish in a square blank, seen from a low angle: the carved head between the square end held in the chuck at the left and the square end at the right" caption="An imported model finished in a square blank: the bust is carved free while both square ends stay." />
 
 Preview and simulation cannot confirm real grip, support, cutter dimensions, controller modes,
 rotary zero, or machine travel. Review the exported program and prove the setup at the machine;

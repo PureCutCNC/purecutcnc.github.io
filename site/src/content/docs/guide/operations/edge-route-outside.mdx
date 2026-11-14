@@ -7,6 +7,7 @@ status: draft
 ---
 
 import Screenshot from '../../../../components/Screenshot.astro';
+import Availability from '../../../../components/Availability.astro';
 import outsideRoute from '../../../../assets/manual/operations/edge-route-outside/outside-route.png';
 import outsideResult from '../../../../assets/manual/operations/edge-route-outside/result.png';
 import { Aside } from '@astrojs/starlight/components';
@@ -36,6 +37,7 @@ Shared settings are documented in [Common operation parameters](/guide/operation
 | **Strategy** | Uses a contour, or a Trochoidal rough pass that leaves stock for contour finishing. |
 | **Tabs** | Associates the tab set that retains the part during the final cut. |
 | **Stock to leave radial** | Reserves material for the finish contour. |
+| **Vertical overcut** | Takes the final pass into the spoilboard, up to the project limit. See [Vertical overcut](#vertical-overcut). |
 | **Rest machining** | Creates a follow-up operation for material the selected tool cannot reach. |
 
 ## Strategies
@@ -57,6 +59,24 @@ also follows the contour.
 An incompatible **XY approach & exit** lead is omitted with a warning, including on finish
 passes. Check the entry for a witness mark. See [Entry and exit moves](/guide/strategies/entry-and-exit/).
 
+## Vertical overcut
+
+<Availability kind="preview" />
+
+**Vertical overcut** takes the final pass below the stock bottom, into the spoilboard, so a
+through cut leaves no skin. First set **Max spoilboard cut depth** on the **Project** node. It
+defaults to 0, and an operation's overcut can be from 0 up to that limit. A larger value is
+refused: the operation shows an error, no toolpath is generated, and export is blocked until
+you correct it.
+
+The overcut is measured from the stock bottom. For a target that cuts through, the final pass
+goes exactly that far below the stock bottom; **Stock to leave axial** still applies to the
+passes above it. A target that does not reach the stock bottom gets no overcut. When none of
+the operation's targets cuts through, its properties say the overcut is set but not applied.
+
+An applied overcut is a warning with the amount: in the operation properties, in the export
+dialog's **Warnings**, as a comment in the program, and in the setup booklet.
+
 ## Limitations
 
 For Subtract text, the route follows only the enclosed add islands, not the outer letter outlines.
@@ -74,7 +94,7 @@ the route if the cutter fits past it.
 
 If neighbouring material blocks part of the contour, the toolpath reports **Outside route
 around … was kept clear of neighbouring parts — part of its outline is left uncut.**
-The part may remain attached there. Adjust the layout or tool, regenerate, and inspect the
+The part may remain attached there. Adjust the layout or tool and inspect the
 remaining outline; a partial route is not a complete separating cut.
 
 <Aside type="danger" title="Safety: outside routing can release the part">

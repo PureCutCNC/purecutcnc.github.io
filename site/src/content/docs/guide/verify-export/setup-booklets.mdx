@@ -7,9 +7,9 @@ status: draft
 ---
 
 import { Steps } from '@astrojs/starlight/components';
-import VisualPending from '../../../../components/VisualPending.astro';
 import Availability from '../../../../components/Availability.astro';
 import Screenshot from '../../../../components/Screenshot.astro';
+import setupProgramRegistration from '../../../../assets/manual/verify-export/setup-booklets/setup-program-registration.png';
 import pocketRoughBooklet from '../../../../assets/manual/verify-export/setup-booklets/pocket-rough-booklet.png';
 
 A setup booklet is a PDF summary for one selected operation. It keeps the operation, tool, settings, and its captured preview together for use at the machine.
@@ -47,6 +47,9 @@ The PDF is built from one captured revision. It includes the selected operationâ
 The booklet's move counts, times, and bounds still come from the full toolpath. The output uses
 the current interface language where localized text is available.
 
+An Edge Route with a vertical overcut lists **Vertical overcut** with its amount, or notes that
+it is not applied when no target cuts through to the stock bottom.
+
 ## Sample booklet
 
 Download the <a href="/samples/pocket-rough-booklet.pdf" target="_blank" rel="noopener">Pocket Rough sample booklet (PDF)</a>. It shows the finished first page of a booklet, including the operation snapshot, tool details, and operation settings.
@@ -62,7 +65,9 @@ records the setup orientation, registration references, operator notes, and cros
 Check these against the numbered program you intend to run. Registration entries record your
 locating plan; they do not prove that the stock is registered correctly. See [Setups and faces](/guide/fundamentals/setups-and-faces/).
 
-<VisualPending id="m2-setup-booklet" />
+<Screenshot maxWidth={687} src={setupProgramRegistration} alt="First page of the Pocket Rough 2 operation booklet for a Bottom setup: the operation snapshot, the overview, and a Setup section with Setup 02 Â· Bottom, Stock Bottom face up, flipped about X, and Registration None declared, then the tool and operation settings" caption="A Bottom operation's booklet names its setup and program number, the stock orientation, and any registration." />
+
+Download the <a href="/samples/bottom-setup-booklet.pdf" target="_blank" rel="noopener">Bottom setup sample booklet (PDF)</a>.
 
 ## Related pages
 

@@ -6,11 +6,12 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
 import Availability from '../../../../components/Availability.astro';
 import Screenshot from '../../../../components/Screenshot.astro';
 import view3d from '../../../../assets/manual/verify-export/3d-view/view-3d.png';
 import cameraMenu from '../../../../assets/manual/verify-export/3d-view/camera-menu.png';
+import bar3d from '../../../../assets/manual/verify-export/3d-view/bar-3d.png';
+import bottomIsometric from '../../../../assets/manual/verify-export/3d-view/bottom-isometric.png';
 
 Open the **3D** tab to examine the project as a solid. It is especially useful for checking depth, open features, imported models, and the relationship between the cutter path and the stock.
 
@@ -46,7 +47,7 @@ With **Bottom** active, **Isometric view** looks up at the stock from below. Bot
 approach from that side. Both setups' visible paths remain in place, with the other setup faint,
 so you can compare them around the same stock. See [Setups and faces](/guide/fundamentals/setups-and-faces/).
 
-<VisualPending id="m2-bottom-preview" />
+<Screenshot src={bottomIsometric} maxWidth={864} alt="The 3D view looking up at the stock from below with Bottom active: the Bottom setup's pocket path drawn bright red under the part, its plunges and retractions rising toward the camera, and the Top setup's pocket path faint at its own position on the same stock" caption="Isometric from below with Bottom active: the Bottom pass runs where it really cuts, and the Top pass stays faint on the same stock so the two setups can be compared." />
 
 ## Bar stock in 3D
 
@@ -57,7 +58,7 @@ with cuts from its faces on the same material and Around paths wrapped around it
 blank retains square ends outside the machined band. Inspect it from the side and end,
 including the chuck and tailstock. See [Rotary machining](/guide/rotary/overview/).
 
-<VisualPending id="m3-bar-3d" />
+<Screenshot src={bar3d} maxWidth={773} alt="3D view of a 30 mm round bar held by the chuck at the left and a tailstock at the right, with its middle turned to a narrower band wrapped by the orange Rotary rough toolpath, and the word OAK cut into the plain bar beside the chuck" caption="The round bar as stock and model: a turned band with its Rotary rough path wrapped around it, an Around cut on the plain bar, and the chuck and tailstock holding both ends." />
 
 ## Plasma kerf in 3D
 

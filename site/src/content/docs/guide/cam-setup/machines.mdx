@@ -13,6 +13,7 @@ import plasmaPierceMode from '../../../../assets/manual/cam-setup/machines/plasm
 import rotaryAxis from '../../../../assets/manual/cam-setup/machines/rotary-axis.png';
 import machineEditor from '../../../../assets/manual/cam-setup/machines/machine-editor.png';
 import { Aside, Steps } from '@astrojs/starlight/components';
+import machineList from '../../../../assets/manual/cam-setup/machines/machine-list.png';
 
 Select a machine before exporting. Its output dialect determines whether you export G-code
 or a ShopBot part file. The definition also controls machine-specific capabilities, such as
@@ -43,6 +44,12 @@ copy of its selected definition, so a project remains reproducible when your per
 changes. Import a definition into the manager when it is not already available.
 
 ### My Machines
+
+The list shows each machine's kind as a small icon, router or plasma torch, and a rotary icon
+on machines with a rotary axis; the legend under the list reads **Router**, **Plasma**, and
+**Rotary**. The group headings separate the built-in machines from **My Machines**.
+
+<Screenshot src={machineList} maxWidth={488} alt="Manage machines dialog listing the built-in router, plasma and rotary machines with their kind and rotary icons and the Router, Plasma, Rotary legend, with grblHAL + rotary A selected and its rotary axis shown as Follows the bar (now along X), on its own axis (A)" caption="Rotary machines carry a second icon; a built-in rotary machine follows the bar's axis." />
 
 Personal definitions live in **My Machines**. Share a definition by exporting it from the manager
 and import it into another library; older projects keep their own selected project copy.
@@ -77,7 +84,9 @@ when you understand the controller requirements for every changed field.
 <Availability kind="preview" />
 
 For a router machine that writes G-code, the editor offers **Rotary axis**: **None** (default),
-**Bar along X**, or **Bar along Y**. Match the stock's **Axis**. **Driven by** offers **Its own
+**Bar along X**, or **Bar along Y**. Match the stock's **Axis**. The built-in rotary machines
+need no setting here: they take the orientation from the stock (see
+[Built-in rotary machines](#built-in-rotary-machines)). **Driven by** offers **Its own
 axis (A)** or the other horizontal motor: **The Y motor** for X stock, **The X motor** for Y stock.
 The **Program word: A** note changes to the borrowed letter; **Reverse direction** starts off.
 
@@ -86,11 +95,39 @@ rotary zero, without moving: `G92 A0`, or `G10 L20 P… A0` in the work coordina
 program uses, with this machine's rotary letter. Leave it empty to have the program pause
 between rotary operations so you can zero A by hand. See
 [Rotary export](/guide/rotary/rotary-operations/#rotary-export).
+For an own axis, tick **Controller scales A with inch units: rotary programs are exported in mm
+only** when the controller turns A like a length under G20. A borrowed motor always reads the
+angle as a length, so the editor notes that its rotary programs are exported in mm only.
 The **Manage machines** preview includes a **Rotary axis** row summarising this choice.
 See [Rotary machining](/guide/rotary/overview/#machine-rotary-axis) and
 [Rotary definition](/guide/reference/machine-definitions/#rotary-definition).
 
 <Screenshot src={rotaryAxis} maxWidth={376} alt="Rotary axis group in the machine editor: Rotary axis Bar along X, Driven by The Y motor, Program word: Y, Reverse direction, and an empty Zero A line (optional) field" caption="A rotary that borrows the Y motor is programmed with Y words." />
+
+### Built-in rotary machines
+
+Six built-in machines carry a rotary axis:
+
+| Machine | Rotary | Setup notes from its description |
+| --- | --- | --- |
+| **GRBL 1.1 + rotary (borrowed motor)** | The Y motor for a bar along X, the X motor for a bar along Y | Set that axis's steps/mm as steps per degree; soft limits off (`$20=0`). mm only. |
+| **GRBL 4-axis fork + rotary A** | Own axis A | Grbl 1.1 fork boards with a fourth axis. Soft limits off (`$20=0`) or `$133` past any job; in gSender enable **Use A-axis for grbl**. mm only. |
+| **grblHAL + rotary A** | Own axis A | Put A in the rotary axes setting (`$376`); soft limits off (`$20=0`) or `$133` past any job. |
+| **Mach3 + rotary A** | Own axis A | Tick A as angular, turn Rot 360 rollover off, and turn A soft limits off. |
+| **UCCNC + rotary A** | Own axis A | UCCNC 1.2105 or later (G93). Turn the 360° rollover and A soft limits off. |
+| **LinuxCNC + rotary A** | Own axis A | Set `[AXIS_A]` limits wide and leave `WRAPPED_ROTARY` off. |
+
+A counts past 360° in every rotary program, so rollover and A soft limits must not stop it.
+These machines follow the project's bar: one machine serves a bar along X or along Y. The
+manager summary reads, for example, **Follows the bar (now along X), on its own axis (A)**, and
+the export dialog names the axis it turns about (and, for the borrowed motor, the motor). A copy
+saved or duplicated from one gets the open project's axis as a fixed **Bar along X** or **Bar
+along Y**.
+
+The borrowed-motor GRBL machine and **GRBL 4-axis fork + rotary A** turn the rotary in mm only.
+In an inch rotary project the machine picker and the export dialog show the machine's name followed by
+**turns the rotary in millimetres only. Change the project units to mm to export rotary
+operations.**, and its turning operations are not exported.
 
 ## Plasma machines
 

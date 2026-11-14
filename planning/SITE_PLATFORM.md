@@ -1,5 +1,5 @@
 ---
-status: proposed
+status: adopted
 authoritative-for: how purecutcnc.github.io is built, verified, deployed, and cut over from the hand-maintained pages
 last-verified: 2026-09-16
 ---
@@ -20,7 +20,10 @@ with `actions/deploy-pages`. The spike shows that it:
 - keeps every URL the current site publishes working, including old `#fragment` links;
 - needs no server or paid host.
 
-Nothing in production changes until the cutover below is approved and carried out.
+**Adopted.** The cutover was carried out on 2026-09-27: `site-revamp` was merged into `main`
+(PR #67), Pages builds from GitHub Actions, and `PAGES_DEPLOY_ENABLED` is `true`. The
+hand-maintained root files are kept for the rollback below until the rollback window closes.
+The sections on `site-revamp` and the cutover runbook are the record of how it was done.
 
 ## How the artifact is built
 
