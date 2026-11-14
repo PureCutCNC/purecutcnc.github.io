@@ -1289,7 +1289,7 @@
 	"operations/edge-route-outside/result.png": {
 		"shows": "The Simulation view after an outside route, the part free in its channel with tabs still holding it",
 		"source": "capture",
-		"appCommit": "8d70149176e586be208476761976871db41fa83b",
+		"appCommit": "6b17f85314951f3ec16f4ad58787c5b294ebc923",
 		"fixture": "Example: PureCutCNC",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
@@ -1311,7 +1311,7 @@
 	"operations/drill/result.png": {
 		"shows": "The Simulation view after drilling, the holes bored into the stock",
 		"source": "capture",
-		"appCommit": "8d70149176e586be208476761976871db41fa83b",
+		"appCommit": "6b17f85314951f3ec16f4ad58787c5b294ebc923",
 		"fixture": "Example: T Style guitar body",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
@@ -1443,7 +1443,7 @@
 	"operations/edge-route-inside/result.png": {
 		"shows": "The simulated stock after the fixture's inside route, the teardrop profile cut open through the plate",
 		"source": "capture",
-		"appCommit": "8d70149176e586be208476761976871db41fa83b",
+		"appCommit": "6b17f85314951f3ec16f4ad58787c5b294ebc923",
 		"fixture": "site/fixtures/cam-demo.camj",
 		"viewport": "1440x900@2x",
 		"theme": "dark",
