@@ -60,6 +60,10 @@ When **Emit tool changes (M6)** is not selected, PureCutCNC refuses an export th
 
 **Warnings** identify behavior to review, such as a fallback or toolpath warning. They are not automatically export-blocking; read the message and decide whether the resulting program is appropriate for your machine.
 
+An Edge Route with a [vertical overcut](/guide/operations/edge-route-outside/#vertical-overcut)
+is listed as a warning with the amount, and the program carries a comment that the cutter goes
+into the spoilboard. An overcut over the project's **Max spoilboard cut depth** blocks export.
+
 ## One program per setup
 
 <Availability kind="preview" />
