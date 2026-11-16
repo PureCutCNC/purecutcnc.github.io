@@ -3990,6 +3990,24 @@ const RECIPES = [
 		clip: clipDialog('.dialog--import', 40),
 	},
 	{
+		id: 'import-model-recognition',
+		asset: 'design/importing-3d-models/model-recognition.png',
+		fixture: 'site/fixtures/recognition-plate.stl',
+		sourceUnits: 'mm',
+		viewport: { width: 1440, height: 900 },
+		storage: SPLIT_TREE,
+		async steps(page) {
+			await page.locator('.tree-row--feature').first().click()
+			await page.getByTestId('find-cavities-open').click()
+			const dialog = page.getByTestId('find-cavities-dialog')
+			await dialog.getByTestId('find-cavities-row-s0').waitFor({ state: 'visible', timeout: 30000 })
+			await dialog.getByTestId('find-cavities-row-c0').waitFor({ state: 'visible', timeout: 30000 })
+			await dialog.getByTestId('find-cavities-row-b-c0').waitFor({ state: 'visible', timeout: 30000 })
+			await page.mouse.move(10, 10)
+		},
+		clip: clipDialog('[data-testid="find-cavities-dialog"]', 24),
+	},
+	{
 		id: 'import-model-orientation',
 		asset: 'design/importing-3d-models/model-orientation.png',
 		viewport: { width: 1440, height: 900 },
@@ -4852,8 +4870,8 @@ async function capture(browser, recipe) {
 			await page
 				.locator('.import-dialog__info-row', { hasText: 'Source units' })
 				.locator('select')
-				.selectOption('inch')
-				.catch(() => {})
+				.selectOption(recipe.sourceUnits ?? 'inch')
+				.catch((error) => { if (recipe.sourceUnits) throw error })
 			await page.waitForTimeout(700)
 			await page.getByRole('button', { name: /^Import$/ }).click()
 			// A dense mesh takes longer than any fixed wait, and a recipe that starts

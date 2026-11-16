@@ -8,10 +8,10 @@ status: draft
 
 import Screenshot from '../../../../components/Screenshot.astro';
 import Availability from '../../../../components/Availability.astro';
-import VisualPending from '../../../../components/VisualPending.astro';
 import multiBody from '../../../../assets/manual/design/importing-3d-models/multi-body-import.png';
 import stepSettings from '../../../../assets/manual/design/importing-3d-models/step-settings.png';
 import modelOrientation from '../../../../assets/manual/design/importing-3d-models/model-orientation.png';
+import modelRecognition from '../../../../assets/manual/design/importing-3d-models/model-recognition.png';
 import { Aside, Steps } from '@astrojs/starlight/components';
 
 An imported 3D model becomes a feature with the **Model** role. The 3D surface operations machine
@@ -120,7 +120,7 @@ orient one on its own.**). See [Linked features](/guide/fundamentals/linked-feat
 For an imported model, **Find pockets and holes…** can turn suitable parts of its mesh into
 ordinary features that 2.5D operations can target. Orient and position the model first.
 
-<VisualPending id="import-model-recognition" />
+<Screenshot src={modelRecognition} alt="Find pockets and holes lists an unchecked solid and checked pockets on the top and bottom, beside a preview with the bottom pocket dotted" caption="Select which detected shapes to add. Bottom-face outlines are dotted in the preview." />
 
 <Steps>
 

@@ -1132,6 +1132,17 @@
 		"status": "current",
 		"blockedBy": []
 	},
+	"design/importing-3d-models/model-recognition.png": {
+		"shows": "Find pockets and holes dialog with an unchecked solid and selected top and bottom pockets beside the preview",
+		"source": "capture",
+		"appCommit": "74b8276fcbf75291ac83fd9cd46f8d6ef74207f3",
+		"fixture": "site/fixtures/recognition-plate.stl",
+		"viewport": "1440x900@2x",
+		"theme": "dark",
+		"locale": "en",
+		"status": "current",
+		"blockedBy": []
+	},
 	"design/importing-3d-models/model-orientation.png": {
 		"shows": "The 3D orientation properties of an imported model: Rotate X/Y/Z with -90 and +90 buttons, Lift 0.9707, 'Model height: 1.2103 in', and Reset to import orientation, beside the model floating above the stock in the 3D view",
 		"source": "capture",
