@@ -1235,6 +1235,18 @@
 			"blockedBy": []
 		},
 		{
+			"id": "import-model-recognition",
+			"page": "/guide/design/importing-3d-models/",
+			"afterHeading": "Find pockets and holes",
+			"kind": "screenshot",
+			"purpose": "Show how detected solids and pockets are selected and previewed before adding features.",
+			"brief": "Find pockets and holes dialog on an imported model with top and bottom results, selected pockets and an unchecked solid, and the preview visible.",
+			"asset": "design/importing-3d-models/model-recognition.png",
+			"alt": "Detected solids and pockets from the top and bottom of an imported model beside their preview",
+			"status": "proposed",
+			"blockedBy": []
+		},
+		{
 			"id": "import-model-orientation",
 			"page": "/guide/design/importing-3d-models/",
 			"afterHeading": "Orientation",
