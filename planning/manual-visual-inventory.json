@@ -1240,9 +1240,9 @@
 			"afterHeading": "Find pockets and holes",
 			"kind": "screenshot",
 			"purpose": "Show how detected solids and pockets are selected and previewed before adding features.",
-			"brief": "Find pockets and holes dialog on an imported model with top and bottom results, selected pockets and an unchecked solid, and the preview visible.",
+			"brief": "Find pockets and holes dialog on a square mounting plate with four through holes, top and bottom pockets, and an unchecked solid beside the preview.",
 			"asset": "design/importing-3d-models/model-recognition.png",
-			"alt": "Detected solids and pockets from the top and bottom of an imported model beside their preview",
+			"alt": "A square plate with four through holes and pockets on the top and bottom, beside their detected-shape list",
 			"status": "captured",
 			"blockedBy": []
 		},

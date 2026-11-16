@@ -1133,7 +1133,7 @@
 		"blockedBy": []
 	},
 	"design/importing-3d-models/model-recognition.png": {
-		"shows": "Find pockets and holes dialog with an unchecked solid and selected top and bottom pockets beside the preview",
+		"shows": "Find pockets and holes dialog with four mounting holes and top and bottom pockets on a square plate",
 		"source": "capture",
 		"appCommit": "74b8276fcbf75291ac83fd9cd46f8d6ef74207f3",
 		"fixture": "site/fixtures/recognition-plate.stl",

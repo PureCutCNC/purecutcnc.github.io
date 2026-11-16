@@ -4002,7 +4002,10 @@ const RECIPES = [
 			const dialog = page.getByTestId('find-cavities-dialog')
 			await dialog.getByTestId('find-cavities-row-s0').waitFor({ state: 'visible', timeout: 30000 })
 			await dialog.getByTestId('find-cavities-row-c0').waitFor({ state: 'visible', timeout: 30000 })
-			await dialog.getByTestId('find-cavities-row-b-c0').waitFor({ state: 'visible', timeout: 30000 })
+			await dialog.locator('.face-chip--bottom').waitFor({ state: 'visible', timeout: 30000 })
+			if (await dialog.locator('.find-cavities__row[data-kind="throughHole"]').count() !== 4) {
+				throw new Error('Expected four through holes in the mounting plate')
+			}
 			await page.mouse.move(10, 10)
 		},
 		clip: clipDialog('[data-testid="find-cavities-dialog"]', 24),
