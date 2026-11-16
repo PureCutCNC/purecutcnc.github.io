@@ -1,4 +1,4 @@
-import{A as e,K as t,_ as n,c as r,dt as i,ft as a,g as o,h as s,k as c,lt as l,nt as u,p as d,tt as f,z as p}from"./three-CR3vbH3k.js";import{a as m,c as h,d as g,f as _,h as v,i as y,l as b,m as x,n as S,o as C,p as w,r as T,s as E,t as D,u as O}from"./index-COWO5f3v.js";var k=`
+import{A as e,K as t,_ as n,c as r,dt as i,ft as a,g as o,h as s,k as c,lt as l,nt as u,p as d,tt as f,z as p}from"./three-CR3vbH3k.js";import{a as m,c as h,d as g,f as _,h as v,i as y,l as b,m as x,n as S,o as C,p as w,r as T,s as E,t as D,u as O}from"./index-BQzFkgQi.js";var k=`
   attribute vec4 endpoints;
   uniform vec4 view;
   uniform vec2 viewport;
