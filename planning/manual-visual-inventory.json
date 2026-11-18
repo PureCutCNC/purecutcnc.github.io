@@ -2521,7 +2521,7 @@
 		{
 			"id": "m8-machine-list",
 			"page": "/guide/cam-setup/machines/",
-			"afterHeading": "My Machines",
+			"afterHeading": "My machines",
 			"kind": "screenshot",
 			"purpose": "Read the machine kind and rotary icons in the manager list.",
 			"brief": "Manage machines in a rotary project: built-in list with router, plasma and rotary icons, the legend, and grblHAL + rotary A selected showing Follows the bar.",
