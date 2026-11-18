@@ -2,7 +2,7 @@
 // Copies the hand-maintained site's images (see config/legacy-assets.mjs) into
 // site/public/ at their published paths and records them in config/legacy-assets.json.
 //
-// Run it after merging main into site-revamp whenever those images changed on main; the
+// Run it if the root images ever change again (they are frozen since the cutover); the
 // verify script warns when they have. Files are added or updated, never removed: a URL
 // that was published stays published, even after the root copy is deleted.
 import { createHash } from 'node:crypto';

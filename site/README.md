@@ -4,10 +4,10 @@ This directory builds the complete GitHub Pages artifact: the landing and downlo
 the Starlight User Guide, the legacy-URL redirect pages, and verbatim copies of the
 automation-owned `app/`, `app-rc/`, and `downloads/` directories from the repository root.
 
-It is **not deployed yet**. The revamp is assembled on the `site-revamp` integration branch
-(open revamp pull requests against it), while the live site is still the hand-maintained
-HTML at the repository root on `main`. Merging into `main` and switching Pages are separate,
-approved steps; see [`planning/SITE_PLATFORM.md`](../planning/SITE_PLATFORM.md).
+It is the live site. Every push to `main` runs `.github/workflows/site.yml`, which builds,
+verifies, and deploys this artifact to GitHub Pages and then smoke-tests the deployed routes.
+Pull requests are built and verified, with a `site-preview` artifact, but not deployed. The
+cutover and rollback steps are in [`planning/SITE_PLATFORM.md`](../planning/SITE_PLATFORM.md).
 
 ## Commands
 
@@ -115,8 +115,8 @@ In short:
 - `/index.html` and `/guide/index.html` are served directly.
 - Every image URL the old site published (`/images/*`, `/guide/screenshots/*`,
   `/guide/icons.svg`, `/guide/favicon.svg`) is served from a frozen copy in `public/`. Don't
-  edit those copies. If the old site's images change on `main` before the cutover, run
-  `npm run legacy:sync` after merging `main` and commit the result.
+  edit those copies; new images go in `src/assets/`. `npm run legacy:sync` refreshes them
+  from the root `images/` and `guide/` folders, which no longer change.
 
 ## Generated directories
 

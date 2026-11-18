@@ -3,12 +3,10 @@ title: Working safely
 description: Understand the operator checks that remain necessary after PureCutCNC generates a toolpath.
 pageType: concept
 availability: stable
-status: reviewed
-reviewed:
-  appCommit: 2dc197eebe9c11272ad0bc24194d4a7c6de19055
-  date: 2026-09-18
-  by: frankp
+status: draft
 ---
+
+import Availability from '../../../../components/Availability.astro';
 
 import { Aside } from '@astrojs/starlight/components';
 
@@ -48,7 +46,7 @@ included. Do not infer the exported set from a tree visibility state alone.
 
 Use **Sketch**, **3D view**, and **Simulation** to inspect a change before export. Check material
 removal, depth, entries, exits, rapids, and clearance around fixtures. When a feature, tool,
-origin, machine, or operation changes, regenerate and review again; a previous preview no longer
+origin, machine, or operation changes, review the updated toolpaths again; a previous preview no longer
 answers the new question.
 
 After export, open the G-code in the controller or another appropriate viewer. Check the program
@@ -65,6 +63,34 @@ tool to contact material. Stay ready to stop the machine while proving a new or 
 	Simulation cannot see a loose clamp, the wrong tool in the spindle, a controller setting, or an
 	incorrect physical zero. Resolve uncertainty at the machine before cutting.
 </Aside>
+
+## Rotary workholding and zero
+
+Check the real chuck grip and tailstock position, including clearance for a square blank's
+rotating corners. Keep the bar supported through every rough and finish pass; leave enough
+uncut material at the ends. Put the intended zero line up and establish the rotary work zero
+before each job: the program ends at its last angle and does not unwind to A0.
+See [Rotary machining](/guide/rotary/overview/) before planning the cut.
+
+## Plasma cutting
+
+<Availability kind="experimental" />
+
+<Aside type="danger" title="Safety: check the plasma table before firing">
+Plasma output is experimental and is marked as not verified on a real plasma table. Confirm
+consumables, kerf, material-table entry, feed, pierce height and delay, cut height, and THC.
+For G-code-owned piercing, verify the probe, switch offset, and touch-off before each cut.
+Check fire precautions and fume extraction using your equipment's safety instructions.
+
+A cut-out part can tip up on the slats. Check support and travel, cut holes before outlines,
+and keep later operations off parts already cut free. Preview and simulation cannot model
+that movement or prove a safe torch clearance. Prove the program with the torch disabled
+using your table's test procedure before cutting.
+</Aside>
+
+See [Plasma through-cut](/guide/operations/plasma-through-cut/) for ordering and lead limits,
+and [Plasma programs](/guide/verify-export/gcode-export/#plasma-programs) for the two piercing
+methods.
 
 ## Related pages
 

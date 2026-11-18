@@ -3,12 +3,10 @@ title: Warnings and messages
 description: Use warnings and errors to find the part of a project or export that needs attention.
 pageType: reference
 availability: stable
-status: reviewed
-reviewed:
-  appCommit: 3db1a1375014eb337bdf2490547cac46f3174880
-  date: 2026-09-28
-  by: codex
+status: draft
 ---
+
+import Availability from '../../../../components/Availability.astro';
 
 PureCutCNC reports messages where it has enough information to identify a condition worth reviewing. Read the message where it appears, then correct the project or export setting before continuing.
 
@@ -22,7 +20,7 @@ The **Export G-code** dialog separates **Errors** from **Warnings**. Errors incl
 
 ## What to do
 
-Check the named operation, tool, machine, and project settings first. Regenerate after an edit, inspect the toolpath and simulation, then reopen export if the preview is out of date. If the message concerns a custom machine, compare the definition with your controller documentation.
+Check the named operation, tool, machine, and project settings first. After an edit, inspect the updated toolpath and simulation, then reopen export if the preview is out of date. If the message concerns a custom machine, compare the definition with your controller documentation.
 
 | Message concerns | What it means | What to check |
 | --- | --- | --- |
@@ -43,7 +41,7 @@ resulting motion before cutting.
 **Outside route around … was kept clear of neighbouring parts — part of its outline is left
 uncut.** means the cutter could not follow the full outline without entering another part's
 material. Inspect the named part's route, increase clearance or choose a suitable smaller tool,
-then regenerate. The part can remain attached at the omitted section even if the rest of the
+then inspect the updated route. The part can remain attached at the omitted section even if the rest of the
 route reaches final depth. See [Edge route outside](/guide/operations/edge-route-outside/).
 
 ## Tab messages
@@ -62,6 +60,64 @@ not automatically relevant to an inside route through its counter.
 
 An absent warning does not prove that tabs provide adequate support. Check their crossings
 and the final-depth cut in the preview and simulation; see [Tabs](/guide/cam-setup/tabs/).
+
+## Rotary messages
+
+Rotary warnings can identify a missing earlier rough, an unsupported cutter, a model outside
+the bar or below the centreline, insufficient room between supports, or a chuck outside its
+grip range. Export also checks the rotary axis, inverse-time feed, borrowed-motor travel,
+out-of-date square-bar paths, and corner clearance. Read the named model or operation, fix
+the cause, then review the updated path. See
+[Rotary warnings](/guide/rotary/rotary-operations/#limitations-and-warnings) and
+[Rotary export refusals](/guide/rotary/rotary-operations/#rotary-export).
+
+## Plasma messages
+
+<Availability kind="experimental" />
+
+The messages below name the affected feature or operation. Inspect the remaining paths after
+any skipped contour; a preview with some cuts is not a complete program.
+
+| Message, after the name | Action |
+| --- | --- |
+| **plasma through-cut supports top setups only. No toolpath generated.** | Use a Top setup. |
+| **this subtract is ordered before its enclosing part and is not a hole in that part. Move it after the part; this contour was skipped.** | Move the subtract after its enclosing add in feature order. |
+| **this subtract has partial depth, but plasma through-cut cuts through the whole sheet.** | Check that a through-hole is intended. |
+| **the requested arc cannot pierce with safe edge clearance; a straight lead-in was used.** | Inspect the replacement lead. |
+| **invalid plasma parameters or targets. No toolpath generated.** | Check the torch, positive feed and lead-in, and closed targets. |
+| **open plasma paths are not supported yet. No toolpath generated.** | Use closed contours. |
+| **no safe scrap-side pierce and lead fits, or a neighbouring part/kerf blocks the contour. This contour was skipped.** | Review spacing, kerf, lead, and picked start. |
+| **hole diameter is below 1.5 × stock thickness; plasma may leave a tapered, out-of-round hole. Controller hole handling owns any slowdown.** | Check controller handling and the required hole quality. |
+| **the hole is too small for the requested lead; pierce at its centre and lead straight to the contour.** | Inspect the centre pierce and straight lead. |
+| **the requested lead-out would gouge the part or a neighbour; lead-out omitted.** | Check the contour end without the lead-out. |
+
+The later-operation warning reads **…: this outline is cut here, but operation "…" cuts a
+contour inside it later. Once the outline is cut the part is loose. Move "…" before this
+operation, or cut both in one operation.** It does not block export. Fix the operation order.
+
+Other-family operations show **not for this project type**. The count notice reads
+**Not plasma cuts, left out of the export for this project type: …** or
+**Plasma cuts, left out of the export for this project type: …**. Export also warns
+**Operation "…" is not a plasma cut, so it is left out of this plasma program.** or
+**Operation "…" is a plasma cut, so it is left out of this program. Select a plasma machine
+to export it.** Check the project type and machine as well as the operation checklist.
+
+QtPlasmaC export is blocked when a torch has no supported material number. G-code-owned
+piercing is blocked by a missing positive cut feed or plunge feed, including a value that
+rounds to zero in output. Cuts with no safe-height move also block that export.
+See [Plasma programs](/guide/verify-export/gcode-export/#plasma-programs).
+
+## Feature effect and machine templates
+
+**No effect on the final shape: later features cover it.** on a feature row means the app
+proved that later opposite-role features cover its whole outline and Z span. Check feature
+order, depth, and visibility; changing them can clear the warning. It does not remove the
+feature or its operation targets. See [No-effect warning](/guide/fundamentals/feature-tree/#no-effect-warning).
+
+**The selected machine "…" cannot be exported: its own templates break a machine-template rule.
+Correct the machine before exporting.** blocks export. The saved machine stays in the project.
+Read each offending template, line, text, and rule in the manager or editor, then repair the
+project copy. See [Template rules](/guide/reference/machine-definitions/#template-rules).
 
 ## Related pages
 

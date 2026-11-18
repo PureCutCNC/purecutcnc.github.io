@@ -31,7 +31,7 @@ const COVERAGE_HEADER = ['id', 'area', 'capability', 'ui_surface', 'legacy_guide
 const INVENTORY_HEADER = ['legacy_page', 'anchor', 'heading', 'words', 'screenshots', 'assessment', 'disposition', 'destination', 'workstream', 'capabilities', 'notes'];
 
 const ENUMS = {
-	area: ['start-here', 'fundamentals', 'design', 'cam-setup', 'operations', 'strategies', 'verify-export', 'reference'],
+	area: ['start-here', 'fundamentals', 'design', 'cam-setup', 'rotary', 'operations', 'strategies', 'verify-export', 'reference'],
 	coverage: ['accurate', 'incomplete', 'stale', 'missing'],
 	priority: ['release-critical', 'reference'],
 	since_v040: ['no', 'new', 'changed'],

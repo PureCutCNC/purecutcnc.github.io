@@ -15,6 +15,7 @@ export const SECTIONS = [
 	{ slug: 'design', label: 'Design', dir: 'design' },
 	{ slug: 'cam-setup', label: 'CAM Setup', dir: 'cam-setup' },
 	{ slug: 'operations', label: 'Machining Operations', dir: 'operations' },
+	{ slug: 'rotary', label: 'Rotary', dir: 'rotary' },
 	{ slug: 'strategies', label: 'Advanced Strategies', dir: 'strategies' },
 	{ slug: 'verify-export', label: 'Verify and Export', dir: 'verify-export' },
 	{ slug: 'reference', label: 'Reference and Troubleshooting', dir: 'reference' },
@@ -66,6 +67,10 @@ export const PAGES = [
 	page('/guide/cam-setup/tabs/', 'cam-setup', 'Tabs', 'task', 'W3'),
 	page('/guide/cam-setup/clamps-and-clearances/', 'cam-setup', 'Clamps and clearances', 'task', 'W3'),
 
+	page('/guide/rotary/overview/', 'rotary', 'Rotary machining', 'concept', 'W3'),
+	page('/guide/rotary/rotary-features/', 'rotary', 'Rotary features', 'task', 'W3'),
+	page('/guide/rotary/rotary-operations/', 'rotary', 'Rotary operations', 'operation', 'W3'),
+
 	page('/guide/operations/', 'operations', 'Choosing an operation', 'overview', 'W3'),
 	page('/guide/operations/common-parameters/', 'operations', 'Common operation parameters', 'reference', 'W3'),
 	page('/guide/operations/pocket/', 'operations', 'Pocket', 'operation', 'W3'),
@@ -79,6 +84,7 @@ export const PAGES = [
 	page('/guide/operations/3d-surface-rough/', 'operations', '3D surface rough', 'operation', 'W4'),
 	page('/guide/operations/3d-surface-finish/', 'operations', '3D surface finish', 'operation', 'W4'),
 	page('/guide/operations/3d-surface-cleanup/', 'operations', '3D surface cleanup', 'operation', 'W4'),
+	page('/guide/operations/plasma-through-cut/', 'operations', 'Plasma through-cut', 'operation', 'W3'),
 
 	page('/guide/strategies/clearing-patterns/', 'strategies', 'Clearing patterns', 'strategy', 'W4'),
 	page('/guide/strategies/seeded-circles/', 'strategies', 'Seeded-circle clearing', 'strategy', 'W4'),
