@@ -1,0 +1,172 @@
+---
+title: Rotary features
+description: Create and edit Turn, Polygon, Thread, and Flutes features, or draw artwork on the Around sheet.
+pageType: task
+availability: preview
+status: draft
+---
+
+import { Aside, Steps } from '@astrojs/starlight/components';
+import VisualPending from '../../../../components/VisualPending.astro';
+
+Use the creation drawer's rotary group to describe a turned diameter, flats, a thread, or flutes.
+These are editable canned features: their parameters stay with the shape. Creating one does not
+create a machining operation or ask for a tool.
+
+## Before you start
+
+- Create a **Rotary** project and set the bar's shape, size, length, and axis.
+- Check the chuck and tailstock. See [Rotary machining](/guide/rotary/overview/).
+- For **Thread** or **Flutes**, use a round bar and choose **Around**. **Turn** and
+  **Polygon / hex** also work from Top and Bottom, on round or square stock.
+
+## Create a rotary feature
+
+<Steps>
+
+1. Open the shape drawer in the creation rail. Its rotary group contains **Thread**, **Flutes**,
+   **Turn**, and **Polygon / hex**.
+
+2. Choose a feature and enter its fields in the canvas side panel, as described below.
+
+3. Select **Create**. Check the feature in the tree and in the **3D** view.
+
+4. Add its machining operations through CAM, or review **Plan** on Around. See
+   [Rotary operations](/guide/rotary/rotary-operations/).
+
+</Steps>
+
+The group stays visible when an entry cannot be used. The reason can be **Needs a bar in a
+rotary project**, **Only available on the around face**, or **Not available on a square bar yet**.
+Round-only Thread and Flutes are disabled on a square blank. Turn and Polygon remain available.
+
+<VisualPending id="m3-creation-group" />
+
+## Turn a diameter
+
+**Turn** opens **Turn a diameter** and creates one generated model. It describes the shape to
+keep; add rotary rough and finish operations separately.
+
+| Field | Meaning and initial value |
+| --- | --- |
+| **Start from chuck end (mm)** / **Start from chuck end (in)** | Distance along the bar; starts at 0. |
+| **Length (mm)** / **Length (in)** | Length of the turned section; starts at the full bar length. |
+| **Diameter (mm)** / **Diameter (in)** | Diameter to keep; starts at the round diameter or square side. It cannot exceed that stock size. |
+| **Profile: pick a shape** | Starts at **None — one plain diameter**. Pick a drawn outline to define a shaped Turn instead. |
+| **Refresh** | Recopy the picked source outline after editing it. Appears only after a profile is picked. |
+
+Start and length must fit inside the bar. A full-length default does not mean the cutter can
+reach through the chuck: the operations still respect workholding and end supports.
+
+To use a profile, draw a half profile or one closed outline on **Top**, inside the bar and on
+one side of the centreline. Pick it in **Profile: pick a shape**. The outline is revolved about
+the bar axis. A closed outline away from the axis can describe a ring or groove. The profile
+sets start, length, and diameter; those fields are not separate overrides while it is picked.
+
+The source must have one outline, must not cross the axis or reach outside the bar, and must
+not double back along it. A pick copies the outline. Later edits to the source do not silently
+change the Turn: reopen the Turn and use **Refresh**. If the source is deleted, the copied
+profile is kept.
+
+<VisualPending id="m3-turn-panel" />
+
+## Cut a polygon or hexagon
+
+**Polygon / hex** opens **Cut a polygon** and creates one generated model. Its fields are:
+
+| Field | Meaning and initial value |
+| --- | --- |
+| **Start from chuck end (mm)** / **Start from chuck end (in)** | Starts at 0. |
+| **Length (mm)** / **Length (in)** | Starts at the full bar length; start and length must fit inside it. |
+| **Sides** | Starts at 6 for a hexagon. Use a whole number from 3 to 64. |
+| **Across flats (mm)** / **Across flats (in)** | Distance between flats; starts at three quarters of the diameter or square side. The model must fit inside the stock. |
+| **Rotation (°)** | Orientation about the bar axis; starts at 0. |
+
+The panel notes **Flats are approximated on the around view.** Inspect the model and generated
+motion in 3D before choosing the cutter and stepover.
+
+## Cut a thread
+
+**Thread** opens **Cut a thread**. It creates one canned line feature, with evenly spaced
+starts when you ask for more than one. Each start advances by starts × pitch per full turn.
+
+| Field | Meaning and initial value |
+| --- | --- |
+| **Start from chuck end (mm)** / **Start from chuck end (in)** | Starts at 0. |
+| **Length (mm)** / **Length (in)** | Starts at the full bar length. |
+| **Pitch (mm)** | Spacing between adjacent threads in a metric project; starts at 1.5 mm. |
+| **Threads per inch** | Replaces pitch in an inch project; starts at 20. |
+| **Starts** | Number of equally spaced thread starts, from 1 to 32; starts at 1. |
+| **Depth (mm)** / **Depth (in)** | Radial depth; initially 0.61 × pitch: 0.915 mm or 0.0305 in at the default pitch. |
+| **Direction** | **Right-hand** by default, or **Left-hand**. |
+
+While creating a thread, changing pitch updates its default depth until you edit depth yourself.
+An existing thread keeps its chosen depth when you edit pitch. Depth must stay above the bar
+centreline. Add an **Engrave** operation with a suitable V-bit, or use CAM Plan on Around.
+
+<Aside type="caution" title="A radial V-bit thread is an approximation">
+The panel's notice describes an approximation to a 60° thread at small helix angles, for wood,
+plastic, and decorative work. Do not use it as a claim of precision thread tooling or fit.
+</Aside>
+
+<VisualPending id="m3-thread-panel" />
+
+## Cut flutes
+
+**Flutes** opens **Cut flutes** and creates one canned line feature.
+
+| Field | Meaning and initial value |
+| --- | --- |
+| **Start from chuck end (mm)** / **Start from chuck end (in)** | Starts at 0. |
+| **Length (mm)** / **Length (in)** | Starts at the full bar length. |
+| **Flutes** | Number equally spaced around the bar, from 1 to 64; starts at 4. |
+| **Twist (turns)** | Total turns along the length; starts at 0 for straight flutes. Enter a nonnegative magnitude. |
+| **Direction** | **Right-hand** by default, or **Left-hand**; chooses the hand of a nonzero twist. |
+| **Depth (mm)** / **Depth (in)** | Starts at one quarter of the starting surface radius. It must remain above the centreline. |
+
+Choose the cutter on the machining operation, not in this panel. CAM Plan proposes an
+**Engrave** with a V-bit for Flutes as well as Thread; review whether that cutter makes the
+flute shape you want.
+
+## Edit and follow a Turn
+
+Select the feature and use **Edit turn…**, **Edit polygon…**, **Edit thread…**, or **Edit flutes…** in Properties to reopen its parameters. The panel is
+**Edit turn**, **Edit polygon**, **Edit thread**, or **Edit flutes**. Use **Save** to keep changes
+or **Cancel** to discard them. Parameters own the rotary feature's Z span; change diameter,
+across flats, or depth in this panel rather than looking for an ordinary Z slider.
+
+A Thread or Flutes feature wholly over a single plain-diameter section of a Turn measures its
+depth below that Turn's surface. The panel names the Turn and diameter. Its surface height
+follows changes to that Turn. A pattern moved with its Turn keeps that relationship where
+it still lies over the same section; check its start and length after moving or resizing either.
+Your pitch and depth choices remain yours.
+
+A pattern crossing a Turn end, a diameter step, a taper, or another model can have no single
+Turn diameter to follow. The panel warns and measures depth from the bar surface instead.
+Read that notice and inspect the resulting cut before adding or regenerating operations.
+
+## Drawing on Around
+
+On a round bar's **Around** sheet, use the ordinary drawing tools, text, or imported 2D artwork.
+Their depth is measured into the bar; a cut must stop short of its centreline. A newly drawn
+Around shape starts at one sixteenth of the diameter deep, rounded to 0.5 mm or 1/64 in and
+capped at one quarter of the diameter. Check its Z fields before machining.
+
+The sheet edges are the same seam, labelled −180° and +180°. Canned outlines and toolpaths
+that cross an edge are displayed wrapped back into the sheet. A many-turn thread therefore
+looks like a set of stripes. The geometry and machining path stay continuous; hand-drawn
+outlines remain displayed where you drew them.
+
+Named bands show the length occupied by models inside the bar. You can select a model band
+for rotary operations. It represents the model rather than a pocket drawn on the sheet.
+
+On square stock, region and construction drawing remain available for planning and reference.
+For the changing limits on square-bar sheet cuts, read the
+[square-bar placeholder](/guide/rotary/rotary-operations/#changes-before-release).
+
+## Related pages
+
+- [Rotary machining](/guide/rotary/overview/): bar stock, the zero line, roles, and workholding.
+- [Rotary operations](/guide/rotary/rotary-operations/): machine a generated model or a line pattern.
+- [Drawing tools](/guide/design/drawing-tools/): ordinary shapes and creation targets.
+- [Importing SVG, DXF, and projects](/guide/design/importing-2d/): bring 2D artwork into the project.

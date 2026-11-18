@@ -69,6 +69,19 @@ A single Top setup keeps its existing output and filename convention. Use a setu
 button to export that setup's enabled operations, then review the dialog checklist. See [Setups and faces](/guide/fundamentals/setups-and-faces/)
 for the flip and registration checks before running the next program.
 
+## Rotary programs
+
+<Availability kind="preview" />
+
+Turning cuts use inverse-time feed, normally `G93`, with a feed word on each motion line;
+normal feed mode returns with `G94`. The machine's rotary axis must match the bar, and a
+borrowed motor cannot also travel linearly. Regenerate before export, particularly after
+changing square stock. Top and Bottom bar programs turn to 0°/180° with a rotary machine or
+state the angle in an operator comment. Programs stay at their last angle after retracting:
+there is no closing A0 unwind, so establish rotary zero before each job.
+See [Rotary export](/guide/rotary/rotary-operations/#rotary-export) for refusal messages
+and square-blank corner clearance.
+
 ## Related pages
 
 - [Machines](/guide/cam-setup/machines/): select and configure the machine used for export.

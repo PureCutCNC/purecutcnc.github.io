@@ -29,8 +29,8 @@ same commit as the inventory.
 | Question | Decision |
 | --- | --- |
 | Name | **PureCutCNC User Guide** ("User Guide" for short), not "user manual". |
-| Sections | Start Here, Fundamentals, Design, CAM Setup, Machining Operations, Advanced Strategies, Verify and Export, Reference and Troubleshooting. |
-| Size | 68 pages, all listed below, each owned by exactly one Wave 2 workstream. |
+| Sections | Start Here, Fundamentals, Design, CAM Setup, Rotary, Machining Operations, Advanced Strategies, Verify and Export, Reference and Troubleshooting. |
+| Size | 73 pages, all listed below, each owned by exactly one Wave 2 workstream. |
 | Quick Start | Stays at `/quickstart/` as the only guided first project. It links to Fundamentals instead of explaining concepts twice. |
 | CAM material | One page per operation, one page per strategy that more than one operation offers. Operation pages list their strategies and link to them. |
 | Page types | overview, tutorial, concept, task, reference, operation, strategy, troubleshooting (plus utility for the 404 page), each with a template and required sections. |
@@ -111,6 +111,14 @@ order, as soon as their files exist. Owners are the Wave 2 workstreams from
 | Machines | `/guide/cam-setup/machines/` | task | W3 |
 | Tabs | `/guide/cam-setup/tabs/` | task | W3 |
 | Clamps and clearances | `/guide/cam-setup/clamps-and-clearances/` | task | W3 |
+
+#### Rotary (`rotary`)
+
+| Page | URL | Type | Owner |
+| --- | --- | --- | --- |
+| Rotary machining | `/guide/rotary/overview/` | concept | W3 |
+| Rotary features | `/guide/rotary/rotary-features/` | task | W3 |
+| Rotary operations | `/guide/rotary/rotary-operations/` | operation | W3 |
 
 #### Machining Operations (`operations`)
 

@@ -60,7 +60,7 @@ node scripts/check-coverage.mjs --sections --where disposition=rewrite
 | Column | Meaning |
 | --- | --- |
 | `id` | Stable key, `area.name`. Never reuse or rename one; add a new row instead. |
-| `area` | Proposed manual section: `start-here`, `fundamentals`, `design`, `cam-setup`, `operations`, `strategies`, `verify-export`, `reference`. |
+| `area` | Proposed manual section: `start-here`, `fundamentals`, `design`, `cam-setup`, `rotary`, `operations`, `strategies`, `verify-export`, `reference`. |
 | `capability`, `ui_surface` | What the user can do, and where in the app. |
 | `legacy_guide` | Historical root-guide sections (`page#anchor`, `;`-separated) that cover it. May be empty even when the replacement manual is accurate. |
 | `coverage` | Replacement-manual status: `accurate` matches the app; `incomplete` is correct but missing parts; `stale` says something the app no longer does; `missing` is not covered. |

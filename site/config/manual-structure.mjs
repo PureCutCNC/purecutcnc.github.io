@@ -14,6 +14,7 @@ export const SECTIONS = [
 	{ slug: 'fundamentals', label: 'Fundamentals', dir: 'fundamentals' },
 	{ slug: 'design', label: 'Design', dir: 'design' },
 	{ slug: 'cam-setup', label: 'CAM Setup', dir: 'cam-setup' },
+	{ slug: 'rotary', label: 'Rotary', dir: 'rotary' },
 	{ slug: 'operations', label: 'Machining Operations', dir: 'operations' },
 	{ slug: 'strategies', label: 'Advanced Strategies', dir: 'strategies' },
 	{ slug: 'verify-export', label: 'Verify and Export', dir: 'verify-export' },
@@ -65,6 +66,10 @@ export const PAGES = [
 	page('/guide/cam-setup/machines/', 'cam-setup', 'Machines', 'task', 'W3'),
 	page('/guide/cam-setup/tabs/', 'cam-setup', 'Tabs', 'task', 'W3'),
 	page('/guide/cam-setup/clamps-and-clearances/', 'cam-setup', 'Clamps and clearances', 'task', 'W3'),
+
+	page('/guide/rotary/overview/', 'rotary', 'Rotary machining', 'concept', 'W3'),
+	page('/guide/rotary/rotary-features/', 'rotary', 'Rotary features', 'task', 'W3'),
+	page('/guide/rotary/rotary-operations/', 'rotary', 'Rotary operations', 'operation', 'W3'),
 
 	page('/guide/operations/', 'operations', 'Choosing an operation', 'overview', 'W3'),
 	page('/guide/operations/common-parameters/', 'operations', 'Common operation parameters', 'reference', 'W3'),
