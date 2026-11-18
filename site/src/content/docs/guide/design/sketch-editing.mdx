@@ -3,13 +3,10 @@ title: Editing sketches
 description: Drag points, type segment dimensions, and add, delete, split, fillet, chamfer, trim, and extend the segments of a feature.
 pageType: task
 availability: stable
-status: reviewed
-reviewed:
-  appCommit: 7ad27b1e384074a35797a4747a85218067a565df
-  date: 2026-09-27
-  by: frankp
+status: draft
 ---
 
+import Availability from '../../../../components/Availability.astro';
 import Screenshot from '../../../../components/Screenshot.astro';
 import AppIcon from '../../../../components/AppIcon.astro';
 import editSession from '../../../../assets/manual/design/sketch-editing/edit-session.png';
@@ -102,6 +99,15 @@ the tool.
 To connect two open paths, drag an endpoint of the path you are editing onto an endpoint of another
 open path. The other path becomes part of this one. Dragging one end of a path onto its own other
 end closes it.
+
+## References across faces
+
+<Availability kind="preview" />
+
+Edit a feature on its authoring face. While **Trim to cutting edge** or **Extend to target**
+asks for a reference segment, you can use visible construction geometry from the other face
+with **Show other side** on. Only your edited path changes. Other-face geometry cannot be the
+path you trim, extend, or join. See [Setups and faces](/guide/fundamentals/setups-and-faces/).
 
 ## Related pages
 

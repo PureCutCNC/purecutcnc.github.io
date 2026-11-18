@@ -79,6 +79,7 @@ order, as soon as their files exist. Owners are the Wave 2 workstreams from
 | Feature tree and properties | `/guide/fundamentals/feature-tree/` | reference | W1 |
 | Linked features | `/guide/fundamentals/linked-features/` | concept | W1 |
 | Stock, origin, and units | `/guide/fundamentals/stock-origin-units/` | task | W1 |
+| Setups and faces | `/guide/fundamentals/setups-and-faces/` | concept | W1 |
 | Regions | `/guide/fundamentals/regions/` | concept | W1 |
 | Construction geometry | `/guide/fundamentals/construction-geometry/` | concept | W1 |
 | Tablet and touch | `/guide/fundamentals/tablet-and-touch/` | reference | W1 |

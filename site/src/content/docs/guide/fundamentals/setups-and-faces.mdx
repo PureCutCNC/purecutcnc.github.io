@@ -1,0 +1,185 @@
+---
+title: Setups and faces
+description: Draw and machine the Top and Bottom of one part, keep operations in their setups, and plan how to locate the stock after a flip.
+pageType: concept
+availability: preview
+status: draft
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import VisualPending from '../../../../components/VisualPending.astro';
+
+A setup describes how the stock sits on the machine for a group of operations. Use Top and
+Bottom setups when you need to turn the same part over and machine its other side.
+
+## Main idea
+
+A face is the side you draw and measure from. A setup holds the operations that machine that
+side, together with its orientation and locating notes. Switching the view to an empty face
+does not add a saved setup until you add content or save setup properties.
+
+**Top** and **Bottom** are the two flat faces. **Around** exists only in **Rotary** projects
+for work around bar stock.
+
+## Choose a face
+
+Open the current-face control beside the workspace tabs and choose **Top** or **Bottom**.
+The control names the face in view. On Bottom, it includes the flip axis, for example
+**Bottom · flipped X**. This compact label carries the flipped indication; it is not a
+separate chip or banner row.
+
+Bottom is shown as if you have turned the stock about the setup's flip axis. An X flip swaps
+front and back; a Y flip swaps left and right. Draw and read Bottom features from that side.
+Their **Z top** and **Z bottom** fields read with Bottom face up, while **Stock Z span** shows
+the unchanged range in the stock.
+
+When there is an opposite side to show, the menu offers **Show other side** with an eye icon.
+Use it to show or hide the ghost overlay. Finish the current drawing or edit before switching
+face; an unfinished edit keeps the other face unavailable.
+
+<VisualPending id="m2-face-menu" />
+
+## Features and the tree
+
+New features belong to the face you draw them on. Other-face features that cannot be worked
+from this side are shown faint and dashed when **Show other side** is on. They are references,
+not selectable subjects for editing. Through subtracts and imported models are exceptions:
+you can select them from either flat face for compatible operations.
+
+In a two-sided project, the tree groups features under **Top face** and **Bottom face**.
+Click a section heading to switch to that face. An empty face chosen from the menu has a
+section reading **Nothing here yet** until you leave it. There are no ACTIVE or GHOST badges.
+See [Feature tree and properties](/guide/fundamentals/feature-tree/#face-sections).
+
+**Change authoring face…** changes which face owns a qualifying feature without moving its
+volume in the stock. It is available only for features that span the whole stock, such as a
+through hole or a full-height solid. The confirmation lists features that stay behind, including
+locked features and those that do not qualify. Linked copies keep sharing their shape across
+faces, so a later shape edit can affect copies on both sides.
+
+<VisualPending id="m2-bottom-ghosts" />
+
+## Through cuts and cross-face targets
+
+A subtract whose Z range reaches both stock faces carries **THRU**. You can machine that
+through-feature from either flat face. An imported 3D model can also be a target from either
+side. A blind pocket on the other face is not a target from this side. A full-height add
+feature stays a target of its own face, even though it is solid material you must machine
+around from either side.
+
+Select reachable features and use the Add button or **Use current selection** for a compatible
+operation. The operation's **Cuts** list shows its targets. A cross-face reach result uses ⇄
+to mark a target reached from the other face.
+
+When a through-feature has operations from both sides, **Check the passes meet** measures the
+generated passes. It reports their reach in stock Z and whether they overlap or leave a gap.
+Single-sided targets do not show this check. An unreachable target can still show an error.
+
+<Aside type="caution" title="Meeting depths do not prove a complete cut">
+The check measures generated tool motion at the target. It does not certify that every part of
+the material has been removed or that the real cutter reaches it. Inspect both toolpaths and
+verify tool length and workholding before cutting.
+</Aside>
+
+## Construction references across faces
+
+Visible construction geometry on either flat face can guide work on the other:
+
+| Reference | What you can do |
+| --- | --- |
+| Point | Snap while drawing, moving, transforming, pasting, or measuring. |
+| Path guide | Pick a guide for feature distribution or text layout. |
+| Segment | Supply the reference for **Trim to cutting edge** or **Extend to target** while editing your own path. |
+
+Canvas reference picks need **Show other side** on and the construction feature visible.
+A visible construction row in the tree can supply an armed path-guide picker even with the
+overlay hidden. Picking a reference does not select it for editing.
+
+Other-face ordinary ghost features do not become construction references. You cannot trim,
+extend, join, or transform a ghost as the subject of the command. Construction geometry cannot
+be a machining target. Constraints do not use cross-face references, and dimensions anchored
+across faces remain measurements rather than driving geometry.
+
+See [Construction geometry](/guide/fundamentals/construction-geometry/#references-from-the-other-face)
+for the reference workflow.
+
+## Operations by setup
+
+The CAM panel groups a two-sided job into setup cards. A header such as **Bottom 1 P02** means
+one operation in the Bottom setup, program 02. An empty card reads **No operations**. Each card
+has a gear for its setup properties and an export button when it has operations. A warning sign
+calls attention to missing registration references.
+
+The operations toolbar has **Add to Top** or **Add to Bottom**, **Plan**, **Export**, a
+show/hide-all eye, and the generation gear. Add follows the face in view. Operations keep their
+order within their setup. Selecting a dimmed operation from another setup switches the workspace
+to its face so you can edit it.
+
+To move an operation, use **Move…** beside **Setup** in its properties. Choose an existing
+**Destination setup**, review **Targets removed by this move:**, then confirm **Move operation**.
+Targets are checked from the destination face. A move is blocked if no valid targets would remain.
+
+On Bottom, **Plan** proposes operations in the Bottom frame. A through-feature that Top
+operations already cover fully is listed as **Covered by the Top setup.** See
+[CAM Plan](/guide/cam-setup/cam-plan/#planning-the-bottom-setup).
+
+## Setup properties and registration
+
+Open a setup card's gear to edit its **Name** and **Operator notes**. With a single Top setup,
+use **Setup properties** on the operations toolbar. **Face up** is a read-only
+chip. The Top dialog keeps the shared touch-off note; Bottom also offers **Flip about** and
+**Registration**.
+
+For Bottom, choose **Stock X · front ↔ back** or **Stock Y · left ↔ right**. The sketch in the
+dialog shows how the marked corner moves. All setups share one origin placement. Touch off
+again after turning the stock.
+
+Under **Registration**, choose a **Reference kind**: **Dowel**, **Fence**, or **Corner**.
+Choose a **Reference target**: **Feature**, **Stock point**, or **Stock edge**, then use
+**Add reference**. Coordinates describe the stock before it is turned. These entries record
+your locating plan; the app does not verify that the stock is registered correctly.
+
+Use **Save setup** to keep changes. **Delete setup…** sits at the bottom left. Its confirmation
+lists the operations that will also be deleted; the last setup cannot be deleted.
+
+<VisualPending id="m2-setup-properties" />
+
+<Aside type="danger" title="Safety: locate the part again after the flip">
+A flip with the wrong axis, registration, or work zero can put the tool through the part or a
+fixture. Check how the stock seats against your references and touch off at the stated location
+before running the next program. Follow [Working safely](/guide/start-here/safety/).
+</Aside>
+
+## Preview, simulation, and output
+
+The Sketch and 3D views show both setups' visible toolpaths in the same stock. The other setup
+is faint beneath the active setup. A selected operation is drawn at full strength. On Bottom,
+**Isometric view** looks from below, where the Bottom paths approach the stock.
+
+Simulation follows the workspace face control and runs one setup at a time. With several
+setups, the playback toolbar's information button explains that the run starts on fresh stock:
+material removed by another setup is not shown. See
+[Simulation](/guide/verify-export/simulation/#simulating-a-setup).
+
+A Top/Bottom export writes one numbered program for each setup with selected operations. Each
+program carries setup instructions, including orientation, touch-off, registration, and notes.
+A single Top setup keeps its existing output and filename convention. Booklets name the
+operation's setup and program and record registration, so you can match the paperwork to the
+program. See [Exporting G-code](/guide/verify-export/gcode-export/#one-program-per-setup) and
+[Setup booklets](/guide/verify-export/setup-booklets/#setup-and-program-identity).
+
+## Typical two-sided job
+
+1. Create a milling project and set the stock and origin.
+2. On Top, draw the features and add the operations for that side.
+3. Choose Bottom, draw the Bottom features, and add its operations.
+4. Open Bottom setup properties. Choose the flip axis and record your locating references and notes.
+5. Inspect both setups' paths. Check any through-feature cut from both sides, then simulate each setup separately.
+6. Export and review the numbered programs and booklets. At the machine, verify each setup, locate the stock, and touch off before its program.
+
+## Related pages
+
+- [Projects and files](/guide/fundamentals/projects-and-files/#project-type): choose a project type before drawing.
+- [Stock, origin, and units](/guide/fundamentals/stock-origin-units/): define the material and work zero.
+- [Working with operations](/guide/cam-setup/working-with-operations/#operations-by-setup): manage the cuts in each setup.
+- [Working safely](/guide/start-here/safety/): check the physical job before running a program.

@@ -3,13 +3,10 @@ title: Snapping and the grid
 description: The snap modes, the grid settings, and the axis lock that make points land exactly where you want them.
 pageType: reference
 availability: stable
-status: reviewed
-reviewed:
-  appCommit: 7ad27b1e384074a35797a4747a85218067a565df
-  date: 2026-09-27
-  by: frankp
+status: draft
 ---
 
+import Availability from '../../../../components/Availability.astro';
 import Screenshot from '../../../../components/Screenshot.astro';
 import AppIcon from '../../../../components/AppIcon.astro';
 import snapModes from '../../../../assets/manual/design/snapping-and-grid/snap-popover.png';
@@ -40,7 +37,8 @@ that mode on or off. On a tablet the same controls are in the **Snap settings** 
 | <AppIcon name="snap-intersection" /> **Snap to intersection** | Points where two segments cross, even where there is no corner. | No |
 | <AppIcon name="snap-perpendicular" /> **Snap perpendicular** | The point on a segment that makes a right angle with the previous point of the command. | No |
 
-Snapping considers visible features, including construction geometry and regions, and visible tabs
+Snapping considers visible features available on the face in view, including construction geometry
+and regions, and visible tabs
 and clamps. When the pointer is within reach of several candidates, a point, midpoint, centre, or
 intersection wins over a perpendicular point, which wins over a point on a line, which wins over the
 grid. A small label next to the pointer names the snap that will be used, so you can check it before
@@ -80,6 +78,15 @@ that line, as below: the distance it has moved sideways is used, and the offset 
 <Screenshot src={axisLock} alt="A polygon segment being drawn, held horizontal by Lock X while the pointer sits above and to the right of it, with a red Lock X chip in the bottom-left corner of the canvas" caption="Lock X holds the next point on the horizontal through the previous one, wherever the pointer is." />
 
 The lock is released when the command ends.
+
+## Snapping across faces
+
+<Availability kind="preview" />
+
+With **Show other side** on, visible construction geometry from the opposite flat face can
+supply point snaps while you draw, transform, paste, or measure. It supplies a reference for the
+current command; clicking it does not select it for editing. Hiding that construction geometry
+or turning off the overlay removes those canvas reference picks. See [Setups and faces](/guide/fundamentals/setups-and-faces/).
 
 ## Related pages
 

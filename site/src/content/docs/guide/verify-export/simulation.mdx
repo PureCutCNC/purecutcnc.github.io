@@ -3,14 +3,12 @@ title: Simulation
 description: Replay selected machining operations to inspect material removal and cutting motion before export.
 pageType: task
 availability: stable
-status: reviewed
-reviewed:
-  appCommit: 7ad27b1e384074a35797a4747a85218067a565df
-  date: 2026-09-27
-  by: frankp
+status: draft
 ---
 
 import { Aside, Steps } from '@astrojs/starlight/components';
+import VisualPending from '../../../../components/VisualPending.astro';
+import Availability from '../../../../components/Availability.astro';
 import Screenshot from '../../../../components/Screenshot.astro';
 import simulationPlay from '../../../../assets/manual/verify-export/simulation/view-simulation-play.png';
 
@@ -58,6 +56,21 @@ Simulation is an aid, not a safety guarantee. It cannot confirm your physical ma
 A clean simulation does not make an unsafe setup safe. Follow [Working safely](/guide/start-here/safety/) when setting up and running the machine.
 
 </Aside>
+
+## Simulating a setup
+
+<Availability kind="preview" />
+
+Choose **Top** or **Bottom** in the workspace face control. Simulation follows that face and
+runs one setup at a time, with Bottom turned face up as it sits on the machine. Selected or
+visible operation scope applies within that setup.
+
+With more than one setup, the information button at the end of the playback toolbar explains
+that this setup is simulated on fresh stock. Material removed by other setups is not shown.
+Hover over the button or tap it to read the note. See [Setups and faces](/guide/fundamentals/setups-and-faces/) before judging the remaining
+material across a flip.
+
+<VisualPending id="m2-simulation-face" />
 
 ## Related pages
 

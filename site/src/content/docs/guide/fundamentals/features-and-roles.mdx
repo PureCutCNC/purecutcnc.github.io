@@ -3,13 +3,10 @@ title: Features, roles, and depth
 description: Understand how feature roles and Z ranges build the part and determine which toolpaths can cut it.
 pageType: concept
 availability: stable
-status: reviewed
-reviewed:
-  appCommit: 2dc197eebe9c11272ad0bc24194d4a7c6de19055
-  date: 2026-09-19
-  by: frankp
+status: draft
 ---
 
+import Availability from '../../../../components/Availability.astro';
 import Screenshot from '../../../../components/Screenshot.astro';
 import zRange from '../../../../assets/manual/fundamentals/features-and-roles/z-range.png';
 import firstSolidWarning from '../../../../assets/manual/fundamentals/features-and-roles/first-solid-warning.png';
@@ -75,7 +72,7 @@ stay separate from feature folders.
 	alt="3D view of a part inside its stock with two marked vertical spans: the pocket from its rim down to its floor, labelled Z top, Z bottom, and cut depth, and the outer body from its top down to its bottom, labelled Z top, Z bottom, and height"
 	caption="The same two fields on both roles: the subtract's span is the cut depth, the add's span is the material it adds."
 />
-**Z top** and **Z bottom** are Z coordinates in the project, not a depth setting. They are in the
+On Top, **Z top** and **Z bottom** are Z coordinates in the project, not a depth setting. They are in the
 **Instance** section of a feature's properties, as two fields and a slider.
 
 - For a subtract feature, **Z top** is where the cavity starts and **Z bottom** is its floor. The
@@ -84,7 +81,7 @@ stay separate from feature folders.
 - For a line feature, **Z top** positions the line vertically in the model.
 
 The operations that machine a feature cut to its Z range: there is no separate depth field to
-keep in step. Z values use the same coordinates as the stock, whose bottom is at Z 0 and top at
+keep in step. On Top, Z values use the same coordinates as the stock, whose bottom is at Z 0 and top at
 the stock thickness; see [Stock, origin, and units](/guide/fundamentals/stock-origin-units/).
 
 A new shape starts with **Z bottom** at 0 and **Z top** at the top of the stock. When the stock is
@@ -119,6 +116,15 @@ order, from the top of the tree down:
 
 Drag rows in the feature tree to change the order. Regions and construction geometry are not
 part of the model, so their position among the features does not change it.
+
+## The face a feature belongs to
+
+<Availability kind="preview" />
+
+A feature belongs to the face you draw it on. A blind pocket on Top is not a Bottom machining
+target just because its outline overlaps another feature in plan. A through subtract can be cut
+from either face. On Bottom, **Z top** and **Z bottom** are shown with the stock flipped face up;
+**Stock Z span** records the unchanged range in the stock. See [Setups and faces](/guide/fundamentals/setups-and-faces/).
 
 ## Related pages
 

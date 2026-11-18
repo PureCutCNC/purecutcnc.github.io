@@ -3,13 +3,10 @@ title: Dimensions and constraints
 description: Measure with the tape measure, place dimensions that follow your geometry, drive sizes by editing them, and fix distances with constraints.
 pageType: task
 availability: stable
-status: reviewed
-reviewed:
-  appCommit: 7ad27b1e384074a35797a4747a85218067a565df
-  date: 2026-09-27
-  by: frankp
+status: draft
 ---
 
+import Availability from '../../../../components/Availability.astro';
 import Screenshot from '../../../../components/Screenshot.astro';
 import AppIcon from '../../../../components/AppIcon.astro';
 import dimensionsOnPart from '../../../../assets/manual/design/dimensions-and-constraints/dimensions-on-part.png';
@@ -116,7 +113,7 @@ with a warning sign where it was attached, until you delete it.
 
 </Steps>
 
-A dimension can drive the geometry when:
+On the editable face, a dimension can drive the geometry when:
 
 - both its points are on the same feature and the moving point is a corner you could drag; or
 - it is a radius or diameter of a circle or arc; or
@@ -188,6 +185,15 @@ next to a constraint (**Delete constraint**) removes it.
 
 A constraint that cannot be met, for example because its reference feature was deleted, is marked
 with a warning; hover over it to see why.
+
+## Measurements across faces
+
+<Availability kind="preview" />
+
+Visible other-face construction geometry can supply measurement points when **Show other side**
+is on. A dimension anchored across faces remains a measurement; clicking its value cannot drive
+the other-face geometry. Constraints do not accept cross-face references. Switch to a feature's
+authoring face to edit it. See [Setups and faces](/guide/fundamentals/setups-and-faces/).
 
 ## Related pages
 

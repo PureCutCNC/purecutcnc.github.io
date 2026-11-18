@@ -3,14 +3,11 @@ title: Exporting G-code
 description: Select a machine and operation checklist, inspect the prepared program, and save G-code for your controller.
 pageType: task
 availability: stable
-status: reviewed
-reviewed:
-  appCommit: 7ad27b1e384074a35797a4747a85218067a565df
-  date: 2026-09-27
-  by: frankp
+status: draft
 ---
 
 import { Aside, Steps } from '@astrojs/starlight/components';
+import Availability from '../../../../components/Availability.astro';
 import Screenshot from '../../../../components/Screenshot.astro';
 import exportDialog from '../../../../assets/manual/verify-export/gcode-export/cam-export-dialog.png';
 
@@ -57,6 +54,20 @@ When **Emit tool changes (M6)** is not selected, PureCutCNC refuses an export th
 **Errors** stop the program from being exported until you resolve them. For example, choose a machine, select an operation, assign a tool, or reopen the dialog when its preview is out of date. A machine that cannot emit a requested tool change is also an export-blocking condition when tool changes are enabled.
 
 **Warnings** identify behavior to review, such as a fallback or toolpath warning. They are not automatically export-blocking; read the message and decide whether the resulting program is appropriate for your machine.
+
+## One program per setup
+
+<Availability kind="preview" />
+
+For a Top/Bottom job, export writes a separate numbered program for each setup with selected
+operations. Each file includes setup instructions for orientation, touch-off, registration,
+and operator notes. A setup with no selected operations produces no program. For example, a
+project named `pin-plate` with setups named `Top` and `Bottom` uses file stems
+`pin-plate_01_top` and `pin-plate_02_bottom`.
+
+A single Top setup keeps its existing output and filename convention. Use a setup card's export
+button to export that setup's enabled operations, then review the dialog checklist. See [Setups and faces](/guide/fundamentals/setups-and-faces/)
+for the flip and registration checks before running the next program.
 
 ## Related pages
 

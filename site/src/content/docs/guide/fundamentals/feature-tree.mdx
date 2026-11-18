@@ -3,13 +3,11 @@ title: Feature tree and properties
 description: Every row of the project tree, the properties each selection shows, folders and groups, visibility, and the context menu.
 pageType: reference
 availability: stable
-status: reviewed
-reviewed:
-  appCommit: 2dc197eebe9c11272ad0bc24194d4a7c6de19055
-  date: 2026-09-20
-  by: frankp
+status: draft
 ---
 
+import VisualPending from '../../../../components/VisualPending.astro';
+import Availability from '../../../../components/Availability.astro';
 import Screenshot from '../../../../components/Screenshot.astro';
 import AppIcon from '../../../../components/AppIcon.astro';
 import treeSections from '../../../../assets/manual/fundamentals/feature-tree/tree-sections.png';
@@ -140,6 +138,18 @@ offers what applies to the selection:
 
 Unavailable items are greyed out, and their tooltip says why, for example **Locked features cannot
 be moved** or **Select two or more features to join**.
+
+## Face sections
+
+<Availability kind="preview" />
+
+In a two-sided job, **Top face** and **Bottom face** section headings group the features by
+where you drew them. Click a heading to switch face. A selected empty face shows
+**Nothing here yet**. The headings have no ACTIVE or GHOST badges; other-face rows are dimmed
+when they are reference-only. Through subtracts carry **THRU** and can be used from either face.
+See [Setups and faces](/guide/fundamentals/setups-and-faces/) for the editing and targeting rules.
+
+<VisualPending id="m2-tree-faces" />
 
 ## Related pages
 

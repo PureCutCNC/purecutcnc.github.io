@@ -3,13 +3,11 @@ title: Projects and files
 description: Create a project from a template or an example, open and save .camj files, and keep track of unsaved changes.
 pageType: task
 availability: stable
-status: reviewed
-reviewed:
-  appCommit: 2dc197eebe9c11272ad0bc24194d4a7c6de19055
-  date: 2026-09-20
-  by: frankp
+status: draft
 ---
 
+import VisualPending from '../../../../components/VisualPending.astro';
+import Availability from '../../../../components/Availability.astro';
 import Screenshot from '../../../../components/Screenshot.astro';
 import AppIcon from '../../../../components/AppIcon.astro';
 import newProjectDialog from '../../../../assets/manual/fundamentals/projects-and-files/new-project-dialog.png';
@@ -30,7 +28,7 @@ the operations, the selected machine, and the tabs and clamps. It is saved as a 
 
 1. Click <AppIcon name="new" /> **New project** in the top toolbar.
 
-2. Enter a **Project name**, then choose a **Template**:
+2. Check **Project type** as described below, enter a **Project name**, then choose a **Template**:
 
    | Template | Starts with |
    | --- | --- |
@@ -40,8 +38,8 @@ the operations, the selected machine, and the tabs and clamps. It is saved as a 
    | **Template file** | The same setup, taken from a `.camj` file you load. |
 
 3. Check the **Template preview**. It lists the **Units**, **Stock**, **Features**, **Tools**,
-   **Operations**, and **Machine** the new project starts with. For a blank template, enter the
-   stock **Width**, **Height**, and **Thickness** in the template's units. Each must be greater
+   **Operations**, and **Machine** the new project starts with. For a blank milling or plasma template, enter the
+   stock **Width**, **Height**, and **Thickness** in the template's units. Each size must be greater
    than zero. The other templates take the stock from the project or file they copy.
 
 4. Click **Create project**.
@@ -104,6 +102,23 @@ A `.camj` file contains the whole job, including the machining setup and a copy 
 machine definition, so another PureCutCNC user can open it and export the same G-code. Your
 appearance, language, and machine library are not part of the project. The file contents are
 described on [File formats](/guide/reference/file-formats/#camj).
+
+## Project type
+
+<Availability kind="preview" />
+
+The **New project** dialog starts with three **Project type** tiles: **Milling / routing**,
+**Plasma**, and **Rotary**. Below them, **Template** is a 2×2 grid. For a blank template, choose
+the type before checking its stock fields. **Current project** and **Template file** keep the
+template's own type and lock the tiles to it.
+
+The type is fixed when you create the project. **Project** properties show **Project type**
+read-only. It decides which machines are listed first, the stock shapes offered, and whether
+Around and rotary operations are available. A mismatched machine prevents machine output.
+Plasma operations need a **Plasma** project. A **Rotary** project uses bar stock and offers
+**Around** for rotary work. See [Setups and faces](/guide/fundamentals/setups-and-faces/) for Top and Bottom work.
+
+<VisualPending id="m2-project-type" />
 
 ## Related pages
 
