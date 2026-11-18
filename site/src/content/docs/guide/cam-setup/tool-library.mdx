@@ -6,11 +6,11 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
 import Availability from '../../../../components/Availability.astro';
 import toolManagement from '../../../../assets/manual/cam-setup/tool-library/tool-management.png';
 import { Aside } from '@astrojs/starlight/components';
 import Screenshot from '../../../../components/Screenshot.astro';
+import plasmaTorch from '../../../../assets/manual/cam-setup/tool-library/plasma-torch.png';
 import toolLibraryImport from '../../../../assets/manual/cam-setup/tool-library/import-dialog.png';
 
 ## Tools overview
@@ -154,7 +154,7 @@ tool and project units; delay and material number do not. Check your consumable'
 and test your own settings. QtPlasmaC uses its material table for the actual cutting settings;
 Grbl plasma uses the torch fields for the pierce and drop sequence.
 
-<VisualPending id="m4-torch-fields" />
+<Screenshot src={plasmaTorch} maxWidth={401} alt="Plasma tool properties for the Powermax45 XP example: Type Plasma, Units Millimeters, Kerf width 1.4, Cut feed 5560, Plunge feed 300, Pierce height 3.8, Cut height 1.5, Pierce delay 0.2 s, and an empty QtPlasmaC material number" caption="A plasma tool holds kerf, feeds, heights and pierce delay. The example suits one torch and plate, not every table." />
 
 ## Related pages
 

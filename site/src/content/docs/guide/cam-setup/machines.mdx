@@ -6,10 +6,11 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
 import Availability from '../../../../components/Availability.astro';
 
 import Screenshot from '../../../../components/Screenshot.astro';
+import plasmaPierceMode from '../../../../assets/manual/cam-setup/machines/plasma-pierce-mode.png';
+import rotaryAxis from '../../../../assets/manual/cam-setup/machines/rotary-axis.png';
 import machineEditor from '../../../../assets/manual/cam-setup/machines/machine-editor.png';
 import { Aside, Steps } from '@astrojs/starlight/components';
 
@@ -60,7 +61,7 @@ can change emitted G-code.
 ## Editor
 
 
-<Screenshot src={machineEditor} alt="The machine editor for a duplicated GRBL definition, showing General fields for name, file extension and unit commands, the Program header and footer templates using placeholders such as programName and toolNumber, and collapsed Advanced (raw JSON) and Variables reference sections" caption="A duplicated machine is editable; the program templates are filled in from the placeholders listed under Variables reference." />
+<Screenshot src={machineEditor} alt="The machine editor for a duplicated GRBL definition, showing General fields for name, file extension and unit commands, Machine kind set to Router, a Rotary axis group set to None, the Program header template using placeholders such as programName and unitsCommand, and collapsed Advanced (raw JSON) and Variables reference sections" caption="A duplicated machine is editable; the program templates are filled in from the placeholders listed under Variables reference." />
 For a G-code machine, the editor groups a definition into **General**, **Program**, **Tool change**, and **Coolant**.
 It also provides raw JSON, a variables reference, and validation feedback. Use the editor only
 when you understand the controller requirements for every changed field.
@@ -83,7 +84,7 @@ The **Manage machines** preview includes a **Rotary axis** row summarising this 
 See [Rotary machining](/guide/rotary/overview/#machine-rotary-axis) and
 [Rotary definition](/guide/reference/machine-definitions/#rotary-definition).
 
-<VisualPending id="m3-machine-axis" />
+<Screenshot src={rotaryAxis} maxWidth={376} alt="Rotary axis group in the machine editor: Rotary axis Bar along X, Driven by The Y motor, Program word: Y, Reverse direction, and an empty Zero A line (optional) field" caption="A rotary that borrows the Y motor is programmed with Y words." />
 
 ## Plasma machines
 
@@ -114,7 +115,7 @@ The controller-owned editor still contains hints describing plasma output as uni
 Those hints are out of date: [plasma export](/guide/verify-export/gcode-export/#plasma-programs)
 writes the material handshake and torch motion.
 
-<VisualPending id="m4-plasma-machine" />
+<Screenshot src={plasmaPierceMode} maxWidth={376} alt="Plasma settings in the machine editor: Machine kind Plasma, torch on and off commands, optional THC commands, Pierce mode G-code owns piercing (touch-off before each cut), and the probe and Set Z zero fields" caption="With G-code owning the pierce, every cut starts with a touch-off." />
 
 ## ShopBot machine
 

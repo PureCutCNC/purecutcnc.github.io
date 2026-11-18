@@ -6,6 +6,9 @@ availability: preview
 status: draft
 ---
 
+import Screenshot from '../../../../components/Screenshot.astro';
+import threadPanel from '../../../../assets/manual/rotary/rotary-features/thread-panel.png';
+import turnPanel from '../../../../assets/manual/rotary/rotary-features/turn-panel.png';
 import { Aside, Steps } from '@astrojs/starlight/components';
 import VisualPending from '../../../../components/VisualPending.astro';
 
@@ -68,7 +71,7 @@ not double back along it. A pick copies the outline. Later edits to the source d
 change the Turn: reopen the Turn and use **Refresh**. If the source is deleted, the copied
 profile is kept.
 
-<VisualPending id="m3-turn-panel" />
+<Screenshot src={turnPanel} maxWidth={1089} alt="Turn a diameter panel with Profile Rect 1 picked, the summary From Rect 1 · Ø18 mm · 60 long, the half-profile picture, and Start from chuck end 30, Length 60 and Diameter 18 mm" caption="A Turn can take its start, length and diameter from a half profile drawn on Top." />
 
 ## Cut a polygon or hexagon
 
@@ -109,7 +112,7 @@ The panel's notice describes an approximation to a 60° thread at small helix an
 plastic, and decorative work. Do not use it as a claim of precision thread tooling or fit.
 </Aside>
 
-<VisualPending id="m3-thread-panel" />
+<Screenshot src={threadPanel} maxWidth={454} alt="Cut a thread panel on a Turn of Ø24 mm with Start from chuck end 30, Length 50, Pitch 3, Starts 1, Depth 1 mm, Direction Right-hand, and the V-bit thread note" caption="A Thread is cut on an existing Turn; the panel names the diameter it sits on." />
 
 ## Cut flutes
 

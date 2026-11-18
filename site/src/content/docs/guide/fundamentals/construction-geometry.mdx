@@ -6,9 +6,9 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
 import Availability from '../../../../components/Availability.astro';
 import Screenshot from '../../../../components/Screenshot.astro';
+import crossFaceReference from '../../../../assets/manual/fundamentals/construction-geometry/cross-face-reference.png';
 import constructionGeometry from '../../../../assets/manual/fundamentals/construction-geometry/construction-geometry.png';
 
 Construction geometry is reference geometry for drawing: centrelines, symmetry axes, bolt circles,
@@ -62,7 +62,7 @@ picks. A named construction row in the tree can supply an armed path-guide picke
 the overlay off. The reference stays on its own face; it does not become an editable selection
 or a machining target. See [Setups and faces](/guide/fundamentals/setups-and-faces/) for the limits.
 
-<VisualPending id="m2-construction-reference" />
+<Screenshot src={crossFaceReference} maxWidth={1089} alt="Drawing a rectangle on Bottom with its corner snapped to a Top construction rectangle, which shows as a dashed ghost after the X flip; the tree lists the construction item with REF and TOP badges" caption="Top construction geometry stays snappable on Bottom, at its flipped position." />
 
 ## Related pages
 

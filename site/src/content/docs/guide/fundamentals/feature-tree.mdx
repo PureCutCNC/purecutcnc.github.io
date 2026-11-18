@@ -6,9 +6,9 @@ availability: stable
 status: draft
 ---
 
-import VisualPending from '../../../../components/VisualPending.astro';
 import Availability from '../../../../components/Availability.astro';
 import Screenshot from '../../../../components/Screenshot.astro';
+import faceSections from '../../../../assets/manual/fundamentals/feature-tree/face-sections.png';
 import AppIcon from '../../../../components/AppIcon.astro';
 import treeSections from '../../../../assets/manual/fundamentals/feature-tree/tree-sections.png';
 import properties from '../../../../assets/manual/fundamentals/feature-tree/properties.png';
@@ -51,7 +51,7 @@ geometry (**ref**).
 
 <Screenshot
 	src={properties}
-	alt="Expanded Properties dialog for the feature Rect 2, with a Shape column showing Operation Subtract and an Instance column showing Name, Z top, Z bottom, Folder, Visible, and Locked"
+	alt="Expanded Properties dialog for the feature Rect 2, with a Shape column showing Operation Subtract and an Edit sketch button, and an Instance column showing Name, Z top, Z bottom, Folder, Visible, Locked, and Delete feature"
 	caption="Expand properties panel opens the same settings in a wider, multi-column view."
 />
 What the panel shows depends on the selection.
@@ -149,7 +149,7 @@ where you drew them. Click a heading to switch face. A selected empty face shows
 when they are reference-only. Through subtracts carry **THRU** and can be used from either face.
 See [Setups and faces](/guide/fundamentals/setups-and-faces/) for the editing and targeting rules.
 
-<VisualPending id="m2-tree-faces" />
+<Screenshot src={faceSections} maxWidth={271} alt="Project tree with Features split into Top face 3 (Rect 1, Rect 2, Circle 3 THRU) and the active Bottom face 1 (Rect 4)" caption="Features are grouped by the face they were drawn on." />
 
 ## Canned shape properties
 
