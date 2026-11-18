@@ -354,9 +354,9 @@
 	"strategies/seeded-circles/seeded-circles.png": {
 		"shows": "Seeded circles growing concentric clearing rings across a large rectangular pocket, with several seed regions and rapid links visible",
 		"source": "capture",
-		"appCommit": "ec9b3c781bdf1d71e469faff58a4dff049a41713",
+		"appCommit": "74b8276fcbf75291ac83fd9cd46f8d6ef74207f3",
 		"fixture": "site/fixtures/big-pocket-test.camj",
-		"viewport": "2020x1162@1x",
+		"viewport": "1440x900@2x",
 		"theme": "dark",
 		"locale": "en",
 		"status": "current",
@@ -1597,9 +1597,9 @@
 	"strategies/feed-reduction/feed-reduction-legend.png": {
 		"shows": "A pocket coloured by feed percentage, with the Feed colours key across the top and reduced segments around a circular island and tight corners",
 		"source": "capture",
-		"appCommit": "ec9b3c781bdf1d71e469faff58a4dff049a41713",
+		"appCommit": "74b8276fcbf75291ac83fd9cd46f8d6ef74207f3",
 		"fixture": "site/fixtures/reduced-feed-demo.camj",
-		"viewport": "2064x1358@1x",
+		"viewport": "1440x900@2x",
 		"theme": "dark",
 		"locale": "en",
 		"status": "current",

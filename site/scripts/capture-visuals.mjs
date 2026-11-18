@@ -764,6 +764,20 @@ async function expandLegend(page) {
 	}
 }
 
+/** Expand the legend and turn on Feed colours, so reduced-feed moves show their key. */
+async function feedColoursLegend(page) {
+	// The fixtures carry an older machine copy, which raises an update notice over the canvas.
+	const keep = page.getByRole('button', { name: 'Keep project copy', exact: true })
+	if (await keep.isVisible().catch(() => false)) await keep.click()
+	// Selected, the path draws at full strength with its direction arrows and feed key.
+	await selectOperation(page, 'Pocket Rough')
+	await expandLegend(page)
+	const feed = page.locator('.sketch-toolpath-vis .viewport-toolpath-vis__item').filter({ hasText: 'Feed colours' })
+	if ((await feed.getAttribute('aria-pressed')) !== 'true') await feed.click()
+	await page.mouse.move(1, 1)
+	await page.waitForTimeout(2000)
+}
+
 /** Isolate one planar Z level on the legend's level rail, counting from the deepest.
     The rail only exists for planar toolpaths, and it starts on All. */
 async function setLevelRail(page, fromDeepest = 1) {
@@ -4307,6 +4321,23 @@ const RECIPES = [
 		// The legend is a 36px strip, which on its own is a sliver. This takes the corner
 		// of the viewport it sits in, so a reader can find it rather than only read it.
 		clip: clipCanvasCorner(710, 320),
+	},
+	// Both were hand shots from 0.5 that showed the GPU toggle 0.6.0 removed from the legend.
+	{
+		id: 'feed-reduction-legend',
+		asset: 'strategies/feed-reduction/feed-reduction-legend.png',
+		fixture: 'site/fixtures/reduced-feed-demo.camj',
+		viewport: { width: 1440, height: 900 },
+		steps: (page) => feedColoursLegend(page),
+		clip: clipCanvas,
+	},
+	{
+		id: 'clearing-seeded-circles',
+		asset: 'strategies/seeded-circles/seeded-circles.png',
+		fixture: 'site/fixtures/big-pocket-test.camj',
+		viewport: { width: 1440, height: 900 },
+		steps: (page) => feedColoursLegend(page),
+		clip: clipCanvas,
 	},
 	{
 		id: 'toolpath-preview-controls',
