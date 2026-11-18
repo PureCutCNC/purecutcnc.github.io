@@ -6,7 +6,6 @@ availability: stable
 status: draft
 ---
 
-import Availability from '../../../../components/Availability.astro';
 import Screenshot from '../../../../components/Screenshot.astro';
 import zRange from '../../../../assets/manual/fundamentals/features-and-roles/z-range.png';
 import firstSolidWarning from '../../../../assets/manual/fundamentals/features-and-roles/first-solid-warning.png';
@@ -119,16 +118,12 @@ part of the model, so their position among the features does not change it.
 
 ## The face a feature belongs to
 
-<Availability kind="preview" />
-
 A feature belongs to the face you draw it on. A blind pocket on Top is not a Bottom machining
 target just because its outline overlaps another feature in plan. A through subtract can be cut
 from either face. On Bottom, **Z top** and **Z bottom** are shown with the stock flipped face up;
 **Stock Z span** records the unchanged range in the stock. See [Setups and faces](/guide/fundamentals/setups-and-faces/).
 
 ## Roles on a rotary bar
-
-<Availability kind="preview" />
 
 In a rotary project with bar stock, the bar supplies the material on Top, Bottom, and Around.
 A shape drawn on its own starts as **Subtract**, one inside a cut as **Add**, and one inside
@@ -137,8 +132,6 @@ Check the role across a sheet seam, where nesting is not inferred between opposi
 See [Rotary machining](/guide/rotary/overview/#the-bar-is-the-material).
 
 ## Features with no final effect
-
-<Availability kind="preview" />
 
 The tree marks a fully covered feature with ⚠ and **No effect on the final shape: later features
 cover it.** Later opposite-role features must cover its whole outline and Z span before the app

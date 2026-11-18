@@ -109,7 +109,7 @@ export const FEATURES: Card[] = [
 	{
 		icon: "💾",
 		title: "G-code Export",
-		html: "Export clean G-code for Grbl, GrblHAL, LinuxCNC, Mach3, and UCCNC, or native <code>.sbp</code> files for ShopBot. Rotary programs use inverse-time feed and A-axis motion. Post-processor support for custom machine configurations. Preview with syntax highlighting before you download — and arcs are validated against the controller's own arithmetic so a GRBL-family machine won't abort mid-job on an arc it can't accept."
+		html: "Export clean G-code for Grbl, GrblHAL, LinuxCNC, Mach3, and UCCNC, or native <code>.sbp</code> files for ShopBot (experimental). Rotary programs use inverse-time feed and A-axis motion. Post-processor support for custom machine configurations. Preview with syntax highlighting before you download — and arcs are validated against the controller's own arithmetic so a GRBL-family machine won't abort mid-job on an arc it can't accept."
 	},
 	{
 		icon: "🔤",

@@ -81,8 +81,6 @@ when you understand the controller requirements for every changed field.
 
 ## Rotary axis
 
-<Availability kind="preview" />
-
 For a router machine that writes G-code, the editor offers **Rotary axis**: **None** (default),
 **Bar along X**, or **Bar along Y**. Match the stock's **Axis**. The built-in rotary machines
 need no setting here: they take the orientation from the stock (see
@@ -174,8 +172,6 @@ Duplicating this machine keeps its ShopBot output dialect. See
 [ShopBot part files](/guide/verify-export/gcode-export/#shopbot-part-files).
 
 ## Template rules and retained machines
-
-<Availability kind="preview" />
 
 Only tool-change and end-of-program templates may contain arbitrary motion. The program header
 allows modal setup, including a bare `G0` or `G00` without axis words and `G91.1` for incremental

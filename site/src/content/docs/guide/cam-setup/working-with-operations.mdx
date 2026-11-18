@@ -46,8 +46,6 @@ When the Add button or a feature’s **Create operation** menu picks a tool for 
 
 ## Operation identity
 
-<Availability kind="preview" />
-
 **Kind** is plain text identifying the operation. An empty **Description** shows **+ Add note**;
 click it to write a note.
 
@@ -56,8 +54,6 @@ click it to write a note.
 Use a feature’s context menu to create a compatible operation, or to add that feature to and remove it from an existing operation. The menu offers **Create operation**, **Add to operation**, and **Remove from operation** only when the selected feature is compatible.
 
 ## Targets
-
-<Availability kind="preview" />
 
 **Cuts** in **What it cuts** lists the operation's targets. Hover a row to highlight its feature
 on the canvas. Click its × to remove it; the last machining target cannot be removed. Folder
@@ -83,8 +79,6 @@ An operation list is not just an organization tool: it controls the order in whi
 
 ## Generation
 
-<Availability kind="preview" />
-
 <Screenshot src={generationMenu} maxWidth={341} alt="The toolpath generation menu reading Toolpaths up to date above a Stop button, and a Display section setting the 2D renderer to GPU or Canvas" caption="The generation menu reports calculation status. In the Preview Build, its Display section also controls the Sketch toolpath renderer." />
 
 Toolpaths generate when an enabled operation is visible. The generation gear menu shows
@@ -105,8 +99,6 @@ A visible toolpath is not proof that the machine can run it safely. Before machi
 </Aside>
 
 ## Operations by setup
-
-<Availability kind="preview" />
 
 In a two-sided job, the operations toolbar keeps **Add to Top** or **Add to Bottom**, **Plan**, **Export**, the
 show/hide-all eye, and the generation gear on one row. Add follows the face in view.
@@ -133,8 +125,6 @@ Retained operations of the other family stay editable with **not for this projec
 a count of cuts left out of export. See [Plasma through-cut](/guide/operations/plasma-through-cut/).
 
 ## ShopBot operation export
-
-<Availability kind="preview" />
 
 With **ShopBot (SBP)** selected, the per-operation export button's tooltip is
 **Export ShopBot part file for this operation**. It opens the ShopBot export dialog for that

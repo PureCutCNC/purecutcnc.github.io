@@ -66,8 +66,6 @@ into the spoilboard. An overcut over the project's **Max spoilboard cut depth** 
 
 ## One program per setup
 
-<Availability kind="preview" />
-
 For a Top/Bottom job, export writes a separate numbered program for each setup with selected
 operations. Each file includes setup instructions for orientation, touch-off, registration,
 and operator notes. A setup with no selected operations produces no program. For example, a
@@ -79,8 +77,6 @@ button to export that setup's enabled operations, then review the dialog checkli
 for the flip and registration checks before running the next program.
 
 ## Rotary programs
-
-<Availability kind="preview" />
 
 Turning cuts use inverse-time feed, normally `G93`, with a feed word on each motion line;
 normal feed mode returns with `G94`. The machine's rotary axis must match the bar, and a
@@ -176,8 +172,6 @@ numbers, speeds, and safe moves before running the file.
 <Screenshot src={shopbotExport} maxWidth={816} alt="Export ShopBot part file dialog: machine ShopBot (SBP), Inch units, Pocket Rough selected, Emit tool changes (C9) checked, the experimental note, and a preview of SBP lines with &Tool=1, C9, JZ, J2 and CG moves" caption="A ShopBot export writes a .sbp part file; tool changes are C9 calls." />
 
 ## Restart after a tool change
-
-<Availability kind="preview" />
 
 When **Emit tool changes (M6)** is selected, each emitted tool change is followed by a restart
 block. It restores absolute distance, feed per minute, and the XY plane (`G90 G94 G17`), then

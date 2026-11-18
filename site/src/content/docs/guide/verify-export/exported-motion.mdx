@@ -6,7 +6,6 @@ availability: stable
 status: draft
 ---
 
-import Availability from '../../../../components/Availability.astro';
 import Screenshot from '../../../../components/Screenshot.astro';
 import motionInspector from '../../../../assets/manual/verify-export/exported-motion/cam-debug-view-overlay.png';
 import motionWrapped from '../../../../assets/manual/verify-export/exported-motion/cam-debug-view-wrapped.png';
@@ -63,8 +62,6 @@ The export path validates arc output against the selected machine definition. If
 PureCutCNC applies the linear-move optimizer automatically. The inspector makes its effect visible by showing raw and optimized move counts alongside the exported motion.
 
 ## ShopBot exported layer
-
-<Availability kind="preview" />
 
 For **ShopBot (SBP)**, open **Export ShopBot part file** and choose an eligible operation.
 **Inspect exported motion** parses the prepared SBP output; its exported layer is labelled

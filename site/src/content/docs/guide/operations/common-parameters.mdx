@@ -6,7 +6,6 @@ availability: stable
 status: draft
 ---
 
-import Availability from '../../../../components/Availability.astro';
 import Screenshot from '../../../../components/Screenshot.astro';
 import propertyGroups from '../../../../assets/manual/operations/common-parameters/property-groups.png';
 import { Aside } from '@astrojs/starlight/components';
@@ -16,8 +15,6 @@ Operation properties are grouped by what they control. A group appears only when
 <Screenshot src={propertyGroups} alt="The expanded operation properties dialog for a pocket, with Identity, What it cuts, Tool, Depth, Speeds and feeds, Strategy, Entry and retract, Corners and Output shown as separate groups" caption="Expanding the properties shows every parameter group at once. Which groups appear depends on the operation." />
 
 ## Identity
-
-<Availability kind="preview" />
 
 **Kind** is shown as plain text. An empty **Description** shows **+ Add note**; click it to
 write a note.
@@ -31,8 +28,6 @@ write a note.
 | **Enabled** | Includes or excludes the operation from toolpath generation and export. |
 
 ## What it cuts
-
-<Availability kind="preview" />
 
 | Setting | Use |
 | --- | --- |
