@@ -58,8 +58,39 @@ alternate direction, including across the layer boundary. Rotary operations do n
 **Cut direction**: alternating cuts mix climb and conventional cutting.
 
 With **Around the bar**, the bar turns under the cutter at one position, then the path steps
-along the bar to cover the model. See the release placeholders below before relying on the
-motion between rings.
+along the bar to cover the model.
+
+### How A moves around the bar
+
+Within an around-the-bar operation, A always turns the same way; it never turns back between
+rings.
+
+- Where a stretch of the model can be cut in full rings with nothing in the way, the path is a
+  helix: the cutter moves along the bar while A turns, at most one stepover per turn, with a full
+  ring at each end of the stretch. On a square blank, a layer becomes a helix once its corners
+  are gone.
+- Elsewhere (square corners still standing, partial rings, region limits, gaps in the model) the
+  path is rings that all turn the same way. Between rings, A turns forward to the next ring's
+  start.
+- **Rotary rough** stays down between neighbouring rings, at cutting feed, where the move only
+  meets material that is already cleared or allowed in that layer. Where that cannot be shown,
+  it lifts to a safe height first.
+- **Rotary finish** steps along between rings while A holds, so A pauses briefly at each step.
+- Thread and Flutes engraving passes turn forward to the next start between depths.
+
+A keeps counting up through an operation and is not wrapped at 360°, so expect large A values
+in the exported program. Check the path in **3D** and **Sim**: helix starts and ends, the seams
+between helix and rings, and each layer change.
+
+### Other models on the bar
+
+A rotary rough or finish never cuts into another model on the same bar: imported models,
+Turn and Polygon models, whether or not another operation targets them, and whether or not
+they are visible. Within its own length, the operation cuts its target down to the target's
+surface but keeps clear of every other model there. Overlapping models count as one solid. To
+cut a groove into a Turn or a Hex, use a subtract feature or a stepped Turn profile, not a
+smaller model inside it. Moving, editing, or deleting a model marks the rotary operations it
+overlaps out of date, so they generate again.
 
 Draw a region on the Around sheet to limit the span along the bar and the range of angles.
 Regions work with both rotary operations and both pass choices, including across the zero seam.
@@ -69,22 +100,6 @@ Links outside the allowed region must clear the material left there. See
 [Regions](/guide/fundamentals/regions/).
 
 ## Changes before release
-
-{/* placeholder: purecutcnc#1117 */}
-<Aside type="caution" title="This behaviour is changing before 0.6.0 ships">
-How **Rotary rough** links between rings around the bar is being revised in
-[application issue #1117](https://github.com/PureCutCNC/purecutcnc/issues/1117).
-The choice between lifting and staying down is not settled in this draft. Recheck the final
-motion and clearances before using the program.
-</Aside>
-
-{/* placeholder: purecutcnc#1103 */}
-<Aside type="caution" title="This behaviour is changing before 0.6.0 ships">
-How **Around the bar** passes move A between rings is being revised in
-[application issue #1103](https://github.com/PureCutCNC/purecutcnc/issues/1103).
-Do not rely on a particular ring reversal, spiral, or same-direction sequence from this draft.
-Inspect the final generated and exported motion.
-</Aside>
 
 {/* placeholder: purecutcnc#1131 */}
 <Aside type="caution" title="This behaviour is changing before 0.6.0 ships">
@@ -192,9 +207,35 @@ See [Machine definition reference](/guide/reference/machine-definitions/#rotary-
 
 Top and Bottom bar programs use 0° and 180° respectively. A rotary machine makes the opening
 turn after a machine-coordinate safe-Z retract; without a rotary axis the program states the
-angle in an operator comment. Around is its own setup program. All rotary programs end where
-the last operation ended, after its normal retract. There is no closing A0 unwind: put the
-zero line up and zero the rotary work coordinate before each job.
+angle in an operator comment. Around is its own setup program.
+
+Every Around operation ends at 0 up, and so does a Top or Bottom bar program after its last
+operation. After the final retract, A turns forward to the next whole turn, and the program says **A is at …, 0 up. Zero A before the next operation.** What
+happens before the next rotary operation depends on the machine's **Zero A line** (see
+[Machines](/guide/cam-setup/machines/#rotary-axis)):
+
+- **Set** (for example `G92 A0`): every rotary operation opens with that line, so the program
+  runs straight through.
+- **Empty** (the default): between two rotary operations the program says **Zero A at 0 up,
+  then resume.** and stops with `M0`. Zero A on the controller, then resume. The export dialog
+  reminds you: **Start with A zeroed at 0 up. The program ends at 0 up and pauses between rotary
+  operations for you to zero A.**
+
+Before each job, put the zero line up and zero A.
+
+### No cross axis on an own-A machine
+
+On a machine whose rotary has its own A axis, an around-the-bar program usually writes no
+cross-axis word at all: no `Y` for a bar along X, no `X` for a bar along Y. The header says so,
+for example **Y IS NOT WRITTEN: ZERO Y ON THE BAR'S CENTRELINE AND LEAVE IT THERE**. Touch off Y
+on the bar's centreline and leave it there for the whole program. The program still writes the
+cross axis when it has to: when the origin is off the centreline, when a machine template moves
+that axis or uses `G28`/`G30`, for arcs in the XY plane, and for Top and Bottom programs.
+
+This lets gSender load the program. gSender refuses any file that contains both A and Y words.
+With a real A axis on a Grbl controller, also turn on **Use A-axis for grbl** in gSender's
+rotary settings; otherwise gSender turns A moves into Y moves. Programs that still need Y (a
+bar along Y, or Top and Bottom programs) are still refused by gSender.
 
 ## Verifying the result
 

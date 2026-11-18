@@ -49,6 +49,7 @@ rotary axis. Configure it in the machine editor or its raw JSON:
 | `rotary.about` | Required `"x"` or `"y"`: the project axis the bar lies along. |
 | `rotary.drive` | Required `"own"` for output word A, or `"borrowed"` for the other horizontal motor's word. Linear travel on that motor is then unavailable. |
 | `rotary.reversed` | Reverses the rotary sign; defaults to `false`. |
+| `rotary.zeroA` | Optional line run before every rotary operation, for example `"G92 A0"`. It must only zero the rotary word (`G92 … A0`, or `G10 L20 P… A0` in a work coordinate system the program selects) and must not move. Missing or empty means the program pauses with `M0` between rotary operations. |
 | `rotary.inverseTimeFeed` | Commands `on` and `off`, defaulting to `"G93"` and `"G94"`. `null` means no inverse-time capability and refuses turning feed cuts. Set nonstandard commands in raw JSON. |
 | `motion.machineCoordinateCommand` | Prefix for a machine-coordinate rapid. If absent, G-code uses `G53` plus the rapid command; `null` declares no such move. Required for safe indexing when tool-length compensation cannot establish clearance. |
 | `motion.machineSafeZ` | Machine-coordinate retract height in millimetres, default 0. It is independent of project origin and units; 0 assumes the machine's homed Z zero is at the top of travel. |
