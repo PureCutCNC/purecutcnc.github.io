@@ -4,17 +4,18 @@ name: Site
 # (manual + landing pages + the automation-owned app/, app-rc/, downloads/) and
 # verifies it.
 #
-# Deployment stays off until the production cutover: the deploy job only runs
-# when the repository variable PAGES_DEPLOY_ENABLED is "true" AND Settings →
-# Pages uses "GitHub Actions" as its source. See site/README.md.
+# This is the live site since the cutover on 2026-09-27: the deploy job runs on
+# main when the repository variable PAGES_DEPLOY_ENABLED is "true" and Settings →
+# Pages uses "GitHub Actions" as its source. Setting the variable to "false" is
+# step 1 of the rollback in planning/SITE_PLATFORM.md.
 #
 # Triggers:
 # - push to main: covers hand-written changes and the automated app/, app-rc/,
 #   and downloads/ commits from PureCutCNC/purecutcnc. Those are pushed with
 #   PAGES_DEPLOY_TOKEN (a personal access token), and pushes made with a PAT do
 #   start workflows; only GITHUB_TOKEN pushes do not.
-# - push to site-revamp: the integration branch for the site revamp (#24).
-#   Build and verify only; it is never deployed.
+# - push to site-revamp: the former revamp integration branch (#24), merged into
+#   main at the cutover. Build and verify only; it is never deployed.
 # - repository_dispatch (site-rebuild): explicit rebuild request, for use if the
 #   app repository ever pushes with a token that cannot start workflows.
 # - workflow_dispatch: manual rebuild or redeploy.

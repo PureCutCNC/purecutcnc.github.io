@@ -6,7 +6,6 @@ availability: stable
 status: draft
 ---
 
-import Availability from '../../../../components/Availability.astro';
 import Screenshot from '../../../../components/Screenshot.astro';
 import faceSections from '../../../../assets/manual/fundamentals/feature-tree/face-sections.png';
 import AppIcon from '../../../../components/AppIcon.astro';
@@ -58,13 +57,13 @@ What the panel shows depends on the selection.
 
 | Selection | Properties |
 | --- | --- |
-| **Project** | **Name**; **Units** (**Millimeters** or **Inches**); **Show feature info in sketch**; the clearance heights **Safe Z** and **Op clear Z**; the clamp clearances **Clamp clear XY** and **Clamp clear Z**; **Machine**, with **Manage machines…**. |
+| **Project** | **Name**; **Units** (**Millimeters** or **Inches**); **Show feature info in sketch**; the clearance heights **Safe Z** and **Op clear Z**; the clamp clearances **Clamp clear XY** and **Clamp clear Z**; **Max spoilboard cut depth**, the most any Edge Route's vertical overcut may go below the stock bottom; **Machine**, with **Manage machines…**. |
 | **Grid** | **Grid extent**, **Major lines**, **Minor lines**, **Snap increment**, **Visible**. |
 | **Stock** (rectangular) | **Width**, **Height**, **Thickness**, **Color**, **Visible**. |
 | **Stock** (from a feature) | **Source feature**, **Thickness**, **Color**, **Visible**, **Edit sketch**, **Reset to rectangle**. |
 | **Origin** | **Name**, **Z**, **Visible**, **Place origin**, and the **Presets** **Top left**, **Center top**, and **Bottom left**. |
 | **Backdrop** | **Image** (**Load image** or **Replace image**), **Visible**, **Opacity**, **Width**, **Height**, **Angle**, and **Move**, **Resize**, **Rotate**, and **Delete**. |
-| A feature | **Shape**: **Operation** (the role), plus **Mask mode** for a region, the text editor for text, and **3D orientation** for a model. **Instance**: **Name**, **Z top** and **Z bottom**, **Folder**, **Visible**, **Locked**. Then **Edit sketch**, **Delete feature**, and any constraints. |
+| A feature | **Shape**: **Operation** (the role), plus **Mask mode** for a region, the text editor for text, and **3D orientation** for a model. Imported models also offer **Pockets and holes**; see [Find pockets and holes](/guide/design/importing-3d-models/#find-pockets-and-holes). **Instance**: **Name**, **Z top** and **Z bottom**, **Folder**, **Visible**, **Locked**. Then **Edit sketch**, **Delete feature**, and any constraints. |
 | Several features | The same fields, showing **Mixed values** where the features differ, plus **Group** or **Ungroup** and **Delete selected**. |
 | Tabs or clamps | Their size, position, and height, for one or several at a time. See [Tabs](/guide/cam-setup/tabs/) and [Clamps and clearances](/guide/cam-setup/clamps-and-clearances/). |
 
@@ -130,6 +129,7 @@ offers what applies to the selection:
 - **Make unique** and **Select linked instances**, for linked features;
 - **Create operation**, **Add to operation**, and **Remove from operation**;
 - **Edit sketch** and **Add constraint**;
+- **Find pockets and holes…**, for an eligible imported model;
 - **Copy**, **Move**, **Resize**, **Rotate**, **Mirror**, and **Offset** (their names change to
   **Copy selected**, **Move selected**, or **Copy group** and so on for several features or a group);
 - **Add to folder**, **Group**, **Join**, and **Cut**;
@@ -141,8 +141,6 @@ be moved** or **Select two or more features to join**.
 
 ## Face sections
 
-<Availability kind="preview" />
-
 In a two-sided job, **Top face** and **Bottom face** section headings group the features by
 where you drew them. Click a heading to switch face. A selected empty face shows
 **Nothing here yet**. The headings have no ACTIVE or GHOST badges; other-face rows are dimmed
@@ -153,8 +151,6 @@ See [Setups and faces](/guide/fundamentals/setups-and-faces/) for the editing an
 
 ## Canned shape properties
 
-<Availability kind="preview" />
-
 A canned shape shows its generated-parameter summary and an editing action, such as
 **Edit ellipse…** or **Edit Gear…**. **Make unique** separates a linked copy's definition;
 **Expand to features** adds independent ordinary profiles and keeps the canned original. See
@@ -162,8 +158,6 @@ A canned shape shows its generated-parameter summary and an editing action, such
 Text opens with **Edit text…**; see [Editing text](/guide/design/text/#editing-text).
 
 ## No-effect warning
-
-<Availability kind="preview" />
 
 A feature row can show ⚠ with **No effect on the final shape: later features cover it.**
 The app shows it only when it can prove that later visible features of the opposite role

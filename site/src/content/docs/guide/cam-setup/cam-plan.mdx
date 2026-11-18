@@ -6,7 +6,6 @@ availability: stable
 status: draft
 ---
 
-import Availability from '../../../../components/Availability.astro';
 import Screenshot from '../../../../components/Screenshot.astro';
 import planRecommendations from '../../../../assets/manual/cam-setup/cam-plan/recommendations.png';
 import { Aside, Steps } from '@astrojs/starlight/components';
@@ -52,16 +51,12 @@ CAM Plan recommendations can be incomplete or unsuitable for your stock, cutter,
 
 ## Planning the Bottom setup
 
-<Availability kind="preview" />
-
 Choose **Bottom** in the face control before opening **Plan**. CAM Plan reads depths from
 that setup and adds its accepted operations there. A through-feature already covered fully
 by Top operations is listed as **Covered by the Top setup.** instead of being proposed again.
 See [Setups and faces](/guide/fundamentals/setups-and-faces/) for targets you can reach from either side.
 
 ## Planning Around
-
-<Availability kind="preview" />
 
 Choose **Around** before opening **Plan**. Turn, Polygon, and imported models are proposed
 for **Rotary rough** and **Rotary finish**; Thread and Flutes are proposed for follow-line cutting
