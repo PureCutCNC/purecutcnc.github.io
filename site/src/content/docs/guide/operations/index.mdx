@@ -5,10 +5,12 @@ pageType: overview
 availability: stable
 status: reviewed
 reviewed:
-  appCommit: 15973625079d9bebf4991bd1fa10eb1d33b21770
-  date: 2026-09-30
-  by: Codex
+  appCommit: 74b8276fcbf75291ac83fd9cd46f8d6ef74207f3
+  date: 2026-11-17
+  by: Claude (0.6.0 release pass)
 ---
+
+import Availability from '../../../../components/Availability.astro';
 
 import Screenshot from '../../../../components/Screenshot.astro';
 import choiceMap from '../../../../assets/manual/operations/index/operation-choice-map.svg';
@@ -18,7 +20,7 @@ Choose an operation from the feature’s role and geometry, then confirm its com
 tool, pass, and strategy. Regions can restrict a compatible cut but are not machining targets on
 their own. 3D surface operations accept one or more imported models; a STEP model counts as a model.
 
-<Screenshot src={choiceMap} alt="A three-column map from each machining goal to the geometry it needs you to select and the operation that does it, covering clearing, facing, contours, carving, engraving, holes and the 3D surface passes" caption="Start from the goal; the middle column is what the operation needs you to have selected." />
+<Screenshot src={choiceMap} alt="A three-column map from each machining goal to the geometry it needs you to select and the operation that does it, covering clearing, facing, contours, carving, engraving, holes, the 3D surface passes, rotary rough and finish, and plasma through-cut" caption="Start from the goal; the middle column is what the operation needs you to have selected." />
 
 ## Requirements
 
@@ -43,3 +45,29 @@ their own. 3D surface operations accept one or more imported models; a STEP mode
 	<LinkCard title="Engrave" description="Follow a feature line directly or as a slot." href="/guide/operations/engrave/" />
 	<LinkCard title="Drill" description="Machine circular holes with supported cycles." href="/guide/operations/drill/" />
 </CardGrid>
+
+## Review the cuts
+
+After adding an operation, review **Cuts** in **What it cuts**. It lists the target features
+and groups folder members. Hover a target to highlight it, or use × to remove it; the last
+machining target must remain. **Kind** names the operation as plain text, and **+ Add note**
+opens an empty **Description**. See [Working with operations](/guide/cam-setup/working-with-operations/).
+
+## Rotary operations
+
+Use **Rotary rough** to remove radial layers around a model inside bar stock, then **Rotary
+finish** to follow its surface. Targets can be imported models or generated Turn and Polygon
+models. Round-bar artwork on Around uses compatible sheet operations such as **Pocket** and
+**Engrave**. See [Rotary operations](/guide/rotary/rotary-operations/) for targets, tools,
+pass directions, warnings, and export checks.
+
+## Plasma operation
+
+<Availability kind="experimental" />
+
+| Goal | Feature target | Operation |
+| --- | --- | --- |
+| Cut through sheet with a torch | Closed add, subtract, or line contours in a Plasma project | [Plasma through-cut](/guide/operations/plasma-through-cut/) |
+
+Use a Plasma torch and Top setup. The operation offsets half the kerf toward scrap and cuts
+holes before outlines, part by part. Review leads, pierces, travel, and warnings before export.

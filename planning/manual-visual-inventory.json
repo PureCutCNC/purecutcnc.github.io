@@ -32,7 +32,7 @@
 		{
 			"page": "/guide/fundamentals/projects-and-files/",
 			"decision": "visuals",
-			"rationale": "M2 adds preview setup/face guidance. Existing captures remain for M6 re-shoot; new proposed visuals show changed controls where needed, with shared concepts illustrated on Setups and faces."
+			"rationale": "M4 adds the desktop ShopBot menu and format note. The new export dialog is illustrated on Exporting G-code; no separate file-menu capture is needed."
 		},
 		{
 			"page": "/guide/fundamentals/features-and-roles/",
@@ -125,12 +125,13 @@
 		},
 		{
 			"page": "/guide/cam-setup/tool-library/",
-			"decision": "visuals"
+			"decision": "visuals",
+			"rationale": "M4 proposes the Plasma torch fields. Existing milling captures remain for M6 review and re-shoot."
 		},
 		{
 			"page": "/guide/cam-setup/working-with-operations/",
 			"decision": "visuals",
-			"rationale": "M2 adds preview setup/face guidance. Existing captures remain for M6 re-shoot; new proposed visuals show changed controls where needed, with shared concepts illustrated on Setups and faces."
+			"rationale": "M4 adds project-type plasma choices and the ShopBot export tooltip. Plasma properties and the ShopBot dialog are illustrated on their owning pages; existing menu and list captures remain for M6 review."
 		},
 		{
 			"page": "/guide/cam-setup/cam-plan/",
@@ -139,7 +140,8 @@
 		},
 		{
 			"page": "/guide/cam-setup/machines/",
-			"decision": "visuals"
+			"decision": "visuals",
+			"rationale": "M4 proposes a plasma Pierce mode editor capture. Existing machine-editor and M3 rotary-axis visuals remain; ShopBot output is illustrated on Exporting G-code."
 		},
 		{
 			"page": "/guide/cam-setup/tabs/",
@@ -152,7 +154,8 @@
 		},
 		{
 			"page": "/guide/operations/",
-			"decision": "visuals"
+			"decision": "visuals",
+			"rationale": "M4 adds the plasma choice row. Plasma through-cut owns its properties, picker and kerf visuals; no second overview illustration is needed."
 		},
 		{
 			"page": "/guide/operations/common-parameters/",
@@ -239,26 +242,27 @@
 		{
 			"page": "/guide/verify-export/toolpath-preview/",
 			"decision": "visuals",
-			"rationale": "M2 adds preview setup/face guidance. Existing captures remain for M6 re-shoot; new proposed visuals show changed controls where needed, with shared concepts illustrated on Setups and faces."
+			"rationale": "M4 explains plasma band and pierce visibility. The shared proposed Sketch/3D visual is on Plasma through-cut; keep existing legend and level captures for M6 review."
 		},
 		{
 			"page": "/guide/verify-export/3d-view/",
 			"decision": "visuals",
-			"rationale": "M2 adds preview setup/face guidance. Existing captures remain for M6 re-shoot; new proposed visuals show changed controls where needed, with shared concepts illustrated on Setups and faces."
+			"rationale": "M4 explains the flat plasma kerf band. The shared proposed Sketch/3D visual is on Plasma through-cut; existing 3D and M2/M3 decisions remain."
 		},
 		{
 			"page": "/guide/verify-export/simulation/",
 			"decision": "visuals",
-			"rationale": "M2 adds preview setup/face guidance. Existing captures remain for M6 re-shoot; new proposed visuals show changed controls where needed, with shared concepts illustrated on Setups and faces."
+			"rationale": "M4 adds full-depth plasma simulation. The plasma operation page owns the path visual; propose a separate result capture here to distinguish removal from the band overlay."
 		},
 		{
 			"page": "/guide/verify-export/gcode-export/",
 			"decision": "visuals",
-			"rationale": "M2 adds preview setup/face guidance. Existing captures remain for M6 re-shoot; new proposed visuals show changed controls where needed, with shared concepts illustrated on Setups and faces."
+			"rationale": "M4 proposes the ShopBot dialog and part-file preview. Plasma Pierce mode and torch fields are illustrated on Machines and Tool library; existing G-code dialog remains for M6 review."
 		},
 		{
 			"page": "/guide/verify-export/exported-motion/",
-			"decision": "visuals"
+			"decision": "visuals",
+			"rationale": "M4 adds ShopBot layer wording. The proposed ShopBot dialog on Exporting G-code shows the output dialect; the existing inspector capture shows the shared comparison controls."
 		},
 		{
 			"page": "/guide/verify-export/setup-booklets/",
@@ -322,6 +326,23 @@
 			"decision": "not-needed",
 			"reviewStatus": "approved",
 			"rationale": "The page explains storage and network boundaries; an interface image would not clarify those guarantees."
+		},
+		{
+			"page": "/guide/rotary/overview/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/rotary/rotary-features/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/rotary/rotary-operations/",
+			"decision": "visuals"
+		},
+		{
+			"page": "/guide/operations/plasma-through-cut/",
+			"decision": "visuals",
+			"rationale": "M4 introduces experimental plasma cutting. Proposed properties, start picker and kerf/pierce visuals await M6 capture and review."
 		}
 	],
 	"visuals": [
@@ -334,6 +355,18 @@
 			"brief": "A simple left-to-right workflow from project setup through design, CAM, preview, simulation, export, and machine-side verification.",
 			"asset": "guide-overview/workflow-overview.svg",
 			"alt": "PureCutCNC workflow from project setup and design through CAM, verification, export, and machine-side checks",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "quickstart-new-project-dialog",
+			"page": "/quickstart/",
+			"afterHeading": "Create a new project",
+			"kind": "screenshot",
+			"purpose": "Show the project type and template the tutorial starts from.",
+			"brief": "New project dialog with Project type Milling / routing and the Blank imperial template selected; preview lists inch units, stock Width 4, Height 3, Thickness 0.75, and no machine.",
+			"asset": "quickstart/new-project.png",
+			"alt": "New project dialog with Milling / routing and the Blank imperial template selected, previewing a 4 × 3 × 0.75 inch stock and no machine",
 			"status": "captured",
 			"blockedBy": []
 		},
@@ -463,9 +496,9 @@
 			"afterHeading": "Desktop updates",
 			"kind": "screenshot",
 			"purpose": "Show where desktop users switch between Stable and Snapshot updates.",
-			"brief": "The macOS PureCutCNC menu open with Update Channel expanded to show Stable (currently selected) and Snapshot, over a dark-theme workspace with the project tree visible.",
+			"brief": "The desktop PureCutCNC menu open with Update Channel expanded to show Stable (currently selected) and Snapshot, over a dark-theme workspace with the project tree visible.",
 			"asset": "start-here/install-and-open/desktop-update-channel.png",
-			"alt": "macOS PureCutCNC menu open over a dark-theme workspace with Update Channel expanded and Stable currently selected alongside Snapshot",
+			"alt": "Desktop app on Linux with the PureCutCNC menu open (About PureCutCNC, Check for Updates…, Update Channel, Quit PureCutCNC) and Update Channel expanded to Stable (checked) and Snapshot, over the project tree",
 			"status": "captured",
 			"blockedBy": []
 		},
@@ -514,6 +547,30 @@
 			"brief": "Sketch view mid-draw: a Rectangle workflow panel pinned to the canvas with its title, instruction, Dimensions (Tab) button, and Cancel action, plus a pending rectangle on the canvas with live dimension readouts on each edge and a Pending rectangle label.",
 			"asset": "fundamentals/workspace/workflow-panel.png",
 			"alt": "Rectangle creation in progress with its floating workflow panel showing Dimensions (Tab) and Cancel buttons, and a pending rectangle on the canvas with live dimension readouts",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "workspace-face-control",
+			"page": "/guide/fundamentals/workspace/",
+			"afterHeading": "Face control",
+			"kind": "screenshot",
+			"purpose": "Show where the current-face control lives and what its menu offers.",
+			"brief": "Top strip of the centre area in a two-sided milling project on Bottom with Show other side on: the Sketch, 3D view and Simulation tabs, the Bottom · flipped X trigger at the right end of that row, its open menu (Top, Bottom, and Show other side with its eye), and enough of the canvas below to show the ghosted Top features.",
+			"asset": "fundamentals/workspace/face-control.png",
+			"alt": "The Bottom · flipped X face control at the right end of the Sketch, 3D view, and Simulation tab row, with its open menu listing Top, Bottom (checked), and a checked Show other side with its eye icon, over the canvas where the Top outline is ghosted in dashes and the note Top origin lands here after the flip marks the mirrored origin",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "workspace-around-view",
+			"page": "/guide/fundamentals/workspace/",
+			"afterHeading": "Around view",
+			"kind": "screenshot",
+			"purpose": "Show where Around is chosen and what the unrolled view it opens holds.",
+			"brief": "Face menu open in a rotary project on Around, with the Around entry checked beneath the trigger, over the unrolled sheet of a 30 mm round bar and the pocket and text features drawn on it. Hovering the entry is the closest honest frame: its explanation is a native title tooltip, which no screenshot can hold.",
+			"asset": "fundamentals/workspace/around-view.png",
+			"alt": "The current-face menu open on a rotary project with Around checked under the Around trigger, over the unrolled sheet of a 30 mm round bar: a dashed -180° to +180° strip 120 mm long and 94.248 mm around, holding Rect 1 (Z 30 → 28) and the words OAK and CNC",
 			"status": "captured",
 			"blockedBy": []
 		},
@@ -1178,6 +1235,18 @@
 			"blockedBy": []
 		},
 		{
+			"id": "import-model-recognition",
+			"page": "/guide/design/importing-3d-models/",
+			"afterHeading": "Find pockets and holes",
+			"kind": "screenshot",
+			"purpose": "Show how detected solids and pockets are selected and previewed before adding features.",
+			"brief": "Find pockets and holes dialog on a square mounting plate with four through holes, top and bottom pockets, and an unchecked solid beside the preview.",
+			"asset": "design/importing-3d-models/model-recognition.png",
+			"alt": "A square plate with four through holes and pockets on the top and bottom, beside their detected-shape list",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
 			"id": "import-model-orientation",
 			"page": "/guide/design/importing-3d-models/",
 			"afterHeading": "Orientation",
@@ -1663,9 +1732,9 @@
 			"afterHeading": "$intro",
 			"kind": "screenshot",
 			"purpose": "Show what the operation leaves in the stock, beside the toolpath that produced it.",
-			"brief": "The resulting 3D view of the stepped model, showing its cleaned floor and walls.",
+			"brief": "The simulated stock after a 3D rough and cleanup, showing the stepped floors and walls machined flat.",
 			"asset": "operations/3d-surface-cleanup/result.png",
-			"alt": "The stepped model after 3D Surface Cleanup, with its floor and walls visibly machined",
+			"alt": "The simulated stock after a 3D rough and 3D Surface Cleanup, with the stepped floors and walls machined flat",
 			"status": "captured",
 			"blockedBy": []
 		},
@@ -1946,6 +2015,18 @@
 			"blockedBy": []
 		},
 		{
+			"id": "m13-motion-wrapped",
+			"page": "/guide/verify-export/exported-motion/",
+			"afterHeading": "3D wrapped view (rotary)",
+			"kind": "screenshot",
+			"purpose": "Show a rotary program's exported motion wrapped around the bar, which is the view a flat plan cannot give.",
+			"brief": "The exported motion inspector on its 3D wrapped view for a Rotary finish on a Hex in a 34 mm round bar: the optimized and exported passes wrapped around the bar, the layer checkboxes, and the A range readout, orbited to a slightly low, side-on angle.",
+			"asset": "verify-export/exported-motion/cam-debug-view-wrapped.png",
+			"alt": "Exported motion inspector on its 3D wrapped view, showing a Rotary finish on a 25 mm hex wrapped around a 34 mm round bar, with the A range readout and layer checkboxes",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
 			"id": "setup-booklet-sample",
 			"page": "/guide/verify-export/setup-booklets/",
 			"afterHeading": "Sample booklet",
@@ -2085,8 +2166,8 @@
 			"purpose": "Show where face switching and the ghost overlay live.",
 			"brief": "Open the compact current-face menu on Bottom in a two-sided milling project. Include Top, Bottom, Show other side with its eye, and the Bottom · flipped X trigger.",
 			"asset": "fundamentals/setups-and-faces/face-menu.png",
-			"alt": "Open the compact current-face menu on Bottom in a two-sided milling project. Include Top, Bottom, Show other side with its eye, and the Bottom · flipped X trigger.",
-			"status": "proposed",
+			"alt": "Face menu open from the Bottom · flipped X trigger, listing Top and Bottom (checked) and a checked Show other side toggle",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -2097,8 +2178,8 @@
 			"purpose": "Distinguish editable Bottom geometry from Top reference ghosts.",
 			"brief": "Bottom Sketch view of an asymmetric two-sided block with a Bottom blind pocket and dashed Top blind features. Show other side is on. Include a THRU hole as the selectable exception.",
 			"asset": "fundamentals/setups-and-faces/bottom-ghosts.png",
-			"alt": "Bottom Sketch view of an asymmetric two-sided block with a Bottom blind pocket and dashed Top blind features. Show other side is on. Include a THRU hole as the selectable exception.",
-			"status": "proposed",
+			"alt": "Bottom face in the Sketch view, flipped about X: the Top blind pocket as a dashed ghost, the through Circle 3 and the Bottom blind pocket Rect 4 (Z 0.75 → 0.5) drawn solid, and the note Top origin lands here after the flip",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -2109,8 +2190,8 @@
 			"purpose": "Connect the flip axis and locating plan to the physical remount.",
 			"brief": "Bottom setup properties with Face up chip, Flip about and its sketch, shared touch-off note, one Registration reference, Operator notes and Delete setup… at bottom left.",
 			"asset": "fundamentals/setups-and-faces/setup-properties.png",
-			"alt": "Bottom setup properties with Face up chip, Flip about and its sketch, shared touch-off note, one Registration reference, Operator notes and Delete setup… at bottom left.",
-			"status": "proposed",
+			"alt": "Setup properties: Bottom dialog with Face up Bottom, Flip about Stock X · front ↔ back and its A/B corner diagram, a Registration reference Dowel · Rect 1, and Operator notes",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -2121,8 +2202,8 @@
 			"purpose": "Show the clickable face headings without the retired ACTIVE/GHOST badges.",
 			"brief": "Project tree in a Top/Bottom job with Top face and Bottom face headings, active-face features and a THRU hole. Show the clickable headings without ACTIVE/GHOST badges.",
 			"asset": "fundamentals/feature-tree/face-sections.png",
-			"alt": "Project tree with Top face and Bottom face headings and a THRU hole",
-			"status": "proposed",
+			"alt": "Project tree with Features split into Top face 3 (Rect 1, Rect 2, Circle 3 THRU) and the active Bottom face 1 (Rect 4)",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -2133,8 +2214,8 @@
 			"purpose": "Explain setup counts, program numbers and the toolbar in one panel.",
 			"brief": "CAM panel with Top and Bottom setup cards, Bottom 1 P02, a missing-registration warning, per-card gear and the Add to Bottom / Plan / Export toolbar row.",
 			"asset": "cam-setup/working-with-operations/setup-cards.png",
-			"alt": "CAM panel with Top and Bottom setup cards, Bottom 1 P02, a missing-registration warning, per-card gear and the Add to Bottom / Plan / Export toolbar row.",
-			"status": "proposed",
+			"alt": "Operations panel with Add to Bottom, a Top setup card (1 operation, P01) and the active Bottom card (1 operation, P02, with a warning marker) holding Pocket Rough 2; each setup header has its own eye, gear and export buttons",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -2145,8 +2226,8 @@
 			"purpose": "Show the current simulation setup and the fresh-stock limitation.",
 			"brief": "Bottom face active in the header, Simulation showing a Bottom cut on flipped stock, and the fresh-stock information button opened. There is no separate Setup picker in app c371097f.",
 			"asset": "verify-export/simulation/setup-simulation.png",
-			"alt": "Bottom face active in the header, Simulation showing a Bottom cut on flipped stock, and the fresh-stock information button opened. There is no separate Setup picker in app c371097f.",
-			"status": "proposed",
+			"alt": "The Simulation tab with the workspace face control showing Bottom · flipped X, the Bottom setup's pocket cut into the face-up stock, and the simulation toolbar's information button opened with the note that Bottom is simulated on fresh stock and material removed by other setups is not shown",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -2157,8 +2238,8 @@
 			"purpose": "Help readers choose the type before checking template stock.",
 			"brief": "New project dialog showing Project type tiles Milling / routing, Plasma and Rotary, with a blank template selected and Template as a 2×2 grid. Keep the stock preview visible.",
 			"asset": "fundamentals/projects-and-files/project-type-tiles.png",
-			"alt": "New project dialog showing Project type tiles Milling / routing, Plasma and Rotary, with a blank template selected and Template as a 2×2 grid. Keep the stock preview visible.",
-			"status": "proposed",
+			"alt": "New project dialog with Project type tiles Milling / routing (selected), Plasma, and Rotary above Project name, Blank imperial selected in the 2×2 Template grid, and the Template preview with stock Width 4, Height 3, and Thickness 0.75",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -2169,8 +2250,8 @@
 			"purpose": "Make a reference pick distinct from selecting the other-face feature.",
 			"brief": "Bottom drawing with Show other side on, a visible Top construction guide dashed, and an active workflow snapping to its point. Keep the tree visible so the guide authoring face is clear.",
 			"asset": "fundamentals/construction-geometry/cross-face-reference.png",
-			"alt": "Bottom drawing with Show other side on, a visible Top construction guide dashed, and an active workflow snapping to its point. Keep the tree visible so the guide authoring face is clear.",
-			"status": "proposed",
+			"alt": "Drawing a rectangle on Bottom with its corner snapped to a Top construction rectangle, which shows as a dashed ghost after the X flip; the tree lists the construction item with REF and TOP badges",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -2181,8 +2262,8 @@
 			"purpose": "Show why Bottom paths approach from underneath the part.",
 			"brief": "Bottom active with Isometric view from below. Include a visible Bottom path and a faint Top path at their correct positions on one stock.",
 			"asset": "verify-export/3d-view/bottom-isometric.png",
-			"alt": "Bottom active with Isometric view from below. Include a visible Bottom path and a faint Top path at their correct positions on one stock.",
-			"status": "proposed",
+			"alt": "The 3D view looking up at the stock from below with Bottom active: the Bottom setup's pocket path drawn bright red under the part, its plunges and retractions rising toward the camera, and the Top setup's pocket path faint at its own position on the same stock",
+			"status": "captured",
 			"blockedBy": []
 		},
 		{
@@ -2193,8 +2274,440 @@
 			"purpose": "Show how paperwork identifies the program and locating plan.",
 			"brief": "A Bottom operation booklet showing its setup name, program number, orientation and registration. Use the same two-sided fixture as the setup-properties visual.",
 			"asset": "verify-export/setup-booklets/setup-program-registration.png",
-			"alt": "A Bottom operation booklet showing its setup name, program number, orientation and registration. Use the same two-sided fixture as the setup-properties visual.",
-			"status": "proposed",
+			"alt": "First page of the Pocket Rough 2 operation booklet for a Bottom setup: the operation snapshot, the overview, and a Setup section with Setup 02 · Bottom, Stock Bottom face up, flipped about X, and Registration None declared, then the tool and operation settings",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "m3-new-project",
+			"page": "/guide/rotary/overview/",
+			"afterHeading": "Main idea",
+			"kind": "screenshot",
+			"purpose": "Identify the project choice and bar dimensions before creation.",
+			"brief": "New project with Rotary selected, blank metric template, Shape Round bar, Diameter, Length and Axis visible.",
+			"asset": "rotary/overview/new-project-rotary.png",
+			"alt": "New project dialog with Rotary selected and Blank metric chosen, the Template preview showing Shape Round bar, Diameter 30, Length 120, and Axis X",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "m3-stock-chuck",
+			"page": "/guide/rotary/overview/",
+			"afterHeading": "Chuck and tailstock",
+			"kind": "screenshot",
+			"purpose": "Connect bar size to real workholding capacity.",
+			"brief": "Bar Stock properties and Chuck properties as a paired capture: Shape, Diameter/Side, Length, Axis; Chuck size, grip limits and Jaws. Use a separate square state if needed.",
+			"asset": "rotary/overview/stock-chuck.png",
+			"alt": "Stock properties for a round bar (Shape Round bar, Diameter 30, Length 120, Axis X) beside Chuck properties (Chuck size 4\", Minimum grip diameter 3, Maximum grip diameter 93, Jaws 3) with the square-blank note",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "m3-around-sheet",
+			"page": "/guide/rotary/overview/",
+			"afterHeading": "Around and the unrolled sheet",
+			"kind": "screenshot",
+			"purpose": "Explain the zero line and where the seam joins.",
+			"brief": "Around sheet on a round bar with solid A0 line in the middle, origin marker, negative A below, ±180° seam labels, one canned feature and a named model band.",
+			"asset": "rotary/overview/around-sheet.png",
+			"alt": "Around sheet of a 30 mm round bar: the chuck zone on the left, the origin on the A0 line, -180° and +180° seam labels, the Turn model band and a helical Thread drawn across it",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "m3-creation-group",
+			"page": "/guide/rotary/rotary-features/",
+			"afterHeading": "Create a rotary feature",
+			"kind": "screenshot",
+			"purpose": "Find the four rotary commands and read a disabled reason.",
+			"brief": "Creation drawer open with Thread, Flutes, Turn and Polygon / hex. Pair a 30 mm round bar, where all four are live, with a square blank that has no Turn: its sheet work stays listed, disabled, and the hovered Thread's tooltip reads Turn a section of the square bar round first.",
+			"asset": "rotary/rotary-features/creation-group.png",
+			"alt": "The creation drawer on a 30 mm round bar with every shape and Thread, Flutes, Turn and Polygon / hex enabled, beside the drawer on a square blank where the shapes and Thread are dimmed and the Thread tooltip reads Thread — Turn a section of the square bar round first",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "m3-turn-panel",
+			"page": "/guide/rotary/rotary-features/",
+			"afterHeading": "Turn a diameter",
+			"kind": "screenshot",
+			"purpose": "Explain the plain diameter and the fields that set it.",
+			"brief": "Turn a diameter canvas side panel, reopened on the created Turn so it carries the live preview: Profile: pick a shape at None — one plain diameter, Start from chuck end 20, Length 70 and Diameter 22, parked on the canvas beside the bar, which is zoomed to show the whole Ø22 section on the 30 mm bar with its 120 mm and Ø30 mm labels.",
+			"asset": "rotary/rotary-features/turn-panel.png",
+			"alt": "Turn a diameter edit panel with Profile None — one plain diameter, Start from chuck end 20, Length 70 and Diameter 22, beside the dashed Ø22 section from 20 to 90 mm on a 30 mm round bar",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "m3-turn-profile-spline",
+			"page": "/guide/rotary/rotary-features/",
+			"afterHeading": "Turn a diameter",
+			"kind": "screenshot",
+			"purpose": "Show a shaped Turn copied from a drawn closed spline outline.",
+			"brief": "A candle-holder half profile drawn on Top as one closed outline — a spline top edge that climbs steeply into a wide cup rim at the far end, and a straight bottom edge just above the bar axis — picked in Profile: pick a shape as Composite 1, with the panel parked on the canvas so the whole outline and the bar stay visible beside it.",
+			"asset": "rotary/rotary-features/turn-profile-spline.png",
+			"alt": "Turn a diameter panel with Profile Composite 1 picked, the summary From Composite 1 · Ø24.148 mm · 81 long, the half-profile picture, and Start from chuck end 16, Length 81 and Diameter 24.148 mm, beside a closed candle-holder outline on a 30 mm round bar — a foot, slim waist and bulb, then a spline top edge that climbs steeply into a wide cup rim at the far end, above a straight bottom edge just above the axis",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "m3-thread-panel",
+			"page": "/guide/rotary/rotary-features/",
+			"afterHeading": "Cut a thread",
+			"kind": "screenshot",
+			"purpose": "Show thread fields, its Turn surface and approximation notice.",
+			"brief": "Cut a thread canvas side panel in metric units with pitch, starts, depth and direction, on-Turn diameter note and the radial V-bit approximation notice; no Tool field.",
+			"asset": "rotary/rotary-features/thread-panel.png",
+			"alt": "Cut a thread panel on a Turn of Ø24 mm with Start from chuck end 30, Length 50, Pitch 3, Starts 1, Depth 1 mm, Direction Right-hand, and the V-bit thread note",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "m3-rough-properties",
+			"page": "/guide/rotary/rotary-operations/",
+			"afterHeading": "Parameters",
+			"kind": "screenshot",
+			"purpose": "Relate targets, pass direction and supports to the cut.",
+			"brief": "Rotary rough properties with Cuts model and region chips, tool, Stepdown, Stock to leave radial, Chuck-end support, Tail-end support and Passes reference picture. Capture fields without promising final linking behaviour.",
+			"asset": "rotary/rotary-operations/rough-properties.png",
+			"alt": "Rotary rough properties: What it cuts with Setup Around and Cuts chips Turn and Region 1 (filter), Tool 4 mm Ball Endmill, Stepdown 0.4, Stock to leave radial 0, Chuck-end and Tail-end support 0, and Strategy Passes Along the bar with Stepover ratio 0.067",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "m3-finish-simulation",
+			"page": "/guide/rotary/rotary-operations/",
+			"afterHeading": "Verifying the result",
+			"kind": "screenshot",
+			"purpose": "Inspect removal after rough and finish while retaining bar support.",
+			"brief": "Show Rotary finish simulation through its earlier rough on a square blank, with a machined centre band, square retained ends, chuck and tailstock. Review playback links before accepting the still.",
+			"asset": "rotary/rotary-operations/finish-simulation.png",
+			"alt": "Simulation after a Rotary rough and then a Rotary finish on a square blank: the middle of the bar turned to a round band between two square retained ends, with the chuck at the left and a tailstock clamp at the right",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "m8-bust-finish-simulation",
+			"page": "/guide/rotary/rotary-operations/",
+			"afterHeading": "Verifying the result",
+			"kind": "screenshot",
+			"purpose": "Show a model finish carved from a square blank, not only a turned band.",
+			"brief": "Simulation of the bust in a square blank after Rotary rough and Rotary finish, from a low side-on angle, with the chuck and both square ends in view.",
+			"asset": "rotary/rotary-operations/bust-finish-simulation.png",
+			"alt": "Simulation of the bust model after a Rotary rough and a Rotary finish in a square blank, seen from a low angle: the carved head between the square end held in the chuck at the left and the square end at the right",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "m3-bar-3d",
+			"page": "/guide/verify-export/3d-view/",
+			"afterHeading": "Bar stock in 3D",
+			"kind": "screenshot",
+			"purpose": "Inspect actual bar material and workholding in three dimensions.",
+			"brief": "Side view of a 30 mm round bar in the 3D view, held by the chuck and a tailstock, with a Turn to Ø24 over its middle and its Rotary rough toolpath shown wrapped around it, plus an engraved Around cut on the plain bar beside the chuck. One image; no square blank needed.",
+			"asset": "verify-export/3d-view/bar-3d.png",
+			"alt": "3D view of a 30 mm round bar held by the chuck at the left and a tailstock at the right, with its middle turned to a narrower band wrapped by the orange Rotary rough toolpath, and the word OAK cut into the plain bar beside the chuck",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "m3-machine-axis",
+			"page": "/guide/cam-setup/machines/",
+			"afterHeading": "Rotary axis",
+			"kind": "screenshot",
+			"purpose": "Map bar orientation and motor choice to the program word.",
+			"brief": "Machine editor Rotary axis group with Bar along X, Driven by The Y motor, program word note and Reverse direction. Include Manage machines Rotary axis summary as a second panel if needed.",
+			"asset": "cam-setup/machines/rotary-axis.png",
+			"alt": "Rotary axis group in the machine editor: Rotary axis Bar along X, Driven by The Y motor, Program word: Y, Reverse direction, and an empty Zero A line (optional) field",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "m4-plasma-properties",
+			"page": "/guide/operations/plasma-through-cut/",
+			"afterHeading": "Parameters",
+			"kind": "screenshot",
+			"purpose": "Find the plasma-specific fields and distinguish automatic lead values.",
+			"brief": "Plasma through-cut properties showing Cuts, a Plasma tool, Kerf side, Reverse direction (opposite swirl consumables), both lead styles and automatic lengths. Use closed outlines with holes in a Plasma Top project.",
+			"asset": "operations/plasma-through-cut/operation-properties.png",
+			"alt": "Plasma through-cut properties: the experimental note, Kerf side Automatic, Reverse direction (opposite swirl consumables), Lead-in Arc 3 mm, Lead-out Line Automatic, Contour start, Cuts chips Rect 1, Circle 2 and Circle 3, the Powermax45 tool and Feed 5560",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "m4-plasma-start",
+			"page": "/guide/operations/plasma-through-cut/",
+			"afterHeading": "Pick a contour start",
+			"kind": "screenshot",
+			"purpose": "Distinguish contour entry from the pierce and show per-contour overrides.",
+			"brief": "Pick start point active on a part with two holes, one picked contour entry and the separate pierce marker. Show the compact movable picker and Use automatic start / Reset all starts; capture a second state if they do not fit together.",
+			"asset": "operations/plasma-through-cut/pick-start.png",
+			"alt": "Pick start point active on a plate with two holes: a picked entry on the top edge with its separate pierce marker, the compact picker panel, and Use automatic start and Reset all starts in the properties",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "m4-plasma-kerf",
+			"page": "/guide/operations/plasma-through-cut/",
+			"afterHeading": "Verifying the result",
+			"kind": "screenshot",
+			"purpose": "Check scrap side, lead clearance and pierces in Sketch and 3D.",
+			"brief": "Sketch view of a sheet with a closed part and holes: one-kerf translucent band under centre lines, leads and fixed-size pierce rings. Include Cuts, Lead-ins and Plunges switches. Pair with a low-angle 3D view so the flat sheet-top band is clear.",
+			"asset": "operations/plasma-through-cut/kerf-pierces.png",
+			"alt": "Sketch view of a plasma plate with two holes: kerf bands along each outline, arc leads, pierce rings, rapids between parts, and the Cuts, Lead-ins, Rapids and Plunges switches",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "m4-plasma-machine",
+			"page": "/guide/cam-setup/machines/",
+			"afterHeading": "Plasma machines",
+			"kind": "screenshot",
+			"purpose": "Connect the piercing method to the probe fields and their fixed metric units.",
+			"brief": "Machine editor for a duplicate Grbl plasma machine with Machine kind Plasma, torch commands, Pierce mode G-code owns piercing (touch-off before each cut), probe command, depth, feed, zero command and switch offset. Frame the fields without the unrelated template sections.",
+			"asset": "cam-setup/machines/plasma-pierce-mode.png",
+			"alt": "Plasma settings in the machine editor: Machine kind Plasma, torch on and off commands, optional THC commands, Pierce mode G-code owns piercing (touch-off before each cut), and the probe and Set Z zero fields",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "m4-torch-fields",
+			"page": "/guide/cam-setup/tool-library/",
+			"afterHeading": "Plasma torches",
+			"kind": "screenshot",
+			"purpose": "Identify the torch settings and the material number that must be supplied locally.",
+			"brief": "Tools properties for the metric Powermax45 XP example in a Plasma project: Type Plasma, Units, Kerf width, Cut feed, Pierce height, Cut height, Pierce delay (s), Plunge feed and unset QtPlasmaC material number. Do not imply the example suits every table.",
+			"asset": "cam-setup/tool-library/plasma-torch.png",
+			"alt": "Plasma tool properties for the Powermax45 XP example: Type Plasma, Units Millimeters, Kerf width 1.4, Cut feed 5560, Plunge feed 300, Pierce height 3.8, Cut height 1.5, Pierce delay 0.2 s, and an empty QtPlasmaC material number",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "m4-shopbot-export",
+			"page": "/guide/verify-export/gcode-export/",
+			"afterHeading": "ShopBot part files",
+			"kind": "screenshot",
+			"purpose": "Identify the dialect-specific dialog, tool-change option and part-file preview.",
+			"brief": "Export ShopBot part file dialog for ShopBot (SBP), with a generated operation selected, Emit tool changes (C9), Export .sbp and Preview (first 30 lines) including the units guard and SA. Use a healthy milling fixture; do not manufacture warnings.",
+			"asset": "verify-export/gcode-export/shopbot-export.png",
+			"alt": "Export ShopBot part file dialog: machine ShopBot (SBP), Inch units, Pocket Rough selected, Emit tool changes (C9) checked, the experimental note, and a preview of SBP lines with &Tool=1, C9, JZ, J2 and CG moves",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "m4-plasma-simulation",
+			"page": "/guide/verify-export/simulation/",
+			"afterHeading": "Simulating plasma",
+			"kind": "screenshot",
+			"purpose": "Distinguish full-depth kerf removal from the Sketch and 3D band overlay.",
+			"brief": "Plasma simulation of the Top setup after cutting the same closed part and holes used for the kerf preview. A 3/4 view, so the sheet's thickness shows the slots are cut through: frame the through-slots, lead slots and pierce holes. Play tool stays off, so no torch is shown; do not use a still to imply loose-part motion.",
+			"asset": "verify-export/simulation/plasma-result.png",
+			"alt": "Isometric simulation view of a plasma plate after the through-cut: the part's rectangle and its two holes are kerf-wide slots cut through the sheet, each contour with its lead slot and a small pierce hole, and the plate's near edges show the full sheet thickness",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "m8-surface-start",
+			"page": "/guide/rotary/rotary-features/",
+			"afterHeading": "Starting at the Turn's surface",
+			"kind": "screenshot",
+			"purpose": "Recognise the starts-above-surface warning and its one-step fix.",
+			"brief": "Around pocket at the bar surface over a smaller Turn: tree row with the warning marker and Properties showing Starts … above the surface of Turn 1 with the Start at turn surface button.",
+			"asset": "rotary/rotary-features/surface-start.png",
+			"alt": "Around text OAK over a Ø24 mm Turn, flagged with ⚠ in the tree, and Properties saying Starts 3 mm above the surface of Turn: the first pass cuts air, with the Start at turn surface button",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "m8-machine-list",
+			"page": "/guide/cam-setup/machines/",
+			"afterHeading": "My machines",
+			"kind": "screenshot",
+			"purpose": "Read the machine kind and rotary icons in the manager list.",
+			"brief": "Manage machines in a rotary project: built-in list with router, plasma and rotary icons, the legend, and grblHAL + rotary A selected showing Follows the bar.",
+			"asset": "cam-setup/machines/machine-list.png",
+			"alt": "Manage machines dialog listing the built-in router, plasma and rotary machines with their kind and rotary icons and the Router, Plasma, Rotary legend, with grblHAL + rotary A selected and its rotary axis shown as Follows the bar (now along X), on its own axis (A)",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "m8-polygon-panel",
+			"page": "/guide/rotary/rotary-features/",
+			"afterHeading": "Cut a polygon or hexagon",
+			"kind": "screenshot",
+			"purpose": "Recognise the polygon side panel and the cut it makes.",
+			"brief": "Cut a polygon side panel set to a hexagon (sides, across flats, start, length) over the Around sheet.",
+			"asset": "rotary/rotary-features/polygon-panel.png",
+			"alt": "Cut a polygon panel on a 30 mm round bar with Start from chuck end 20, Length 40, Sides 6, Across flats 22, Rotation 0, and the note that flats are approximated on the around view",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "m8-flutes-panel",
+			"page": "/guide/rotary/rotary-features/",
+			"afterHeading": "Cut flutes",
+			"kind": "screenshot",
+			"purpose": "Recognise the flutes side panel and the fluted result.",
+			"brief": "Cut flutes side panel (count, twist, direction, depth) on a Turn, over the Around sheet.",
+			"asset": "rotary/rotary-features/flutes-panel.png",
+			"alt": "Cut flutes panel on a Ø24 mm Turn with Start from chuck end 30, Length 50, Flutes 6, Twist 0, Direction Right-hand and Depth 1.5 mm, beside the Around sheet",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "m8-turn-profile",
+			"page": "/guide/rotary/rotary-features/",
+			"afterHeading": "Edit and follow a Turn",
+			"kind": "screenshot",
+			"purpose": "See a stepped Turn profile and a feature that follows it.",
+			"brief": "Turn with a Thread following it, in 3D, with the tree listing Thread below Turn.",
+			"asset": "rotary/rotary-features/turn-profile.png",
+			"alt": "3D view of a Ø24 mm Turn inside a 30 mm bar with a Thread wound along it, and the feature tree listing Thread below Turn",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "m8-work-on-turn",
+			"page": "/guide/rotary/rotary-features/",
+			"afterHeading": "Work on a Turn",
+			"kind": "screenshot",
+			"purpose": "See Around work planned at a Turn's radius.",
+			"brief": "Around V-carved text drawn over a smaller Turn, lowered to the Turn surface, seen in 3D.",
+			"asset": "rotary/rotary-features/work-on-turn.png",
+			"alt": "3D view of the word OAK V-carved into a Ø24 mm Turn on a 30 mm bar",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "m8-square-sheet",
+			"page": "/guide/rotary/rotary-features/",
+			"afterHeading": "Sheet work on a square bar",
+			"kind": "screenshot",
+			"purpose": "See sheet work on a square bar and where it cuts.",
+			"brief": "Square bar with a Turn section: Around sheet with a pocket drawn on the turned band and its toolpath in 3D.",
+			"asset": "rotary/rotary-features/square-sheet.png",
+			"alt": "3D view of a 40 mm square blank with a Ø36 mm turned section and a pocket toolpath on the round band",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "m8-pass-directions",
+			"page": "/guide/rotary/rotary-operations/",
+			"afterHeading": "Pass direction and regions",
+			"kind": "screenshot",
+			"purpose": "Compare Along the bar and Around the bar passes.",
+			"brief": "The same Turn model with Rotary finish set to Along the bar and to Around the bar, two 3D toolpath views side by side.",
+			"asset": "rotary/rotary-operations/pass-directions.png",
+			"alt": "Two 3D toolpath views of a Rotary finish on the same Turn: passes along the bar on the left, rings around the bar on the right",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "m8-helix-rings",
+			"page": "/guide/rotary/rotary-operations/",
+			"afterHeading": "How A moves around the bar",
+			"kind": "screenshot",
+			"purpose": "See a helix stretch and the full rings at its ends.",
+			"brief": "Around-the-bar finish on a round bar with a coarse stepover, so the helix and the end rings read as lines.",
+			"asset": "rotary/rotary-operations/helix-rings.png",
+			"alt": "Around-the-bar Rotary finish toolpath on a Turn: a helix along the model with a full ring at each end",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "m8-other-models",
+			"page": "/guide/rotary/rotary-operations/",
+			"afterHeading": "Other models on the bar",
+			"kind": "screenshot",
+			"purpose": "See a rotary operation keep clear of another model.",
+			"brief": "Bolt: Turn rough and finish simulated with the Hex standing untouched, wall foot cleared, viewed from a low angle.",
+			"asset": "rotary/rotary-operations/other-models.png",
+			"alt": "Simulation of a bolt: Rotary rough on the Turn cuts the shank down while the hexagon beside it stays standing",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "m8-export-zero-a",
+			"page": "/guide/rotary/rotary-operations/",
+			"afterHeading": "Rotary export",
+			"kind": "screenshot",
+			"purpose": "Recognise the zero-A reminder at export.",
+			"brief": "Export dialog for a rotary program showing the A orientation note and Start with A zeroed at 0 up.",
+			"asset": "rotary/rotary-operations/export-zero-a.png",
+			"alt": "Export G-code dialog for grblHAL + rotary A with one Around program, the note that the A orientation follows the stock, and Start with A zeroed at 0 up, with Inspect exported motion beside Export .nc",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "m13-rotary-inspect-wrapped",
+			"page": "/guide/rotary/rotary-operations/",
+			"afterHeading": "Rotary export",
+			"kind": "screenshot",
+			"purpose": "Show where Inspect exported motion leads for a rotary program.",
+			"brief": "Same shot as m13-motion-wrapped: the inspector's 3D wrapped view of a Rotary finish on a hex in a round bar.",
+			"asset": "rotary/rotary-operations/inspect-wrapped.png",
+			"alt": "Exported motion inspector on its 3D wrapped view, showing a Rotary finish on a 25 mm hex wrapped around a 34 mm round bar, with the A range readout and layer checkboxes",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "m8-top-bottom",
+			"page": "/guide/rotary/overview/",
+			"afterHeading": "Top and Bottom on a bar",
+			"kind": "screenshot",
+			"purpose": "See a flat-face operation on a bar.",
+			"brief": "Top setup on a square bar with a pocket on the flat face, 3D view with the toolpath and the A-held bar.",
+			"asset": "rotary/overview/top-bottom.png",
+			"alt": "3D view of a Top pocket toolpath on a 40 mm square blank",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "m8-around-drawing",
+			"page": "/guide/rotary/rotary-features/",
+			"afterHeading": "Drawing on Around",
+			"kind": "screenshot",
+			"purpose": "See 2D work drawn on the Around sheet.",
+			"brief": "Around sheet of a plain 30 mm round bar with a pocket rectangle, engraved skeleton text and V-carved outline text, with their toolpaths.",
+			"asset": "rotary/rotary-features/around-drawing.png",
+			"alt": "Around sheet of a 30 mm round bar with a rectangle pocket, the word OAK as engraved text and CNC as outline text, each with its toolpath",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "m8-around-3d",
+			"page": "/guide/rotary/rotary-features/",
+			"afterHeading": "Drawing on Around",
+			"kind": "screenshot",
+			"purpose": "See Around work projected onto the bar.",
+			"brief": "3D view of the same pocket, engraved text and V-carve toolpaths wrapped around the bar.",
+			"asset": "rotary/rotary-features/around-3d.png",
+			"alt": "3D view of a 30 mm bar with the pocket, engraving and V-carve toolpaths wrapped onto its surface",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "m8-around-simulation",
+			"page": "/guide/rotary/rotary-features/",
+			"afterHeading": "Drawing on Around",
+			"kind": "screenshot",
+			"purpose": "See the cut result of Around work.",
+			"brief": "Simulation of the pocket, engraving and V-carve cut into the round bar.",
+			"asset": "rotary/rotary-features/around-simulation.png",
+			"alt": "Simulation of a 30 mm bar with a rectangular pocket, the engraved word OAK and the V-carved word CNC cut into its surface",
+			"status": "captured",
+			"blockedBy": []
+		},
+		{
+			"id": "m8-chuck-tailstock-3d",
+			"page": "/guide/rotary/overview/",
+			"afterHeading": "Chuck and tailstock",
+			"kind": "screenshot",
+			"purpose": "See the chuck and tailstock keep-outs around the bar.",
+			"brief": "3D view of a round bar with a Turn, held in the chuck at one end and a tailstock at the other.",
+			"asset": "rotary/overview/chuck-tailstock-3d.png",
+			"alt": "3D view of a 30 mm round bar with a Turn, the chuck at the left end and the tailstock at the right end",
+			"status": "captured",
 			"blockedBy": []
 		}
 	]

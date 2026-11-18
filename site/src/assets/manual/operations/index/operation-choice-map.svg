@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 576" role="img" aria-labelledby="title description">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 668" role="img" aria-labelledby="title description">
 	<title id="title">Choosing an operation</title>
-	<desc id="description">Each machining goal, the geometry it needs you to select, and the operation that does it: clearing and facing, inside and outside contours, carving and engraving, holes, and the three-dimensional surface passes.</desc>
+	<desc id="description">Each machining goal, the geometry it needs you to select, and the operation that does it: clearing and facing, inside and outside contours, carving and engraving, holes, the three-dimensional surface passes, rotary rough and finish on bar stock, and plasma through-cut on sheet.</desc>
 	<defs>
 		<style>
 			.title { font: 700 25px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #e2e2e6; }
@@ -11,8 +11,8 @@
 			.detail { font: 14px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #9a9aa8; }
 		</style>
 	</defs>
-	<rect width="860" height="576" rx="24" fill="#0c0f14" />
-	<rect x="1" y="1" width="858" height="574" rx="23" fill="none" stroke="#2a2a30" stroke-width="2" />
+	<rect width="860" height="668" rx="24" fill="#0c0f14" />
+	<rect x="1" y="1" width="858" height="666" rx="23" fill="none" stroke="#2a2a30" stroke-width="2" />
 	<text class="title" x="430" y="52" text-anchor="middle">Start from the goal, check what it needs you to select</text>
 	<text class="col" x="40" y="104">YOUR GOAL</text>
 	<text class="col" x="330" y="104">WHAT YOU SELECT</text>
@@ -49,5 +49,13 @@
 	<text class="goal" x="40" y="480">Machine a 3D shape</text>
 	<text class="target" x="330" y="480">One or more models</text>
 	<text class="op" x="596" y="480">3D surface rough  ·  finish  ·  cleanup</text>
-	<text class="detail" x="430" y="542" text-anchor="middle">Regions can narrow where a cut is allowed, but they are never the target themselves.</text>
+	<line x1="40" y1="496" x2="820" y2="496" stroke="#1a1f29" stroke-width="1" />
+	<text class="goal" x="40" y="526">Shape a part from bar stock</text>
+	<text class="target" x="330" y="526">A model, Turn, or Polygon</text>
+	<text class="op" x="596" y="526">Rotary rough  ·  finish</text>
+	<line x1="40" y1="542" x2="820" y2="542" stroke="#1a1f29" stroke-width="1" />
+	<text class="goal" x="40" y="572">Cut through sheet (plasma)</text>
+	<text class="target" x="330" y="572">Closed contours</text>
+	<text class="op" x="596" y="572">Plasma through-cut</text>
+	<text class="detail" x="430" y="634" text-anchor="middle">Regions can narrow where a cut is allowed, but they are never the target themselves.</text>
 </svg>

@@ -3,10 +3,13 @@ title: CAM Plan
 description: Review suggested operations, tools, rest passes, and shared tabs before adding them to a project.
 pageType: task
 availability: stable
-status: draft
+status: reviewed
+reviewed:
+  appCommit: 74b8276fcbf75291ac83fd9cd46f8d6ef74207f3
+  date: 2026-11-17
+  by: Claude (0.6.0 release pass)
 ---
 
-import Availability from '../../../../components/Availability.astro';
 import Screenshot from '../../../../components/Screenshot.astro';
 import planRecommendations from '../../../../assets/manual/cam-setup/cam-plan/recommendations.png';
 import { Aside, Steps } from '@astrojs/starlight/components';
@@ -52,12 +55,17 @@ CAM Plan recommendations can be incomplete or unsuitable for your stock, cutter,
 
 ## Planning the Bottom setup
 
-<Availability kind="preview" />
-
 Choose **Bottom** in the face control before opening **Plan**. CAM Plan reads depths from
 that setup and adds its accepted operations there. A through-feature already covered fully
 by Top operations is listed as **Covered by the Top setup.** instead of being proposed again.
 See [Setups and faces](/guide/fundamentals/setups-and-faces/) for targets you can reach from either side.
+
+## Planning Around
+
+Choose **Around** before opening **Plan**. Turn, Polygon, and imported models are proposed
+for **Rotary rough** and **Rotary finish**; Thread and Flutes are proposed for follow-line cutting
+with a V-bit, shown as **Engrave**. Review the tools, depths, regions, and end supports before
+creating operations. See [Rotary operations](/guide/rotary/rotary-operations/#cam-plan-on-around).
 
 ## Related pages
 

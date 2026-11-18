@@ -2,12 +2,19 @@
 title: Setups and faces
 description: Draw and machine the Top and Bottom of one part, keep operations in their setups, and plan how to locate the stock after a flip.
 pageType: concept
-availability: preview
-status: draft
+availability: stable
+status: reviewed
+reviewed:
+  appCommit: 74b8276fcbf75291ac83fd9cd46f8d6ef74207f3
+  date: 2026-11-17
+  by: Claude (0.6.0 release pass)
 ---
 
+import Screenshot from '../../../../components/Screenshot.astro';
+import setupProperties from '../../../../assets/manual/fundamentals/setups-and-faces/setup-properties.png';
+import bottomGhosts from '../../../../assets/manual/fundamentals/setups-and-faces/bottom-ghosts.png';
+import faceMenu from '../../../../assets/manual/fundamentals/setups-and-faces/face-menu.png';
 import { Aside } from '@astrojs/starlight/components';
-import VisualPending from '../../../../components/VisualPending.astro';
 
 A setup describes how the stock sits on the machine for a group of operations. Use Top and
 Bottom setups when you need to turn the same part over and machine its other side.
@@ -37,7 +44,7 @@ When there is an opposite side to show, the menu offers **Show other side** with
 Use it to show or hide the ghost overlay. Finish the current drawing or edit before switching
 face; an unfinished edit keeps the other face unavailable.
 
-<VisualPending id="m2-face-menu" />
+<Screenshot src={faceMenu} maxWidth={249} alt="Face menu open from the Bottom · flipped X trigger, listing Top and Bottom (checked) and a checked Show other side toggle" caption="The face menu switches the face you draw on and shows or hides the other side." />
 
 ## Features and the tree
 
@@ -57,7 +64,7 @@ through hole or a full-height solid. The confirmation lists features that stay b
 locked features and those that do not qualify. Linked copies keep sharing their shape across
 faces, so a later shape edit can affect copies on both sides.
 
-<VisualPending id="m2-bottom-ghosts" />
+<Screenshot src={bottomGhosts} maxWidth={864} alt="Bottom face in the Sketch view, flipped about X: the Top blind pocket as a dashed ghost, the through Circle 3 and the Bottom blind pocket Rect 4 (Z 0.75 → 0.5) drawn solid, and the note Top origin lands here after the flip" caption="On Bottom, Top blind features show as ghosts; through features and Bottom features are drawn solid." />
 
 ## Through cuts and cross-face targets
 
@@ -67,8 +74,8 @@ side. A blind pocket on the other face is not a target from this side. A full-he
 feature stays a target of its own face, even though it is solid material you must machine
 around from either side.
 
-Select reachable features and use the Add button or **Use current selection** for a compatible
-operation. The operation's **Cuts** list shows its targets. A cross-face reach result uses ⇄
+Select reachable features and use the Add button or **Add to operation** from their context
+menu for a compatible operation. The operation's **Cuts** list shows its targets. A cross-face reach result uses ⇄
 to mark a target reached from the other face.
 
 When a through-feature has operations from both sides, **Check the passes meet** measures the
@@ -107,7 +114,8 @@ for the reference workflow.
 
 The CAM panel groups a two-sided job into setup cards. A header such as **Bottom 1 P02** means
 one operation in the Bottom setup, program 02. An empty card reads **No operations**. Each card
-has a gear for its setup properties and an export button when it has operations. A warning sign
+has a gear for its setup properties, an export button when it has operations, and an eye that
+shows or hides the toolpaths of that setup's operations. A warning sign
 calls attention to missing registration references.
 
 The operations toolbar has **Add to Top** or **Add to Bottom**, **Plan**, **Export**, a
@@ -142,7 +150,7 @@ your locating plan; the app does not verify that the stock is registered correct
 Use **Save setup** to keep changes. **Delete setup…** sits at the bottom left. Its confirmation
 lists the operations that will also be deleted; the last setup cannot be deleted.
 
-<VisualPending id="m2-setup-properties" />
+<Screenshot src={setupProperties} maxWidth={676} alt="Setup properties: Bottom dialog with Face up Bottom, Flip about Stock X · front ↔ back and its A/B corner diagram, a Registration reference Dowel · Rect 1, and Operator notes" caption="Each flipped setup records how the stock turns, the locating references, and notes for the operator." />
 
 <Aside type="danger" title="Safety: locate the part again after the flip">
 A flip with the wrong axis, registration, or work zero can put the tool through the part or a

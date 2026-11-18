@@ -3,14 +3,19 @@ title: Simulation
 description: Replay selected machining operations to inspect material removal and cutting motion before export.
 pageType: task
 availability: stable
-status: draft
+status: reviewed
+reviewed:
+  appCommit: 74b8276fcbf75291ac83fd9cd46f8d6ef74207f3
+  date: 2026-11-17
+  by: Claude (0.6.0 release pass)
 ---
 
 import { Aside, Steps } from '@astrojs/starlight/components';
-import VisualPending from '../../../../components/VisualPending.astro';
 import Availability from '../../../../components/Availability.astro';
 import Screenshot from '../../../../components/Screenshot.astro';
 import simulationPlay from '../../../../assets/manual/verify-export/simulation/view-simulation-play.png';
+import simulationSetup from '../../../../assets/manual/verify-export/simulation/setup-simulation.png';
+import simulationPlasma from '../../../../assets/manual/verify-export/simulation/plasma-result.png';
 
 Simulation removes material from a virtual stock using generated toolpaths. It helps expose an unexpected order, depth, or remaining material before you create G-code.
 
@@ -41,7 +46,9 @@ The playback bar provides **Play**, **Step**, speed, progress, **Stop**, and **R
 
 ## Detail
 
-Higher detail can make smaller changes to the simulated surface easier to see, but takes more memory and rendering time. Start with a practical setting, then increase detail only where you need a closer check.
+**Detail** sets the simulation grid and the resolution you see zoomed out. Higher detail can make smaller changes to the simulated surface easier to see, but takes more memory and rendering time. Start with a practical setting, then increase detail only where you need a closer check.
+
+Curved and slanted walls follow the tool's real edge, so they shade smoothly instead of stepping from cell to cell. On a flat block, zooming in shows the cut's real shape inside each cell: ball scallops, the exact edge of a through cut, and thin skins. You do not need to raise detail only to see fine surface texture. Around views on a rotary bar are drawn as before.
 
 ## Checklist
 
@@ -59,8 +66,6 @@ A clean simulation does not make an unsafe setup safe. Follow [Working safely](/
 
 ## Simulating a setup
 
-<Availability kind="preview" />
-
 Choose **Top** or **Bottom** in the workspace face control. Simulation follows that face and
 runs one setup at a time, with Bottom turned face up as it sits on the machine. Selected or
 visible operation scope applies within that setup.
@@ -70,7 +75,28 @@ that this setup is simulated on fresh stock. Material removed by other setups is
 Hover over the button or tap it to read the note. See [Setups and faces](/guide/fundamentals/setups-and-faces/) before judging the remaining
 material across a flip.
 
-<VisualPending id="m2-simulation-face" />
+<Screenshot src={simulationSetup} maxWidth={864} alt="The Simulation tab with the workspace face control set to Bottom · flipped X, the Bottom pocket cut into the top of the face-up stock, and the simulation toolbar's information button open, reading that Bottom is simulated on fresh stock and material removed by other setups is not shown" caption="Simulating the Bottom setup on its own fresh stock: the pocket that setup cuts into the stock, turned face up, with the toolbar's note explaining that the other setup's material removal is not shown." />
+
+## Simulating a bar
+
+On **Around**, playback shows the bar turning under the tool. Check the retained ends and,
+for a square blank, the standing corners throughout playback. A round bar also starts round
+in Top and Bottom simulation; the lower half is fixed, so a cut below the equator is not
+shown in that half. Simulation still cannot prove grip, support, or controller behaviour.
+See [Rotary operations](/guide/rotary/rotary-operations/#verifying-the-result).
+
+## Simulating plasma
+
+<Availability kind="experimental" />
+
+In a Top setup, **Plasma through-cut** removes a slot one kerf wide through the full sheet,
+including leads and pierce holes. **Play tool** shows the torch as a plain cylinder.
+Check the inside-before-outside order, skipped contours, and the material left between parts.
+Simulation does not model heat, taper, actual pierce craters, THC, or loose pieces tipping on
+slats. It does not validate the exported probe sequence. Follow [Working safely](/guide/start-here/safety/#plasma-cutting) before proving the program
+at the machine.
+
+<Screenshot src={simulationPlasma} maxWidth={864} alt="Isometric simulation view of a plasma plate after the through-cut: the part's rectangle and its two holes are kerf-wide slots cut through the sheet, each contour with its lead slot and a small pierce hole, and the plate's near edges show the full sheet thickness" caption="The plasma through-cut simulated on the Top setup: the rectangle and both holes are cut as kerf-wide slots, with the sheet's cut walls showing the full depth. Play tool is off, so the torch is not shown." />
 
 ## Related pages
 

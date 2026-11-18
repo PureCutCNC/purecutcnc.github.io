@@ -5,12 +5,14 @@ pageType: reference
 availability: stable
 status: reviewed
 reviewed:
-  appCommit: 7ad27b1e384074a35797a4747a85218067a565df
-  date: 2026-09-27
-  by: frankp
+  appCommit: 74b8276fcbf75291ac83fd9cd46f8d6ef74207f3
+  date: 2026-11-17
+  by: Claude (0.6.0 release pass)
 ---
 
-Machine definitions determine the file extension, coordinate rules, program text, motion syntax, and machine capabilities used by G-code export. Duplicate a built-in definition or import JSON in **Manage machines** before editing a custom one.
+import Availability from '../../../../components/Availability.astro';
+
+Machine definitions determine the file extension, coordinate rules, program text, motion syntax, and machine capabilities used by machine output. Duplicate a built-in definition or import JSON in **Manage machines** before editing a custom one.
 
 ## Built-in machines
 
@@ -22,6 +24,11 @@ Machine definitions determine the file extension, coordinate rules, program text
 | **LinuxCNC** | `.ngc` |
 | **Mach3** | `.tap` |
 | **UCCNC** | `.txt` |
+
+Six more built-ins carry a rotary block and use their base controller's extension:
+**GRBL 1.1 + rotary (borrowed motor)**, **GRBL 4-axis fork + rotary A**, **grblHAL + rotary A**,
+**Mach3 + rotary A**, **UCCNC + rotary A**, and **LinuxCNC + rotary A**. See
+[Built-in rotary machines](/guide/cam-setup/machines/#built-in-rotary-machines).
 
 ## Definition groups
 
@@ -38,6 +45,94 @@ Machine definitions determine the file extension, coordinate rules, program text
 ## Validation
 
 PureCutCNC validates a machine definition before using it. Export can be blocked when a selected operation needs an output capability the active definition does not provide, such as a tool change. Test any custom definition with a safe, simple program and your controller documentation before using it on a job.
+
+## Rotary definition
+
+The optional `rotary` block describes the rotary drive. Without it the definition has no
+rotary axis. Configure it in the machine editor or its raw JSON:
+
+| Field | Meaning |
+| --- | --- |
+| `rotary.about` | `"x"` or `"y"`: the project axis the bar lies along. The built-in rotary machines leave it out, which means the machine follows the project's bar. |
+| `rotary.drive` | Required `"own"` for output word A, or `"borrowed"` for the other horizontal motor's word. Linear travel on that motor is then unavailable. |
+| `rotary.reversed` | Reverses the rotary sign; defaults to `false`. |
+| `rotary.angleScalesWithUnits` | Optional; `true` when the controller converts its A word like a length under G20. Rotary programs are then exported in mm only, as they always are for a borrowed motor. Written only when true. |
+| `rotary.zeroA` | Optional line run before every rotary operation, for example `"G92 A0"`. It must only zero the rotary word (`G92 … A0`, or `G10 L20 P… A0` in a work coordinate system the program selects) and must not move. Missing or empty means the program pauses with `M0` between rotary operations. |
+| `rotary.inverseTimeFeed` | Commands `on` and `off`, defaulting to `"G93"` and `"G94"`. `null` means no inverse-time capability and refuses turning feed cuts. Set nonstandard commands in raw JSON. |
+| `motion.machineCoordinateCommand` | Prefix for a machine-coordinate rapid. If absent, G-code uses `G53` plus the rapid command; `null` declares no such move. Required for safe indexing when tool-length compensation cannot establish clearance. |
+| `motion.machineSafeZ` | Machine-coordinate retract height in millimetres, default 0. It is independent of project origin and units; 0 assumes the machine's homed Z zero is at the top of travel. |
+
+Top and Bottom bar programs retract to machine safe Z before turning to their opening angle.
+An unsafe turn is refused when no active tool-length compensation or machine-coordinate retract
+can establish clearance. Check these values against the actual controller and homing setup.
+See [Machines](/guide/cam-setup/machines/#rotary-axis) and
+[Rotary export](/guide/rotary/rotary-operations/#rotary-export).
+
+## Plasma definition
+
+<Availability kind="experimental" />
+
+`machineKind` is `"router"` or `"plasma"`; absence retains router behaviour. A `plasma` block
+requires plasma kind and the G-code output dialect. The built-ins are
+**QtPlasmaC (experimental)** (`.ngc`) and **Grbl plasma (OpenBuilds CONTROL) (experimental)**
+(`.gcode`). Their blocks describe these fields:
+
+| Field | Meaning |
+| --- | --- |
+| `plasma.torchOnCommand`, `plasma.torchOffCommand` | Required torch commands. |
+| `plasma.thcOnCommand`, `plasma.thcOffCommand` | Optional torch height control commands. Blank optional commands are absent. |
+| `plasma.pierceMode` | `"controller"` or `"gcode"`; determines which other fields are required. |
+| `plasma.materialSelectCommand` | Controller mode: required material selection, using `{materialNumber}` from the torch. |
+| `plasma.materialWaitCommand` | Controller mode: required wait after selecting material. |
+| `plasma.materialFeedCommand` | Controller mode: required material-feed command, emitted after the wait. |
+| `plasma.touchOff.probeCommand` | G-code mode: required probe command, `G38.2` in the built-in. |
+| `plasma.touchOff.probeDepth` | Positive distance below Z zero in mm; built-in 30. |
+| `plasma.touchOff.probeFeed` | Positive probe feed in mm/min; built-in 100. |
+| `plasma.touchOff.setZeroCommand` | Required Z-zero command; built-in `G10 L20 P0`. |
+| `plasma.touchOff.switchOffset` | Nonnegative mm offset; absent means zero. Emitted as negative Z when setting zero. |
+
+Controller mode requires the material sequence and forbids `touchOff`. G-code mode requires
+`touchOff` and forbids the material sequence. Torch dimensions and feeds belong to the tool;
+QtPlasmaC's actual cutting settings belong to the controller's material table. See
+[Plasma machines](/guide/cam-setup/machines/#plasma-machines) and
+[Plasma programs](/guide/verify-export/gcode-export/#plasma-programs).
+
+## ShopBot output dialect
+
+<Availability kind="experimental" />
+
+ShopBot output is experimental: it has not been tested on a real ShopBot yet, and feedback is welcome.
+
+**ShopBot (SBP)** uses `.sbp` and `outputDialect: "opensbp"`. An absent `outputDialect` uses
+G-code. The dialect has no editor control; a duplicate of ShopBot keeps it. PureCutCNC writes
+the entire part file, so G-code commands and templates do not control its output. The editor
+shows **Name**, **File extension**, and an explanatory note; axis mapping, number format, and
+arc support are in **Advanced (raw JSON)**. See
+[ShopBot part files](/guide/verify-export/gcode-export/#shopbot-part-files) for output commands.
+
+## Template rules
+
+G-code templates are checked by their purpose:
+
+| Template or field | Allowed content |
+| --- | --- |
+| Tool-change commands, program footer, program-end command | Arbitrary commands, including motion. Inspect them against the controller and workholding. |
+| Program header and work-coordinate selection | Start-of-program modal setup, comments, parameter assignments, and non-moving M codes. A bare `G0`/`G00` is allowed without axis words. `G91.1` is allowed; `G90.1`, `G91`, and axis words are refused. |
+| Operation header, spindle, coolant, and pause templates | Comments, parameter words, and commands that neither move an axis nor change a mode. |
+| Units templates | Only their `G20` or `G21` word. |
+| Canned-cycle command, retract mode, and cancel fields | Only the matching cycle command, `G98`/`G99`, or `G80`, respectively. |
+| Rapid, linear, arc, feed, and spindle command fields | The command syntax defined for that field, rather than arbitrary program lines. |
+
+Numeric placeholders must be values of permitted word letters. Another word may follow a
+placeholder: `T{toolNumber}M6` and `S{rpm}F{feed}` are accepted in a suitable template.
+A placeholder cannot become part of a G or M command number: `M{toolNumber}` is refused.
+User names and descriptions belong inside comments; the app sanitises that text.
+
+A project machine that violates a rule stays in the project with a load warning. The manager,
+editor, and export dialog list each offending template, line number, line text, and rule.
+Export writes nothing until it is fixed. The project copy is retained even when it is
+**Not in my machines**; **Save to my machines** explicitly adds it to the personal library.
+See [Machines](/guide/cam-setup/machines/#template-rules-and-retained-machines).
 
 ## Related pages
 

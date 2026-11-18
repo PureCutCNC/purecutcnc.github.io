@@ -1,13 +1,16 @@
 # AGENTS.md — how to update this site
 
-This repo is the **public website for PureCut CNC**, served as a static site at
-`https://purecutcnc.github.io` via GitHub Pages (the `main` branch is the live
-site). The live site is plain HTML/CSS/JS at the repository root — there is **no
-build step** for it.
+This repo is the **public website for PureCut CNC**, `https://purecutcnc.github.io`.
+Since the cutover on 2026-09-27 the live site is the **Astro + Starlight project
+in `site/`**: every push to `main` runs `.github/workflows/site.yml`, which builds
+`site/` into one artifact (landing, downloads, Quick Start, User Guide, legacy
+redirects, plus the automation-owned `app/`, `app-rc/`, `downloads/`) and
+deploys it to GitHub Pages. See `site/README.md` and `planning/SITE_PLATFORM.md`.
 
-A generated replacement (Astro + Starlight, with the new user manual) is being
-built in `site/`. It is **not deployed yet**: GitHub Pages still publishes the
-root files. See `site/README.md` and `planning/SITE_PLATFORM.md`.
+The old hand-written HTML at the repository root (`index.html`,
+`quickstart.html`, `downloads.html`, `guide/`, `images/`) is **no longer
+served**. It stays only so the rollback in `planning/SITE_PLATFORM.md` can
+restore it; don't edit it.
 
 Read this before editing. Most update mistakes come from not knowing which files
 are hand-maintained and which are written by automation.
@@ -20,117 +23,118 @@ are hand-maintained and which are written by automation.
    stale tree causes conflicts and re-does work CI already did.
 2. **Never hand-edit generated files** (see the map below). CI overwrites them on
    the next release/deploy, so your changes would be lost *and* can conflict.
-3. **Branch + PR. Never commit directly to `main`.** `main` is the live site.
-   Create a branch, open a PR, and let it merge.
-4. **No `Co-Authored-By` lines and no "Generated with…" footer** in commits or PR
+3. **Branch + PR. Never commit directly to `main`.** Every merge to `main`
+   deploys the site. Create a branch, open a PR, and let it merge.
+4. **Manual changes for an unreleased app version wait for that release.** Keep
+   them in draft PRs and merge them with the release, so the live guide always
+   matches the app people can download.
+5. **No `Co-Authored-By` lines and no "Generated with…" footer** in commits or PR
    descriptions.
-5. **Verify locally** before opening the PR (see *Local preview*).
+6. **Verify locally** before opening the PR (see *Local preview*).
 
 ## Repo map — who owns what
 
 | Path | Owner | Notes |
 |------|-------|-------|
-| `index.html`, `quickstart.html` | **You (manual)** | Marketing / landing copy. |
-| `downloads.html` | **You (manual)** | The *page shell + JS*. The version numbers it shows come from JSON — see below. |
-| `guide/*.html` | **You (manual)** | Documentation pages. |
-| `guide/icons.svg` | **You (manual)** | Shared icon sprite for the guide. **Sync from the app repo** — see *Icons*. |
-| `guide/icons-loader.js` | **You (manual)** | Injects `guide/icons.svg` so `<use href="icons.svg#id">` resolves. |
-| `favicon.svg`, `images/` | **You (manual)** | Site chrome and screenshots. |
+| `site/src/pages/index.astro`, `site/src/data/landing.ts` | **You (manual)** | Landing page markup and its feature, strategy, and operation copy. Images in `site/src/assets/landing/`. |
+| `site/src/pages/downloads.astro` | **You (manual)** | Downloads page shell + JS. The versions it shows come from JSON — see below. |
+| `site/src/content/docs/quickstart.mdx` | **You (manual)** | Quick Start, at `/quickstart/`. |
+| `site/src/content/docs/guide/` | **You (manual)** | The User Guide, at `/guide/`. Page tree in `site/config/manual-structure.mjs`; screenshots in `site/src/assets/manual/`. |
+| `site/` (rest) | **You (manual)** | Astro config, components, checks, and the capture script. See `site/README.md`. |
+| `site/public/images/`, `site/public/guide/` | **Frozen** | Copies of the old site's image URLs. Refreshed only by `npm run legacy:sync`. |
 | `downloads/stable/*.json` | **CI (auto)** | Written by the app repo's `deploy-{linux,macos,windows}.yml` on release publish. |
 | `downloads/snapshot/*.json` | **CI (auto)** | Written by the app repo's RC deploy on main-branch pushes. |
 | `app/` | **CI (auto)** | The **deployed stable web app** build (`deploy.yml` copies `dist/` here). Includes its own `app/icons.svg`, `app/favicon.svg`. Do **not** touch. |
-| `app-rc/` | **CI (auto)** | The **deployed preview build** (`deploy-rc.yml`). Do **not** touch. |
-| `site/` | **You (manual)** | Source of the new generated site. Not live until the cutover. |
-| `.github/workflows/site.yml` | **You (manual)** | Builds and verifies `site/`; deployment is off until the cutover. |
-| `planning/` | **You (manual)** | Decision records and runbooks for the site and manual work. |
-| `.nojekyll` | **You (manual)** | Stops the Pages branch build from running Jekyll (which dropped `_`-prefixed app files). |
+| `app-rc/` | **CI (auto)** | The **deployed preview build** (`deploy-rc.yml`). The site reads its icons from `app-rc/icons.svg`. Do **not** touch. |
+| `.github/workflows/site.yml` | **You (manual)** | Builds, verifies, and deploys `site/`, then smoke-tests the live site. |
+| `planning/` | **You (manual)** | Decision records, runbooks, manual coverage and visual inventory. |
+| `index.html`, `quickstart.html`, `downloads.html`, `guide/`, `images/`, `favicon.svg` | **Legacy** | The pre-cutover site, kept for rollback only. Not served; don't edit. |
+| `.nojekyll` | **You (manual)** | Keeps a rollback branch build from running Jekyll (which dropped `_`-prefixed app files). |
 
 The automation lives in the **app repo** (`PureCutCNC/purecutcnc`) under
 `.github/workflows/deploy*.yml`; those jobs check out this repo and push commits
 here as `github-actions[bot]` (e.g. `deploy: update app from release vX`,
-`downloads: update … stable metadata for vX`). This repo's only workflow,
-`site.yml`, builds and verifies `site/` on every push to `main` (including those
-automated commits) or `site-revamp`, and on pull requests.
+`downloads: update … stable metadata for vX`). Each of those pushes to `main`
+starts `site.yml`, which rebuilds and redeploys the site, so a new app build
+goes live only through that run. Pull requests are built and verified, with a
+`site-preview` artifact, but not deployed.
 
 ## How the moving parts work
 
-### Download cards (`downloads.html`)
-The page fetches `downloads/{channel}/{platform}.json` at runtime and renders a card
-per platform/track. Those JSON files carry the version, tag, release URL, and asset
-links, and are **updated automatically** when a release is published — you normally
-do nothing. (The GitHub API `releases/latest` is only used for the FAQ "latest
-stable" link and the empty-state fallback message.)
+### Download cards (`/downloads/`)
+`site/src/pages/downloads.astro` fetches `downloads/{channel}/{platform}.json` at
+runtime and renders a card per platform/track. Those JSON files carry the
+version, tag, release URL, and asset links, and are **updated automatically**
+when a release is published — you normally do nothing. (The GitHub API
+`releases/latest` is only used for the "latest stable" link and the empty-state
+fallback message.)
 
-### Hero version badge (`index.html`)
-`<span id="js-hero-version">` is **empty and `hidden` in the markup**. JS fills it
-in at runtime from the GitHub API's `releases/latest` and unhides it, so the badge
-self-updates once a release is published. **Never hardcode a version there** — a
-static fallback only goes stale and contradicts the live value. If the API call
-fails or is rate-limited the span stays hidden and the badge degrades to just the
-feature list, which still reads correctly.
+### Hero version badge (`/`)
+In `site/src/pages/index.astro`, `<span id="js-hero-version">` is **empty and
+`hidden` in the markup**. JS fills it in at runtime from the GitHub API's
+`releases/latest` and unhides it, so the badge self-updates once a release is
+published. **Never hardcode a version there** — a static fallback only goes
+stale and contradicts the live value. If the API call fails or is rate-limited
+the span stays hidden and the badge degrades to just the feature list.
 
-The rest of the badge (`Multi-language · Dark/Light themes · …`) *is* hand-written
-— refresh those feature words on a release so they headline what's actually new.
+The rest of the badge (`Sheet nesting · CAM Plan · …`) *is* hand-written —
+refresh those feature words on a release so they headline what's actually new.
 
-### Icons (the shared sprite)
-The **source of truth** is the app repo at `public/icons.svg`. There are copies in
-this repo:
-- `app/icons.svg`, `app-rc/icons.svg` — **auto** (part of the deployed build). Leave alone.
-- `guide/icons.svg` — **manual copy** used by the guide pages. It drifts behind the
-  app sprite when new icons are added and must be re-synced by hand.
-
-To sync: copy the app repo's `public/icons.svg` over `guide/icons.svg` wholesale
-(both share the same `<svg xmlns=…><symbol id=… viewBox=…>…</svg>` structure).
-Verify the symbol count matches and spot-check that referenced ids resolve.
+### Icons
+Guide pages use `<AppIcon name="…" />`, which inlines the symbol from
+`app-rc/icons.svg` at build time. That file is the deployed preview build's copy
+of the app repo's `public/icons.svg`, so there is nothing to sync by hand. A
+missing icon fails the build.
 
 ## Playbook — when a new version ships
 
 1. **Sync** this repo (`git pull --ff-only` on `main`), then branch.
 2. **Confirm CI already ran** (usually within minutes of publishing the release):
    `downloads/stable/*.json` should read the new `"version"`, and there should be a
-   `deploy: update app from release vX` commit. If not, wait for CI rather than
-   editing those files by hand.
-3. **Refresh the hero badge tagline** in `index.html` so it headlines the new
-   release's features. Leave the version alone — it's injected at runtime and must
-   stay out of the markup (see *Hero version badge*).
-4. **Refresh feature copy** in `index.html` for anything new or changed. Pull the
-   change list from the GitHub release notes:
-   `gh release view vX --repo PureCutCNC/purecutcnc`. Fix anything now inaccurate
-   (e.g. a renamed/removed operation).
-5. **Sync `guide/icons.svg`** from the app repo's `public/icons.svg` if new icons
-   were added.
-6. Optionally add/adjust **guide pages** for major new features.
-7. **Verify locally**, then open a PR.
+   `deploy: update app from release vX` commit whose `Site` run deployed. If not,
+   wait for CI rather than editing those files by hand.
+3. **Refresh the hero badge tagline** in `site/src/pages/index.astro` so it
+   headlines the new release's features. Leave the version alone — it's
+   injected at runtime (see *Hero version badge*).
+4. **Refresh feature copy** in `site/src/data/landing.ts` for anything new or
+   changed. Pull the change list from the GitHub release notes:
+   `gh release view vX --repo PureCutCNC/purecutcnc`. Fix anything now
+   inaccurate (e.g. a renamed/removed operation).
+5. **Merge the release's manual PRs** (held as drafts until now, see rule 4).
+   Before merging, turn preview availability notices for features that are now
+   stable into stable text, and re-run `npm run content:cutover` and
+   `npm run verify:cutover` in `site/`.
+6. **Verify locally**, then open or merge the PR. Watch the `Site` run on `main`
+   through `deploy` and `smoke-test`.
 
 ## Playbook — adding or updating a guide page
 
-- Guide pages live in `guide/` and load the sprite via
-  `<script src="icons-loader.js"></script>` + `<use href="icons.svg#id">`.
-- If a page needs an icon that isn't in `guide/icons.svg` yet, sync the sprite from
-  the app repo first (don't hand-add a single symbol — keep the copy whole).
+- Pages are MDX under `site/src/content/docs/guide/`; the next section covers
+  how to write them.
+- Use `<AppIcon />` for app icons and `<Screenshot />` / `<VisualPending />`
+  for visuals; never link to `guide/*.html` or the old `images/` paths.
 
-## Working on the new site (`site/`)
+## Working on the site (`site/`)
 
-- The revamp lives on the `site-revamp` integration branch. Branch from it and
-  open revamp PRs against it, not `main`; it reaches `main` in one merge before
-  the cutover (see `planning/SITE_PLATFORM.md`).
+- Branch from `main` and open PRs against `main`. A manual update for an
+  unreleased app version may be a stack of draft PRs, each based on the one
+  before; retarget them to `main` in order when the release ships.
 - Setup and commands are in `site/README.md`: `npm ci --prefix site`, then
   `npm run ci` inside `site/`.
 - Before writing a User Guide page, read `planning/MANUAL_BLUEPRINT.md`. Every
   page is already listed, with its title, type, and owning workstream, in
   `site/config/manual-structure.mjs`; start from `site/templates/<type>.mdx` and
   run `npm run content`. Don't add pages or sections outside that file.
-- When a page replaces a legacy `guide/*.html` page, update its entry in
-  `site/config/legacy-routes.mjs` in the same PR.
+- Old URLs (`/guide/*.html`, `/downloads.html`, `/quickstart.html`) redirect
+  through `site/config/legacy-routes.mjs`. If a page moves or a heading id
+  changes, update its entry and `anchors` in the same PR.
 - `planning/manual-coverage.csv` lists every capability the manual must cover
   and which page and workstream own it. Update its rows when your page lands
   (see `planning/MANUAL_COVERAGE.md`); `npm run coverage` checks it.
-- The new site copies `app/`, `app-rc/`, and `downloads/` from the root at build
+- The site copies `app/`, `app-rc/`, and `downloads/` from the root at build
   time and reads icons from `app-rc/icons.svg`, so it needs no hand-synced copies.
-- The old `images/` and `guide/screenshots/` URLs are kept as frozen copies in
-  `site/public/`. After merging `main` into `site-revamp`, run
-  `npm run legacy:sync` in `site/` if those images changed.
-- Until the cutover, fixes that must go live now still belong in the root files.
+- The old `images/` and `guide/screenshots/` URLs are served from frozen copies
+  in `site/public/`. Don't edit them; new images go in `site/src/assets/`.
 
 ### Tracking issues
 
@@ -169,17 +173,39 @@ and abort on drift.
 
 ## Local preview & verification
 
-From the repo root:
+The site is the Astro project in `site/` (`npm ci --prefix site` once). From
+`site/`:
 
 ```
-python3 -m http.server 8000
+npm run dev
 ```
 
-Then open `http://localhost:8000/`:
-- **index.html** — hero shows the right version; new/changed features described.
-- **downloads.html** — each Stable card shows the new version with working asset
-  links (served from JSON).
-- a **guide page** — icons render (spot-check the newest ones); no `icons.svg` 404
-  in the browser console.
+Then open `http://localhost:4321/` (Astro's default port). The dev server also
+serves `/app/`, `/app-rc/`, `/downloads/*.json`, and the legacy redirects.
+
+To check what CI publishes, build and serve the artifact instead:
+
+```
+npm run build
+npm run preview
+```
+
+`npm run ci` is the gate CI runs (`check`, `content`, `coverage`, `build`,
+`verify`); it must pass before a PR. Stop a background server with
+`npx astro dev stop` or `npx astro preview stop`.
+
+Look at:
+- **`/`** — the landing page; the hero shows the latest release version (read
+  from the GitHub API, so it is blank offline) and new or changed features are
+  described.
+- **`/downloads/`** — each Stable card shows the new version with working asset
+  links (read from `downloads/{channel}/{platform}.json`).
+- **`/quickstart/`** and the **User Guide** pages you changed (`/guide/…`) —
+  text, screenshots, and app icons render, the sidebar lists the page, and the
+  browser console is clean. Search only works in `npm run preview`, since the
+  index is built with the site. App icons come from
+  `app-rc/icons.svg`; a missing icon fails the build rather than 404ing.
+- a **legacy URL** you touched (an old `guide/*.html` page) redirects to its new
+  page.
 
 Then: branch → stage → commit (no co-author, no attribution footer) → PR.

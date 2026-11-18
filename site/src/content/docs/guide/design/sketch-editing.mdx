@@ -3,10 +3,13 @@ title: Editing sketches
 description: Drag points, type segment dimensions, and add, delete, split, fillet, chamfer, trim, and extend the segments of a feature.
 pageType: task
 availability: stable
-status: draft
+status: reviewed
+reviewed:
+  appCommit: 74b8276fcbf75291ac83fd9cd46f8d6ef74207f3
+  date: 2026-11-17
+  by: Claude (0.6.0 release pass)
 ---
 
-import Availability from '../../../../components/Availability.astro';
 import Screenshot from '../../../../components/Screenshot.astro';
 import AppIcon from '../../../../components/AppIcon.astro';
 import editSession from '../../../../assets/manual/design/sketch-editing/edit-session.png';
@@ -101,8 +104,6 @@ open path. The other path becomes part of this one. Dragging one end of a path o
 end closes it.
 
 ## References across faces
-
-<Availability kind="preview" />
 
 Edit a feature on its authoring face. While **Trim to cutting edge** or **Extend to target**
 asks for a reference segment, you can use visible construction geometry from the other face

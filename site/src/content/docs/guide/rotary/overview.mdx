@@ -1,0 +1,171 @@
+---
+title: Rotary machining
+description: Set up a bar in a rotary axis and understand Around, the unrolled sheet, and Top and Bottom machining.
+pageType: concept
+availability: stable
+status: reviewed
+reviewed:
+  appCommit: 74b8276fcbf75291ac83fd9cd46f8d6ef74207f3
+  date: 2026-11-17
+  by: Claude (0.6.0 release pass)
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import Screenshot from '../../../../components/Screenshot.astro';
+import chuckTailstock3d from '../../../../assets/manual/rotary/overview/chuck-tailstock-3d.png';
+import stockChuck from '../../../../assets/manual/rotary/overview/stock-chuck.png';
+import aroundSheet from '../../../../assets/manual/rotary/overview/around-sheet.png';
+import newProjectRotary from '../../../../assets/manual/rotary/overview/new-project-rotary.png';
+import topBottom from '../../../../assets/manual/rotary/overview/top-bottom.png';
+
+Rotary work turns a bar under a milling cutter. You can draw on its unrolled surface or machine
+a model inside it. This is wrapped 4th-axis milling, not lathe turning: the cutter is in the
+spindle and the rotary axis positions the stock.
+
+## Main idea
+
+Choose **Rotary** under **Project type** when you create the project. The type is read-only
+afterwards. See [Project type](/guide/fundamentals/projects-and-files/#project-type).
+A rotary project can use **Top**, **Bottom**, and **Around** on the same bar. It does not provide
+a general simultaneous 5-axis workflow.
+
+<Screenshot src={newProjectRotary} maxWidth={736} alt="New project dialog with Rotary selected and Blank metric chosen, the Template preview showing Shape Round bar, Diameter 30, Length 120, and Axis X" caption="Choosing Rotary turns the stock fields into bar fields: shape, diameter or side, length, and axis." />
+
+## Bar stock
+
+Select **Stock** in the tree and check these fields:
+
+| Field | What to enter |
+| --- | --- |
+| **Shape** | **Round bar** or **Square blank**. You can switch between them within a rotary project. |
+| **Diameter** | The round bar's measured diameter. |
+| **Side** | The square blank's measured side, across its flats. |
+| **Length** | The full length along the bar, including material held at the ends. |
+| **Axis** | **X** or **Y**, matching the direction the bar lies on the machine. |
+
+The initial origin is at the chuck end, on the centreline in plan and on top of the bar.
+Check it against your touch-off plan. The bar's centreline is halfway up its diameter or side;
+Z 0 in the project is at the bottom of its bounding box.
+
+## Chuck and tailstock
+
+Bar stock has a **Chuck** clamp. Use a clamp's **Type** to choose **Clamp**, **Chuck**, or
+**Tailstock**. Chuck and tailstock keep-outs stay centred on the bar; their **Diameter** replaces
+the ordinary clamp Z range. Enter the real workholding dimensions and position.
+
+The chuck adds **Chuck size**, **Minimum grip diameter**, **Maximum grip diameter**, and
+**Jaws**. The listed sizes are **3"**, **4"**, **5"**, **6"**, **8"**, **10"**, and **12"**.
+They are equipment presets, not a guarantee of your chuck's capacity. The starter is the
+4-inch size when it fits; otherwise the app chooses a fitting listed size. Check the limits
+against your actual chuck and jaw set, then edit them if needed. A size or capacity you choose
+stays your equipment choice when the bar changes.
+
+**Jaws** offers **3**, **4**, or **6**. Round stock starts with 3 jaws; square stock starts with 4.
+For a square blank, 4 jaws compare the grip range with the side across flats; 3 or 6 compare it
+with the circle through the corners. An unknown capacity reads **Capacity unknown. Enter limits
+or pick a size.** A bar outside the chuck's range shows **Bar is outside the chuck’s clamping
+range.** If the bar fits none of the listed ranges, do not treat the default body as a valid grip.
+
+<Screenshot src={chuckTailstock3d} maxWidth={812} alt="3D view of a 30 mm round bar with a Turn, the chuck at the left end and the tailstock at the right end" caption="The chuck and tailstock keep-outs are drawn around the bar in 3D." />
+
+<Screenshot src={stockChuck} maxWidth={638} alt="Stock properties for a round bar (Shape Round bar, Diameter 30, Length 120, Axis X) beside Chuck properties (Chuck size 4&quot;, Minimum grip diameter 3, Maximum grip diameter 93, Jaws 3) with the square-blank note" caption="Bar stock and chuck properties side by side." />
+
+<Aside type="danger" title="Safety: keep the bar held and supported">
+A loose bar or a cutter striking the chuck or tailstock can damage the machine and throw material.
+Check the real grip, end support, rotating corner clearance, and cutter reach. Leave enough
+material to support the part throughout the job; see [Working safely](/guide/start-here/safety/).
+</Aside>
+
+## Machine rotary axis
+
+The built-in rotary machines, such as **grblHAL + rotary A** or **GRBL 1.1 + rotary (borrowed
+motor)**, take their rotary orientation from the stock: the rotary turns about **Stock** >
+**Axis**, so one machine serves a bar along X or along Y and there is nothing to set. The machine
+list shows **Follows the bar (now along X)**, and export says the A orientation follows the stock.
+Two of them need a project in mm. See
+[Built-in rotary machines](/guide/cam-setup/machines/#built-in-rotary-machines).
+
+A machine of your own has a fixed orientation. In the machine editor, set **Rotary axis** to
+**Bar along X** or **Bar along Y** to match **Stock** > **Axis**. **None** is the default. Under
+**Driven by**, choose **Its own axis (A)**, or **The Y motor** for a bar along X / **The X motor**
+for a bar along Y. A borrowed motor cannot also provide linear travel during that program. Saving
+or duplicating a built-in rotary machine gives the copy the open project's bar axis, fixed; change
+it in the editor if you later turn a bar along the other axis.
+
+The **Program word: A** note shows the output letter; it changes to the borrowed motor's
+letter when applicable. **Reverse direction** reverses the rotary sign. Confirm the direction
+on your controller before cutting. You can design on Around before choosing a suitable machine,
+but export checks the machine. See [Machines](/guide/cam-setup/machines/#rotary-axis).
+
+## Around and the unrolled sheet
+
+**Around** wraps the bar in a flat drawing sheet. 2D features drawn on it (pockets, lines, text,
+imported artwork) are projected onto the round bar, or a section a Turn has made round, and cut
+into its surface. The rotary canned features, Turn, Polygon / hex, Thread and Flutes, are also
+created here.
+
+Open the current-face menu beside the workspace tabs and choose **Around**. The Sketch view
+lays out the bar surface flat: length along the bar by one circumference around it. A line marks
+each full turn. The solid zero line, A = 0, is in the middle, on the bar's centreline in plan.
+The origin marker sits on that line. Negative A is below the zero line in the unrolled view.
+The sheet's opposite edges meet at the back of the bar, labelled −180° and +180°. A distance of
+one circumference around the sheet becomes one full rotation.
+
+How features are placed in depth, how they show on the sheet, and examples of pockets, text and
+carving are in [Drawing on Around](/guide/rotary/rotary-features/#drawing-on-around).
+
+<Screenshot src={aroundSheet} maxWidth={864} alt="Around sheet of a 30 mm round bar: the chuck zone on the left, the origin on the A0 line, -180° and +180° seam labels, the Turn model band and a helical Thread drawn across it" caption="The Around sheet unrolls the bar: length runs left to right and A runs from -180° to +180°." />
+
+## Top and Bottom on a bar
+
+Top and Bottom machine the bar as material too. A pocket does not need a base add feature.
+Bottom flips about the bar's own axis. Top programs use A = 0°; Bottom programs use A = 180°.
+With a rotary machine, the program retracts to the machine safe Z before the opening turn.
+A machine without a rotary axis records the angle as an operator comment instead.
+See [Setups and faces](/guide/fundamentals/setups-and-faces/) and
+[Rotary export](/guide/rotary/rotary-operations/#rotary-export).
+
+<Screenshot src={topBottom} maxWidth={775} alt="3D view of a Top pocket toolpath on a 40 mm square blank" caption="Top and Bottom machine a flat face of the bar." />
+
+## The bar is the material
+
+On Top, Bottom, and Around, a shape drawn on its own starts as **Subtract**: a cut into the bar.
+Inside a cut, it starts as **Add**: an island left standing. Inside that island, it is
+**Subtract** again. Check the role after drawing, especially across the sheet seam: nesting
+across opposite seam edges is not inferred. You can change **Operation** in the shape properties.
+
+## What Around does not offer
+
+Around is a surface wrapped about the bar, rather than another flat side:
+
+- Tabs are not used there. Keep the part attached through uncut bar and end supports.
+- **Show other side**, flat-face authoring-face changes, and flat-face cross-face targets do not
+  apply to the sheet. Use the face where the feature was drawn; rotary models have their own targets.
+- The flat **3D surface rough**, **3D surface finish**, and **3D surface cleanup** operations have
+  no wrapped form. Use **Rotary rough** and **Rotary finish** for models inside a bar.
+- Printing and 2D design export use flat faces. Switch to Top or Bottom for those outputs.
+
+On a square blank, sheet work such as pockets, text, or Thread is cut only over a section a
+Turn above it in the feature tree has made round. Turn the section first, then draw on it. See
+[Sheet work on a square bar](/guide/rotary/rotary-features/#sheet-work-on-a-square-bar).
+
+## Zero A before each job
+
+Every Around operation ends by turning A forward to the next whole turn, so the bar finishes at
+0 up. A Top or Bottom bar program does the same after its last operation. Before each job, put the bar's intended zero line up and zero A. Between two rotary
+operations the program either runs the machine's **Zero A line** or pauses for you to zero A by
+hand; see [Rotary export](/guide/rotary/rotary-operations/#rotary-export). When a motor is
+borrowed, use the corresponding controller axis and output letter.
+
+<Aside type="danger" title="Safety: check the rotary zero before starting">
+A wrong rotary zero puts every wrapped cut at the wrong angle. Confirm the bar orientation,
+rotary zero, XYZ touch-off, direction, and first turn before running the program. Follow
+[Working safely](/guide/start-here/safety/).
+</Aside>
+
+## Related pages
+
+- [Rotary features](/guide/rotary/rotary-features/): create a Turn, Polygon, Thread, or Flutes.
+- [Rotary operations](/guide/rotary/rotary-operations/): choose cuts, inspect warnings, and export.
+- [Machines](/guide/cam-setup/machines/): configure the physical rotary drive.
+- [Clamps and clearances](/guide/cam-setup/clamps-and-clearances/): record workholding and clearance.

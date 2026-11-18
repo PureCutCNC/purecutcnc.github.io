@@ -5,15 +5,16 @@ pageType: task
 availability: stable
 status: reviewed
 reviewed:
-  appCommit: 15973625079d9bebf4991bd1fa10eb1d33b21770
-  date: 2026-09-30
-  by: Codex
+  appCommit: 74b8276fcbf75291ac83fd9cd46f8d6ef74207f3
+  date: 2026-11-17
+  by: Claude (0.6.0 release pass)
 ---
 
 import Screenshot from '../../../../components/Screenshot.astro';
 import multiBody from '../../../../assets/manual/design/importing-3d-models/multi-body-import.png';
 import stepSettings from '../../../../assets/manual/design/importing-3d-models/step-settings.png';
 import modelOrientation from '../../../../assets/manual/design/importing-3d-models/model-orientation.png';
+import modelRecognition from '../../../../assets/manual/design/importing-3d-models/model-recognition.png';
 import { Aside, Steps } from '@astrojs/starlight/components';
 
 An imported 3D model becomes a feature with the **Model** role. The 3D surface operations machine
@@ -94,7 +95,7 @@ connection in the web app.
 ## Orientation
 
 
-<Screenshot src={modelOrientation} alt="The 3D orientation properties of an imported model: Rotate X, Y and Z with minus and plus ninety degree buttons, a Lift of 0.9707, the note Model height 1.2103 in, and Reset to import orientation, beside a 3D view of the model floating above the stock" caption="This model arrived nearly an inch above the stock; Lift sets it back down." />
+<Screenshot src={modelOrientation} alt="The 3D orientation properties of an imported model: Rotate X, Y and Z with minus and plus ninety degree buttons, a Lift of 0.9707, the note Model height 1.2103 in, and Reset to import orientation, beside a 3D view of the lifted model and the stock" caption="This model arrived nearly an inch above the stock; Lift sets it back down." />
 Select an imported model and open **3D orientation** in its properties:
 
 | Control | What it does |
@@ -114,6 +115,43 @@ orient one on its own.**). See [Linked features](/guide/fundamentals/linked-feat
 	An imported model can be taller than the stock or reach outside it. Compare its **Z top** and
 	**Z bottom** with the stock thickness, and look at the 3D view, before machining it.
 </Aside>
+
+## Find pockets and holes
+
+For an imported model, **Find pockets and holes…** can turn suitable parts of its mesh into
+ordinary features that 2.5D operations can target. This includes a PureCutCNC design exported as
+STL and imported again as a model. Orient and position the model first.
+
+<Screenshot src={modelRecognition} alt="Find pockets and holes lists a solid, four through holes, and pockets on the top and bottom of a square plate; the bottom pocket is dotted in the preview" caption="Select which detected shapes to add. Bottom-face outlines are dotted in the preview." />
+
+<Steps>
+
+1. Select the imported model. In Properties, open **Pockets and holes** and choose **Find pockets
+   and holes…**, or choose the same command from the model's tree context menu.
+2. Review the results and the top-view preview. The search looks from both the top and underside,
+   even when the project has no Bottom setup. When there are underside results, rows show **TOP**
+   or **BOTTOM**; underside shapes are dotted in the preview.
+3. Choose the shapes to add. **Pockets and holes** are checked by default; **Solids** are not.
+   **Not drawn** summarizes shapes the search saw but could not turn into features.
+4. Choose **Add N shapes**. The checked shapes are placed in a new folder after the model, as one
+   undo step. Run the search again to see which shapes are already drawn without adding duplicates.
+
+</Steps>
+
+Pockets and holes become subtract features; round holes become circles that a Drill operation can
+target. Counterbores can produce stacked subtracts, and a boss in a pocket is drawn with its pocket.
+Solids become add features, including stacked bodies at steps. The new features are independent of
+the model: editing or moving the model does not update them. Check the shapes and their depths
+before assigning operations. Bottom features need a Bottom setup to machine from that side; see
+[Setups and faces](/guide/fundamentals/setups-and-faces/).
+
+The search is for enclosed, vertical-sided shapes; it reports unsupported shapes instead of
+approximating them. Undercuts, tapered walls and gaps in the mesh can prevent a shape from being
+drawn. The command is not available for models on the rotary Around face or in plasma projects.
+
+With the original model still present, a Pocket operation on a detected circular hole follows the
+facets of the imported mesh, so its cut can fall short of the designed circle. Inspect the toolpath
+and simulation before export; see [Working safely](/guide/start-here/safety/).
 
 ## Machining a model
 

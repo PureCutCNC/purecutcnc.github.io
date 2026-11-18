@@ -3,12 +3,17 @@ title: Exporting G-code
 description: Select a machine and operation checklist, inspect the prepared program, and save G-code for your controller.
 pageType: task
 availability: stable
-status: draft
+status: reviewed
+reviewed:
+  appCommit: 74b8276fcbf75291ac83fd9cd46f8d6ef74207f3
+  date: 2026-11-17
+  by: Claude (0.6.0 release pass)
 ---
 
 import { Aside, Steps } from '@astrojs/starlight/components';
 import Availability from '../../../../components/Availability.astro';
 import Screenshot from '../../../../components/Screenshot.astro';
+import shopbotExport from '../../../../assets/manual/verify-export/gcode-export/shopbot-export.png';
 import exportDialog from '../../../../assets/manual/verify-export/gcode-export/cam-export-dialog.png';
 
 G-code export prepares a controller program from the selected operation checklist and the active machine definition.
@@ -43,6 +48,10 @@ Exported G-code can move a real machine. Confirm the machine, origin, tool, work
 
 </Aside>
 
+On desktop, every G-code export asks for a save destination, including repeat exports and each
+per-setup program. Creating or opening another project clears the previous export destination.
+Cancelling the destination picker leaves **Export G-code** open.
+
 ## Selection
 
 The checklist is the source of truth for this export. By default, it selects operations that are enabled, have a tool assigned, and have a visible toolpath. A hidden but otherwise eligible operation can still be checked manually; an operation that is off or has no tool is not eligible and displays its reason.
@@ -55,9 +64,11 @@ When **Emit tool changes (M6)** is not selected, PureCutCNC refuses an export th
 
 **Warnings** identify behavior to review, such as a fallback or toolpath warning. They are not automatically export-blocking; read the message and decide whether the resulting program is appropriate for your machine.
 
-## One program per setup
+An Edge Route with a [vertical overcut](/guide/operations/edge-route-outside/#vertical-overcut)
+is listed as a warning with the amount, and the program carries a comment that the cutter goes
+into the spoilboard. An overcut over the project's **Max spoilboard cut depth** blocks export.
 
-<Availability kind="preview" />
+## One program per setup
 
 For a Top/Bottom job, export writes a separate numbered program for each setup with selected
 operations. Each file includes setup instructions for orientation, touch-off, registration,
@@ -69,7 +80,109 @@ A single Top setup keeps its existing output and filename convention. Use a setu
 button to export that setup's enabled operations, then review the dialog checklist. See [Setups and faces](/guide/fundamentals/setups-and-faces/)
 for the flip and registration checks before running the next program.
 
+## Rotary programs
+
+Turning cuts use inverse-time feed, normally `G93`, with a feed word on each motion line;
+normal feed mode returns with `G94`. The machine's rotary axis must match the bar, and a
+borrowed motor cannot also travel linearly. Inspect the updated toolpaths before export, particularly after
+changing square stock. Top and Bottom bar programs turn to 0°/180° with a rotary machine or
+state the angle in an operator comment. Every rotary operation ends at 0 up; with no **Zero A
+line** on the machine, the program stops with `M0` between rotary operations so you can zero A,
+and the export dialog shows a reminder. On an own-A machine, around-the-bar programs normally
+write no Y (or X) word, so touch off that axis on the bar's centreline. See
+[Rotary export](/guide/rotary/rotary-operations/#rotary-export) for zeroing A, the cross axis,
+gSender, refusal messages, and square-blank corner clearance.
+
+With a built-in rotary machine, the dialog says that the rotary follows the stock and names the
+axis it turns about. On the borrowed-motor GRBL machine and **GRBL 4-axis fork + rotary A**, an
+inch rotary project shows the machine's name followed by **turns the rotary in millimetres only.
+Change the project units to mm to export rotary operations.**, and its turning operations are
+refused. See
+[Built-in rotary machines](/guide/cam-setup/machines/#built-in-rotary-machines).
+
+## Plasma programs
+
+<Availability kind="experimental" />
+
+Use a **Plasma** project and a suitable plasma machine. A missing machine or a machine that
+does not suit the project type blocks saving output. Non-plasma operations are left out with
+**Operation "…" is not a plasma cut, so it is left out of this plasma program.** In the opposite
+direction, plasma cuts are skipped with **Operation "…" is a plasma cut, so it is left out of
+this program. Select a plasma machine to export it.** Read the warnings and checklist.
+
+### QtPlasmaC
+
+**QtPlasmaC (experimental)** writes XY motion. Its material sequence is `M190 P…` to select the
+tool's material number, `M66 P3 L3 Q1` to wait, then `F#<_hal[plasmac.cut-feed-rate]>` for the
+material's feed. Each contour uses `M3 $0 S1` and `M5 $0` for torch on and off. There are no Z
+moves or numeric feed words. The controller owns probing, pierce height and delay, cut height,
+and THC. The built-in definition enables automatic hole handling with `#<holes> = 1`.
+
+Set **QtPlasmaC material number (optional)** on each torch to your local material-table entry,
+an integer from 1 to 999999. Missing or unsupported numbers block export. Check the controller's
+material settings; the tool editor's heights and feed do not replace that table.
+
+### Grbl plasma
+
+**Grbl plasma (OpenBuilds CONTROL) (experimental)** writes touch-off before every cut:
+
+1. Retract to safe Z and travel to the pierce point.
+2. Probe with `G38.2` using the machine's probe depth and feed.
+3. Set sheet Z zero with `G10 L20 P0` and the negative switch offset.
+4. Rapid to the torch's pierce height, turn on with `M3 S1000`, and dwell for the pierce delay.
+5. Drop to cut height at **Plunge feed**, then follow the leads and contour at cut feed.
+6. Turn off with `M5` and retract to safe height above the measured sheet.
+
+Only the first safe-Z approach uses the operator's original zero. After touch-off, retracts
+and later safe approaches are measured from the sheet. The probe settings use mm and mm/min
+in the machine definition and are converted for output. A missing positive cut feed or plunge
+feed blocks export. This built-in describes a probing table without THC; check the real probe,
+switch offset, and height sequence before firing the torch.
+See [Plasma through-cut](/guide/operations/plasma-through-cut/) for lead and ordering checks.
+
+## ShopBot part files
+
+<Availability kind="experimental" />
+
+ShopBot output is experimental: it has not been tested on a real ShopBot yet, and feedback is welcome.
+
+With **ShopBot (SBP)** selected, the dialog is **Export ShopBot part file**. Its tool-change
+option is **Emit tool changes (C9)** and the save button is **Export .sbp**. Review **Operations**,
+**Errors**, **Warnings**, and **Preview (first 30 lines)** as for G-code. Different tools require
+tool changes to be enabled or separate exports.
+
+In the desktop app, **File** > **Export ShopBot Part File…** opens the same dialog while a
+ShopBot machine is selected.
+
+The part file contains:
+
+| Output | Meaning |
+| --- | --- |
+| Apostrophe comments | Program, operation, tool, and setup information. |
+| Units check | Refuses to run if the ShopBot control software uses the other unit system. It does not switch the control's units. |
+| `SA` | Absolute coordinates. |
+| `MS,xy,z` | Move speeds in project units per second, converted from feeds per minute. |
+| `JZ`, `J2` | Z and XY rapid travel. |
+| `M3` | Cutting moves; this is a ShopBot move command. |
+| `CG` | Supported fitted arcs. |
+| `TR`, `C6`, `C7` | Spindle speed, start, and stop. |
+| `&Tool=N`, `C9` | Tool number and tool-change macro when enabled. |
+| `END` | Program end. |
+
+Drilling is expanded into plain moves rather than canned cycles. No coolant commands are
+written; requesting them reports a warning. Check the control's units, C6/C7/C9 macros, tool
+numbers, speeds, and safe moves before running the file.
+
+<Screenshot src={shopbotExport} maxWidth={816} alt="Export ShopBot part file dialog: machine ShopBot (SBP), Inch units, Pocket Rough selected, Emit tool changes (C9) checked, the experimental note, and a preview of SBP lines with &Tool=1, C9, JZ, J2 and CG moves" caption="A ShopBot export writes a .sbp part file; tool changes are C9 calls." />
+
+## Restart after a tool change
+
+When **Emit tool changes (M6)** is selected, each emitted tool change is followed by a restart
+block. It restores absolute distance, feed per minute, and the XY plane (`G90 G94 G17`), then
+states the units. Before the next cut, it rapids to safe Z, places X/Y at the next start, and
+makes the normal approach. Check these moves as well as the tool-change template in the preview.
+
 ## Related pages
 
 - [Machines](/guide/cam-setup/machines/): select and configure the machine used for export.
-- [Exported motion inspector](/guide/verify-export/exported-motion/): compare one eligible planar operation with its prepared output.
+- [Exported motion inspector](/guide/verify-export/exported-motion/): compare one eligible operation with its prepared output, flat or wrapped around a rotary bar.

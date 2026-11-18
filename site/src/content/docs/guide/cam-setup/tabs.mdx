@@ -5,9 +5,9 @@ pageType: task
 availability: stable
 status: reviewed
 reviewed:
-  appCommit: 3db1a1375014eb337bdf2490547cac46f3174880
-  date: 2026-09-28
-  by: codex
+  appCommit: 74b8276fcbf75291ac83fd9cd46f8d6ef74207f3
+  date: 2026-11-17
+  by: Claude (0.6.0 release pass)
 ---
 
 import Screenshot from '../../../../components/Screenshot.astro';
@@ -61,7 +61,7 @@ receive up to four tabs per letter.
 
 <Screenshot src={textOutsideTabs} alt="An outside edge route around X and o with dashed tab positions on both glyph outlines" caption="Each cut glyph gets its own tabs on an outside route." />
 
-<Screenshot src={textInsideTabs} alt="An inside edge route through the counter of Add outline O with two dashed tab positions across that counter" caption="On Add text, an inside route places tabs on the counter it cuts." />
+<Screenshot src={textInsideTabs} alt="An inside edge route through the counter of Add outline O with four dashed tab positions spaced around that counter" caption="On Add text, an inside route places tabs on the counter it cuts." />
 
 Bulk edit changes matching tabs together. Use manual placement when automatic placement would put a
 tab near a clamp, a corner, or a feature that needs a clean edge.
@@ -76,6 +76,13 @@ use **Auto place tabs** from the Edge Route Inside or Edge Route Outside operati
 nested contours. You can also place tabs manually. Automatic placement adds tabs rather than
 replacing them, so clear old tabs first to avoid overlap. Inspect every nested part's tab
 positions and the regenerated toolpaths before export.
+
+### Ramp entry near a tab
+
+An outside edge route with **Ramp** can shorten its connected contour stroke before a tab,
+including on the final pass. It needs at least one tool diameter of safe travel after the safety
+margin; otherwise it warns and plunges. Inspect the entry as well as the tab crossing. See
+[Entry and exit moves](/guide/strategies/entry-and-exit/).
 
 ### Tab warnings
 
