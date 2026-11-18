@@ -89,7 +89,7 @@ export const FEATURES: Card[] = [
 	{
 		icon: "📥",
 		title: "SVG, DXF & 3D Import",
-		html: "Import 2D source geometry from SVG or DXF with Auto, Paths, and Solid-regions modes and nesting-aware Add/Subtract classification, or bring in 3D models from STL, OBJ, and STEP files. Multi-body meshes split into one feature per body automatically. A model that came in lying on its side can be re-oriented in place — per-axis rotation, quarter-turn buttons, and a lift control — instead of being deleted and re-imported. Imported geometry can be transformed and machined like hand-drawn features."
+		html: "Import 2D source geometry from SVG or DXF with Auto, Paths, and Solid-regions modes and nesting-aware Add/Subtract classification, or bring in 3D models from STL, OBJ, and STEP files. Multi-body meshes split into one feature per body automatically. A model that came in lying on its side can be re-oriented in place — per-axis rotation, quarter-turn buttons, and a lift control — instead of being deleted and re-imported. Find pockets and holes reads an imported model from the top and the underside and draws its vertical-walled pockets and holes as features, round ones as circles ready for Drill. Imported geometry can be transformed and machined like hand-drawn features."
 	},
 	{
 		icon: "⚙️",
@@ -244,7 +244,6 @@ export const WORKFLOW: { title: string; html: string }[] = [
 ];
 
 export const IN_PROGRESS: string[] = [
-	"Indexed 4th-axis (3+1) machining",
 	"3D toolpath linking and adaptive waterline refinement",
 	"Expanded post-processor coverage",
 	"Deeper DXF entity coverage",
