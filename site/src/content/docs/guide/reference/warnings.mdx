@@ -73,6 +73,42 @@ the cause, then regenerate and review. See
 [Rotary warnings](/guide/rotary/rotary-operations/#limitations-and-warnings) and
 [Rotary export refusals](/guide/rotary/rotary-operations/#rotary-export).
 
+## Plasma messages
+
+<Availability kind="experimental" />
+
+The messages below name the affected feature or operation. Inspect the remaining paths after
+any skipped contour; a preview with some cuts is not a complete program.
+
+| Message, after the name | Action |
+| --- | --- |
+| **plasma through-cut supports top setups only. No toolpath generated.** | Use a Top setup. |
+| **this subtract is ordered before its enclosing part and is not a hole in that part. Move it after the part; this contour was skipped.** | Move the subtract after its enclosing add in feature order, then regenerate. |
+| **this subtract has partial depth, but plasma through-cut cuts through the whole sheet.** | Check that a through-hole is intended. |
+| **the requested arc cannot pierce with safe edge clearance; a straight lead-in was used.** | Inspect the replacement lead. |
+| **invalid plasma parameters or targets. No toolpath generated.** | Check the torch, positive feed and lead-in, and closed targets. |
+| **open plasma paths are not supported yet. No toolpath generated.** | Use closed contours. |
+| **no safe scrap-side pierce and lead fits, or a neighbouring part/kerf blocks the contour. This contour was skipped.** | Review spacing, kerf, lead, and picked start. |
+| **hole diameter is below 1.5 × stock thickness; plasma may leave a tapered, out-of-round hole. Controller hole handling owns any slowdown.** | Check controller handling and the required hole quality. |
+| **the hole is too small for the requested lead; pierce at its centre and lead straight to the contour.** | Inspect the centre pierce and straight lead. |
+| **the requested lead-out would gouge the part or a neighbour; lead-out omitted.** | Check the contour end without the lead-out. |
+
+The later-operation warning reads **…: this outline is cut here, but operation "…" cuts a
+contour inside it later. Once the outline is cut the part is loose. Move "…" before this
+operation, or cut both in one operation.** It does not block export. Fix the operation order.
+
+Other-family operations show **not for this project type**. The count notice reads
+**Not plasma cuts, left out of the export for this project type: …** or
+**Plasma cuts, left out of the export for this project type: …**. Export also warns
+**Operation "…" is not a plasma cut, so it is left out of this plasma program.** or
+**Operation "…" is a plasma cut, so it is left out of this program. Select a plasma machine
+to export it.** Check the project type and machine as well as the operation checklist.
+
+QtPlasmaC export is blocked when a torch has no supported material number. G-code-owned
+piercing is blocked by a missing positive cut feed or plunge feed, including a value that
+rounds to zero in output. Cuts with no safe-height move also block that export; regenerate.
+See [Plasma programs](/guide/verify-export/gcode-export/#plasma-programs).
+
 ## Related pages
 
 - [Toolpath preview](/guide/verify-export/toolpath-preview/): inspect warnings alongside generated paths.

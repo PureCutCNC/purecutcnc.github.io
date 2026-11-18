@@ -13,8 +13,9 @@ import Screenshot from '../../../../components/Screenshot.astro';
 import machineEditor from '../../../../assets/manual/cam-setup/machines/machine-editor.png';
 import { Aside, Steps } from '@astrojs/starlight/components';
 
-Every project has a selected machine. Its post-processor determines the G-code dialect and which
-machine-specific capabilities—such as canned drilling cycles—are available.
+Select a machine before exporting. Its output dialect determines whether you export G-code
+or a ShopBot part file. The definition also controls machine-specific capabilities, such as
+canned drilling cycles.
 
 ## Before you start
 
@@ -60,7 +61,7 @@ can change emitted G-code.
 
 
 <Screenshot src={machineEditor} alt="The machine editor for a duplicated GRBL definition, showing General fields for name, file extension and unit commands, the Program header and footer templates using placeholders such as programName and toolNumber, and collapsed Advanced (raw JSON) and Variables reference sections" caption="A duplicated machine is editable; the program templates are filled in from the placeholders listed under Variables reference." />
-The editor groups a definition into **General**, **Program**, **Tool change**, and **Coolant**.
+For a G-code machine, the editor groups a definition into **General**, **Program**, **Tool change**, and **Coolant**.
 It also provides raw JSON, a variables reference, and validation feedback. Use the editor only
 when you understand the controller requirements for every changed field.
 
@@ -83,6 +84,50 @@ See [Rotary machining](/guide/rotary/overview/#machine-rotary-axis) and
 [Rotary definition](/guide/reference/machine-definitions/#rotary-definition).
 
 <VisualPending id="m3-machine-axis" />
+
+## Plasma machines
+
+<Availability kind="experimental" />
+
+For G-code machines, **Machine kind** offers **Router** or **Plasma**. The built-ins include
+**QtPlasmaC (experimental)** (`.ngc`) and **Grbl plasma (OpenBuilds CONTROL) (experimental)**
+(`.gcode`). Choose the one that matches your controller. Plasma authoring follows the
+project's **Plasma** type; a missing or unsuitable machine prevents export.
+
+Under **Plasma settings**, **Torch on command** and **Torch off command** control the torch.
+**THC on command (optional)** and **THC off command (optional)** describe torch height control.
+**Pierce mode** determines who owns probing and the pierce sequence:
+
+| Mode | Fields and behaviour |
+| --- | --- |
+| **Controller owns piercing** | QtPlasmaC uses **Material select command**, **Material wait command**, and **Material feed command**. The controller's material table owns heights, delay, feed, and THC. Set the tool's local material number before exporting. |
+| **G-code owns piercing (touch-off before each cut)** | Grbl plasma probes before each cut, establishes sheet Z zero, then uses the torch's pierce height, delay, cut height, and plunge feed. |
+
+G-code piercing shows **Probe command**, **Probe depth below Z zero (mm)**,
+**Probe feed (mm/min)**, **Set Z zero command**, and **Touch-off switch offset (mm)**.
+The built-in values are `G38.2`, 30 mm, 100 mm/min, `G10 L20 P0`, and 0 mm respectively.
+Depth and feed must be positive. A blank offset means zero. Use zero for a probe that trips
+at the sheet surface; otherwise measure your switch offset. These machine fields stay in
+millimetres and mm/min even for inch projects.
+
+The controller-owned editor still contains hints describing plasma output as unimplemented.
+Those hints are out of date: [plasma export](/guide/verify-export/gcode-export/#plasma-programs)
+writes the material handshake and torch motion.
+
+<VisualPending id="m4-plasma-machine" />
+
+## ShopBot machine
+
+<Availability kind="experimental" />
+
+ShopBot output is experimental: it has not been tested on a real ShopBot yet, and feedback is welcome.
+
+Select **ShopBot (SBP)** for a native ShopBot part file. In its editor, **General** contains
+**Name** and **File extension** with a note explaining that PureCutCNC writes the whole program.
+There are no G-code unit commands, program templates, tool-change, coolant, or variables
+sections. **Advanced (raw JSON)** holds axis mapping, number format, and arc support.
+Duplicating this machine keeps its ShopBot output dialect. See
+[ShopBot part files](/guide/verify-export/gcode-export/#shopbot-part-files).
 
 ## Related pages
 

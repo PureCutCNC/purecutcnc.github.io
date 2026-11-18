@@ -3,13 +3,10 @@ title: Exported motion inspector
 description: An internal development and debug view for comparing a single eligible planar operation’s generated, optimized, and exported motion.
 pageType: reference
 availability: stable
-status: reviewed
-reviewed:
-  appCommit: 7ad27b1e384074a35797a4747a85218067a565df
-  date: 2026-09-27
-  by: frankp
+status: draft
 ---
 
+import Availability from '../../../../components/Availability.astro';
 import Screenshot from '../../../../components/Screenshot.astro';
 import motionInspector from '../../../../assets/manual/verify-export/exported-motion/cam-debug-view-overlay.png';
 
@@ -44,6 +41,15 @@ The export path validates arc output against the selected machine definition. If
 ## Optimizer
 
 PureCutCNC applies the linear-move optimizer automatically. The inspector makes its effect visible by showing raw and optimized move counts alongside the exported motion.
+
+## ShopBot exported layer
+
+<Availability kind="preview" />
+
+For **ShopBot (SBP)**, open **Export ShopBot part file** and choose an eligible operation.
+**Inspect exported motion** parses the prepared SBP output; its exported layer is labelled
+**Exported part file**. The other layers and comparison controls are unchanged. This geometry
+comparison does not verify your control's units or spindle and tool-change macros.
 
 ## Related pages
 

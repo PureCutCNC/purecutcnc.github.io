@@ -30,7 +30,7 @@ same commit as the inventory.
 | --- | --- |
 | Name | **PureCutCNC User Guide** ("User Guide" for short), not "user manual". |
 | Sections | Start Here, Fundamentals, Design, CAM Setup, Rotary, Machining Operations, Advanced Strategies, Verify and Export, Reference and Troubleshooting. |
-| Size | 73 pages, all listed below, each owned by exactly one Wave 2 workstream. |
+| Size | 74 pages, all listed below, each owned by exactly one Wave 2 workstream. |
 | Quick Start | Stays at `/quickstart/` as the only guided first project. It links to Fundamentals instead of explaining concepts twice. |
 | CAM material | One page per operation, one page per strategy that more than one operation offers. Operation pages list their strategies and link to them. |
 | Page types | overview, tutorial, concept, task, reference, operation, strategy, troubleshooting (plus utility for the 404 page), each with a template and required sections. |
@@ -137,6 +137,7 @@ order, as soon as their files exist. Owners are the Wave 2 workstreams from
 | 3D surface rough | `/guide/operations/3d-surface-rough/` | operation | W4 |
 | 3D surface finish | `/guide/operations/3d-surface-finish/` | operation | W4 |
 | 3D surface cleanup | `/guide/operations/3d-surface-cleanup/` | operation | W4 |
+| Plasma through-cut | `/guide/operations/plasma-through-cut/` | operation | W3 |
 
 #### Advanced Strategies (`strategies`)
 

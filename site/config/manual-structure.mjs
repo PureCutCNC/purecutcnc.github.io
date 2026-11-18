@@ -84,6 +84,7 @@ export const PAGES = [
 	page('/guide/operations/3d-surface-rough/', 'operations', '3D surface rough', 'operation', 'W4'),
 	page('/guide/operations/3d-surface-finish/', 'operations', '3D surface finish', 'operation', 'W4'),
 	page('/guide/operations/3d-surface-cleanup/', 'operations', '3D surface cleanup', 'operation', 'W4'),
+	page('/guide/operations/plasma-through-cut/', 'operations', 'Plasma through-cut', 'operation', 'W3'),
 
 	page('/guide/strategies/clearing-patterns/', 'strategies', 'Clearing patterns', 'strategy', 'W4'),
 	page('/guide/strategies/seeded-circles/', 'strategies', 'Seeded-circle clearing', 'strategy', 'W4'),

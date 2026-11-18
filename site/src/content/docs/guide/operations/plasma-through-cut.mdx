@@ -1,0 +1,141 @@
+---
+title: Plasma through-cut
+description: Cut closed outlines and holes through sheet with scrap-side kerf, line or arc leads, and a plasma torch.
+pageType: operation
+availability: experimental
+status: draft
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import VisualPending from '../../../../components/VisualPending.astro';
+
+**Plasma through-cut** cuts closed contours through the sheet in one pass at the torch's
+nominal cut height. Use it for part outlines and holes, with the kerf on the scrap side.
+
+## Requirements
+
+| Requirement | Value |
+| --- | --- |
+| Project and setup | A **Plasma** project and a **Top** setup. |
+| Target features | Closed add, subtract, or line contours. |
+| Profile | Closed only; open paths are not supported. |
+| Tool | A **Plasma** torch. |
+| Passes | One nominal cut-height pass through the full sheet. |
+| Export machine | A plasma machine that matches your controller and piercing method. |
+
+The project type controls authoring. You can draw, add a torch, and generate before choosing
+a machine. In another project type, the unavailable hint reads **Needs a plasma project.
+The type is chosen when the project is created.** Create a Plasma project for this work.
+A missing or mismatched machine prevents saving machine output.
+
+Retained operations from another family show **not for this project type**. In a non-plasma
+project the count reads **Plasma cuts, left out of the export for this project type: …**.
+Plasma cuts are left out of a non-plasma program with **Operation "…" is a plasma cut, so it
+is left out of this program. Select a plasma machine to export it.** Choosing a machine alone
+does not change the project type.
+
+## Parameters
+
+For names, tools, feeds, and shared fields, see
+[Common operation parameters](/guide/operations/common-parameters/).
+Set the torch's **Kerf width**, **Cut feed**, **Pierce height**, **Cut height**,
+**Pierce delay (s)**, **Plunge feed**, and **QtPlasmaC material number (optional)** in the
+[Tool library](/guide/cam-setup/tool-library/#plasma-torches). It includes an editable
+Powermax45 XP 45 A / 2 mm mild-steel example in millimetres and inches. Use your consumable's
+cut chart and your machine's tested settings; the example is not a prescription for your table.
+
+| Parameter | Meaning and default |
+| --- | --- |
+| **Kerf side** | **Automatic** (default) cuts outside add and line outlines and inside subtract holes. Override with **Outside (outline)** or **Inside (hole)**. |
+| **Reverse direction (opposite swirl consumables)** | Off by default. Reverses the normal contour direction for opposite-swirl consumables. |
+| **Lead-in** | **Arc** by default; **Line** is also available. |
+| **Lead-in length / arc radius** | In project units. The automatic value is the greater of 3 mm (about 0.118 in) and stock thickness. Clear an override to return to automatic. |
+| **Lead-out** | **Line** by default; **Arc** is also available. |
+| **Lead-out length / arc radius** | In project units. Automatic is one kerf width outside and zero for holes. Set zero to omit a lead-out; clear the field to return to automatic. |
+| **Contour start** | **Pick start point** selects the entry on an individual contour. Unpicked contours remain automatic. |
+
+The path centre is offset by half the kerf width toward scrap, leaving the part-side edge of
+the kerf on your drawn contour. With standard consumables, outside contours run clockwise
+and holes counter-clockwise, viewed from above the sheet.
+
+<VisualPending id="m4-plasma-properties" />
+
+## Pick a contour start
+
+Choose **Pick start point**, then click or tap a targeted contour. Choose **Pick start point** again to customise
+another contour. The compact picker can be dragged by its title bar with mouse or touch.
+Use **Cancel pick** or <kbd>Esc</kbd> to stop picking. On touch, the drawer closes so you can
+pick on the canvas and cancel there.
+
+A picked start follows its feature when you move, rotate, or scale it. It selects the contour
+entry, not the pierce crater at the beginning of the lead. Use **Use automatic start** beside
+a named contour to clear just its override, or **Reset all starts** to clear every override.
+Automatic starts prefer long straight segments. If a picked entry is unsafe, that contour is
+skipped with a warning; it is not silently moved to another start.
+
+<VisualPending id="m4-plasma-start" />
+
+## Cut order
+
+Within one operation, inside contours are cut before the contour enclosing them. A part's
+holes come before its outline; a part nested in another part's hole comes before that hole.
+Each part is finished before the next starts. The first available pierce is chosen nearest
+the origin, then the next nearest from where the torch finishes. When there is a clear choice,
+the order avoids travelling across a part already cut out. This is a preference, not a promise
+that every travel avoids loose pieces. There is no cut-order setting.
+
+This ordering does not reorder separate operations. If a later plasma operation cuts inside
+an outline cut here, the warning names both the outline and later operation. Move the inner
+operation earlier or cut both in one operation. The warning does not block export.
+
+## Limitations
+
+A small hole first tries the requested arc lead. If that cannot pierce with safe edge clearance,
+it tries a straight lead and warns. If an automatically started hole is too small for that lead,
+it can pierce at the centre and lead straight to the contour, with another warning. A picked
+start does not use this centre-pierce fallback. If no safe lead fits, or a neighbour blocks
+the cut, the contour is skipped. A lead-out that would gouge a part or neighbour is omitted.
+
+Holes narrower than 1.5 times stock thickness warn about taper and roundness. PureCutCNC does
+not slow the torch for them; controller hole handling owns any slowdown. QtPlasmaC's built-in
+definition enables automatic hole handling. Check the result on your controller.
+
+Only Top setups generate. A partial-depth subtract still cuts through the whole sheet and
+warns. A subtract ordered before its enclosing add feature is skipped: move the subtract
+after the part in the feature tree. This feature order defines the hole; the operation's
+cut order still puts that hole before the outline.
+
+There are no milling stepdowns, ramps, tabs, or finishing passes. There is no corner slowdown,
+overburn, micro-joints, or bevel compensation. Open contours are not supported.
+
+<Aside type="danger" title="Safety: plasma cuts leave loose parts">
+Cut parts can tip up on the slats and meet the torch. Check support, cut order, travel,
+pierce and cut heights, material settings, torch height control, fire precautions, and fume
+extraction. Plasma output is experimental and is marked as not verified on a real plasma
+table. Follow [Working safely](/guide/start-here/safety/#plasma-cutting).
+</Aside>
+
+## Verifying the result
+
+In **Sketch** and **3D**, inspect the translucent band beneath the path centre line. It is one
+kerf wide and lies on the sheet top. The contour uses the cuts colour; leads use the plunges
+colour. Small rings mark the pierce locations and keep a fixed size on screen. **Cuts** toggles
+the contour band, **Lead-ins** toggles the lead band, and **Plunges** toggles the pierce markers.
+Check which side retains material, every lead, skipped contour, and travel between parts.
+
+<VisualPending id="m4-plasma-kerf" />
+
+In **Sim**, the torch removes a full-depth slot one kerf wide, including leads and pierce holes.
+**Play tool** shows a plain cylinder following the cut. Inspect holes before the outside cut
+and check that the expected parts separate. See [Simulation](/guide/verify-export/simulation/#simulating-plasma).
+
+Preview and simulation cannot prove cut quality, actual kerf, piercing, controller height
+control, slat support, or loose-part motion. Review the exported program and prove the setup
+at the machine before cutting.
+
+## Related pages
+
+- [Tool library](/guide/cam-setup/tool-library/#plasma-torches): configure torch dimensions and feeds.
+- [Machines](/guide/cam-setup/machines/#plasma-machines): select controller-owned or G-code-owned piercing.
+- [Exporting G-code](/guide/verify-export/gcode-export/#plasma-programs): check QtPlasmaC and Grbl plasma output.
+- [Warnings and messages](/guide/reference/warnings/#plasma-messages): resolve skipped cuts and export errors.

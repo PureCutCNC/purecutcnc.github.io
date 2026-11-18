@@ -74,6 +74,26 @@ uncut material at the ends. Put the intended zero line up and establish the rota
 before each job: the program ends at its last angle and does not unwind to A0.
 See [Rotary machining](/guide/rotary/overview/) before planning the cut.
 
+## Plasma cutting
+
+<Availability kind="experimental" />
+
+<Aside type="danger" title="Safety: check the plasma table before firing">
+Plasma output is experimental and is marked as not verified on a real plasma table. Confirm
+consumables, kerf, material-table entry, feed, pierce height and delay, cut height, and THC.
+For G-code-owned piercing, verify the probe, switch offset, and touch-off before each cut.
+Check fire precautions and fume extraction using your equipment's safety instructions.
+
+A cut-out part can tip up on the slats. Check support and travel, cut holes before outlines,
+and keep later operations off parts already cut free. Preview and simulation cannot model
+that movement or prove a safe torch clearance. Prove the program with the torch disabled
+using your table's test procedure before cutting.
+</Aside>
+
+See [Plasma through-cut](/guide/operations/plasma-through-cut/) for ordering and lead limits,
+and [Plasma programs](/guide/verify-export/gcode-export/#plasma-programs) for the two piercing
+methods.
+
 ## Related pages
 
 - [Quick Start](/quickstart/) shows where to inspect and export a simple operation.

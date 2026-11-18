@@ -32,7 +32,7 @@
 		{
 			"page": "/guide/fundamentals/projects-and-files/",
 			"decision": "visuals",
-			"rationale": "M2 adds preview setup/face guidance. Existing captures remain for M6 re-shoot; new proposed visuals show changed controls where needed, with shared concepts illustrated on Setups and faces."
+			"rationale": "M4 adds the desktop ShopBot menu and format note. The new export dialog is illustrated on Exporting G-code; no separate file-menu capture is needed."
 		},
 		{
 			"page": "/guide/fundamentals/features-and-roles/",
@@ -125,12 +125,13 @@
 		},
 		{
 			"page": "/guide/cam-setup/tool-library/",
-			"decision": "visuals"
+			"decision": "visuals",
+			"rationale": "M4 proposes the Plasma torch fields. Existing milling captures remain for M6 review and re-shoot."
 		},
 		{
 			"page": "/guide/cam-setup/working-with-operations/",
 			"decision": "visuals",
-			"rationale": "M2 adds preview setup/face guidance. Existing captures remain for M6 re-shoot; new proposed visuals show changed controls where needed, with shared concepts illustrated on Setups and faces."
+			"rationale": "M4 adds project-type plasma choices and the ShopBot export tooltip. Plasma properties and the ShopBot dialog are illustrated on their owning pages; existing menu and list captures remain for M6 review."
 		},
 		{
 			"page": "/guide/cam-setup/cam-plan/",
@@ -139,7 +140,8 @@
 		},
 		{
 			"page": "/guide/cam-setup/machines/",
-			"decision": "visuals"
+			"decision": "visuals",
+			"rationale": "M4 proposes a plasma Pierce mode editor capture. Existing machine-editor and M3 rotary-axis visuals remain; ShopBot output is illustrated on Exporting G-code."
 		},
 		{
 			"page": "/guide/cam-setup/tabs/",
@@ -152,7 +154,8 @@
 		},
 		{
 			"page": "/guide/operations/",
-			"decision": "visuals"
+			"decision": "visuals",
+			"rationale": "M4 adds the plasma choice row. Plasma through-cut owns its properties, picker and kerf visuals; no second overview illustration is needed."
 		},
 		{
 			"page": "/guide/operations/common-parameters/",
@@ -239,26 +242,27 @@
 		{
 			"page": "/guide/verify-export/toolpath-preview/",
 			"decision": "visuals",
-			"rationale": "M2 adds preview setup/face guidance. Existing captures remain for M6 re-shoot; new proposed visuals show changed controls where needed, with shared concepts illustrated on Setups and faces."
+			"rationale": "M4 explains plasma band and pierce visibility. The shared proposed Sketch/3D visual is on Plasma through-cut; keep existing legend and level captures for M6 review."
 		},
 		{
 			"page": "/guide/verify-export/3d-view/",
 			"decision": "visuals",
-			"rationale": "M2 adds preview setup/face guidance. Existing captures remain for M6 re-shoot; new proposed visuals show changed controls where needed, with shared concepts illustrated on Setups and faces."
+			"rationale": "M4 explains the flat plasma kerf band. The shared proposed Sketch/3D visual is on Plasma through-cut; existing 3D and M2/M3 decisions remain."
 		},
 		{
 			"page": "/guide/verify-export/simulation/",
 			"decision": "visuals",
-			"rationale": "M2 adds preview setup/face guidance. Existing captures remain for M6 re-shoot; new proposed visuals show changed controls where needed, with shared concepts illustrated on Setups and faces."
+			"rationale": "M4 adds full-depth plasma simulation. The plasma operation page owns the path visual; propose a separate result capture here to distinguish removal from the band overlay."
 		},
 		{
 			"page": "/guide/verify-export/gcode-export/",
 			"decision": "visuals",
-			"rationale": "M2 adds preview setup/face guidance. Existing captures remain for M6 re-shoot; new proposed visuals show changed controls where needed, with shared concepts illustrated on Setups and faces."
+			"rationale": "M4 proposes the ShopBot dialog and part-file preview. Plasma Pierce mode and torch fields are illustrated on Machines and Tool library; existing G-code dialog remains for M6 review."
 		},
 		{
 			"page": "/guide/verify-export/exported-motion/",
-			"decision": "visuals"
+			"decision": "visuals",
+			"rationale": "M4 adds ShopBot layer wording. The proposed ShopBot dialog on Exporting G-code shows the output dialect; the existing inspector capture shows the shared comparison controls."
 		},
 		{
 			"page": "/guide/verify-export/setup-booklets/",
@@ -334,6 +338,11 @@
 		{
 			"page": "/guide/rotary/rotary-operations/",
 			"decision": "visuals"
+		},
+		{
+			"page": "/guide/operations/plasma-through-cut/",
+			"decision": "visuals",
+			"rationale": "M4 introduces experimental plasma cutting. Proposed properties, start picker and kerf/pierce visuals await M6 capture and review."
 		}
 	],
 	"visuals": [
@@ -2331,6 +2340,90 @@
 			"brief": "Machine editor Rotary axis group with Bar along X, Driven by The Y motor, program word note and Reverse direction. Include Manage machines Rotary axis summary as a second panel if needed.",
 			"asset": "cam-setup/machines/rotary-axis.png",
 			"alt": "Machine editor Rotary axis group with a borrowed motor and program word",
+			"status": "proposed",
+			"blockedBy": []
+		},
+		{
+			"id": "m4-plasma-properties",
+			"page": "/guide/operations/plasma-through-cut/",
+			"afterHeading": "Parameters",
+			"kind": "screenshot",
+			"purpose": "Find the plasma-specific fields and distinguish automatic lead values.",
+			"brief": "Plasma through-cut properties showing Cuts, a Plasma tool, Kerf side, Reverse direction (opposite swirl consumables), both lead styles and automatic lengths. Use closed outlines with holes in a Plasma Top project.",
+			"asset": "operations/plasma-through-cut/operation-properties.png",
+			"alt": "Plasma through-cut properties with kerf side, direction, lead styles and automatic lead lengths",
+			"status": "proposed",
+			"blockedBy": []
+		},
+		{
+			"id": "m4-plasma-start",
+			"page": "/guide/operations/plasma-through-cut/",
+			"afterHeading": "Pick a contour start",
+			"kind": "screenshot",
+			"purpose": "Distinguish contour entry from the pierce and show per-contour overrides.",
+			"brief": "Pick start point active on a part with two holes, one picked contour entry and the separate pierce marker. Show the compact movable picker and Use automatic start / Reset all starts; capture a second state if they do not fit together.",
+			"asset": "operations/plasma-through-cut/pick-start.png",
+			"alt": "Picked contour entry and separate pierce marker beside the plasma start picker",
+			"status": "proposed",
+			"blockedBy": []
+		},
+		{
+			"id": "m4-plasma-kerf",
+			"page": "/guide/operations/plasma-through-cut/",
+			"afterHeading": "Verifying the result",
+			"kind": "screenshot",
+			"purpose": "Check scrap side, lead clearance and pierces in Sketch and 3D.",
+			"brief": "Sketch view of a sheet with a closed part and holes: one-kerf translucent band under centre lines, leads and fixed-size pierce rings. Include Cuts, Lead-ins and Plunges switches. Pair with a low-angle 3D view so the flat sheet-top band is clear.",
+			"asset": "operations/plasma-through-cut/kerf-pierces.png",
+			"alt": "Part outline and holes with scrap-side kerf bands, leads and pierce rings in Sketch and 3D",
+			"status": "proposed",
+			"blockedBy": []
+		},
+		{
+			"id": "m4-plasma-machine",
+			"page": "/guide/cam-setup/machines/",
+			"afterHeading": "Plasma machines",
+			"kind": "screenshot",
+			"purpose": "Connect the piercing method to the probe fields and their fixed metric units.",
+			"brief": "Machine editor for a duplicate Grbl plasma machine with Machine kind Plasma, torch commands, Pierce mode G-code owns piercing (touch-off before each cut), probe command, depth, feed, zero command and switch offset. Frame the fields without the unrelated template sections.",
+			"asset": "cam-setup/machines/plasma-pierce-mode.png",
+			"alt": "Grbl plasma machine editor with G-code piercing, probe settings and switch offset",
+			"status": "proposed",
+			"blockedBy": []
+		},
+		{
+			"id": "m4-torch-fields",
+			"page": "/guide/cam-setup/tool-library/",
+			"afterHeading": "Plasma torches",
+			"kind": "screenshot",
+			"purpose": "Identify the torch settings and the material number that must be supplied locally.",
+			"brief": "Tools properties for the metric Powermax45 XP example in a Plasma project: Type Plasma, Units, Kerf width, Cut feed, Pierce height, Cut height, Pierce delay (s), Plunge feed and unset QtPlasmaC material number. Do not imply the example suits every table.",
+			"asset": "cam-setup/tool-library/plasma-torch.png",
+			"alt": "Metric example torch with kerf, cut feed, pierce and cut heights, delay, plunge feed and material number",
+			"status": "proposed",
+			"blockedBy": []
+		},
+		{
+			"id": "m4-shopbot-export",
+			"page": "/guide/verify-export/gcode-export/",
+			"afterHeading": "ShopBot part files",
+			"kind": "screenshot",
+			"purpose": "Identify the dialect-specific dialog, tool-change option and part-file preview.",
+			"brief": "Export ShopBot part file dialog for ShopBot (SBP), with a generated operation selected, Emit tool changes (C9), Export .sbp and Preview (first 30 lines) including the units guard and SA. Use a healthy milling fixture; do not manufacture warnings.",
+			"asset": "verify-export/gcode-export/shopbot-export.png",
+			"alt": "ShopBot export dialog with C9 tool changes, Export .sbp and a part-file preview",
+			"status": "proposed",
+			"blockedBy": []
+		},
+		{
+			"id": "m4-plasma-simulation",
+			"page": "/guide/verify-export/simulation/",
+			"afterHeading": "Simulating plasma",
+			"kind": "screenshot",
+			"purpose": "Distinguish full-depth kerf removal from the Sketch and 3D band overlay.",
+			"brief": "Top plasma simulation after cutting the same closed part and holes used for the kerf preview. Frame the through-slots, lead slots and pierce holes. Show Play tool with the plain-cylinder torch in a second state only if necessary; do not use a still to imply loose-part motion.",
+			"asset": "verify-export/simulation/plasma-result.png",
+			"alt": "Plasma simulation with full-depth slots around a part and its holes, including leads and pierces",
 			"status": "proposed",
 			"blockedBy": []
 		}
