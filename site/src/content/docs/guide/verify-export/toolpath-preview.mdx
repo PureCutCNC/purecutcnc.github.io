@@ -15,6 +15,11 @@ Use the toolpath preview in the Sketch and 3D views to check the moves PureCutCN
 
 ## Toolpath legend
 
+<Availability kind="preview" />
+
+The legend starts with **Cuts**. Renderer controls are in the generation gear menu's
+**Display** section.
+
 <span id="legend"></span>
 
 Open the **Show** control in the viewport corner to choose which overlays are visible. You can independently show **Cuts**, **Lead-ins**, **Rapids**, **Plunges**, **Retractions**, and **Directions**. The same visibility choices are shared by the Sketch and 3D views. An amber overlay calls attention to a clamp collision.
@@ -35,7 +40,13 @@ For **2.5D operations**, use the vertical **Toolpath level** rail to isolate a c
 
 ## Renderer
 
-The **2D renderer** control switches between **Canvas** and **GPU** rendering. If panning or zooming a dense preview is slow, the app can offer **Enable GPU**. If GPU rendering cannot start, it reports **GPU unavailable; using Canvas.** and leaves the Canvas preview available; use **Retry GPU** after the underlying issue is resolved.
+<Availability kind="preview" />
+
+Open the generation gear menu in the operations panel. Under **Display**, **2D renderer**
+switches between **GPU** and **Canvas**. GPU is the default for the Sketch toolpath overlay;
+a saved choice is kept. Unavailable WebGL2 or software-only WebGL falls back to Canvas with
+**GPU unavailable; using Canvas.** Use **Retry GPU** after resolving the underlying problem.
+The legend itself has no GPU control.
 
 ## Warnings
 

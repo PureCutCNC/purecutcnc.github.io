@@ -3,11 +3,7 @@ title: Edge route outside
 description: Route the outside edge of closed add or model profiles with a contour or trochoidal rough pass.
 pageType: operation
 availability: stable
-status: reviewed
-reviewed:
-  appCommit: 909f69e1a000637d6f98c3df4797f27921f3781c
-  date: 2026-09-30
-  by: Codex
+status: draft
 ---
 
 import Screenshot from '../../../../components/Screenshot.astro';
@@ -50,6 +46,16 @@ at that level, including targets with different top and bottom levels. Rough pas
 the highest top to the deepest bottom and include each target's bottom. Finish passes cut each
 target at its own bottom.
 See [Trochoidal cutting](/guide/strategies/trochoidal-cutting/#edge-routes).
+
+An explicitly chosen **Ramp** on **Edge route outside** follows the connected cut contour,
+across its small segments. Each stroke is capped at three tool diameters and needs at least
+one tool diameter of safe connected travel after the safety margin. It can shorten before a
+tab or obstacle, including on the final depth pass, and never jumps across a blocked interval.
+If too little travel remains, the app warns and uses a plunge. The handoff to the level cut
+also follows the contour.
+
+An incompatible **XY approach & exit** lead is omitted with a warning, including on finish
+passes. Check the entry for a witness mark. See [Entry and exit moves](/guide/strategies/entry-and-exit/).
 
 ## Limitations
 
